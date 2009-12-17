@@ -6,7 +6,8 @@ using System.Windows.Forms;
 
 namespace CENEX
 {
-    
+    //huraaaaaaaaaa
+
     public class CSOClass
     {
 // THIN-WALLED OPENED CROSS-SECTION PROPERTIES CALCULATION
