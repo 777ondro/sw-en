@@ -1,0 +1,277 @@
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\My Documents\Visual Studio 2008\Projects\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090910\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090910\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090910\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090910\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\zaloha projektu CENEX\090911\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090911\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090911\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090911\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090911\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090916\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\090916\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090916\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090916\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090920\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090920\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\090920\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\090921\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\zaloha projektu CENEX\090921\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\zaloha projektu CENEX\090921\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090924\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090924\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090924\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090924\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924_Martin\090924\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090924\090924\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090924\090924\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090924\090924\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090924\090924\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\090924\090924\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090926\090924\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090926\090924\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\090926\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\090926\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\090926\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\090926\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\091003\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\091004\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\091004\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\091004\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\091004\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\091004_2\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\091004_2\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\091004_2\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\091004_2\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\091004_2\091004_2\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.exe
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.pdb
+D:\Visual Studio\091027\091027\CENEX\CENEX\bin\Debug\CENEX.exe
+D:\Visual Studio\091027\091027\CENEX\CENEX\bin\Debug\CENEX.pdb
+D:\Visual Studio\091027\091027\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+D:\Visual Studio\091027\091027\CENEX\CENEX\obj\Debug\CENEX.Annex.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.Annex.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.InfoSteelForm.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\091028\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.Annex.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.TZBForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.CSOForm.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.Kc.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.EN1993_1_1Form.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.EN1993_1_1MessageBoxes.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.EN1999_1_1Form.resources
+C:\Documents and Settings\Ondro\Desktop\091104\CENEX\CENEX\obj\Debug\CENEX.EN1999_1_1MessageBoxes.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\bin\Debug\CENEX.exe
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\bin\Debug\CENEX.pdb
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\bin\Debug\CheckBoxComboBox.dll
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.CSOForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.Kc.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.Annex.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.DataTableForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.EN1993_1_1Form.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.EN1993_1_1MessageBoxes.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.EN1999_1_1Form.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.EN1999_1_1MessageBoxes.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.MainForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.PictureForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.Properties.Resources.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.TreeForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.TZBForm.resources
+C:\Documents and Settings\Ondro\Desktop\091205\CENEX\CENEX\obj\Debug\CENEX.csproj.GenerateResource.Cache
