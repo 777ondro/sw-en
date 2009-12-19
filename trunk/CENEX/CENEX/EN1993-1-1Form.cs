@@ -2102,7 +2102,9 @@ namespace CENEX
 
             //my own class and methods for faster export
             ExportToExcel export = new ExportToExcel(s_dialog.FileName,ds);
+            
             export.writeToExcel();
+
 
             // EXPORT TO MS EXCEL METHOD
 
@@ -2131,7 +2133,6 @@ namespace CENEX
             catch (IOException) { MessageBox.Show("File is probably used by another process."); }
             catch (ArgumentException) {}
             catch (Exception) { MessageBox.Show("Unexpected error."); }
-            
         }
         //export do wordu
         private void toWordToolStripMenuItem_Click(object sender, EventArgs e)

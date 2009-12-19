@@ -205,6 +205,7 @@ namespace CENEX
         private void buttonDraw_Click(object sender, EventArgs e)
         {
             this.drawPictureFromDatagrid();
+            CSO cso = new CSO(ySuradnice,zSuradnice,tHodnoty);
         }
 
 
