@@ -78,13 +78,13 @@
             // tableDataToolStripMenuItem
             // 
             this.tableDataToolStripMenuItem.Name = "tableDataToolStripMenuItem";
-            this.tableDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tableDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.tableDataToolStripMenuItem.Text = "Table Data";
             // 
             // messageBoxesToolStripMenuItem
             // 
             this.messageBoxesToolStripMenuItem.Name = "messageBoxesToolStripMenuItem";
-            this.messageBoxesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.messageBoxesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.messageBoxesToolStripMenuItem.Text = "Message Boxes";
             this.messageBoxesToolStripMenuItem.Click += new System.EventHandler(this.messageBoxesToolStripMenuItem_Click);
             // 

@@ -2128,8 +2128,9 @@ namespace CENEX
             {
                 this.exportToExcel(this.ds, s_dialog.FileName);
             }
-            catch (IOException) { MessageBox.Show("Subor pravdepodobne pouzivany inym procesom."); }
-            
+            catch (IOException) { MessageBox.Show("File is probably used by another process."); }
+            catch (ArgumentException) {}
+            catch (Exception) { MessageBox.Show("Unexpected error."); }
             
         }
         //export do wordu

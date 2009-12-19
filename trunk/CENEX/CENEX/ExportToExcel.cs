@@ -24,7 +24,12 @@ namespace CENEX
             System.Data.OleDb.OleDbConnection objConn = new System.Data.OleDb.OleDbConnection(
         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileName +
         ";Extended Properties=Excel 8.0;");
-            objConn.Open();
+            try
+            {
+                objConn.Open();
+            }
+            catch (OleDbException) { return; }
+
 
             System.Data.OleDb.OleDbCommand objCmd = new System.Data.OleDb.OleDbCommand();
             objCmd.Connection = objConn;
