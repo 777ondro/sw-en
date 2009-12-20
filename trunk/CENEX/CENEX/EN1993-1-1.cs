@@ -3755,7 +3755,7 @@ namespace CENEX
 
 
 
-
+            // (4) Bending, shear and torsion
             double ro_V_y_T;
             double ro_V_z_T;
 
@@ -3768,7 +3768,7 @@ namespace CENEX
             else ro_V_z_T = Math.Pow(((2 * _Vz_Ed / _Vz_pl_T_Rd) - 1), 2);
 
 
-
+            // Interaction of shear force, bending moment and axial force - EN 1993-1-5 (Section 7)
 
 
             // The reduced design plastic resistance moment
@@ -3887,6 +3887,13 @@ namespace CENEX
 
             #region Section 6.2.10 Bending, shear and axial force
             // Section 6.2.10 Bending, shear and axial force
+
+
+
+
+
+
+
             #endregion
 
             #endregion
