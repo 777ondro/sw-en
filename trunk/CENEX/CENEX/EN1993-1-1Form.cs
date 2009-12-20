@@ -826,7 +826,16 @@ namespace CENEX
                             this.zoznamMenuHodnoty.Add(Math.Round(en.Ratio_612z, 2).ToString());
                             this.zoznamMenuJednotky.Add("[-]");
                             break;
-
+                        case "My.Ed/My.V.Rd":
+                            this.zoznamMenuNazvy.Add("My.Ed/My.V.Rd");
+                            this.zoznamMenuHodnoty.Add(Math.Round(en.Ratio_612y_MV, 2).ToString());
+                            this.zoznamMenuJednotky.Add("[-]");
+                            break;
+                        case "Mz.Ed/Mz.V.Rd":
+                            this.zoznamMenuNazvy.Add("Mz.Ed/Mz.V.Rd");
+                            this.zoznamMenuHodnoty.Add(Math.Round(en.Ratio_612z_MV, 2).ToString());
+                            this.zoznamMenuJednotky.Add("[-]");
+                            break;
                         case "Tx.Ed/TRd":
                             this.zoznamMenuNazvy.Add("Tx.Ed/TRd");
                             this.zoznamMenuHodnoty.Add(Math.Round(en.Ratio_623, 2).ToString());
@@ -1004,7 +1013,7 @@ namespace CENEX
             {
 
                 MessageBox.Show
-                    (" Checking of loaded variables " + "\n"
+                    ((" Control of loaded variables " + "\n"
 
                 + "Steel variables: " + "\n"
                 + "\n"
@@ -1027,7 +1036,7 @@ namespace CENEX
                 + " G = " + en.G + "\n"
                 + "\n"
                 + " ν = " + en.Nu_pois + "\n"
-                + " α = " + en.Alpha_temp + "");
+                + " α = " + en.Alpha_temp + ""), "Material data");
 
             }
             #endregion
@@ -1037,7 +1046,7 @@ namespace CENEX
             {
 
                 MessageBox.Show
-                    (" Checking of loaded variables " + "\n"
+                    ((" Checking of loaded variables " + "\n"
 
                 + " Cross-section variables: " + "\n"
                 + "\n"
@@ -1089,7 +1098,7 @@ namespace CENEX
                 + " ty2 = " + en.Ty2 + "\n"
                 + " cz2 = " + en.Cz2 + "\n"
                 + " tz2 = " + en.Tz2 + " "
-                );
+                ), "Cross-section data");
             }
             #endregion
             #endregion
@@ -1229,13 +1238,13 @@ namespace CENEX
             #region Torsion input attributes
             {
              MessageBox.Show
-                ("Auxiliary values EN 1993-1-1: " + "\n"
+                (("Auxiliary values EN 1993-1-1: " + "\n"
             + "\n"
             + "Section 6.2.7 Torsion (p. 53)"
             + "\n"
             + " αt = " + en.Alpha_T + "\n"
             + " βt = " + en.Beta_T + "\n"
-            );
+            ), " NAD of Czech Republic - Table NB.2.1");
             }
             #endregion
             

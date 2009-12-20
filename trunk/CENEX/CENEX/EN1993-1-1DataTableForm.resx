@@ -397,33 +397,39 @@
     <value>Mz.Ed/Mz.c.Rd</value>
   </data>
   <data name="checkedListBox4.Items45" xml:space="preserve">
-    <value>Tx.Ed/TRd</value>
+    <value>My.Ed/My.V.Rd</value>
   </data>
   <data name="checkedListBox4.Items46" xml:space="preserve">
-    <value>σx.Ed/fyd</value>
+    <value>Mz.Ed/Mz.V.Rd</value>
   </data>
   <data name="checkedListBox4.Items47" xml:space="preserve">
-    <value>NEd/Nb.Rd</value>
+    <value>Tx.Ed/TRd</value>
   </data>
   <data name="checkedListBox4.Items48" xml:space="preserve">
-    <value>My.Ed/My.b.Rd</value>
+    <value>σx.Ed/fyd</value>
   </data>
   <data name="checkedListBox4.Items49" xml:space="preserve">
-    <value>Mz.Ed/Mz.b.Rd</value>
+    <value>NEd/Nb.Rd</value>
   </data>
   <data name="checkedListBox4.Items50" xml:space="preserve">
-    <value>NEd/Ny.b.Rd</value>
+    <value>My.Ed/My.b.Rd</value>
   </data>
   <data name="checkedListBox4.Items51" xml:space="preserve">
-    <value>NEd/Nz.b.Rd</value>
+    <value>Mz.Ed/Mz.b.Rd</value>
   </data>
   <data name="checkedListBox4.Items52" xml:space="preserve">
-    <value>Nc.kyyMy.kyzMz</value>
+    <value>NEd/Ny.b.Rd</value>
   </data>
   <data name="checkedListBox4.Items53" xml:space="preserve">
-    <value>Nc.kzyMy.kzzMz</value>
+    <value>NEd/Nz.b.Rd</value>
   </data>
   <data name="checkedListBox4.Items54" xml:space="preserve">
+    <value>Nc.kyyMy.kyzMz</value>
+  </data>
+  <data name="checkedListBox4.Items55" xml:space="preserve">
+    <value>Nc.kzyMy.kzzMz</value>
+  </data>
+  <data name="checkedListBox4.Items56" xml:space="preserve">
     <value>Maximum ratio</value>
   </data>
   <data name="checkedListBox4.Location" type="System.Drawing.Point, System.Drawing">

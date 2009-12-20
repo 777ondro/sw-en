@@ -150,7 +150,9 @@
             resources.GetString("checkedListBox4.Items51"),
             resources.GetString("checkedListBox4.Items52"),
             resources.GetString("checkedListBox4.Items53"),
-            resources.GetString("checkedListBox4.Items54")});
+            resources.GetString("checkedListBox4.Items54"),
+            resources.GetString("checkedListBox4.Items55"),
+            resources.GetString("checkedListBox4.Items56")});
             resources.ApplyResources(this.checkedListBox4, "checkedListBox4");
             this.checkedListBox4.Name = "checkedListBox4";
             // 
