@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace CENEX
 {
@@ -15,121 +17,94 @@ namespace CENEX
         // Variables and property methods
 
         // Button - bool = true if all items are selected
-        private bool selectedAllItems1;
+        private bool selectedAllItems1=false;
 
 
         // selected items in checkedListBox1 true =  item is selected
-        bool item0_check;
+        private List<bool> selectedItems = new List<bool>(8);
 
-        public bool Item0_check
+        public List<bool> SelectedItems
         {
-            get { return item0_check; }
-            set { item0_check = value; }
+            get { return selectedItems; }
+            set { selectedItems = value; }
         }
+
         
-
-        bool item1_check;
-
-        public bool Item1_check
-        {
-            get { return item1_check; }
-            set { item1_check = value; }
-        }
-        bool item2_check;
-
-        public bool Item2_check
-        {
-            get { return item2_check; }
-            set { item2_check = value; }
-        }
-        bool item3_check;
-
-        public bool Item3_check
-        {
-            get { return item3_check; }
-            set { item3_check = value; }
-        }
-        bool item4_check;
-
-        public bool Item4_check
-        {
-            get { return item4_check; }
-            set { item4_check = value; }
-        }
-        bool item5_check;
-
-        public bool Item5_check
-        {
-            get { return item5_check; }
-            set { item5_check = value; }
-        }
-        bool item6_check;
-
-        public bool Item6_check
-        {
-            get { return item6_check; }
-            set { item6_check = value; }
-        }
-
-
-
         #endregion
             
         // Constructor
         public EN1993_1_1MessageBoxes()
         {
             InitializeComponent();
-            if (checkedListBox1.GetItemChecked(0)) item0_check = true;
-            if (checkedListBox1.GetItemChecked(1)) item1_check = true;
-            if (checkedListBox1.GetItemChecked(2)) item2_check = true;
-            if (checkedListBox1.GetItemChecked(3)) item3_check = true;
-            if (checkedListBox1.GetItemChecked(4)) item4_check = true;
-            if (checkedListBox1.GetItemChecked(5)) item5_check = true;
-            if (checkedListBox1.GetItemChecked(6)) item6_check = true;
-
-           // this.SystemMessageBoxShow ();
-           
-           
-        }
-        private void SystemMessageBoxShow ()
-        {
-            MessageBox.Show(
-                           " Show Message 0: " + item0_check +
-                           " Show Message 1: " + item1_check +
-                           " Show Message 2: " + item2_check +
-                           " Show Message 3: " + item3_check +
-                           " Show Message 4: " + item4_check +
-                           " Show Message 5: " + item5_check +
-                           " Show Message 6: " + item6_check);
+            loadCheckedListBox();
             
-
-
         }
+
+        private void loadCheckedListBox() 
+        {
+            try
+            {
+                FileStream fsIn = new FileStream("MessageBoxes.dat", FileMode.Open);
+                BinaryFormatter binF2 = new BinaryFormatter();
+                this.selectedItems = (List<bool>)binF2.Deserialize(fsIn);
+                fsIn.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                this.saveData();
+                return;
+            }
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, selectedItems[i]);
+            }
+        }
+
+        
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            this.saveData();
+            this.DialogResult = DialogResult.OK;
+        }
+        private void saveData() 
+        {
+            selectedItems.Clear();
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                selectedItems.Add(checkedListBox1.GetItemChecked(i));
+            }
+            FileStream fsOut = new FileStream("MessageBoxes.dat", FileMode.Create);
+            BinaryFormatter binF = new BinaryFormatter();
+            binF.Serialize(fsOut, selectedItems);
+            fsOut.Close();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            // Class object
-
-            EN1993_1_1MessageBoxes en = new EN1993_1_1MessageBoxes ();
-            
-            
-           
-            if (!selectedAllItems1)
+            bool temp;
+            if (selectedAllItems1)
             {
-                for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                {
-                    checkedListBox1.SetItemChecked(i, true);
-                }
-                selectedAllItems1 = true;
+                temp = false;
+                selectedAllItems1 = false;
             }
             else
             {
-                for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                {
-                    checkedListBox1.SetItemChecked(i, false);
-                }
-                selectedAllItems1 = false;
+                temp = true;
+                selectedAllItems1 = true;
+            }
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, temp);
             }
         }
+
+        
 
         
        
