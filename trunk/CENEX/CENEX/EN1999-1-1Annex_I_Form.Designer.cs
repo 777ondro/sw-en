@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EN1999_1_1Annex_I_Form));
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -50,20 +49,8 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonky1 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.splitContainer8 = new System.Windows.Forms.SplitContainer();
@@ -106,20 +93,26 @@
             this.label2 = new System.Windows.Forms.Label();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
@@ -129,30 +122,43 @@
             this.button30 = new System.Windows.Forms.Button();
             this.button31 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
-            this.button40 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
-            this.button34 = new System.Windows.Forms.Button();
-            this.button35 = new System.Windows.Forms.Button();
-            this.button36 = new System.Windows.Forms.Button();
-            this.button37 = new System.Windows.Forms.Button();
-            this.button38 = new System.Windows.Forms.Button();
-            this.button48 = new System.Windows.Forms.Button();
-            this.button39 = new System.Windows.Forms.Button();
-            this.button41 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonky1 = new System.Windows.Forms.Button();
+            this.button47 = new System.Windows.Forms.Button();
+            this.button49 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
             this.button43 = new System.Windows.Forms.Button();
+            this.button41 = new System.Windows.Forms.Button();
+            this.button39 = new System.Windows.Forms.Button();
+            this.button48 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button40 = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.splitContainer7.Panel1.SuspendLayout();
             this.splitContainer7.Panel2.SuspendLayout();
@@ -183,10 +189,30 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.checkBox7);
+            this.groupBox7.Controls.Add(this.label20);
+            this.groupBox7.Controls.Add(this.checkBox6);
+            this.groupBox7.Controls.Add(this.label19);
+            this.groupBox7.Controls.Add(this.checkBox5);
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.checkBox4);
+            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.checkBox3);
+            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Controls.Add(this.checkBox2);
+            this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.textBox7);
             this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Controls.Add(this.textBox6);
@@ -205,7 +231,7 @@
             this.groupBox7.Controls.Add(this.label3);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(182, 242);
+            this.groupBox7.Size = new System.Drawing.Size(254, 247);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Factors for Mcr calculation";
@@ -214,7 +240,7 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(60, 213);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(72, 20);
+            this.textBox7.Size = new System.Drawing.Size(72, 21);
             this.textBox7.TabIndex = 20;
             // 
             // label14
@@ -222,7 +248,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 216);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(42, 13);
+            this.label14.Size = new System.Drawing.Size(46, 15);
             this.label14.TabIndex = 19;
             this.label14.Text = "Mcr y =";
             // 
@@ -230,35 +256,35 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(60, 149);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(50, 20);
+            this.textBox6.Size = new System.Drawing.Size(50, 21);
             this.textBox6.TabIndex = 18;
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(60, 125);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(50, 20);
+            this.textBox5.Size = new System.Drawing.Size(50, 21);
             this.textBox5.TabIndex = 17;
             // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(60, 102);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(50, 20);
+            this.textBox4.Size = new System.Drawing.Size(50, 21);
             this.textBox4.TabIndex = 16;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(60, 77);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(50, 20);
+            this.textBox3.Size = new System.Drawing.Size(50, 21);
             this.textBox3.TabIndex = 15;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(60, 53);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(50, 20);
+            this.textBox2.Size = new System.Drawing.Size(50, 21);
             this.textBox2.TabIndex = 14;
             // 
             // checkBox1
@@ -276,7 +302,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(116, 30);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(16, 13);
+            this.label9.Size = new System.Drawing.Size(17, 15);
             this.label9.TabIndex = 7;
             this.label9.Text = "[-]";
             // 
@@ -284,7 +310,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(60, 27);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(50, 20);
+            this.textBox1.Size = new System.Drawing.Size(50, 21);
             this.textBox1.TabIndex = 6;
             // 
             // label8
@@ -292,7 +318,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(3, 152);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.Size = new System.Drawing.Size(32, 15);
             this.label8.TabIndex = 5;
             this.label8.Text = "C3 =";
             // 
@@ -301,7 +327,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 128);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.Size = new System.Drawing.Size(32, 15);
             this.label7.TabIndex = 4;
             this.label7.Text = "C2 =";
             // 
@@ -310,7 +336,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(4, 105);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.Size = new System.Drawing.Size(32, 15);
             this.label6.TabIndex = 3;
             this.label6.Text = "C1 =";
             // 
@@ -319,7 +345,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 80);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(32, 15);
             this.label5.TabIndex = 2;
             this.label5.Text = "kw =";
             // 
@@ -328,7 +354,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 56);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.Size = new System.Drawing.Size(29, 15);
             this.label4.TabIndex = 1;
             this.label4.Text = "kz =";
             // 
@@ -337,13 +363,13 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 13);
+            this.label3.Size = new System.Drawing.Size(28, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "ky =";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1229, 699);
+            this.button6.Location = new System.Drawing.Point(923, 670);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(103, 24);
             this.button6.TabIndex = 14;
@@ -352,7 +378,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(1120, 700);
+            this.button7.Location = new System.Drawing.Point(814, 671);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(103, 24);
             this.button7.TabIndex = 15;
@@ -361,7 +387,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(1011, 700);
+            this.button8.Location = new System.Drawing.Point(705, 671);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(103, 24);
             this.button8.TabIndex = 16;
@@ -370,30 +396,23 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(902, 700);
+            this.button9.Location = new System.Drawing.Point(596, 671);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(103, 24);
             this.button9.TabIndex = 17;
             this.button9.Text = "Reset";
             this.button9.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(842, 391);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(430, 274);
-            this.richTextBox1.TabIndex = 18;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabControl1.Location = new System.Drawing.Point(10, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(824, 557);
+            this.tabControl1.Size = new System.Drawing.Size(1013, 640);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage1
@@ -404,173 +423,21 @@
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(816, 531);
+            this.tabPage1.Size = new System.Drawing.Size(1005, 612);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "scheme ky+kz +kw";
+            this.tabPage1.Text = "Factors ky, kz and kw";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(816, 531);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "end moments + transverse loading";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(816, 531);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "factors";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.button38);
-            this.groupBox5.Controls.Add(this.button37);
-            this.groupBox5.Controls.Add(this.button36);
-            this.groupBox5.Controls.Add(this.button35);
-            this.groupBox5.Controls.Add(this.button34);
-            this.groupBox5.Controls.Add(this.button33);
-            this.groupBox5.Controls.Add(this.button3);
-            this.groupBox5.Controls.Add(this.button2);
-            this.groupBox5.Controls.Add(this.button40);
-            this.groupBox5.Location = new System.Drawing.Point(6, 6);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(387, 519);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "End moments My";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.button42);
-            this.groupBox6.Controls.Add(this.button43);
-            this.groupBox6.Controls.Add(this.button41);
-            this.groupBox6.Controls.Add(this.button39);
-            this.groupBox6.Controls.Add(this.button48);
-            this.groupBox6.Location = new System.Drawing.Point(399, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(411, 519);
-            this.groupBox6.TabIndex = 3;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Transverse loading";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.button5);
-            this.groupBox3.Controls.Add(this.button25);
-            this.groupBox3.Controls.Add(this.button26);
-            this.groupBox3.Controls.Add(this.button27);
-            this.groupBox3.Controls.Add(this.button28);
-            this.groupBox3.Controls.Add(this.button29);
-            this.groupBox3.Controls.Add(this.button30);
-            this.groupBox3.Controls.Add(this.button31);
-            this.groupBox3.Controls.Add(this.button32);
-            this.groupBox3.Location = new System.Drawing.Point(560, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 325);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Scheme for kw";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button17);
-            this.groupBox2.Controls.Add(this.button18);
-            this.groupBox2.Controls.Add(this.button19);
-            this.groupBox2.Controls.Add(this.button20);
-            this.groupBox2.Controls.Add(this.button21);
-            this.groupBox2.Controls.Add(this.button22);
-            this.groupBox2.Controls.Add(this.button23);
-            this.groupBox2.Controls.Add(this.button24);
-            this.groupBox2.Location = new System.Drawing.Point(284, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 325);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Scheme for kz";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button16);
-            this.groupBox1.Controls.Add(this.button12);
-            this.groupBox1.Controls.Add(this.button13);
-            this.groupBox1.Controls.Add(this.button14);
-            this.groupBox1.Controls.Add(this.button15);
-            this.groupBox1.Controls.Add(this.button11);
-            this.groupBox1.Controls.Add(this.button10);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.buttonky1);
-            this.groupBox1.Location = new System.Drawing.Point(3, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 325);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Scheme for ky";
-            // 
-            // button11
-            // 
-            this.button11.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_04;
-            this.button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button11.Location = new System.Drawing.Point(9, 185);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(110, 50);
-            this.button11.TabIndex = 3;
-            this.button11.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_03;
-            this.button10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button10.Location = new System.Drawing.Point(9, 129);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(110, 50);
-            this.button10.TabIndex = 2;
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_02;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(9, 73);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 50);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // buttonky1
-            // 
-            this.buttonky1.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_01;
-            this.buttonky1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonky1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonky1.Location = new System.Drawing.Point(9, 19);
-            this.buttonky1.Name = "buttonky1";
-            this.buttonky1.Size = new System.Drawing.Size(110, 50);
-            this.buttonky1.TabIndex = 0;
-            this.buttonky1.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.splitContainer7);
-            this.groupBox11.Location = new System.Drawing.Point(400, 357);
+            this.groupBox11.Location = new System.Drawing.Point(689, 457);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(182, 151);
+            this.groupBox11.Size = new System.Drawing.Size(300, 151);
             this.groupBox11.TabIndex = 22;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Deflection and rotation";
@@ -588,8 +455,8 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.splitContainer9);
-            this.splitContainer7.Size = new System.Drawing.Size(176, 132);
-            this.splitContainer7.SplitterDistance = 86;
+            this.splitContainer7.Size = new System.Drawing.Size(294, 132);
+            this.splitContainer7.SplitterDistance = 143;
             this.splitContainer7.TabIndex = 0;
             // 
             // splitContainer8
@@ -609,7 +476,7 @@
             // 
             this.splitContainer8.Panel2.Controls.Add(this.radioButton21);
             this.splitContainer8.Panel2.Controls.Add(this.radioButton22);
-            this.splitContainer8.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer8.Size = new System.Drawing.Size(143, 132);
             this.splitContainer8.SplitterDistance = 67;
             this.splitContainer8.TabIndex = 0;
             // 
@@ -683,7 +550,7 @@
             // 
             this.splitContainer9.Panel2.Controls.Add(this.radioButton17);
             this.splitContainer9.Panel2.Controls.Add(this.radioButton18);
-            this.splitContainer9.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer9.Size = new System.Drawing.Size(147, 132);
             this.splitContainer9.SplitterDistance = 66;
             this.splitContainer9.TabIndex = 2;
             // 
@@ -743,9 +610,9 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.splitContainer4);
-            this.groupBox10.Location = new System.Drawing.Point(206, 357);
+            this.groupBox10.Location = new System.Drawing.Point(348, 457);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(182, 151);
+            this.groupBox10.Size = new System.Drawing.Size(300, 151);
             this.groupBox10.TabIndex = 21;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Deflection and rotation";
@@ -763,8 +630,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer6);
-            this.splitContainer4.Size = new System.Drawing.Size(176, 132);
-            this.splitContainer4.SplitterDistance = 86;
+            this.splitContainer4.Size = new System.Drawing.Size(294, 132);
+            this.splitContainer4.SplitterDistance = 143;
             this.splitContainer4.TabIndex = 0;
             // 
             // splitContainer5
@@ -784,7 +651,7 @@
             // 
             this.splitContainer5.Panel2.Controls.Add(this.radioButton13);
             this.splitContainer5.Panel2.Controls.Add(this.radioButton14);
-            this.splitContainer5.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer5.Size = new System.Drawing.Size(143, 132);
             this.splitContainer5.SplitterDistance = 67;
             this.splitContainer5.TabIndex = 0;
             // 
@@ -858,7 +725,7 @@
             // 
             this.splitContainer6.Panel2.Controls.Add(this.radioButton9);
             this.splitContainer6.Panel2.Controls.Add(this.radioButton10);
-            this.splitContainer6.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer6.Size = new System.Drawing.Size(147, 132);
             this.splitContainer6.SplitterDistance = 66;
             this.splitContainer6.TabIndex = 2;
             // 
@@ -918,9 +785,9 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.splitContainer1);
-            this.groupBox4.Location = new System.Drawing.Point(12, 357);
+            this.groupBox4.Location = new System.Drawing.Point(12, 457);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(182, 151);
+            this.groupBox4.Size = new System.Drawing.Size(291, 151);
             this.groupBox4.TabIndex = 20;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Deflection and rotation";
@@ -938,8 +805,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(176, 132);
-            this.splitContainer1.SplitterDistance = 86;
+            this.splitContainer1.Size = new System.Drawing.Size(285, 132);
+            this.splitContainer1.SplitterDistance = 139;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -959,7 +826,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.radioButton4);
             this.splitContainer2.Panel2.Controls.Add(this.radioButton3);
-            this.splitContainer2.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer2.Size = new System.Drawing.Size(139, 132);
             this.splitContainer2.SplitterDistance = 67;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -1033,7 +900,7 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.radioButton8);
             this.splitContainer3.Panel2.Controls.Add(this.radioButton7);
-            this.splitContainer3.Size = new System.Drawing.Size(86, 132);
+            this.splitContainer3.Size = new System.Drawing.Size(142, 132);
             this.splitContainer3.SplitterDistance = 66;
             this.splitContainer3.TabIndex = 2;
             // 
@@ -1090,168 +957,249 @@
             this.radioButton7.Text = "ry - free";
             this.radioButton7.UseVisualStyleBackColor = true;
             // 
-            // button12
+            // groupBox3
             // 
-            this.button12.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_08;
-            this.button12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button12.Location = new System.Drawing.Point(134, 129);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(110, 50);
-            this.button12.TabIndex = 7;
-            this.button12.UseVisualStyleBackColor = true;
+            this.groupBox3.Controls.Add(this.button5);
+            this.groupBox3.Controls.Add(this.button25);
+            this.groupBox3.Controls.Add(this.button26);
+            this.groupBox3.Controls.Add(this.button27);
+            this.groupBox3.Controls.Add(this.button28);
+            this.groupBox3.Controls.Add(this.button29);
+            this.groupBox3.Controls.Add(this.button30);
+            this.groupBox3.Controls.Add(this.button31);
+            this.groupBox3.Controls.Add(this.button32);
+            this.groupBox3.Location = new System.Drawing.Point(689, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(300, 445);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Scheme for kw";
             // 
-            // button13
+            // groupBox2
             // 
-            this.button13.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_07;
-            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button13.Location = new System.Drawing.Point(134, 73);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(110, 50);
-            this.button13.TabIndex = 6;
-            this.button13.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.button17);
+            this.groupBox2.Controls.Add(this.button18);
+            this.groupBox2.Controls.Add(this.button19);
+            this.groupBox2.Controls.Add(this.button20);
+            this.groupBox2.Controls.Add(this.button21);
+            this.groupBox2.Controls.Add(this.button22);
+            this.groupBox2.Controls.Add(this.button23);
+            this.groupBox2.Controls.Add(this.button24);
+            this.groupBox2.Location = new System.Drawing.Point(348, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(300, 445);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Scheme for kz";
             // 
-            // button14
+            // groupBox1
             // 
-            this.button14.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_06;
-            this.button14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button14.Location = new System.Drawing.Point(134, 19);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(110, 50);
-            this.button14.TabIndex = 5;
-            this.button14.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.button16);
+            this.groupBox1.Controls.Add(this.button12);
+            this.groupBox1.Controls.Add(this.button13);
+            this.groupBox1.Controls.Add(this.button14);
+            this.groupBox1.Controls.Add(this.button15);
+            this.groupBox1.Controls.Add(this.button11);
+            this.groupBox1.Controls.Add(this.button10);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.buttonky1);
+            this.groupBox1.Location = new System.Drawing.Point(3, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(300, 445);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Scheme for ky";
             // 
-            // button15
+            // tabPage2
             // 
-            this.button15.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_05;
-            this.button15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button15.Location = new System.Drawing.Point(9, 241);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(110, 50);
-            this.button15.TabIndex = 4;
-            this.button15.UseVisualStyleBackColor = true;
+            this.tabPage2.Controls.Add(this.groupBox8);
+            this.tabPage2.Controls.Add(this.groupBox6);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1005, 612);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Bending moment diagram";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button16
+            // groupBox6
             // 
-            this.button16.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_09;
-            this.button16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button16.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button16.Location = new System.Drawing.Point(134, 185);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(110, 50);
-            this.button16.TabIndex = 8;
-            this.button16.UseVisualStyleBackColor = true;
+            this.groupBox6.Controls.Add(this.button42);
+            this.groupBox6.Controls.Add(this.button43);
+            this.groupBox6.Controls.Add(this.button41);
+            this.groupBox6.Controls.Add(this.button39);
+            this.groupBox6.Controls.Add(this.button48);
+            this.groupBox6.Location = new System.Drawing.Point(386, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(354, 602);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Transverse loading";
             // 
-            // button4
+            // groupBox5
             // 
-            this.button4.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_09;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Location = new System.Drawing.Point(131, 185);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(110, 50);
-            this.button4.TabIndex = 17;
-            this.button4.UseVisualStyleBackColor = true;
+            this.groupBox5.Controls.Add(this.button38);
+            this.groupBox5.Controls.Add(this.button37);
+            this.groupBox5.Controls.Add(this.button36);
+            this.groupBox5.Controls.Add(this.button35);
+            this.groupBox5.Controls.Add(this.button34);
+            this.groupBox5.Controls.Add(this.button33);
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.button2);
+            this.groupBox5.Controls.Add(this.button40);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(302, 602);
+            this.groupBox5.TabIndex = 2;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "End moments My";
             // 
-            // button17
+            // tabPage3
             // 
-            this.button17.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_08;
-            this.button17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button17.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button17.Location = new System.Drawing.Point(131, 129);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(110, 50);
-            this.button17.TabIndex = 16;
-            this.button17.UseVisualStyleBackColor = true;
+            this.tabPage3.Controls.Add(this.groupBox7);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1005, 612);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Factors and Mcr";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button18
+            // checkBox2
             // 
-            this.button18.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_07;
-            this.button18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button18.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button18.Location = new System.Drawing.Point(131, 73);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(110, 50);
-            this.button18.TabIndex = 15;
-            this.button18.UseVisualStyleBackColor = true;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(138, 56);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.TabIndex = 22;
+            this.checkBox2.Tag = "User value";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // button19
+            // label15
             // 
-            this.button19.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_06;
-            this.button19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button19.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button19.Location = new System.Drawing.Point(131, 19);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(110, 50);
-            this.button19.TabIndex = 14;
-            this.button19.UseVisualStyleBackColor = true;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(116, 56);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 15);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "[-]";
             // 
-            // button20
+            // checkBox3
             // 
-            this.button20.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_05;
-            this.button20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button20.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button20.Location = new System.Drawing.Point(6, 241);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(110, 50);
-            this.button20.TabIndex = 13;
-            this.button20.UseVisualStyleBackColor = true;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(138, 80);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 24;
+            this.checkBox3.Tag = "User value";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // button21
+            // label16
             // 
-            this.button21.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_04;
-            this.button21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button21.Location = new System.Drawing.Point(6, 185);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(110, 50);
-            this.button21.TabIndex = 12;
-            this.button21.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(116, 80);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 15);
+            this.label16.TabIndex = 23;
+            this.label16.Text = "[-]";
             // 
-            // button22
+            // checkBox4
             // 
-            this.button22.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_03;
-            this.button22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button22.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button22.Location = new System.Drawing.Point(6, 129);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(110, 50);
-            this.button22.TabIndex = 11;
-            this.button22.UseVisualStyleBackColor = true;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(138, 105);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(15, 14);
+            this.checkBox4.TabIndex = 26;
+            this.checkBox4.Tag = "User value";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // button23
+            // label17
             // 
-            this.button23.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_02;
-            this.button23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button23.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button23.Location = new System.Drawing.Point(6, 73);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(110, 50);
-            this.button23.TabIndex = 10;
-            this.button23.UseVisualStyleBackColor = true;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(116, 105);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(17, 15);
+            this.label17.TabIndex = 25;
+            this.label17.Text = "[-]";
             // 
-            // button24
+            // checkBox5
             // 
-            this.button24.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_01;
-            this.button24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button24.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button24.Location = new System.Drawing.Point(6, 19);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(110, 50);
-            this.button24.TabIndex = 9;
-            this.button24.UseVisualStyleBackColor = true;
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(138, 128);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.TabIndex = 28;
+            this.checkBox5.Tag = "User value";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(116, 128);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 15);
+            this.label18.TabIndex = 27;
+            this.label18.Text = "[-]";
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(138, 152);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 30;
+            this.checkBox6.Tag = "User value";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(116, 152);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 15);
+            this.label19.TabIndex = 29;
+            this.label19.Text = "[-]";
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(181, 216);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(15, 14);
+            this.checkBox7.TabIndex = 32;
+            this.checkBox7.Tag = "User value";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(138, 216);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(44, 15);
+            this.label20.TabIndex = 31;
+            this.label20.Text = "[Nmm]";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button47);
+            this.groupBox8.Controls.Add(this.button49);
+            this.groupBox8.Location = new System.Drawing.Point(816, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(183, 602);
+            this.groupBox8.TabIndex = 32;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Cantilever";
             // 
             // button5
             // 
             this.button5.BackgroundImage = global::CENEX.Properties.Resources.kw_09;
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Location = new System.Drawing.Point(131, 185);
+            this.button5.Location = new System.Drawing.Point(6, 101);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(110, 50);
+            this.button5.Size = new System.Drawing.Size(110, 80);
             this.button5.TabIndex = 26;
             this.button5.UseVisualStyleBackColor = true;
             // 
@@ -1260,9 +1208,9 @@
             this.button25.BackgroundImage = global::CENEX.Properties.Resources.kw_08;
             this.button25.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button25.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button25.Location = new System.Drawing.Point(131, 129);
+            this.button25.Location = new System.Drawing.Point(131, 187);
             this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(110, 50);
+            this.button25.Size = new System.Drawing.Size(110, 80);
             this.button25.TabIndex = 25;
             this.button25.UseVisualStyleBackColor = true;
             // 
@@ -1271,9 +1219,9 @@
             this.button26.BackgroundImage = global::CENEX.Properties.Resources.kw_07;
             this.button26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button26.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button26.Location = new System.Drawing.Point(131, 73);
+            this.button26.Location = new System.Drawing.Point(6, 187);
             this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(110, 50);
+            this.button26.Size = new System.Drawing.Size(110, 80);
             this.button26.TabIndex = 24;
             this.button26.UseVisualStyleBackColor = true;
             // 
@@ -1282,9 +1230,9 @@
             this.button27.BackgroundImage = global::CENEX.Properties.Resources.kw_06;
             this.button27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button27.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button27.Location = new System.Drawing.Point(131, 19);
+            this.button27.Location = new System.Drawing.Point(131, 359);
             this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(110, 50);
+            this.button27.Size = new System.Drawing.Size(110, 80);
             this.button27.TabIndex = 23;
             this.button27.UseVisualStyleBackColor = true;
             // 
@@ -1293,9 +1241,9 @@
             this.button28.BackgroundImage = global::CENEX.Properties.Resources.kw_05;
             this.button28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button28.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button28.Location = new System.Drawing.Point(6, 241);
+            this.button28.Location = new System.Drawing.Point(6, 359);
             this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(110, 50);
+            this.button28.Size = new System.Drawing.Size(110, 80);
             this.button28.TabIndex = 22;
             this.button28.UseVisualStyleBackColor = true;
             // 
@@ -1304,9 +1252,9 @@
             this.button29.BackgroundImage = global::CENEX.Properties.Resources.kw_04;
             this.button29.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button29.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button29.Location = new System.Drawing.Point(6, 185);
+            this.button29.Location = new System.Drawing.Point(131, 19);
             this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(110, 50);
+            this.button29.Size = new System.Drawing.Size(110, 80);
             this.button29.TabIndex = 21;
             this.button29.UseVisualStyleBackColor = true;
             // 
@@ -1315,9 +1263,9 @@
             this.button30.BackgroundImage = global::CENEX.Properties.Resources.kw_03;
             this.button30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button30.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button30.Location = new System.Drawing.Point(6, 129);
+            this.button30.Location = new System.Drawing.Point(131, 273);
             this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(110, 50);
+            this.button30.Size = new System.Drawing.Size(110, 80);
             this.button30.TabIndex = 20;
             this.button30.UseVisualStyleBackColor = true;
             // 
@@ -1326,9 +1274,9 @@
             this.button31.BackgroundImage = global::CENEX.Properties.Resources.kw_02;
             this.button31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button31.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button31.Location = new System.Drawing.Point(6, 73);
+            this.button31.Location = new System.Drawing.Point(6, 273);
             this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(110, 50);
+            this.button31.Size = new System.Drawing.Size(110, 80);
             this.button31.TabIndex = 19;
             this.button31.UseVisualStyleBackColor = true;
             // 
@@ -1339,163 +1287,241 @@
             this.button32.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button32.Location = new System.Drawing.Point(6, 19);
             this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(110, 50);
+            this.button32.Size = new System.Drawing.Size(110, 80);
             this.button32.TabIndex = 18;
             this.button32.UseVisualStyleBackColor = true;
             // 
-            // button40
+            // button4
             // 
-            this.button40.BackgroundImage = global::CENEX.Properties.Resources.I1_M_01;
-            this.button40.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button40.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button40.Location = new System.Drawing.Point(6, 26);
-            this.button40.Name = "button40";
-            this.button40.Padding = new System.Windows.Forms.Padding(2);
-            this.button40.Size = new System.Drawing.Size(140, 90);
-            this.button40.TabIndex = 18;
-            this.button40.UseVisualStyleBackColor = true;
+            this.button4.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_09;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.Location = new System.Drawing.Point(8, 119);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(140, 45);
+            this.button4.TabIndex = 17;
+            this.button4.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // button17
             // 
-            this.button2.BackgroundImage = global::CENEX.Properties.Resources.I1_M_02;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Location = new System.Drawing.Point(6, 122);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(2);
-            this.button2.Size = new System.Drawing.Size(140, 90);
-            this.button2.TabIndex = 19;
-            this.button2.UseVisualStyleBackColor = true;
+            this.button17.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_08;
+            this.button17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button17.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button17.Location = new System.Drawing.Point(154, 205);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(140, 45);
+            this.button17.TabIndex = 16;
+            this.button17.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // button18
             // 
-            this.button3.BackgroundImage = global::CENEX.Properties.Resources.I1_M_03;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(6, 218);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(2);
-            this.button3.Size = new System.Drawing.Size(140, 90);
-            this.button3.TabIndex = 20;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button18.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_07;
+            this.button18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button18.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button18.Location = new System.Drawing.Point(8, 205);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(140, 45);
+            this.button18.TabIndex = 15;
+            this.button18.UseVisualStyleBackColor = true;
             // 
-            // button33
+            // button19
             // 
-            this.button33.BackgroundImage = global::CENEX.Properties.Resources.I1_M_04;
-            this.button33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button33.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button33.Location = new System.Drawing.Point(6, 314);
-            this.button33.Name = "button33";
-            this.button33.Padding = new System.Windows.Forms.Padding(2);
-            this.button33.Size = new System.Drawing.Size(140, 90);
-            this.button33.TabIndex = 21;
-            this.button33.UseVisualStyleBackColor = true;
+            this.button19.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_06;
+            this.button19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button19.Location = new System.Drawing.Point(154, 377);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(140, 45);
+            this.button19.TabIndex = 14;
+            this.button19.UseVisualStyleBackColor = true;
             // 
-            // button34
+            // button20
             // 
-            this.button34.BackgroundImage = global::CENEX.Properties.Resources.I1_M_05;
-            this.button34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button34.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button34.Location = new System.Drawing.Point(6, 410);
-            this.button34.Name = "button34";
-            this.button34.Padding = new System.Windows.Forms.Padding(2);
-            this.button34.Size = new System.Drawing.Size(140, 90);
-            this.button34.TabIndex = 22;
-            this.button34.UseVisualStyleBackColor = true;
+            this.button20.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_05;
+            this.button20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button20.Location = new System.Drawing.Point(6, 377);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(140, 45);
+            this.button20.TabIndex = 13;
+            this.button20.UseVisualStyleBackColor = true;
             // 
-            // button35
+            // button21
             // 
-            this.button35.BackgroundImage = global::CENEX.Properties.Resources.I1_M_06;
-            this.button35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button35.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button35.Location = new System.Drawing.Point(169, 26);
-            this.button35.Name = "button35";
-            this.button35.Padding = new System.Windows.Forms.Padding(2);
-            this.button35.Size = new System.Drawing.Size(140, 90);
-            this.button35.TabIndex = 23;
-            this.button35.UseVisualStyleBackColor = true;
+            this.button21.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_04;
+            this.button21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button21.Location = new System.Drawing.Point(154, 37);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(140, 45);
+            this.button21.TabIndex = 12;
+            this.button21.UseVisualStyleBackColor = true;
             // 
-            // button36
+            // button22
             // 
-            this.button36.BackgroundImage = global::CENEX.Properties.Resources.I1_M_07;
-            this.button36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button36.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button36.Location = new System.Drawing.Point(169, 122);
-            this.button36.Name = "button36";
-            this.button36.Padding = new System.Windows.Forms.Padding(2);
-            this.button36.Size = new System.Drawing.Size(140, 90);
-            this.button36.TabIndex = 24;
-            this.button36.UseVisualStyleBackColor = true;
+            this.button22.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_03;
+            this.button22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button22.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button22.Location = new System.Drawing.Point(154, 291);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(140, 45);
+            this.button22.TabIndex = 11;
+            this.button22.UseVisualStyleBackColor = true;
             // 
-            // button37
+            // button23
             // 
-            this.button37.BackgroundImage = global::CENEX.Properties.Resources.I1_M_08;
-            this.button37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button37.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button37.Location = new System.Drawing.Point(169, 218);
-            this.button37.Name = "button37";
-            this.button37.Padding = new System.Windows.Forms.Padding(2);
-            this.button37.Size = new System.Drawing.Size(140, 90);
-            this.button37.TabIndex = 25;
-            this.button37.UseVisualStyleBackColor = true;
+            this.button23.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_02;
+            this.button23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button23.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button23.Location = new System.Drawing.Point(8, 291);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(140, 45);
+            this.button23.TabIndex = 10;
+            this.button23.UseVisualStyleBackColor = true;
             // 
-            // button38
+            // button24
             // 
-            this.button38.BackgroundImage = global::CENEX.Properties.Resources.I1_M_09;
-            this.button38.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button38.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button38.Location = new System.Drawing.Point(169, 315);
-            this.button38.Name = "button38";
-            this.button38.Padding = new System.Windows.Forms.Padding(2);
-            this.button38.Size = new System.Drawing.Size(140, 90);
-            this.button38.TabIndex = 26;
-            this.button38.UseVisualStyleBackColor = true;
+            this.button24.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_01;
+            this.button24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button24.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button24.Location = new System.Drawing.Point(8, 37);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(140, 45);
+            this.button24.TabIndex = 9;
+            this.button24.UseVisualStyleBackColor = true;
             // 
-            // button48
+            // button16
             // 
-            this.button48.BackgroundImage = global::CENEX.Properties.Resources.I2_M_01;
-            this.button48.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button48.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button48.Location = new System.Drawing.Point(6, 19);
-            this.button48.Name = "button48";
-            this.button48.Padding = new System.Windows.Forms.Padding(2);
-            this.button48.Size = new System.Drawing.Size(150, 160);
-            this.button48.TabIndex = 27;
-            this.button48.UseVisualStyleBackColor = true;
+            this.button16.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_09;
+            this.button16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button16.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button16.Location = new System.Drawing.Point(9, 119);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(140, 45);
+            this.button16.TabIndex = 8;
+            this.button16.UseVisualStyleBackColor = true;
             // 
-            // button39
+            // button12
             // 
-            this.button39.BackgroundImage = global::CENEX.Properties.Resources.I2_M_02;
-            this.button39.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button39.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button39.Location = new System.Drawing.Point(6, 183);
-            this.button39.Name = "button39";
-            this.button39.Padding = new System.Windows.Forms.Padding(2);
-            this.button39.Size = new System.Drawing.Size(150, 160);
-            this.button39.TabIndex = 28;
-            this.button39.UseVisualStyleBackColor = true;
+            this.button12.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_08;
+            this.button12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button12.Location = new System.Drawing.Point(154, 205);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(140, 45);
+            this.button12.TabIndex = 7;
+            this.button12.UseVisualStyleBackColor = true;
             // 
-            // button41
+            // button13
             // 
-            this.button41.BackgroundImage = global::CENEX.Properties.Resources.I2_M_03;
-            this.button41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button41.Location = new System.Drawing.Point(6, 349);
-            this.button41.Name = "button41";
-            this.button41.Padding = new System.Windows.Forms.Padding(2);
-            this.button41.Size = new System.Drawing.Size(150, 160);
-            this.button41.TabIndex = 29;
-            this.button41.UseVisualStyleBackColor = true;
+            this.button13.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_07;
+            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button13.Location = new System.Drawing.Point(9, 205);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(140, 45);
+            this.button13.TabIndex = 6;
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_06;
+            this.button14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button14.Location = new System.Drawing.Point(154, 377);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(140, 45);
+            this.button14.TabIndex = 5;
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_05;
+            this.button15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button15.Location = new System.Drawing.Point(9, 377);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(140, 45);
+            this.button15.TabIndex = 4;
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_04;
+            this.button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button11.Location = new System.Drawing.Point(154, 37);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(140, 45);
+            this.button11.TabIndex = 3;
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_03;
+            this.button10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button10.Location = new System.Drawing.Point(154, 291);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(140, 45);
+            this.button10.TabIndex = 2;
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_02;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Location = new System.Drawing.Point(9, 291);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(140, 45);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // buttonky1
+            // 
+            this.buttonky1.BackgroundImage = global::CENEX.Properties.Resources.ky_kz_01;
+            this.buttonky1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonky1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonky1.Location = new System.Drawing.Point(9, 37);
+            this.buttonky1.Name = "buttonky1";
+            this.buttonky1.Size = new System.Drawing.Size(140, 45);
+            this.buttonky1.TabIndex = 0;
+            this.buttonky1.UseVisualStyleBackColor = true;
+            // 
+            // button47
+            // 
+            this.button47.BackgroundImage = global::CENEX.Properties.Resources.I4_M_01;
+            this.button47.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button47.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button47.Location = new System.Drawing.Point(18, 218);
+            this.button47.Name = "button47";
+            this.button47.Padding = new System.Windows.Forms.Padding(2);
+            this.button47.Size = new System.Drawing.Size(150, 180);
+            this.button47.TabIndex = 28;
+            this.button47.UseVisualStyleBackColor = true;
+            // 
+            // button49
+            // 
+            this.button49.BackgroundImage = global::CENEX.Properties.Resources.I3_M_01;
+            this.button49.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button49.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button49.Location = new System.Drawing.Point(18, 17);
+            this.button49.Name = "button49";
+            this.button49.Padding = new System.Windows.Forms.Padding(2);
+            this.button49.Size = new System.Drawing.Size(150, 180);
+            this.button49.TabIndex = 27;
+            this.button49.UseVisualStyleBackColor = true;
             // 
             // button42
             // 
             this.button42.BackgroundImage = global::CENEX.Properties.Resources.I2_M_05;
             this.button42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button42.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button42.Location = new System.Drawing.Point(190, 183);
+            this.button42.Location = new System.Drawing.Point(190, 218);
             this.button42.Name = "button42";
             this.button42.Padding = new System.Windows.Forms.Padding(2);
-            this.button42.Size = new System.Drawing.Size(150, 160);
+            this.button42.Size = new System.Drawing.Size(150, 170);
             this.button42.TabIndex = 31;
             this.button42.UseVisualStyleBackColor = true;
             // 
@@ -1507,17 +1533,160 @@
             this.button43.Location = new System.Drawing.Point(190, 19);
             this.button43.Name = "button43";
             this.button43.Padding = new System.Windows.Forms.Padding(2);
-            this.button43.Size = new System.Drawing.Size(150, 160);
+            this.button43.Size = new System.Drawing.Size(150, 170);
             this.button43.TabIndex = 30;
             this.button43.UseVisualStyleBackColor = true;
+            // 
+            // button41
+            // 
+            this.button41.BackgroundImage = global::CENEX.Properties.Resources.I2_M_03;
+            this.button41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button41.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button41.Location = new System.Drawing.Point(6, 423);
+            this.button41.Name = "button41";
+            this.button41.Padding = new System.Windows.Forms.Padding(2);
+            this.button41.Size = new System.Drawing.Size(150, 170);
+            this.button41.TabIndex = 29;
+            this.button41.UseVisualStyleBackColor = true;
+            // 
+            // button39
+            // 
+            this.button39.BackgroundImage = global::CENEX.Properties.Resources.I2_M_02;
+            this.button39.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button39.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button39.Location = new System.Drawing.Point(6, 218);
+            this.button39.Name = "button39";
+            this.button39.Padding = new System.Windows.Forms.Padding(2);
+            this.button39.Size = new System.Drawing.Size(150, 170);
+            this.button39.TabIndex = 28;
+            this.button39.UseVisualStyleBackColor = true;
+            // 
+            // button48
+            // 
+            this.button48.BackgroundImage = global::CENEX.Properties.Resources.I2_M_01;
+            this.button48.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button48.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button48.Location = new System.Drawing.Point(6, 19);
+            this.button48.Name = "button48";
+            this.button48.Padding = new System.Windows.Forms.Padding(2);
+            this.button48.Size = new System.Drawing.Size(150, 170);
+            this.button48.TabIndex = 27;
+            this.button48.UseVisualStyleBackColor = true;
+            // 
+            // button38
+            // 
+            this.button38.BackgroundImage = global::CENEX.Properties.Resources.I1_M_09;
+            this.button38.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button38.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button38.Location = new System.Drawing.Point(152, 344);
+            this.button38.Name = "button38";
+            this.button38.Padding = new System.Windows.Forms.Padding(2);
+            this.button38.Size = new System.Drawing.Size(140, 100);
+            this.button38.TabIndex = 26;
+            this.button38.UseVisualStyleBackColor = true;
+            // 
+            // button37
+            // 
+            this.button37.BackgroundImage = global::CENEX.Properties.Resources.I1_M_08;
+            this.button37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button37.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button37.Location = new System.Drawing.Point(152, 238);
+            this.button37.Name = "button37";
+            this.button37.Padding = new System.Windows.Forms.Padding(2);
+            this.button37.Size = new System.Drawing.Size(140, 100);
+            this.button37.TabIndex = 25;
+            this.button37.UseVisualStyleBackColor = true;
+            // 
+            // button36
+            // 
+            this.button36.BackgroundImage = global::CENEX.Properties.Resources.I1_M_07;
+            this.button36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button36.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button36.Location = new System.Drawing.Point(152, 132);
+            this.button36.Name = "button36";
+            this.button36.Padding = new System.Windows.Forms.Padding(2);
+            this.button36.Size = new System.Drawing.Size(140, 100);
+            this.button36.TabIndex = 24;
+            this.button36.UseVisualStyleBackColor = true;
+            // 
+            // button35
+            // 
+            this.button35.BackgroundImage = global::CENEX.Properties.Resources.I1_M_06;
+            this.button35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button35.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button35.Location = new System.Drawing.Point(152, 26);
+            this.button35.Name = "button35";
+            this.button35.Padding = new System.Windows.Forms.Padding(2);
+            this.button35.Size = new System.Drawing.Size(140, 100);
+            this.button35.TabIndex = 23;
+            this.button35.UseVisualStyleBackColor = true;
+            // 
+            // button34
+            // 
+            this.button34.BackgroundImage = global::CENEX.Properties.Resources.I1_M_05;
+            this.button34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button34.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button34.Location = new System.Drawing.Point(6, 450);
+            this.button34.Name = "button34";
+            this.button34.Padding = new System.Windows.Forms.Padding(2);
+            this.button34.Size = new System.Drawing.Size(140, 100);
+            this.button34.TabIndex = 22;
+            this.button34.UseVisualStyleBackColor = true;
+            // 
+            // button33
+            // 
+            this.button33.BackgroundImage = global::CENEX.Properties.Resources.I1_M_04;
+            this.button33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button33.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button33.Location = new System.Drawing.Point(6, 344);
+            this.button33.Name = "button33";
+            this.button33.Padding = new System.Windows.Forms.Padding(2);
+            this.button33.Size = new System.Drawing.Size(140, 100);
+            this.button33.TabIndex = 21;
+            this.button33.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImage = global::CENEX.Properties.Resources.I1_M_03;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.Location = new System.Drawing.Point(6, 238);
+            this.button3.Name = "button3";
+            this.button3.Padding = new System.Windows.Forms.Padding(2);
+            this.button3.Size = new System.Drawing.Size(140, 100);
+            this.button3.TabIndex = 20;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = global::CENEX.Properties.Resources.I1_M_02;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(6, 132);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(2);
+            this.button2.Size = new System.Drawing.Size(140, 100);
+            this.button2.TabIndex = 19;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button40
+            // 
+            this.button40.BackgroundImage = global::CENEX.Properties.Resources.I1_M_01;
+            this.button40.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button40.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button40.Location = new System.Drawing.Point(6, 26);
+            this.button40.Name = "button40";
+            this.button40.Padding = new System.Windows.Forms.Padding(2);
+            this.button40.Size = new System.Drawing.Size(140, 100);
+            this.button40.TabIndex = 18;
+            this.button40.UseVisualStyleBackColor = true;
             // 
             // EN1999_1_1Annex_I_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 736);
+            this.ClientSize = new System.Drawing.Size(1035, 702);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -1528,13 +1697,6 @@
             this.groupBox7.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.splitContainer7.Panel1.ResumeLayout(false);
             this.splitContainer7.Panel2.ResumeLayout(false);
@@ -1577,6 +1739,14 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.Panel2.PerformLayout();
             this.splitContainer3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1604,7 +1774,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1697,5 +1866,20 @@
         private System.Windows.Forms.Button button41;
         private System.Windows.Forms.Button button39;
         private System.Windows.Forms.Button button48;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button button47;
+        private System.Windows.Forms.Button button49;
     }
 }

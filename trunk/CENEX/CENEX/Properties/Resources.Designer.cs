@@ -165,6 +165,20 @@ namespace CENEX.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap I3_M_01 {
+            get {
+                object obj = ResourceManager.GetObject("I3_M_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I4_M_01 {
+            get {
+                object obj = ResourceManager.GetObject("I4_M_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap kw_01 {
             get {
                 object obj = ResourceManager.GetObject("kw_01", resourceCulture);
