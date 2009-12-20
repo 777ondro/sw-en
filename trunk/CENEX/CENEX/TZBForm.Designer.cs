@@ -531,7 +531,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(15, 357);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(726, 395);
+            this.dataGridView1.Size = new System.Drawing.Size(726, 307);
             this.dataGridView1.TabIndex = 77;
             // 
             // button1
@@ -547,7 +547,7 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(439, 767);
+            this.buttonDelete.Location = new System.Drawing.Point(513, 682);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(96, 23);
             this.buttonDelete.TabIndex = 79;
@@ -557,7 +557,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(541, 767);
+            this.buttonSave.Location = new System.Drawing.Point(615, 682);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(96, 23);
             this.buttonSave.TabIndex = 80;
@@ -567,7 +567,7 @@
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(643, 767);
+            this.buttonLoad.Location = new System.Drawing.Point(717, 682);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(96, 23);
             this.buttonLoad.TabIndex = 81;
@@ -667,7 +667,7 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(855, 767);
+            this.buttonEdit.Location = new System.Drawing.Point(929, 682);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(96, 23);
             this.buttonEdit.TabIndex = 88;
@@ -678,7 +678,7 @@
             // 
             this.richTextBoxAct.Location = new System.Drawing.Point(765, 385);
             this.richTextBoxAct.Name = "richTextBoxAct";
-            this.richTextBoxAct.Size = new System.Drawing.Size(260, 367);
+            this.richTextBoxAct.Size = new System.Drawing.Size(260, 279);
             this.richTextBoxAct.TabIndex = 89;
             this.richTextBoxAct.Text = "";
             // 
@@ -704,7 +704,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 778);
+            this.ClientSize = new System.Drawing.Size(1037, 719);
             this.Controls.Add(this.richTextBoxNew);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.richTextBoxAct);

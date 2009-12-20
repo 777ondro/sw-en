@@ -718,17 +718,17 @@ namespace CENEX
                             this.zoznamMenuHodnoty.Add(Math.Round(en.NT_b_Rd / 1000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kN]");
                             break;
-                        case "Nb.Rd ":
+                        case "Nb.Rd":
                             this.zoznamMenuNazvy.Add("Nb.Rd");
                             this.zoznamMenuHodnoty.Add(Math.Round(en.N_b_Rd / 1000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kN]");
                             break;
-                        case " Vy.c.Rd":
+                        case "Vy.c.Rd":
                             this.zoznamMenuNazvy.Add("Vy.c.Rd");
                             this.zoznamMenuHodnoty.Add(Math.Round(en.Vy_c_Rd / 1000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kN]");
                             break;
-                        case " Vz.c.Rd":
+                        case "Vz.c.Rd":
                             this.zoznamMenuNazvy.Add("Vz.c.Rd");
                             this.zoznamMenuHodnoty.Add(Math.Round(en.Vz_c_Rd / 1000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kN]");
@@ -738,7 +738,7 @@ namespace CENEX
                             this.zoznamMenuHodnoty.Add(Math.Round(en.My_c_Rd / 1000000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kNm]");
                             break;
-                        case "Mz.c.Rd ":
+                        case "Mz.c.Rd":
                             this.zoznamMenuNazvy.Add("Mz.c.Rd");
                             this.zoznamMenuHodnoty.Add(Math.Round(en.Mz_c_Rd / 1000000, 2).ToString());
                             this.zoznamMenuJednotky.Add("[kNm]");

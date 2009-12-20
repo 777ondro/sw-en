@@ -15,5 +15,15 @@ namespace CENEX
         {
             InitializeComponent();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
