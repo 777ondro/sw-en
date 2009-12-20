@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>v ky a kz maju byt identicke sady obrazkov ky_kz_01..... vid Resources
+v kw maju byť obrazky kw_
+v end moments obrazky I1
+v transverse loading I2
+
+v Deflection a rotation sa ma pod sebou dat nastavit vzdy len jedno u a jedno r
+A - L  lavy krajny bod nosnika
+B-R pravy krajny bod nosnika
+
+ked bude vsetko nastavene pod stalčeni calculate Mcr sa spustia metody v EN1993-1-1Annex_I
+ktore vsak este nacitavaju data z EN1993 alebo EN1999
+
+spocita sa Mcr
+
+ak chce niektoru hodnotu uzivatel zadat ručne tak zaskrtne checkbox
+potom sa da save a data sa ulozia "niekam" (dataset) aby sa dali načítat v posudku EN1993 a zobrazit v datagrid view</value>
+  </data>
 </root>

@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureOfCrosssectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +43,10 @@
             this.messageBoxesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PictMD_Annex_My_TSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.PictMD_Kc_TSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.Ratio_max = new System.Windows.Forms.TextBox();
             this.comboBoxAnex = new System.Windows.Forms.ComboBox();
@@ -62,13 +65,11 @@
             this.comboBoxTorsionNADCZ = new System.Windows.Forms.ComboBox();
             this.export_xls = new System.Windows.Forms.Button();
             this.print_pdf = new System.Windows.Forms.Button();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -116,14 +117,14 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ColumnHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlText;
             this.dataGridView1.Location = new System.Drawing.Point(12, 128);
             this.dataGridView1.Name = "dataGridView1";
@@ -133,7 +134,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(1049, 704);
+            this.buttonCancel.Location = new System.Drawing.Point(1037, 708);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 41;
@@ -141,20 +142,8 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(535, 128);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(589, 546);
-            this.pictureBox1.TabIndex = 42;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
-            // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1182, 24);
@@ -171,7 +160,7 @@
             this.PictMD_Kc_TSMI,
             this.exportToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // pictureOfCrosssectionToolStripMenuItem
@@ -179,51 +168,82 @@
             this.pictureOfCrosssectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.drawToolStripMenuItem});
             this.pictureOfCrosssectionToolStripMenuItem.Name = "pictureOfCrosssectionToolStripMenuItem";
-            this.pictureOfCrosssectionToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.pictureOfCrosssectionToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.pictureOfCrosssectionToolStripMenuItem.Text = "Picture of Cross-section";
             // 
             // drawToolStripMenuItem
             // 
             this.drawToolStripMenuItem.Name = "drawToolStripMenuItem";
-            this.drawToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.drawToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.drawToolStripMenuItem.Text = "Draw";
             this.drawToolStripMenuItem.Click += new System.EventHandler(this.drawToolStripMenuItem_Click);
             // 
             // TableDataToolStripMenuItem
             // 
             this.TableDataToolStripMenuItem.Name = "TableDataToolStripMenuItem";
-            this.TableDataToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.TableDataToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.TableDataToolStripMenuItem.Text = "Table Data";
             this.TableDataToolStripMenuItem.Click += new System.EventHandler(this.TableDataToolStripMenuItem_Click);
             // 
             // messageBoxesToolStripMenuItem
             // 
             this.messageBoxesToolStripMenuItem.Name = "messageBoxesToolStripMenuItem";
-            this.messageBoxesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.messageBoxesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.messageBoxesToolStripMenuItem.Text = "Message Boxes";
             this.messageBoxesToolStripMenuItem.Click += new System.EventHandler(this.messageBoxesToolStripMenuItem_Click);
             // 
             // PictMD_Annex_My_TSMI
             // 
             this.PictMD_Annex_My_TSMI.Name = "PictMD_Annex_My_TSMI";
-            this.PictMD_Annex_My_TSMI.Size = new System.Drawing.Size(220, 22);
+            this.PictMD_Annex_My_TSMI.Size = new System.Drawing.Size(205, 22);
             this.PictMD_Annex_My_TSMI.Text = "Moment diagrams for Annex";
             this.PictMD_Annex_My_TSMI.Click += new System.EventHandler(this.PictMD_Annex_My_TSMI_Click);
             // 
             // PictMD_Kc_TSMI
             // 
             this.PictMD_Kc_TSMI.Name = "PictMD_Kc_TSMI";
-            this.PictMD_Kc_TSMI.Size = new System.Drawing.Size(220, 22);
+            this.PictMD_Kc_TSMI.Size = new System.Drawing.Size(205, 22);
             this.PictMD_Kc_TSMI.Text = "Moment diagrams for kc";
             this.PictMD_Kc_TSMI.Click += new System.EventHandler(this.PictMD_Kc_TSMI_Click_1);
             // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toExcelToolStripMenuItem,
+            this.toWordToolStripMenuItem,
+            this.toTextFileToolStripMenuItem});
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
+            // toExcelToolStripMenuItem
+            // 
+            this.toExcelToolStripMenuItem.Name = "toExcelToolStripMenuItem";
+            this.toExcelToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.toExcelToolStripMenuItem.Text = "To Excel";
+            this.toExcelToolStripMenuItem.Click += new System.EventHandler(this.toExcelToolStripMenuItem_Click);
+            // 
+            // toWordToolStripMenuItem
+            // 
+            this.toWordToolStripMenuItem.Name = "toWordToolStripMenuItem";
+            this.toWordToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.toWordToolStripMenuItem.Text = "To Word";
+            this.toWordToolStripMenuItem.Click += new System.EventHandler(this.toWordToolStripMenuItem_Click);
+            // 
+            // toTextFileToolStripMenuItem
+            // 
+            this.toTextFileToolStripMenuItem.Name = "toTextFileToolStripMenuItem";
+            this.toTextFileToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.toTextFileToolStripMenuItem.Text = "To text file";
+            this.toTextFileToolStripMenuItem.Click += new System.EventHandler(this.toTextFileToolStripMenuItem_Click);
+            // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Arial Black", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Arial Black", 11F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.button1.Location = new System.Drawing.Point(804, 698);
+            this.button1.Location = new System.Drawing.Point(823, 704);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 33);
+            this.button1.Size = new System.Drawing.Size(101, 28);
             this.button1.TabIndex = 44;
             this.button1.Text = "CHECK";
             this.button1.UseVisualStyleBackColor = true;
@@ -231,10 +251,11 @@
             // 
             // Ratio_max
             // 
+            this.Ratio_max.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Ratio_max.ForeColor = System.Drawing.Color.Navy;
             this.Ratio_max.Location = new System.Drawing.Point(930, 706);
             this.Ratio_max.Name = "Ratio_max";
-            this.Ratio_max.Size = new System.Drawing.Size(101, 20);
+            this.Ratio_max.Size = new System.Drawing.Size(101, 24);
             this.Ratio_max.TabIndex = 45;
             // 
             // comboBoxAnex
@@ -420,42 +441,32 @@
             this.print_pdf.UseVisualStyleBackColor = true;
             this.print_pdf.Click += new System.EventHandler(this.print_pdf_Click);
             // 
-            // exportToolStripMenuItem
+            // pictureBox1
             // 
-            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toExcelToolStripMenuItem,
-            this.toWordToolStripMenuItem,
-            this.toTextFileToolStripMenuItem});
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
-            this.exportToolStripMenuItem.Text = "Export";
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.pictureBox1.Location = new System.Drawing.Point(535, 128);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(589, 546);
+            this.pictureBox1.TabIndex = 42;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
-            // toExcelToolStripMenuItem
+            // button2
             // 
-            this.toExcelToolStripMenuItem.Name = "toExcelToolStripMenuItem";
-            this.toExcelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.toExcelToolStripMenuItem.Text = "To Excel";
-            this.toExcelToolStripMenuItem.Click += new System.EventHandler(this.toExcelToolStripMenuItem_Click);
-            // 
-            // toWordToolStripMenuItem
-            // 
-            this.toWordToolStripMenuItem.Name = "toWordToolStripMenuItem";
-            this.toWordToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.toWordToolStripMenuItem.Text = "To Word";
-            this.toWordToolStripMenuItem.Click += new System.EventHandler(this.toWordToolStripMenuItem_Click);
-            // 
-            // toTextFileToolStripMenuItem
-            // 
-            this.toTextFileToolStripMenuItem.Name = "toTextFileToolStripMenuItem";
-            this.toTextFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.toTextFileToolStripMenuItem.Text = "To text file";
-            this.toTextFileToolStripMenuItem.Click += new System.EventHandler(this.toTextFileToolStripMenuItem_Click);
+            this.button2.Location = new System.Drawing.Point(380, 91);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(154, 24);
+            this.button2.TabIndex = 62;
+            this.button2.Text = "Mcr settings";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // EN1993_1_1Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 741);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.print_pdf);
             this.Controls.Add(this.export_xls);
             this.Controls.Add(this.comboBoxTorsionNADCZ);
@@ -488,9 +499,9 @@
             this.Text = "Info about steel";
             this.Load += new System.EventHandler(this.InfoSteelForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -542,6 +553,7 @@
         private System.Windows.Forms.ToolStripMenuItem toExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toWordToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toTextFileToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
 
 
 
