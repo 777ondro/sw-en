@@ -1036,7 +1036,7 @@
             this.groupBox6.Size = new System.Drawing.Size(354, 602);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Transverse loading";
+            this.groupBox6.Text = "Beam loading and bending moments My";
             // 
             // groupBox5
             // 
@@ -1054,7 +1054,7 @@
             this.groupBox5.Size = new System.Drawing.Size(302, 602);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "End moments My";
+            this.groupBox5.Text = "End bending moments My";
             // 
             // tabPage3
             // 
@@ -1190,7 +1190,7 @@
             this.groupBox8.Size = new System.Drawing.Size(183, 602);
             this.groupBox8.TabIndex = 32;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Cantilever";
+            this.groupBox8.Text = "Cantilever moments My";
             // 
             // button5
             // 

@@ -1871,7 +1871,23 @@ namespace CENEX
             set { ratio_612z = value; }
         }
 
+        // Section 6.2.8 - Bending and shear
+        double ratio_612y_MV;
 
+        public double Ratio_612y_MV
+        {
+            get { return ratio_612y_MV; }
+            set { ratio_612y_MV = value; }
+        }
+        double ratio_612z_MV;
+
+        public double Ratio_612z_MV
+        {
+            get { return ratio_612z_MV; }
+            set { ratio_612z_MV = value; }
+        }
+
+        //
 
         double ratio_623;
         public double Ratio_623
@@ -3767,13 +3783,69 @@ namespace CENEX
 
             // Interaction of shear force, bending moment and axial force - EN 1993-1-5 (Section 7)
 
+            // The reduced design plastic resistance moment for combination of bending and shear
 
-            // The reduced design plastic resistance moment
+            if (_Tx_Ed == 0)
+            {
+
+                if (_Vy_Ed > 0.5 * _Vy_pl_Rd)
+                {
+                    if (csprofshape == 1) _My_V_pl_Rd = _Wy_pl - (((ro_V_z * Math.Pow(_Az_v, 2)) / (4 * tw1))) * fy / gamaM0; // (6.30) - symmetrical I section with identical flanges
+                    else
+                    {
+                        _My_V_pl_Rd = _My_pl_Rd * (((1 - ro_V_z) * fy) / fy); // Section 6.2.8 (3) see (6.29) - general shapes of sections
+                        _My_V_el_Rd = _My_el_Rd * (((1 - ro_V_z) * fy) / fy);
+                    }
+                }
+                if (_Vz_Ed > 0.5 * _Vz_pl_Rd)
+                {
+                    if (csprofshape == 1) _Mz_V_pl_Rd = _Wz_pl - (((ro_V_y * Math.Pow(_Ay_v, 2)) / (4 * 2 * tf1))) * fy / gamaM0; // (6.30) - symmetrical I section with identical flanges
+                    else
+                    {
+                        _Mz_V_pl_Rd = _Mz_pl_Rd * (((1 - ro_V_y) * fy) / fy); // Section 6.2.8 (3) see (6.29) - general shapes of sections
+                        _Mz_V_el_Rd = _Mz_el_Rd * (((1 - ro_V_y) * fy) / fy);
+                    }
+                }
+            }
+            
+
+            // The reduced design plastic resistance moment for combination of bending, shear and torsion
+
+            if (_Tx_Ed != 0)
+            {
+
+            if (_Vy_Ed > 0.5 * _Vy_pl_T_Rd)
+            {
+                if (csprofshape == 1) _My_V_pl_Rd = _Wy_pl - (((ro_V_z_T * Math.Pow(_Az_v, 2)) / (4 * tw1))) * fy / gamaM0; // (6.30)- symmetrical I section with identical flanges
+                else
+                    {
+                    _My_V_pl_Rd = _My_pl_Rd * (((1 - ro_V_z_T) * fy) / fy); // Section 6.2.8 (3) see (6.29) - general shapes of sections
+                    _My_V_el_Rd = _My_el_Rd * (((1 - ro_V_z_T) * fy) / fy);
+                    }
+            }
+            if (_Vz_Ed > 0.5 * _Vz_pl_T_Rd)
+            {
+                if (csprofshape == 1) _Mz_V_pl_Rd = _Wz_pl - (((ro_V_y_T * Math.Pow(_Ay_v, 2)) / (4 * 2 * tf1))) * fy / gamaM0; // (6.30)- symmetrical I section with identical flanges
+                else
+                    {
+                    _Mz_V_pl_Rd = _Mz_pl_Rd * (((1 - ro_V_y_T) * fy) / fy); // Section 6.2.8 (3) see (6.29) - general shapes of sections
+                    _Mz_V_el_Rd = _Mz_el_Rd * (((1 - ro_V_y_T) * fy) / fy);
+                    }
+            }
+            }
+            
 
 
 
-            if (csprofshape == 1) _My_V_pl_Rd = _Wy_pl - (((ro_V_z_T * Math.Pow(_Az_v, 2)) / (4 * tw1))) * fy / gamaM0; // (6.30)
-            if (csprofshape == 1) _Mz_V_pl_Rd = _Wz_pl - (((ro_V_y_T * Math.Pow(_Ay_v, 2)) / (4 * 2 * tf1))) * fy / gamaM0; // (6.30)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5237,11 +5309,26 @@ namespace CENEX
             ratio_623 = Math.Max(ratio_a4, ratio_623);
 
 
-            // 6.2.8 Bending and shear
+            // 6.2.8 Bending and shear + torsion ???
+            // see 6.2.5 Bending moment (6.12)
 
-            // doplnit 
+            if (classall == 1 || classall == 2)
+ {
+            Ratio_612y_MV = _My_Ed /_My_V_pl_Rd;
+            ratio_612z_MV = _Mz_Ed /_Mz_V_pl_Rd;
+            }
+            else if (classall == 3)
+ {
+            Ratio_612y_MV = _My_Ed /_My_V_el_Rd;
+            ratio_612z_MV = _Mz_Ed /_Mz_V_el_Rd;
+            }
+             else if (classall == 4)
+ {
+            Ratio_612y_MV = _My_Ed /_My_V_el_Rd;// auxiliary
+            ratio_612z_MV = _Mz_Ed /_Mz_V_el_Rd;// auxiliary
+            }
 
-
+            
             // 6.2.9 Bending and axial force-tension
 
             if (classall == 1 || classall == 2)
@@ -5363,7 +5450,7 @@ namespace CENEX
             if (item3_check == true)
             #region Annex A output and kij factors
             {
-                MessageBox.Show(
+                MessageBox.Show((
                     " Auxiliary calculation results: " + "\n"
                     + "\n"
                     + " Annex A - parameters: " + "\n"
@@ -5398,7 +5485,7 @@ namespace CENEX
                     + " kyy = " + Math.Round(kyy, dec_place_num1).ToString() + "\n"
                     + " kyz = " + Math.Round(kyz, dec_place_num1).ToString() + "\n"
                     + " kzy = " + Math.Round(kzy, dec_place_num1).ToString() + "\n"
-                    + " kzz = " + Math.Round(kzz, dec_place_num1).ToString());
+                    + " kzz = " + Math.Round(kzz, dec_place_num1).ToString()), " Auxiliary calculation");
 
             }
             #endregion
@@ -5406,7 +5493,7 @@ namespace CENEX
             #region Resistances
             {
                 MessageBox.Show
-                        (
+                        ((
                         " Calculation results - Resistances and Check ratios: " + "\n"
                     + "\n"
                     + " Axial resistance: " + "\n"
@@ -5448,7 +5535,7 @@ namespace CENEX
                     + " My.V.pl.Rd = " + Math.Round(_My_V_pl_Rd / 1000000, dec_place_num2).ToString() + " kNm " + "\n"
                     + " Mz.V.pl.Rd = " + Math.Round(_Mz_V_pl_Rd / 1000000, dec_place_num2).ToString() + " kNm " + "\n"
                     + " My.Rk = " + Math.Round(_My_Rk / 1000000, dec_place_num2).ToString() + " kNm " + "\n"
-                    + " Mz.Rk = " + Math.Round(_Mz_Rk / 1000000, dec_place_num2).ToString() + " kNm ");
+                    + " Mz.Rk = " + Math.Round(_Mz_Rk / 1000000, dec_place_num2).ToString() + " kNm "), "Calculation results ");
 
 
             }
@@ -5457,7 +5544,7 @@ namespace CENEX
             #region Check ratios
             {
                 MessageBox.Show
-                    (
+                    ((
                     " Check ratios: " + "\n"
 
                     + "\n"
@@ -5478,8 +5565,9 @@ namespace CENEX
                         + " 6.2.7 Torsion - formula (6.23): " + "\n"
                         + " Tx.Ed/TRd = " + Math.Round(ratio_623 * 100, dec_place_num2).ToString() + " % " + "\n"
                         + "\n"
-                        + " 6.2.8 Bending and shear: " + "\n"
-                        + " !!! missing ratio = " /*+ Math.Round(ratio_623 * 100, dec_place_num2).ToString() */ + " % " + "\n"
+                        + " 6.2.8 Bending and shear (torsion): " + "\n"
+                        + " My.Ed/My.V.Rd = " + Math.Round(Ratio_612y_MV * 100, dec_place_num2).ToString() + " % " + "\n"
+                        + " Mz.Ed/My.V.Rd = " + Math.Round(ratio_612z_MV * 100, dec_place_num2).ToString() + " % " + "\n"
                         + "\n"
                         + " 6.2.9 Bending and axial force (6.31)(6.42)for cross-section classes 1 and 2 or (6.43) for class 3 and (6.44) for class 4: " + "\n"
                         + " σx.Ed/fyd = " + Math.Round(ratio_629_max_d * 100, dec_place_num2).ToString() + " % " + "\n"
@@ -5499,7 +5587,7 @@ namespace CENEX
                         + " Ratio for interaction Nc.kyyMy.kyzMz (6.61) = " + Math.Round(ratio_661 * 100, dec_place_num2).ToString() + " % " + "\n"
                         + " Ratio for interaction Nc.kzyMy.kzzMz (6.62) = " + Math.Round(ratio_662 * 100, dec_place_num2).ToString() + " % " + "\n"
                         + "\n"
-                        + " Maximum ratio = " + Math.Round(ratio_maxtot * 100, dec_place_num2).ToString() + " % ");
+                        + " Maximum ratio = " + Math.Round(ratio_maxtot * 100, dec_place_num2).ToString() + " % "),"Check ratios");
 
             }
             #endregion
