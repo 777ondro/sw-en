@@ -283,6 +283,102 @@
   <ItemGroup>
     <None Include="Resources\biely.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_03.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_04.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_05.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_06.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_07.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_08.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I1_M_09.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I2_M_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I2_M_02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I2_M_03.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I2_M_04.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\I2_M_05.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_03.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_04.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_05.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_06.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_07.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_08.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kw_09.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_03.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_04.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_05.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_06.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_07.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_08.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ky_kz_09.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

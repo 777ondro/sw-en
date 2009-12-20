@@ -67,6 +67,230 @@ namespace CENEX.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap I1_M_01 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_02 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_03 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_04 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_05 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_06 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_07 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_07", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_08 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_08", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I1_M_09 {
+            get {
+                object obj = ResourceManager.GetObject("I1_M_09", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I2_M_01 {
+            get {
+                object obj = ResourceManager.GetObject("I2_M_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I2_M_02 {
+            get {
+                object obj = ResourceManager.GetObject("I2_M_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I2_M_03 {
+            get {
+                object obj = ResourceManager.GetObject("I2_M_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I2_M_04 {
+            get {
+                object obj = ResourceManager.GetObject("I2_M_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap I2_M_05 {
+            get {
+                object obj = ResourceManager.GetObject("I2_M_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_01 {
+            get {
+                object obj = ResourceManager.GetObject("kw_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_02 {
+            get {
+                object obj = ResourceManager.GetObject("kw_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_03 {
+            get {
+                object obj = ResourceManager.GetObject("kw_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_04 {
+            get {
+                object obj = ResourceManager.GetObject("kw_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_05 {
+            get {
+                object obj = ResourceManager.GetObject("kw_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_06 {
+            get {
+                object obj = ResourceManager.GetObject("kw_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_07 {
+            get {
+                object obj = ResourceManager.GetObject("kw_07", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_08 {
+            get {
+                object obj = ResourceManager.GetObject("kw_08", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kw_09 {
+            get {
+                object obj = ResourceManager.GetObject("kw_09", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_01 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_02 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_02", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_03 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_03", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_04 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_05 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_05", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_06 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_07 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_07", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_08 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_08", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ky_kz_09 {
+            get {
+                object obj = ResourceManager.GetObject("ky_kz_09", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LOGO1 {
             get {
                 object obj = ResourceManager.GetObject("LOGO1", resourceCulture);

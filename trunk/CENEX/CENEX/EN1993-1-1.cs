@@ -4370,6 +4370,12 @@ namespace CENEX
             if (chi_y_LT > 1) chi_y_LT = 1;
             if (chi_z_LT > 1) chi_z_LT = 1;
 
+            if (csshape == 5) // circullar hollow sections
+            {
+               
+                chi_y_LT = 1;
+            }
+
             // Resistance
             _My_b_Rd = (chi_y_LT * _Wy * fy) / gamaM1; // (6.55)
             _Mz_b_Rd = (chi_z_LT * _Wz * fy) / gamaM1; // (6.55)
@@ -4574,7 +4580,15 @@ namespace CENEX
                 _My_b_Rd = _My_c_Rd;
             }
             else
+{
+                if (csshape == 5) // circullar hollow sections
+{
+                    kfl_y =1;
+                    chi_y_LT_fc1 = 1;
+}
+
                 _My_b_Rd = kfl_y * chi_y_LT_fc1 * _My_c_Rd;
+}
 
             if (_My_b_Rd > _My_c_Rd) _My_b_Rd = _My_c_Rd;
 

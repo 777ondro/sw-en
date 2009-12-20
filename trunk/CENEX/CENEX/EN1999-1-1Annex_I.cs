@@ -110,8 +110,39 @@ namespace CENEX
             set { y_I5 = value; }
         }
 
+        // shape of cross-section
+        // local axis symmetry
+        bool symmetry_yy;
+        bool symmetry_zz;
+        //principal axis symmetry
+        bool symmetry_uu;
+        bool symmetry_vv;
+
+        // loading moments My
+
+        bool load_I1_My_end;
+        bool load_I2_My_tra;
+
+        // beam scheme
+
+        bool member_simple; // simple beam
+        bool member_cantilever; // cantilever
+
+        // loading 
+
+        bool member_load_F; // discrete force
+        bool member_load_LF; // uniform load along beam
+
+        // general
 
 
+        bool cs_const; // constant CS
+        bool loading_CS; // true if beam is loaded in CS - Shear centre of CS
+
+        // moment ratio
+
+        double psi_My;
+        double psi_Mz;
 
         // restrain of beam
         double ky_LT;
@@ -160,7 +191,12 @@ namespace CENEX
         double alpha_y;
         double alpha_z;
 
-        
+        // Variables user 
+
+        double _My_max;
+        double _My_025;
+        double _My_050;
+        double _My_075;
 
 
 
@@ -200,8 +236,8 @@ namespace CENEX
         
         {
 
-            if (mat_kind == 3) f = Fy; // steel
-            if (mat_kind == 9) f = Fo; // aluminium
+            if (mat_kind == 3) f = fy; // steel
+            if (mat_kind == 9) f = fo; // aluminium
 
         }
 
@@ -211,6 +247,9 @@ namespace CENEX
          #endregion
         #region Annex I - Informative
         #region Annex I - Factors ky, kz, kw, C1, C2, C3
+
+        double _C10y;
+        double _C11y;
 
         public void EN_1999_1_1_Annex_I_tabI1()
         {
@@ -271,7 +310,6 @@ namespace CENEX
       
         }
 
-
         public void EN_1999_1_1_Annex_I_tabI2()
         {
 
@@ -313,8 +351,6 @@ namespace CENEX
         };
 
         }
-
-
 
         public void EN_1999_1_1_Annex_I_tabI3()
         {
@@ -429,23 +465,98 @@ namespace CENEX
         {
 
 
+            #region I.1.2 Obecny vztah pro nosniky konstantniho prurezu symetricke k jedne z hlavnich os
+
+            double za_LT = 100; // missing formula or DATABASE data
+            double zs_LT = 100; // missing formula or DATABASE data
+            double psi_f_y_LT = 1; // missing formula or DATABASE data
+            double hf = 100;
+            double _Ifc_z = 1000000; // moment setrvačnosti tlačené pásnice k ose nejmenší tuhosti průřezu
+            double _Ift_z = 1100000; // moment setrvačnosti tažené pásnice k ose nejmenší tuhosti průřezu
 
 
 
+            zg_LT = za_LT - zs_LT;
+
+            // page 95:    zj_LT = -0.5/_Iy* (y*y + z*z) z dA.
+
+            // page 159
+            double hs = 10; // missing formula or DATABASE data
+            double c = 10; // missing formula or DATABASE data
+            psi_f_y_LT = (_Ifc_z - _Ift_z) / (_Ifc_z + _Ift_z);
+            zj_LT = 0.45 * psi_f_y_LT * hs * (1 + (c / 2 * hf)); // (I.4)
 
 
 
+            kappa_wt_LT = (Math.PI / (kw_LT * _L_y_LT)) * Math.Sqrt((_E * _Iw) / (_G * _It)); // (I.2)
+            zeta_g_LT = ((Math.PI * zg_LT) / (kz_LT * _L_y_LT)) * Math.Sqrt((_E * _Iz) / (_G * _It));
+            zeta_j_LT = ((Math.PI * zj_LT) / (kz_LT * _L_y_LT)) * Math.Sqrt((_E * _Iz) / (_G * _It));
+
+            #endregion
+
+            
+            // Section I.1.2 (6)
+            if (load_I1_My_end == true && kz_LT == 1)
+                _C1y = Math.Pow((0.310 + 0.428 * psi_My + 0.262 * psi_My * psi_My), 0.5);
+
+            // Table I.1
+
+            if (load_I1_My_end == true && member_simple == true && ky_LT ==1 && kw_LT == 1)
+            {
+                if (kappa_wt_LT <= _C11y) _C1y = _C10y + (_C11y - _C10y);
+                else if (kappa_wt_LT == 0) _C1y = _C10y;
+                else if (kappa_wt_LT >= 1) _C1y = _C11y;
+            }
+
+            // Table I.2
+            if (load_I2_My_tra == true && member_simple == true)
+            {
+                if (kappa_wt_LT <= _C11y) _C1y = _C10y + (_C11y - _C10y);
+                else if (kappa_wt_LT == 0) _C1y = _C10y;
+                else if (kappa_wt_LT >= 1) _C1y = _C11y;
+            }
 
 
+            // Section I.1.3
 
+            // I.1.3 (4)
 
+            if (ky_LT == 1 && kz_LT == 1 && 0.5 <= kw_LT && kw_LT <= 1)
 
+                _C1y = Math.Min((1.7 * Math.Abs(_My_max)) / Math.Sqrt((Math.Pow(_My_025, 2) + Math.Pow(_My_050, 2) + Math.Pow(_My_075, 2))),2.5); // (I.9)
 
+            // I.1.3 (1)
 
+           
+            
+            if (cs_const == true && loading_CS == true && (symmetry_yy == true || symmetry_uu == true))
 
+            {
+                zj_LT = 0;
+                mu_cr_y = _C1y / kz_LT * (Math.Sqrt(1 + Math.Pow(kappa_wt_LT, 2) + Math.Pow(_C2y * zeta_g_LT, 2)) - _C2y * zeta_g_LT); // (I.7)
+            }
 
+            // I.1.3 (2)
 
+            if (cs_const == true && loading_CS == true && (symmetry_yy == true || symmetry_uu == true) && load_I1_My_end == true)
+            {
+                _C2y = 0;
+                zg_LT = 0;
+                zj_LT = 0;
+                mu_cr_y = _C1y / kz_LT * (Math.Sqrt(1 + Math.Pow(kappa_wt_LT, 2))); // (I.8)
+            }
+            // I.1.3 (3)
 
+            if (cs_const == true && loading_CS == true && (symmetry_yy == true || symmetry_uu == true) && load_I1_My_end == true && kappa_wt_LT == 0)
+            {
+                _C2y = 0;
+                zg_LT = 0;
+                zj_LT = 0;
+                kappa_wt_LT = 0;
+               mu_cr_y = _C1y / kz_LT;
+            }
+
+            // Section I.1.4 - Cantilevers
 
 
 
@@ -467,46 +578,23 @@ namespace CENEX
 
             // (2) Bezne podminky ulozeni na obou koncich
 
-            ky_LT = 1; // podepření proti posunutí vzhledem v rovině zatížení, volné natočení v této rovině
-            kz_LT = 1; // vodorovnému posunutí, volné natočení v rovině
-            kw_LT = 1; // podepření proti uložení natočení vzhledem k podélné ose, deplanace umožněna
+            if (
+            ky_LT == 1 && // podepření proti posunutí vzhledem v rovině zatížení, volné natočení v této rovině
+            kz_LT == 1 && // vodorovnému posunutí, volné natočení v rovině
+            kw_LT == 1&& // podepření proti uložení natočení vzhledem k podélné ose, deplanace umožněna
+            symmetry_yy == true) // symetrie prurezu
+                {
 
             _G = _E / (2 *(1 + mat_nu));
 
             _My_cr = ((Math.PI * _E * _Iz) / Math.Pow (_L_y_LT,2)) * Math.Sqrt((Math.Pow(_L_y_LT, 2) / Math.Pow(Math.PI, 2)) * ((_G * _It) / (_E * _Iz)) + _Iw / _Iz); // (I.1)
+                }
 
             #endregion
 
             #region I.1.2 Obecny vztah pro nosniky konstantniho prurezu symetricke k jedne z hlavnich os
 
-            double za_LT = 100; // missing formula or DATABASE data
-            double zs_LT = 100; // missing formula or DATABASE data
-            double psi_f_y_LT = 1; // missing formula or DATABASE data
-            double hf = 100;
-            double _Ifc_z = 1000000; // moment setrvačnosti tlačené pásnice k ose nejmenší tuhosti průřezu
-            double _Ift_z = 1100000; // moment setrvačnosti tažené pásnice k ose nejmenší tuhosti průřezu
-
-
-
-            zg_LT = za_LT - zs_LT;
-
-            // page 95:    zj_LT = -0.5/_Iy* (y*y + z*z) z dA.
-
-            // page 159
-            double hs = 10; // missing formula or DATABASE data
-            double c = 10; // missing formula or DATABASE data
-            psi_f_y_LT = (_Ifc_z - _Ift_z) / (_Ifc_z + _Ift_z);
-            zj_LT = 0.45 * psi_f_y_LT * hs * ( 1 + (c / 2* hf)); // (I.4)
-
-
-
-            kappa_wt_LT = (Math.PI / (kw_LT * _L_y_LT)) * Math.Sqrt((_E * _Iw) / (_G * _It));
-            zeta_g_LT = ((Math.PI * zg_LT) / (kz_LT * _L_y_LT)) * Math.Sqrt((_E * _Iz) / (_G * _It));
-            zeta_j_LT = ((Math.PI * zj_LT) / (kz_LT * _L_y_LT)) * Math.Sqrt((_E * _Iz) / (_G * _It));
-
-
-
-            
+                       
             mu_cr_y = _C1y / kz_LT * ((Math.Sqrt(1 + Math.Pow(kappa_wt_LT, 2) + Math.Pow((_C2y * zeta_g_LT - _C3y * zeta_j_LT), 2))) - (_C2y * zeta_g_LT - _C3y * zeta_j_LT));  // (I.3)
             mu_cr_z = 0.1; //  // just auxiliary not used for calculation,  axis y-y is main,   _Iy > _Iz - it is usual 
        
@@ -524,8 +612,8 @@ namespace CENEX
 
             // Steel NAD CZ
 
-            lambda_y_LT_rel = Math.Sqrt((_Wy * Fy) / _My_cr); // (p.61)
-            lambda_z_LT_rel = Math.Sqrt((_Wz * Fy) / _Mz_cr); // (p.61)
+            lambda_y_LT_rel = Math.Sqrt((_Wy * fy) / _My_cr); // (p.61)
+            lambda_z_LT_rel = Math.Sqrt((_Wz * fy) / _Mz_cr); // (p.61)
 
             // Aluminium Annex I
 
