@@ -3885,10 +3885,20 @@ namespace CENEX
             #region Section 6.2.10 Bending, shear and axial force
             // Section 6.2.10 Bending, shear and axial force
 
+            //(2)
+            if (_Vz_Ed < 0.5 * _Vz_pl_Rd) 
+
+            {
 
 
+            }
+            // (3)
+            else 
+            {
 
+                fy = (1 - ro_V_z) * fy;
 
+            }
 
 
             #endregion
