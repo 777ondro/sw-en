@@ -5567,7 +5567,7 @@ namespace CENEX
                         + "\n"
                         + " 6.2.8 Bending and shear (torsion): " + "\n"
                         + " My.Ed/My.V.Rd = " + Math.Round(Ratio_612y_MV * 100, dec_place_num2).ToString() + " % " + "\n"
-                        + " Mz.Ed/My.V.Rd = " + Math.Round(ratio_612z_MV * 100, dec_place_num2).ToString() + " % " + "\n"
+                        + " Mz.Ed/Mz.V.Rd = " + Math.Round(ratio_612z_MV * 100, dec_place_num2).ToString() + " % " + "\n"
                         + "\n"
                         + " 6.2.9 Bending and axial force (6.31)(6.42)for cross-section classes 1 and 2 or (6.43) for class 3 and (6.44) for class 4: " + "\n"
                         + " σx.Ed/fyd = " + Math.Round(ratio_629_max_d * 100, dec_place_num2).ToString() + " % " + "\n"
