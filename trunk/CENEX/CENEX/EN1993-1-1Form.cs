@@ -65,6 +65,10 @@ namespace CENEX
             get { return item2_check; }
             set { item2_check = value; }
         }
+        bool item3_check;
+        bool item4_check;
+        bool item5_check;
+        bool item6_check;
         
         
         #endregion
@@ -120,23 +124,7 @@ namespace CENEX
             this.loadCombo1();  //loading data to combobox1
             this.loadCombo2();  //loading data to combobox2
             dtform = new DataTableForm(1);    //for inicializing of object default value is 1
-
-
-
-           
-
-
-            // Data from Form: EN1993-1-1MessageBoxes.cs 
-
-            EN1993_1_1MessageBoxes msgb_list = new EN1993_1_1MessageBoxes();
-
-            bool item1_check = msgb_list.Item1_check;
-            bool item2_check = msgb_list.Item2_check;
-            bool item3_check = msgb_list.Item3_check;
-            
-
-
-            
+          
         }
         public void Annex(int annex_num1)
         {
@@ -984,7 +972,7 @@ namespace CENEX
 
             //Main class object
 
-            EN1993_1_1 en = new EN1993_1_1(comboBox1.Text, comboBox2.Text);
+            EN1993_1_1 en = new EN1993_1_1(comboBox1.Text, comboBox2.Text,item3_check,item4_check,item5_check,item6_check);
 
 
 
@@ -2088,7 +2076,18 @@ namespace CENEX
         private void messageBoxesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EN1993_1_1MessageBoxes i = new EN1993_1_1MessageBoxes ();
-            i.ShowDialog();
+            if (i.ShowDialog() == DialogResult.OK) 
+            {
+                item0_check = i.SelectedItems[0];
+                item1_check = i.SelectedItems[1];
+                item2_check = i.SelectedItems[2];
+                item3_check = i.SelectedItems[3];
+                item4_check = i.SelectedItems[4];
+                item5_check = i.SelectedItems[5];
+                item6_check = i.SelectedItems[6];
+                
+            }
+
         }
         private void export_Click(object sender, EventArgs e)
         {

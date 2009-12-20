@@ -2065,7 +2065,7 @@ namespace CENEX
         OleDbDataReader dat_reader;
         DatabaseConnection dat_conn;
         
-        public EN1993_1_1(string combo1, string combo2)
+        public EN1993_1_1(string combo1, string combo2,bool item3,bool item4, bool item5, bool item6)
         {
 
             string sql1;
@@ -2720,13 +2720,10 @@ namespace CENEX
 
 
             // Data from Form: EN1993-1-1MessageBoxes.cs 
-
-            EN1993_1_1MessageBoxes msgb_list = new EN1993_1_1MessageBoxes();
-
-            bool item3_check = msgb_list.Item3_check;
-            bool item4_check = msgb_list.Item4_check;
-            bool item5_check = msgb_list.Item5_check;
-            bool item6_check = msgb_list.Item6_check; 
+            this.item3_check = item3;
+            this.item4_check = item4;
+            this.item5_check = item5;
+            this.item6_check = item6;
              
 
         }
