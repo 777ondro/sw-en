@@ -74,6 +74,12 @@ namespace CENEX
             inAlForm.ShowDialog();
         }
 
+        private void fontsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1_specimens a = new Form1_specimens();
+            a.ShowDialog();
+        }
+
         
         
 
