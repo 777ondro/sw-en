@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="062_FNLabel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v3.5\WindowsCE\062_FNLabel.dll</HintPath>
+    </Reference>
     <Reference Include="CheckBoxComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\CheckBoxComboBox.dll</HintPath>
@@ -149,6 +153,15 @@
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportToExcel.cs" />
+    <Compile Include="FontListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1_specimens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1_specimens.Designer.cs">
+      <DependentUpon>Form1_specimens.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +214,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EN1999-1-1MessageBoxes.resx">
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1_specimens.resx">
+      <DependentUpon>Form1_specimens.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
