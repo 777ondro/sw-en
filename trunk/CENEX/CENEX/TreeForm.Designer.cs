@@ -149,52 +149,41 @@
             System.Windows.Forms.TreeNode treeNode65 = new System.Windows.Forms.TreeNode("EC4", new System.Windows.Forms.TreeNode[] {
             treeNode63,
             treeNode64});
-            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("Girder - positive bending");
-            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("Girder - negative bending");
-            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("Truss girder - positive bending");
-            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("Girder", new System.Windows.Forms.TreeNode[] {
-            treeNode65,
-            treeNode66,
+            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("Composite", new System.Windows.Forms.TreeNode[] {
+            treeNode65});
+            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("EN 1995-1-1");
+            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("EN 1995-1-2");
+            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("EN 1995-1", new System.Windows.Forms.TreeNode[] {
             treeNode67,
             treeNode68});
-            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("Column");
-            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("Composite", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("EN 1995-2");
+            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("EC5", new System.Windows.Forms.TreeNode[] {
             treeNode69,
             treeNode70});
-            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("EN 1995-1-1");
-            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("EN 1995-1-2");
-            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("EN 1995-1", new System.Windows.Forms.TreeNode[] {
-            treeNode72,
-            treeNode73});
-            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("EN 1995-2");
-            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("EC5", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("Timber", new System.Windows.Forms.TreeNode[] {
+            treeNode71});
+            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("EN 1999-1-1");
+            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("EN 1999-1-2");
+            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("EN 1999-1-3");
+            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("EN 1999-1-4");
+            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("EN 1999-1-5");
+            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("EN 1999-1", new System.Windows.Forms.TreeNode[] {
+            treeNode73,
             treeNode74,
-            treeNode75});
-            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("Timber", new System.Windows.Forms.TreeNode[] {
-            treeNode76});
-            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("EN 1999-1-1");
-            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("EN 1999-1-2");
-            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("EN 1999-1-3");
-            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("EN 1999-1-4");
-            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("EN 1999-1-5");
-            System.Windows.Forms.TreeNode treeNode83 = new System.Windows.Forms.TreeNode("EN 1999-1", new System.Windows.Forms.TreeNode[] {
-            treeNode78,
-            treeNode79,
-            treeNode80,
-            treeNode81,
-            treeNode82});
-            System.Windows.Forms.TreeNode treeNode84 = new System.Windows.Forms.TreeNode("EC9", new System.Windows.Forms.TreeNode[] {
-            treeNode83});
-            System.Windows.Forms.TreeNode treeNode85 = new System.Windows.Forms.TreeNode("Alluminium", new System.Windows.Forms.TreeNode[] {
-            treeNode84});
-            System.Windows.Forms.TreeNode treeNode86 = new System.Windows.Forms.TreeNode("Bridges");
-            System.Windows.Forms.TreeNode treeNode87 = new System.Windows.Forms.TreeNode("Moduls", new System.Windows.Forms.TreeNode[] {
+            treeNode75,
+            treeNode76,
+            treeNode77});
+            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("EC9", new System.Windows.Forms.TreeNode[] {
+            treeNode78});
+            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("Alluminium", new System.Windows.Forms.TreeNode[] {
+            treeNode79});
+            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("Codes", new System.Windows.Forms.TreeNode[] {
             treeNode53,
             treeNode60,
-            treeNode71,
-            treeNode77,
-            treeNode85,
-            treeNode86});
+            treeNode66,
+            treeNode72,
+            treeNode80});
+            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("Moduls");
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
@@ -344,52 +333,42 @@
             treeNode64.Text = "EN 1994-2";
             treeNode65.Name = "EC4";
             treeNode65.Text = "EC4";
-            treeNode66.Name = "Node15";
-            treeNode66.Text = "Girder - positive bending";
-            treeNode67.Name = "Node16";
-            treeNode67.Text = "Girder - negative bending";
-            treeNode68.Name = "Node18";
-            treeNode68.Text = "Truss girder - positive bending";
-            treeNode69.Name = "Node19";
-            treeNode69.Text = "Girder";
-            treeNode70.Name = "Node17";
-            treeNode70.Text = "Column";
-            treeNode71.Name = "Node10";
-            treeNode71.Text = "Composite";
-            treeNode72.Name = "EN1995-1-1";
-            treeNode72.Text = "EN 1995-1-1";
-            treeNode73.Name = "EN1995-1-2";
-            treeNode73.Text = "EN 1995-1-2";
-            treeNode74.Name = "EN1995-1";
-            treeNode74.Text = "EN 1995-1";
-            treeNode75.Name = "EN1995-2";
-            treeNode75.Text = "EN 1995-2";
-            treeNode76.Name = "EC5";
-            treeNode76.Text = "EC5";
-            treeNode77.Name = "Node11";
-            treeNode77.Text = "Timber";
-            treeNode78.Name = "EN 1999-1-1";
-            treeNode78.Text = "EN 1999-1-1";
-            treeNode79.Name = "EN 1999-1-2";
-            treeNode79.Text = "EN 1999-1-2";
-            treeNode80.Name = "EN 1999-1-3";
-            treeNode80.Text = "EN 1999-1-3";
-            treeNode81.Name = "EN1999-1-4";
-            treeNode81.Text = "EN 1999-1-4";
-            treeNode82.Name = "EN1999-1-5";
-            treeNode82.Text = "EN 1999-1-5";
-            treeNode83.Name = "EN1999-1";
-            treeNode83.Text = "EN 1999-1";
-            treeNode84.Name = "EC9";
-            treeNode84.Text = "EC9";
-            treeNode85.Name = "Node46";
-            treeNode85.Text = "Alluminium";
-            treeNode86.Name = "Node14";
-            treeNode86.Text = "Bridges";
-            treeNode87.ForeColor = System.Drawing.Color.Purple;
-            treeNode87.Name = "Node45";
-            treeNode87.NodeFont = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode87.Text = "Moduls";
+            treeNode66.Name = "Node10";
+            treeNode66.Text = "Composite";
+            treeNode67.Name = "EN1995-1-1";
+            treeNode67.Text = "EN 1995-1-1";
+            treeNode68.Name = "EN1995-1-2";
+            treeNode68.Text = "EN 1995-1-2";
+            treeNode69.Name = "EN1995-1";
+            treeNode69.Text = "EN 1995-1";
+            treeNode70.Name = "EN1995-2";
+            treeNode70.Text = "EN 1995-2";
+            treeNode71.Name = "EC5";
+            treeNode71.Text = "EC5";
+            treeNode72.Name = "Node11";
+            treeNode72.Text = "Timber";
+            treeNode73.Name = "EN 1999-1-1";
+            treeNode73.Text = "EN 1999-1-1";
+            treeNode74.Name = "EN 1999-1-2";
+            treeNode74.Text = "EN 1999-1-2";
+            treeNode75.Name = "EN 1999-1-3";
+            treeNode75.Text = "EN 1999-1-3";
+            treeNode76.Name = "EN1999-1-4";
+            treeNode76.Text = "EN 1999-1-4";
+            treeNode77.Name = "EN1999-1-5";
+            treeNode77.Text = "EN 1999-1-5";
+            treeNode78.Name = "EN1999-1";
+            treeNode78.Text = "EN 1999-1";
+            treeNode79.Name = "EC9";
+            treeNode79.Text = "EC9";
+            treeNode80.Name = "Node46";
+            treeNode80.Text = "Alluminium";
+            treeNode81.ForeColor = System.Drawing.Color.Purple;
+            treeNode81.Name = "Node45";
+            treeNode81.NodeFont = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode81.Text = "Codes";
+            treeNode82.Name = "Moduls";
+            treeNode82.Text = "Moduls";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode6,
             treeNode15,
@@ -397,7 +376,8 @@
             treeNode17,
             treeNode18,
             treeNode42,
-            treeNode87});
+            treeNode81,
+            treeNode82});
             this.treeView1.Size = new System.Drawing.Size(216, 416);
             this.treeView1.TabIndex = 18;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
