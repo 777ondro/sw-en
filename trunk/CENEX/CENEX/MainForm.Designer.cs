@@ -143,7 +143,7 @@
             this.HL_Menu.Location = new System.Drawing.Point(0, 0);
             this.HL_Menu.Name = "HL_Menu";
             this.HL_Menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.HL_Menu.Size = new System.Drawing.Size(694, 24);
+            this.HL_Menu.Size = new System.Drawing.Size(892, 24);
             this.HL_Menu.TabIndex = 10;
             this.HL_Menu.Text = "menuStrip1";
             // 
@@ -170,7 +170,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem1
@@ -776,7 +776,7 @@
             this.helpToolStripButton});
             this.Standard.Location = new System.Drawing.Point(0, 24);
             this.Standard.Name = "Standard";
-            this.Standard.Size = new System.Drawing.Size(694, 25);
+            this.Standard.Size = new System.Drawing.Size(892, 25);
             this.Standard.TabIndex = 11;
             this.Standard.Text = "Standard";
             // 
@@ -865,9 +865,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CENEX.Properties.Resources.LOGO1;
-            this.pictureBox1.Location = new System.Drawing.Point(172, 138);
+            this.pictureBox1.Location = new System.Drawing.Point(172, 62);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(510, 382);
+            this.pictureBox1.Size = new System.Drawing.Size(706, 499);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
@@ -883,13 +883,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 614);
+            this.ClientSize = new System.Drawing.Size(892, 573);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Standard);
             this.Controls.Add(this.HL_Menu);
+            this.MaximumSize = new System.Drawing.Size(1200, 750);
+            this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CENEX";
+            this.Text = "Main Dialog";
             this.HL_Menu.ResumeLayout(false);
             this.HL_Menu.PerformLayout();
             this.Standard.ResumeLayout(false);
