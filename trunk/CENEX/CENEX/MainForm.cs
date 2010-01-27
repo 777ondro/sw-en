@@ -79,6 +79,51 @@ namespace CENEX
             Form1_specimens a = new Form1_specimens();
             a.ShowDialog();
         }
+        private void eC1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void eC2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EN1992_1_1Form obj_EN1992_1_1Form = new EN1992_1_1Form();
+            obj_EN1992_1_1Form.ShowDialog();
+        }
+        private void eC3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EN1993_1_1Form obj_EN1993_1_1Form = new EN1993_1_1Form ();
+            obj_EN1993_1_1Form.ShowDialog();
+        }
+        private void eC4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void eC5ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void eC6ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void eC7ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void eC8ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void eC9ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EN1999_1_1Form obj_EN1999_1_1Form = new EN1999_1_1Form();
+            obj_EN1999_1_1Form.ShowDialog();
+        }
+
+        
 
         
         
