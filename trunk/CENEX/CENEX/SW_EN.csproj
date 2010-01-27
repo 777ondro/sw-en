@@ -66,100 +66,100 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSCClass.cs" />
-    <Compile Include="CSGClass.cs" />
-    <Compile Include="CSO.cs" />
-    <Compile Include="CSOForm.cs">
+    <Compile Include="DATABASE\CRSC\CSCClass.cs" />
+    <Compile Include="DATABASE\CRSC\CSGClass.cs" />
+    <Compile Include="DATABASE\CRSC\CSO.cs" />
+    <Compile Include="DATABASE\CRSC\CSOForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CSOForm.Designer.cs">
+    <Compile Include="DATABASE\CRSC\CSOForm.Designer.cs">
       <DependentUpon>CSOForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CSOClass.cs" />
-    <Compile Include="EN1992-1-1.cs" />
-    <Compile Include="EN1992-1-1Form.cs">
+    <Compile Include="DATABASE\CRSC\CSOClass.cs" />
+    <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1.cs" />
+    <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1992-1-1Form.Designer.cs">
+    <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1Form.Designer.cs">
       <DependentUpon>EN1992-1-1Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1KcForm.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1KcForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1KcForm.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1KcForm.Designer.cs">
       <DependentUpon>EN1993-1-1KcForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSet1.cs">
+    <Compile Include="TEMPORARY\DataSet1.cs">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1AnnexForm.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1AnnexForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1AnnexForm.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1AnnexForm.Designer.cs">
       <DependentUpon>EN1993-1-1AnnexForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1CheckedListInfo.cs" />
-    <Compile Include="DatabaseConnection.cs" />
-    <Compile Include="DataSet1.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1CheckedListInfo.cs" />
+    <Compile Include="DATABASE\DatabaseConnection.cs" />
+    <Compile Include="TEMPORARY\DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1DataSet.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1DataSet.cs">
       <DependentUpon>EN1993-1-1DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1DataSet.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EN1993-1-1DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1DataTableForm.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1DataTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1DataTableForm.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1DataTableForm.Designer.cs">
       <DependentUpon>EN1993-1-1DataTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1.cs" />
-    <Compile Include="EN1993-1-1Form.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1.cs" />
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1Form.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1Form.Designer.cs">
       <DependentUpon>EN1993-1-1Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1MessageBoxes.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1MessageBoxes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1MessageBoxes.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1MessageBoxes.Designer.cs">
       <DependentUpon>EN1993-1-1MessageBoxes.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1999-1-1.cs" />
-    <Compile Include="EN1999-1-1Annex_I.cs" />
-    <Compile Include="EN1999-1-1Annex_I_Form.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1.cs" />
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Annex_I.cs" />
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Annex_I_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1999-1-1Annex_I_Form.Designer.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Annex_I_Form.Designer.cs">
       <DependentUpon>EN1999-1-1Annex_I_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1999-1-1Form.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1999-1-1Form.Designer.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Form.Designer.cs">
       <DependentUpon>EN1999-1-1Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1999-1-1MessageBoxes.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1MessageBoxes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1999-1-1MessageBoxes.Designer.cs">
+    <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1MessageBoxes.Designer.cs">
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportToExcel.cs" />
-    <Compile Include="FontListForm.cs">
+    <Compile Include="GENERAL\IMP_EXP\ExportToExcel.cs" />
+    <Compile Include="TEMPORARY\FontListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_specimens.cs">
+    <Compile Include="TEMPORARY\Form1_specimens.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_specimens.Designer.cs">
+    <Compile Include="TEMPORARY\Form1_specimens.Designer.cs">
       <DependentUpon>Form1_specimens.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -168,55 +168,55 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EN1993-1-1CSPictureForm.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1CSPictureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EN1993-1-1CSPictureForm.Designer.cs">
+    <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1CSPictureForm.Designer.cs">
       <DependentUpon>EN1993-1-1CSPictureForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CSOForm.resx">
+    <EmbeddedResource Include="DATABASE\CRSC\CSOForm.resx">
       <DependentUpon>CSOForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1992-1-1Form.resx">
+    <EmbeddedResource Include="MODULES\02_CONCRETE\EC2\EN1992-1-1Form.resx">
       <DependentUpon>EN1992-1-1Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1KcForm.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1KcForm.resx">
       <DependentUpon>EN1993-1-1KcForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1AnnexForm.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1AnnexForm.resx">
       <DependentUpon>EN1993-1-1AnnexForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1DataTableForm.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1DataTableForm.resx">
       <DependentUpon>EN1993-1-1DataTableForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1Form.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1Form.resx">
       <DependentUpon>EN1993-1-1Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1MessageBoxes.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1MessageBoxes.resx">
       <DependentUpon>EN1993-1-1MessageBoxes.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1999-1-1Annex_I_Form.resx">
+    <EmbeddedResource Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Annex_I_Form.resx">
       <DependentUpon>EN1999-1-1Annex_I_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1999-1-1Form.resx">
+    <EmbeddedResource Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1Form.resx">
       <DependentUpon>EN1999-1-1Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1999-1-1MessageBoxes.resx">
+    <EmbeddedResource Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1MessageBoxes.resx">
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1_specimens.resx">
+    <EmbeddedResource Include="TEMPORARY\Form1_specimens.resx">
       <DependentUpon>Form1_specimens.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -224,7 +224,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="EN1993-1-1CSPictureForm.resx">
+    <EmbeddedResource Include="MODULES\03_STEEL\EC3\EN1993-1-1CSPictureForm.resx">
       <DependentUpon>EN1993-1-1CSPictureForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -237,19 +237,19 @@
       <DependentUpon>TreeForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TZBForm.resx">
+    <EmbeddedResource Include="TEMPORARY\TZBForm.resx">
       <DependentUpon>TZBForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="EN1993-1-1DataSet.xsc">
+    <None Include="MODULES\03_STEEL\EC3\EN1993-1-1DataSet.xsc">
       <DependentUpon>EN1993-1-1DataSet.xsd</DependentUpon>
     </None>
-    <None Include="EN1993-1-1DataSet.xsd">
+    <None Include="MODULES\03_STEEL\EC3\EN1993-1-1DataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EN1993-1-1DataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="EN1993-1-1DataSet.xss">
+    <None Include="MODULES\03_STEEL\EC3\EN1993-1-1DataSet.xss">
       <DependentUpon>EN1993-1-1DataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
@@ -272,25 +272,25 @@
     <Compile Include="TreeForm.Designer.cs">
       <DependentUpon>TreeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TZBclass.cs" />
-    <Compile Include="TZBForm.cs">
+    <Compile Include="TEMPORARY\TZBclass.cs" />
+    <Compile Include="TEMPORARY\TZBForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TZBForm.Designer.cs">
+    <Compile Include="TEMPORARY\TZBForm.Designer.cs">
       <DependentUpon>TZBForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="DataSet1.xsc">
+    <None Include="TEMPORARY\DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
-    <None Include="DataSet1.xsd">
+    <None Include="TEMPORARY\DataSet1.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
     </None>
-    <None Include="DataSet1.xss">
+    <None Include="TEMPORARY\DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
   </ItemGroup>
@@ -401,6 +401,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\I4_M_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DATABASE\MAT\" />
+    <Folder Include="GENERAL\MATH\" />
+    <Folder Include="MAIN\" />
+    <Folder Include="MODULES\01_LOAD\EC1\" />
+    <Folder Include="MODULES\04_COMPOSITE_SC\EC4\" />
+    <Folder Include="MODULES\05_TIMBER\EC5\" />
+    <Folder Include="MODULES\06_MANSONRY\" />
+    <Folder Include="MODULES\07_GEOTECHNIC\" />
+    <Folder Include="MODULES\08_EARTHQUAKE\EC8\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
