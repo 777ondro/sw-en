@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace CENEX {
+namespace CENEX.MODULES._03_STEEL.EC3 {
     
     
     /// <summary>
@@ -21,16 +21,16 @@ namespace CENEX {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("DataSet1")]
+    [global::System.Xml.Serialization.XmlRootAttribute("DataSetSteelInfo")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class DataSet1 : global::System.Data.DataSet {
+    public partial class DataSetSteelInfo : global::System.Data.DataSet {
         
-        private DataTable1DataTable tableDataTable1;
+        private DataTableSteelInfoDataTable tableDataTableSteelInfo;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public DataSet1() {
+        public DataSetSteelInfo() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -40,7 +40,7 @@ namespace CENEX {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected DataSet1(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected DataSetSteelInfo(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -53,8 +53,8 @@ namespace CENEX {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["DataTable1"] != null)) {
-                    base.Tables.Add(new DataTable1DataTable(ds.Tables["DataTable1"]));
+                if ((ds.Tables["DataTableSteelInfo"] != null)) {
+                    base.Tables.Add(new DataTableSteelInfoDataTable(ds.Tables["DataTableSteelInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -77,9 +77,9 @@ namespace CENEX {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DataTable1DataTable DataTable1 {
+        public DataTableSteelInfoDataTable DataTableSteelInfo {
             get {
-                return this.tableDataTable1;
+                return this.tableDataTableSteelInfo;
             }
         }
         
@@ -120,7 +120,7 @@ namespace CENEX {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public override global::System.Data.DataSet Clone() {
-            DataSet1 cln = ((DataSet1)(base.Clone()));
+            DataSetSteelInfo cln = ((DataSetSteelInfo)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -142,8 +142,8 @@ namespace CENEX {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["DataTable1"] != null)) {
-                    base.Tables.Add(new DataTable1DataTable(ds.Tables["DataTable1"]));
+                if ((ds.Tables["DataTableSteelInfo"] != null)) {
+                    base.Tables.Add(new DataTableSteelInfoDataTable(ds.Tables["DataTableSteelInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -175,27 +175,27 @@ namespace CENEX {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         internal void InitVars(bool initTable) {
-            this.tableDataTable1 = ((DataTable1DataTable)(base.Tables["DataTable1"]));
+            this.tableDataTableSteelInfo = ((DataTableSteelInfoDataTable)(base.Tables["DataTableSteelInfo"]));
             if ((initTable == true)) {
-                if ((this.tableDataTable1 != null)) {
-                    this.tableDataTable1.InitVars();
+                if ((this.tableDataTableSteelInfo != null)) {
+                    this.tableDataTableSteelInfo.InitVars();
                 }
             }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitClass() {
-            this.DataSetName = "DataSet1";
+            this.DataSetName = "DataSetSteelInfo";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/DataSet1.xsd";
+            this.Namespace = "http://tempuri.org/DataSetSteelInfo.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableDataTable1 = new DataTable1DataTable();
-            base.Tables.Add(this.tableDataTable1);
+            this.tableDataTableSteelInfo = new DataTableSteelInfoDataTable();
+            base.Tables.Add(this.tableDataTableSteelInfo);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeDataTable1() {
+        private bool ShouldSerializeDataTableSteelInfo() {
             return false;
         }
         
@@ -208,7 +208,7 @@ namespace CENEX {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            DataSet1 ds = new DataSet1();
+            DataSetSteelInfo ds = new DataSetSteelInfo();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -252,7 +252,7 @@ namespace CENEX {
             return type;
         }
         
-        public delegate void DataTable1RowChangeEventHandler(object sender, DataTable1RowChangeEvent e);
+        public delegate void DataTableSteelInfoRowChangeEventHandler(object sender, DataTableSteelInfoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -260,30 +260,36 @@ namespace CENEX {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class DataTable1DataTable : global::System.Data.TypedTableBase<DataTable1Row> {
+        public partial class DataTableSteelInfoDataTable : global::System.Data.TypedTableBase<DataTableSteelInfoRow> {
             
-            private global::System.Data.DataColumn column1;
+            private global::System.Data.DataColumn columnPremenna;
             
-            private global::System.Data.DataColumn column2;
+            private global::System.Data.DataColumn columnHodnota;
             
-            private global::System.Data.DataColumn column3;
+            private global::System.Data.DataColumn columnJednotka;
             
-            private global::System.Data.DataColumn column4;
+            private global::System.Data.DataColumn columnPremenna1;
             
-            private global::System.Data.DataColumn column5;
+            private global::System.Data.DataColumn columnHodnota1;
             
-            private global::System.Data.DataColumn column6;
+            private global::System.Data.DataColumn columnJednotka1;
+            
+            private global::System.Data.DataColumn columnPremenna2;
+            
+            private global::System.Data.DataColumn columnHodnota2;
+            
+            private global::System.Data.DataColumn columnJednotka2;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1DataTable() {
-                this.TableName = "DataTable1";
+            public DataTableSteelInfoDataTable() {
+                this.TableName = "DataTableSteelInfo";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal DataTable1DataTable(global::System.Data.DataTable table) {
+            internal DataTableSteelInfoDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -299,50 +305,71 @@ namespace CENEX {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected DataTable1DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected DataTableSteelInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _1Column {
+            public global::System.Data.DataColumn PremennaColumn {
                 get {
-                    return this.column1;
+                    return this.columnPremenna;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _2Column {
+            public global::System.Data.DataColumn HodnotaColumn {
                 get {
-                    return this.column2;
+                    return this.columnHodnota;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _3Column {
+            public global::System.Data.DataColumn JednotkaColumn {
                 get {
-                    return this.column3;
+                    return this.columnJednotka;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _4Column {
+            public global::System.Data.DataColumn Premenna1Column {
                 get {
-                    return this.column4;
+                    return this.columnPremenna1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _5Column {
+            public global::System.Data.DataColumn Hodnota1Column {
                 get {
-                    return this.column5;
+                    return this.columnHodnota1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn _6Column {
+            public global::System.Data.DataColumn Jednotka1Column {
                 get {
-                    return this.column6;
+                    return this.columnJednotka1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn Premenna2Column {
+                get {
+                    return this.columnPremenna2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn Hodnota2Column {
+                get {
+                    return this.columnHodnota2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn Jednotka2Column {
+                get {
+                    return this.columnJednotka2;
                 }
             }
             
@@ -355,139 +382,139 @@ namespace CENEX {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1Row this[int index] {
+            public DataTableSteelInfoRow this[int index] {
                 get {
-                    return ((DataTable1Row)(this.Rows[index]));
+                    return ((DataTableSteelInfoRow)(this.Rows[index]));
                 }
             }
             
-            public event DataTable1RowChangeEventHandler DataTable1RowChanging;
+            public event DataTableSteelInfoRowChangeEventHandler DataTableSteelInfoRowChanging;
             
-            public event DataTable1RowChangeEventHandler DataTable1RowChanged;
+            public event DataTableSteelInfoRowChangeEventHandler DataTableSteelInfoRowChanged;
             
-            public event DataTable1RowChangeEventHandler DataTable1RowDeleting;
+            public event DataTableSteelInfoRowChangeEventHandler DataTableSteelInfoRowDeleting;
             
-            public event DataTable1RowChangeEventHandler DataTable1RowDeleted;
+            public event DataTableSteelInfoRowChangeEventHandler DataTableSteelInfoRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddDataTable1Row(DataTable1Row row) {
+            public void AddDataTableSteelInfoRow(DataTableSteelInfoRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1Row AddDataTable1Row(string _1, string _2, string _3, string _4, string _5, string _6) {
-                DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
+            public DataTableSteelInfoRow AddDataTableSteelInfoRow(string Premenna, string Hodnota, string Jednotka, string Premenna1, string Hodnota1, string Jednotka1, string Premenna2, string Hodnota2, string Jednotka2) {
+                DataTableSteelInfoRow rowDataTableSteelInfoRow = ((DataTableSteelInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        _1,
-                        _2,
-                        _3,
-                        _4,
-                        _5,
-                        _6};
-                rowDataTable1Row.ItemArray = columnValuesArray;
-                this.Rows.Add(rowDataTable1Row);
-                return rowDataTable1Row;
+                        Premenna,
+                        Hodnota,
+                        Jednotka,
+                        Premenna1,
+                        Hodnota1,
+                        Jednotka1,
+                        Premenna2,
+                        Hodnota2,
+                        Jednotka2};
+                rowDataTableSteelInfoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDataTableSteelInfoRow);
+                return rowDataTableSteelInfoRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override global::System.Data.DataTable Clone() {
-                DataTable1DataTable cln = ((DataTable1DataTable)(base.Clone()));
+                DataTableSteelInfoDataTable cln = ((DataTableSteelInfoDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new DataTable1DataTable();
+                return new DataTableSteelInfoDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
-                this.column1 = base.Columns["1"];
-                this.column2 = base.Columns["2"];
-                this.column3 = base.Columns["3"];
-                this.column4 = base.Columns["4"];
-                this.column5 = base.Columns["5"];
-                this.column6 = base.Columns["6"];
+                this.columnPremenna = base.Columns["Premenna"];
+                this.columnHodnota = base.Columns["Hodnota"];
+                this.columnJednotka = base.Columns["Jednotka"];
+                this.columnPremenna1 = base.Columns["Premenna1"];
+                this.columnHodnota1 = base.Columns["Hodnota1"];
+                this.columnJednotka1 = base.Columns["Jednotka1"];
+                this.columnPremenna2 = base.Columns["Premenna2"];
+                this.columnHodnota2 = base.Columns["Hodnota2"];
+                this.columnJednotka2 = base.Columns["Jednotka2"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
-                this.column1 = new global::System.Data.DataColumn("1", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column1.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column1");
-                this.column1.ExtendedProperties.Add("Generator_UserColumnName", "1");
-                base.Columns.Add(this.column1);
-                this.column2 = new global::System.Data.DataColumn("2", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column2.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column2");
-                this.column2.ExtendedProperties.Add("Generator_UserColumnName", "2");
-                base.Columns.Add(this.column2);
-                this.column3 = new global::System.Data.DataColumn("3", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column3.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column3");
-                this.column3.ExtendedProperties.Add("Generator_UserColumnName", "3");
-                base.Columns.Add(this.column3);
-                this.column4 = new global::System.Data.DataColumn("4", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column4.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column4");
-                this.column4.ExtendedProperties.Add("Generator_UserColumnName", "4");
-                base.Columns.Add(this.column4);
-                this.column5 = new global::System.Data.DataColumn("5", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column5.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column5");
-                this.column5.ExtendedProperties.Add("Generator_UserColumnName", "5");
-                base.Columns.Add(this.column5);
-                this.column6 = new global::System.Data.DataColumn("6", typeof(string), null, global::System.Data.MappingType.Element);
-                this.column6.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column6");
-                this.column6.ExtendedProperties.Add("Generator_UserColumnName", "6");
-                base.Columns.Add(this.column6);
+                this.columnPremenna = new global::System.Data.DataColumn("Premenna", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPremenna);
+                this.columnHodnota = new global::System.Data.DataColumn("Hodnota", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHodnota);
+                this.columnJednotka = new global::System.Data.DataColumn("Jednotka", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJednotka);
+                this.columnPremenna1 = new global::System.Data.DataColumn("Premenna1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPremenna1);
+                this.columnHodnota1 = new global::System.Data.DataColumn("Hodnota1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHodnota1);
+                this.columnJednotka1 = new global::System.Data.DataColumn("Jednotka1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJednotka1);
+                this.columnPremenna2 = new global::System.Data.DataColumn("Premenna2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPremenna2);
+                this.columnHodnota2 = new global::System.Data.DataColumn("Hodnota2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHodnota2);
+                this.columnJednotka2 = new global::System.Data.DataColumn("Jednotka2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJednotka2);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1Row NewDataTable1Row() {
-                return ((DataTable1Row)(this.NewRow()));
+            public DataTableSteelInfoRow NewDataTableSteelInfoRow() {
+                return ((DataTableSteelInfoRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new DataTable1Row(builder);
+                return new DataTableSteelInfoRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Type GetRowType() {
-                return typeof(DataTable1Row);
+                return typeof(DataTableSteelInfoRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.DataTable1RowChanged != null)) {
-                    this.DataTable1RowChanged(this, new DataTable1RowChangeEvent(((DataTable1Row)(e.Row)), e.Action));
+                if ((this.DataTableSteelInfoRowChanged != null)) {
+                    this.DataTableSteelInfoRowChanged(this, new DataTableSteelInfoRowChangeEvent(((DataTableSteelInfoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.DataTable1RowChanging != null)) {
-                    this.DataTable1RowChanging(this, new DataTable1RowChangeEvent(((DataTable1Row)(e.Row)), e.Action));
+                if ((this.DataTableSteelInfoRowChanging != null)) {
+                    this.DataTableSteelInfoRowChanging(this, new DataTableSteelInfoRowChangeEvent(((DataTableSteelInfoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.DataTable1RowDeleted != null)) {
-                    this.DataTable1RowDeleted(this, new DataTable1RowChangeEvent(((DataTable1Row)(e.Row)), e.Action));
+                if ((this.DataTableSteelInfoRowDeleted != null)) {
+                    this.DataTableSteelInfoRowDeleted(this, new DataTableSteelInfoRowChangeEvent(((DataTableSteelInfoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.DataTable1RowDeleting != null)) {
-                    this.DataTable1RowDeleting(this, new DataTable1RowChangeEvent(((DataTable1Row)(e.Row)), e.Action));
+                if ((this.DataTableSteelInfoRowDeleting != null)) {
+                    this.DataTableSteelInfoRowDeleting(this, new DataTableSteelInfoRowChangeEvent(((DataTableSteelInfoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveDataTable1Row(DataTable1Row row) {
+            public void RemoveDataTableSteelInfoRow(DataTableSteelInfoRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -495,7 +522,7 @@ namespace CENEX {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DataSet1 ds = new DataSet1();
+                DataSetSteelInfo ds = new DataSetSteelInfo();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -513,7 +540,7 @@ namespace CENEX {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "DataTable1DataTable";
+                attribute2.FixedValue = "DataTableSteelInfoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -558,164 +585,239 @@ namespace CENEX {
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class DataTable1Row : global::System.Data.DataRow {
+        public partial class DataTableSteelInfoRow : global::System.Data.DataRow {
             
-            private DataTable1DataTable tableDataTable1;
+            private DataTableSteelInfoDataTable tableDataTableSteelInfo;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal DataTable1Row(global::System.Data.DataRowBuilder rb) : 
+            internal DataTableSteelInfoRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableDataTable1 = ((DataTable1DataTable)(this.Table));
+                this.tableDataTableSteelInfo = ((DataTableSteelInfoDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _1 {
+            public string Premenna {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._1Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.PremennaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'1\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Premenna\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._1Column] = value;
+                    this[this.tableDataTableSteelInfo.PremennaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _2 {
+            public string Hodnota {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._2Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.HodnotaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'2\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Hodnota\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._2Column] = value;
+                    this[this.tableDataTableSteelInfo.HodnotaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _3 {
+            public string Jednotka {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._3Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.JednotkaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'3\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Jednotka\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._3Column] = value;
+                    this[this.tableDataTableSteelInfo.JednotkaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _4 {
+            public string Premenna1 {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._4Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.Premenna1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'4\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Premenna1\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._4Column] = value;
+                    this[this.tableDataTableSteelInfo.Premenna1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _5 {
+            public string Hodnota1 {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._5Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.Hodnota1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'5\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Hodnota1\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._5Column] = value;
+                    this[this.tableDataTableSteelInfo.Hodnota1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string _6 {
+            public string Jednotka1 {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1._6Column]));
+                        return ((string)(this[this.tableDataTableSteelInfo.Jednotka1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'6\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Jednotka1\' in table \'DataTableSteelInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1._6Column] = value;
+                    this[this.tableDataTableSteelInfo.Jednotka1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_1Null() {
-                return this.IsNull(this.tableDataTable1._1Column);
+            public string Premenna2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableSteelInfo.Premenna2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Premenna2\' in table \'DataTableSteelInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableSteelInfo.Premenna2Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_1Null() {
-                this[this.tableDataTable1._1Column] = global::System.Convert.DBNull;
+            public string Hodnota2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableSteelInfo.Hodnota2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Hodnota2\' in table \'DataTableSteelInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableSteelInfo.Hodnota2Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_2Null() {
-                return this.IsNull(this.tableDataTable1._2Column);
+            public string Jednotka2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTableSteelInfo.Jednotka2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Jednotka2\' in table \'DataTableSteelInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTableSteelInfo.Jednotka2Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_2Null() {
-                this[this.tableDataTable1._2Column] = global::System.Convert.DBNull;
+            public bool IsPremennaNull() {
+                return this.IsNull(this.tableDataTableSteelInfo.PremennaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_3Null() {
-                return this.IsNull(this.tableDataTable1._3Column);
+            public void SetPremennaNull() {
+                this[this.tableDataTableSteelInfo.PremennaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_3Null() {
-                this[this.tableDataTable1._3Column] = global::System.Convert.DBNull;
+            public bool IsHodnotaNull() {
+                return this.IsNull(this.tableDataTableSteelInfo.HodnotaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_4Null() {
-                return this.IsNull(this.tableDataTable1._4Column);
+            public void SetHodnotaNull() {
+                this[this.tableDataTableSteelInfo.HodnotaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_4Null() {
-                this[this.tableDataTable1._4Column] = global::System.Convert.DBNull;
+            public bool IsJednotkaNull() {
+                return this.IsNull(this.tableDataTableSteelInfo.JednotkaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_5Null() {
-                return this.IsNull(this.tableDataTable1._5Column);
+            public void SetJednotkaNull() {
+                this[this.tableDataTableSteelInfo.JednotkaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_5Null() {
-                this[this.tableDataTable1._5Column] = global::System.Convert.DBNull;
+            public bool IsPremenna1Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Premenna1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool Is_6Null() {
-                return this.IsNull(this.tableDataTable1._6Column);
+            public void SetPremenna1Null() {
+                this[this.tableDataTableSteelInfo.Premenna1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void Set_6Null() {
-                this[this.tableDataTable1._6Column] = global::System.Convert.DBNull;
+            public bool IsHodnota1Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Hodnota1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetHodnota1Null() {
+                this[this.tableDataTableSteelInfo.Hodnota1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsJednotka1Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Jednotka1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetJednotka1Null() {
+                this[this.tableDataTableSteelInfo.Jednotka1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPremenna2Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Premenna2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPremenna2Null() {
+                this[this.tableDataTableSteelInfo.Premenna2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsHodnota2Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Hodnota2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetHodnota2Null() {
+                this[this.tableDataTableSteelInfo.Hodnota2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsJednotka2Null() {
+                return this.IsNull(this.tableDataTableSteelInfo.Jednotka2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetJednotka2Null() {
+                this[this.tableDataTableSteelInfo.Jednotka2Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -723,20 +825,20 @@ namespace CENEX {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class DataTable1RowChangeEvent : global::System.EventArgs {
+        public class DataTableSteelInfoRowChangeEvent : global::System.EventArgs {
             
-            private DataTable1Row eventRow;
+            private DataTableSteelInfoRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1RowChangeEvent(DataTable1Row row, global::System.Data.DataRowAction action) {
+            public DataTableSteelInfoRowChangeEvent(DataTableSteelInfoRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable1Row Row {
+            public DataTableSteelInfoRow Row {
                 get {
                     return this.eventRow;
                 }
