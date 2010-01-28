@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CSOForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDraw = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -58,29 +58,9 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(385, 371);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
+            this.dataGridView1.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserDeletedRow);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Column1.HeaderText = "Point";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 56;
-            // 
-            // y
-            // 
-            this.y.HeaderText = "y";
-            this.y.Name = "y";
-            // 
-            // z
-            // 
-            this.z.HeaderText = "z";
-            this.z.Name = "z";
-            // 
-            // t
-            // 
-            this.t.HeaderText = "t";
-            this.t.Name = "t";
             // 
             // button1
             // 
@@ -139,11 +119,34 @@
             this.dataGridView2.Size = new System.Drawing.Size(791, 228);
             this.dataGridView2.TabIndex = 8;
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column1.HeaderText = "Point";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 56;
+            // 
+            // y
+            // 
+            this.y.HeaderText = "y";
+            this.y.Name = "y";
+            // 
+            // z
+            // 
+            this.z.HeaderText = "z";
+            this.z.Name = "z";
+            // 
+            // t
+            // 
+            this.t.HeaderText = "t";
+            this.t.Name = "t";
+            // 
             // CSOForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 751);
+            this.ClientSize = new System.Drawing.Size(804, 751);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonDraw);
@@ -164,15 +167,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn z;
-        private System.Windows.Forms.DataGridViewTextBoxColumn t;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonDraw;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn y;
+        private System.Windows.Forms.DataGridViewTextBoxColumn z;
+        private System.Windows.Forms.DataGridViewTextBoxColumn t;
     }
 }

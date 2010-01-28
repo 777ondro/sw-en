@@ -14,6 +14,8 @@ namespace CENEX
     {
         private List<int> ySuradnice;
         private List<int> zSuradnice;
+        private List<int> ySuradniceDatagrid;
+        private List<int> zSuradniceDatagrid;
         private List<int> tHodnoty;
         private List<int> idHodnoty;
 
@@ -21,8 +23,10 @@ namespace CENEX
         public CSOForm()
         {
             InitializeComponent();
-            ySuradnice = new List<int>(5);
+            ySuradnice = new List<int>(5);  //for counting
             zSuradnice = new List<int>(5);
+            ySuradniceDatagrid = new List<int>(5); //for writing values to the picture
+            zSuradniceDatagrid = new List<int>(5);
             tHodnoty = new List<int>(5);
             idHodnoty = new List<int>(5);
 
@@ -56,6 +60,8 @@ namespace CENEX
             int y, z, t,id;
             ySuradnice.Clear();
             zSuradnice.Clear();
+            ySuradniceDatagrid.Clear();
+            zSuradniceDatagrid.Clear();
             tHodnoty.Clear();
             idHodnoty.Clear();
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
@@ -66,6 +72,8 @@ namespace CENEX
                 id = Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value.ToString());
                 ySuradnice.Add(y);
                 zSuradnice.Add(z);
+                ySuradniceDatagrid.Add(y);
+                zSuradniceDatagrid.Add(z);
                 tHodnoty.Add(t);
                 idHodnoty.Add(id);
             }
@@ -111,26 +119,41 @@ namespace CENEX
         {
             int minx = this.findMin(ySuradnice);
             int miny = this.findMin(zSuradnice);
-            int min = Math.Min(minx, miny);
-            int posun;
-            if (min < 0) 
+            int posun_x, posun_y;
+
+            if (minx < 0) 
             {
-                posun = Math.Abs(min);
+                posun_x = Math.Abs(minx);
                 for (int i = 0; i < ySuradnice.Count; i++)
                 {
-                    ySuradnice[i] += posun;
-                    zSuradnice[i] += posun;
+                    ySuradnice[i] += posun_x;
                 }
             }
-            if (min > 0) 
+            if (minx > 0) 
             {
-                posun = min;
+                posun_x = minx;
                 for (int i = 0; i < ySuradnice.Count; i++)
                 {
-                    ySuradnice[i] -= posun;
-                    zSuradnice[i] -= posun;
+                    ySuradnice[i] -= posun_x;
                 }
             }
+            if (miny < 0)
+            {
+                posun_y = Math.Abs(miny);
+                for (int i = 0; i < zSuradnice.Count; i++)
+                {
+                    zSuradnice[i] += posun_y;
+                }
+            }
+            if (miny > 0)
+            {
+                posun_y = miny;
+                for (int i = 0; i < zSuradnice.Count; i++)
+                {
+                    zSuradnice[i] -= posun_y;
+                }
+            }
+           
         }
 
         private void drawPictureFromDatagrid()
@@ -180,21 +203,24 @@ namespace CENEX
                     p = new Pen(Color.Black, 4);
                     g.DrawRectangle(p, y1, z1, 2, 2);
                     g.DrawString(idHodnoty[i].ToString(), font, brush, y1-5, z1+4 );
-                    g.DrawString("["+(int)ySuradnice[i]+","+(int)zSuradnice[i]+"]", font2, brush, y1 - 30, z1 - 20);
+                    g.DrawString("["+(int)ySuradniceDatagrid[i]+","+(int)zSuradniceDatagrid[i]+"]", 
+                                font2, brush, y1 - 30, z1 - 20);
                     g.DrawRectangle(p, y2, z2, 2, 2);
                     g.DrawString(idHodnoty[i+1].ToString(), font, brush, y2-5, z2+4 );
-                    g.DrawString("[" + (int)ySuradnice[i+1] + "," + (int)zSuradnice[i+1] + "]", font2, brush, y2 - 30, z2 - 20);
+                    g.DrawString("[" + (int)ySuradniceDatagrid[i+1] + "," + (int)zSuradniceDatagrid[i+1] + "]",
+                                font2, brush, y2 - 30, z2 - 20);
                     
                 }
             }
             else
             {
                 y1 = ySuradnice[0] + okraj;
-                z1 = 400- zSuradnice[0] + okraj;
+                z1 = 400- (zSuradnice[0] + okraj);
                 p = new Pen(Color.Black, 4);
                 g.DrawRectangle(p, y1, z1, 2, 2);
                 g.DrawString(idHodnoty[0].ToString(), font, brush, y1-5, z1+4);
-                g.DrawString("[" + (int)ySuradnice[0] + "," + (int)zSuradnice[0] + "]", font2, brush, y1 - 20, z1 - 20);
+                g.DrawString("[" + (int)ySuradniceDatagrid[0] + "," + (int)zSuradniceDatagrid[0] + "]",
+                                font2, brush, y1 - 20, z1 - 20);
                 
             }
 
@@ -214,6 +240,20 @@ namespace CENEX
         {
             this.drawPictureFromDatagrid();
 
+        }
+
+        private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            for (int i = 1; i < dataGridView1.Rows.Count; i++)
+                dataGridView1.Rows[i-1].Cells[0].Value = i;
+            
+        }
+
+        private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            for (int i = 1; i < dataGridView1.Rows.Count; i++)
+                dataGridView1.Rows[i-1].Cells[0].Value = i;
+            
         }
 
 
