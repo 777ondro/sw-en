@@ -170,31 +170,31 @@ namespace CENEX
                 for (int i = 0; i < ySuradnice.Count - 1; i++)
                 {
                     y1 = (ySuradnice[i] * pomer + okraj);
-                    z1 = (zSuradnice[i] * pomer + okraj);
+                    z1 = 400 - (zSuradnice[i] * pomer + okraj);
                     t1 = tHodnoty[i];
                     y2 = (ySuradnice[i + 1] * pomer + okraj);
-                    z2 = (zSuradnice[i + 1] * pomer + okraj);
+                    z2 = 400 - (zSuradnice[i + 1] * pomer + okraj);
                     t2 = tHodnoty[i + 1];
                     p = new Pen(Color.Red, t2);
                     if (t2 > 0) g.DrawLine(p, y1, z1, y2, z2);
                     p = new Pen(Color.Black, 4);
                     g.DrawRectangle(p, y1, z1, 2, 2);
                     g.DrawString(idHodnoty[i].ToString(), font, brush, y1-5, z1+4 );
-                    g.DrawString("["+(int)y1+","+(int)z1+"]", font2, brush, y1 - 30, z1 - 20);
+                    g.DrawString("["+(int)ySuradnice[i]+","+(int)zSuradnice[i]+"]", font2, brush, y1 - 30, z1 - 20);
                     g.DrawRectangle(p, y2, z2, 2, 2);
                     g.DrawString(idHodnoty[i+1].ToString(), font, brush, y2-5, z2+4 );
-                    g.DrawString("[" + (int)y2 + "," + (int)z2 + "]", font2, brush, y2 - 30, z2 - 20);
+                    g.DrawString("[" + (int)ySuradnice[i+1] + "," + (int)zSuradnice[i+1] + "]", font2, brush, y2 - 30, z2 - 20);
                     
                 }
             }
             else
             {
                 y1 = ySuradnice[0] + okraj;
-                z1 = zSuradnice[0] + okraj;
+                z1 = 400- zSuradnice[0] + okraj;
                 p = new Pen(Color.Black, 4);
                 g.DrawRectangle(p, y1, z1, 2, 2);
                 g.DrawString(idHodnoty[0].ToString(), font, brush, y1-5, z1+4);
-                g.DrawString("[" + (int)y1 + "," + (int)z1 + "]", font2, brush, y1 - 20, z1 - 20);
+                g.DrawString("[" + (int)ySuradnice[0] + "," + (int)zSuradnice[0] + "]", font2, brush, y1 - 20, z1 - 20);
                 
             }
 
