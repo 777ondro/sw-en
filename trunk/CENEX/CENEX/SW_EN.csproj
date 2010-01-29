@@ -79,6 +79,7 @@
     <Compile Include="DGVSpecial.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GENERAL\MATH\MathF.cs" />
     <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1.cs" />
     <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1Form.cs">
       <SubType>Form</SubType>
@@ -407,7 +408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DATABASE\MAT\" />
-    <Folder Include="GENERAL\MATH\" />
     <Folder Include="MAIN\" />
     <Folder Include="MODULES\01_LOAD\EC1\" />
     <Folder Include="MODULES\04_COMPOSITE_SC\EC4\" />
