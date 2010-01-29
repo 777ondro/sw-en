@@ -9,7 +9,7 @@ namespace CENEX
 {
     public class EN1993_1_1
     {
-
+        
 
         #region Variables from DATA1
 

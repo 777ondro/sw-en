@@ -7,5 +7,27 @@ namespace CENEX
 {
     class EN1992_1_1
     {
+public EN1992_1_1 ()
+    {
+
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
