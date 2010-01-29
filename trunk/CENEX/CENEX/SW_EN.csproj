@@ -76,6 +76,9 @@
       <DependentUpon>CSOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DATABASE\CRSC\CSOClass.cs" />
+    <Compile Include="DGVSpecial.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1.cs" />
     <Compile Include="MODULES\02_CONCRETE\EC2\EN1992-1-1Form.cs">
       <SubType>Form</SubType>
