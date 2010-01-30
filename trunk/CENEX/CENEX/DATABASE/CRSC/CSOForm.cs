@@ -230,15 +230,23 @@ namespace CENEX
         }
         private void buttonDraw_Click(object sender, EventArgs e)
         {
-            this.drawPictureFromDatagrid();
-            CSO cso = new CSO(ySuradnice,zSuradnice,tHodnoty);
+            try
+            {
+                this.drawPictureFromDatagrid();
+                CSO cso = new CSO(ySuradnice, zSuradnice, tHodnoty);
+            }
+            catch (ArgumentOutOfRangeException) { MessageBox.Show("Set values to y,z,t in the table."); }
         }
 
 
 
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.drawPictureFromDatagrid();
+            try
+            {
+                this.drawPictureFromDatagrid();
+            }
+            catch (ArgumentOutOfRangeException) { MessageBox.Show("Set values to y,z,t in the table."); }
 
         }
 
