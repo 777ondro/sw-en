@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using Crownwood.Magic.Docking;
 using Crownwood.Magic.Common;
+using CENEX.MODEL.PAINT;
 
 
 namespace CENEX
@@ -121,6 +122,12 @@ namespace CENEX
         {
             EN1999_1_1Form obj_EN1999_1_1Form = new EN1999_1_1Form();
             obj_EN1999_1_1Form.ShowDialog();
+        }
+
+        private void paintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PaintForm obj_PaintForm = new PaintForm();
+            obj_PaintForm.ShowDialog();
         }
 
         
