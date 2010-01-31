@@ -31,7 +31,7 @@ namespace CENEX.GENERAL.MATH
 
 
         //tieto metody potrebuju lubovolny pocet argumentov a z tychto argumentov vratia minimalny alebo maximalny prvok
-        public static double Min(params double[] data) 
+        public static double Min(params double[] data)
         {
             double min;
             min = data[0];
@@ -48,7 +48,7 @@ namespace CENEX.GENERAL.MATH
             return max;
         }
 
-           
+
 
 
 
@@ -234,6 +234,7 @@ namespace CENEX.GENERAL.MATH
         //                   Math.Max(e, f)))));
         //    return d_Max;
 
+
         //}
         //double Max_7(
         //double a,
@@ -324,3 +325,4 @@ namespace CENEX.GENERAL.MATH
 
     }
 }
+
