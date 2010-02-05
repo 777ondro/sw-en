@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CENEX.GENERAL.MATH;
+using System.Windows.Forms;
 
 namespace CENEX
 {
@@ -29,6 +30,15 @@ namespace CENEX
         double[] omega;
         double _Iomega;
         double _Iomega_mean;
+        double _Iy_omega0;
+        double _Iz_omega0;
+        double _Iomega_omega0;
+        double _Iy_omega;
+        double _Iz_omega;
+        double _Iomega_omega;
+        double _y_sc;
+        double _z_sc;
+        double _Iw;
 
 
 
@@ -146,6 +156,40 @@ namespace CENEX
             _Iomega_mean = _Iomega / A;
         }
 
+        //J.17,J18,J19 method 
+        private void J_17_18_19_method(int count) 
+        {
+            _Iy_omega0 = 0;
+            _Iz_omega0 = 0;
+            _Iomega_omega0 = 0;
+
+            for (int i = 1; i < count; i++)
+            {
+                double dAi = dAi_method(i);
+                _Iy_omega0 += (2 * y_suradnice[i - 1] * omega[i - 1] + 2 * y_suradnice[i] * omega[i] + y_suradnice[i - 1] * omega[i] +
+                                y_suradnice[i] * omega[i - 1]) * dAi / 6;
+                _Iz_omega0 += (2 * omega[i - 1] * z_suradnice[i - 1] + 2 * omega[i] * z_suradnice[i] * omega[i - 1] * z_suradnice[i] +
+                                omega[i] * z_suradnice[i - 1]) * dAi / 6;
+                _Iomega_omega0 += (Math.Pow(omega[i], 2) + Math.Pow(omega[i - 1], 2) + omega[i] * omega[i - 1]) * dAi / 3;
+            }
+            _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / _A);
+            _Iz_omega = _Iz_omega0 - (_Sy0 * _Iomega / _A);
+            _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / _A);
+        }
+
+        //J.20 and J.21 method
+        private void J_20_21_method() 
+        {
+            try
+            {
+                double temp = _Iy * _Iz - Math.Pow(_Iyz, 2);
+                _y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz)/temp;
+                _z_sc = (-_Iy_omega * _Iy - _Iz_omega * _Iyz) / temp;
+                _Iw = _Iomega_omega + _z_sc * _Iy_omega - _y_sc * _Iz_omega;
+            }
+            catch (DivideByZeroException) { MessageBox.Show("ERROR. Divide by zero, J.20 method."); }
+        }
+        
 
        
 
