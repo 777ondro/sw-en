@@ -15,8 +15,8 @@ namespace CENEX
         double _A;
         double _Sy0;
         double _Sz0;
-        double _Zgc;
-        double _Ygc;
+        double d_z_gc;
+        double d_y_gc;
         double _Iy0;
         double _Iy;
         double _Iz0;
@@ -29,16 +29,22 @@ namespace CENEX
         double[] omega0i;
         double[] omega;
         double _Iomega;
-        double _Iomega_mean;
-        double _Iy_omega0;
-        double _Iz_omega0;
-        double _Iomega_omega0;
-        double _Iy_omega;
-        double _Iz_omega;
-        double _Iomega_omega;
-        double _y_sc;
-        double _z_sc;
-        double _Iw;
+        double _Iomega_mean
+             , _Iy_omega0
+             , _Iz_omega0
+             , _Iomega_omega0
+             , _Iy_omega
+             , _Iz_omega
+             , _Iomega_omega
+             , d_y_sc
+             , d_z_sc
+             , d_I_w
+             , d_I_t
+             , d_W_t
+             , d_t_max;
+        double[] d_omega_sj;
+        double[] d_omega_j;
+        double d_omega_mean;
 
 
 
@@ -96,8 +102,8 @@ namespace CENEX
                 _Sz0 += Math.Abs(y_suradnice[i] + y_suradnice[i - 1]) * (dAi);
             }
 
-            this._Zgc = _Sy0 / A;
-            this._Ygc = _Sz0 / A;
+            this.d_z_gc = _Sy0 / A;
+            this.d_y_gc = _Sz0 / A;
             
         }
         //(J.8) and (J.10) , (J.11) method
@@ -118,8 +124,8 @@ namespace CENEX
                         + y_suradnice[i - 1] * z_suradnice[i] + y_suradnice[i] * z_suradnice[i - 1])*dAi/6;
             }
             
-            this._Iy = _Iy0 + A * Math.Pow(_Zgc, 2);
-            this._Iz = _Iz0 + A * Math.Pow(_Ygc, 2);
+            this._Iy = _Iy0 + A * Math.Pow(d_z_gc, 2);
+            this._Iz = _Iz0 + A * Math.Pow(d_y_gc, 2);
             this._Iyz = _Iyz0 - (_Sy0 * _Sz0 / A);
             
         }
@@ -183,16 +189,39 @@ namespace CENEX
             try
             {
                 double temp = _Iy * _Iz - Math.Pow(_Iyz, 2);
-                _y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz)/temp;
-                _z_sc = (-_Iy_omega * _Iy - _Iz_omega * _Iyz) / temp;
-                _Iw = _Iomega_omega + _z_sc * _Iy_omega - _y_sc * _Iz_omega;
+                d_y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz)/temp;
+                d_z_sc = (-_Iy_omega * _Iy - _Iz_omega * _Iyz) / temp;
+                d_I_w = _Iomega_omega + d_z_sc * _Iy_omega - d_y_sc * _Iz_omega;
             }
             catch (DivideByZeroException) { MessageBox.Show("ERROR. Divide by zero, J.20 method."); }
         }
-        
+        //J.22 method
+        private void J_22_method(int count)
+        {
+            d_I_t = 0;
+            for (int i = 1; i < count; i++)
+            {
+                double dAi = dAi_method(i);
+                d_I_t += dAi * Math.Pow(t_hodnoty[i], 2) / 3;
+                d_W_t = d_I_t / d_t_max;
 
-       
+            }
+
+        }
+        //J.23 method
+        private void J_23_method(int count)
+        {
+            d_omega_sj[0] = 0;
+            for (int i = 1; i < count; i++)
+            {
+                d_omega_sj[i] = d_omega_j[i] - d_omega_mean + d_z_sc * (y_suradnice[i] - d_y_gc) - d_y_sc * (z_suradnice[i] - d_z_gc);
+            }
+        }
 
 
-    }
+
+
+
+
+}
 }
