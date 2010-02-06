@@ -47,6 +47,82 @@ namespace CENEX.GENERAL.MATH
                 if (num > max) max = num;
             return max;
         }
+        //overloaded methods for equation of real numbers (method d_equal)
+        #region d_equal
+        public static bool d_equal(double a, double b, double limit) 
+        {
+            if (limit<0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(double a, float b, double limit)
+        {
+            if (limit < 0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, double b, double limit)
+        {
+            if (limit < 0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, float b, double limit)
+        {
+            if (limit < 0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(double a, int b, double limit)
+        {
+            if (limit < 0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, int b, double limit)
+        {
+            if (limit < 0) limit = Math.Abs(limit);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(double a, double b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(double a, float b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, double b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, float b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(double a, int b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        public static bool d_equal(float a, int b)
+        {
+            double limit = 0.001 * Math.Abs(b);
+            if ((a - limit) < b && (a + limit) > b) return true;
+            else return false;
+        }
+        #endregion
+
 
 
 
