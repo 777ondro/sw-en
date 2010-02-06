@@ -59,35 +59,35 @@
             // LineDraw
             // 
             this.LineDraw.Name = "LineDraw";
-            this.LineDraw.Size = new System.Drawing.Size(64, 20);
+            this.LineDraw.Size = new System.Drawing.Size(63, 20);
             this.LineDraw.Text = "LineDraw";
             this.LineDraw.Click += new System.EventHandler(this.LineDraw_Click);
             // 
             // RectDraw
             // 
             this.RectDraw.Name = "RectDraw";
-            this.RectDraw.Size = new System.Drawing.Size(67, 20);
+            this.RectDraw.Size = new System.Drawing.Size(66, 20);
             this.RectDraw.Text = "RectDraw";
             this.RectDraw.Click += new System.EventHandler(this.RectDraw_Click);
             // 
             // EllipseDraw
             // 
             this.EllipseDraw.Name = "EllipseDraw";
-            this.EllipseDraw.Size = new System.Drawing.Size(74, 20);
+            this.EllipseDraw.Size = new System.Drawing.Size(73, 20);
             this.EllipseDraw.Text = "EllipseDraw";
             this.EllipseDraw.Click += new System.EventHandler(this.EllipseDraw_Click);
             // 
             // FilledRectangle
             // 
             this.FilledRectangle.Name = "FilledRectangle";
-            this.FilledRectangle.Size = new System.Drawing.Size(92, 20);
+            this.FilledRectangle.Size = new System.Drawing.Size(91, 20);
             this.FilledRectangle.Text = "FilledRectangle";
             this.FilledRectangle.Click += new System.EventHandler(this.FilledRectangle_Click);
             // 
             // FilledEllipse
             // 
             this.FilledEllipse.Name = "FilledEllipse";
-            this.FilledEllipse.Size = new System.Drawing.Size(73, 20);
+            this.FilledEllipse.Size = new System.Drawing.Size(72, 20);
             this.FilledEllipse.Text = "FilledEllipse";
             this.FilledEllipse.Click += new System.EventHandler(this.FilledEllipse_Click);
             // 
@@ -106,14 +106,16 @@
             // specimen1ToolStripMenuItem
             // 
             this.specimen1ToolStripMenuItem.Name = "specimen1ToolStripMenuItem";
-            this.specimen1ToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.specimen1ToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.specimen1ToolStripMenuItem.Text = "Tutorial 1";
+            this.specimen1ToolStripMenuItem.Click += new System.EventHandler(this.specimen1ToolStripMenuItem_Click);
             // 
             // tutorial2ToolStripMenuItem
             // 
             this.tutorial2ToolStripMenuItem.Name = "tutorial2ToolStripMenuItem";
-            this.tutorial2ToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.tutorial2ToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.tutorial2ToolStripMenuItem.Text = "Tutorial 2";
+            this.tutorial2ToolStripMenuItem.Click += new System.EventHandler(this.tutorial2ToolStripMenuItem_Click);
             // 
             // PaintForm
             // 

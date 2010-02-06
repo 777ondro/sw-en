@@ -211,15 +211,16 @@ namespace CENEX.MODEL.PAINT
             }
 
         }
-        private void specimen1ToolStripMenuItem_Click(object sender,PaintEventArgs e)
+       
+        
+        
+        private void specimen1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
- 
             // draws shapes with different brushes
             // draw various shapes on Form
-       
+
             // references to object we will use
-            Graphics graphicsObject = e.Graphics;
+            Graphics graphicsObject = this.curGraphics;//e.Graphics;
 
             // ellipse rectangle and gradient brush
             Rectangle drawArea1 = new Rectangle(5, 35, 30, 100);
@@ -286,17 +287,13 @@ namespace CENEX.MODEL.PAINT
             coloredPen.DashCap = DashCap.Round;
             coloredPen.DashStyle = DashStyle.Dash;
             graphicsObject.DrawLine(coloredPen, 320, 30, 395, 150);
-         // end method
-
-
+            // end method
         }
 
         // create path and draw stars along it
-        private void tutorial2ToolStripMenuItem_Click(object sender, PaintEventArgs e)
+        private void tutorial2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-
-            Graphics graphicsObject = e.Graphics;
+            Graphics graphicsObject = curGraphics;
             Random random = new Random();
             SolidBrush brush =
                new SolidBrush(Color.DarkMagenta);
@@ -330,10 +327,11 @@ namespace CENEX.MODEL.PAINT
 
                 graphicsObject.FillPath(brush, star);
             } // end for
-
-
-
         }
+
+        
+
+        
 
         }
 }
