@@ -10,6 +10,9 @@ using System.Data.OleDb;
 using Crownwood.Magic.Docking;
 using Crownwood.Magic.Common;
 using CENEX.MODEL.PAINT;
+using CENEX.DATABASE.MAT;
+using CENEX.DATABASE.CRSC;
+
 
 
 namespace CENEX
@@ -128,6 +131,18 @@ namespace CENEX
         {
             PaintForm obj_PaintForm = new PaintForm();
             obj_PaintForm.ShowDialog();
+        }
+
+        private void materialsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Data_MatForm obj_Data_MatForm = new Data_MatForm();
+            obj_Data_MatForm.ShowDialog();
+        }
+
+        private void crosssectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Data_CSForm obj_Data_CSForm = new Data_CSForm();
+            obj_Data_CSForm.ShowDialog();
         }
 
         

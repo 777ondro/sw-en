@@ -35,7 +35,11 @@
             this.EllipseDraw = new System.Windows.Forms.ToolStripMenuItem();
             this.FilledRectangle = new System.Windows.Forms.ToolStripMenuItem();
             this.FilledEllipse = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.specimen1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tutorial2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -46,7 +50,7 @@
             this.EllipseDraw,
             this.FilledRectangle,
             this.FilledEllipse});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1051, 24);
             this.menuStrip1.TabIndex = 0;
@@ -87,12 +91,38 @@
             this.FilledEllipse.Text = "FilledEllipse";
             this.FilledEllipse.Click += new System.EventHandler(this.FilledEllipse_Click);
             // 
+            // menuStrip2
+            // 
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.specimen1ToolStripMenuItem,
+            this.tutorial2ToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(1051, 24);
+            this.menuStrip2.Stretch = false;
+            this.menuStrip2.TabIndex = 1;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // specimen1ToolStripMenuItem
+            // 
+            this.specimen1ToolStripMenuItem.Name = "specimen1ToolStripMenuItem";
+            this.specimen1ToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.specimen1ToolStripMenuItem.Text = "Tutorial 1";
+            // 
+            // tutorial2ToolStripMenuItem
+            // 
+            this.tutorial2ToolStripMenuItem.Name = "tutorial2ToolStripMenuItem";
+            this.tutorial2ToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.tutorial2ToolStripMenuItem.Text = "Tutorial 2";
+            // 
             // PaintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1051, 662);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip2);
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PaintForm";
@@ -104,6 +134,8 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +149,9 @@
         private System.Windows.Forms.ToolStripMenuItem EllipseDraw;
         private System.Windows.Forms.ToolStripMenuItem FilledRectangle;
         private System.Windows.Forms.ToolStripMenuItem FilledEllipse;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem specimen1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tutorial2ToolStripMenuItem;
         
 
     }
