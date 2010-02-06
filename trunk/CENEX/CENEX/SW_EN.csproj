@@ -82,6 +82,8 @@
     <Compile Include="DATABASE\CRSC\Data_CSForm.Designer.cs">
       <DependentUpon>Data_CSForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DATABASE\MAT\Data_Mat_02_CONCRETE.cs" />
+    <Compile Include="DATABASE\MAT\Data_Mat_03_STEEL.cs" />
     <Compile Include="DATABASE\MAT\Data_MatForm.cs">
       <SubType>Form</SubType>
     </Compile>
