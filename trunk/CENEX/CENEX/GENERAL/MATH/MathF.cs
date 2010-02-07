@@ -11,23 +11,23 @@ namespace CENEX.GENERAL.MATH
     {
 
         //tymto metodam by bolo potrebne najprv inicializovat pole a potom im ho odovzdat ako argument
-
-        //public static double  Min(double[] data)
-        //{
-        //    double min;
-        //    min = data[0];
-        //    foreach (double num in data)
-        //        if (num < min) min = num;
-        //    return min;
-        //}
-        //public static double Max(double[] data)
-        //{
-        //    double max;
-        //    max = data[0];
-        //    foreach (double num in data)
-        //        if (num > max) max = num;
-        //    return max;
-        //}
+        //metody sluzia pre najdenie minimalneho(maximalneho prvku v zoname Int)
+        public static int Min(List<int> data)
+        {
+            int min;
+            min = data[0];
+            foreach (int num in data)
+                if (num < min) min = num;
+            return min;
+        }
+        public static int Max(List<int> data)
+        {
+            int max;
+            max = data[0];
+            foreach (int num in data)
+                if (num > max) max = num;
+            return max;
+        }
 
 
         //tieto metody potrebuju lubovolny pocet argumentov a z tychto argumentov vratia minimalny alebo maximalny prvok
@@ -87,37 +87,61 @@ namespace CENEX.GENERAL.MATH
         }
         public static bool d_equal(double a, double b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
         public static bool d_equal(double a, float b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
         public static bool d_equal(float a, double b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
         public static bool d_equal(float a, float b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
         public static bool d_equal(double a, int b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
         public static bool d_equal(float a, int b)
         {
-            double limit = 0.001 * Math.Abs(b);
+            double limit;
+            if (Math.Abs(b) > 0.0001)
+                limit = 0.001 * Math.Abs(b);
+            else limit = 0.00001;
+
             if ((a - limit) < b && (a + limit) > b) return true;
             else return false;
         }
