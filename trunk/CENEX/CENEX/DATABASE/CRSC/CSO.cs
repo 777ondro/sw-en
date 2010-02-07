@@ -29,22 +29,26 @@ namespace CENEX
         double[] omega0i;
         double[] omega;
         double _Iomega;
-        double _Iomega_mean
+        double _omega_mean
              , _Iy_omega0
              , _Iz_omega0
              , _Iomega_omega0
              , _Iy_omega
              , _Iz_omega
              , _Iomega_omega
+             , _Ip
              , d_y_sc
              , d_z_sc
+             , d_y_s
+             , d_z_s
              , d_I_w
              , d_I_t
              , d_W_t
-             , d_t_max;
-        double[] d_omega_sj;
-        double[] d_omega_j;
-        double d_omega_mean;
+             , omega_max
+             , d_W_w;
+        double[] d_omega_s;
+        
+        
 
 
 
@@ -68,8 +72,12 @@ namespace CENEX
             this.Iy0_Iz0_method(count);
             this.omega0i = new double[count];
             this.omega = new double[count];
+            this.d_omega_s = new double[count];
             this.J_12_13_14_method();
             this.J_15_method(count);
+            this.J_16_method(count);
+            this.J_17_18_19_method(count);
+            this.J_20_21_method();
 
         }
         //(J.5) method
@@ -159,7 +167,7 @@ namespace CENEX
             {
                 _Iomega += (omega[i - 1] + omega[i]) * dAi_method(i) / 2;
             }
-            _Iomega_mean = _Iomega / A;
+            _omega_mean = _Iomega / A;
         }
 
         //J.17,J18,J19 method 
@@ -201,21 +209,32 @@ namespace CENEX
             d_I_t = 0;
             for (int i = 1; i < count; i++)
             {
-                double dAi = dAi_method(i);
-                d_I_t += dAi * Math.Pow(t_hodnoty[i], 2) / 3;
-                d_W_t = d_I_t / d_t_max;
-
+                d_I_t += dAi_method(i) * Math.Pow(t_hodnoty[i], 2) / 3;
             }
+
+            if (MathF.Min(t_hodnoty) != 0)
+                d_W_t = d_I_t / MathF.Min(t_hodnoty);
+            else MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
 
         }
-        //J.23 method
+        //J.23 method   ????? nerozumiem vzorcu...je potrebne upresnit
         private void J_23_method(int count)
         {
-            d_omega_sj[0] = 0;
+            d_omega_s[0] = 0;
             for (int i = 1; i < count; i++)
             {
-                d_omega_sj[i] = d_omega_j[i] - d_omega_mean + d_z_sc * (y_suradnice[i] - d_y_gc) - d_y_sc * (z_suradnice[i] - d_z_gc);
+                d_omega_s[i] = omega[i] - _omega_mean + d_z_sc * (y_suradnice[i] - d_y_gc) - d_y_sc * (z_suradnice[i] - d_z_gc);
             }
+        }
+        //J.24,J.25,J.26 method
+        private void J_24_25_26_method() 
+        {
+            omega_max = MathF.Max(d_omega_s);
+            d_W_w = d_I_w / omega_max;
+            d_y_s = d_y_sc - d_z_gc;
+            d_z_s = d_z_sc - d_z_gc;
+            _Ip = _Iy + _Iz + A * (Math.Pow(d_y_s, 2) + Math.Pow(d_z_s, 2));
+
         }
 
 
