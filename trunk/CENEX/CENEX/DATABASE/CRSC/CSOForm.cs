@@ -48,10 +48,17 @@ namespace CENEX
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CSOClass CSOprop = new CSOClass();
+            //CSOClass CSOprop = new CSOClass();
 
             // Calculation of cross section attributes
-
+            this.getListsFromDatagrid();
+            CSO cso = new CSO(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
+            //vymazanie datagridview2
+            dataGridView2.Rows.Clear();
+            //Pridavanie Riadkov do Datagridview2 
+            //Potrebne popridavat vsetky premenne,ktore chceme zobrazit
+            dataGridView2.Rows.Add("A", cso.A, "x", "Alfa", cso.Alfa, "x");
+            dataGridView2.Rows.Add("D_I_t",cso.D_I_t,"x","D_I_w",cso.D_I_w,"x");
 
         }
 
@@ -263,6 +270,8 @@ namespace CENEX
                 dataGridView1.Rows[i-1].Cells[0].Value = i;
             
         }
+
+        
 
 
 
