@@ -66,10 +66,10 @@
             this.label26 = new System.Windows.Forms.Label();
             this.d_FEd_textB = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.b_index_REPLACE = new System.Windows.Forms.CheckBox();
+            this.b_index_REPLACE_checkbox = new System.Windows.Forms.CheckBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
-            this.b_index_SOLID = new System.Windows.Forms.CheckBox();
+            this.b_index_SOLID_checkbox = new System.Windows.Forms.CheckBox();
             this.label28 = new System.Windows.Forms.Label();
             this.comboBox_Steel_PIN = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -408,14 +408,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // b_index_REPLACE
+            // b_index_REPLACE_checkbox
             // 
-            this.b_index_REPLACE.AutoSize = true;
-            this.b_index_REPLACE.Location = new System.Drawing.Point(293, 58);
-            this.b_index_REPLACE.Name = "b_index_REPLACE";
-            this.b_index_REPLACE.Size = new System.Drawing.Size(15, 14);
-            this.b_index_REPLACE.TabIndex = 52;
-            this.b_index_REPLACE.UseVisualStyleBackColor = true;
+            this.b_index_REPLACE_checkbox.AutoSize = true;
+            this.b_index_REPLACE_checkbox.Location = new System.Drawing.Point(293, 58);
+            this.b_index_REPLACE_checkbox.Name = "b_index_REPLACE_checkbox";
+            this.b_index_REPLACE_checkbox.Size = new System.Drawing.Size(15, 14);
+            this.b_index_REPLACE_checkbox.TabIndex = 52;
+            this.b_index_REPLACE_checkbox.UseVisualStyleBackColor = true;
+            this.b_index_REPLACE_checkbox.CheckedChanged += new System.EventHandler(this.b_index_REPLACE_checkbox_CheckedChanged);
             // 
             // label27
             // 
@@ -435,14 +436,17 @@
             this.label40.TabIndex = 54;
             this.label40.Text = "Solid circular pin ";
             // 
-            // b_index_SOLID
+            // b_index_SOLID_checkbox
             // 
-            this.b_index_SOLID.AutoSize = true;
-            this.b_index_SOLID.Location = new System.Drawing.Point(293, 80);
-            this.b_index_SOLID.Name = "b_index_SOLID";
-            this.b_index_SOLID.Size = new System.Drawing.Size(15, 14);
-            this.b_index_SOLID.TabIndex = 55;
-            this.b_index_SOLID.UseVisualStyleBackColor = true;
+            this.b_index_SOLID_checkbox.AutoSize = true;
+            this.b_index_SOLID_checkbox.Checked = true;
+            this.b_index_SOLID_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.b_index_SOLID_checkbox.Location = new System.Drawing.Point(293, 80);
+            this.b_index_SOLID_checkbox.Name = "b_index_SOLID_checkbox";
+            this.b_index_SOLID_checkbox.Size = new System.Drawing.Size(15, 14);
+            this.b_index_SOLID_checkbox.TabIndex = 55;
+            this.b_index_SOLID_checkbox.UseVisualStyleBackColor = true;
+            this.b_index_SOLID_checkbox.CheckedChanged += new System.EventHandler(this.b_index_SOLID_checkbox_CheckedChanged);
             // 
             // label28
             // 
@@ -556,10 +560,10 @@
             this.Controls.Add(this.label29);
             this.Controls.Add(this.comboBox_Steel_PIN);
             this.Controls.Add(this.label28);
-            this.Controls.Add(this.b_index_SOLID);
+            this.Controls.Add(this.b_index_SOLID_checkbox);
             this.Controls.Add(this.label40);
             this.Controls.Add(this.label27);
-            this.Controls.Add(this.b_index_REPLACE);
+            this.Controls.Add(this.b_index_REPLACE_checkbox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label26);
@@ -645,10 +649,10 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox d_FEd_textB;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox b_index_REPLACE;
+        private System.Windows.Forms.CheckBox b_index_REPLACE_checkbox;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.CheckBox b_index_SOLID;
+        private System.Windows.Forms.CheckBox b_index_SOLID_checkbox;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox comboBox_Steel_PIN;
         private System.Windows.Forms.Label label29;
