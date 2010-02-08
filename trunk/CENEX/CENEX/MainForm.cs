@@ -12,6 +12,7 @@ using Crownwood.Magic.Common;
 using CENEX.MODEL.PAINT;
 using CENEX.DATABASE.MAT;
 using CENEX.DATABASE.CRSC;
+using CENEX.MODULES._03_STEEL.EC3;
 
 
 
@@ -143,6 +144,12 @@ namespace CENEX
         {
             Data_CSForm obj_Data_CSForm = new Data_CSForm();
             obj_Data_CSForm.ShowDialog();
+        }
+
+        private void eC3ConnectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EN1993_1_8Form_PIN obj_EN1993_1_8Form_PIN = new EN1993_1_8Form_PIN();
+            obj_EN1993_1_8Form_PIN.ShowDialog();
         }
 
         
