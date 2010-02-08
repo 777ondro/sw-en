@@ -81,7 +81,8 @@ namespace CENEX.MODULES._03_STEEL.EC3
 
         double d_ratio_pin;
 
-
+        bool b_index_REPLACE = false;
+        bool b_index_SOLID = true;
 
     
 
@@ -94,6 +95,11 @@ namespace CENEX.MODULES._03_STEEL.EC3
         public EN1993_1_8Form_PIN()
         {
             InitializeComponent();
+            for (int i = 0; i < steel_grades.Length; i++)
+            {
+                this.comboBox_Steel_PIN.Items.Add(steel_grades[i]);
+                this.comboBox_Steel_PLATE.Items.Add(steel_grades[i]);
+            }
         }
 
 
@@ -423,6 +429,16 @@ d_f_h_Ed = 2.5 * d_f_y / d_gamma_M6_ser;
         private void button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void b_index_REPLACE_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            b_index_REPLACE = b_index_REPLACE_checkbox.Checked;
+        }
+
+        private void b_index_SOLID_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            b_index_SOLID = b_index_SOLID_checkbox.Checked;
         }
 
 
