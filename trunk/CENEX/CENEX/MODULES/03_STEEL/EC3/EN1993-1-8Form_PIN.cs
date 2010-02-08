@@ -157,43 +157,101 @@ double[,] steel_properties = {
         // Metoda - Load data from textboxes
         // Tato metoda nacita udaje z textboxov a skonvertuje na cislo
         public void Load_data()
-        {
+{
 
-            try
-            {
-                d_d = Convert.ToDouble(d_d_textB.Text.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
-            }
+    try
+    {
+        d_d = Convert.ToDouble(d_d_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
 
-            try
-            {
-                d_d_0 = Convert.ToDouble(d_d0_textB.Text.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
-            }
+    try
+    {
+        d_d_0 = Convert.ToDouble(d_d0_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_d_in = Convert.ToDouble(d_din_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+
+    try
+    {
+        d_t_11 = Convert.ToDouble(d_t11_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_t_12 = Convert.ToDouble(d_t12_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_t_21 = Convert.ToDouble(d_t21_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_t_22 = Convert.ToDouble(d_t22_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_t_23 = Convert.ToDouble(d_t23_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+
+
+    try
+    {
+        d_F_Ed = Convert.ToDouble(d_FEd_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
+    try
+    {
+        d_F_Ed_ser = Convert.ToDouble(d_FEd_ser_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
 
 
 
+            
 
+}
 
-
-
-
-
-
-
-
-
-
-        }
-
-
-        public void Load_data2_Steel()
+// Metoda načítava údaje o oceli z poľa
+public void Load_data2_Steel()
         {
        // Material Plates
             int mat1_id = comboBox_Steel_PLATE.SelectedIndex;
@@ -207,50 +265,60 @@ double[,] steel_properties = {
             d_f_yp = steel_properties [mat2_id, 0];
             d_f_up = steel_properties [mat2_id, 1];
 
+
+    // Minimum yield strength  ( pin and plates)
+            d_f_y = Math.Min(d_f_y, d_f_yp);
         }
 
+        
 
 
 
 
-
-
-        // Metoda - Nastaví vypocitane hodnoty v textboxoch
-        public void Set_data()
+        // Metoda meni jednotky načítaných dát na SI sústavu
+public void Convert_data_units()
         {
-
-            // Nastavia sa vypocitane hodnoty (skonvetovane z double na string)
-
-            d_A_textB.Text = d_A.ToString();
-            d_Wel_textB.Text = d_W_el.ToString();
-            
-
-        }
-
-
+// kN to N
+// KILO
+int i_ratio_kilo = 1000;
+// MPa to Pa
+// MEGA
+int i_ratio_mega = 1000000;
+// mm to m
+double d_ratio_mili = 0.001;
 
 
 
+// Dimensions
 
-
-
-
-
-
-
-
-
-
+d_d *= d_ratio_mili;
+d_d_0 *= d_ratio_mili;
+d_d_in *= d_ratio_mili;
+d_t_11 *= d_ratio_mili;
+d_t_12 *= d_ratio_mili;
+d_t_21 *= d_ratio_mili;
+d_t_22 *= d_ratio_mili;
+d_t_23 *= d_ratio_mili;
 
 
 
 
 
 
+// Design Force
+d_F_Ed *= i_ratio_kilo;
 
 
 
 
+// Steel strength
+d_f_y *= i_ratio_mega;
+d_f_u *= i_ratio_mega;
+
+d_f_yp *= i_ratio_mega;
+d_f_up *= i_ratio_mega;
+
+}
 
 
 // Main method
@@ -267,6 +335,9 @@ double[,] steel_properties = {
 
     d_t_2_min = MathF.Min(d_t_21, d_t_22, d_t_23);
     d_t_2_max = MathF.Min(d_t_21, d_t_22, d_t_23);
+
+double d_t_1 = d_t_11 + d_t_12;
+double d_t_2 = d_t_21 + d_t_22 + d_t_23;
 
 
 
@@ -301,14 +372,16 @@ double[,] steel_properties = {
 
 // (3) If the pin is intended to be replaceable, in addition to the provisions given in 3.13.1 to 3.13.2, the contact bearing stress should satisfy
 
-
-
-
+// (3.15)
+d_Sigma_h_Ed = 0.591 * Math.Sqrt((d_E * d_F_Ed_ser * (d_d_0 - d_d)) / (Math.Pow(d_d,2) * Math.Min(d_t_1, d_t_2)));
+// (3.16)
+d_gamma_M6_ser = 1.0;
+d_f_h_Ed = 2.5 * d_f_y / d_gamma_M6_ser;
 
 
 
 }
-
+        // Auxiliary method for Main
         double d_Calc_M_Ed(double d_a, double d_b, double d_c, double d_F)
         {
             // Figure 3.11: Bending moment in a pin
@@ -321,7 +394,7 @@ double[,] steel_properties = {
         private void Calculate_Click_1(object sender, EventArgs e)
         {
 
-                // Načítanie dat
+            // Načítanie dat
             this.Load_data();
             // Vypocet vysledkov
             this.EN1993_1_8_Main();
@@ -331,6 +404,21 @@ double[,] steel_properties = {
 
 
         }
+
+
+
+        // Metoda - Nastaví vypocitane hodnoty v textboxoch
+        public void Set_data()
+        {
+
+            // Nastavia sa vypocitane hodnoty (skonvetovane z double na string)
+
+            d_A_textB.Text = d_A.ToString();
+            d_Wel_textB.Text = d_W_el.ToString();
+
+
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {

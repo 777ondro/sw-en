@@ -77,6 +77,10 @@
             this.comboBox_Steel_PLATE = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.d_FEd_ser_textB = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // d_Wel_textB
@@ -365,9 +369,9 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(12, 423);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(67, 13);
+            this.label24.Size = new System.Drawing.Size(97, 13);
             this.label24.TabIndex = 47;
-            this.label24.Text = "Design force";
+            this.label24.Text = "Design force - ULS";
             // 
             // label25
             // 
@@ -502,11 +506,49 @@
             this.label31.TabIndex = 62;
             this.label31.Text = "mm3";
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(24, 495);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(52, 13);
+            this.label32.TabIndex = 63;
+            this.label32.Text = "FEd,ser =";
+            // 
+            // d_FEd_ser_textB
+            // 
+            this.d_FEd_ser_textB.Location = new System.Drawing.Point(81, 492);
+            this.d_FEd_ser_textB.Name = "d_FEd_ser_textB";
+            this.d_FEd_ser_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_FEd_ser_textB.TabIndex = 64;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(153, 495);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(21, 13);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "kN";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(12, 476);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(97, 13);
+            this.label34.TabIndex = 66;
+            this.label34.Text = "Design force - ULS";
+            // 
             // EN1993_1_8Form_PIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 548);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.d_FEd_ser_textB);
+            this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox_Steel_PLATE);
@@ -614,5 +656,9 @@
         private System.Windows.Forms.ComboBox comboBox_Steel_PLATE;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox d_FEd_ser_textB;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
     }
 }
