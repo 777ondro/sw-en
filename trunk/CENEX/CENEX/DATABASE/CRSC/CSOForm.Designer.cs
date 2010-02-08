@@ -30,16 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CSOForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDraw = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Premenna = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hodnota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Jednotka = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Premenna2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hodnota2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Jednotka2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -61,6 +67,29 @@
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             this.dataGridView1.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserDeletedRow);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column1.HeaderText = "Point";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 56;
+            // 
+            // y
+            // 
+            this.y.HeaderText = "y";
+            this.y.Name = "y";
+            // 
+            // z
+            // 
+            this.z.HeaderText = "z";
+            this.z.Name = "z";
+            // 
+            // t
+            // 
+            this.t.HeaderText = "t";
+            this.t.Name = "t";
             // 
             // button1
             // 
@@ -113,34 +142,55 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Premenna,
+            this.Hodnota,
+            this.Jednotka,
+            this.Premenna2,
+            this.Hodnota2,
+            this.Jednotka2});
             this.dataGridView2.Location = new System.Drawing.Point(2, 468);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(791, 228);
             this.dataGridView2.TabIndex = 8;
             // 
-            // Column1
+            // Premenna
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Column1.HeaderText = "Point";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 56;
+            this.Premenna.HeaderText = "Premenna";
+            this.Premenna.Name = "Premenna";
+            this.Premenna.ReadOnly = true;
             // 
-            // y
+            // Hodnota
             // 
-            this.y.HeaderText = "y";
-            this.y.Name = "y";
+            this.Hodnota.HeaderText = "Hodnota";
+            this.Hodnota.Name = "Hodnota";
+            this.Hodnota.ReadOnly = true;
             // 
-            // z
+            // Jednotka
             // 
-            this.z.HeaderText = "z";
-            this.z.Name = "z";
+            this.Jednotka.HeaderText = "Jednotka";
+            this.Jednotka.Name = "Jednotka";
+            this.Jednotka.ReadOnly = true;
             // 
-            // t
+            // Premenna2
             // 
-            this.t.HeaderText = "t";
-            this.t.Name = "t";
+            this.Premenna2.HeaderText = "Premenna2";
+            this.Premenna2.Name = "Premenna2";
+            this.Premenna2.ReadOnly = true;
+            // 
+            // Hodnota2
+            // 
+            this.Hodnota2.HeaderText = "Hodnota2";
+            this.Hodnota2.Name = "Hodnota2";
+            this.Hodnota2.ReadOnly = true;
+            // 
+            // Jednotka2
+            // 
+            this.Jednotka2.HeaderText = "Jednotka2";
+            this.Jednotka2.Name = "Jednotka2";
+            this.Jednotka2.ReadOnly = true;
             // 
             // CSOForm
             // 
@@ -177,5 +227,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn y;
         private System.Windows.Forms.DataGridViewTextBoxColumn z;
         private System.Windows.Forms.DataGridViewTextBoxColumn t;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Premenna;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Hodnota;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Jednotka;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Premenna2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Hodnota2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Jednotka2;
     }
 }
