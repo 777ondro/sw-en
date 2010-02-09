@@ -127,11 +127,17 @@
   <data name="ky_kz_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ky_kz_04.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="I4_M_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\I4_M_01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="kw_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kw_06.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="kw_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kw_05.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="I3_M_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\I3_M_01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="I1_M_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\I1_M_03.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,17 +196,20 @@
   <data name="kw_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kw_09.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pin1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pin1.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ky_kz_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ky_kz_03.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="I1_M_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\I1_M_08.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ky_kz_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ky_kz_09.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LOGO1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LOGO1.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="I1_M_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\I1_M_08.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="I1_M_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\I1_M_07.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,10 +229,7 @@
   <data name="ky_kz_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ky_kz_08.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="I3_M_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\I3_M_01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="I4_M_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\I4_M_01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pin2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pin2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

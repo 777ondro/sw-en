@@ -450,6 +450,12 @@
     <None Include="Resources\I4_M_01.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\pin1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="MAIN\" />
     <Folder Include="MODULES\01_LOAD\EC1\" />
     <Folder Include="MODULES\04_COMPOSITE_SC\EC4\" />
