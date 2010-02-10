@@ -47,7 +47,10 @@ namespace CENEX.MODULES._03_STEEL.EC3
         double d_gamma_M6_ser;
         // the cross-sectional area of a pin.
         double d_A;
-
+        // Elastic modulus
+        double d_W_el;
+        // Moment of inertia (second moment of area)
+        double d_Iy;
         // the thickness of the connected part;
         double d_t_11;
         double d_t_12;
@@ -56,7 +59,7 @@ namespace CENEX.MODULES._03_STEEL.EC3
         double d_t_23;
 
 
-        double d_W_el;
+        
 
         double d_F_v_Ed;
         double d_F_b_Ed;
@@ -111,8 +114,7 @@ namespace CENEX.MODULES._03_STEEL.EC3
         double d_ratio_4;
         double d_ratio_5;
         double d_ratio_6;
-
-        double d_ratio_7_pin;
+        double d_ratio_7;
 
         // kN to N
         // KILO
@@ -323,29 +325,20 @@ public void Load_data2_Steel()
     d_gamma_M0 = steel_properties[mat1_id, 4];
     d_gamma_M1 = steel_properties[mat1_id, 5];
     d_gamma_M2 = steel_properties[mat1_id, 6];
-
     d_gamma_M6_ser = 1.0; // !!! constant
 
     // Material Pin
     int mat2_id = comboBox_Steel_PIN.SelectedIndex;
-
     d_f_yp = steel_properties[mat2_id, 0];
     d_f_up = steel_properties[mat2_id, 1];
-
-
     // Minimum yield strength  ( pin and plates)
     d_f_y = Math.Min(d_f_y, d_f_yp);
-
-
     // Young modulus
-
     d_E = steel_properties[mat2_id, 9]; // for pin ???
 }
 // Metoda meni jednotky načítaných dát na SI sústavu
 public void Convert_data_units()
 {
-
-
     // Dimensions
 
     d_d *= d_ratio_mili;
@@ -362,7 +355,6 @@ public void Convert_data_units()
     d_t_min = MathF.Min(d_t_11, d_t_12, d_t_21, d_t_22, d_t_23);
     d_t_max = MathF.Max(d_t_11, d_t_12, d_t_21, d_t_22, d_t_23);
 
-
     d_t_1_min = MathF.Min(d_t_11, d_t_12);
     d_t_1_max = MathF.Max(d_t_11, d_t_12);
 
@@ -373,11 +365,11 @@ public void Convert_data_units()
     d_t_2 = d_t_21 + d_t_22 + d_t_23;
 
     // Solved properties
-
     // Pin area
     d_A = Math.PI * (Math.Pow(d_d / 2, 2) - Math.Pow(d_d_in / 2, 2));
     // Pin Elastic Modulus
-    d_W_el = (Math.PI * ((Math.Pow(d_d, 4) - (Math.Pow(d_d_in, 4))))) / (d_d / 2);
+    d_W_el = (Math.PI * (Math.Pow(d_d, 3) / 32)) - (Math.PI * (Math.Pow(d_d_in, 3) / 32));
+    d_Iy = (Math.PI * (Math.Pow(d_d, 4) / 64)) - (Math.PI * (Math.Pow(d_d_in, 4) / 64));
 
     // Conversion
     // Loaded data unit conversion
@@ -386,14 +378,11 @@ public void Convert_data_units()
     d_F_Ed *= i_ratio_kilo;
     d_F_Ed_ser *= i_ratio_kilo;
 
-
     // Steel strength - conversion
     d_f_y /= d_ratio_mega;
     d_f_u /= d_ratio_mega;
-
     d_f_yp /= d_ratio_mega;
     d_f_up /= d_ratio_mega;
-
     d_E /= d_ratio_mega;
 
 }
@@ -442,64 +431,78 @@ public void EN1993_1_8_Main()
 {
     // Total Force/ number of cuts ( 5 plates)
     d_F_v_Ed = d_F_Ed / 4;
-    
     // Sum of all plates in one dirrection
     // ULS
     d_F_b_Ed = d_F_Ed;
-    // SLS
-    d_F_b_Ed_ser = d_F_Ed_ser;
-
     // Figure 3.11: Bending moment in a pin
     // ULS
     double d_M_Ed_1 = d_Calc_M_Ed(d_t_21, d_t_11, d_t_c, 0.5 * d_F_Ed);
     double d_M_Ed_2 = d_Calc_M_Ed(d_t_12, d_t_22, d_t_c, 0.5 * d_F_Ed);
     d_M_Ed = MathF.Min(d_M_Ed_1, d_M_Ed_2);
+    
+
+ if(  b_index_REPLACE == true)
+{
+    // (3) If the pin is intended to be replaceable, in addition to the provisions given in 3.13.1 to 3.13.2, the contact bearing stress should satisfy
+    // (3.15)
+    d_Sigma_h_Ed = 0.591 * Math.Sqrt((d_E * d_F_Ed_ser * (d_d_0 - d_d)) / (Math.Pow(d_d, 2) * Math.Min(d_t_1, d_t_2)));
+    // (3.16)
+    d_f_h_Ed = 2.5 * d_f_y / d_gamma_M6_ser;
+    // Bearing resistance of the plate and the pin
+    // SLS
+    d_F_b_Ed_ser = d_F_Ed_ser;
+    // Bending resistance of the pin
     // SLS
     double d_M_Ed_1_ser = d_Calc_M_Ed(d_t_21, d_t_11, d_t_c, 0.5 * d_F_Ed_ser);
     double d_M_Ed_2_ser = d_Calc_M_Ed(d_t_12, d_t_22, d_t_c, 0.5 * d_F_Ed_ser);
     d_M_Ed_ser = MathF.Min(d_M_Ed_1_ser, d_M_Ed_2_ser);
-
-
-
+}
     // Table 3.10 Design criteria for pin connections
     // Shear resistance of the pin
     d_F_v_Rd = 0.6 * d_A * (d_f_up / d_gamma_M2);
     // Bearing resistance of the plate and the pin
     d_F_b_Rd = 1.5 * Math.Min(d_t_1,d_t_2) * d_d * (d_f_y / d_gamma_M0);
+    // Bending resistance of the pin
+    d_M_Rd = 1.5 * d_W_el * (d_f_yp / d_gamma_M0);
+    
+  if(  b_index_REPLACE == true)
+{
     // Bearing resistance of the plate and the pin
     // If the pin is intended to be replaceable this requirement should also be satisfied.
     d_F_b_Rd_ser = 0.6 * Math.Min(d_t_1, d_t_2) * d_d * (d_f_y / d_gamma_M6_ser);
     // Bending resistance of the pin
-    d_M_Rd = 1.5 * d_W_el * (d_f_yp / d_gamma_M0);
-    // Bending resistance of the pin
     // If the pin is intended to be replaceable this requirement should also be satisfied.
     d_M_Rd_ser = 0.8 * d_W_el * (d_f_yp / d_gamma_M6_ser);
-    // Combined shear and bending resistance of the pin
-    d_ratio_7_pin = (Math.Pow(d_M_Ed / d_M_Rd, 2) + Math.Pow(d_F_v_Ed / d_F_v_Rd, 2)) / 1;
-
-
-    // (3) If the pin is intended to be replaceable, in addition to the provisions given in 3.13.1 to 3.13.2, the contact bearing stress should satisfy
-
-    // (3.15)
-    d_Sigma_h_Ed = 0.591 * Math.Sqrt((d_E * d_F_Ed_ser * (d_d_0 - d_d)) / (Math.Pow(d_d, 2) * Math.Min(d_t_1, d_t_2)));
-    // (3.16)
-    d_f_h_Ed = 2.5 * d_f_y / d_gamma_M6_ser;
-
-
+}
     // Check ratios
+  if (b_index_REPLACE == true)
+  {
+      // Bearing resistance of the plate and the pin
+      // If the pin is intended to be replaceable this requirement should also be satisfied.
+      d_ratio_3 = d_F_b_Ed_ser / d_F_b_Rd_ser;
+      // Bending resistance of the pin
+      // If the pin is intended to be replaceable this requirement should also be satisfied.
+      d_ratio_5 = d_M_Ed_ser / d_M_Rd_ser;
+      // Local state of stress (3.14)
+      d_ratio_7 = d_Sigma_h_Ed / d_f_h_Ed; 
+  }
+  else 
+      {
+      d_ratio_3 = 0.0;
+      d_ratio_5 = 0.0;
+      d_ratio_7 = 0.0;
+      }
 
-    //(3.14)
-
-    d_ratio_1 = d_Sigma_h_Ed / d_f_h_Ed;
     // Table 3.10: Design criteria for pin connections
-    d_ratio_2 = d_F_v_Ed / d_F_v_Rd;
-    d_ratio_3 = d_F_b_Ed / d_F_b_Rd;
-    d_ratio_4 = d_F_b_Ed_ser / d_F_b_Rd_ser;
-    d_ratio_5 = d_M_Ed / d_M_Rd;
-    d_ratio_6 = d_M_Ed_ser / d_M_Rd_ser;
-
-
-    
+    // Shear resistance of the pin
+    d_ratio_1 = d_F_v_Ed / d_F_v_Rd;
+    // Bearing resistance of the plate and the pin
+    d_ratio_2 = d_F_b_Ed / d_F_b_Rd;
+    // Bending resistance of the pin
+    d_ratio_4 = d_M_Ed / d_M_Rd;
+    // Combined shear and bending resistance of the pin
+    d_ratio_6 = (Math.Pow(d_M_Ed / d_M_Rd, 2) + Math.Pow(d_F_v_Ed / d_F_v_Rd, 2)) / 1;
+     
     // Table 3.9: Geometrical requirements for pin ended members
     // (1) Type A: Given thickness t
     d_a_p1 = ((0.5 * d_F_Ed * d_gamma_M0) / (2 * d_t_1_min * d_f_y)) + ((2 * d_d_0) / 3);
@@ -514,7 +517,6 @@ public void EN1993_1_8_Main()
     d_13d0_p2 = 1.3 * d_d_0;
     d_16d0_p2 = 1.6 * d_d_0;
     d_25d0_p2 = 2.5 * d_d_0;
-
 
 }
 // Auxiliary method for Main
@@ -538,8 +540,6 @@ public void Set_data()
     d_f_yp *= d_ratio_mega;
     d_f_up *= d_ratio_mega;
 
-
-
     d_a_p1 /= d_ratio_mili;
     d_c_p1 /= d_ratio_mili;
 
@@ -553,17 +553,13 @@ public void Set_data()
     d_16d0_p2 /= d_ratio_mili;
     d_25d0_p2 /= d_ratio_mili;
 
-
-
     d_ratio_1 /= d_ratio_percent;
     d_ratio_2 /= d_ratio_percent;
     d_ratio_3 /= d_ratio_percent;
     d_ratio_4 /= d_ratio_percent;
     d_ratio_5 /= d_ratio_percent;
     d_ratio_6 /= d_ratio_percent;
-    d_ratio_7_pin /= d_ratio_percent;
-
-
+    d_ratio_7 /= d_ratio_percent;
 
     // Nastavia sa načítané a vypocitane hodnoty (skonvetovane z double na string)
 
@@ -572,18 +568,13 @@ public void Set_data()
     d_A_textB.Text = Math.Round(d_A,decimal_pos1).ToString();
     d_Wel_textB.Text = Math.Round(d_W_el,decimal_pos1).ToString();
 
-
     d_dfy_textB.Text = d_f_y.ToString();
     d_dfu_textB.Text = d_f_u.ToString();
-
     d_dfyp_textB.Text = d_f_yp.ToString();
     d_dfup_textB.Text = d_f_up.ToString();
 
-
     d_a_p1_textB.Text = Math.Round(d_a_p1,decimal_pos1).ToString();
     d_c_p1_textB.Text = Math.Round(d_c_p1,decimal_pos1).ToString();
-
-
 
     d_t_p2_textB.Text = Math.Round(d_d0_p2,decimal_pos1).ToString();
     d_d0_p2_textB.Text = Math.Round(d_d0_p2,decimal_pos1).ToString();
@@ -595,22 +586,19 @@ public void Set_data()
     d_16d0_p2_textB.Text = Math.Round(d_16d0_p2,decimal_pos1).ToString();
     d_25d0_p2_textB.Text = Math.Round(d_25d0_p2, decimal_pos1).ToString();
 
-
     int decimal_pos2 = 1;
 
-    d_ratio_1_textB.Text = Math.Round(d_ratio_1,decimal_pos2).ToString();
-    d_ratio_2_textB.Text = Math.Round(d_ratio_2,decimal_pos2).ToString();
-    d_ratio_3_textB.Text = Math.Round(d_ratio_3,decimal_pos2).ToString();
-    d_ratio_4_textB.Text = Math.Round(d_ratio_4,decimal_pos2).ToString();
-    d_ratio_5_textB.Text = Math.Round(d_ratio_5,decimal_pos2).ToString();
-    d_ratio_6_textB.Text = Math.Round(d_ratio_6,decimal_pos2).ToString();
-    d_ratio_7_textB.Text = Math.Round(d_ratio_7_pin, decimal_pos2).ToString();
-
+    d_ratio_1_textB.Text = Math.Round(d_ratio_1, decimal_pos2).ToString();
+    d_ratio_2_textB.Text = Math.Round(d_ratio_2, decimal_pos2).ToString();
+    d_ratio_3_textB.Text = Math.Round(d_ratio_3, decimal_pos2).ToString();
+    d_ratio_4_textB.Text = Math.Round(d_ratio_4, decimal_pos2).ToString();
+    d_ratio_5_textB.Text = Math.Round(d_ratio_5, decimal_pos2).ToString();
+    d_ratio_6_textB.Text = Math.Round(d_ratio_6, decimal_pos2).ToString();
+    d_ratio_7_textB.Text = Math.Round(d_ratio_7, decimal_pos2).ToString();
 }
 // Metoda ktora sa spusti po stlaceni tlacidla calculate
 private void Calculate_Click_1(object sender, EventArgs e)
 {
-
     // Načítanie dat
     this.Load_data();
     // Načítanie dát pre oceľ
@@ -624,8 +612,6 @@ private void Calculate_Click_1(object sender, EventArgs e)
     // MessageBox.Show("Vysledky v EN 1992_1_1 Form \n " + (" A = " + D_A + " mm2 \n Iy = " + D_I_y + " mm4 \n Iz = " + D_I_z + " mm4"));
     // zapísanie výsledkov do READONLY textboxov
     this.Set_data();
-
-
 }
 // Cancel dialog
 private void button1_Click(object sender, EventArgs e)
