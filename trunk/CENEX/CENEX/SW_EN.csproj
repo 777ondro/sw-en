@@ -120,6 +120,12 @@
     <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-8Form_PIN.Designer.cs">
       <DependentUpon>EN1993-1-8Form_PIN.cs</DependentUpon>
     </Compile>
+    <Compile Include="TEMPORARY\DataGrid_Ukazky.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TEMPORARY\DataGrid_Ukazky.Designer.cs">
+      <DependentUpon>DataGrid_Ukazky.cs</DependentUpon>
+    </Compile>
     <Compile Include="TEMPORARY\DataSet1.cs">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
@@ -261,6 +267,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1MessageBoxes.resx">
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TEMPORARY\DataGrid_Ukazky.resx">
+      <DependentUpon>DataGrid_Ukazky.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TEMPORARY\Form1_specimens.resx">

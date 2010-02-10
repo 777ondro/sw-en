@@ -78,6 +78,7 @@
             this.eC2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.steelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.eC3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eC3ConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compositesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eC4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,7 +126,7 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.eC3ConnectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.temporaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HL_Menu.SuspendLayout();
             this.Standard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -314,7 +315,8 @@
             // 
             this.wiewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolbarsToolStripMenuItem,
-            this.paintToolStripMenuItem});
+            this.paintToolStripMenuItem,
+            this.temporaryToolStripMenuItem});
             this.wiewToolStripMenuItem.Name = "wiewToolStripMenuItem";
             this.wiewToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.wiewToolStripMenuItem.Text = "View";
@@ -328,7 +330,7 @@
             this.en1999ToolStripMenuItem,
             this.TZBToolStripMenuItem});
             this.toolbarsToolStripMenuItem.Name = "toolbarsToolStripMenuItem";
-            this.toolbarsToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.toolbarsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.toolbarsToolStripMenuItem.Text = "&Toolbars";
             // 
             // treeToolStripMenuItem
@@ -369,7 +371,7 @@
             // paintToolStripMenuItem
             // 
             this.paintToolStripMenuItem.Name = "paintToolStripMenuItem";
-            this.paintToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.paintToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.paintToolStripMenuItem.Text = "Paint";
             this.paintToolStripMenuItem.Click += new System.EventHandler(this.paintToolStripMenuItem_Click);
             // 
@@ -386,7 +388,7 @@
             // materialsToolStripMenuItem
             // 
             this.materialsToolStripMenuItem.Name = "materialsToolStripMenuItem";
-            this.materialsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.materialsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.materialsToolStripMenuItem.Text = "Materials";
             this.materialsToolStripMenuItem.Click += new System.EventHandler(this.materialsToolStripMenuItem_Click);
             // 
@@ -402,7 +404,7 @@
             this.glassToolStripMenuItem,
             this.othersToolStripMenuItem});
             this.crosssectionsToolStripMenuItem.Name = "crosssectionsToolStripMenuItem";
-            this.crosssectionsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.crosssectionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.crosssectionsToolStripMenuItem.Text = "Cross-sections";
             this.crosssectionsToolStripMenuItem.Click += new System.EventHandler(this.crosssectionsToolStripMenuItem_Click);
             // 
@@ -459,7 +461,7 @@
             this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tablesToolStripMenuItem});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // tablesToolStripMenuItem
@@ -489,7 +491,7 @@
             this.loadGeneratorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC1ToolStripMenuItem});
             this.loadGeneratorsToolStripMenuItem.Name = "loadGeneratorsToolStripMenuItem";
-            this.loadGeneratorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadGeneratorsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.loadGeneratorsToolStripMenuItem.Text = "Load generators";
             // 
             // eC1ToolStripMenuItem
@@ -504,7 +506,7 @@
             this.concreteToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC2ToolStripMenuItem});
             this.concreteToolStripMenuItem1.Name = "concreteToolStripMenuItem1";
-            this.concreteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.concreteToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.concreteToolStripMenuItem1.Text = "Concrete";
             // 
             // eC2ToolStripMenuItem
@@ -520,7 +522,7 @@
             this.eC3ToolStripMenuItem,
             this.eC3ConnectionsToolStripMenuItem});
             this.steelToolStripMenuItem1.Name = "steelToolStripMenuItem1";
-            this.steelToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.steelToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.steelToolStripMenuItem1.Text = "Steel";
             // 
             // eC3ToolStripMenuItem
@@ -530,12 +532,19 @@
             this.eC3ToolStripMenuItem.Text = "EC3";
             this.eC3ToolStripMenuItem.Click += new System.EventHandler(this.eC3ToolStripMenuItem_Click);
             // 
+            // eC3ConnectionsToolStripMenuItem
+            // 
+            this.eC3ConnectionsToolStripMenuItem.Name = "eC3ConnectionsToolStripMenuItem";
+            this.eC3ConnectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.eC3ConnectionsToolStripMenuItem.Text = "EC3 Connections";
+            this.eC3ConnectionsToolStripMenuItem.Click += new System.EventHandler(this.eC3ConnectionsToolStripMenuItem_Click);
+            // 
             // compositesToolStripMenuItem
             // 
             this.compositesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC4ToolStripMenuItem});
             this.compositesToolStripMenuItem.Name = "compositesToolStripMenuItem";
-            this.compositesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compositesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.compositesToolStripMenuItem.Text = "Composites";
             // 
             // eC4ToolStripMenuItem
@@ -550,7 +559,7 @@
             this.timberToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.timberToolStripMenuItem2});
             this.timberToolStripMenuItem1.Name = "timberToolStripMenuItem1";
-            this.timberToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.timberToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.timberToolStripMenuItem1.Text = "Timber";
             // 
             // timberToolStripMenuItem2
@@ -564,7 +573,7 @@
             this.mansonryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC6ToolStripMenuItem});
             this.mansonryToolStripMenuItem.Name = "mansonryToolStripMenuItem";
-            this.mansonryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mansonryToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.mansonryToolStripMenuItem.Text = "Mansonry";
             // 
             // eC6ToolStripMenuItem
@@ -579,7 +588,7 @@
             this.geotechnicToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC7ToolStripMenuItem});
             this.geotechnicToolStripMenuItem.Name = "geotechnicToolStripMenuItem";
-            this.geotechnicToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.geotechnicToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.geotechnicToolStripMenuItem.Text = "Geotechnic";
             // 
             // eC7ToolStripMenuItem
@@ -594,7 +603,7 @@
             this.earthQuakeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC8ToolStripMenuItem});
             this.earthQuakeToolStripMenuItem.Name = "earthQuakeToolStripMenuItem";
-            this.earthQuakeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.earthQuakeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.earthQuakeToolStripMenuItem.Text = "Earthquake";
             // 
             // eC8ToolStripMenuItem
@@ -609,7 +618,7 @@
             this.aluminiumToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eC9ToolStripMenuItem});
             this.aluminiumToolStripMenuItem1.Name = "aluminiumToolStripMenuItem1";
-            this.aluminiumToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aluminiumToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.aluminiumToolStripMenuItem1.Text = "Aluminium";
             // 
             // eC9ToolStripMenuItem
@@ -893,12 +902,12 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // eC3ConnectionsToolStripMenuItem
+            // temporaryToolStripMenuItem
             // 
-            this.eC3ConnectionsToolStripMenuItem.Name = "eC3ConnectionsToolStripMenuItem";
-            this.eC3ConnectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.eC3ConnectionsToolStripMenuItem.Text = "EC3 Connections";
-            this.eC3ConnectionsToolStripMenuItem.Click += new System.EventHandler(this.eC3ConnectionsToolStripMenuItem_Click);
+            this.temporaryToolStripMenuItem.Name = "temporaryToolStripMenuItem";
+            this.temporaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.temporaryToolStripMenuItem.Text = "Temporary";
+            this.temporaryToolStripMenuItem.Click += new System.EventHandler(this.temporaryToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1022,6 +1031,7 @@
         private System.Windows.Forms.ToolStripMenuItem environmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem paintToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eC3ConnectionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem temporaryToolStripMenuItem;
     }
 }
 

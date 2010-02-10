@@ -13,6 +13,7 @@ using CENEX.MODEL.PAINT;
 using CENEX.DATABASE.MAT;
 using CENEX.DATABASE.CRSC;
 using CENEX.MODULES._03_STEEL.EC3;
+using CENEX.TEMPORARY;
 
 
 
@@ -150,6 +151,12 @@ namespace CENEX
         {
             EN1993_1_8Form_PIN obj_EN1993_1_8Form_PIN = new EN1993_1_8Form_PIN();
             obj_EN1993_1_8Form_PIN.ShowDialog();
+        }
+
+        private void temporaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataGrid_Ukazky obj_DataGrid_Ukazky = new DataGrid_Ukazky();
+            obj_DataGrid_Ukazky.ShowDialog();
         }
 
         
