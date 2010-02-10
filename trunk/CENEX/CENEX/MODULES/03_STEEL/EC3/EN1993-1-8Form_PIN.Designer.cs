@@ -96,31 +96,31 @@
             this.d_dfyp_textB = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.d_a_p1_textB = new System.Windows.Forms.TextBox();
-            this.label47 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
             this.d_c_p1_textB = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.d_t_p2_textB = new System.Windows.Forms.TextBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.d_d0_p2_textB = new System.Windows.Forms.TextBox();
-            this.label50 = new System.Windows.Forms.Label();
-            this.d_1d0_p2_textB = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.d_03d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.d_a_p1_textB = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.d_25d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.d_16d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
             this.d_13d0_p2_textB = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.d_075d0_p2_textB = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
-            this.d_16d0_p2_textB = new System.Windows.Forms.TextBox();
-            this.label55 = new System.Windows.Forms.Label();
-            this.d_25d0_p2_textB = new System.Windows.Forms.TextBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
+            this.d_03d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.d_1d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.d_d0_p2_textB = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.d_t_p2_textB = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label46 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.d_ratio_2_textB = new System.Windows.Forms.TextBox();
@@ -143,16 +143,22 @@
             this.label70 = new System.Windows.Forms.Label();
             this.d_ratio_7_textB = new System.Windows.Forms.TextBox();
             this.label71 = new System.Windows.Forms.Label();
+            this.b_plates32_radioB = new System.Windows.Forms.RadioButton();
+            this.b_plates21_radioB = new System.Windows.Forms.RadioButton();
+            this.d_tc_textB = new System.Windows.Forms.TextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // d_Wel_textB
             // 
-            this.d_Wel_textB.Location = new System.Drawing.Point(81, 391);
+            this.d_Wel_textB.Location = new System.Drawing.Point(83, 496);
             this.d_Wel_textB.Name = "d_Wel_textB";
             this.d_Wel_textB.ReadOnly = true;
             this.d_Wel_textB.Size = new System.Drawing.Size(66, 20);
@@ -161,7 +167,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 394);
+            this.label5.Location = new System.Drawing.Point(43, 499);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 20;
@@ -180,7 +186,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(41, 367);
+            this.label4.Location = new System.Drawing.Point(43, 472);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 18;
@@ -188,7 +194,7 @@
             // 
             // d_A_textB
             // 
-            this.d_A_textB.Location = new System.Drawing.Point(81, 364);
+            this.d_A_textB.Location = new System.Drawing.Point(83, 469);
             this.d_A_textB.Name = "d_A_textB";
             this.d_A_textB.ReadOnly = true;
             this.d_A_textB.Size = new System.Drawing.Size(66, 20);
@@ -196,7 +202,7 @@
             // 
             // d_d0_textB
             // 
-            this.d_d0_textB.Location = new System.Drawing.Point(82, 231);
+            this.d_d0_textB.Location = new System.Drawing.Point(84, 267);
             this.d_d0_textB.Name = "d_d0_textB";
             this.d_d0_textB.Size = new System.Drawing.Size(66, 20);
             this.d_d0_textB.TabIndex = 16;
@@ -204,7 +210,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 234);
+            this.label3.Location = new System.Drawing.Point(44, 270);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 15;
@@ -213,7 +219,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 205);
+            this.label2.Location = new System.Drawing.Point(44, 241);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 14;
@@ -231,7 +237,7 @@
             // 
             // d_d_textB
             // 
-            this.d_d_textB.Location = new System.Drawing.Point(82, 202);
+            this.d_d_textB.Location = new System.Drawing.Point(84, 238);
             this.d_d_textB.Name = "d_d_textB";
             this.d_d_textB.Size = new System.Drawing.Size(66, 20);
             this.d_d_textB.TabIndex = 12;
@@ -239,7 +245,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(228, 208);
+            this.label7.Location = new System.Drawing.Point(230, 244);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
             this.label7.TabIndex = 24;
@@ -248,7 +254,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(228, 234);
+            this.label8.Location = new System.Drawing.Point(230, 270);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 25;
@@ -257,7 +263,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(228, 286);
+            this.label9.Location = new System.Drawing.Point(230, 322);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 27;
@@ -266,7 +272,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(228, 260);
+            this.label10.Location = new System.Drawing.Point(230, 296);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(31, 13);
             this.label10.TabIndex = 26;
@@ -275,7 +281,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(228, 314);
+            this.label11.Location = new System.Drawing.Point(230, 350);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(31, 13);
             this.label11.TabIndex = 28;
@@ -283,7 +289,7 @@
             // 
             // d_t11_textB
             // 
-            this.d_t11_textB.Location = new System.Drawing.Point(265, 205);
+            this.d_t11_textB.Location = new System.Drawing.Point(267, 241);
             this.d_t11_textB.Name = "d_t11_textB";
             this.d_t11_textB.Size = new System.Drawing.Size(66, 20);
             this.d_t11_textB.TabIndex = 29;
@@ -291,7 +297,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(154, 205);
+            this.label12.Location = new System.Drawing.Point(156, 241);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(23, 13);
             this.label12.TabIndex = 30;
@@ -300,7 +306,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(154, 234);
+            this.label13.Location = new System.Drawing.Point(156, 270);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(23, 13);
             this.label13.TabIndex = 31;
@@ -309,7 +315,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(337, 208);
+            this.label14.Location = new System.Drawing.Point(339, 244);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(23, 13);
             this.label14.TabIndex = 32;
@@ -318,7 +324,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(337, 234);
+            this.label15.Location = new System.Drawing.Point(339, 270);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(23, 13);
             this.label15.TabIndex = 34;
@@ -326,7 +332,7 @@
             // 
             // d_t12_textB
             // 
-            this.d_t12_textB.Location = new System.Drawing.Point(265, 231);
+            this.d_t12_textB.Location = new System.Drawing.Point(267, 267);
             this.d_t12_textB.Name = "d_t12_textB";
             this.d_t12_textB.Size = new System.Drawing.Size(66, 20);
             this.d_t12_textB.TabIndex = 33;
@@ -334,7 +340,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(337, 260);
+            this.label16.Location = new System.Drawing.Point(339, 296);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(23, 13);
             this.label16.TabIndex = 36;
@@ -342,7 +348,7 @@
             // 
             // d_t21_textB
             // 
-            this.d_t21_textB.Location = new System.Drawing.Point(265, 257);
+            this.d_t21_textB.Location = new System.Drawing.Point(267, 293);
             this.d_t21_textB.Name = "d_t21_textB";
             this.d_t21_textB.Size = new System.Drawing.Size(66, 20);
             this.d_t21_textB.TabIndex = 35;
@@ -350,7 +356,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(337, 286);
+            this.label17.Location = new System.Drawing.Point(339, 322);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(23, 13);
             this.label17.TabIndex = 38;
@@ -358,7 +364,7 @@
             // 
             // d_t22_textB
             // 
-            this.d_t22_textB.Location = new System.Drawing.Point(265, 283);
+            this.d_t22_textB.Location = new System.Drawing.Point(267, 319);
             this.d_t22_textB.Name = "d_t22_textB";
             this.d_t22_textB.Size = new System.Drawing.Size(66, 20);
             this.d_t22_textB.TabIndex = 37;
@@ -366,7 +372,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(337, 312);
+            this.label18.Location = new System.Drawing.Point(339, 348);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(23, 13);
             this.label18.TabIndex = 40;
@@ -374,7 +380,7 @@
             // 
             // d_t23_textB
             // 
-            this.d_t23_textB.Location = new System.Drawing.Point(265, 309);
+            this.d_t23_textB.Location = new System.Drawing.Point(267, 345);
             this.d_t23_textB.Name = "d_t23_textB";
             this.d_t23_textB.Size = new System.Drawing.Size(66, 20);
             this.d_t23_textB.TabIndex = 39;
@@ -382,7 +388,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(42, 280);
+            this.label19.Location = new System.Drawing.Point(44, 316);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(30, 13);
             this.label19.TabIndex = 41;
@@ -391,7 +397,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(12, 177);
+            this.label20.Location = new System.Drawing.Point(14, 213);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(105, 13);
             this.label20.TabIndex = 42;
@@ -400,7 +406,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 258);
+            this.label21.Location = new System.Drawing.Point(14, 294);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(98, 13);
             this.label21.TabIndex = 43;
@@ -408,7 +414,7 @@
             // 
             // d_din_textB
             // 
-            this.d_din_textB.Location = new System.Drawing.Point(82, 276);
+            this.d_din_textB.Location = new System.Drawing.Point(84, 312);
             this.d_din_textB.Name = "d_din_textB";
             this.d_din_textB.Size = new System.Drawing.Size(66, 20);
             this.d_din_textB.TabIndex = 44;
@@ -416,7 +422,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(154, 280);
+            this.label22.Location = new System.Drawing.Point(156, 316);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(23, 13);
             this.label22.TabIndex = 45;
@@ -425,7 +431,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 339);
+            this.label23.Location = new System.Drawing.Point(14, 444);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(71, 13);
             this.label23.TabIndex = 46;
@@ -434,7 +440,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(195, 342);
+            this.label24.Location = new System.Drawing.Point(197, 378);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(97, 13);
             this.label24.TabIndex = 47;
@@ -443,7 +449,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(336, 366);
+            this.label25.Location = new System.Drawing.Point(338, 402);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(21, 13);
             this.label25.TabIndex = 50;
@@ -452,7 +458,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(207, 366);
+            this.label26.Location = new System.Drawing.Point(209, 402);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(35, 13);
             this.label26.TabIndex = 49;
@@ -460,7 +466,7 @@
             // 
             // d_FEd_textB
             // 
-            this.d_FEd_textB.Location = new System.Drawing.Point(264, 363);
+            this.d_FEd_textB.Location = new System.Drawing.Point(266, 399);
             this.d_FEd_textB.Name = "d_FEd_textB";
             this.d_FEd_textB.Size = new System.Drawing.Size(66, 20);
             this.d_FEd_textB.TabIndex = 48;
@@ -478,7 +484,7 @@
             // b_index_REPLACE_checkbox
             // 
             this.b_index_REPLACE_checkbox.AutoSize = true;
-            this.b_index_REPLACE_checkbox.Location = new System.Drawing.Point(349, 25);
+            this.b_index_REPLACE_checkbox.Location = new System.Drawing.Point(102, 38);
             this.b_index_REPLACE_checkbox.Name = "b_index_REPLACE_checkbox";
             this.b_index_REPLACE_checkbox.Size = new System.Drawing.Size(15, 14);
             this.b_index_REPLACE_checkbox.TabIndex = 52;
@@ -488,7 +494,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(261, 25);
+            this.label27.Location = new System.Drawing.Point(14, 38);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(87, 13);
             this.label27.TabIndex = 53;
@@ -497,7 +503,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(261, 47);
+            this.label40.Location = new System.Drawing.Point(14, 60);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(87, 13);
             this.label40.TabIndex = 54;
@@ -508,7 +514,7 @@
             this.b_index_SOLID_checkbox.AutoSize = true;
             this.b_index_SOLID_checkbox.Checked = true;
             this.b_index_SOLID_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.b_index_SOLID_checkbox.Location = new System.Drawing.Point(349, 47);
+            this.b_index_SOLID_checkbox.Location = new System.Drawing.Point(102, 60);
             this.b_index_SOLID_checkbox.Name = "b_index_SOLID_checkbox";
             this.b_index_SOLID_checkbox.Size = new System.Drawing.Size(15, 14);
             this.b_index_SOLID_checkbox.TabIndex = 55;
@@ -528,7 +534,7 @@
             // comboBox_Steel_PIN
             // 
             this.comboBox_Steel_PIN.FormattingEnabled = true;
-            this.comboBox_Steel_PIN.Location = new System.Drawing.Point(265, 85);
+            this.comboBox_Steel_PIN.Location = new System.Drawing.Point(267, 121);
             this.comboBox_Steel_PIN.Name = "comboBox_Steel_PIN";
             this.comboBox_Steel_PIN.Size = new System.Drawing.Size(99, 21);
             this.comboBox_Steel_PIN.TabIndex = 57;
@@ -536,7 +542,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(262, 69);
+            this.label29.Location = new System.Drawing.Point(264, 105);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(49, 13);
             this.label29.TabIndex = 58;
@@ -545,7 +551,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(79, 70);
+            this.label30.Location = new System.Drawing.Point(81, 106);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(58, 13);
             this.label30.TabIndex = 59;
@@ -554,7 +560,7 @@
             // comboBox_Steel_PLATE
             // 
             this.comboBox_Steel_PLATE.FormattingEnabled = true;
-            this.comboBox_Steel_PLATE.Location = new System.Drawing.Point(82, 85);
+            this.comboBox_Steel_PLATE.Location = new System.Drawing.Point(84, 121);
             this.comboBox_Steel_PLATE.Name = "comboBox_Steel_PLATE";
             this.comboBox_Steel_PLATE.Size = new System.Drawing.Size(92, 21);
             this.comboBox_Steel_PLATE.TabIndex = 60;
@@ -562,7 +568,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(151, 367);
+            this.label6.Location = new System.Drawing.Point(153, 472);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 61;
@@ -571,7 +577,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(151, 394);
+            this.label31.Location = new System.Drawing.Point(153, 499);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(29, 13);
             this.label31.TabIndex = 62;
@@ -580,7 +586,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(207, 414);
+            this.label32.Location = new System.Drawing.Point(209, 450);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(52, 13);
             this.label32.TabIndex = 63;
@@ -588,7 +594,7 @@
             // 
             // d_FEd_ser_textB
             // 
-            this.d_FEd_ser_textB.Location = new System.Drawing.Point(264, 411);
+            this.d_FEd_ser_textB.Location = new System.Drawing.Point(266, 447);
             this.d_FEd_ser_textB.Name = "d_FEd_ser_textB";
             this.d_FEd_ser_textB.Size = new System.Drawing.Size(66, 20);
             this.d_FEd_ser_textB.TabIndex = 64;
@@ -596,7 +602,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(336, 414);
+            this.label33.Location = new System.Drawing.Point(338, 450);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(21, 13);
             this.label33.TabIndex = 65;
@@ -605,7 +611,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(195, 395);
+            this.label34.Location = new System.Drawing.Point(197, 431);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(97, 13);
             this.label34.TabIndex = 66;
@@ -614,7 +620,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(151, 142);
+            this.label35.Location = new System.Drawing.Point(153, 178);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(29, 13);
             this.label35.TabIndex = 73;
@@ -623,7 +629,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(151, 115);
+            this.label36.Location = new System.Drawing.Point(153, 151);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(29, 13);
             this.label36.TabIndex = 72;
@@ -631,7 +637,7 @@
             // 
             // d_dfu_textB
             // 
-            this.d_dfu_textB.Location = new System.Drawing.Point(81, 139);
+            this.d_dfu_textB.Location = new System.Drawing.Point(83, 175);
             this.d_dfu_textB.Name = "d_dfu_textB";
             this.d_dfu_textB.ReadOnly = true;
             this.d_dfu_textB.Size = new System.Drawing.Size(66, 20);
@@ -640,7 +646,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(51, 142);
+            this.label38.Location = new System.Drawing.Point(53, 178);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(25, 13);
             this.label38.TabIndex = 69;
@@ -649,7 +655,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(51, 115);
+            this.label39.Location = new System.Drawing.Point(53, 151);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(24, 13);
             this.label39.TabIndex = 68;
@@ -657,7 +663,7 @@
             // 
             // d_dfy_textB
             // 
-            this.d_dfy_textB.Location = new System.Drawing.Point(81, 112);
+            this.d_dfy_textB.Location = new System.Drawing.Point(83, 148);
             this.d_dfy_textB.Name = "d_dfy_textB";
             this.d_dfy_textB.ReadOnly = true;
             this.d_dfy_textB.Size = new System.Drawing.Size(66, 20);
@@ -666,7 +672,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(226, 177);
+            this.label37.Location = new System.Drawing.Point(228, 213);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(79, 13);
             this.label37.TabIndex = 74;
@@ -675,7 +681,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(335, 139);
+            this.label41.Location = new System.Drawing.Point(337, 175);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(29, 13);
             this.label41.TabIndex = 80;
@@ -684,7 +690,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(335, 112);
+            this.label42.Location = new System.Drawing.Point(337, 148);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(29, 13);
             this.label42.TabIndex = 79;
@@ -692,7 +698,7 @@
             // 
             // d_dfup_textB
             // 
-            this.d_dfup_textB.Location = new System.Drawing.Point(265, 136);
+            this.d_dfup_textB.Location = new System.Drawing.Point(267, 172);
             this.d_dfup_textB.Name = "d_dfup_textB";
             this.d_dfup_textB.ReadOnly = true;
             this.d_dfup_textB.Size = new System.Drawing.Size(66, 20);
@@ -701,7 +707,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(235, 139);
+            this.label43.Location = new System.Drawing.Point(237, 175);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(25, 13);
             this.label43.TabIndex = 77;
@@ -710,7 +716,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(235, 112);
+            this.label44.Location = new System.Drawing.Point(237, 148);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(24, 13);
             this.label44.TabIndex = 76;
@@ -718,7 +724,7 @@
             // 
             // d_dfyp_textB
             // 
-            this.d_dfyp_textB.Location = new System.Drawing.Point(265, 109);
+            this.d_dfyp_textB.Location = new System.Drawing.Point(267, 145);
             this.d_dfyp_textB.Name = "d_dfyp_textB";
             this.d_dfyp_textB.ReadOnly = true;
             this.d_dfyp_textB.Size = new System.Drawing.Size(66, 20);
@@ -750,6 +756,63 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Geometrical requirements for given thickness";
             // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(308, 8);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(33, 13);
+            this.label57.TabIndex = 90;
+            this.label57.Text = "Limits";
+            // 
+            // d_c_p1_textB
+            // 
+            this.d_c_p1_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_c_p1_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_c_p1_textB.Location = new System.Drawing.Point(336, 56);
+            this.d_c_p1_textB.Name = "d_c_p1_textB";
+            this.d_c_p1_textB.ReadOnly = true;
+            this.d_c_p1_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_c_p1_textB.TabIndex = 86;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(308, 58);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(22, 13);
+            this.label47.TabIndex = 85;
+            this.label47.Text = "c ≥";
+            // 
+            // d_a_p1_textB
+            // 
+            this.d_a_p1_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_a_p1_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_a_p1_textB.Location = new System.Drawing.Point(336, 30);
+            this.d_a_p1_textB.Name = "d_a_p1_textB";
+            this.d_a_p1_textB.ReadOnly = true;
+            this.d_a_p1_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_a_p1_textB.TabIndex = 83;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(308, 32);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(22, 13);
+            this.label45.TabIndex = 82;
+            this.label45.Text = "a ≥";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CENEX.Properties.Resources.pin1;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(284, 154);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 81;
+            this.pictureBox1.TabStop = false;
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
@@ -778,148 +841,43 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Geometrical requirements for given geometry";
             // 
-            // pictureBox1
+            // d_25d0_p2_textB
             // 
-            this.pictureBox1.Image = global::CENEX.Properties.Resources.pin1;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(284, 154);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 81;
-            this.pictureBox1.TabStop = false;
+            this.d_25d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_25d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_25d0_p2_textB.Location = new System.Drawing.Point(339, 222);
+            this.d_25d0_p2_textB.Name = "d_25d0_p2_textB";
+            this.d_25d0_p2_textB.ReadOnly = true;
+            this.d_25d0_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_25d0_p2_textB.TabIndex = 99;
             // 
-            // pictureBox2
+            // label56
             // 
-            this.pictureBox2.Image = global::CENEX.Properties.Resources.pin2;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(362, 150);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 82;
-            this.pictureBox2.TabStop = false;
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(290, 224);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(43, 13);
+            this.label56.TabIndex = 98;
+            this.label56.Text = "2,5d0 =";
             // 
-            // label45
+            // d_16d0_p2_textB
             // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(308, 32);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(22, 13);
-            this.label45.TabIndex = 82;
-            this.label45.Text = "a ≥";
+            this.d_16d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_16d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_16d0_p2_textB.Location = new System.Drawing.Point(339, 190);
+            this.d_16d0_p2_textB.Name = "d_16d0_p2_textB";
+            this.d_16d0_p2_textB.ReadOnly = true;
+            this.d_16d0_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_16d0_p2_textB.TabIndex = 97;
             // 
-            // d_a_p1_textB
+            // label55
             // 
-            this.d_a_p1_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_a_p1_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_a_p1_textB.Location = new System.Drawing.Point(336, 30);
-            this.d_a_p1_textB.Name = "d_a_p1_textB";
-            this.d_a_p1_textB.ReadOnly = true;
-            this.d_a_p1_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_a_p1_textB.TabIndex = 83;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(308, 58);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(22, 13);
-            this.label47.TabIndex = 85;
-            this.label47.Text = "c ≥";
-            // 
-            // d_c_p1_textB
-            // 
-            this.d_c_p1_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_c_p1_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_c_p1_textB.Location = new System.Drawing.Point(336, 56);
-            this.d_c_p1_textB.Name = "d_c_p1_textB";
-            this.d_c_p1_textB.ReadOnly = true;
-            this.d_c_p1_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_c_p1_textB.TabIndex = 86;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(7, 164);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(19, 13);
-            this.label48.TabIndex = 83;
-            this.label48.Text = "t ≥";
-            // 
-            // d_t_p2_textB
-            // 
-            this.d_t_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_t_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_t_p2_textB.Location = new System.Drawing.Point(45, 162);
-            this.d_t_p2_textB.Name = "d_t_p2_textB";
-            this.d_t_p2_textB.ReadOnly = true;
-            this.d_t_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_t_p2_textB.TabIndex = 84;
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(7, 197);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(28, 13);
-            this.label49.TabIndex = 85;
-            this.label49.Text = "d0 ≤";
-            // 
-            // d_d0_p2_textB
-            // 
-            this.d_d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_d0_p2_textB.Location = new System.Drawing.Point(45, 190);
-            this.d_d0_p2_textB.Name = "d_d0_p2_textB";
-            this.d_d0_p2_textB.ReadOnly = true;
-            this.d_d0_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_d0_p2_textB.TabIndex = 86;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(151, 164);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(28, 13);
-            this.label50.TabIndex = 87;
-            this.label50.Text = "d0 =";
-            // 
-            // d_1d0_p2_textB
-            // 
-            this.d_1d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_1d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_1d0_p2_textB.Location = new System.Drawing.Point(206, 162);
-            this.d_1d0_p2_textB.Name = "d_1d0_p2_textB";
-            this.d_1d0_p2_textB.ReadOnly = true;
-            this.d_1d0_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_1d0_p2_textB.TabIndex = 88;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(7, 140);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(33, 13);
-            this.label51.TabIndex = 89;
-            this.label51.Text = "Limits";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(151, 193);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(43, 13);
-            this.label52.TabIndex = 90;
-            this.label52.Text = "0,3d0 =";
-            // 
-            // d_03d0_p2_textB
-            // 
-            this.d_03d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_03d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_03d0_p2_textB.Location = new System.Drawing.Point(206, 191);
-            this.d_03d0_p2_textB.Name = "d_03d0_p2_textB";
-            this.d_03d0_p2_textB.ReadOnly = true;
-            this.d_03d0_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_03d0_p2_textB.TabIndex = 91;
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(290, 193);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(43, 13);
+            this.label55.TabIndex = 96;
+            this.label55.Text = "1,6d0 =";
             // 
             // d_13d0_p2_textB
             // 
@@ -959,52 +917,100 @@
             this.label54.TabIndex = 92;
             this.label54.Text = "0,75d0 =";
             // 
-            // d_16d0_p2_textB
+            // d_03d0_p2_textB
             // 
-            this.d_16d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_16d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_16d0_p2_textB.Location = new System.Drawing.Point(339, 190);
-            this.d_16d0_p2_textB.Name = "d_16d0_p2_textB";
-            this.d_16d0_p2_textB.ReadOnly = true;
-            this.d_16d0_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_16d0_p2_textB.TabIndex = 97;
+            this.d_03d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_03d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_03d0_p2_textB.Location = new System.Drawing.Point(206, 191);
+            this.d_03d0_p2_textB.Name = "d_03d0_p2_textB";
+            this.d_03d0_p2_textB.ReadOnly = true;
+            this.d_03d0_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_03d0_p2_textB.TabIndex = 91;
             // 
-            // label55
+            // label52
             // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(290, 193);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(43, 13);
-            this.label55.TabIndex = 96;
-            this.label55.Text = "1,6d0 =";
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(151, 193);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(43, 13);
+            this.label52.TabIndex = 90;
+            this.label52.Text = "0,3d0 =";
             // 
-            // d_25d0_p2_textB
+            // label51
             // 
-            this.d_25d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.d_25d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.d_25d0_p2_textB.Location = new System.Drawing.Point(339, 222);
-            this.d_25d0_p2_textB.Name = "d_25d0_p2_textB";
-            this.d_25d0_p2_textB.ReadOnly = true;
-            this.d_25d0_p2_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_25d0_p2_textB.TabIndex = 99;
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(7, 140);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(33, 13);
+            this.label51.TabIndex = 89;
+            this.label51.Text = "Limits";
             // 
-            // label56
+            // d_1d0_p2_textB
             // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(290, 224);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(43, 13);
-            this.label56.TabIndex = 98;
-            this.label56.Text = "2,5d0 =";
+            this.d_1d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_1d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_1d0_p2_textB.Location = new System.Drawing.Point(206, 162);
+            this.d_1d0_p2_textB.Name = "d_1d0_p2_textB";
+            this.d_1d0_p2_textB.ReadOnly = true;
+            this.d_1d0_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_1d0_p2_textB.TabIndex = 88;
             // 
-            // label57
+            // label50
             // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(308, 8);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(33, 13);
-            this.label57.TabIndex = 90;
-            this.label57.Text = "Limits";
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(151, 164);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(28, 13);
+            this.label50.TabIndex = 87;
+            this.label50.Text = "d0 =";
+            // 
+            // d_d0_p2_textB
+            // 
+            this.d_d0_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_d0_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_d0_p2_textB.Location = new System.Drawing.Point(45, 190);
+            this.d_d0_p2_textB.Name = "d_d0_p2_textB";
+            this.d_d0_p2_textB.ReadOnly = true;
+            this.d_d0_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_d0_p2_textB.TabIndex = 86;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(7, 197);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(28, 13);
+            this.label49.TabIndex = 85;
+            this.label49.Text = "d0 ≤";
+            // 
+            // d_t_p2_textB
+            // 
+            this.d_t_p2_textB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.d_t_p2_textB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.d_t_p2_textB.Location = new System.Drawing.Point(45, 162);
+            this.d_t_p2_textB.Name = "d_t_p2_textB";
+            this.d_t_p2_textB.ReadOnly = true;
+            this.d_t_p2_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_t_p2_textB.TabIndex = 84;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(7, 164);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(19, 13);
+            this.label48.TabIndex = 83;
+            this.label48.Text = "t ≥";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::CENEX.Properties.Resources.pin2;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(362, 150);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 82;
+            this.pictureBox2.TabStop = false;
             // 
             // label46
             // 
@@ -1197,11 +1203,75 @@
             this.label71.TabIndex = 102;
             this.label71.Text = "σh,Ed / fh,Rd =";
             // 
+            // b_plates32_radioB
+            // 
+            this.b_plates32_radioB.AutoSize = true;
+            this.b_plates32_radioB.Location = new System.Drawing.Point(267, 36);
+            this.b_plates32_radioB.Name = "b_plates32_radioB";
+            this.b_plates32_radioB.Size = new System.Drawing.Size(72, 17);
+            this.b_plates32_radioB.TabIndex = 106;
+            this.b_plates32_radioB.TabStop = true;
+            this.b_plates32_radioB.Text = "Plates 3:2";
+            this.b_plates32_radioB.UseVisualStyleBackColor = true;
+            this.b_plates32_radioB.CheckedChanged += new System.EventHandler(this.b_plates32_radioB_CheckedChanged);
+            // 
+            // b_plates21_radioB
+            // 
+            this.b_plates21_radioB.AutoSize = true;
+            this.b_plates21_radioB.Location = new System.Drawing.Point(267, 58);
+            this.b_plates21_radioB.Name = "b_plates21_radioB";
+            this.b_plates21_radioB.Size = new System.Drawing.Size(72, 17);
+            this.b_plates21_radioB.TabIndex = 107;
+            this.b_plates21_radioB.TabStop = true;
+            this.b_plates21_radioB.Text = "Plates 2:1";
+            this.b_plates21_radioB.UseVisualStyleBackColor = true;
+            this.b_plates21_radioB.CheckedChanged += new System.EventHandler(this.b_plates21_radioB_CheckedChanged);
+            // 
+            // d_tc_textB
+            // 
+            this.d_tc_textB.Location = new System.Drawing.Point(84, 375);
+            this.d_tc_textB.Name = "d_tc_textB";
+            this.d_tc_textB.Size = new System.Drawing.Size(66, 20);
+            this.d_tc_textB.TabIndex = 108;
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(44, 378);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(22, 13);
+            this.label72.TabIndex = 109;
+            this.label72.Text = "c =";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(156, 380);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(23, 13);
+            this.label73.TabIndex = 110;
+            this.label73.Text = "mm";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(14, 352);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(127, 13);
+            this.label74.TabIndex = 111;
+            this.label74.Text = "Distance between plates ";
+            // 
             // EN1993_1_8Form_PIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(985, 553);
+            this.Controls.Add(this.label74);
+            this.Controls.Add(this.label73);
+            this.Controls.Add(this.label72);
+            this.Controls.Add(this.d_tc_textB);
+            this.Controls.Add(this.b_plates21_radioB);
+            this.Controls.Add(this.b_plates32_radioB);
             this.Controls.Add(this.label70);
             this.Controls.Add(this.d_ratio_7_textB);
             this.Controls.Add(this.label71);
@@ -1296,9 +1366,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1422,5 +1492,11 @@
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.TextBox d_ratio_7_textB;
         private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.RadioButton b_plates32_radioB;
+        private System.Windows.Forms.RadioButton b_plates21_radioB;
+        private System.Windows.Forms.TextBox d_tc_textB;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label74;
     }
 }
