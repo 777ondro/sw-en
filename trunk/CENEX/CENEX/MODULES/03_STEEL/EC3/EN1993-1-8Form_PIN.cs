@@ -64,14 +64,11 @@ namespace CENEX.MODULES._03_STEEL.EC3
         double d_M_Ed;
         double d_M_Ed_ser;
 
-        double d_ta;
-        double d_tb;
-        double d_tc;
+        double d_t_c;
 
         double d_t_min;
         double d_t_max;
-
-
+        
         double d_t_1_min;
         double d_t_1_max;
 
@@ -80,12 +77,12 @@ namespace CENEX.MODULES._03_STEEL.EC3
 
         double d_t_1;
         double d_t_2;
+        
+        bool b_index_REPLACE;
+        bool b_index_SOLID;
+        bool b_index_PLATES32;
+        bool b_index_PLATES21;
 
-
-        double d_ratio_pin;
-
-        bool b_index_REPLACE = false;
-        bool b_index_SOLID = true;
 
 
         // Schemes
@@ -117,20 +114,6 @@ namespace CENEX.MODULES._03_STEEL.EC3
 
         double d_ratio_7_pin;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // kN to N
         // KILO
         int i_ratio_kilo = 1000;
@@ -143,8 +126,6 @@ namespace CENEX.MODULES._03_STEEL.EC3
         double d_ratio_percent = 0.01;
 
 
-    
-
         public EN1993_1_8Form_PIN()
         {
             InitializeComponent();
@@ -155,9 +136,8 @@ namespace CENEX.MODULES._03_STEEL.EC3
                 this.comboBox_Steel_PLATE.Items.Add(steel_grades[i]);
             }
 
-
-
-
+            // Set default values in dialog
+            this.Set_data_default();
         }
 
 
@@ -206,18 +186,41 @@ double[,] steel_properties = {
         };
 
 
+public void Set_data_default ()
+{
+    b_index_REPLACE = false;
+    b_index_SOLID = true;
+    b_index_PLATES32 = true;
+    b_index_PLATES21 = false;
 
+    d_d_textB.Text = Convert.ToString(100);
+    d_d0_textB.Text = Convert.ToString(105);
+    d_din_textB.Text = Convert.ToString(40);
 
+    d_t11_textB.Text = Convert.ToString(50);
+    d_t12_textB.Text = Convert.ToString(50);
 
+    d_t21_textB.Text = Convert.ToString(25);
+    d_t22_textB.Text = Convert.ToString(50);
+    d_t23_textB.Text = Convert.ToString(25);
 
+    d_tc_textB.Text = Convert.ToString(3);
 
+    d_FEd_textB.Text = Convert.ToString(2500);
+    d_FEd_ser_textB.Text = Convert.ToString(2000);
 
+    comboBox_Steel_PLATE.Text = "S 355";
+    comboBox_Steel_PLATE.SelectedIndex = 2;
+
+    comboBox_Steel_PIN.Text = "30CrNiMo8v";
+    comboBox_Steel_PIN.SelectedIndex = 15;
+
+}
 
 // Metoda - Load data from textboxes
 // Tato metoda nacita udaje z textboxov a skonvertuje na cislo
 public void Load_data()
 {
-
     try
     {
         d_d = Convert.ToDouble(d_d_textB.Text.ToString());
@@ -284,8 +287,14 @@ public void Load_data()
     {
         MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
     }
-
-
+    try
+    {
+        d_t_c = Convert.ToDouble(d_tc_textB.Text.ToString());
+    }
+    catch
+    {
+        MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+    }
     try
     {
         d_F_Ed = Convert.ToDouble(d_FEd_textB.Text.ToString());
@@ -302,11 +311,6 @@ public void Load_data()
     {
         MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
     }
-
-
-
-
-
 }
 // Metoda načítava údaje o oceli z poľa
 public void Load_data2_Steel()
@@ -319,6 +323,8 @@ public void Load_data2_Steel()
     d_gamma_M0 = steel_properties[mat1_id, 4];
     d_gamma_M1 = steel_properties[mat1_id, 5];
     d_gamma_M2 = steel_properties[mat1_id, 6];
+
+    d_gamma_M6_ser = 1.0; // !!! constant
 
     // Material Pin
     int mat2_id = comboBox_Steel_PIN.SelectedIndex;
@@ -350,7 +356,7 @@ public void Convert_data_units()
     d_t_21 *= d_ratio_mili;
     d_t_22 *= d_ratio_mili;
     d_t_23 *= d_ratio_mili;
-
+    d_t_c *= d_ratio_mili;
 
     // Calculation 
     d_t_min = MathF.Min(d_t_11, d_t_12, d_t_21, d_t_22, d_t_23);
@@ -374,19 +380,6 @@ public void Convert_data_units()
     d_W_el = (Math.PI * ((Math.Pow(d_d, 4) - (Math.Pow(d_d_in, 4))))) / (d_d / 2);
 
     // Conversion
-
-    // d_A *= Math.Pow(d_ratio_mili, 2);
-    // d_W_el *= Math.Pow(d_ratio_mili, 3);
-
-
-
-
-
-
-
-
-
-
     // Loaded data unit conversion
 
     // Design Force
@@ -394,25 +387,59 @@ public void Convert_data_units()
     d_F_Ed_ser *= i_ratio_kilo;
 
 
-
-
     // Steel strength - conversion
-    d_f_y *= d_ratio_mega;
-    d_f_u *= d_ratio_mega;
+    d_f_y /= d_ratio_mega;
+    d_f_u /= d_ratio_mega;
 
-    d_f_yp *= d_ratio_mega;
-    d_f_up *= d_ratio_mega;
+    d_f_yp /= d_ratio_mega;
+    d_f_up /= d_ratio_mega;
 
-    d_E *= d_ratio_mega;
+    d_E /= d_ratio_mega;
 
 }
+
+public void Control_Message_SI_Units()
+{
+    MessageBox.Show((
+
+"d = " + d_d.ToString() + " m " + " \n" +
+"d0 = " + d_d_0.ToString() + " m " + " \n" +
+"din = " + d_d_in.ToString() + " m " + " \n" +
+"t11 = " + d_t_11.ToString() + " m " + " \n" +
+"t12 = " + d_t_12.ToString() + " m " + " \n" +
+"t21 = " + d_t_21.ToString() + " m " + " \n" +
+"t22 = " + d_t_22.ToString() + " m " + " \n" +
+"t23 = " + d_t_23.ToString() + " m " + " \n" +
+"tc = " + d_t_c.ToString() + " m " + " \n" +
+
+"tmin = " + d_t_min.ToString() + " m " + " \n" +
+"tmax = " + d_t_max.ToString() + " m " + " \n" +
+"t1min = " + d_t_1_min.ToString() + " m " + " \n" +
+"t1max = " + d_t_1_max.ToString() + " m " + " \n" +
+"t2min = " + d_t_2_min.ToString() + " m " + " \n" +
+"t2max = " + d_t_2_max.ToString() + " m " + " \n" +
+"t1 = " + d_t_1.ToString() + " m " + " \n" +
+"t2 = " + d_t_2.ToString() + " m " + " \n" +
+
+"A =" + Math.Round(d_A, 6).ToString() + " m2 " + " \n" +
+"Wel =" + Math.Round(d_W_el, 6).ToString() + " m3 " + " \n" +
+"FEd =" + d_F_Ed.ToString() + " N " + " \n" +
+"FEd,ser =" + d_F_Ed_ser.ToString() + " N " + " \n" +
+"fy =" + d_f_y.ToString() + " Pa " + " \n" +
+"fu =" + d_f_u.ToString() + " Pa " + " \n" +
+"fyp =" + d_f_yp.ToString() + " Pa " + " \n" +
+"fup =" + d_f_up.ToString() + " Pa " + " \n" +
+"E =" + d_E.ToString() + " Pa "
+       ) 
+       ,
+       // Message Header
+       "SI Units control");
+
+}
+
 // Main method
 public void EN1993_1_8_Main()
 {
-
-
-   
-
     // Total Force/ number of cuts ( 5 plates)
     d_F_v_Ed = d_F_Ed / 4;
     
@@ -420,25 +447,17 @@ public void EN1993_1_8_Main()
     // ULS
     d_F_b_Ed = d_F_Ed;
     // SLS
-    d_F_b_Rd_ser = d_F_Ed_ser;
+    d_F_b_Ed_ser = d_F_Ed_ser;
 
     // Figure 3.11: Bending moment in a pin
     // ULS
-    double d_M_Ed_1 = d_Calc_M_Ed(d_t_21, d_t_11, d_tc, 0.5 * d_F_Ed);
-    double d_M_Ed_2 = d_Calc_M_Ed(d_t_12, d_t_22, d_tc, 0.5 * d_F_Ed);
+    double d_M_Ed_1 = d_Calc_M_Ed(d_t_21, d_t_11, d_t_c, 0.5 * d_F_Ed);
+    double d_M_Ed_2 = d_Calc_M_Ed(d_t_12, d_t_22, d_t_c, 0.5 * d_F_Ed);
     d_M_Ed = MathF.Min(d_M_Ed_1, d_M_Ed_2);
     // SLS
-    double d_M_Ed_1_ser = d_Calc_M_Ed(d_t_21, d_t_11, d_tc, 0.5 * d_F_Ed_ser);
-    double d_M_Ed_2_ser = d_Calc_M_Ed(d_t_12, d_t_22, d_tc, 0.5 * d_F_Ed_ser);
+    double d_M_Ed_1_ser = d_Calc_M_Ed(d_t_21, d_t_11, d_t_c, 0.5 * d_F_Ed_ser);
+    double d_M_Ed_2_ser = d_Calc_M_Ed(d_t_12, d_t_22, d_t_c, 0.5 * d_F_Ed_ser);
     d_M_Ed_ser = MathF.Min(d_M_Ed_1_ser, d_M_Ed_2_ser);
-
-
-
-
-
-
-
-
 
 
 
@@ -459,18 +478,11 @@ public void EN1993_1_8_Main()
     d_ratio_7_pin = (Math.Pow(d_M_Ed / d_M_Rd, 2) + Math.Pow(d_F_v_Ed / d_F_v_Rd, 2)) / 1;
 
 
-
-  
-
-
-
-
     // (3) If the pin is intended to be replaceable, in addition to the provisions given in 3.13.1 to 3.13.2, the contact bearing stress should satisfy
 
     // (3.15)
     d_Sigma_h_Ed = 0.591 * Math.Sqrt((d_E * d_F_Ed_ser * (d_d_0 - d_d)) / (Math.Pow(d_d, 2) * Math.Min(d_t_1, d_t_2)));
     // (3.16)
-    d_gamma_M6_ser = 1.0;
     d_f_h_Ed = 2.5 * d_f_y / d_gamma_M6_ser;
 
 
@@ -482,7 +494,7 @@ public void EN1993_1_8_Main()
     // Table 3.10: Design criteria for pin connections
     d_ratio_2 = d_F_v_Ed / d_F_v_Rd;
     d_ratio_3 = d_F_b_Ed / d_F_b_Rd;
-    d_ratio_4 = d_F_b_Rd_ser / d_F_b_Ed_ser;
+    d_ratio_4 = d_F_b_Ed_ser / d_F_b_Rd_ser;
     d_ratio_5 = d_M_Ed / d_M_Rd;
     d_ratio_6 = d_M_Ed_ser / d_M_Rd_ser;
 
@@ -504,18 +516,6 @@ public void EN1993_1_8_Main()
     d_25d0_p2 = 2.5 * d_d_0;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 }
 // Auxiliary method for Main
 double d_Calc_M_Ed(double d_a, double d_b, double d_c, double d_F)
@@ -532,11 +532,11 @@ public void Set_data()
     d_A /= Math.Pow(d_ratio_mili,2);
     d_W_el /= Math.Pow(d_ratio_mili,3);
 
-    d_f_y /= d_ratio_mega;
-    d_f_u /= d_ratio_mega;
+    d_f_y *= d_ratio_mega;
+    d_f_u *= d_ratio_mega;
 
-    d_f_yp /= d_ratio_mega;
-    d_f_up /= d_ratio_mega;
+    d_f_yp *= d_ratio_mega;
+    d_f_up *= d_ratio_mega;
 
 
 
@@ -565,18 +565,12 @@ public void Set_data()
 
 
 
-
-
-
-
-
-
-
-
     // Nastavia sa načítané a vypocitane hodnoty (skonvetovane z double na string)
 
-    d_A_textB.Text = d_A.ToString();
-    d_Wel_textB.Text = d_W_el.ToString();
+    int decimal_pos1 = 1;
+
+    d_A_textB.Text = Math.Round(d_A,decimal_pos1).ToString();
+    d_Wel_textB.Text = Math.Round(d_W_el,decimal_pos1).ToString();
 
 
     d_dfy_textB.Text = d_f_y.ToString();
@@ -586,44 +580,31 @@ public void Set_data()
     d_dfup_textB.Text = d_f_up.ToString();
 
 
-    d_a_p1_textB.Text = d_a_p1.ToString();
-    d_c_p1_textB.Text = d_c_p1.ToString();
+    d_a_p1_textB.Text = Math.Round(d_a_p1,decimal_pos1).ToString();
+    d_c_p1_textB.Text = Math.Round(d_c_p1,decimal_pos1).ToString();
 
 
 
-    d_t_p2_textB.Text = d_d0_p2.ToString();
-    d_d0_p2_textB.Text = d_d0_p2.ToString();
+    d_t_p2_textB.Text = Math.Round(d_d0_p2,decimal_pos1).ToString();
+    d_d0_p2_textB.Text = Math.Round(d_d0_p2,decimal_pos1).ToString();
 
-    d_03d0_p2_textB.Text = d_03d0_p2.ToString();
-    d_075d0_p2_textB.Text = d_075d0_p2.ToString();
-    d_1d0_p2_textB.Text = d_1d0_p2.ToString();
-    d_13d0_p2_textB.Text = d_13d0_p2.ToString();
-    d_16d0_p2_textB.Text = d_16d0_p2.ToString();
-    d_25d0_p2_textB.Text = d_25d0_p2.ToString();
-
-
+    d_03d0_p2_textB.Text = Math.Round(d_03d0_p2,decimal_pos1).ToString();
+    d_075d0_p2_textB.Text = Math.Round(d_075d0_p2,decimal_pos1).ToString();
+    d_1d0_p2_textB.Text = Math.Round(d_1d0_p2,decimal_pos1).ToString();
+    d_13d0_p2_textB.Text = Math.Round(d_13d0_p2,decimal_pos1).ToString();
+    d_16d0_p2_textB.Text = Math.Round(d_16d0_p2,decimal_pos1).ToString();
+    d_25d0_p2_textB.Text = Math.Round(d_25d0_p2, decimal_pos1).ToString();
 
 
-    d_ratio_1_textB.Text = d_ratio_1.ToString();
-    d_ratio_2_textB.Text = d_ratio_2.ToString();
-    d_ratio_3_textB.Text = d_ratio_3.ToString();
-    d_ratio_4_textB.Text = d_ratio_4.ToString();
-    d_ratio_5_textB.Text = d_ratio_5.ToString();
-    d_ratio_6_textB.Text = d_ratio_6.ToString();
-    d_ratio_7_textB.Text = d_ratio_7_pin.ToString();
+    int decimal_pos2 = 1;
 
-
-
-
-
-
-
-
-
-
-
-
-
+    d_ratio_1_textB.Text = Math.Round(d_ratio_1,decimal_pos2).ToString();
+    d_ratio_2_textB.Text = Math.Round(d_ratio_2,decimal_pos2).ToString();
+    d_ratio_3_textB.Text = Math.Round(d_ratio_3,decimal_pos2).ToString();
+    d_ratio_4_textB.Text = Math.Round(d_ratio_4,decimal_pos2).ToString();
+    d_ratio_5_textB.Text = Math.Round(d_ratio_5,decimal_pos2).ToString();
+    d_ratio_6_textB.Text = Math.Round(d_ratio_6,decimal_pos2).ToString();
+    d_ratio_7_textB.Text = Math.Round(d_ratio_7_pin, decimal_pos2).ToString();
 
 }
 // Metoda ktora sa spusti po stlaceni tlacidla calculate
@@ -636,6 +617,8 @@ private void Calculate_Click_1(object sender, EventArgs e)
     this.Load_data2_Steel();
     // Uprava jednotek na SI
     this.Convert_data_units();
+    // Conctrol messsage - SI UNITS
+    this.Control_Message_SI_Units();
     // Vypocet
     this.EN1993_1_8_Main();
     // MessageBox.Show("Vysledky v EN 1992_1_1 Form \n " + (" A = " + D_A + " mm2 \n Iy = " + D_I_y + " mm4 \n Iz = " + D_I_z + " mm4"));
@@ -656,6 +639,20 @@ private void b_index_REPLACE_checkbox_CheckedChanged(object sender, EventArgs e)
 private void b_index_SOLID_checkbox_CheckedChanged(object sender, EventArgs e)
 {
     b_index_SOLID = b_index_SOLID_checkbox.Checked;
+}
+private void b_plates32_radioB_CheckedChanged(object sender, EventArgs e)
+{
+    b_index_PLATES32 = b_plates32_radioB.Checked;
+    if (b_index_PLATES32 == true)
+        b_plates21_radioB.Checked = false;
+    else b_plates21_radioB.Checked = true;
+}
+private void b_plates21_radioB_CheckedChanged(object sender, EventArgs e)
+{
+    b_index_PLATES21 = b_plates21_radioB.Checked;
+    if (b_index_PLATES21 == true)
+        b_plates32_radioB.Checked = false;
+    else b_plates32_radioB.Checked = true;
 }
 
 
