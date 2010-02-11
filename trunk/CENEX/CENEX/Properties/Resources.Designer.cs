@@ -179,6 +179,13 @@ namespace CENEX.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap images {
+            get {
+                object obj = ResourceManager.GetObject("images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap kw_01 {
             get {
                 object obj = ResourceManager.GetObject("kw_01", resourceCulture);
