@@ -14,6 +14,7 @@ using CENEX.DATABASE.MAT;
 using CENEX.DATABASE.CRSC;
 using CENEX.MODULES._03_STEEL.EC3;
 using CENEX.TEMPORARY;
+using WindowsFormsApplication1;
 
 
 
@@ -157,6 +158,12 @@ namespace CENEX
         {
             DataGrid_Ukazky obj_DataGrid_Ukazky = new DataGrid_Ukazky();
             obj_DataGrid_Ukazky.ShowDialog();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Form1 obj_Form1 = new Form1();
+            obj_Form1.ShowDialog();
         }
 
         
