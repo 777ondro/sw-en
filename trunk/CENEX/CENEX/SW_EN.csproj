@@ -16,6 +16,7 @@
     <SccLocalPath>Svn</SccLocalPath>
     <SccAuxPath>Svn</SccAuxPath>
     <SccProvider>SubversionScc</SccProvider>
+    <ApplicationIcon>pin_r2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -602,6 +603,7 @@
     <None Include="Resources\pin_21_s.jpg" />
     <None Include="Resources\pin_32_h.jpg" />
     <None Include="Resources\pin_32_s.jpg" />
+    <Content Include="pin_r2.ico" />
     <Content Include="TEMPORARY\BIN\WindowsFormsApplication1.csproj" />
   </ItemGroup>
   <ItemGroup>
