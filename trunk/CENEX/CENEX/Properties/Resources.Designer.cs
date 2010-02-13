@@ -319,6 +319,34 @@ namespace CENEX.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap pin_21_h {
+            get {
+                object obj = ResourceManager.GetObject("pin_21_h", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pin_21_s {
+            get {
+                object obj = ResourceManager.GetObject("pin_21_s", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pin_32_h {
+            get {
+                object obj = ResourceManager.GetObject("pin_32_h", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap pin_32_s {
+            get {
+                object obj = ResourceManager.GetObject("pin_32_s", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap pin1 {
             get {
                 object obj = ResourceManager.GetObject("pin1", resourceCulture);
