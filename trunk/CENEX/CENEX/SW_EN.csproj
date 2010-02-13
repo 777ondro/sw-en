@@ -598,6 +598,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images.jpeg" />
+    <None Include="Resources\pin_21_h.jpg" />
+    <None Include="Resources\pin_21_s.jpg" />
+    <None Include="Resources\pin_32_h.jpg" />
+    <None Include="Resources\pin_32_s.jpg" />
     <Content Include="TEMPORARY\BIN\WindowsFormsApplication1.csproj" />
   </ItemGroup>
   <ItemGroup>
