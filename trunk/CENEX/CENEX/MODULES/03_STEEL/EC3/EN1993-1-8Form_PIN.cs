@@ -252,8 +252,8 @@ public void Set_data_default ()
     b_index_PLATES21 = false;
 
     d_d_textB.Text = Convert.ToString(100);
-    d_d0_textB.Text = Convert.ToString(105);
-    d_din_textB.Text = Convert.ToString(40);
+    d_d0_textB.Text = Convert.ToString(101);
+    d_din_textB.Text = Convert.ToString(30);
 
     d_t11_textB.Text = Convert.ToString(50);
     d_t12_textB.Text = Convert.ToString(50);

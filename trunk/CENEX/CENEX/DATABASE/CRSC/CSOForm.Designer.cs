@@ -46,6 +46,9 @@
             this.Premenna2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hodnota2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Jednotka2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -150,7 +153,10 @@
             this.Jednotka,
             this.Premenna2,
             this.Hodnota2,
-            this.Jednotka2});
+            this.Jednotka2,
+            this.Column2,
+            this.Column3,
+            this.Column4});
             this.dataGridView2.Location = new System.Drawing.Point(2, 468);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(791, 228);
@@ -158,39 +164,54 @@
             // 
             // Premenna
             // 
-            this.Premenna.HeaderText = "Premenna";
+            this.Premenna.HeaderText = "Property";
             this.Premenna.Name = "Premenna";
             this.Premenna.ReadOnly = true;
             // 
             // Hodnota
             // 
-            this.Hodnota.HeaderText = "Hodnota";
+            this.Hodnota.HeaderText = "Value";
             this.Hodnota.Name = "Hodnota";
             this.Hodnota.ReadOnly = true;
             // 
             // Jednotka
             // 
-            this.Jednotka.HeaderText = "Jednotka";
+            this.Jednotka.HeaderText = "Unit";
             this.Jednotka.Name = "Jednotka";
             this.Jednotka.ReadOnly = true;
             // 
             // Premenna2
             // 
-            this.Premenna2.HeaderText = "Premenna2";
+            this.Premenna2.HeaderText = "Property";
             this.Premenna2.Name = "Premenna2";
             this.Premenna2.ReadOnly = true;
             // 
             // Hodnota2
             // 
-            this.Hodnota2.HeaderText = "Hodnota2";
+            this.Hodnota2.HeaderText = "Value";
             this.Hodnota2.Name = "Hodnota2";
             this.Hodnota2.ReadOnly = true;
             // 
             // Jednotka2
             // 
-            this.Jednotka2.HeaderText = "Jednotka2";
+            this.Jednotka2.HeaderText = "Unit";
             this.Jednotka2.Name = "Jednotka2";
             this.Jednotka2.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Property";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Value";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Unit";
+            this.Column4.Name = "Column4";
             // 
             // CSOForm
             // 
@@ -233,5 +254,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Premenna2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hodnota2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Jednotka2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }
