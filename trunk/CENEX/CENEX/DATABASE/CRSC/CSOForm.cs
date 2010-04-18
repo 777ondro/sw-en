@@ -53,12 +53,62 @@ namespace CENEX
             // Calculation of cross section attributes
             this.getListsFromDatagrid();
             CSO cso = new CSO(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
+
+
+
+            // Round numerical values
+            int dec_place_num1 = 1;
+            int dec_place_num2 = 2;
+
+            double d_A = Math.Round(cso.A, dec_place_num2);
+            double d_A_vy = Math.Round(cso.d_A_vy, dec_place_num2);
+            double d_A_vz = Math.Round(cso.d_A_vz, dec_place_num2);
+            double d_y_gc = Math.Round(cso.D_y_gc, dec_place_num2);
+            double d_z_gc = Math.Round(cso.D_z_gc, dec_place_num2);
+            double d_S_y0 = Math.Round(cso.Sy0, dec_place_num2);
+            double d_S_z0 = Math.Round(cso.Sz0, dec_place_num2);
+            double d_I_y = Math.Round(cso.Iy, dec_place_num2);
+            double d_I_z = Math.Round(cso.Iz, dec_place_num2);
+
+            double d_Alpha = Math.Round(cso.Alfa, dec_place_num2);
+            double d_I_yz = Math.Round(cso.Iyz, dec_place_num2);
+            double d_I_eps = Math.Round(cso.Iepsilon, dec_place_num2);
+            double d_I_eta = Math.Round(cso.Imikro, dec_place_num2);
+            double d_I_ome = Math.Round(cso.Iomega, dec_place_num2);
+            double d_ome_mean = Math.Round(cso.Omega_mean, dec_place_num2);
+            double d_ome_max = Math.Round(cso.Omega_max, dec_place_num2);
+            double d_I_y_ome = Math.Round(cso.Iy_omega, dec_place_num2);
+            double d_I_z_ome = Math.Round(cso.Iz_omega, dec_place_num2);
+            double d_I_ome_ome = Math.Round(cso.Iomega_omega, dec_place_num2);
+
+            double d_y_s = Math.Round(cso.D_y_s, dec_place_num2);
+            double d_z_s = Math.Round(cso.D_z_s, dec_place_num2);
+            double d_I_p = Math.Round(cso.Ip, dec_place_num2);
+            double d_y_j = Math.Round(cso.D_y_j, dec_place_num2);
+            double d_z_j = Math.Round(cso.D_z_j, dec_place_num2);
+            double d_I_w = Math.Round(cso.D_I_w, dec_place_num2);
+            double d_W_w = Math.Round(cso.D_W_w, dec_place_num2);
+            double d_I_t = Math.Round(cso.D_I_t, dec_place_num2);
+            double d_W_t = Math.Round(cso.D_W_t, dec_place_num2);
+
+            
             //vymazanie datagridview2
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
             //Potrebne popridavat vsetky premenne,ktore chceme zobrazit
-            dataGridView2.Rows.Add("A", cso.A, "x", "Alfa", cso.Alfa, "x");
-            dataGridView2.Rows.Add("D_I_t",cso.D_I_t,"x","D_I_w",cso.D_I_w,"x");
+            dataGridView2.Rows.Add("Ag ="    , d_A    , "mm2", "Avy ="  , d_A_vy,  "mm2",  "Avz =", d_A_vz, "mm2");
+            dataGridView2.Rows.Add("ygc ="   , d_y_gc, "mm" , "SyO ="  , d_S_y0,  "mm3",  "IyO =", d_I_y, "mm4");
+            dataGridView2.Rows.Add("zgc ="   , d_z_gc, "mm", "SzO =", d_S_z0, "mm3", "Iz =",d_I_z, "mm4");
+            dataGridView2.Rows.Add("alpha =" , d_Alpha , "rad", " " , " ", " ",  "Iyz =", d_I_yz, "mm4");
+            dataGridView2.Rows.Add("Ieps ="  , d_I_eps, "mm4", "Ieta =", d_I_eta, "mm4", " " ," " , " ");
+            dataGridView2.Rows.Add("Iomega =", d_I_ome, "mm6", "omega mean =", d_ome_mean, "mm2", d_ome_max, "mm2");
+            dataGridView2.Rows.Add("Iyomega =", d_I_y_ome, "mm6", "Izomega =", d_I_z_ome, "mm6", "Iomega_omega =", d_I_ome_ome, "mm6");
+            dataGridView2.Rows.Add("ys =", d_y_s, "mm", "zs =", d_z_s, "mm", "Ip =", d_I_p, "mm4");
+            dataGridView2.Rows.Add("yj =", d_y_j, "mm", "zj =", d_z_j, "mm", " ", " ", " ");
+            dataGridView2.Rows.Add("Iw =", d_I_w, "mm6", "Ww =", d_W_w, "mm3", " ", " ", " ");
+            dataGridView2.Rows.Add("It =", d_I_t, "mm4", "Wt =", d_W_t, "mm3", " ", " ", " ");
+
+
 
         }
 

@@ -631,9 +631,9 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(12, 457);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(97, 13);
+            this.label34.Size = new System.Drawing.Size(96, 13);
             this.label34.TabIndex = 66;
-            this.label34.Text = "Design force - ULS";
+            this.label34.Text = "Design force - SLS";
             // 
             // label35
             // 

@@ -14,6 +14,8 @@ namespace CENEX
         List<int> z_suradnice;
         List<int> t_hodnoty;
         double _A;
+        double _d_A_vy;
+        double _d_A_vz;
         double _Sy0;
         double _Sz0;
         double d_z_gc;
@@ -64,6 +66,16 @@ namespace CENEX
         {
             get { return _A; }
             set { _A = value; }
+        }
+        public double d_A_vy
+        {
+            get { return _d_A_vy; }
+            set { _d_A_vy = value; }
+        }
+        public double d_A_vz
+        {
+            get { return _d_A_vz; }
+            set { _d_A_vz = value; }
         }
         public double Sy0
         {
@@ -217,6 +229,8 @@ namespace CENEX
             this.t_hodnoty = t_hodnoty;
             
             A = this.A_method(count);
+            this.A_vy_method(count);
+            this.A_vz_method(count);
             this.Sy0_Sz0_method(count);
             this.Iy0_Iz0_method(count);
             this.omega0i = new double[count];
@@ -275,6 +289,30 @@ namespace CENEX
                 sum += dAi_method(i);
             }
             return sum;
+        }
+        // Shear Area Y
+        //(sum of all parts paralel to y-Axis and) 
+        private double A_vy_method(int count)
+        {
+            double sum = 0;
+            for (int i = 1; i < count; i++)
+            {
+                sum += dAi_method(i);
+            }
+            double d_A_vy = sum / 2;
+            return d_A_vy;
+        }
+        // Shear Area Z
+        //(sum of all parts paralel to z-Axis and)
+        private double A_vz_method(int count)
+        {
+            double sum = 0;
+            for (int i = 1; i < count; i++)
+            {
+                sum += dAi_method(i);
+            }
+            double d_A_vz = sum / 2;
+            return d_A_vz;
         }
         //(J.7) and (J.9) method
         private void Sy0_Sz0_method(int count) 
