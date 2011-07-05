@@ -7,7 +7,7 @@ namespace EC5
 {
     /// <summary>
     /// 
-    /// For main programmer  :-)
+    ///
     /// 
     /// Comments
     /// in each modul EC2, EC3, EC4, EC5, EC9 will (directory "EC2", ....)
