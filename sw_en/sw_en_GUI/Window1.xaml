@@ -9,11 +9,64 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100px"></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition Width="100px"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <GridSplitter Grid.Row="1" Name="gridSplitter1" Width="39" Grid.Column="1" HorizontalAlignment="Left" />
+        
+        <Viewport3D Grid.Row="1" Grid.Column="1" x:Name="viewPort1">
+            <Viewport3D.Camera>
+                <PerspectiveCamera  Position="0,-10,0" LookDirection="0,10,0" />
+            </Viewport3D.Camera>
+            <Viewport3D.Children>
+                    <ModelVisual3D x:Name="Light">
+                        <ModelVisual3D.Content>
+                            <AmbientLight/>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup x:Name="House">
+                                <GeometryModel3D x:Name="Roof">
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial Brush="Blue"/>
+                                    </GeometryModel3D.Material>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D Positions="-1,1,1 0,2,1 0,2,-1 -1,1,-1 0,2,1 1,1,1
+1,1,-1 0,2,-1"
+TriangleIndices="0 1 2 0 2 3 4 5 6 4 6 7"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <GeometryModel3D x:Name="Sides">
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial Brush="Green"/>
+                                    </GeometryModel3D.Material>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D Positions="-1,1,1 -1,1,-1 -1,-1,-1 -1,-1,1 1,1,-1
+1,1,1 1,-1,1 1,-1,-1"
+TriangleIndices="0 1 2 0 2 3 4 5 6 4 6 7"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                                <GeometryModel3D x:Name="Ends">
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial Brush="Red"/>
+                                    </GeometryModel3D.Material>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+Positions="-0.25,0,1 -1,1,1 -1,-1,1 -0.25,-1,1 -0.25,0,1
+-1,-1,1 0.25,0,1 1,-1,1 1,1,1 0.25,0,1 0.25,-1,1 1,-1,1
+1,1,1 0,2,1 -1,1,1 -1,1,1 -0.25,0,1 0.25,0,1 1,1,1 1,1,-1
+1,-1,-1 -1,-1,-1 -1,1,-1 1,1,-1 -1,1,-1 0,2,-1"
+TriangleIndices="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 15
+17 18 19 20 21 19 21 22 23 24 25"/>
+                                    </GeometryModel3D.Geometry>
+                                </GeometryModel3D>
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                </Viewport3D.Children>
+        </Viewport3D>
     </Grid>
+    
     
 </Window>
