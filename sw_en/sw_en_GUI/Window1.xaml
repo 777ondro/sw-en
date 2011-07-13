@@ -21,6 +21,7 @@
             <Viewport3D.Children>
                     <ModelVisual3D x:Name="Light">
                         <ModelVisual3D.Content>
+                            
                             <AmbientLight/>
                         </ModelVisual3D.Content>
                     </ModelVisual3D>
