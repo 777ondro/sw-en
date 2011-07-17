@@ -64,6 +64,7 @@
     <Compile Include="CalcForm.Designer.cs">
       <DependentUpon>CalcForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CMLoadPart.cs" />
     <Compile Include="MATH\ARRAY\CArray.cs" />
     <Compile Include="MATH\Constants.cs" />
     <Compile Include="MATH\MATRIX\CMatrix.cs" />

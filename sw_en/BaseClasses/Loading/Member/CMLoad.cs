@@ -9,8 +9,8 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private CMember m_Member;
-        private float m_Value;
-        private ENLoadType m_nLoadType;
+        //private float m_Value;
+        private EMLoadType1 m_mLoadType;
 
         //----------------------------------------------------------------------------
         public CMember Member
@@ -18,15 +18,17 @@ namespace BaseClasses
           get { return m_Member; }
           set { m_Member = value; }
         }
+        /*
         public float Value
         {
             get { return m_Value; }
             set { m_Value = value; }
         }
-        public ENLoadType NLoadType
+        */
+        public EMLoadType1 MLoadType
         {
-            get { return m_nLoadType; }
-            set { m_nLoadType = value; }
+            get { return m_mLoadType; }
+            set { m_mLoadType = value; }
         }
 
         //----------------------------------------------------------------------------
@@ -35,6 +37,7 @@ namespace BaseClasses
         public CMLoad()
         {
 
+        
         }
     }
 }

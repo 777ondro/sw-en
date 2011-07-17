@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BaseClasses;
 
 namespace FEM_CALC_1D
 {
@@ -29,9 +30,9 @@ namespace FEM_CALC_1D
        // Member transverse load
        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Primary End Forces in Local Coordinate System of Member
+       // Primary End Forces in Local Coordinate System of Member
 
-        // Member default - no transverse load at member
+       // Member default - no transverse load at member
         public void GetEndLoad(CE_1D Element)
         {
             for (int i = 0; i < 6; i++)
