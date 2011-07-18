@@ -25,6 +25,7 @@ namespace FEM_CALC_1D
         }*/
 
 
+
         private double[] entries;
 
         public double[] Entries

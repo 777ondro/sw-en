@@ -26,6 +26,7 @@ namespace FEM_CALC_1D
 
 
 
+
         public VectorF64()
         {
             this.components = null;
