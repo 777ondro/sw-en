@@ -17,6 +17,7 @@ namespace FEM_CALC_1D
 
 
 
+
         // Array size conversion
 
         // Transformation of 1D matrix array/matrix to 2D square array/matrix 

@@ -30,6 +30,7 @@ namespace CENEX.GENERAL.MATH
         }
 
 
+
         //tieto metody potrebuju lubovolny pocet argumentov a z tychto argumentov vratia minimalny alebo maximalny prvok
         public static double Min(params double[] data)
         {

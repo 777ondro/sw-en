@@ -302,6 +302,7 @@ namespace FEM_CALC_1D
           fA = ((Load.FqValue * Load.Fs) / (4f*(float)Math.Pow(fL,3))) * (4f*((float)Math.Pow(fL-Load.Fa,2)*(3f*Load.Fa + (fL-Load.Fa)) + (float)Math.Pow(Load.Fs,2)*(Load.Fa-(fL-Load.Fa))));
 
 
+
       }
 
 

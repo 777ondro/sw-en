@@ -94,15 +94,7 @@
     <Compile Include="DGVSpecial.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GENERAL\MATH\ARRAY\CArray.cs" />
-    <Compile Include="GENERAL\MATH\Constants.cs" />
     <Compile Include="GENERAL\MATH\MathF.cs" />
-    <Compile Include="GENERAL\MATH\MATRIX\CMatrix.cs" />
-    <Compile Include="GENERAL\MATH\MATRIX\matrix.cs" />
-    <Compile Include="GENERAL\MATH\MATRIX\MatrixF64.cs" />
-    <Compile Include="GENERAL\MATH\MATRIX\Matrix_1.cs" />
-    <Compile Include="GENERAL\MATH\VECTOR\CVector.cs" />
-    <Compile Include="GENERAL\MATH\VECTOR\VectorF64.cs" />
     <Compile Include="GRAPHICS\PAINT\CLine.cs" />
     <Compile Include="GRAPHICS\PAINT\CMembRelease.cs" />
     <Compile Include="GRAPHICS\PAINT\CNForce.cs" />
