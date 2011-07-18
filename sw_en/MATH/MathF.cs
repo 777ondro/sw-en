@@ -9,9 +9,14 @@ namespace MATH
     //trieda je verejna staticka co znamena ze objekt tejto triedy sa nevytvara,ale pouziva sa podobne ako trieda Math
     public static class MathF
     {
-
-        //tymto metodam by bolo potrebne najprv inicializovat pole a potom im ho odovzdat ako argument
-        //metody sluzia pre najdenie minimalneho(maximalneho prvku v zozname Int)
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Minimum and Maximum
+        //----------------------------------------------------------------------------------------------------------------------------
+        #region MinMax
+        // Tieto metody potrebuju lubovolny pocet argumentov a z tychto argumentov vratia minimalny alebo maximalny prvok
+        // int
+        // tymto metodam by bolo potrebne najprv inicializovat pole a potom im ho odovzdat ako argument
+        // metody sluzia pre najdenie minimalneho(maximalneho prvku v zozname Int)
         public static int Min(List<int> data)
         {
             int min;
@@ -29,9 +34,25 @@ namespace MATH
             return max;
         }
 
+        // float
+        public static float Min(params float[] data)
+        {
+            float min;
+            min = data[0];
+            foreach (float num in data)
+                if (num < min) min = num;
+            return min;
+        }
+        public static float Max(params float[] data)
+        {
+            float max;
+            max = data[0];
+            foreach (float num in data)
+                if (num > max) max = num;
+            return max;
+        }
 
-
-        //tieto metody potrebuju lubovolny pocet argumentov a z tychto argumentov vratia minimalny alebo maximalny prvok
+        // double
         public static double Min(params double[] data)
         {
             double min;
@@ -48,8 +69,12 @@ namespace MATH
                 if (num > max) max = num;
             return max;
         }
+               #endregion
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Equality of real numbers / Rovnost realnych cisel (float a double)
+        //----------------------------------------------------------------------------------------------------------------------------
+        #region Equal
         //overloaded methods for equation of real numbers (method d_equal)
-        #region d_equal
         public static bool d_equal(double a, double b, double limit) 
         {
             if (limit<0) limit = Math.Abs(limit);
@@ -147,10 +172,10 @@ namespace MATH
             else return false;
         }
         #endregion
-
-       //----------------------------------------------------------------------------------------------------------------------------
-       // Power / Mocniny
-       //----------------------------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Power / Mocniny
+        //----------------------------------------------------------------------------------------------------------------------------
+        #region Power
         public static float Pow2(float fx) { return fx * fx; }
         public static float Pow3(float fx) { return fx * fx * fx; }
         public static float Pow4(float fx) { float ftemp = fx * fx; return ftemp * ftemp; }
@@ -174,11 +199,11 @@ namespace MATH
             else
                 return 1f;
         }
-
+        #endregion
         //----------------------------------------------------------------------------------------------------------------------------
-        // Square Root / Druha odmocnina
+        // Root / Odmocnina / Square Root / Druha odmocnina
         //----------------------------------------------------------------------------------------------------------------------------
-        
+        #region Root / Square Root
         /*
         public static short isqrt(short num)
         {
@@ -357,314 +382,42 @@ return (unsigned short)(root >> 1);
             else
                 return 1f;
         }
-
-        //----------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region before
-        // General maths methods
-        // Minimum - double
-        //double Min_3(
-        //double a,
-        //double b,
-        //double c)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                   Math.Min(b, c));
-        //    return d_Min;
-        //}
-        //double Min_4(
-        //double a,
-        //double b,
-        //double c,
-        //double d)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                   Math.Min(b,
-        //                   Math.Min(c, d)));
-        //    return d_Min;
-        //}
-        //double Min_5(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                   Math.Min(b,
-        //                   Math.Min(c,
-        //                   Math.Min(d, e))));
-        //    return d_Min;
-        //}
-        //double Min_6(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                   Math.Min(b,
-        //                   Math.Min(c,
-        //                   Math.Min(d,
-        //                   Math.Min(e, f)))));
-        //    return d_Min;
-
-        //}
-        //double Min_7(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f,
-        //double g)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                Math.Min(b,
-        //                Math.Min(c,
-        //                Math.Min(d,
-        //                Math.Min(e,
-        //                Math.Min(f, g))))));
-        //    return d_Min;
-        //}
-        //double Min_8(
-        //   double a,
-        //   double b,
-        //   double c,
-        //   double d,
-        //   double e,
-        //   double f,
-        //   double g,
-        //   double h)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                   Math.Min(b,
-        //                   Math.Min(c,
-        //                   Math.Min(d,
-        //                   Math.Min(e,
-        //                   Math.Min(f,
-        //                   Math.Min(g, h)))))));
-        //    return d_Min;
-        //}
-        //double Min_9(
-        //   double a,
-        //   double b,
-        //   double c,
-        //   double d,
-        //   double e,
-        //   double f,
-        //   double g,
-        //   double h,
-        //   double i)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                Math.Min(b,
-        //                Math.Min(c,
-        //                Math.Min(d,
-        //                Math.Min(e,
-        //                Math.Min(f,
-        //                Math.Min(g,
-        //                Math.Min(h, i))))))));
-        //    return d_Min;
-        //}
-        //double Min_10(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f,
-        //double g,
-        //double h,
-        //double i,
-        //double j)
-        //{
-        //    double d_Min = Math.Min(a,
-        //                Math.Min(b,
-        //                Math.Min(c,
-        //                Math.Min(d,
-        //                Math.Min(e,
-        //                Math.Min(f,
-        //                Math.Min(g,
-        //                Math.Min(h,
-        //                Math.Min(i, j)))))))));
-        //    return d_Min;
-        //}
-
-        //// Maximum - double
-        //double Max_3(
-        //double a,
-        //double b,
-        //double c)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                   Math.Max(b, c));
-        //    return d_Max;
-        //}
-        //double Max_4(
-        //double a,
-        //double b,
-        //double c,
-        //double d)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                   Math.Max(b,
-        //                   Math.Max(c, d)));
-        //    return d_Max;
-        //}
-        //double Max_5(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                   Math.Max(b,
-        //                   Math.Max(c,
-        //                   Math.Max(d, e))));
-        //    return d_Max;
-        //}
-        //double Max_6(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                   Math.Max(b,
-        //                   Math.Max(c,
-        //                   Math.Max(d,
-        //                   Math.Max(e, f)))));
-        //    return d_Max;
-
-
-        //}
-        //double Max_7(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f,
-        //double g)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                Math.Max(b,
-        //                Math.Max(c,
-        //                Math.Max(d,
-        //                Math.Max(e,
-        //                Math.Max(f, g))))));
-        //    return d_Max;
-        //}
-        //double Max_8(
-        //   double a,
-        //   double b,
-        //   double c,
-        //   double d,
-        //   double e,
-        //   double f,
-        //   double g,
-        //   double h)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                   Math.Max(b,
-        //                   Math.Max(c,
-        //                   Math.Max(d,
-        //                   Math.Max(e,
-        //                   Math.Max(f,
-        //                   Math.Max(g, h)))))));
-        //    return d_Max;
-        //}
-        //double Max_9(
-        //   double a,
-        //   double b,
-        //   double c,
-        //   double d,
-        //   double e,
-        //   double f,
-        //   double g,
-        //   double h,
-        //   double i)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                Math.Max(b,
-        //                Math.Max(c,
-        //                Math.Max(d,
-        //                Math.Max(e,
-        //                Math.Max(f,
-        //                Math.Max(g,
-        //                Math.Max(h, i))))))));
-        //    return d_Max;
-        //}
-        //double Max_10(
-        //double a,
-        //double b,
-        //double c,
-        //double d,
-        //double e,
-        //double f,
-        //double g,
-        //double h,
-        //double i,
-        //double j)
-        //{
-        //    double d_Max = Math.Max(a,
-        //                Math.Max(b,
-        //                Math.Max(c,
-        //                Math.Max(d,
-        //                Math.Max(e,
-        //                Math.Max(f,
-        //                Math.Max(g,
-        //                Math.Max(h,
-        //                Math.Max(i, j)))))))));
-        //    return d_Max;
-        //}
         #endregion
-
-
-
-
-
-
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Constants / Konstatny 
+        //----------------------------------------------------------------------------------------------------------------------------
+        #region Constants
+        // Napier's constant, or Euler's number, base of Natural logarithm
+        // Represents the natural logarithmic base, specified by the constant, e.
+        public const float   fE = 2.7182818f;                                  // 7
+        public const double  dE = 2.718281828459045;                           // 15-16
+        public const decimal mE = 2.718281828459045235360287471352662497m;     // 28-29
+        // Pi, Archimedes' constant or Ludolph's number
+        // Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π.
+        public const float   fPI = 3.1415926f;                                 // 7
+        public const double  dPI = 3.14159265358979;                           // 15-16
+        public const decimal mPI = 3.14159265358979323846264338327950288m;     // 28-29
+        // Feigenbaum constant / Feigenbaumova konstanta delta δ
+        public const decimal mFeigenDelta = 4.66920160910299067185320382m;
+        // Feigenbaum constant / Feigenbaumova konstanta alfa α
+        public const decimal mFeigenAlpha = 2.502907875095892822283902873218m;
+        // Kaprekarova konstanta
+        public const int iKaprekar = 6174;
+        // Apéry's constant ζ(3)
+        public const decimal Zeta3 = 1.202056903159594285399738161511449990764986292m;
+        //Pythagoras' constant, square root of 2 (√2)
+        public const float    fSqrt2 = 1.4142135f;
+        public const double   dSqrt2 = 1.414213562373095;
+        public const decimal  mSqrt2 = 1.41421356237309504880168872420969807m;
+        // Theodorus' constant, square root of 3 (√3)
+        public const float    fSqrt3 = 1.7320508f;
+        public const double   dSqrt3 = 1.732050807568877;
+        public const decimal  mSqrt3 = 1.73205080756887729352744634150587236m;
+        // Square root of 5 (√5}
+        public const float    fSqrt5 = 2.236067f;
+        public const double   dSqrt5 = 2.236067977499789;
+        public const decimal  mSqrt5 = 2.23606797749978969640917366873127623m;	
+        #endregion
     }
 }
 
