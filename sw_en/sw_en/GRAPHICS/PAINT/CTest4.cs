@@ -5,10 +5,8 @@ using System.Text;
 
 namespace CENEX
 {
-    class CTest4
+    public class CTest4
     {
-
-
         public CNode[] arrNodes = new CNode[22];
         public CLine[] arrLines = new CLine[41];
         public CNSupport[] arrSupports = new CNSupport[2];
