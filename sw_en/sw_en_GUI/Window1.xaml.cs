@@ -22,32 +22,36 @@ namespace sw_en_GUI
         public Window1()
         {
             InitializeComponent();
-            //LookAt((PerspectiveCamera)viewPort1.Camera, new Point3D(0, 0, 0));
-            //CConsoleHelper.Create();
+
+            Model3DGroup models = CreateCube();
+            ModelVisual3D visual = new ModelVisual3D();
+            visual.Content = models;
+
+            myViewport3D.Children.Add(visual);
+          }
+
+        public Model3DGroup CreateCube() 
+        {
             Model3DGroup models = new Model3DGroup();
 
-              Point3D p0 = new Point3D(-1, -1, -1);
-              Point3D p1 = new Point3D(1, -1, -1);
-              Point3D p2 = new Point3D(1, -1, 1);
-              Point3D p3 = new Point3D(-1, -1, 1);
-              Point3D p4 = new Point3D(-1, 1, -1);
-              Point3D p5 = new Point3D(1, 1, -1);
-              Point3D p6 = new Point3D(1, 1, 1);
-              Point3D p7 = new Point3D(-1, 1, 1);
+            Point3D p0 = new Point3D(-1, -1, -1);
+            Point3D p1 = new Point3D(1, -1, -1);
+            Point3D p2 = new Point3D(1, -1, 1);
+            Point3D p3 = new Point3D(-1, -1, 1);
+            Point3D p4 = new Point3D(-1, 1, -1);
+            Point3D p5 = new Point3D(1, 1, -1);
+            Point3D p6 = new Point3D(1, 1, 1);
+            Point3D p7 = new Point3D(-1, 1, 1);
 
-              models.Children.Add(CreateRectangle(p3, p2, p6, p7, Brushes.Red));  // front
-              models.Children.Add(CreateRectangle(p2, p1, p5, p6, Brushes.Red));  // right
-              models.Children.Add(CreateRectangle(p1, p0, p4, p5, Brushes.Red));  // back
-              models.Children.Add(CreateRectangle(p0, p3, p7, p4, Brushes.Red));  // left
-              models.Children.Add(CreateRectangle(p7, p6, p5, p4, Brushes.Red));  // top
-              models.Children.Add(CreateRectangle(p2, p3, p0, p1, Brushes.Red));  // bottom
+            models.Children.Add(CreateRectangle(p3, p2, p6, p7, Brushes.Red));  // front
+            models.Children.Add(CreateRectangle(p2, p1, p5, p6, Brushes.Red));  // right
+            models.Children.Add(CreateRectangle(p1, p0, p4, p5, Brushes.Red));  // back
+            models.Children.Add(CreateRectangle(p0, p3, p7, p4, Brushes.Red));  // left
+            models.Children.Add(CreateRectangle(p7, p6, p5, p4, Brushes.Red));  // top
+            models.Children.Add(CreateRectangle(p2, p3, p0, p1, Brushes.Red));  // bottom
 
-
-              ModelVisual3D visual = new ModelVisual3D();
-              visual.Content = models;
-
-              myViewport3D.Children.Add(visual);
-          }
+            return models;
+        }
 
           public GeometryModel3D CreateRectangle(
               Point3D point1, Point3D point2, 
