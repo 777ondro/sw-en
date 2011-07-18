@@ -5,17 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</ProjectGuid>
+    <ProjectGuid>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FEM_CALC_1D</RootNamespace>
-    <AssemblyName>FEM_CALC_1D</AssemblyName>
+    <RootNamespace>MATH</RootNamespace>
+    <AssemblyName>MATH</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>Svn</SccProjectName>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccProvider>SubversionScc</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,33 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCrSc.cs" />
-    <Compile Include="CE_1D.cs" />
-    <Compile Include="CFEM_CALC.cs" />
-    <Compile Include="CLoad.cs" />
-    <Compile Include="CMaterial.cs" />
-    <Compile Include="CFemNode.cs" />
-    <Compile Include="CalcForm.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CalcForm.Designer.cs">
-      <DependentUpon>CalcForm.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CMLoadPart.cs" />
-    <Compile Include="MATH\ARRAY\CArray.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="MATH\MATRIX\CMatrix.cs" />
-    <Compile Include="MATH\MATRIX\matrix.cs" />
-    <Compile Include="MATH\MATRIX\MatrixF64.cs" />
-    <Compile Include="MATH\MATRIX\Matrix_1.cs" />
-    <Compile Include="MATH\VECTOR\CVector.cs" />
-    <Compile Include="MATH\VECTOR\VectorF64.cs" />
+    <Compile Include="MathF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CalcForm.resx">
-      <DependentUpon>CalcForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -97,16 +75,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BaseClasses\BaseClasses.csproj">
-      <Project>{41236339-3F00-4767-8150-24B22A54E8D5}</Project>
-      <Name>BaseClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MATH\MATH.csproj">
-      <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
-      <Name>MATH</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

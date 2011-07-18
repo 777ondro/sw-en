@@ -94,7 +94,6 @@
     <Compile Include="DGVSpecial.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GENERAL\MATH\MathF.cs" />
     <Compile Include="GRAPHICS\PAINT\CLine.cs" />
     <Compile Include="GRAPHICS\PAINT\CMembRelease.cs" />
     <Compile Include="GRAPHICS\PAINT\CNForce.cs" />
@@ -284,7 +283,6 @@
     <Compile Include="MODULES\09_ALUMINIUM\EC9\EN1999-1-1MessageBoxes.Designer.cs">
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
     </Compile>
-    <Compile Include="GENERAL\IMP_EXP\ExportToExcel.cs" />
     <Compile Include="TEMPORARY\FontListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -618,9 +616,17 @@
     <Content Include="TEMPORARY\BIN\WindowsFormsApplication1.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EXPIMP\EXPIMP.csproj">
+      <Project>{22C05C80-D91F-424F-97B0-860C475FFD76}</Project>
+      <Name>EXPIMP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FEM\FEM_CALC_1D\FEM_CALC_1D.csproj">
       <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
       <Name>FEM_CALC_1D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MATH\MATH.csproj">
+      <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
+      <Name>MATH</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CENEX.GENERAL.MATH;
 using System.Windows.Forms;
+using MATH;
 
 namespace CENEX
 {
