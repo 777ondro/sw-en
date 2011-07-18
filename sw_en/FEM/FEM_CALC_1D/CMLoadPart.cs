@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using MATH;
 
 namespace FEM_CALC_1D
 {
@@ -301,6 +302,13 @@ namespace FEM_CALC_1D
           // doriesit otocenie ak reakcii ak to neplati
           fA = ((Load.FqValue * Load.Fs) / (4f*(float)Math.Pow(fL,3))) * (4f*((float)Math.Pow(fL-Load.Fa,2)*(3f*Load.Fa + (fL-Load.Fa)) + (float)Math.Pow(Load.Fs,2)*(Load.Fa-(fL-Load.Fa))));
 
+
+
+      }
+      void GetEIF_00_31_UV(CMLoad_31 Load, float fL, float fA, float fB, float fMa, float fMb)
+      {
+
+          MathF.Pow3(3f);
 
 
       }

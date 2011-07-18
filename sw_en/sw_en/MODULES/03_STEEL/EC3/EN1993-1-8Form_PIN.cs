@@ -6,15 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using CENEX.GENERAL.MATH;
+using MATH;
 
-namespace CENEX.MODULES._03_STEEL.EC3
+namespace CENEX
 {
     public partial class EN1993_1_8Form_PIN : Form
     {
-
-
-
         double d_Sigma_h_Ed;
         double d_E;
         double d_F_Ed;

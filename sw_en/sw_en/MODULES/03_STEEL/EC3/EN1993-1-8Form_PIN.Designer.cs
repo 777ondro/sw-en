@@ -1,4 +1,4 @@
-﻿namespace CENEX.MODULES._03_STEEL.EC3
+﻿namespace CENEX
 {
     partial class EN1993_1_8Form_PIN
     {

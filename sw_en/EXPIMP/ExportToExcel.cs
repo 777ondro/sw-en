@@ -6,9 +6,9 @@ using System.Data.OleDb;
 using System.Data;
 using System.Windows.Forms;
 
-namespace CENEX
+namespace EXPIMP
 {
-    class ExportToExcel
+    public class ExportToExcel
     {
         string fileName;
         DataSet ds;
