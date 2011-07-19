@@ -1,4 +1,4 @@
-﻿namespace CENEX
+﻿namespace CRSC
 {
     partial class CSOForm
     {

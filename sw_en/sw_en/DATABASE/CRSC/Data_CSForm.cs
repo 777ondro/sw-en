@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace CENEX.DATABASE.CRSC
+namespace CRSC
 {
     public partial class Data_CSForm : Form
     {

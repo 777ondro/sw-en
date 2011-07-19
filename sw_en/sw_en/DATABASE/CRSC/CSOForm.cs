@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace CENEX
+namespace CRSC
 {
     public partial class CSOForm : Form
     {

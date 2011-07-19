@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using MATH;
 
-namespace CENEX
+namespace CRSC
 {
     public class CSO
     {
