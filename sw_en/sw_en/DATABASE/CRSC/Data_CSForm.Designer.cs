@@ -1,4 +1,4 @@
-﻿namespace CENEX.DATABASE.CRSC
+﻿namespace CRSC
 {
     partial class Data_CSForm
     {
