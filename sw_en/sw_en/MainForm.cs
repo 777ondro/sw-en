@@ -9,14 +9,13 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using Crownwood.Magic.Docking;
 using Crownwood.Magic.Common;
-using CENEX.DATABASE.MAT;
-using CENEX.DATABASE.CRSC;
 using CENEX.MODULES._03_STEEL.EC3;
 using CENEX.TEMPORARY;
 //using FEM_CALC_1D. 
 using WindowsFormsApplication1;
-
-
+using DATABASE;
+using CRSC;
+using MATERIAL;
 
 namespace CENEX
 {
@@ -157,7 +156,7 @@ namespace CENEX
 
         private void materialsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Data_MatForm obj_Data_MatForm = new Data_MatForm();
+           Data_MatForm obj_Data_MatForm = new Data_MatForm();
             obj_Data_MatForm.ShowDialog();
         }
 

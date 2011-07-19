@@ -67,30 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DATABASE\CRSC\CSCClass.cs" />
-    <Compile Include="DATABASE\CRSC\CSGClass.cs" />
-    <Compile Include="DATABASE\CRSC\CSO.cs" />
-    <Compile Include="DATABASE\CRSC\CSOForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DATABASE\CRSC\CSOForm.Designer.cs">
-      <DependentUpon>CSOForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DATABASE\CRSC\CSOClass.cs" />
-    <Compile Include="DATABASE\CRSC\Data_CSForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DATABASE\CRSC\Data_CSForm.Designer.cs">
-      <DependentUpon>Data_CSForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DATABASE\MAT\Data_Mat_02_CONCRETE.cs" />
-    <Compile Include="DATABASE\MAT\Data_Mat_03_STEEL.cs" />
-    <Compile Include="DATABASE\MAT\Data_MatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DATABASE\MAT\Data_MatForm.Designer.cs">
-      <DependentUpon>Data_MatForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DGVSpecial.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -230,7 +206,6 @@
       <DependentUpon>EN1993-1-1AnnexForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MODULES\03_STEEL\EC3\EN1993-1-1CheckedListInfo.cs" />
-    <Compile Include="DATABASE\DatabaseConnection.cs" />
     <Compile Include="TEMPORARY\DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,18 +281,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DATABASE\CRSC\CSOForm.resx">
-      <DependentUpon>CSOForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DATABASE\CRSC\Data_CSForm.resx">
-      <DependentUpon>Data_CSForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DATABASE\MAT\Data_MatForm.resx">
-      <DependentUpon>Data_MatForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="GRAPHICS\PAINT\PaintForm.resx">
       <DependentUpon>PaintForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -616,6 +579,14 @@
     <Content Include="TEMPORARY\BIN\WindowsFormsApplication1.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRSC\CRSC.csproj">
+      <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
+      <Name>CRSC %28CRSC\CRSC%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DATABASE\DATABASE.csproj">
+      <Project>{84EC019C-BD16-4774-91D4-E50CFB2E62E3}</Project>
+      <Name>DATABASE %28DATABASE\DATABASE%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EXPIMP\EXPIMP.csproj">
       <Project>{22C05C80-D91F-424F-97B0-860C475FFD76}</Project>
       <Name>EXPIMP</Name>
@@ -624,14 +595,14 @@
       <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
       <Name>FEM_CALC_1D</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
+      <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
+      <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
       <Name>MATH</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MAIN\" />
-    <Folder Include="MODEL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
