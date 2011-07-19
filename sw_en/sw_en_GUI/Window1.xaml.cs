@@ -127,28 +127,59 @@ namespace sw_en_GUI
             Console.WriteLine(e.Key.ToString());
             switch (e.Key)
             {
-                case Key.Down: Console.WriteLine("Down"); break;
-                case Key.Up: Console.WriteLine("Up");  break;
-                case Key.Left: Console.WriteLine("Left"); break;
-                case Key.Right: Console.WriteLine("Right");  break;
+                case Key.Down: Console.WriteLine("Down"); moveDown(); break;
+                case Key.Up: Console.WriteLine("Up"); moveUp(); break;
+                case Key.Left: Console.WriteLine("Left"); moveLeft(); break;
+                case Key.Right: Console.WriteLine("Right"); moveRight(); break;
                 case Key.Add: Console.WriteLine("Add"); zoomIn(); break;
                 case Key.Subtract: Console.WriteLine("Subtract"); zoomOut(); break;
-                
             }
         }
 
         //--------------------------------------------------------------------------------------------
-        private void zoomIn() 
+        private void zoomIn()
         {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
             double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(0, 0, z+1);
+            myCamera.Position = new Point3D(x, y, z + SliderStep.Value);
         }
 
         //--------------------------------------------------------------------------------------------
         private void zoomOut() 
         {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
             double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(0, 0, z - 1);
+            myCamera.Position = new Point3D(x, y, z - SliderStep.Value);
+        }
+        private void moveLeft() 
+        {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
+            double z = myCamera.Position.Z;
+            myCamera.Position = new Point3D(x - SliderStep.Value, y, z);
+        }
+        private void moveRight()
+        {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
+            double z = myCamera.Position.Z;
+            myCamera.Position = new Point3D(x + SliderStep.Value, y, z);
+        }
+        private void moveUp()
+        {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
+            double z = myCamera.Position.Z;
+            myCamera.Position = new Point3D(x, y + SliderStep.Value, z);
+        }
+        private void moveDown()
+        {
+            double x = myCamera.Position.X;
+            double y = myCamera.Position.Y;
+            double z = myCamera.Position.Z;
+            myCamera.Position = new Point3D(x, y - SliderStep.Value, z);
         }
 
 
@@ -181,6 +212,12 @@ namespace sw_en_GUI
         private void ButtonTest5_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SliderStep_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            WindowFor3D.Focus();
+            //SliderStep.Focusable = false;
         }
 
         

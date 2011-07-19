@@ -14,7 +14,7 @@ namespace MATERIAL
 {
     public partial class Data_MatForm : Form
     {
-        DataTableForm dtform;
+        //DataTableForm dtform;
         OleDbDataReader dat_reader;
         DatabaseConnection dat_conn;
 
@@ -51,7 +51,7 @@ namespace MATERIAL
             InitializeComponent();
             dat_conn = DatabaseConnection.getInstance();
             this.loadList();                  //loading data
-            dtform = new DataTableForm(1);    //for inicializing of object default value is 1
+            //dtform = new DataTableForm(1);    //for inicializing of object default value is 1
         }
 
         private void button1_Click(object sender, EventArgs e)
