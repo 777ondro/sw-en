@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.OleDb;
+using DATABASE;
 
-namespace CENEX.DATABASE.MAT
+namespace CENEX
 {
     class Data_Mat_02_CONCRETE
     {

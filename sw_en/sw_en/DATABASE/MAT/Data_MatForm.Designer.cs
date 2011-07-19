@@ -1,4 +1,4 @@
-﻿namespace CENEX.DATABASE.MAT
+﻿namespace MATERIAL
 {
     partial class Data_MatForm
     {

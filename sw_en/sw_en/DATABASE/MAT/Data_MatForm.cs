@@ -7,19 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using DATABASE;
+using CENEX;
 
-namespace CENEX.DATABASE.MAT
+namespace MATERIAL
 {
     public partial class Data_MatForm : Form
     {
-
         DataTableForm dtform;
         OleDbDataReader dat_reader;
         DatabaseConnection dat_conn;
-
-
-
-
 
         //loading of data
         //data from mat_name from table CONCRETE in database
@@ -49,21 +46,12 @@ namespace CENEX.DATABASE.MAT
 
         }
 
-
-
         public Data_MatForm()
         {
             InitializeComponent();
             dat_conn = DatabaseConnection.getInstance();
             this.loadList();                  //loading data
             dtform = new DataTableForm(1);    //for inicializing of object default value is 1
-
-
-
-
-
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
