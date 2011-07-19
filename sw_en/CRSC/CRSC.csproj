@@ -48,20 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRSC\CSCClass.cs" />
-    <Compile Include="CRSC\CSGClass.cs" />
-    <Compile Include="CRSC\CSO.cs" />
-    <Compile Include="CRSC\CSOClass.cs" />
-    <Compile Include="CRSC\CSOForm.cs">
+    <Compile Include="CSCClass.cs" />
+    <Compile Include="CSGClass.cs" />
+    <Compile Include="CSO.cs" />
+    <Compile Include="CSOClass.cs" />
+    <Compile Include="CSOForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CRSC\CSOForm.designer.cs">
+    <Compile Include="CSOForm.designer.cs">
       <DependentUpon>CSOForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CRSC\Data_CSForm.cs">
+    <Compile Include="Data_CSForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CRSC\Data_CSForm.Designer.cs">
+    <Compile Include="Data_CSForm.Designer.cs">
       <DependentUpon>Data_CSForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CRSC_Form.cs">
@@ -72,11 +72,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CRSC\CSOForm.resx">
+    <EmbeddedResource Include="CSOForm.resx">
       <DependentUpon>CSOForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CRSC\Data_CSForm.resx">
+    <EmbeddedResource Include="Data_CSForm.resx">
       <DependentUpon>Data_CSForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
