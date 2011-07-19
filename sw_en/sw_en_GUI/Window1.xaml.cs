@@ -159,7 +159,7 @@ namespace sw_en_GUI
             CNode[] nodes = test4.arrNodes;
             foreach (CNode c in nodes) 
             {
-                Model3DGroup models = CreateCube(c.m_fCoord_X/100, c.m_fCoord_Y/100, c.m_fCoord_Z/100);
+                Model3DGroup models = CreateCube(c.m_fCoord_X/100 - 400, c.m_fCoord_Z/100, c.m_fCoord_Y/100);
                 ModelVisual3D visual = new ModelVisual3D();
                 visual.Content = models;
                 myViewport3D.Children.Add(visual);
@@ -173,9 +173,14 @@ namespace sw_en_GUI
             else zoomOut();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonTest4_Click(object sender, RoutedEventArgs e)
         {
             drawNodes();
+        }
+
+        private void ButtonTest5_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         
