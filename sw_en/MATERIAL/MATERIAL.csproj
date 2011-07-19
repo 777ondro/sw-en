@@ -54,17 +54,17 @@
     <Compile Include="MATERIAL_Form.Designer.cs">
       <DependentUpon>MATERIAL_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="MAT\Data_MatForm.cs">
+    <Compile Include="Data_MatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MAT\Data_MatForm.Designer.cs">
+    <Compile Include="Data_MatForm.Designer.cs">
       <DependentUpon>Data_MatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MAT\Data_Mat_02_CONCRETE.cs" />
-    <Compile Include="MAT\Data_Mat_03_STEEL.cs" />
+    <Compile Include="Data_Mat_02_CONCRETE.cs" />
+    <Compile Include="Data_Mat_03_STEEL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MAT\Data_MatForm.resx">
+    <EmbeddedResource Include="Data_MatForm.resx">
       <DependentUpon>Data_MatForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
