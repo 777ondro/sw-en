@@ -72,11 +72,24 @@ namespace _3DTools
         private ScaleTransform3D _scale = new ScaleTransform3D();
         private AxisAngleRotation3D _rotation = new AxisAngleRotation3D();
 
+        private TranslateTransform3D _translate = new TranslateTransform3D();
+        private Double transScale = 50;
+
+        // This property used to set the scaler value for the 'panning' translation vector
+        // value is dependant upon object/mesh size
+        public Double TranslateScale
+        {
+            get { return transScale; }
+
+            set { transScale = value; }
+        }
+
         public Trackball()
         {
             _transform = new Transform3DGroup();
             _transform.Children.Add(_scale);
             _transform.Children.Add(new RotateTransform3D(_rotation));
+            _transform.Children.Add(_translate);
         }
 
         /// <summary>
@@ -96,7 +109,7 @@ namespace _3DTools
         public FrameworkElement EventSource
         {
             get { return _eventSource; }
-            
+
             set
             {
                 if (_eventSource != null)
@@ -142,11 +155,37 @@ namespace _3DTools
             {
                 Zoom(currentPosition);
             }
+            else if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                Console.WriteLine("Middle");
+                Translate(currentPosition);
+            }
+
 
             _previousPosition2D = currentPosition;
         }
 
         #endregion Event Handling
+
+        private void Translate(Point currentPosition)
+        {
+            // Calculate the panning vector from screen(the vector component of the Quaternion
+            // the division of the X and Y components scales the vector to the mouse movement
+            Quaternion qV = new Quaternion(((_previousPosition2D.X - currentPosition.X) / transScale),
+            ((currentPosition.Y - _previousPosition2D.Y) / transScale), 0, 0);
+
+            // Get the current orientantion from the RotateTransform3D
+            Quaternion q = new Quaternion(_rotation.Axis, _rotation.Angle);
+            Quaternion qC = q;
+            qC.Conjugate();
+
+            // Here we rotate our panning vector about the the rotaion axis of any current rotation transform
+            // and then sum the new translation with any exisiting translation
+            qV = q * qV * qC;
+            _translate.OffsetX += qV.X;
+            _translate.OffsetY += qV.Y;
+            _translate.OffsetZ += qV.Z;
+        }
 
         private void Track(Point currentPosition)
         {
@@ -188,7 +227,7 @@ namespace _3DTools
         private void Zoom(Point currentPosition)
         {
             double yDelta = currentPosition.Y - _previousPosition2D.Y;
-            
+
             double scale = Math.Exp(yDelta / 100);    // e^(yDelta/100) is fairly arbitrary.
 
             _scale.ScaleX *= scale;

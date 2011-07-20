@@ -24,15 +24,15 @@ namespace sw_en_GUI
         {
             InitializeComponent();
 
-            Model3DGroup models = CreateCube();
-            ModelVisual3D visual = new ModelVisual3D();
-            visual.Content = models;
-            myViewport3D.Children.Add(visual);
+            //Model3DGroup models = CreateCube();
+            //ModelVisual3D visual = new ModelVisual3D();
+            //visual.Content = models;
+            //myViewport3D.Children.Add(visual);
 
-            Model3DGroup models1 = CreateCube(3, 3, 3);
-            ModelVisual3D visual1 = new ModelVisual3D();
-            visual1.Content = models1;
-            myViewport3D.Children.Add(visual1);
+            //Model3DGroup models1 = CreateCube(3, 3, 3);
+            //ModelVisual3D visual1 = new ModelVisual3D();
+            //visual1.Content = models1;
+            //myViewport3D.Children.Add(visual1);
             //models = CreateCube(2, 2, 2);
             //visual.Content = models;
             //myViewport3D.Children.Add(visual);
@@ -127,97 +127,116 @@ namespace sw_en_GUI
             Console.WriteLine(e.Key.ToString());
             switch (e.Key)
             {
-                case Key.Down: Console.WriteLine("Down"); moveDown(); break;
-                case Key.Up: Console.WriteLine("Up"); moveUp(); break;
-                case Key.Left: Console.WriteLine("Left"); moveLeft(); break;
-                case Key.Right: Console.WriteLine("Right"); moveRight(); break;
-                case Key.Add: Console.WriteLine("Add"); zoomIn(); break;
-                case Key.Subtract: Console.WriteLine("Subtract"); zoomOut(); break;
+                //case Key.Down: Console.WriteLine("Down"); moveDown(); break;
+                //case Key.Up: Console.WriteLine("Up"); moveUp(); break;
+                //case Key.Left: Console.WriteLine("Left"); moveLeft(); break;
+                //case Key.Right: Console.WriteLine("Right"); moveRight(); break;
+                //case Key.Add: Console.WriteLine("Add"); zoomIn(); break;
+                //case Key.Subtract: Console.WriteLine("Subtract"); zoomOut(); break;
             }
         }
 
-        //--------------------------------------------------------------------------------------------
-        private void zoomIn()
-        {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x, y, z + SliderStep.Value);
-        }
+        ////--------------------------------------------------------------------------------------------
+        //private void zoomIn()
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x, y, z + SliderStep.Value);
+        //}
+
+        ////--------------------------------------------------------------------------------------------
+        //private void zoomOut() 
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x, y, z - SliderStep.Value);
+        //}
+        //private void moveLeft() 
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x - SliderStep.Value, y, z);
+        //}
+        //private void moveRight()
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x + SliderStep.Value, y, z);
+        //}
+        //private void moveUp()
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x, y + SliderStep.Value, z);
+        //}
+        //private void moveDown()
+        //{
+        //    double x = myCamera.Position.X;
+        //    double y = myCamera.Position.Y;
+        //    double z = myCamera.Position.Z;
+        //    myCamera.Position = new Point3D(x, y - SliderStep.Value, z);
+        //}
+
 
         //--------------------------------------------------------------------------------------------
-        private void zoomOut() 
+        private void drawTest4() 
         {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x, y, z - SliderStep.Value);
+            //CTest4 test4 = new CTest4();
+            //CNode[] nodes = test4.arrNodes;
+            //foreach (CNode c in nodes) 
+            //{
+            //    Model3DGroup models = CreateCube(c.m_fCoord_X/100 - 400, c.m_fCoord_Z/100, c.m_fCoord_Y/100 - 60);
+            //    ModelVisual3D visual = new ModelVisual3D();
+            //    visual.Content = models;
+            //    myViewport3D.Children.Add(visual);
+            //}
         }
-        private void moveLeft() 
-        {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x - SliderStep.Value, y, z);
-        }
-        private void moveRight()
-        {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x + SliderStep.Value, y, z);
-        }
-        private void moveUp()
-        {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x, y + SliderStep.Value, z);
-        }
-        private void moveDown()
-        {
-            double x = myCamera.Position.X;
-            double y = myCamera.Position.Y;
-            double z = myCamera.Position.Z;
-            myCamera.Position = new Point3D(x, y - SliderStep.Value, z);
-        }
-
-
         //--------------------------------------------------------------------------------------------
-        private void drawNodes() 
+        private void drawTest5()
         {
-            CTest4 test4 = new CTest4();
-            CNode[] nodes = test4.arrNodes;
-            foreach (CNode c in nodes) 
-            {
-                Model3DGroup models = CreateCube(c.m_fCoord_X/100 - 400, c.m_fCoord_Z/100, c.m_fCoord_Y/100);
-                ModelVisual3D visual = new ModelVisual3D();
-                visual.Content = models;
-                myViewport3D.Children.Add(visual);
-            }
+            //myCamera.Position = new Point3D(-500, 0, 1500);
+            //CTest5 test5 = new CTest5();
+            //CNode[] nodes = test5.arrNodes;
+            //foreach (CNode c in nodes)
+            //{
+            //    Model3DGroup models = CreateCube(c.m_fCoord_X / 250 - 1000, c.m_fCoord_Z / 250, c.m_fCoord_Y / 250 - 250);
+            //    ModelVisual3D visual = new ModelVisual3D();
+            //    visual.Content = models;
+            //    myViewport3D.Children.Add(visual);
+            //}
         }
 
         //--------------------------------------------------------------------------------------------
         private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0) zoomIn();
-            else zoomOut();
+            //if (e.Delta > 0) zoomIn();
+            //else zoomOut();
         }
 
         private void ButtonTest4_Click(object sender, RoutedEventArgs e)
         {
-            drawNodes();
+            drawTest4();
         }
 
         private void ButtonTest5_Click(object sender, RoutedEventArgs e)
         {
-
+            drawTest5();
         }
 
         private void SliderStep_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             WindowFor3D.Focus();
             //SliderStep.Focusable = false;
+        }
+
+        private void ButtonClear_Click(object sender, RoutedEventArgs e)
+        {
+            //myViewport3D.Children.Clear();
         }
 
         
