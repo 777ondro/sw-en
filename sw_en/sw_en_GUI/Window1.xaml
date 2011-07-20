@@ -12,10 +12,11 @@
             <ColumnDefinition Width="80px"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-            <Tools3D:TrackballDecorator Grid.Column="1" Grid.Row="1">
-                <Viewport3D Name="myViewport3D">
+        <Tools3D:Trackport3D Grid.Column="1" Grid.Row="1">    
+        <!--<Tools3D:TrackballDecorator Grid.Column="1" Grid.Row="1">-->
+                <Viewport3D>
                 <Viewport3D.Camera>
-                    <PerspectiveCamera x:Name="myCamera" LookDirection="0,0,-1" Position="0,0,500" 
+                    <PerspectiveCamera LookDirection="0,0,-1" Position="0,0,1000" 
                              NearPlaneDistance="1" FarPlaneDistance="100000" />
                 </Viewport3D.Camera>
                 <ModelVisual3D>
@@ -27,15 +28,18 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
             </Viewport3D>
-        </Tools3D:TrackballDecorator>
+        <!--</Tools3D:TrackballDecorator>-->
+        </Tools3D:Trackport3D>
         <Canvas Grid.Column="0" Grid.Row="0"  Background="LightGray">
         </Canvas>
         <StackPanel Grid.Column="0" Grid.Row="1"  Background="LightGray">
-            <Button x:Name="ButtonTest4" Height="25" Width="75" Click="ButtonTest4_Click">Test4</Button>
-            <Button x:Name="ButtonTest5" Height="25" Width="75" Click="ButtonTest5_Click">Test5</Button>
-            <Slider x:Name="SliderStep" Minimum="1" Maximum="20" Value="1" Width="80px" Focusable="False" ValueChanged="SliderStep_ValueChanged"
+            <Button x:Name="ButtonTest4" Height="25" Width="75" Click="ButtonTest4_Click" Focusable="False">Test4</Button>
+            <Button x:Name="ButtonTest5" Height="25" Width="75" Click="ButtonTest5_Click" Focusable="False">Test5</Button>
+            <Slider x:Name="SliderStep" Minimum="1" Maximum="20" Value="10" Width="80px" Focusable="False" ValueChanged="SliderStep_ValueChanged"
                     ToolTip="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(int)Value}"></Slider>
             <Label>Step</Label>
+            <Button x:Name="ButtonClear" Height="25" Width="75" VerticalAlignment="Bottom" Focusable="False" Click="ButtonClear_Click">Clear</Button>
+
 
         </StackPanel>
         <Canvas Grid.Column="1" Grid.Row="0"  Background="LightGray"></Canvas>
