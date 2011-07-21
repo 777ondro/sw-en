@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using MATH;
 
 namespace FEM_CALC_1D
 {
