@@ -81,6 +81,7 @@ namespace CENEX
         CLine[] arrLines;
         CNSupport[] arrSupports;
         CNForce []arrForce;
+        //CCrSc_I objCrSc;
 
         public PaintForm2()
         {
@@ -292,8 +293,7 @@ namespace CENEX
                 node.m_fCoord_X - (m_fNodeDrawSizeX/2),
                 node.m_fCoord_Z - (m_fNodeDrawSizeZ/2),
                 m_fNodeDrawSizeX,
-                m_fNodeDrawSizeZ);     
-
+                m_fNodeDrawSizeZ);
         }
 
         public void DrawLine(Graphics g, Pen p, CLine line)
@@ -885,6 +885,41 @@ namespace CENEX
             pen.Color = Color.Blue;
             g.DrawLine(pen, iXmin + 20, iZmax - 20, iXmin + 20, iZmax - 60);
             g.DrawString("Z", font, brushZ, iXmin + 20, iZmax - 65);
+        }
+
+        // Temporary
+        // Draw Cross-section in 2D
+
+        public void DrawCrSc2D(Graphics g, CCrSc_I objCrSc)
+        { 
+           Brush b  = new SolidBrush(Color.Yellow);
+           Pen p = new Pen(Color.Cornsilk,1);
+
+           int iSize = 2; // Size of point
+
+           // Points
+           for (short i = 0; i < objCrSc.ITotNoPoints; i++)
+           {
+
+               g.FillRectangle(b,
+               objCrSc.m_CrScPoint[i, 0] - (iSize / 2),
+               objCrSc.m_CrScPoint[i, 1] - (iSize / 2),
+               iSize,
+               iSize);
+           }
+
+           // Change Color
+           p.Color = Color.DarkCyan;
+
+           // Liness
+           for (short i = 0; i < objCrSc.ITotNoPoints - 1; i++)
+           {
+               g.DrawLine(p,
+               objCrSc.m_CrScPoint[i, 0],
+               objCrSc.m_CrScPoint[i, 1],
+               objCrSc.m_CrScPoint[i + 1, 0],
+               objCrSc.m_CrScPoint[i + 1, 1]);
+           }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////

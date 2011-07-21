@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace CENEX
 {
@@ -11,18 +12,19 @@ namespace CENEX
         public CLine[] arrLines = new CLine[9];
         public CNSupport[] arrSupports = new CNSupport[3];
         public CNForce[] arrForces = new CNForce[3];
+        public CCrSc_I objCrSc = new CCrSc_I(200,100,10,5);
 
         public CTest1()
         {
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
 
-            arrNodes[0] = new CNode(1, 50, 0, 250, 0);
-            arrNodes[1] = new CNode(2, 250, 0, 250, 0);
-            arrNodes[2] = new CNode(3, 550, 0, 250, 0);
-            arrNodes[3] = new CNode(4, 50, 0, 50, 0);
-            arrNodes[4] = new CNode(5, 250, 0, 50, 0);
-            arrNodes[5] = new CNode(6, 550, 0, 50, 0);
+            arrNodes[0] = new CNode(1, 500, 0, 2500, 0);
+            arrNodes[1] = new CNode(2, 2500, 0, 2500, 0);
+            arrNodes[2] = new CNode(3, 5500, 0, 2500, 0);
+            arrNodes[3] = new CNode(4, 500, 0, 500, 0);
+            arrNodes[4] = new CNode(5, 2500, 0, 500, 0);
+            arrNodes[5] = new CNode(6, 5500, 0, 500, 0);
 
             // Setridit pole podle ID
             Array.Sort(arrNodes, new CCompare_NodeID());
