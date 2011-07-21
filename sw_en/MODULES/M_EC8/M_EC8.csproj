@@ -79,6 +79,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SOLV\CS\EQ\CL_3.cs" />
+    <Compile Include="SOLV\CS\EQ\CL_3_ZL.cs" />
     <Compile Include="SOLV\CS\EQ\CL_4.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,16 +8,16 @@ namespace BaseClasses
     public class CMLoad_41 : CMLoad
     {
         //----------------------------------------------------------------------------
-        private float m_fqValue; // Force Value
+        private float m_fq; // Force Value
         private float m_fa;      // Slope projection
         private float m_fb;      // Distance of horiyontal plateau of Load / User Input
         EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
 
         //----------------------------------------------------------------------------
-        public float FqValue
+        public float Fq
         {
-            get { return m_fqValue; }
-            set { m_fqValue = value; }
+            get { return m_fq; }
+            set { m_fq = value; }
         }
 
         public float Fa

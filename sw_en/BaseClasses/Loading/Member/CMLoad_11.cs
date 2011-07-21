@@ -8,15 +8,15 @@ namespace BaseClasses
     public class CMLoad_11 : CMLoad
     {
         //----------------------------------------------------------------------------
-        private float m_fFValue; // Force Value
+        private float m_fF;      // Force Value
         private float m_fa;      // Distance from Member Start
         EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
 
         //----------------------------------------------------------------------------
-        public float FFValue
+        public float FF
         {
-            get { return m_fFValue; }
-            set { m_fFValue = value; }
+            get { return m_fF; }
+            set { m_fF = value; }
         }
         public float Fa
         {
