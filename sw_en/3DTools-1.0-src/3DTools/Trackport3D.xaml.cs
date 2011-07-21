@@ -40,6 +40,12 @@ namespace _3DTools
     public partial class Trackport3D : UserControl
     {
         private Trackball _trackball = new Trackball();
+
+        public Trackball Trackball
+        {
+            get { return _trackball; }
+            set { _trackball = value; }
+        }
         private readonly ScreenSpaceLines3D Wireframe = new ScreenSpaceLines3D();
 
         public Trackport3D()

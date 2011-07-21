@@ -73,7 +73,14 @@ namespace _3DTools
         private AxisAngleRotation3D _rotation = new AxisAngleRotation3D();
 
         private TranslateTransform3D _translate = new TranslateTransform3D();
-        private Double transScale = 50;
+        private Double transScale = 60;
+        private bool isCtrlDown = false;
+
+        public bool IsCtrlDown
+        {
+            get { return isCtrlDown; }
+            set { isCtrlDown = value; }
+        }
 
         // This property used to set the scaler value for the 'panning' translation vector
         // value is dependant upon object/mesh size
@@ -121,6 +128,7 @@ namespace _3DTools
 
                 _eventSource = value;
 
+                _eventSource.MouseWheel += this.OnMouseScroll;
                 _eventSource.MouseDown += this.OnMouseDown;
                 _eventSource.MouseUp += this.OnMouseUp;
                 _eventSource.MouseMove += this.OnMouseMove;
@@ -136,6 +144,11 @@ namespace _3DTools
                 EventSource.ActualHeight,
                 _previousPosition2D);
         }
+        
+        private void OnMouseScroll(object sender, MouseWheelEventArgs e)
+        {
+            Zoom(e.Delta);
+        }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
@@ -147,19 +160,22 @@ namespace _3DTools
             Point currentPosition = e.GetPosition(EventSource);
 
             // Prefer tracking to zooming if both buttons are pressed.
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                Track(currentPosition);
+                Console.WriteLine("middle button");
+                if (isCtrlDown)
+                {
+                    Track(currentPosition);
+                }
+                else 
+                {
+                    Translate(currentPosition);
+                }
             }
-            else if (e.RightButton == MouseButtonState.Pressed)
-            {
-                Zoom(currentPosition);
-            }
-            else if (e.MiddleButton == MouseButtonState.Pressed)
-            {
-                Console.WriteLine("Middle");
-                Translate(currentPosition);
-            }
+            //else if (e.RightButton == MouseButtonState.Pressed)
+            //{
+            //    Zoom(currentPosition);
+            //}
 
 
             _previousPosition2D = currentPosition;
@@ -229,6 +245,19 @@ namespace _3DTools
             double yDelta = currentPosition.Y - _previousPosition2D.Y;
 
             double scale = Math.Exp(yDelta / 100);    // e^(yDelta/100) is fairly arbitrary.
+
+            _scale.ScaleX *= scale;
+            _scale.ScaleY *= scale;
+            _scale.ScaleZ *= scale;
+        }
+
+        private void Zoom(int step)
+        {
+            double scale;
+            if (step > 0)
+                scale = 0.8;    // e^(yDelta/100) is fairly arbitrary.
+            else
+                scale = 1.2;
 
             _scale.ScaleX *= scale;
             _scale.ScaleY *= scale;
