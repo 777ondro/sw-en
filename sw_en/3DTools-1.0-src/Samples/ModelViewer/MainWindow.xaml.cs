@@ -128,5 +128,23 @@ namespace ModelViewer
         }
 
         private readonly FileSystemWatcher _watcher = new FileSystemWatcher();
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl)
+            {
+                Console.WriteLine("ctrl down: " + e.IsDown);
+                _trackport.Trackball.IsCtrlDown = e.IsDown;
+            }
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl)
+            {
+                Console.WriteLine("ctrl up: " + e.IsUp);
+                _trackport.Trackball.IsCtrlDown = e.IsDown;
+            }
+        }
     }
 }
