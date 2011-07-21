@@ -8,15 +8,15 @@ namespace BaseClasses
     public class CMLoad_13 : CMLoad
     {
         //----------------------------------------------------------------------------
-        private float m_fMValue; // Moment Value
+        private float m_fM; // Moment Value
         private float m_fa;      // Distance from Member Start
         EMLoadDirPCC1 m_eDirPPC; // Direction in Principal Coordinate System of Member / Axis around which oment acts
 
         //----------------------------------------------------------------------------
-        public float FMValue
+        public float FM
         {
-            get { return m_fMValue; }
-            set { m_fMValue = value; }
+            get { return m_fM; }
+            set { m_fM = value; }
         }
         public float Fa
         {

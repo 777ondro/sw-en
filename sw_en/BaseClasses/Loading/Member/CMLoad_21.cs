@@ -8,14 +8,14 @@ namespace BaseClasses
     public class CMLoad_21 : CMLoad
     {
         //----------------------------------------------------------------------------
-        private float m_fqValue; // Force Value
+        private float m_fq; // Force Value
         EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
 
         //----------------------------------------------------------------------------
-        public float FqValue
+        public float Fq
         {
-            get { return m_fqValue; }
-            set { m_fqValue = value; }
+            get { return m_fq; }
+            set { m_fq = value; }
         }
         public EMLoadDirPCC1 EDirPPC
         {
