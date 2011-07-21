@@ -5,24 +5,24 @@ using System.Text;
 
 namespace BaseClasses
 {
-    public class CMLoad_51 : CMLoad
+    public class CMLoad_51z : CMLoad
     {
         //----------------------------------------------------------------------------
-        private float m_fFValue1; // Temperature Value for PCC / Upper+Z / Right+Y  (positive direction) // Teplota hore alebo vpravo na prvku / priecnom reze prierezom
-        private float m_fFValue2; // Temperature Value for PCC / Upper-Z / Right-Y  (negative direction) // Teplota dole alebo vlavo na prvku / priecnom reze prierezom
+        private float m_ft_0_u; // Temperature Value for PCC / Upper+Z / Right+Y  (positive direction) // Teplota hore alebo vpravo na prvku / priecnom reze prierezom
+        private float m_ft_0_b; // Temperature Value for PCC / Upper-Z / Right-Y  (negative direction) // Teplota dole alebo vlavo na prvku / priecnom reze prierezom
         EMLoadDirPCC1 m_eDirPPC;  // Force Direction in Principal Coordinate System of Member
 
         //----------------------------------------------------------------------------
-        public float FFValue1
+        public float Ft_0_u
         {
-            get { return m_fFValue1; }
-            set { m_fFValue1 = value; }
+            get { return m_ft_0_u; }
+            set { m_ft_0_u = value; }
         }
 
-        public float FFValue2
+        public float Ft_0_b
         {
-            get { return m_fFValue2; }
-            set { m_fFValue2 = value; }
+            get { return m_ft_0_b; }
+            set { m_ft_0_b = value; }
         }
         public EMLoadDirPCC1 EDirPPC
         {
@@ -33,7 +33,7 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoad_51()
+        public CMLoad_51z()
         {
         
         

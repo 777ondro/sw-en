@@ -70,7 +70,8 @@
     <Compile Include="Loading\Member\CMLoad_35.cs" />
     <Compile Include="Loading\Member\CMLoad_36.cs" />
     <Compile Include="Loading\Member\CMLoad_41.cs" />
-    <Compile Include="Loading\Member\CMLoad_51.cs" />
+    <Compile Include="Loading\Member\CMLoad_51z.cs" />
+    <Compile Include="Loading\Member\CMLoad_51y.cs" />
     <Compile Include="Model\CMember.cs" />
     <Compile Include="Loading\Member\CMLoad.cs" />
     <Compile Include="Loading\Node\CNLoad.cs" />
