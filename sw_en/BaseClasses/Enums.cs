@@ -109,7 +109,8 @@ namespace BaseClasses
 
         // Temperature
         // Whole Member
-        eMLT_TMP_UNQ_W = 51   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
+        eMLT_TMP_UNQ_Wz = 51,   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
+        eMLT_TMP_UNQ_Wy = 52   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
     }
 
 

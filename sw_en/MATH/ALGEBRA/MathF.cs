@@ -184,7 +184,7 @@ namespace MATH
         public static float Pow8(float fx) { float ftemp = fx * fx * fx * fx; return ftemp * ftemp; }
         public static float Pow9(float fx) { float ftemp = fx * fx * fx * fx; return ftemp * ftemp * fx; }
         // Prirodzeny mocnitel / kladny int
-        public static float PowN(float fx, int iexp)
+        public static float PowN(float fx, short iexp)
         {
             float pow = fx;
             if (iexp > 1)
