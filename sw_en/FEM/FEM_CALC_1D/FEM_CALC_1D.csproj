@@ -65,14 +65,9 @@
       <DependentUpon>CalcForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CMLoadPart.cs" />
-    <Compile Include="MATH\ARRAY\CArray.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="MATH\MATRIX\CMatrix.cs" />
     <Compile Include="MATH\MATRIX\matrix.cs" />
-    <Compile Include="MATH\MATRIX\MatrixF64.cs" />
     <Compile Include="MATH\MATRIX\Matrix_1.cs" />
-    <Compile Include="MATH\VECTOR\CVector.cs" />
-    <Compile Include="MATH\VECTOR\VectorF64.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CalcForm.resx">

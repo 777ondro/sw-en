@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 // Matrix with 64-bit floating-point entries:
-namespace FEM_CALC_1D
+namespace MATH
 {
     public class MatrixF64
     {
