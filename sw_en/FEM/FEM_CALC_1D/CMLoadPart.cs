@@ -388,6 +388,8 @@ namespace FEM_CALC_1D
         // Jedna strana nosnika jednoducho podopreta a druha votknuta
         //----------------------------------------------------------------------------------------------------------------------------
 
+        // OTOCENIE PODOPRETIA DOPRACOVAT !!!!
+
         #region End Moments and Reactions of One Side Simply Supported and the Other Side Restraint Member
         // Singular Load
         void GetEIF__0_11_UV(CMLoad_11 Load, float fL, float fA, float fB, float fMa, float fMb)
@@ -431,84 +433,85 @@ namespace FEM_CALC_1D
         }
         void GetEIF__0_23_UV(CMLoad_23 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-
-            // Otocenie
-
-
+            float fb = fL - Load.Fa;
+            fA = (Load.Fq * MathF.Pow3(fb) / (8f * MathF.Pow3(fL))) * (3f * fL + Load.Fa);
+            fB = ((Load.Fq * fb) / (8f * MathF.Pow3(fL))) * (14f * (2f * MathF.Pow2(fL) - MathF.Pow2(fb)) + MathF.Pow3(fb));
+            fMa = 0f;
+            fMb = (Load.Fq * MathF.Pow2(fb) / 8f * MathF.Pow2(fL)) * (4f * Load.Fa * fL + MathF.Pow2(fb));
         }
         void GetEIF__0_24_UV(CMLoad_24 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = ((Load.Fq * Load.Fs) / (4f * (float)Math.Pow(fL, 3))) * (4f * ((float)Math.Pow(fL - Load.Fa, 2) * (3f * Load.Fa + (fL - Load.Fa)) + (float)Math.Pow(Load.Fs, 2) * (Load.Fa - (fL - Load.Fa))));
-            fB = ((Load.Fq * Load.Fs) / (4f * (float)Math.Pow(fL, 3))) * (4f * (float)Math.Pow(Load.Fa, 2) * (Load.Fa + 3f * (fL - Load.Fa)) + (float)Math.Pow(Load.Fs, 2) * ((fL - Load.Fa) - Load.Fa));
-            fMa = -(Load.Fq * Load.Fs / (12f * fL * fL)) * (12f * Load.Fa * (float)Math.Pow(fL - Load.Fa, 2) + (float)Math.Pow(Load.Fs, 2) * (Load.Fa - 2 * (fL - Load.Fa)));
-            fMa = (Load.Fq * Load.Fs / (12f * fL * fL)) * (12f * (float)Math.Pow(Load.Fa, 2) * (fL - Load.Fa) + (float)Math.Pow(Load.Fs, 2) * ((fL - Load.Fa) - 2 * Load.Fa));
+            float fb = fL - Load.Fa;
+            fA = (Load.Fq * Load.Fs / (8f*MathF.Pow3(fL))) * (4f * MathF.Pow2(fb) * (2f*fL+Load.Fa) + Load.Fa * MathF.Pow2(Load.Fs));
+            fB = (Load.Fq * Load.Fs * Load.Fa / (8f * MathF.Pow3(fL))) * (8f * MathF.Pow2(fL) + 4f * fb * (fL + Load.Fa) - MathF.Pow2(Load.Fs));
+            fMa = 0f;
+            fMb = (Load.Fq * Load.Fs * Load.Fa / (8f * MathF.Pow2(fL))) * (4f * fb * (fL + Load.Fa) - MathF.Pow2(Load.Fs));
         }
-        // Own mathematical class MathF used in functions written below
         // Triangular Load
         void GetEIF__0_31_UV(CMLoad_31 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = fB = Load.Fq * fL / 4f;
-            fMa = -5f * Load.Fq * MathF.Pow2(fL) / 96f;
-            fMb = -fMa;
+            fA = 11f / 64f * Load.Fq * fL;
+            fB = 21f/64f * Load.Fq * fL;
+            fMa = 0f;
+            fMb = 5f/64f*Load.Fq*MathF.Pow2(fL);
         }
         void GetEIF__0_32_UV(CMLoad_32 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = 7f / 20f * Load.Fq * fL;
-            fB = 3f / 20f * Load.Fq * fL;
-            fMa = -Load.Fq * MathF.Pow2(fL) / 20f;
-            fMb = Load.Fq * MathF.Pow2(fL) / 30f;
+            fA = 11f/40f * Load.Fq * fL;
+            fB = 9f / 40f * Load.Fq * fL;
+            fMa = 0f;
+            fMb = 7f /120f * Load.Fq * MathF.Pow2(fL);
         }
         void GetEIF__0_33_UV(CMLoad_33 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = 3f / 20f * Load.Fq * fL;
-            fB = 7f / 20f * Load.Fq * fL;
-            fMa = -Load.Fq * MathF.Pow2(fL) / 30f;
-            fMb = Load.Fq * MathF.Pow2(fL) / 20f;
+            fA = 1f / 10f * Load.Fq * fL;
+            fB = 2f / 5f * Load.Fq * fL;
+            fMa = 0f;
+            fMb = 1f / 15f * Load.Fq * MathF.Pow2(fL);
         }
         void GetEIF__0_34_UV(CMLoad_34 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
             float fb = fL - Load.Fa - Load.Fs;
-            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(fb) * (3f * fL - 2f * fb) + 8f * Load.Fa * fb * Load.Fs + MathF.Pow2(Load.Fs) * (3f * Load.Fa + 5f * fb + 1.4f * Load.Fs));
-            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (3f * fL - 2f * Load.Fa) + 4f * Load.Fa * fb * Load.Fs + MathF.Pow2(Load.Fs) * (3f * Load.Fa + fb + 0.6f * Load.Fs));
-            fMa = -(Load.Fq * Load.Fs / (60f * MathF.Pow2(fL))) * (10f * MathF.Pow2(fb) * (3f * Load.Fa + Load.Fs) + MathF.Pow2(Load.Fs) * (15f * Load.Fa + 10f * fb + 3f * Load.Fs) + 40f * Load.Fa * fb * Load.Fs);
-            fMb = (Load.Fq * Load.Fs / (60f * MathF.Pow2(fL))) * (10f * MathF.Pow2(Load.Fa) * (3f * fb + 2f * Load.Fs) + MathF.Pow2(Load.Fs) * (10f * Load.Fa + 5f * fb + 2f * Load.Fs) + 20f * Load.Fa * fb * Load.Fs);
+            fA = (Load.Fq * Load.Fs / (4f*MathF.Pow3(fL))) * (MathF.Pow2(fB) * (3f*Load.Fa + 2*fB + 5*Load.Fs) + MathF.Pow2(Load.Fs) * (1.5f * Load.Fa + 4f*fb + 1.1f * Load.Fs) + 4f* Load.Fa*fB*Load.Fs);
+            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f* MathF.Pow2(Load.Fa) * (Load.Fa + 3 * fB + 3 * Load.Fs) + MathF.Pow2(fb) * (3*Load.Fa + Load.Fs) + MathF.Pow2(Load.Fs)*(4.5f * Load.Fa + 2f * fb + 0.9f * Load.Fs) + 8f * Load.Fa * fB * Load.Fs);
+            fMa = 0f;
+            fMb = Load.Fq * Load.Fs / (12f * MathF.Pow2(fL)) * (MathF.Pow2(Load.Fa) * (6f * fb + 4f * Load.Fs) + MathF.Pow2(fb)*(3f * Load.Fa + Load.Fs) + MathF.Pow2(Load.Fs) * (3.5f * Load.Fa + 2f * fb + 0.7f * Load.Fs) + 8f * Load.Fa * fb * Load.Fs);
         }
         void GetEIF__0_35_UV(CMLoad_35 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
             float fb = fL - Load.Fa - Load.Fs;
-            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(fb) * (3f * fL - 2f * fb) + 4f * Load.Fa * fb * Load.Fs + MathF.Pow2(Load.Fs) * (3f * fb + Load.Fa + 0.6f * Load.Fs));
-            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (3f * fL - 2f * Load.Fa) + 8f * Load.Fa * fb * Load.Fs + MathF.Pow2(Load.Fs) * (3f * fb + 5f * Load.Fa + 1.4f * Load.Fs));
-            fMa = (Load.Fq * Load.Fs / (60f * MathF.Pow2(fL))) * (10f * MathF.Pow2(fb) * (3f * Load.Fa + 2f * Load.Fs) + MathF.Pow2(Load.Fs) * (10f * fb + 5f * Load.Fa + 2f * Load.Fs) + 20f * Load.Fa * fb * Load.Fs);
-            fMb = -(Load.Fq * Load.Fs / (60f * MathF.Pow2(fL))) * (10f * MathF.Pow2(Load.Fa) * (3f * fb + Load.Fs) + MathF.Pow2(Load.Fs) * (15f * fb + 10f * Load.Fa + 3f * Load.Fs) + 40f * Load.Fa * fb * Load.Fs);
+            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (MathF.Pow2(fB) * (3f * Load.Fa + 2 * fB + 4 * Load.Fs) + MathF.Pow2(Load.Fs) * (0.5f * Load.Fa + 2f * fb + 0.4f * Load.Fs) + 2f * Load.Fa * fB * Load.Fs);
+            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (Load.Fa + 3 * fB + 3 * Load.Fs) + MathF.Pow2(fb) * (3 * Load.Fa + 2f*Load.Fs) + MathF.Pow2(Load.Fs) * (5.5f * Load.Fa + 4f * fb + 1.6f * Load.Fs) + 10f * Load.Fa * fB * Load.Fs);
+            fMa = 0f;
+            fMb = Load.Fq * Load.Fs / (12f * MathF.Pow2(fL)) * (MathF.Pow2(Load.Fa) * (6f * fb + 2f * Load.Fs) + MathF.Pow2(fb) * (3f * Load.Fa + 2f*Load.Fs) + MathF.Pow2(Load.Fs) * (2.5f * Load.Fa + 4f * fb + 0.8f * Load.Fs) + 10f * Load.Fa * fb * Load.Fs);
         }
         void GetEIF__0_36_UV(CMLoad_36 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
             float fb = fL - Load.Fa;
-            fA = (Load.Fq * Load.Fs / (2f * MathF.Pow3(fL))) * (2f * MathF.Pow2(fb) * (fL + 2f * Load.Fa) + MathF.Pow2(Load.Fs) * (Load.Fa - fb));
-            fB = (Load.Fq * Load.Fs / (2f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (fL + 2f * fb) + MathF.Pow2(Load.Fs) * (fb - Load.Fa));
-            fMa = -(Load.Fq * Load.Fs / (6f * MathF.Pow2(fL))) * (6f * Load.Fa * MathF.Pow2(fb) + MathF.Pow2(Load.Fs) * (Load.Fa - 2f * fb));
-            fMb = (Load.Fq * Load.Fs / (6f * MathF.Pow2(fL))) * (6f * MathF.Pow2(Load.Fa) * fb + MathF.Pow2(Load.Fs) * (fb - 2f * Load.Fa));
+            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(fb) *(2f*fL + Load.Fa) + Load.Fa*MathF.Pow2(Load.Fs));
+            fB = (Load.Fq * Load.Fs * Load.Fa / (4f * MathF.Pow3(fL))) * (4f * Load.Fa * fL + 2f*MathF.Pow2(fb) * (3f*fL + Load.Fa) - MathF.Pow2(Load.Fs));
+            fMa = 0f;
+            fMb = (Load.Fq * Load.Fa * Load.Fs / (4f * MathF.Pow2(fL))) * (2f * fb * (fL + Load.Fa) -MathF.Pow2(Load.Fs));
         }
         // Trapezoidal
         void GetEIF__0_41_UV(CMLoad_41 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-            float fb = fL - 2f * Load.Fa;
-            fA = fB = (Load.Fq / 2f) * (fL - Load.Fa);
-            fMa = -(Load.Fq / (12f * fL)) * (MathF.Pow3(fL) + MathF.Pow3(Load.Fa) - 2f * MathF.Pow2(Load.Fa) * fL);
-            fMb = -fMa;
+            // Not implemented yet
         }
         // Temperature
         void GetEIF__0_51_UV(CMLoad_51z Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = fB = 0f;
-            fMa = -objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh;
-            fMb = -fMa;
+            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh; 
+            fB = -fA;
+            fMa = 0f;
+            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u)) / objCrSc.m_fh);
         }
         void GetEIF__0_51_UV(CMLoad_51y Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = fB = 0f;
-            fMa = -objMat.m_fE * objCrSc.m_fIz * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fb;
-            fMb = -fMa;
+            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fh; 
+            fB = -fA;
+            fMa = 0f;
+            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r)) / objCrSc.m_fh);
         }
         #endregion
 
