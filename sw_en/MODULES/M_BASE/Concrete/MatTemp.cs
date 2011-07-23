@@ -102,6 +102,15 @@ namespace M_BASE.Concrete
 	{600,690}    // B 600C
     };
 
+        public int Get_Reinf_f_yk(short i)
+        {
+               return ReinfMat[i,0]; // f_yk
+        }
+        public int Get_Reinf_f_tk(short i)
+        {
+            return ReinfMat[i, 1]; // f_tk
+        }
+
        
 
 

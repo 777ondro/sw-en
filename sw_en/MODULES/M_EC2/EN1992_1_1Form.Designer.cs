@@ -57,6 +57,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.ComboBox_Rein3 = new System.Windows.Forms.ComboBox();
+            this.Value_As = new System.Windows.Forms.TextBox();
+            this.Label_As = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // d_b_textB
@@ -352,12 +355,68 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(129, 21);
             this.comboBox4.TabIndex = 28;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            // 
+            // ComboBox_Rein3
+            // 
+            this.ComboBox_Rein3.FormattingEnabled = true;
+            this.ComboBox_Rein3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "ø 22",
+            "ø 25",
+            "ø 28",
+            "ø 32",
+            "ø 36"});
+            this.ComboBox_Rein3.Location = new System.Drawing.Point(172, 187);
+            this.ComboBox_Rein3.Name = "ComboBox_Rein3";
+            this.ComboBox_Rein3.Size = new System.Drawing.Size(129, 21);
+            this.ComboBox_Rein3.TabIndex = 29;
+            this.ComboBox_Rein3.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Rein3_SelectedIndexChanged);
+            // 
+            // Value_As
+            // 
+            this.Value_As.Location = new System.Drawing.Point(235, 237);
+            this.Value_As.Name = "Value_As";
+            this.Value_As.ReadOnly = true;
+            this.Value_As.Size = new System.Drawing.Size(66, 20);
+            this.Value_As.TabIndex = 31;
+            // 
+            // Label_As
+            // 
+            this.Label_As.AutoSize = true;
+            this.Label_As.Location = new System.Drawing.Point(195, 240);
+            this.Label_As.Name = "Label_As";
+            this.Label_As.Size = new System.Drawing.Size(28, 13);
+            this.Label_As.TabIndex = 30;
+            this.Label_As.Text = "As =";
             // 
             // EN1992_1_1Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 745);
+            this.Controls.Add(this.Value_As);
+            this.Controls.Add(this.Label_As);
+            this.Controls.Add(this.ComboBox_Rein3);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.comboBox3);
@@ -425,6 +484,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox ComboBox_Rein3;
+        private System.Windows.Forms.TextBox Value_As;
+        private System.Windows.Forms.Label Label_As;
     }
 }
 
