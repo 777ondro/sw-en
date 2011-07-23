@@ -8,7 +8,38 @@ namespace M_BASE.Concrete
 {
     public class MatTemp
     {
+        // Concrete
+        // Table of Strength
+        int[,] ConcreteMat = new int[14, 2] 
+                {
+{12, 15  }, // C12/15
+{16, 20  }, // C16/20
+{20, 25  }, // C20/25
+{25, 30  }, // C25/30
+{30, 37  }, // C30/37
+{35, 45  }, // C35/45
+{40, 50  }, // C40/50
+{45, 55  }, // C45/55
+{50, 60  }, // C50/60
+{55, 67  }, // C55/67
+{60, 75  }, // C60/70
+{70, 85  }, // C70/85
+{80, 95  }, // C80/95
+{90, 105 }  // C90/105
+                };
+
+        public int Get_f_ck(short i)
+        {
+            return ConcreteMat[i, 0]; // f_ck
+        }
+        public int Get_f_ck_cube(short i)
+        {
+            return ConcreteMat[i, 1]; // f_ck_cube
+        }
+
+
         public float m_ff_ck;
+        public float m_ff_ck_cube;
         public float m_ff_cm;
         public float m_ff_ctm;
         public float m_ff_ctk_005;
@@ -46,11 +77,11 @@ namespace M_BASE.Concrete
         {
             return 22 * (float)Math.Pow(m_ff_cm / 10f, 0.3f); // E_cm (fcm v MPa)			
         }
-        public float Get_fEps_c1()
+        public float Get_Eps_c1()
         {
             return Math.Min(0.7f * (float)Math.Pow(m_ff_cm, 0.31f), 2.8f); // Eps_c1 (0/00) 
         }
-        public float Get_fEps_cu1()
+        public float Get_Eps_cu1()
         {
             if (m_ff_ck >= 50f)
             return 2.8f + 27 * MathF.Pow4((98f - m_ff_cm) / 100f);  // Eps_cu1 (0/00)
@@ -62,7 +93,7 @@ namespace M_BASE.Concrete
                 return 2.0f + 0.085f* (float)Math.Pow(m_ff_ck - 50f, 0.53f); // Eps_c2 0/00)
             return 2f;
         }
-        public float Get_fEps_cu2()
+        public float Get_Eps_cu2()
         {
             if (m_ff_ck >= 50f)
                 return 2.6f + 35f * MathF.Pow4((90f - m_ff_ck) / 100f);  // Eps_cu2 (0/00)
@@ -87,7 +118,27 @@ namespace M_BASE.Concrete
             return 3.5f;
         }
 
-        //Table		
+        public void GetConData()
+        {
+        //m_ff_ck
+        m_ff_cm = Get_f_cm();
+        m_ff_ctm = Get_f_ctm();
+        m_ff_ctk_005 = Get_f_ctk_005();
+        m_ff_ctk_095 = Get_f_ctk_095();
+        m_fE_cm = Get_E_cm();
+        m_fEps_c1=Get_Eps_c1();
+        m_fEps_cu1 = Get_Eps_cu1();
+        m_fEps_c2 = Get_Eps_c2();
+        m_fEps_cu2 = Get_Eps_cu2();
+        m_fn=Get_fn();
+        m_fEps_c3 = Get_Eps_c3();
+        m_fEps_cu3 = Get_Eps_cu3();
+        }
+
+
+
+        // Reinforcement
+        //Table of Strength		
         //fyk	ftk
         //MPa	MPa Reinforcement
 
@@ -111,7 +162,13 @@ namespace M_BASE.Concrete
             return ReinfMat[i, 1]; // f_tk
         }
 
-       
+        // Table of Diameters
+        float[] ReinfDiameters = new float[19] { 4.0f, 4.5f, 5.0f, 5.5f, 6.0f, 6.5f, 7.0f, 8.0f, 10f, 12f, 14f, 16f, 18f, 20f, 22f, 25f, 28f, 32f, 36f };
+
+        public float Get_Reinf_d_s(short i)
+        {
+            return ReinfDiameters[i]; // d_s
+        }
 
 
 

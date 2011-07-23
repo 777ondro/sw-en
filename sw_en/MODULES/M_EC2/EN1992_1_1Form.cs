@@ -15,6 +15,44 @@ namespace M_EC2
     {
 
 
+       // Concrete
+
+        public float  m_fGamma_Mc = 1.5f;
+
+        private float m_fLambda = 0.8f;
+
+        public float FLambda
+        {
+            get { return m_fLambda; }
+            set { m_fLambda = value; }
+        }
+
+       // Reinforcement
+
+        private float m_ff_yk;
+
+        public float Ff_yk
+        {
+            get { return m_ff_yk; }
+            set { m_ff_yk = value; }
+        }
+
+        private float m_ff_uk;
+
+        public float Ff_uk
+        {
+            get { return m_ff_uk; }
+            set { m_ff_uk = value; }
+        }
+
+        public float m_fGamma_Ms = 1.1f;
+
+
+
+
+
+        // Cross - section 
+
         float fb;
 
         public float Fb
@@ -83,16 +121,18 @@ namespace M_EC2
             set { fd_s = value; }
         }
 
+        public float m_fM_Ed = 10000000f;
 
+        public float m_fM_Rd;
+        public float m_fDesRatio;
+
+
+
+        MatTemp m_objDatabase = new MatTemp(); // Objet databazy Concrete a Reinforcement
 
         public EN1992_1_1Form()
         {
             InitializeComponent();
-
-
-
-
-
 
 
         }
@@ -102,17 +142,21 @@ namespace M_EC2
         {
             // Načítanie dat
             this.Load_data();
-            // Vypocet vysledkov
+
+            // Vypocet vstupov 
             // Lokalne ktore nevstupuju pramo do objektu vypoctu
 
-
             float fA_s_1 = MathF.fPI * MathF.Pow2(Fd_s)/ 4; // Plocha jedneho pruta
-            FA_s = iNo * FA_s_1;
+            FA_s = iNo * fA_s_1;
 
 
+            // Vypocet vysledkov
             // Vytvori sa objekt triedy vypoctu
-            EC2 objekt_EC2 = new EC2(this.Fb,this.Fh);
-            
+            EC2 objekt_EC2 = new EC2(fb,fh, fA_s, m_objDatabase.m_ff_ck, m_fLambda, m_fGamma_Mc, m_ff_yk, m_fGamma_Ms, m_fM_Ed);
+
+            m_fM_Rd = objekt_EC2.FM_Rd1;
+            m_fDesRatio = objekt_EC2.FDesRatio1;
+ 
             // Naplnia sa premenne po vypocte
             this.D_A =   objekt_EC2.D_A;
             this.D_I_y = objekt_EC2.D_I_y;
@@ -171,24 +215,51 @@ namespace M_EC2
             d_Iz_textB.Text = D_I_z.ToString();
 
 
+            // Concrete
 
+            Value_f_ck.Text = m_objDatabase.m_ff_ck.ToString();
+            Value_f_ck_cube.Text = m_objDatabase.m_ff_ck_cube.ToString();
+            Value_f_cm.Text = m_objDatabase.m_ff_cm.ToString();
+            Value_f_ctm.Text = m_objDatabase.m_ff_ctm.ToString();
+
+            // Reinforcement
             Value_As.Text = FA_s.ToString();
+
+
+            // Results
+            Value_M_Rd.Text = m_fM_Rd.ToString();
+            Value_DesRatio.Text = m_fDesRatio.ToString(); 
 
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int Diameter_Index = comboBox4.SelectedIndex;
-
-            MatTemp objTemp = new MatTemp();
-            //objTemp.Get_Reinf_f_yk
-
+            Fd_s = m_objDatabase.Get_Reinf_d_s((short)comboBox4.SelectedIndex);
         }
 
         private void ComboBox_Rein3_SelectedIndexChanged(object sender, EventArgs e)
         {
             INo = ComboBox_Rein3.SelectedIndex;
             INo++; //Number of bars
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_objDatabase.m_ff_ck = m_objDatabase.Get_f_ck((short)comboBox1.SelectedIndex);
+            m_objDatabase.m_ff_ck_cube = m_objDatabase.Get_f_ck_cube((short)comboBox1.SelectedIndex);
+           
+            m_objDatabase.GetConData();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Not implemented yet
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_ff_yk = m_objDatabase.Get_Reinf_f_yk((short)comboBox3.SelectedIndex);
+            m_ff_uk = m_objDatabase.Get_Reinf_f_tk((short)comboBox3.SelectedIndex);
         }
 
 

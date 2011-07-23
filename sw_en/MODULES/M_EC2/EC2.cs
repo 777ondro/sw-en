@@ -95,38 +95,78 @@ namespace M_EC2
             set { fGamma_Mc = value; }
         }
 
+        private float fGamma_Ms;
+
+        public float FGamma_Ms
+        {
+            get { return fGamma_Ms; }
+            set { fGamma_Ms = value; }
+        }
 
 
+        private float fM_Ed;
 
+        public float FM_Ed
+        {
+            get { return fM_Ed; }
+            set { fM_Ed = value; }
+        }
 
+        private float m_fM_Rd1;
 
+        public float FM_Rd1
+        {
+            get { return m_fM_Rd1; }
+            set { m_fM_Rd1 = value; }
+        }
+        private float m_fDesRatio1;
+
+        public float FDesRatio1
+        {
+            get { return m_fDesRatio1; }
+            set { m_fDesRatio1 = value; }
+        }
 
         // Konstruktor
-        public EC2(float a,float b)
+        public EC2(float b,float h, float fA_s, float ff_ck, float fLambda, float fGamma_Mc, float ff_yk, float fGamma_Ms, float fM_Ed)
 
         {
             // priradenie hodnot premennym zavolanim vlastnosti premennej v inej triede
-            this.Fb = a;
-            this.Fh = b;
-            
-            //urobime vypocet
-            this.EC2_1();
-            EC2_4_OHYB(ff_cd, ff_yd, fA_s, fb, fh,fLambda);
+            // Corss-section
+            Fb = b;
+            Fh = h;
 
+            // Interanl force
+            FM_Ed = fM_Ed;
+            
+            // Concrete
+            FLambda = fLambda;
+            //Ff_ck = ff_ck;
+            FGamma_Mc = fGamma_Mc;
+
+            Ff_cd = ff_ck / FGamma_Mc;
+
+            // Steel
+            FA_s = fA_s;
+            //Ff_yk = ff_yk;
+            FGamma_Ms = fGamma_Ms;
+            Ff_yd = ff_yk / FGamma_Ms;
+
+
+            //urobime vypocet
+            EC2_CrScProp(); // Prierez
+            EC2_4_OHYB(ff_cd, ff_yd, fA_s, fb, fh,fLambda,fM_Ed, m_fM_Rd1, m_fDesRatio1); // Design
        }
 
         //////////////////////////////////////////////////////////////
         // HLAVNY VYPOCET
         //////////////////////////////////////////////////////////////
         
-        public void EC2_1()
-
-       {
+        public void EC2_CrScProp()
+        {
            this.d_A = fb * fh;
            this.d_I_y = fb/12* Math.Pow(fh, 3);
            this.d_I_z = fh/12 * Math.Pow(fb, 3);
-           MessageBox.Show("Vysledky v EC2 \n" + (" A = " + D_A + " mm2 \n Iy = " + D_I_y + " mm4 \n Iz = " + D_I_z + " mm4"));
-            
         }
 
         public void EC2_2_TAH()
@@ -144,18 +184,16 @@ namespace M_EC2
 
 
         }
-        public void EC2_4_OHYB(float ff_cd, float ff_yd, float fA_s, float fb, float fh, float fLambda)
+        public void EC2_4_OHYB(float ff_cd, float ff_yd, float fA_s, float fb, float fh, float fLambda, float fM_Ed, float fM_Rd, float fRatio)
         {
             // NAPR. SEM MOZES PISAT VYPOCET
             // Asi bude najlepsie vytvorit samostatnu metodu pre kazde posudenie (TAH, TLAK, OHYB,  VZPER, OHYB+VZPER, ....)
 
             // Jednotlive metody byte som pomenoval podla nejako podla čísel článkov ale nesmu tam byt bodky "."
 
-
-
-
             // 6.1 Ohybový moment s normálovou silou nebo bez normálové síly
 
+            // Auxiliary values
             float fx = Eq_x(fA_s, ff_yd, fb, fLambda, ff_cd);
             float fXi = Eq_Xi(fx, fh);
             float fXi_bal_1 = Eq_Xi_bal_1(ff_yd);
@@ -163,6 +201,9 @@ namespace M_EC2
             //float fEps_cu;
             //float fEps_sy;
 
+            // Output results
+            fM_Rd = Eq_M_Rd(fA_s, ff_yd, fz);
+            fRatio = Eq_Ratio(fM_Ed,fM_Rd);
         }
         public float Eq_x(float fA_s, float ff_yd, float fb, float fLambda, float ff_cd)
         {
