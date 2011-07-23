@@ -515,12 +515,122 @@ namespace FEM_CALC_1D
         }
         #endregion
 
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Objostranne jednoducho podoprety prut
+        //----------------------------------------------------------------------------------------------------------------------------
 
+        #region Reactions of Both Sides Simply Supported Member
+        // Singular Load
+        void GetEIF____11_UV(CMLoad_11 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa;
+            fA = Load.FF * fb / fL;
+            fB = Load.FF * Load.Fa / fL;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____12_UV(CMLoad_12 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = Load.FF / 2f;
+            fB = fA;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____13_UV(CMLoad_13 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = -Load.FM / fL;
+            fB = -fA;
+            fMa = fMb = 0f;
+        }
+        // Uniform Load
+        void GetEIF____21_UV(CMLoad_21 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = 0.5f * Load.Fq * fL;
+            fB = fA;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____22_UV(CMLoad_22 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa;
+            fA = ((Load.Fq * Load.Fa) / (2f*fL)) * (2f *fL - Load.Fa);
+            fB = Load.Fq * MathF.Pow2(Load.Fa) / (2f * fL);
+            fMa = fMb = 0f;
+        }
+        void GetEIF____23_UV(CMLoad_23 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa;
+            fA = (Load.Fq * MathF.Pow3(fb) / (8f * MathF.Pow3(fL))) * (3f * fL + Load.Fa);
+            fB = ((Load.Fq * fb) / (8f * MathF.Pow3(fL))) * (14f * (2f * MathF.Pow2(fL) - MathF.Pow2(fb)) + MathF.Pow3(fb));
+            fMa = fMb = 0f;
+        }
+        void GetEIF____24_UV(CMLoad_24 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa;
+            fA = (Load.Fq * Load.Fs / (8f * MathF.Pow3(fL))) * (4f * MathF.Pow2(fb) * (2f * fL + Load.Fa) + Load.Fa * MathF.Pow2(Load.Fs));
+            fB = (Load.Fq * Load.Fs * Load.Fa / (8f * MathF.Pow3(fL))) * (8f * MathF.Pow2(fL) + 4f * fb * (fL + Load.Fa) - MathF.Pow2(Load.Fs));
+            fMa = fMb = 0f;
+        }
+        // Triangular Load
+        void GetEIF____31_UV(CMLoad_31 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = 11f / 64f * Load.Fq * fL;
+            fB = 21f / 64f * Load.Fq * fL;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____32_UV(CMLoad_32 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = 11f / 40f * Load.Fq * fL;
+            fB = 9f / 40f * Load.Fq * fL;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____33_UV(CMLoad_33 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = 1f / 10f * Load.Fq * fL;
+            fB = 2f / 5f * Load.Fq * fL;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____34_UV(CMLoad_34 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa - Load.Fs;
+            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (MathF.Pow2(fB) * (3f * Load.Fa + 2 * fB + 5 * Load.Fs) + MathF.Pow2(Load.Fs) * (1.5f * Load.Fa + 4f * fb + 1.1f * Load.Fs) + 4f * Load.Fa * fB * Load.Fs);
+            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (Load.Fa + 3 * fB + 3 * Load.Fs) + MathF.Pow2(fb) * (3 * Load.Fa + Load.Fs) + MathF.Pow2(Load.Fs) * (4.5f * Load.Fa + 2f * fb + 0.9f * Load.Fs) + 8f * Load.Fa * fB * Load.Fs);
+            fMa = fMb = 0f;
+        }
+        void GetEIF____35_UV(CMLoad_35 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa - Load.Fs;
+            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (MathF.Pow2(fB) * (3f * Load.Fa + 2 * fB + 4 * Load.Fs) + MathF.Pow2(Load.Fs) * (0.5f * Load.Fa + 2f * fb + 0.4f * Load.Fs) + 2f * Load.Fa * fB * Load.Fs);
+            fB = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(Load.Fa) * (Load.Fa + 3 * fB + 3 * Load.Fs) + MathF.Pow2(fb) * (3 * Load.Fa + 2f * Load.Fs) + MathF.Pow2(Load.Fs) * (5.5f * Load.Fa + 4f * fb + 1.6f * Load.Fs) + 10f * Load.Fa * fB * Load.Fs);
+            fMa = fMb = 0f;
+        }
+        void GetEIF____36_UV(CMLoad_36 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            float fb = fL - Load.Fa;
+            fA = (Load.Fq * Load.Fs / (4f * MathF.Pow3(fL))) * (2f * MathF.Pow2(fb) * (2f * fL + Load.Fa) + Load.Fa * MathF.Pow2(Load.Fs));
+            fB = (Load.Fq * Load.Fs * Load.Fa / (4f * MathF.Pow3(fL))) * (4f * Load.Fa * fL + 2f * MathF.Pow2(fb) * (3f * fL + Load.Fa) - MathF.Pow2(Load.Fs));
+            fMa = fMb = 0f;
+        }
+        // Trapezoidal
+        void GetEIF____41_UV(CMLoad_41 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            // Not implemented yet
+            fMa = fMb = 0f;
+        }
+        // Temperature
+        void GetEIF____51_UV(CMLoad_51z Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh;
+            fB = -fA;
+            fMa = fMb = 0f;
+        }
+        void GetEIF____51_UV(CMLoad_51y Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        {
+            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fh;
+            fB = -fA;
+            fMa = fMb = 0f;
+        }
 
+        #endregion
 
-
-
-
+       // Este chyba konzola !!!!!!
 
 
 
