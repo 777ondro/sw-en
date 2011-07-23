@@ -1,6 +1,6 @@
-﻿namespace M_EC7
+﻿namespace M_EC6
 {
-    partial class Form1
+    partial class Form_M_EC6
     {
         /// <summary>
         /// Required designer variable.

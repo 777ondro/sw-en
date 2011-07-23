@@ -1,6 +1,6 @@
-﻿namespace M_EC9
+﻿namespace M_EC8
 {
-    partial class Form1
+    partial class Form_M_EC8
     {
         /// <summary>
         /// Required designer variable.

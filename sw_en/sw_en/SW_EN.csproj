@@ -118,11 +118,11 @@
     <Compile Include="TEMPORARY\BIN\Class5.cs" />
     <Compile Include="TEMPORARY\BIN\Class6.cs" />
     <Compile Include="TEMPORARY\BIN\Class7.cs" />
-    <Compile Include="TEMPORARY\BIN\Form1.cs">
+    <Compile Include="TEMPORARY\BIN\Form1_Specimen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TEMPORARY\BIN\Form1.designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="TEMPORARY\BIN\Form1_Specimen.designer.cs">
+      <DependentUpon>Form1_Specimen.cs</DependentUpon>
     </Compile>
     <Compile Include="TEMPORARY\BIN\Form10.cs">
       <SubType>Form</SubType>
@@ -326,8 +326,8 @@
       <DependentUpon>EN1999-1-1MessageBoxes.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TEMPORARY\BIN\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="TEMPORARY\BIN\Form1_Specimen.resx">
+      <DependentUpon>Form1_Specimen.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TEMPORARY\BIN\Form10.resx">
@@ -603,6 +603,42 @@
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
       <Name>MATH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC1\M_EC1.csproj">
+      <Project>{9764D1BF-A2B3-45D6-AB93-050DCE30830C}</Project>
+      <Name>M_EC1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC2\M_EC2.csproj">
+      <Project>{5F7F75F6-D383-4B86-9406-EC68C75090C6}</Project>
+      <Name>M_EC2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC3\M_EC3.csproj">
+      <Project>{515CE0E4-0E37-453D-869E-2A651557389E}</Project>
+      <Name>M_EC3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC4\M_EC4.csproj">
+      <Project>{B18D348E-0355-4CFD-91A9-FD8D30FE2B74}</Project>
+      <Name>M_EC4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC5\M_EC5.csproj">
+      <Project>{62C43A87-8703-4264-B7CF-46F7A1A9F918}</Project>
+      <Name>M_EC5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC6\M_EC6.csproj">
+      <Project>{88087731-387C-4A65-9644-9E17339AB10C}</Project>
+      <Name>M_EC6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC7\M_EC7.csproj">
+      <Project>{A18F3BFB-3A2B-4191-9AC6-B52958367616}</Project>
+      <Name>M_EC7</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC8\M_EC8.csproj">
+      <Project>{6FE7FFA4-0A03-4891-B796-878EF414AC28}</Project>
+      <Name>M_EC8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODULES\M_EC9\M_EC9.csproj">
+      <Project>{B37DD6B9-7A5E-412B-A45B-05AD0ABF573E}</Project>
+      <Name>M_EC9</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

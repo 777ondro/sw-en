@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace M_BASE
+namespace M_EC6
 {
-    public partial class Form1 : Form
+    public partial class Form_M_EC6 : Form
     {
-        public Form1()
+        public Form_M_EC6()
         {
             InitializeComponent();
         }

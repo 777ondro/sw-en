@@ -1,6 +1,6 @@
-﻿namespace M_BASE
+﻿namespace M_EC5
 {
-    partial class Form1
+    partial class Form_M_EC5
     {
         /// <summary>
         /// Required designer variable.
@@ -36,4 +36,3 @@
         #endregion
     }
 }
-

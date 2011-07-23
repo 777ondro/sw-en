@@ -16,6 +16,16 @@ using WindowsFormsApplication1;
 using DATABASE;
 using CRSC;
 using MATERIAL;
+//using M_BASE;
+using M_EC1;
+using M_EC2;
+using M_EC3;
+using M_EC4;
+using M_EC5;
+using M_EC6;
+using M_EC7;
+using M_EC8;
+using M_EC9;
 
 namespace CENEX
 {
@@ -106,12 +116,13 @@ namespace CENEX
         }
         private void eC1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_M_EC1 obj_M_C1_Form = new Form_M_EC1();
+            obj_M_C1_Form.ShowDialog();
         }
         private void eC2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //EN1992_1_1Form obj_EN1992_1_1Form = new EN1992_1_1Form();
-            //obj_EN1992_1_1Form.ShowDialog();
+            EN1992_1_1Form obj_EN1992_1_1Form = new EN1992_1_1Form();
+            obj_EN1992_1_1Form.ShowDialog();
         }
         private void eC3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -120,27 +131,28 @@ namespace CENEX
         }
         private void eC4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_M_EC4 obj_M_C4_Form = new Form_M_EC4();
+            obj_M_C4_Form.ShowDialog();
         }
-
-        private void eC5ToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void eC5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_M_EC5 obj_M_C5_Form = new Form_M_EC5();
+            obj_M_C5_Form.ShowDialog();
         }
-
         private void eC6ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_M_EC6 obj_M_C6_Form = new Form_M_EC6();
+            obj_M_C6_Form.ShowDialog();
         }
-
         private void eC7ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_M_EC7 obj_M_C7_Form = new Form_M_EC7();
+            obj_M_C7_Form.ShowDialog();
         }
-
         private void eC8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //Form_M_EC8 obj_M_C8_Form = new Form_M_EC8();
+            //obj_M_C8_Form.ShowDialog();
         }
         private void eC9ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -180,7 +192,7 @@ namespace CENEX
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            Form1 obj_Form1 = new Form1();
+            WindowsFormsApplication1.Form1 obj_Form1 = new WindowsFormsApplication1.Form1();
             obj_Form1.ShowDialog();
         }
 
