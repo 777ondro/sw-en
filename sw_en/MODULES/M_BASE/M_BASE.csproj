@@ -53,11 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\CBase.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Concrete\MatTemp.cs" />
+    <Compile Include="FormModBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormModBase.Designer.cs">
+      <DependentUpon>FormModBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Metal\CMetal.cs" />
     <Compile Include="Metal\CCrSc.cs" />
@@ -83,7 +84,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concrete\" />
+    <ProjectReference Include="..\..\MATH\MATH.csproj">
+      <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
+      <Name>MATH</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Glass\" />
     <Folder Include="Soil\" />
     <Folder Include="Timber\" />

@@ -52,14 +52,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="EC2.cs" />
+    <Compile Include="EN1992_1_1Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="EN1992_1_1Form.Designer.cs">
+      <DependentUpon>EN1992_1_1Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_M_EC2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_M_EC2.Designer.cs">
+      <DependentUpon>Form_M_EC2.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="EN1992_1_1Form.resx">
+      <DependentUpon>EN1992_1_1Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -86,6 +97,20 @@
     <Compile Include="SOLV\CS\EQ\CL_66.cs" />
     <Compile Include="SOLV\CS\EQ\CL_67.cs" />
     <Compile Include="SOLV\CS\EQ\CL_68.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CRSC\CRSC.csproj">
+      <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
+      <Name>CRSC %28CRSC\CRSC%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MATH\MATH.csproj">
+      <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
+      <Name>MATH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\M_BASE\M_BASE.csproj">
+      <Project>{AD3E14F4-72C6-476E-B67F-93CC194E0E02}</Project>
+      <Name>M_BASE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

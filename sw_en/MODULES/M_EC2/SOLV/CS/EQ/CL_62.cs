@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MATH;
 
-namespace EC2.SOLV.CS
+namespace M_EC2.SOLV.CS
 {
     class CL_62  // Clause 6.2 Shear
     {

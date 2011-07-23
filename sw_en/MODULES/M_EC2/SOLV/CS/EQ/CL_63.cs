@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EC2.SOLV.CS
+namespace M_EC2.SOLV.CS
 {
     class CL_63
     {

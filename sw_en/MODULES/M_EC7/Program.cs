@@ -15,7 +15,7 @@ namespace M_EC7
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form_M_EC7());
         }
     }
 }
