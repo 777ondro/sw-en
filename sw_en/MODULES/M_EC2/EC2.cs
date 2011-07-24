@@ -129,12 +129,12 @@ namespace M_EC2
         }
 
         // Konstruktor
-        public EC2(float b, float h, float fA_s, float ff_ck, float fLambda, float fGamma_Mc, float ff_yk, float fGamma_Ms, float fM_Ed)
+        public EC2(float fb, float fh, float fA_s, float ff_ck, float fLambda, float fGamma_Mc, float ff_yk, float fGamma_Ms, float fM_Ed)
         {
             // priradenie hodnot premennym zavolanim vlastnosti premennej v inej triede
             // Corss-section
-            Fb = b;
-            Fh = h;
+            Fb = fb;
+            Fh = fh;
 
             // Interanl force
             FM_Ed = fM_Ed;
@@ -338,5 +338,322 @@ namespace M_EC2
         {
             return Math.Min(fV_cd + fV_Rd_s, fV_Rd_max); // fV_Rd
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Výpočet vzperu EN 1992-1-1-5.8.8 Metoda založená na menovitej krivosti:
+        // 5.8.8 Metoda zalozena na menovitej krivosti
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Input 
+        // fM_0_1
+        // fM_0_2
+        // fn_bal
+        // ft_0
+        // ft
+        // fRH
+        // fT_Delta_t_i
+        // fAlpha
+        // fc
+
+        public float Eq_Lambda(float fL_0, float fh)
+        {
+            return fL_0 * MathF.Sqrt(12f / fh); // fLambda
+        }
+        public float Eq_A(float fPhi_ef)
+        {
+            return 1 / (1 + 0.2f * fPhi_ef); // fA
+        }
+        public float Eq_B(float fOmega)
+        {
+            return MathF.Sqrt(1 + 2 * fOmega); // fB
+        }
+        public float Eq_C(float fr_m)
+        {
+            return 1.7f - fr_m;  // fC
+        }
+        public float Eq_r_m(float fM_0_1, float fM_0_2)
+        {
+            return fM_0_1 / fM_0_2; // r_m
+        }
+        public float Eq_fLambda_lim(float fA, float fB, float fC, float fn)
+        {
+            return 20 * fA * fB * fC / MathF.Sqrt(fn); // fLambda_lim
+        }
+        /*
+                            public float Eq_(float b)
+{
+return fLambda < fLambda_lim; //
+                            }
+          */
+        public float Eq_e_i(float fL_0)
+        {
+            return fL_0 / 400; // fe_i
+        }
+        public float Eq_M_0_Ed(float fM_1_Ed, float fN_Ed, float fe_i)
+        {
+            return fM_1_Ed + fN_Ed * fe_i; // fM_0_Ed
+        }
+        public float Eq_e_0(float fM_0_Ed, float fN_Ed)
+        {
+            return fM_0_Ed / fN_Ed;  // fe_0
+        }
+        public float Eq_fOmega(float fA_s, float ff_yd, float fA_c, float ff_cd)
+        {
+            return fA_s * ff_yd / (fA_c * ff_cd); // fOmega
+        }
+        public float Eq_n_u(float fOmega)
+        {
+            return 1 + fOmega; // fn_u
+        }
+        public float Eq_n(float fN_Ed, float fA_c, float ff_cd)
+        {
+            return fN_Ed / (fA_c * ff_cd); // fn
+        }
+        public float Eq_K_r(float fn_u, float fn, float fn_bal)
+        {
+            return Math.Min((fn_u - fn) / (fn_u - fn_bal), 1.0f); //fK_r
+        }
+        public float Eq_Beta(float ff_ck, float fLambda)
+        {
+            return 0.35f + ff_ck / 200 - fLambda / 150; // fBeta
+        }
+        public float Eq_Sigma_c(float fN_0_Ed_qp, float fA_c)
+        {
+            return fN_0_Ed_qp / fA_c; // fSigma_c
+        }
+        public float Eq_045f_ck_t_0(float ff_ck_ft_0)
+        {
+            return 0.45f * ff_ck_ft_0; //
+        }
+        public float Eq_h_0(float fA_c, float fu)
+        {
+            return 2 * fA_c / fu; // fh_0
+        }
+        public float Eq_Alpha_1(float ff_cm)
+        {
+            return (float)Math.Pow(35 / ff_cm, 0.7f); // fAlpha_1
+        }
+        public float Eq_Alpha_2(float ff_cm)
+        {
+            return (float)Math.Pow(35 / ff_cm, 0.2f); // fAlpha_2
+        }
+        public float Eq_Alpha_3(float ff_cm)
+        {
+            return (float)Math.Pow(35 / ff_cm, 0.5f); // fAlpha_3
+        }
+        public float Eq_Phi_RH(float fRH, float fh_0, float fAlpha_1, float fAlpha_2)
+        {
+            return (1 + (1 - fRH / 100) / (0.1f * MathF.Pow_1_3(fh_0)) * fAlpha_1) * fAlpha_2; // fPhi_RH
+        }
+        public float Eq_Beta_f_cm(float ff_cm)
+        {
+            return 16.8f / MathF.Sqrt(ff_cm); // fBeta_f_cm
+        }
+        public float Eq_Beta_ft_0(float ft_0)
+        {
+            return 1 / (0.1f + (float)Math.Pow(ft_0, 0.2f)); // fBeta_ft_0
+        }
+        public float Eq_Phi_0(float fPhi_RH, float fBeta_f_cm, float fBeta_t_0)
+        {
+            return fPhi_RH * fBeta_f_cm * fBeta_t_0; // fPhi_0
+        }
+        public float Eq_Beta_H(float fRH, float fh_0, float fAlpha_3)
+        {
+            return Math.Min(1.5f * (1 + MathF.PowN(0.012f * fRH, 18)) * fh_0 + 250 * fAlpha_3, 1500 * fAlpha_3);    // fBeta_H
+        }
+        public float Eq_t_0_T(float fT_Delta_t_i, float fDelta_t_i)
+        {
+            return /*∑*/ (float)Math.Pow(Math.E, -(4000 / (273 + fT_Delta_t_i) - 13.65f)) * fDelta_t_i;  // ft_0_T
+        }
+        public float Eq_t_0(float ft_0_T, float fAlpha)
+        {
+            return Math.Max(ft_0_T * (float)Math.Pow(9 / (2 + (float)Math.Pow(ft_0_T, 1.2f) + 1), fAlpha), 0.5f);  // ft_0
+        }
+        public float Eq_Beta_c_ft_ft_0(float ft, float ft_0, float fBeta_H)
+        {
+            return (float)Math.Pow((ft - ft_0) / (fBeta_H + ft - ft_0), 0.3f);    // fBeta_c_ft_ft_0
+        }
+        public float Eq_Ph_Infinity_ft_0(float fPhi_0, float fBeta_c_ft_ft_0)
+        {
+            return fPhi_0 * fBeta_c_ft_ft_0;  // fPh_Infinity_ft_0
+        }
+        public float Eq_Phi_ef(float fPhi_Infinity_ft_0, float fM_0_Ed_qp, float fM_0_Ed)
+        {
+            return fPhi_Infinity_ft_0 * fM_0_Ed_qp / fM_0_Ed; // fPhi_ef
+        }
+        public float Eq_fK_Phi(float fBeta, float fPhi_ef)
+        {
+            return Math.Max(1 + fBeta * fPhi_ef, 1.0f); // fK_Phi
+        }
+        public float Eq_Eps_d(float ff_yd, float fE_s)
+        {
+            return ff_yd / fE_s; // fEps_d 
+        }
+        public float Eq_fd(float fh, float fi_s)
+        {
+            return fh / 2f + fi_s; // fd - Not section depth but factor
+        }
+        public float Eq_1_r_0(float fEps_d, float fd)
+        {
+            return fEps_d / (0.45f * fd); // f1_r_0
+        }
+        public float Eq_1_r(float fK_r, float fK_Phi, float fPhi, float f1_r0)
+        {
+            return fK_r * fK_Phi * fPhi * f1_r0; // f1_r
+        }
+        public float Eq_M_2(float fN_Ed, float f1_r, float fL_0, float fc)
+        {
+            return /*fN_Ed.e2*/ fN_Ed * f1_r * MathF.Pow2(fL_0) / fc; // fM_2
+        }
+        public float Eq_e_2(float fM_2, float fN_Ed)
+        {
+            return fM_2 / fN_Ed; // f_e_2
+        }
+        public float Eq_M_Ed(float fM_0_Ed, float fM_2)
+        {
+            return fM_0_Ed + fM_2; // fM_Ed
+        }
+        public float Eq_e_tot(float fM_Ed, float fN_Ed)
+        {
+            return fM_Ed / fN_Ed; // fe_tot
+        }
+
+
+
+
+
+
+        // Axial Force and Bending Moment
+        // N + M_Ed
+        public float Eq_F_s1(float fA_s1, float ff_yd)
+        {
+            return fA_s1 * ff_yd; // fF_s1
+        }
+        public float Eq_F_s2(float fA_s2, float ff_yd)
+        {
+            return fA_s2 * ff_yd; // fF_s2
+        }
+        public float Eq_F_s(float fA_s1, float fA_s2, float ff_yd)
+        {
+            return (fA_s1 + fA_s2) * ff_yd; // fF_s
+        }
+        public float Eq_Delta_F_s(float fA_s1, float fA_s2, float ff_yd)
+        {
+            return (fA_s2 - fA_s1) * ff_yd; // fDelta_F_s
+        }
+        public float Eq_e_0(float fh)
+        {
+            return Math.Min(fh / 30, 20); // fe_0
+        }
+        //Bod 0
+        public float Eq_N_Rd_0(float fb, float fh, float fEta, float ff_cd, float fA_s, float fSigma_s)
+        {
+            return -(fb * fh * fEta * ff_cd +/*∑*/fA_s * fSigma_s); // fN_cu = fN_Rd_0
+        }
+        public float Eq_M_Rd_0(float fA_s1, float fz_s1, float fA_s2, float fz_s2, float fSigma_s)
+        {
+            return (fA_s2 * fz_s2 - fA_s1 * fz_s1) * fSigma_s; // fM_cu = fM_Rd_0
+        }
+        //Bod 0´
+        public float Eq_N_eu(float fb, float fh, float fEta, float ff_cd, float fA_s, float fSigma_s)
+        {
+            return -(0.8f * fb * fh * fEta * ff_cd +/*∑*/fA_s * fSigma_s);  // fN_eu = fN_Rd_0´ 
+        }
+        //Bod 1
+        public float Eq_N_Rd_1(float ffLamda, float fb, float fd, float ff_cd, float fF_s2)
+        {
+            return -(fLambda * fb * fd * ff_cd + fF_s2); // fN_Rd_1
+        }
+        public float Eq_M_Rd_1(float fLambda, float fb, float fd, float fh, float ff_cd, float fF_s2, float fz_s2)
+        {
+            return fLambda * fb * fd * (0.5f * fh - 0.4f * fd) * ff_cd + fF_s2 * fz_s2; // fM_Rd_1
+        }
+        // fd> = fEps_lim_2*fd_2; // Distance between face and centroid of reinforcement
+        //Bod 2
+        public float Eq_N_cu_lim(float fLamda, float fEps_lim, float fb, float fd, float ff_cd, float fDelta_F_s)
+        {
+            return -(fLambda * fEps_lim * fb * fd * ff_cd + fDelta_F_s); // fN_cu_lim 
+        }
+        public float Eq_M_cu_lim(float fLamda, float fEps_lim, float fb, float fd, float fh, float ff_cd, float fF_s1, float fz_1, float fF_s2, float fz_2)
+        {
+            return fLambda * fEps_lim * fb * fd * (0.5f * fh - 0.4f * fEps_lim * fd) * ff_cd + fF_s2 * fz_2 + fF_s1 * fz_1; // fM_cu_lim = fM_Rd_lim
+        }
+        //Bod 3
+        public float Eq_N_Rd_3()
+        {
+            return 0f; // fN_Rd_3
+        }
+        public float Eq_M_Rd_3(float fF_s1, float fd, float fLambda, float fx)
+        {
+            return fF_s1 * (fd - 0.5f * fLambda * fx); // fM_Rd_3
+        }
+        public float Eq_x(float fF_s1, float fLamda, float fb, float ff_cd)
+        {
+            return fF_s1 / fLambda * fb * fEta * ff_cd; // fx
+        }
+        //Bod 4
+        public float Eq_N_Rtd_lim(float fF_s1)
+        {
+            return fF_s1; // fN_Rtd_lim = fF_s1
+        }
+        public float Eq_M_Rtd_lim(float fF_s1, float fz_1)
+        {
+            return fF_s1 * fz_1; // fM_Rtd_lim
+        }
+        //Bod 5
+        public float Eq_N_Rtd_0(float fF_s1, float fF_s2)
+        {
+            return fF_s1 + fF_s2;  // fN_Rtd_0
+        }
+        public float Eq_M_Rtd_0(float fF_s1, float fz_1, float fF_s2, float fz_2)
+        {
+            return fF_s1 * fz_1 - fF_s2 * fz_2; // fM_Rtd_0
+        }
+
+
+        // Interaction of Interanl Forces
+        // Axial Force and Biaxial Bending
+        public float Eq_N_Rd(float fA_c, float ff_cd, float fA_s, float ff_yd)
+        {
+
+            return fA_c * ff_cd + fA_s * ff_yd; // fN_Rd
+        }
+        public float Eq_Ratio_M_Ed_M_Rd(float fM_Ed, float fM_Rd)
+        {
+            return fM_Ed / fM_Rd; // Design Ratio
+        }
+        public float Eq_Ratio_N_Ed_N_Rd(float fN_Ed, float fN_Rd)
+        {
+            return fN_Ed / fN_Rd; //Design Ratio
+        }
+
+        static float[,] arrTable_a = new float[3, 2]
+{
+{0.1f, 1.0f},
+{0.7f, 1.5f},
+{1.0f, 2.0f}
+};
+
+        public float Get_a_Table(float fRatio_N_Ed_N_Rd)
+        {
+            if (fRatio_N_Ed_N_Rd < 0.7f)
+                return (((fRatio_N_Ed_N_Rd - arrTable_a[0, 0]) / ((arrTable_a[1, 0] - arrTable_a[0, 0]) / (arrTable_a[1, 1] - arrTable_a[0, 1]))) + 1);
+            else
+                return (((fRatio_N_Ed_N_Rd - arrTable_a[1, 0]) / ((arrTable_a[2, 0] - arrTable_a[1, 0]) / (arrTable_a[2, 1] - arrTable_a[1, 1]))) + 1.5f);
+        }
+
+        public float Eq_DesRatio(float fM_y_Ed, float fM_z_Ed, float fM_y_Rd, float fM_z_Rd, float fa)
+        {
+            return ((float)Math.Pow(fM_z_Ed / fM_z_Rd, fa) + (float)Math.Pow(fM_y_Ed / fM_y_Ed, fa)) / 1f; // Design Ratio
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }
