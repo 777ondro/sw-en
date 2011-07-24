@@ -198,6 +198,15 @@ namespace MATH
             else
                 return 1f;
         }
+        public static float Pow_1_3(float fx) { return (float)Math.Pow(fx, 1 / 3f); }
+        public static float Pow_1_4(float fx) { return (float)Math.Pow(fx, 0.25f); }
+        public static float Pow_1_5(float fx) { return (float)Math.Pow(fx, 1 / 5f); }
+        public static float Pow_1_6(float fx) { return (float)Math.Pow(fx, 1 / 6f); }
+
+        public static float Pow_2_3(float fx) { return (float)Math.Pow(fx, 2 / 3f); }
+        public static float Pow_2_5(float fx) { return (float)Math.Pow(fx, 2 / 5f); }
+        public static float Pow_3_2(float fx) { return (float)Math.Pow(fx, 1.5f); }
+        public static float Pow_5_2(float fx) { return (float)Math.Pow(fx, 5 / 2f); }
         #endregion
         //----------------------------------------------------------------------------------------------------------------------------
         // Root / Odmocnina / Square Root / Druha odmocnina
