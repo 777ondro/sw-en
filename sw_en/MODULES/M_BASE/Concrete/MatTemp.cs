@@ -142,8 +142,9 @@ namespace M_BASE.Concrete
         //fyk	ftk
         //MPa	MPa Reinforcement
 
-        int[,] ReinfMat = new int [8, 2] {
+        int[,] ReinfMat = new int [9, 2] {
 	{400,420},   // B 400A
+    {500,525},   // B 500A
 	{600,630},   // B 600A
 	{400,432},   // B 400B
 	{500,540},   // B 500B
