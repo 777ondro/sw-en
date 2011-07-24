@@ -343,6 +343,7 @@ namespace M_EC2
         // Výpočet vzperu EN 1992-1-1-5.8.8 Metoda založená na menovitej krivosti:
         // 5.8.8 Metoda zalozena na menovitej krivosti
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         // Input 
         // fM_0_1
         // fM_0_2
@@ -378,12 +379,12 @@ namespace M_EC2
         {
             return 20 * fA * fB * fC / MathF.Sqrt(fn); // fLambda_lim
         }
-        /*
-                            public float Eq_(float b)
+/*
+public float Eq_(float b)
 {
 return fLambda < fLambda_lim; //
-                            }
-          */
+}
+*/
         public float Eq_e_i(float fL_0)
         {
             return fL_0 / 400; // fe_i
@@ -517,11 +518,6 @@ return fLambda < fLambda_lim; //
             return fM_Ed / fN_Ed; // fe_tot
         }
 
-
-
-
-
-
         // Axial Force and Bending Moment
         // N + M_Ed
         public float Eq_F_s1(float fA_s1, float ff_yd)
@@ -609,12 +605,10 @@ return fLambda < fLambda_lim; //
             return fF_s1 * fz_1 - fF_s2 * fz_2; // fM_Rtd_0
         }
 
-
         // Interaction of Interanl Forces
         // Axial Force and Biaxial Bending
         public float Eq_N_Rd(float fA_c, float ff_cd, float fA_s, float ff_yd)
         {
-
             return fA_c * ff_cd + fA_s * ff_yd; // fN_Rd
         }
         public float Eq_Ratio_M_Ed_M_Rd(float fM_Ed, float fM_Rd)
@@ -625,14 +619,12 @@ return fLambda < fLambda_lim; //
         {
             return fN_Ed / fN_Rd; //Design Ratio
         }
-
         static float[,] arrTable_a = new float[3, 2]
 {
 {0.1f, 1.0f},
 {0.7f, 1.5f},
 {1.0f, 2.0f}
 };
-
         public float Get_a_Table(float fRatio_N_Ed_N_Rd)
         {
             if (fRatio_N_Ed_N_Rd < 0.7f)
@@ -640,7 +632,6 @@ return fLambda < fLambda_lim; //
             else
                 return (((fRatio_N_Ed_N_Rd - arrTable_a[1, 0]) / ((arrTable_a[2, 0] - arrTable_a[1, 0]) / (arrTable_a[2, 1] - arrTable_a[1, 1]))) + 1.5f);
         }
-
         public float Eq_DesRatio(float fM_y_Ed, float fM_z_Ed, float fM_y_Rd, float fM_z_Rd, float fa)
         {
             return ((float)Math.Pow(fM_z_Ed / fM_z_Rd, fa) + (float)Math.Pow(fM_y_Ed / fM_y_Ed, fa)) / 1f; // Design Ratio
