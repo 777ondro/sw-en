@@ -116,5 +116,11 @@ namespace _3DTools
 
         private ViewMode _viewMode;
         private Model3D _model;
+
+        public Model3D Model
+        {
+            get { return _model; }
+            set { _model = value; }
+        }
     }
 }

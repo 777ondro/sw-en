@@ -36,19 +36,43 @@ namespace _3DTools
 {
     public class TrackballDecorator : Viewport3DDecorator
     {
+        private TranslateTransform3D _translate = new TranslateTransform3D();
+        private Double transScale = 2;
+        private bool isCtrlDown = false;
+
+        public bool IsCtrlDown
+        {
+            get { return isCtrlDown; }
+            set { isCtrlDown = value; }
+        }
+
         public TrackballDecorator()
         {
             // the transform that will be applied to the viewport 3d's camera
             _transform = new Transform3DGroup();
             _transform.Children.Add(_scale);
             _transform.Children.Add(new RotateTransform3D(_rotation));
+            _transform.Children.Add(_translate);
 
             // used so that we always get events while activity occurs within
             // the viewport3D
             _eventSource = new Border();
             _eventSource.Background = Brushes.Transparent;
-            
+
             PreViewportChildren.Add(_eventSource);
+        }
+        
+        public void Zoom(int step)
+        {
+            double scale;
+            if (step > 0)
+                scale = 0.8;    // e^(yDelta/100) is fairly arbitrary.
+            else
+                scale = 1.2;
+
+            _scale.ScaleX *= scale;
+            _scale.ScaleY *= scale;
+            _scale.ScaleZ *= scale;
         }
 
         /// <summary>
@@ -98,14 +122,27 @@ namespace _3DTools
                 if (currentPosition == _previousPosition2D) return;
 
                 // Prefer tracking to zooming if both buttons are pressed.
-                if (e.LeftButton == MouseButtonState.Pressed)
+                if (e.MiddleButton == MouseButtonState.Pressed)
                 {
-                    Track(currentPosition);
+                    Console.WriteLine("middle button");
+                    if (isCtrlDown)
+                    {
+                        Track(currentPosition);
+                    }
+                    else
+                    {
+                        Translate(currentPosition);
+                    }
                 }
-                else if (e.RightButton == MouseButtonState.Pressed)
-                {
-                    Zoom(currentPosition);
-                }
+
+                //if (e.LeftButton == MouseButtonState.Pressed)
+                //{
+                //    Track(currentPosition);
+                //}
+                //else if (e.RightButton == MouseButtonState.Pressed)
+                //{
+                //    Zoom(currentPosition);
+                //}
 
                 _previousPosition2D = currentPosition;
 
@@ -129,6 +166,26 @@ namespace _3DTools
         }
 
         #endregion Event Handling
+
+        private void Translate(Point currentPosition)
+        {
+            // Calculate the panning vector from screen(the vector component of the Quaternion
+            // the division of the X and Y components scales the vector to the mouse movement
+            Quaternion qV = new Quaternion(((_previousPosition2D.X - currentPosition.X) / transScale),
+            ((currentPosition.Y - _previousPosition2D.Y) / transScale), 0, 0);
+
+            // Get the current orientantion from the RotateTransform3D
+            Quaternion q = new Quaternion(_rotation.Axis, _rotation.Angle);
+            Quaternion qC = q;
+            qC.Conjugate();
+
+            // Here we rotate our panning vector about the the rotaion axis of any current rotation transform
+            // and then sum the new translation with any exisiting translation
+            qV = q * qV * qC;
+            _translate.OffsetX += qV.X;
+            _translate.OffsetY += qV.Y;
+            _translate.OffsetZ += qV.Z;
+        }
 
         private void Track(Point currentPosition)
         {
