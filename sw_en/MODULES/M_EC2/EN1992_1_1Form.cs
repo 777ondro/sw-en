@@ -13,9 +13,24 @@ namespace M_EC2
 {
     public partial class EN1992_1_1Form : Form
     {
+        // Internal Forces
 
+        public float m_fN_Ed;
+        public float m_fM_Ed_1_y;
+        public float m_fM_Ed_1_z;
+        public float m_fM_Ed_1;
 
-       // Concrete
+        public float m_fN_0_Ed_qp;
+        public float m_fM_0_Ed_qp_y;
+        public float m_fM_0_Ed_qp_z;
+        public float m_fM_0_Ed_qp;
+
+        public float m_fM_0_1_y;
+        public float m_fM_0_1_z;
+        public float m_fM_0_2_y;
+        public float m_fM_0_2_z;
+
+        // Concrete
 
         public float  m_fGamma_Mc = 1.5f;
 
@@ -27,8 +42,12 @@ namespace M_EC2
             set { m_fLambda = value; }
         }
 
-       // Reinforcement
+        public float m_fAlpha_cc;
+        public float m_f_Eta;
 
+
+       // Reinforcement
+       // Material
         private float m_ff_yk;
 
         public float Ff_yk
@@ -47,7 +66,11 @@ namespace M_EC2
 
         public float m_fGamma_Ms = 1.1f;
 
+        // Reinforcement  -  Geometry and properties
 
+        public float m_fd_s_s;
+        public float m_fA_s_s;
+        public float m_fs_s;
 
 
 
@@ -123,6 +146,35 @@ namespace M_EC2
 
         public float m_fM_Ed = 10000000f;
 
+        // Member Geometry
+
+        public float m_fL;
+        public float m_fBeta_y;
+        public float m_fBeta_z;
+
+        public float m_fL_y;
+        public float m_fL_z;
+
+
+        // Settings and Auxiliary Values for Buckling
+
+        public float m_fn_bal;
+        public float m_ft_0;
+        public float m_ft;
+        public float m_fRH;
+        public float m_fT_Delta_t_i;
+        public float m_fAlpha;
+        public float m_fc_y;
+        public float m_fc_z;
+
+
+
+
+
+
+
+        // Results
+
         public float m_fM_Rd;
         public float m_fDesRatio;
 
@@ -177,23 +229,30 @@ namespace M_EC2
         // Tato metoda nacita udaje z textboxov a skonvertuje na cislo
         public void Load_data()
         {
-
+            string sHeaderFormatError = "FORMAT ERROR";
+            string sTextFormatError = "Wrong numerical format! Enter number, please.";
             try
             {
+                m_fN_Ed = (float)Convert.ToDouble(Value_N_Ed.Text.ToString());
+                m_fM_Ed_1_y = (float)Convert.ToDouble(Value_M_Ed_1_y.Text.ToString());
+                m_fM_Ed_1_z = (float)Convert.ToDouble(Value_M_Ed_1_z.Text.ToString());
+                
+                m_fN_0_Ed_qp = (float)Convert.ToDouble(Value_N_0_Ed_qp.Text.ToString());
+                m_fM_0_Ed_qp_y = (float)Convert.ToDouble(Value_M_0_Ed_qp_y.Text.ToString());
+                m_fM_0_Ed_qp_z = (float)Convert.ToDouble(Value_M_0_Ed_qp_z.Text.ToString());
+                
+
+                m_fM_0_1_y = (float)Convert.ToDouble(Value_M_0_1_y.Text.ToString());
+                m_fM_0_1_z = (float)Convert.ToDouble(Value_M_0_1_z.Text.ToString());
+                m_fM_0_2_y = (float)Convert.ToDouble(Value_M_0_2_y.Text.ToString());
+                m_fM_0_2_z = (float)Convert.ToDouble(Value_M_0_2_z.Text.ToString());
+
                 fb = (float)Convert.ToDouble(d_b_textB.Text.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
-            }
-
-            try
-            {
                 fh = (float)Convert.ToDouble(d_h_textB.Text.ToString());
             }
             catch
             {
-                MessageBox.Show("FORMAT ERROR", "Wrong numerical format! Enter real number, please.");
+                MessageBox.Show(sHeaderFormatError, sTextFormatError);
             }
 
         }
