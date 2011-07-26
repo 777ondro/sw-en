@@ -426,6 +426,24 @@ return (unsigned short)(root >> 1);
         public const double   dSqrt5 = 2.236067977499789;
         public const decimal  mSqrt5 = 2.23606797749978969640917366873127623m;	
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Logarithm / Logaritmus
+        //----------------------------------------------------------------------------------------------------------------------------
+        #region Logarithm
+        public static float Ln(float fx)
+        {
+            return (float)Math.Log(fx, (float)Math.E);
+        }
+        public static float Log10(float fx)
+        {
+            return (float)Math.Log10(fx);
+        }
+        public static float Log(float fx, float fbase)
+        {
+            return (float)Math.Log(fx, fbase);
+        }
+        #endregion
     }
 }
 
