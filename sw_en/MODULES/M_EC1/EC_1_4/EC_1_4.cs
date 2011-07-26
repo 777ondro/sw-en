@@ -14,7 +14,7 @@ namespace M_EC1.EC_1_4
         }
         public float Eq_42______(float fK, float fp, float fn)
         {
-            return (float)Math.Pow((1f - fK * Math.Log(-Math.Log(1f - fp, Math.E), Math.E)) / (1f - fK * Math.Log(-Math.Log(0.98f, Math.E), Math.E)), fn); // Eq. (4.2) // fc_prob
+            return (float)Math.Pow((1f - fK * MathF.Ln(-MathF.Ln(1f - fp))) / (1f - fK * MathF.Ln(-MathF.Ln(0.98f))), fn); // Eq. (4.2) // fc_prob
         }
         public float Eq_43______(float fc_r_z, float fc_0_z, float fv_b)
         {
@@ -25,7 +25,7 @@ namespace M_EC1.EC_1_4
             // Eq. (4.4) // fc_r_z
 
             if (fz_min <= fz && fz <= fz_max)
-                return fk_r * (float)Math.Log(fz / fz_0, Math.E);
+                return fk_r * MathF.Ln(fz / fz_0);
             else if (fz < fz_min)
                 return fc_r_z_min;
             else
@@ -41,7 +41,7 @@ namespace M_EC1.EC_1_4
         }
         public float Eq_47______(float fk_l, float fc_0_z_min, float fz_min, float fz_0)
         {
-            return fk_l / (fc_0_z_min * (float)Math.Log(fz_min / fz_0, Math.E)); // Eq. (4.7) // fl_v_z_min
+            return fk_l / (fc_0_z_min * MathF.Ln(fz_min / fz_0)); // Eq. (4.7) // fl_v_z_min
         }
         public float Eq_48______(float fl_v_z, float fRho_air, float fv_m)
         {
@@ -53,7 +53,7 @@ namespace M_EC1.EC_1_4
         }
         public float Eq_410_____(float fRho_air, float fv_b)
         {
-            return 0.5f * fRho_air * (float)MathF.Pow2(fv_b); // Eq. (4.10) // fq_b
+            return 0.5f * fRho_air * MathF.Pow2(fv_b); // Eq. (4.10) // fq_b
         }
         public float Eq_51________(float fq_p, float fc_pe)
         {
@@ -157,7 +157,7 @@ namespace M_EC1.EC_1_4
         }
         public float Eq_723________(float fPi, float fb)
         {
-            return fPi * (float)MathF.Pow2(fb) / 4f; // Eq (7.23) // fA_ref 
+            return fPi * MathF.Pow2(fb) / 4f; // Eq (7.23) // fA_ref 
         }
         public float Eq_724________(float fz_g, float fb)
         {
@@ -177,7 +177,7 @@ namespace M_EC1.EC_1_4
         }
         public float Eq_82________(float fRho, float fv_b, float fc, float fA_ref_x)
         {
-            return 0.5f * fRho * (float)MathF.Pow2(fv_b) * fc * fA_ref_x; // Eq (8.2) // fF_w
+            return 0.5f * fRho * MathF.Pow2(fv_b) * fc * fA_ref_x; // Eq (8.2) // fF_w
         }
         public float Eq_83________(float fb, float fl)
         {
