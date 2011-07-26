@@ -75,7 +75,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.Value_M_Ed_1_z = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.Value_N_0_Ed = new System.Windows.Forms.TextBox();
+            this.Value_N_0_Ed_qp = new System.Windows.Forms.TextBox();
             this.Value_M_0_Ed_qp_z = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.Value_M_0_Ed_qp = new System.Windows.Forms.TextBox();
@@ -625,12 +625,12 @@
             this.label23.TabIndex = 48;
             this.label23.Text = "N0.Ed.qp =";
             // 
-            // Value_N_0_Ed
+            // Value_N_0_Ed_qp
             // 
-            this.Value_N_0_Ed.Location = new System.Drawing.Point(108, 201);
-            this.Value_N_0_Ed.Name = "Value_N_0_Ed";
-            this.Value_N_0_Ed.Size = new System.Drawing.Size(66, 20);
-            this.Value_N_0_Ed.TabIndex = 49;
+            this.Value_N_0_Ed_qp.Location = new System.Drawing.Point(108, 201);
+            this.Value_N_0_Ed_qp.Name = "Value_N_0_Ed_qp";
+            this.Value_N_0_Ed_qp.Size = new System.Drawing.Size(66, 20);
+            this.Value_N_0_Ed_qp.TabIndex = 49;
             // 
             // Value_M_0_Ed_qp_z
             // 
@@ -1220,7 +1220,7 @@
             this.Controls.Add(this.Value_M_0_Ed_qp);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.Value_M_0_Ed_qp_z);
-            this.Controls.Add(this.Value_N_0_Ed);
+            this.Controls.Add(this.Value_N_0_Ed_qp);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.Value_M_Ed_1_z);
             this.Controls.Add(this.label22);
@@ -1324,7 +1324,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox Value_M_Ed_1_z;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox Value_N_0_Ed;
+        private System.Windows.Forms.TextBox Value_N_0_Ed_qp;
         private System.Windows.Forms.TextBox Value_M_0_Ed_qp_z;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox Value_M_0_Ed_qp;
