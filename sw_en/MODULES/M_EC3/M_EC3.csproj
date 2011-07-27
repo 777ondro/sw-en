@@ -117,6 +117,10 @@
     <Compile Include="SOLV\CLASS\CL\C___U.cs" />
     <Compile Include="SOLV\CLASS\EQ\CL_55.cs" />
     <Compile Include="SOLV\CLASS\EQ\CL_EF.cs" />
+    <Compile Include="SOLV\CODE\EN1993_1_3.cs" />
+    <Compile Include="SOLV\CODE\EN1993_1_8.cs" />
+    <Compile Include="SOLV\CODE\EN1993_1_2.cs" />
+    <Compile Include="SOLV\CODE\EN1993_1_5.cs" />
     <Compile Include="SOLV\CS\CH\CH_10000\CH_EC3_10101.cs" />
     <Compile Include="SOLV\CS\CH\CH_10000\CH_EC3_10151.cs" />
     <Compile Include="SOLV\CS\CH\CH_10000\CH_EC3_10201.cs" />
@@ -138,6 +142,10 @@
     <Compile Include="SOLV\BASIC\MAT\C_MAT.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MATH\MATH.csproj">
+      <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
+      <Name>MATH</Name>
+    </ProjectReference>
     <ProjectReference Include="..\M_BASE\M_BASE.csproj">
       <Project>{AD3E14F4-72C6-476E-B67F-93CC194E0E02}</Project>
       <Name>M_BASE</Name>
