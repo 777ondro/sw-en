@@ -31,8 +31,8 @@ namespace M_EC8
         }
         public float Eq_35______(float fa_g, float fS, float feta, float fT_C, float fT_D, float fT)
         {
-            if (Math.Pow(fT, 2f) > 0f)
-                return fa_g * fS * feta * 2.5f * ((fT_C * fT_D) / (float)Math.Pow(fT, 2f)); // Eq. (3.5) Se(T)
+            if (MathF.Pow2(fT) > 0f)
+                return fa_g * fS * feta * 2.5f * ((fT_C * fT_D) / MathF.Pow2(fT)); // Eq. (3.5) Se(T)
             else
                 return 0f;
         }
@@ -64,8 +64,8 @@ namespace M_EC8
         }
         public float Eq_311_____(float fa_vg, float feta, float fT_C, float fT_D, float fT)
         {
-            if (Math.Pow(fT, 2f) > 0f)
-                return fa_vg * feta * 3f * ((fT_C * fT_D) / (float)Math.Pow(fT, 2f)); // Eq. (3.4) Se(T)
+            if (MathF.Pow2(fT) > 0f)
+                return fa_vg * feta * 3f * ((fT_C * fT_D) / MathF.Pow2(fT)); // Eq. (3.4) Se(T)
             else
                 return 0f;
         }
@@ -112,14 +112,14 @@ namespace M_EC8
         }
         public float Eq_35______(float fa_g, float fS, float fEta, float fT_C, float fT_D, float fT)
         {
-            if (!MathF.d_equal(Math.Pow(fT, 2f), 0))
-                return fa_g * fS * fEta * 2.5f * ((fT_C * fT_D) / (float)Math.Pow(fT, 2f)); // Eq. (3.5) Se(T)
+            if (!MathF.d_equal(MathF.Pow2(fT), 0))
+                return fa_g * fS * fEta * 2.5f * ((fT_C * fT_D) / MathF.Pow2(fT)); // Eq. (3.5) Se(T)
             else
                 return 0f;
         }
         public float Eq_37______(float fS_e, float fT)
         {
-            return fS_e * (fT) * (float)Math.Pow((fT / (2f * MathF.fPI)), 2f); // Eq. (3.7) SDe(T)
+            return fS_e * (fT) * MathF.Pow2(fT / (2f * MathF.fPI)); // Eq. (3.7) SDe(T)
         }
         public float Eq_38______(float fa_vg, float fT, float fT_B, float fEta)
         {
@@ -141,8 +141,8 @@ namespace M_EC8
         }
         public float Eq_311____(float fa_vg, float fEta, float fT_C, float fT_D, float fT)
         {
-            if (!MathF.d_equal(Math.Pow(fT, 2f), 0))
-                return fa_vg * fEta * 3f * ((fT_C * fT_D) / (float)Math.Pow(fT, 2f)); // Eq. (3.4) Se(T)
+            if (!MathF.d_equal(MathF.Pow2(fT), 0))
+                return fa_vg * fEta * 3f * ((fT_C * fT_D) / MathF.Pow2(fT)); // Eq. (3.4) Se(T)
             else
                 return 0f;
         }
@@ -174,8 +174,8 @@ namespace M_EC8
         }
         public float Eq_316____(float fa_g, float fS, float fT_D, float fT, float fT_C, float fq, float fBeta)
         {
-            if (!MathF.d_equal(fq, 0f) && !MathF.d_equal(Math.Pow(fT, 2f), 0f))
-                return Math.Max(((fa_g * fS * 2.5f) / fq) * ((fT_C * fT_D) / (float)Math.Pow(fT, 2f)), fBeta * fa_g); // Eq. (3.16) Sd(T) 
+            if (!MathF.d_equal(fq, 0f) && !MathF.d_equal(MathF.Pow2(fT), 0f))
+                return Math.Max(((fa_g * fS * 2.5f) / fq) * ((fT_C * fT_D) / MathF.Pow2(fT)), fBeta * fa_g); // Eq. (3.16) Sd(T) 
             else
                 return 0f;
         }
@@ -257,7 +257,7 @@ namespace M_EC8
         public float Eq_425____(float fAlpha, float fS, float fz, float fH, float fT_a, float fT_1)
         {
             if (!MathF.d_equal(fH, 0f) && !MathF.d_equal(fT_1, 0f))
-                return fAlpha * fS * (3f * (1f + (fz / fH)) / (1f + (float)Math.Pow(1f - (fT_a / fT_1), 2f)) - 0.5f); // Eq. (4.25) Sa
+                return fAlpha * fS * (3f * (1f + (fz / fH)) / (1f + MathF.Pow2(1f - (fT_a / fT_1))) - 0.5f); // Eq. (4.25) Sa
             else
                 return 0f;
         }
@@ -367,7 +367,7 @@ namespace M_EC8
         public float Eq_517b___(float fs, float fD_o)
         {
             if (!MathF.d_equal(fD_o, 0))
-                return (float)Math.Pow(1f - (fs / (2f * fD_o)), 2f); // Eq. (5.17b) Alpha s
+                return MathF.Pow2(1f - (fs / (2f * fD_o))); // Eq. (5.17b) Alpha s
             else
                 return 0f;
 
@@ -417,7 +417,7 @@ namespace M_EC8
         public float Eq_525____(float fGamma_Rd, float fM_Rd, float fS_e, float fT_c, float fq, float fM_Ed, float fT_1)
         {
             if (!MathF.d_equal(fq, 0f) && !MathF.d_equal(fM_Ed, 0f) && !MathF.d_equal(fT_1, 0f))
-                return fq * MathF.Sqrt(((float)Math.Pow((fGamma_Rd / fq) * (fM_Rd / fM_Ed), 2f) + 0.1f * ((float)Math.Pow(((fS_e * fT_c) / (fS_e * fT_1)), 2f)) / fq)); // Eq. (5.25) Epsilon
+                return fq * MathF.Sqrt(MathF.Pow2((fGamma_Rd / fq) * (fM_Rd / fM_Ed)) + 0.1f * (MathF.Pow2((fS_e * fT_c) / (fS_e * fT_1))) / fq); // Eq. (5.25) Epsilon
             else
                 return 0f;
         }
@@ -478,7 +478,7 @@ namespace M_EC8
         public float Eq_535____(float fA_sh, float ff_ywd, float fh_jw, float fV_jhd, float fb_j, float fh_jc, float ff_ctd, float fv_d, float ff_cd)
         {
             if (!MathF.d_equal((fb_j * fh_jc), 0))
-                return ((fA_sh * ff_ywd) / (fb_j * fh_jw)) / (((float)Math.Pow(fV_jhd / (fb_j * fh_jc), 2f)) / (ff_ctd + (fv_d * ff_cd))) - 1f; // Eq. (5.35) Design Ratio
+                return ((fA_sh * ff_ywd) / (fb_j * fh_jw)) / (MathF.Pow2(fV_jhd / fb_j * fh_jc) / (ff_ctd + (fv_d * ff_cd))) - 1f; // Eq. (5.35) Design Ratio
             else
                 return 0f;
         }
@@ -698,7 +698,7 @@ namespace M_EC8
         {
 
             if (!MathF.d_equal(ff_ydw, 0))
-                return (float)Math.Pow((fb * ft_f / 8f) * (ff_ydf / ff_ydw), 0.5f); // Eq. (7.12) dbw
+                return MathF.Sqrt((fb * ft_f / 8f) * (ff_ydf / ff_ydw)); // Eq. (7.12) dbw
             else
                 return 0f;
         }

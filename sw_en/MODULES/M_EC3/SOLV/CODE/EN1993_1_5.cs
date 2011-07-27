@@ -280,7 +280,7 @@ namespace M_EC3.SOLV.CODE
         }
         public float Eq_D1_____(float fb_2, float ft_2, float ff_yf_r, float fh_w, float ft_1, float fb_1, float fChi, float ff_yf, float fGamma_M0, float fGamma_M1)
         {
-            return MathF.Min(((fb_2 * ft_2 * ff_yf_r) / fGamma_M0) * (fh_w + ((ft_1 + ft_2) / 2f)), (((fb_1 * ft_1 * ff_yf_r) / fGamma_M0)) * (fh_w + ((ft_1 + ft_2) / 2f)), (((fb_1 * ft_1 * fChi * ff_yf) / fGamma_M1)) * (fh_w + ((ft_1 + ft_2) / 2f))); // Eq. (D.1) M_Rd
+            return MathF.Min(((fb_2 * ft_2 * ff_yf_r) / fGamma_M0) * (fh_w + ((ft_1 + ft_2) / 2f)), ((fb_1 * ft_1 * ff_yf_r) / fGamma_M0) * (fh_w + ((ft_1 + ft_2) / 2f)), ((fb_1 * ft_1 * fChi * ff_yf) / fGamma_M1) * (fh_w + ((ft_1 + ft_2) / 2f))); // Eq. (D.1) M_Rd
         }
         public float Eq_D2_____(float fb, float fa)
         {
