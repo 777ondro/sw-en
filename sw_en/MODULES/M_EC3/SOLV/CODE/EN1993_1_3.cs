@@ -29,7 +29,7 @@ namespace M_EC3.SOLV.CODE
         public float Eq_53a____(float fSigma_a, float fb_s, float fE, float ft, float fz)
         {
             if (!MathF.d_equal(fE, 0f) && !MathF.d_equal(ft, 0f) && !MathF.d_equal(fz, 0f))
-                return 2f * (MathF.Pow2(fSigma_a) / (float)Math.Pow(fE, 2f)) * ((float)Math.Pow(fb_s, 2f) / ((float)Math.Pow(ft, 2f) * fz)); // Eq. (5.3a) u
+                return 2f * (MathF.Pow2(fSigma_a) / MathF.Pow2(fE)) * (MathF.Pow2(fb_s) / (MathF.Pow2(ft) * fz)); // Eq. (5.3a) u
             else
                 return 0f;
         }
@@ -46,19 +46,19 @@ namespace M_EC3.SOLV.CODE
         }
         public float Eq_510a___(float fTheta, float fb_p, float fu, float fv, float fE, float ft)
         {
-            return (fTheta * fb_p) + ((fu * (MathF.Pow3(fb_p)) / 3f) * (12f * (1f - (float)Math.Pow(fv, 2f)) / (fE * (float)Math.Pow(ft, 3f)))); // Eq. (5.10a) Delta
+            return (fTheta * fb_p) + ((fu * (MathF.Pow3(fb_p)) / 3f) * (12f * (1f - MathF.Pow2(fv)) / (fE * MathF.Pow3(ft)))); // Eq. (5.10a) Delta
         }
         public float Eq_510b___(float fE, float ft, float fv, float fb_1, float fh_w, float fb_2, float fk_f)
         {
-            if (!MathF.d_equal(1f - (float)Math.Pow(fv, 2f), 0f))
-                return (fE * (float)Math.Pow(ft, 3f) / (4f * (1f - (float)Math.Pow(fv, 2f)))) * (1f / (((float)Math.Pow(fb_1, 2f) * fh_w)) + (float)Math.Pow(fb_1, 3f) + (0.5f * fb_1 * fb_2 * fh_w * fk_f)); // Eq. (5.10b) K_1
+            if (!MathF.d_equal(1f - MathF.Pow2(fv), 0f))
+                return (fE * MathF.Pow3(ft) / (4f * (1f - MathF.Pow2(fv)))) * (1f / ((MathF.Pow2(fb_1) * fh_w)) + MathF.Pow3(fb_1) + (0.5f * fb_1 * fb_2 * fh_w * fk_f)); // Eq. (5.10b) K_1
             else
                 return 0f;
         }
         public float Eq_511____(float fu, float fb_1, float fb_2, float fv, float fE, float ft)
         {
-            if (!MathF.d_equal(3 * (fb_1 + fb_2), 0f) && !MathF.d_equal(fE * (float)Math.Pow(ft, 3f), 0f))
-                return ((fu * (float)Math.Pow(fb_1, 2f) * (float)Math.Pow(fb_2, 2f)) / (3f * (fb_1 + fb_2))) * (12f * (1f - (float)Math.Pow(fv, 2f)) / (fE * (float)Math.Pow(ft, 3f))); // Eq. (5.11) Delta
+            if (!MathF.d_equal(3 * (fb_1 + fb_2), 0f) && !MathF.d_equal(fE * MathF.Pow3(ft), 0f))
+                return ((fu * MathF.Pow2(fb_1) * MathF.Pow2(fb_2)) / (3f * (fb_1 + fb_2))) * (12f * (1f - MathF.Pow2(fv)) / (fE * MathF.Pow3(ft))); // Eq. (5.11) Delta
             else
                 return 0f;
         }
@@ -121,15 +121,15 @@ namespace M_EC3.SOLV.CODE
         //-----------------------------------------------20----------------------------------------------------------
         public float Eq_522____(float fk_w, float fE, float fI_s, float ft, float fA_s, float fb_p, float fb_s)
         {
-            if (!MathF.d_equal(fA_s, 0f) && !MathF.d_equal(4f * (float)Math.Pow(fb_p, 2f) * ((2f * fb_p) + (3f * fb_s)), 0f))
-                return (4.2f * fk_w * fE) / fA_s * ((fI_s * (float)Math.Pow(ft, 3f)) / (MathF.Sqrt((4f * (float)Math.Pow(fb_p, 2f) * ((2f * fb_p) + (3f * fb_s)))))); // Eq. (5.22) Sigma_cr_s
+            if (!MathF.d_equal(fA_s, 0f) && !MathF.d_equal(4f * MathF.Pow2(fb_p) * ((2f * fb_p) + (3f * fb_s)), 0f))
+                return (4.2f * fk_w * fE) / fA_s * ((fI_s * MathF.Pow3(ft)) / (MathF.Sqrt((4f * MathF.Pow2(fb_p) * ((2f * fb_p) + (3f * fb_s)))))); // Eq. (5.22) Sigma_cr_s
             else
                 return 0f;
         }
         public float Eq_523a___(float fk_w, float fE, float fA_s, float fI_s, float ft, float fb_1, float fb_e)
         {
-            if (!MathF.d_equal(fA_s, 0f) && !MathF.d_equal(8f * (float)Math.Pow(fb_1, 2f) * ((3f * fb_e) - (4f * fb_1)), 0f))
-                return (4.2f * fk_w * fE) / fA_s * ((fI_s * (float)Math.Pow(ft, 3f)) / (MathF.Sqrt((8f * (float)Math.Pow(fb_1, 2f) * ((3f * fb_e) - (4f * fb_1)))))); // Eq. (5.23a) Sigma_cr_s
+            if (!MathF.d_equal(fA_s, 0f) && !MathF.d_equal(8f * MathF.Pow2(fb_1) * ((3f * fb_e) - (4f * fb_1)), 0f))
+                return (4.2f * fk_w * fE) / fA_s * ((fI_s * MathF.Pow3(ft)) / (MathF.Sqrt((8f * MathF.Pow2(fb_1) * ((3f * fb_e) - (4f * fb_1)))))); // Eq. (5.23a) Sigma_cr_s
             else
                 return 0f;
         }
@@ -140,13 +140,13 @@ namespace M_EC3.SOLV.CODE
         public float Eq_523c___(float fE, float fI_s, float ft, float fb_o, float fb_e)
         {
             if (!MathF.d_equal(fb_o, 0f) && !MathF.d_equal(fb_e, 0f))
-                return 1.8f * fE * MathF.Sqrt((fI_s * ft) / ((float)Math.Pow(fb_o, 2f) * (float)Math.Pow(fb_e, 3f))) + (3.6f * (fE * (float)Math.Pow(ft, 2f)) / (float)Math.Pow(fb_o, 2f)); // Eq. (5.23c) Sigma_cr_s
+                return 1.8f * fE * MathF.Sqrt((fI_s * ft) / (MathF.Pow2(fb_o) * MathF.Pow3(fb_e))) + (3.6f * (fE * MathF.Pow2(ft)) / MathF.Pow2(fb_o)); // Eq. (5.23c) Sigma_cr_s
             else
                 return 0f;
         }
         public float Eq_524b___(float fk_wo, float fl_b, float fs_w)
         {
-            return fk_wo - ((fk_wo - 1f) * (((2f * fl_b) / fs_w) - ((float)Math.Pow((fl_b / fs_w), 2f)))); //  Eq. (5.24b) k_w
+            return fk_wo - ((fk_wo - 1f) * (((2f * fl_b) / fs_w) - (MathF.Pow2(fl_b / fs_w)))); //  Eq. (5.24b) k_w
         }
         public float Eq_526____(float fs_w, float fb_d)
         {
@@ -357,7 +357,7 @@ namespace M_EC3.SOLV.CODE
         }
         public float Eq_633b___(float fi_y, float fi_z, float fy_o, float fz_o)
         {
-            return (float)Math.Pow(fi_y, 2f) + (float)Math.Pow(fi_z, 2f) + (float)Math.Pow(fy_o, 2f) + (float)Math.Pow(fz_o, 2f); // Eq. (6.33b) i_o^2
+            return MathF.Pow2(fi_y) + MathF.Pow2(fi_z) + MathF.Pow2(fy_o) + MathF.Pow2(fz_o); // Eq. (6.33b) i_o^2
         }
         public float Eq_81a____(float fN_Ed, float fChi, float fW_eff, float fA_eff, float fa, float fl)
         {
@@ -406,7 +406,7 @@ namespace M_EC3.SOLV.CODE
         public float Eq_85a____(float fd_s, float ff_uw, float fGamma_M2)
         {
             if (!MathF.d_equal(fGamma_M2, 0f))
-                return (MathF.fPI / 4f) * (float)Math.Pow(fd_s, 2f) * 0.625f * ff_uw / fGamma_M2; // Eq. (8.5a) F_w_Rd
+                return (MathF.fPI / 4f) * MathF.Pow2(fd_s) * 0.625f * ff_uw / fGamma_M2; // Eq. (8.5a) F_w_Rd
             else
                 return 0f;
         }
@@ -417,7 +417,7 @@ namespace M_EC3.SOLV.CODE
         public float Eq_88a____(float fd_s, float fL_w, float ff_uw, float fGamma_M2)
         {
             if (!MathF.d_equal(fGamma_M2, 0f))
-                return (((MathF.fPI / 4f) * (float)Math.Pow(fd_s, 2f) + (fL_w * fd_s)) * 0.625f * ff_uw) / fGamma_M2; // Eq. (8.8a) F_w_Rd
+                return (((MathF.fPI / 4f) * MathF.Pow2(fd_s) + (fL_w * fd_s)) * 0.625f * ff_uw) / fGamma_M2; // Eq. (8.8a) F_w_Rd
             else
                 return 0f;
         }
