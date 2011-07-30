@@ -55,6 +55,8 @@ namespace _3DTools
             this.Viewport.Children.Add(Wireframe);
             this.Camera.Transform = _trackball.Transform;
             this.Headlight.Transform = _trackball.Transform;
+            
+            //SetupScene();
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace _3DTools
             }
         }
 
-        private void SetupScene()
+        public void SetupScene()
         {
             switch (ViewMode)
             {

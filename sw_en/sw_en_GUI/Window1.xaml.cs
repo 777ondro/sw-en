@@ -24,6 +24,8 @@ namespace sw_en_GUI
         {
             InitializeComponent();
 
+            Window2 w2 = new Window2();
+            w2.Show();
             //Model3DGroup models = CreateCube();
             //ModelVisual3D visual = new ModelVisual3D();
             //visual.Content = models;

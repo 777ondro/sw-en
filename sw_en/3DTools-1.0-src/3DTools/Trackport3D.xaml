@@ -39,7 +39,7 @@
           -->
 
         <Viewport3D.Camera>
-          <PerspectiveCamera x:Name="Camera" Position="0,0,5"  />
+          <PerspectiveCamera x:Name="Camera" Position="0,0,5" />
         </Viewport3D.Camera>
         <Viewport3D.Children>
           <ModelVisual3D>
