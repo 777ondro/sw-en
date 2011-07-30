@@ -73,7 +73,7 @@ namespace _3DTools
         private AxisAngleRotation3D _rotation = new AxisAngleRotation3D();
 
         private TranslateTransform3D _translate = new TranslateTransform3D();
-        private Double transScale = 60;
+        private Double transScale = 1;
         private bool isCtrlDown = false;
 
         public bool IsCtrlDown
