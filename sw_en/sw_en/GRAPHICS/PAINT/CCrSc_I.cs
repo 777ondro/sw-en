@@ -143,7 +143,7 @@ namespace CENEX
             m_CrScPoint[7,1] = -m_CrScPoint[0,1];     // z
 
             // Point No. 9
-            m_CrScPoint[8,0] = -m_CrScPoint[0,0];     // y
+            m_CrScPoint[8,0] = m_CrScPoint[0,0];     // y
             m_CrScPoint[8,1] = -m_CrScPoint[3,1];     // z
 
             // Point No. 10
@@ -155,7 +155,7 @@ namespace CENEX
             m_CrScPoint[10,1] = m_CrScPoint[2,1];     // z
 
             // Point No. 12
-            m_CrScPoint[11,0] = -m_CrScPoint[0,0];    // y
+            m_CrScPoint[11,0] = m_CrScPoint[0,0];    // y
             m_CrScPoint[11,1] = m_CrScPoint[2,1];     // z
         }
     }
