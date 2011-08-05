@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
 using CENEX;
+using _3DTools;
 
 namespace sw_en_GUI
 {
@@ -23,6 +24,12 @@ namespace sw_en_GUI
         ///////////////////////////////////////////////////////////////
         // Create switch command for various sections, split code into separate objects / function of 3D drawing for each type
         /////////////////////////////////////////////////
+
+        // Tutorial
+        /// http://kindohm.com/technical/WPF3DTutorial.htm  ScreenSpaceLines3D
+        /// stiahol som zdroje
+
+
 
         // Collection for various sections
         private Int32Collection M_IProfileTriangelsIndices;
@@ -327,7 +334,7 @@ namespace sw_en_GUI
             // T-section / T section
             loadTProfileTriangelIndices();
 
-			//MeshGeometry3D mesh = new MeshGeometry3D();
+     		//MeshGeometry3D mesh = new MeshGeometry3D();
 
 			//Point3D p0 = new Point3D(-1, -1, -1);
 			//Point3D p1 = new Point3D(1, -1, -1);
