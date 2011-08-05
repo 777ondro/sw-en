@@ -12,7 +12,11 @@ namespace CENEX
         public CLine[] arrLines = new CLine[9];
         public CNSupport[] arrSupports = new CNSupport[3];
         public CNForce[] arrForces = new CNForce[3];
-        public CCrSc_I objCrSc = new CCrSc_I(200,100,10,5);
+        // public CCrSc_I objCrSc = new CCrSc_I(200,100,10,5);
+        // public CCrSc_U objCrSc = new CCrSc_U(200, 100, 10, 5, 30);
+        // public CCrSc_HL objCrSc = new CCrSc_HL(200, 100, 10, 5);
+        // public CCrSc_L objCrSc = new CCrSc_L(200, 100, 10, 5,30,50);
+        public CCrSc_T objCrSc = new CCrSc_T(200, 100, 10, 5,50);
 
         public CTest1()
         {
