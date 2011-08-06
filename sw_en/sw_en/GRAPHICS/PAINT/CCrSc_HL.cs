@@ -10,7 +10,7 @@ namespace CENEX
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_HL
     {
-        // Welded hollow section
+        // Welded hollow section - doubly symmetrical
 
         /*
          
@@ -97,7 +97,7 @@ namespace CENEX
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;
-            m_ft_w = ft_f;
+            m_ft_w = ft_w;
 
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
