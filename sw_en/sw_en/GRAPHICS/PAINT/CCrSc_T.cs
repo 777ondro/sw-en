@@ -107,17 +107,17 @@ namespace CENEX
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
             // Fill Array Data
-            CalcCrSc_Coord();
+            CalcCrSc_Coord_T_MS();
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord()
+        void CalcCrSc_Coord_T_MS()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Point No. 1
-            m_CrScPoint[0,0] = -m_fb / 2f;       // y
-            m_CrScPoint[0,1] = m_fh - m_fz_c;    // z
+            m_CrScPoint[0, 0] = -m_fb / 2f;       // y
+            m_CrScPoint[0, 1] = m_fh - m_fz_c;    // z
 
             // Point No. 2
             m_CrScPoint[1, 0] = -m_CrScPoint[0, 0];  // y
@@ -129,7 +129,7 @@ namespace CENEX
 
             // Point No. 4
             m_CrScPoint[3, 0] = m_CrScPoint[2, 0] - ((m_fb - m_ft_w) / 2f);    // y
-            m_CrScPoint[3, 1] = m_CrScPoint[2, 1];                    // z
+            m_CrScPoint[3, 1] = m_CrScPoint[2, 1];                             // z
 
             // Point No. 5
             m_CrScPoint[4, 0] = m_CrScPoint[3, 0];    // y
@@ -145,6 +145,102 @@ namespace CENEX
 
             // Point No. 8
             m_CrScPoint[7, 0] = -m_CrScPoint[2, 0];    // y
+            m_CrScPoint[7, 1] = m_CrScPoint[2, 1];     // z
+        }
+
+        // Welded aymmetric T section
+
+        /*
+         
+        
+         
+         
+        1  _________________  2       ____|/
+          |_____   _________|    t_f     /|
+        8     7 | | 4     3               |
+                | |    *    ____|/        |
+                | |            /|         |
+           t_w  | |             |      h  |
+                | |         z_c |         |
+                | |             |         |
+             6  |_|  5      ____|/________|/
+                               /|        /|
+          |     |      |
+          |     |      |
+          | b_l |  y_c |
+          |/____|/_____|/
+         /|    /|     /|
+         
+                   b
+          |/________________|/
+         /|                /|
+      
+        
+         Centroid [0,0]
+         
+        z 
+        /|\
+         | 
+         |
+         |_____________\  y
+                       /
+         */
+
+        private float m_fb_l;   // Width of Free Left Part Flange  / Sirka volnej lavej strany pasnice
+        private float m_fy_c; // Centroid coordinate / Suradnica tažiska
+
+        public CCrSc_T(float fh, float fb, float fb_l, float ft_f, float ft_w, float fy_c, float fz_c)
+        {
+            m_iTotNoPoints = 8;
+            m_fh = fh;
+            m_fb = fb;
+            m_fb_l = fb_l;
+            m_ft_f = ft_f;
+            m_ft_w = ft_w;
+            m_fy_c = fy_c;
+            m_fz_c = Math.Abs(fz_c); // Absolute value
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+            CalcCrSc_Coord_T_AS();
+        }
+
+        //----------------------------------------------------------------------------
+        void CalcCrSc_Coord_T_AS()
+        {
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            // Point No. 1
+            m_CrScPoint[0, 0] = -m_fb_l - m_fy_c;       // y
+            m_CrScPoint[0, 1] = m_fh - m_fz_c;         // z
+
+            // Point No. 2
+            m_CrScPoint[1, 0] = -m_CrScPoint[0, 0];  // y
+            m_CrScPoint[1, 1] = m_CrScPoint[0, 1];   // z
+
+            // Point No. 3
+            m_CrScPoint[2, 0] = m_CrScPoint[1, 0];             // y
+            m_CrScPoint[2, 1] = m_CrScPoint[0, 1] - m_ft_f;    // z
+
+            // Point No. 4
+            m_CrScPoint[3, 0] = m_CrScPoint[2, 0] - (m_fb - m_fb_l - m_ft_w);    // y
+            m_CrScPoint[3, 1] = m_CrScPoint[2, 1];                               // z
+
+            // Point No. 5
+            m_CrScPoint[4, 0] = m_CrScPoint[3, 0];    // y
+            m_CrScPoint[4, 1] = -m_fz_c;              // z
+
+            // Point No. 6
+            m_CrScPoint[5, 0] = m_CrScPoint[4, 0] - m_ft_w;    // y
+            m_CrScPoint[5, 1] = m_CrScPoint[4, 1];             // z
+
+            // Point No. 7
+            m_CrScPoint[6, 0] = m_CrScPoint[5, 0];     // y
+            m_CrScPoint[6, 1] = m_CrScPoint[3, 1];     // z
+
+            // Point No. 8
+            m_CrScPoint[7, 0] = m_CrScPoint[0, 0];     // y
             m_CrScPoint[7, 1] = m_CrScPoint[2, 1];     // z
         }
     }

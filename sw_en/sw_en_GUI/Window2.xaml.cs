@@ -36,9 +36,8 @@ namespace sw_en_GUI
         private Int32Collection M_UProfileTriangelsIndices;
         private Int32Collection M_HLProfileTriangelsIndices;
         private Int32Collection M_LProfileTriangelsIndices;
-
-        // Actual - temp
         private Int32Collection M_TProfileTriangelsIndices;
+        private Int32Collection M_ZProfileTriangelsIndices;
 
         private void DrawRectangleIndices(Int32Collection Indices,
               int point1, int point2,
@@ -62,6 +61,8 @@ namespace sw_en_GUI
             Indices.Add(point3);
         }
         
+        
+        /*
         private void loadIProfileTriangelIndices()
 		{
 			const int secNum = 12;
@@ -217,6 +218,37 @@ namespace sw_en_GUI
 			M_IProfileTriangelsIndices.Add(23);
 			M_IProfileTriangelsIndices.Add(11);
 		}
+        */
+
+        private void loadIProfileTriangelIndices()
+        {
+            // const int secNum = 12;  // Number of points in section (2D)
+            M_IProfileTriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 0, 1, 2, 11);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 10, 3, 4, 9);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 8, 5, 6, 7);
+
+            // Back Side 
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 13, 12, 23, 14);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 15, 22, 21, 16);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 17, 20, 19, 18);
+
+            // Shell Surface 
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 0, 12, 13, 1);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 1, 13, 14, 2);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 2, 14, 15, 3);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 3, 15, 16, 4);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 4, 16, 17, 5);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 5, 17, 18, 6);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 6, 18, 19, 7);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 20, 8, 7, 19);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 21, 9, 8, 20);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 22, 10, 9, 21);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 23, 11, 10, 22);
+            DrawRectangleIndices(M_IProfileTriangelsIndices, 12, 0, 11, 23);
+        }
 
         private void loadUProfileTriangelIndices()
         {
@@ -227,8 +259,8 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_UProfileTriangelsIndices, 0, 1, 2, 3);
             DrawRectangleIndices(M_UProfileTriangelsIndices, 0, 3, 4, 7);
             DrawRectangleIndices(M_UProfileTriangelsIndices, 4, 5, 6, 7);
-            // Back Side 
             
+            // Back Side 
             DrawRectangleIndices(M_UProfileTriangelsIndices, 9, 8, 11, 10);
             DrawRectangleIndices(M_UProfileTriangelsIndices, 11, 8, 15, 12);
             DrawRectangleIndices(M_UProfileTriangelsIndices, 13, 12, 15, 14);
@@ -254,8 +286,8 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 1, 2, 6, 5);
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 7, 6, 2, 3);
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 0, 4, 7, 3);
+            
             // Back Side 
-
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 9, 8, 12, 13);
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 9, 13, 14, 10);
             DrawRectangleIndices(M_HLProfileTriangelsIndices, 14, 15, 11, 10);
@@ -282,6 +314,7 @@ namespace sw_en_GUI
             // Front Side / Forehead
             DrawRectangleIndices(M_LProfileTriangelsIndices, 0, 1, 2, 5);
             DrawRectangleIndices(M_LProfileTriangelsIndices, 2, 3, 4, 5);
+            
             // Back Side 
             DrawRectangleIndices(M_LProfileTriangelsIndices, 7, 6, 11, 8);
             DrawRectangleIndices(M_LProfileTriangelsIndices, 9, 8, 11, 10);
@@ -303,6 +336,7 @@ namespace sw_en_GUI
             // Front Side / Forehead
             DrawRectangleIndices(M_TProfileTriangelsIndices, 0, 1, 2, 7);
             DrawRectangleIndices(M_TProfileTriangelsIndices, 6, 3, 4, 5);
+            
             // Back Side 
             DrawRectangleIndices(M_TProfileTriangelsIndices, 9, 8, 15, 10);
             DrawRectangleIndices(M_TProfileTriangelsIndices, 11, 14, 13, 12);
@@ -319,6 +353,32 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TProfileTriangelsIndices, 8, 0, 7, 15);
         }
 
+        private void loadZProfileTriangelIndices()
+        {
+            // const int secNum = 8;  // Number of points in section (2D)
+            M_ZProfileTriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 0, 1, 6, 7);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 6, 1, 2, 5);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 2, 3, 4, 5);
+
+            // Back Side 
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 9, 8, 15, 14);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 9, 14, 13, 10);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 11, 10, 13, 12);
+
+            // Shell Surface
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 0, 8, 9, 1);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 1, 9, 10, 2);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 2, 10, 11, 3);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 3, 11, 12, 4);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 4, 12, 13, 5);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 5, 13, 14, 6);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 6, 14, 15, 7);
+            DrawRectangleIndices(M_ZProfileTriangelsIndices, 7, 15, 8, 0);
+        }
+
 		public Window2()
 		{
 			InitializeComponent();
@@ -326,13 +386,15 @@ namespace sw_en_GUI
             // I - section
 			// loadIProfileTriangelIndices();
             // U-section
-            // loadUProfileTriangelIndices();
+            //loadUProfileTriangelIndices();
             // HL-section / Rectanglular Hollow Cross-section
             // loadHLProfileTriangelIndices();
             // L-section / Angle section
             // loadLProfileTriangelIndices();
             // T-section / T section
-            loadTProfileTriangelIndices();
+             loadTProfileTriangelIndices();
+            // Z-section / Z section
+            // loadZProfileTriangelIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -396,6 +458,7 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_HLProfileTriangelsIndices;
             // mesh.TriangleIndices = M_LProfileTriangelsIndices;
             mesh.TriangleIndices = M_TProfileTriangelsIndices;
+            // mesh.TriangleIndices = M_ZProfileTriangelsIndices;
 
 			model.Geometry = mesh;
 			SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));
