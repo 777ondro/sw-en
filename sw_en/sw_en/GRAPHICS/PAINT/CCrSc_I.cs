@@ -97,7 +97,7 @@ namespace CENEX
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;
-            m_ft_w = ft_f;
+            m_ft_w = ft_w;
 
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
@@ -158,5 +158,71 @@ namespace CENEX
             m_CrScPoint[11,0] = m_CrScPoint[0,0];    // y
             m_CrScPoint[11,1] = m_CrScPoint[2,1];     // z
         }
+
+        // Welded monosymmetric I section
+
+        /*
+         
+                 b_fu
+          |/_______________|/
+         /|               /| 
+         
+         
+        1  ________________  2       ____|/
+          |_______  _______|    t_fu    /|
+       12    11  | | 4       3           |
+                 | |                     |
+                 | |                     |
+                 | |  t_w             h  |
+                 | |                     |
+                 |*|                     |
+             10  | | 5       6           |
+     9  _________| |_________            |
+       |_____________________|  t_fb ____|/
+      8                    7            /|
+                  b_fb
+       |/____________________|/
+      /|                    /|
+     
+        
+         Centroid [0,0]
+         
+        z 
+        /|\
+         | 
+         |
+         |_____________\  y
+                       /
+         */
+
+        private float m_fb_fu;   // Width of Upper Flange / Sirka hornej pasnice
+        private float m_ft_fu;   // Upper Flange Thickness / Hrubka hornej pasnice
+        private float m_fb_fb;   // Width of Bottom Flange / Sirka spodnej pasnice
+        private float m_ft_fb;   // Bottom Flange Thickness / Hrubka spodnej pasnice
+
+        public CCrSc_I(float fh, float fb_fu, float fb_fb, float ft_fu,float ft_fb, float ft_w)
+        {
+            m_iTotNoPoints = 12;
+            m_fh = fh;
+            m_fb_fu = fb_fu;
+            m_fb_fb = fb_fb;
+            m_ft_fu = ft_fu;
+            m_ft_fb = ft_fb;
+            m_ft_w = ft_w;
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+            CalcCrSc_Coord();
+        }
+
+
+
+
+
+
+
+
+
     }
 }

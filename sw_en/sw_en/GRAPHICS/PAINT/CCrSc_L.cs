@@ -111,7 +111,7 @@ namespace CENEX
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;
-            m_ft_w = ft_f;
+            m_ft_w = ft_w;
             m_fy_c = Math.Abs(fy_c); // Absolute value
             m_fz_c = Math.Abs(fz_c); // Absolute value
 
