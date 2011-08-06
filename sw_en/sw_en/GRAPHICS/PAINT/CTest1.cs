@@ -19,9 +19,10 @@ namespace CENEX
         // public CCrSc_HL objCrSc = new CCrSc_HL(200, 100, 10, 5);
         // public CCrSc_L objCrSc = new CCrSc_L(200, 100, 10, 5,30,50);
         // public CCrSc_T objCrSc = new CCrSc_T(200, 100, 10, 5,130);
-        public CCrSc_T objCrSc = new CCrSc_T(200, 100, 30, 10, 5, 20, 130);
+        // public CCrSc_T objCrSc = new CCrSc_T(200, 100, 30, 10, 5, 20, 130);
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 10, 5);
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 150, 10, 15, 5, 30, 70);
+        public CCrSc_TU objCrSc = new CCrSc_TU(200, 10, 36);
 
         public CTest1()
         {

@@ -38,6 +38,7 @@ namespace sw_en_GUI
         private Int32Collection M_LProfileTriangelsIndices;
         private Int32Collection M_TProfileTriangelsIndices;
         private Int32Collection M_ZProfileTriangelsIndices;
+        private Int32Collection M_TUProfileTriangelsIndices;
 
         private void DrawRectangleIndices(Int32Collection Indices,
               int point1, int point2,
@@ -379,6 +380,51 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_ZProfileTriangelsIndices, 7, 15, 8, 0);
         }
 
+        private void loadTUProfileTriangelIndices()
+        {
+            // const int secNum = 2*36;  // Number of points in section (2D)
+            const int secNum = 36; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
+
+            M_TUProfileTriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+
+            for (int i = 0; i < secNum; i++)
+            {
+                if (i < secNum-1)
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
+                else
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
+            }
+
+            // Back Side
+            for (int i = 0; i < secNum; i++)
+            {
+                if (i < secNum - 1)
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
+                else
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
+            }
+
+            // Shell Surface OutSide
+            for (int i = 0; i < secNum; i++)
+            {
+                if (i < secNum - 1)
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
+                else
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 2 * secNum + i, 2 * secNum, 0); // Last Element
+            }
+
+            // Shell Surface Inside
+            for (int i = 0; i < secNum; i++)
+            {
+                if (i < secNum - 1)
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, secNum+i, secNum + i+1, 2 * secNum + i +secNum + 1, 2 * secNum + i+ secNum);
+                else
+                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i + 1, 2 * secNum + i + secNum, secNum + i, secNum); // Last Element
+            }
+        }
+
 		public Window2()
 		{
 			InitializeComponent();
@@ -392,9 +438,11 @@ namespace sw_en_GUI
             // L-section / Angle section
             // loadLProfileTriangelIndices();
             // T-section / T section
-             loadTProfileTriangelIndices();
+            // loadTProfileTriangelIndices();
             // Z-section / Z section
             // loadZProfileTriangelIndices();
+            // TUBE / PIPE
+            loadTUProfileTriangelIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -421,15 +469,22 @@ namespace sw_en_GUI
 			CTest1 test1 = new CTest1();
 
             // Number of Points per section
-            int iNoCrScPoints2D = 8; // Depends on Section Type
-
+            // int iNoCrScPoints2D = 12; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL, L, ....
 
             // Points 2D Coordinate Array
-			float[,] res = test1.objCrSc.m_CrScPoint;
+			// float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL, L, ....
+
+
+            float[,] res1 = test1.objCrSc.m_CrScPointOut; // RB, TU
+            float[,] res2 = test1.objCrSc.m_CrScPointIn; // RB, TU
+
             // Length of Element
-            float fELength = -1000;
+            float fELength = -6000; // Temporary load flor Member Segment geometry
 
             // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
+
+            // I,U,Z,HL, L, ....
+            /*
             for (int j = 0; j < iNoCrScPoints2D; j++)
 			{
 				mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
@@ -438,6 +493,36 @@ namespace sw_en_GUI
 			{
                 mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
 			}
+            */
+
+            // RB, TU
+            // Start
+            // OutSide Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
+            }
+            // Inside Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
+            }
+
+            // End
+            // OutSide Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
+            }
+            // Inside Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
+            }
+
+
+
+
 			//mesh.Positions.Add(new Point3D(-1,-1,1));
 			//mesh.Positions.Add(new Point3D(1,-1,1));
 			//mesh.Positions.Add(new Point3D(1,1,1));
@@ -457,8 +542,9 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_UProfileTriangelsIndices;
             // mesh.TriangleIndices = M_HLProfileTriangelsIndices;
             // mesh.TriangleIndices = M_LProfileTriangelsIndices;
-            mesh.TriangleIndices = M_TProfileTriangelsIndices;
+            // mesh.TriangleIndices = M_TProfileTriangelsIndices;
             // mesh.TriangleIndices = M_ZProfileTriangelsIndices;
+            mesh.TriangleIndices = M_TUProfileTriangelsIndices;
 
 			model.Geometry = mesh;
 			SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));
