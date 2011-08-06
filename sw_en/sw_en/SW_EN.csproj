@@ -101,6 +101,7 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_HL.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_L.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_T.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_Z.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest10.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest9.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest8.cs" />
