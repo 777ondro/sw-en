@@ -536,9 +536,9 @@ namespace sw_en_GUI
             // Round Bar
             // loadRBProfileTriangelIndices();
             // Flat Bar
-            // loadFBProfileTriangelIndices();
+             loadFBProfileTriangelIndices();
             // Triangular Prism 
-            load_B_TRIAN_TriangelsIndices();
+            //load_B_TRIAN_TriangelsIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -565,7 +565,7 @@ namespace sw_en_GUI
 			CTest1 test1 = new CTest1();
 
             // Number of Points per section
-            int iNoCrScPoints2D = 3; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL, L, ....
+            int iNoCrScPoints2D = 4; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL, L, ....
 
             // Points 2D Coordinate Array
 			float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL, L, ....
@@ -647,9 +647,9 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_TProfileTriangelsIndices;
             // mesh.TriangleIndices = M_ZProfileTriangelsIndices;
             // mesh.TriangleIndices = M_RBProfileTriangelsIndices;
-            // mesh.TriangleIndices = M_FBProfileTriangelsIndices;
+             mesh.TriangleIndices = M_FBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TUProfileTriangelsIndices;
-            mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
+            //mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
 
 			model.Geometry = mesh;
 			SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));
