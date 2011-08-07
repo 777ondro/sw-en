@@ -29,8 +29,6 @@ namespace sw_en_GUI
         /// http://kindohm.com/technical/WPF3DTutorial.htm  ScreenSpaceLines3D
         /// stiahol som zdroje
 
-
-
         // Collection for various sections
         private Int32Collection M_IProfileTriangelsIndices;
         private Int32Collection M_UProfileTriangelsIndices;
@@ -41,6 +39,7 @@ namespace sw_en_GUI
         private Int32Collection M_RBProfileTriangelsIndices;
         private Int32Collection M_FBProfileTriangelsIndices;
         private Int32Collection M_TUProfileTriangelsIndices;
+        private Int32Collection M_B_TRIAN_TriangelsIndices;
 
         private void DrawRectangleIndices(Int32Collection Indices,
               int point1, int point2,
@@ -494,6 +493,28 @@ namespace sw_en_GUI
             }
         }
 
+        private void load_B_TRIAN_TriangelsIndices()
+        {
+            // const int secNum = 3;  // Number of points in section (2D)
+            M_B_TRIAN_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            M_B_TRIAN_TriangelsIndices.Add(0);
+            M_B_TRIAN_TriangelsIndices.Add(2);
+            M_B_TRIAN_TriangelsIndices.Add(1);
+
+            // Back Side 
+            M_B_TRIAN_TriangelsIndices.Add(3);
+            M_B_TRIAN_TriangelsIndices.Add(4);
+            M_B_TRIAN_TriangelsIndices.Add(5);
+
+            // Shell Surface
+            DrawRectangleIndices(M_B_TRIAN_TriangelsIndices, 0, 3, 4, 1);
+            DrawRectangleIndices(M_B_TRIAN_TriangelsIndices, 1, 4, 5, 2);
+            DrawRectangleIndices(M_B_TRIAN_TriangelsIndices, 2, 5, 3, 0);
+        }
+
+        
 		public Window2()
 		{
 			InitializeComponent();
@@ -513,9 +534,11 @@ namespace sw_en_GUI
             // TUBE / PIPE
             // loadTUProfileTriangelIndices();
             // Round Bar
-            loadRBProfileTriangelIndices();
+            // loadRBProfileTriangelIndices();
             // Flat Bar
             // loadFBProfileTriangelIndices();
+            // Triangular Prism 
+            load_B_TRIAN_TriangelsIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -542,7 +565,7 @@ namespace sw_en_GUI
 			CTest1 test1 = new CTest1();
 
             // Number of Points per section
-            int iNoCrScPoints2D = 37; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL, L, ....
+            int iNoCrScPoints2D = 3; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL, L, ....
 
             // Points 2D Coordinate Array
 			float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL, L, ....
@@ -623,9 +646,10 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_LProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TProfileTriangelsIndices;
             // mesh.TriangleIndices = M_ZProfileTriangelsIndices;
-               mesh.TriangleIndices = M_RBProfileTriangelsIndices;
+            // mesh.TriangleIndices = M_RBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_FBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TUProfileTriangelsIndices;
+            mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
 
 			model.Geometry = mesh;
 			SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));

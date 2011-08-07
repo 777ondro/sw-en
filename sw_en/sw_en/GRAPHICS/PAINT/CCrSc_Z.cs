@@ -247,5 +247,43 @@ namespace CENEX
             m_CrScPoint[7, 0] = m_CrScPoint[0, 0];        // y
             m_CrScPoint[7, 1] = m_CrScPoint[6, 1];        // z
         }
+
+        // Welded centrally symmetric Z section with overhangs
+
+        /*
+         
+        
+         
+                       t_f
+      _|/____  1   ____________  2              ____|/
+      /|          |  ________  |                   /|
+  h_o  |          | | 10   9 | |                    |
+      _|/____     |_|        | |                    |
+      /|       12     11     | |                    |
+                   t_o       | |                 h  |
+                             |*|      5   6         |
+                             | |        _           |
+                      t_w    | | 3   4 | |          |
+                             | |_______| |          |
+                             |___________|      ____|/
+                            8              7       /|
+                                   b
+                             |/__________|/
+                            /|          /|
+           
+        
+         Centroid [0,0]
+         
+        z 
+        /|\
+         | 
+         |
+         |_____________\  y
+                       /
+         */
+
+
+
+
     }
 }
