@@ -650,7 +650,15 @@ namespace sw_en_GUI
              mesh.TriangleIndices = M_FBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TUProfileTriangelsIndices;
             //mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
+			ScreenSpaceLines3D line = new ScreenSpaceLines3D();
+			line.Color = Color.FromRgb(0,255,0);
+			line.Points.Add(mesh.Positions[0]);
+			line.Points.Add(mesh.Positions[1]);
 
+			Viewport3D view = new Viewport3D();
+			view.Children.Add(line);
+
+			//gr.Children.Add(new AmbientLight());
 			model.Geometry = mesh;
 			SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 			model.Material = new DiffuseMaterial(br);
