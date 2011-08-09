@@ -8,7 +8,7 @@ namespace CENEX
 {
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
-    public class CCrSc_GE
+    public class CCrSc_GE : CCrSc
     {
         // General Thin-walled Cross-section
         // onlz c/t fields are available

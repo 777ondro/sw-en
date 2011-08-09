@@ -91,8 +91,10 @@
     <Compile Include="DGVSpecial.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GRAPHICS\PAINT\CCrSc.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_I.cs" />
     <Compile Include="GRAPHICS\PAINT\CLine.cs" />
+    <Compile Include="GRAPHICS\PAINT\CMat.cs" />
     <Compile Include="GRAPHICS\PAINT\CMembRelease.cs" />
     <Compile Include="GRAPHICS\PAINT\CNForce.cs" />
     <Compile Include="GRAPHICS\PAINT\CNode.cs" />
