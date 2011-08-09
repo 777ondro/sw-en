@@ -121,6 +121,7 @@ namespace _3DTools
             {
                 if (_eventSource != null)
                 {
+					_eventSource.MouseWheel -= this.OnMouseScroll;
                     _eventSource.MouseDown -= this.OnMouseDown;
                     _eventSource.MouseUp -= this.OnMouseUp;
                     _eventSource.MouseMove -= this.OnMouseMove;
