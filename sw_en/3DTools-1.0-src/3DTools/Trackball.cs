@@ -69,6 +69,9 @@ namespace _3DTools
         private Vector3D _previousPosition3D = new Vector3D(0, 0, 1);
 
         private Transform3DGroup _transform;
+		private Transform3DGroup _transformForPoints;
+
+		
         private ScaleTransform3D _scale = new ScaleTransform3D();
         private AxisAngleRotation3D _rotation = new AxisAngleRotation3D();
 
@@ -97,6 +100,9 @@ namespace _3DTools
             _transform.Children.Add(_scale);
             _transform.Children.Add(new RotateTransform3D(_rotation));
             _transform.Children.Add(_translate);
+
+			_transformForPoints = new Transform3DGroup();
+			_transformForPoints.Children.Add(_translate);
         }
 
         /// <summary>
@@ -108,6 +114,11 @@ namespace _3DTools
             get { return _transform; }
         }
 
+		public Transform3DGroup TransformForPoints
+		{
+			get { return _transformForPoints; }
+			set { _transformForPoints = value; }
+		}
         #region Event Handling
 
         /// <summary>
@@ -148,6 +159,7 @@ namespace _3DTools
         
         private void OnMouseScroll(object sender, MouseWheelEventArgs e)
         {
+			Console.WriteLine(_transform.Value);
             Zoom(e.Delta);
         }
 
