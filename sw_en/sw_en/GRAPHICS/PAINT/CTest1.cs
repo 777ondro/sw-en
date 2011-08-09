@@ -10,8 +10,17 @@ namespace CENEX
     {
         public CNode[] arrNodes = new CNode[6];
         public CLine[] arrLines = new CLine[9];
+        public CMat[] arrMat = new CMat[1];
+        public CCrSc[] arrCrSc = new CCrSc[1];
         public CNSupport[] arrSupports = new CNSupport[3];
         public CNForce[] arrForces = new CNForce[3];
+
+        // Materials - vsetky by mali byt v poli arrMat hoci to mozu byt ine objekty
+        CMat objMat1 = new CMat();
+
+        // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
+
+
         // public CCrSc_I objCrSc = new CCrSc_I(200,100,10,5);
         // public CCrSc_I objCrSc = new CCrSc_I(200, 100, 150, 10,15,5,70);
         // public CCrSc_U objCrSc = new CCrSc_U(200, 100, 10, 5, 30);
@@ -44,18 +53,36 @@ namespace CENEX
             // Setridit pole podle ID
             Array.Sort(arrNodes, new CCompare_NodeID());
 
+            // Fill Data of Materials Array
+            arrMat[0]= objMat1;
+
+            // Set CrSc Materials
+            /*
+            arrCrSc[0].m_Mat.m_fE = arrMat[0].m_fE;
+            arrCrSc[0].m_Mat.m_fG = arrMat[0].m_fG;
+            arrCrSc[0].m_Mat.m_fAlpha_T = arrMat[0].m_fAlpha_T;
+            arrCrSc[0].m_Mat.m_fnu = arrMat[0].m_fnu;
+             */
+            objCrSc.m_Mat.m_fE = arrMat[0].m_fE;
+            objCrSc.m_Mat.m_fG = arrMat[0].m_fG;
+            objCrSc.m_Mat.m_fAlpha_T = arrMat[0].m_fAlpha_T;
+            objCrSc.m_Mat.m_fnu = arrMat[0].m_fnu;
+
+            // Fill Data of Cross-sections Array
+            arrCrSc[0] = objCrSc;
+
             // Lines Automatic Generation
             // Lines List - Lines Array
 
-            arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], 0);
-            arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], 0);
-            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], 0);
-            arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], 0);
-            arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], 0);
-            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], 0);
-            arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], 0);
-            arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], 0);
-            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], 0);
+            arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], objCrSc /*arrCrSc[0]*/, 0);
+            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], objCrSc /*arrCrSc[0]*/, 0);
 
             // Setridit pole podle ID
             Array.Sort(arrLines, new CCompare_LineID());

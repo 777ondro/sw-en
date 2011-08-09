@@ -17,6 +17,8 @@ namespace CENEX
         public CNode m_iNode1 = new CNode();
         public CNode m_iNode2 = new CNode();
 
+        public CCrSc m_CrSc = new CCrSc();
+
         public CMembRelease m_iMR;
 
         // Konstruktor 1 CLine 
@@ -27,7 +29,6 @@ namespace CENEX
             CNode iNode1,
             CNode iNode2,
             int fTime
-
             )
         {
             m_iLine_ID = iLine_ID;
@@ -35,6 +36,23 @@ namespace CENEX
             m_iNode2 = iNode2;
             m_fTime = fTime;
         }
+        // Konstruktor 3 CLine
+        public CLine(
+    int iLine_ID,
+    CNode iNode1,
+    CNode iNode2,
+    CCrSc objCrSc,
+    int fTime
+    )
+        {
+            m_iLine_ID = iLine_ID;
+            m_iNode1 = iNode1;
+            m_iNode2 = iNode2;
+            m_CrSc = objCrSc;
+            m_fTime = fTime;
+        }
+
+
     } // End of Class CLine
 
     // Objekt, ktery porovnava Lines podle ID

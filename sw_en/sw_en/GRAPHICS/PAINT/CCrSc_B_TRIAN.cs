@@ -9,7 +9,7 @@ namespace CENEX
 {
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
-    public class CCrSc_B_TRIAN
+    public class CCrSc_B_TRIAN:CCrSc
     {
         // Triangular Prism / Equilateral
 
