@@ -187,6 +187,22 @@ namespace M_EC1.EC_1_4
 
         // Pokracovanie
 
+        public float Eq_B2________(float fn, float fS_V, float fSigma_V)
+        {
+            if (MathF.d_equal(fSigma_V, 0f))
+                return fn * fS_V / MathF.Pow2(fSigma_V);
+            else
+                return 0f;
+        }
+        public float Eq_B2________(float ff_L)
+        {
+            return 6.8f * ff_L / (1f + 10.2f * (float)Math.Pow(ff_L, 5f / 3f));
+        }
+        public float Eq_F5________(float ft, float fE, float fMu_s, float fNu, float fb)
+        {
+            return 0.492f * MathF.Sqrt(MathF.Pow3(ft) * fE / (fMu_s * (1f - MathF.Pow2(fNu) * MathF.Pow4(fb))));
+        }
+
 
     }
 }
