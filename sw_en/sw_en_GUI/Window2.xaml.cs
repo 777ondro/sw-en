@@ -40,6 +40,7 @@ namespace sw_en_GUI
         private Int32Collection M_FBProfileTriangelsIndices;
         private Int32Collection M_TUProfileTriangelsIndices;
         private Int32Collection M_B_TRIAN_TriangelsIndices;
+        private Int32Collection M_0_24_TriangelsIndices;
 
         private void DrawRectangleIndices(Int32Collection Indices,
               int point1, int point2,
@@ -514,6 +515,32 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_B_TRIAN_TriangelsIndices, 2, 5, 3, 0);
         }
 
+        private void load_0_24_TriangelsIndices()
+        {
+            // const int secNum = 6;  // Number of points in section (2D)
+            M_0_24_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 0, 1, 4, 3);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 4, 1, 2, 5);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 0, 3, 5, 2);
+
+            // Back Side 
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 6, 8, 11, 9);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 10, 11, 8, 7);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 6, 9, 10, 7);
+
+            // Shell Surface
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 0, 6, 7, 1);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 1, 7, 8, 2);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 2, 8, 6, 0);
+
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 3, 4, 10, 9);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 4, 5, 11, 10);
+            DrawRectangleIndices(M_0_24_TriangelsIndices, 4, 9, 11, 5);
+        }
+
+
         
 		public Window2()
 		{
@@ -538,7 +565,9 @@ namespace sw_en_GUI
             // Flat Bar
              loadFBProfileTriangelIndices();
             // Triangular Prism 
-            //load_B_TRIAN_TriangelsIndices();
+            // load_B_TRIAN_TriangelsIndices();
+            // Triangular Prism with Opening
+            // load_0_24_TriangelsIndices()
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -649,7 +678,8 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_RBProfileTriangelsIndices;
              mesh.TriangleIndices = M_FBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TUProfileTriangelsIndices;
-            //mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
+            // mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
+            // mesh.TriangleIndices = M_0_24_TriangelsIndices;
 
 			//ScreenSpaceLines3D line = new ScreenSpaceLines3D();
 			//line.Color = Color.FromRgb(0,255,0);
