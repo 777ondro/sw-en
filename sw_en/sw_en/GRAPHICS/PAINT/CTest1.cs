@@ -38,6 +38,8 @@ namespace CENEX
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(100, 40);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(-100, -40, 100,0, 0,50);
         // public CCrSc_0_24 objCrSc = new CCrSc_0_24(100, 10);
+        // public CCrSc_0_00 objCrSc = new CCrSc_0_00(100, 20);
+        // public CCrSc_0_01 objCrSc = new CCrSc_0_01(100, 20);
 
         public CTest1()
         {
