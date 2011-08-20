@@ -89,25 +89,11 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
             // INoPoints = 36; // vykreslujeme ako n-uholnik
 
-            // Zbytocne vytvaram nove pole !!!!
-            float[,] arrtempOut = new float[INoPoints, 2];
-            arrtempOut = Geom2D.GetEllipsePoints(m_fr_out_major, m_fr_out_minor, m_fAngle, INoPoints);
-            float[,] arrtempIn = new float[INoPoints, 2];
-            arrtempIn = Geom2D.GetEllipsePoints(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPoints);
-
             // Outside Points Coordinates
-            for (int i = 0; i < INoPoints; i++)
-            {
-                m_CrScPointOut[i, 0] = arrtempOut[i, 0];  // y
-                m_CrScPointOut[i, 1] = arrtempOut[i, 1];  // z
-            }
+            m_CrScPointOut = Geom2D.GetEllipsePointCoord(m_fr_out_major, m_fr_out_minor, m_fAngle, INoPoints);
 
             // Inside Points
-            for (int i = 0; i < INoPoints; i++)
-            {
-                m_CrScPointIn[i, 0] = arrtempIn[i, 0];   // y
-                m_CrScPointIn[i, 1] = arrtempIn[i, 1];   // z
-            }
-        }
+            m_CrScPointIn = Geom2D.GetEllipsePointCoord(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPoints);
+       }
     }
 }

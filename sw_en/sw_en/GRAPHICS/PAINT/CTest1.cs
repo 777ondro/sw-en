@@ -32,7 +32,7 @@ namespace CENEX
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 10, 5);
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 150, 10, 15, 5, 30, 70);
         // public CCrSc_RB objCrSc = new CCrSc_RB(50, 37);
-        public CCrSc_FB objCrScWF = new CCrSc_FB(100, 50);
+        public CCrSc_0_05 objCrScWF = new CCrSc_0_05(100, 50);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(100);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(100, 40);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(-100, -40, 100,0, 0,50);

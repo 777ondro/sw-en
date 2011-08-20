@@ -105,11 +105,11 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_L.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_T.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_Z.cs" />
-    <Compile Include="GRAPHICS\PAINT\CCrSc_RB.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_02.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_22.cs" />
-    <Compile Include="GRAPHICS\PAINT\CCrSc_FB.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_05.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_GE.cs" />
-    <Compile Include="GRAPHICS\PAINT\CCrSc_B_TRIAN.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_04.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_24.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_00.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_01.cs" />

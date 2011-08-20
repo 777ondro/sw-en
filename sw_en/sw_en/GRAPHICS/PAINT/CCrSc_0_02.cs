@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
+using MATH;
 
 namespace CENEX
 {
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
-    public class CCrSc_RB : CCrSc
+    public class CCrSc_0_02 : CCrSc
     {
         // Rolled round bar
 
@@ -35,8 +35,8 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_RB()  {   }
-        public CCrSc_RB(float fd, int iTotNoPoints)
+        public CCrSc_0_02()  {   }
+        public CCrSc_0_02(float fd, int iTotNoPoints)
         {
             // m_iTotNoPoints = 36+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
@@ -59,26 +59,11 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            for (int i = 0; i < ITotNoPoints-1; i++)
-            {
-                m_CrScPoint[i, 0] = GetPositionX(m_fr_out, i * 360 / (ITotNoPoints-1));  // y
-                m_CrScPoint[i, 1] = GetPositionY(m_fr_out, i * 360 / (ITotNoPoints-1));  // z
-            }
+            m_CrScPoint = Geom2D.GetCirclePointCoord(m_fr_out, ITotNoPoints-1);
 
             // Centroid
             m_CrScPoint[ITotNoPoints-1, 0] = 0f;
             m_CrScPoint[ITotNoPoints-1, 1] = 0f;
-        }
-
-        // Transformation of coordinates
-        private float GetPositionX(float radius, float theta)
-        {
-            return radius * (float)Math.Cos(theta * Math.PI / 180);
-        }
-
-        private float GetPositionY(float radius, float theta)
-        {
-            return -radius * (float)Math.Sin(theta * Math.PI / 180);
         }
     }
 }
