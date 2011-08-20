@@ -66,7 +66,7 @@ namespace CENEX
             // Basic Ellipse Function
             // Zbytocne vytvaram nove pole !!!!
             float [,] arrtemp = new float [m_iTotNoPoints - 1,2];
-            arrtemp =  Geom2D.GetEllipsePoints(0.5f * m_fa, 0.5f * m_fb, m_fAngle, m_iTotNoPoints - 1);
+            arrtemp =  Geom2D.GetEllipsePointCoord(0.5f * m_fa, 0.5f * m_fb, m_fAngle, m_iTotNoPoints - 1);
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
             // Outside Points Coordinates
             for (int i = 0; i < ITotNoPoints-1; i++)
