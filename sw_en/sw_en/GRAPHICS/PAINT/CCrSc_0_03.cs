@@ -15,6 +15,7 @@ namespace CENEX
         //----------------------------------------------------------------------------
         private float m_fa;   // Major Axis Dimension (2x Length of Semimajor Axis)
         private float m_fb;   // Minor Axis Dimension (2x Length of Semiminor Axis)
+        private float m_fAngle; // Angle of Rotation
         private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
         public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
@@ -48,6 +49,8 @@ namespace CENEX
             m_fb = fb;
             m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
+            m_fAngle = 0;
+
             if (iTotNoPoints < 2 || fa <= 0f || fb <= 0f)
                 return;
 
@@ -63,7 +66,7 @@ namespace CENEX
             // Basic Ellipse Function
             // Zbytocne vytvaram nove pole !!!!
             float [,] arrtemp = new float [m_iTotNoPoints - 1,2];
-            arrtemp =  Geom2D.GetEllipsePoints(0.5f * m_fa, 0.5f * m_fb, m_iTotNoPoints - 1);
+            arrtemp =  Geom2D.GetEllipsePoints(0.5f * m_fa, 0.5f * m_fb, m_fAngle, m_iTotNoPoints - 1);
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
             // Outside Points Coordinates
             for (int i = 0; i < ITotNoPoints-1; i++)

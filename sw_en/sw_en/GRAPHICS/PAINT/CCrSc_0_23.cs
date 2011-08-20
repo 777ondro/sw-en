@@ -16,6 +16,7 @@ namespace CENEX
         private float m_fa;   // Major Axis Dimension (2x Length of Semimajor Axis)
         private float m_fb;   // Minor Axis Dimension (2x Length of Semiminor Axis)
         private float m_ft;   // Thickness
+        private float m_fAngle; // Angle of Rotation
         private int m_iNoPoints; // Number of Cross-section Points for Drawing in One Ellipse (36)
         public float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
         public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
@@ -61,6 +62,8 @@ namespace CENEX
             m_fb = fb;
             m_ft = ft;
 
+            m_fAngle = 0;
+
             // Radii
             m_fr_out_major = m_fa / 2f;
             m_fr_in_major = m_fa / 2f - m_ft;
@@ -88,9 +91,9 @@ namespace CENEX
 
             // Zbytocne vytvaram nove pole !!!!
             float[,] arrtempOut = new float[INoPoints, 2];
-            arrtempOut = Geom2D.GetEllipsePoints(m_fr_out_major, m_fr_out_minor, INoPoints);
+            arrtempOut = Geom2D.GetEllipsePoints(m_fr_out_major, m_fr_out_minor, m_fAngle, INoPoints);
             float[,] arrtempIn = new float[INoPoints, 2];
-            arrtempIn = Geom2D.GetEllipsePoints(m_fr_in_major, m_fr_in_minor, INoPoints);
+            arrtempIn = Geom2D.GetEllipsePoints(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPoints);
 
             // Outside Points Coordinates
             for (int i = 0; i < INoPoints; i++)
