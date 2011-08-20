@@ -45,7 +45,7 @@ namespace MATH
 
         * Read more: http://www.answers.com/topic/ellipse#ixzz1UN0OIaGS
         */
-        public static float[,] GetEllipsePoints(float fa, float fb, int isteps)
+        public static float[,] GetEllipsePoints(float fa, float fb, float fangle, int isteps)
         {
             //if (isteps == null)
             //    isteps = 36;
@@ -53,7 +53,7 @@ namespace MATH
             float[,] farr_points = new float[isteps, 2];
 
             // Angle is given by Degree Value
-            float fBeta = (MathF.fPI / 180f); //(Math.PI/180) converts Degree Value into Radians
+            float fBeta = -fangle * (MathF.fPI / 180f); //(Math.PI/180) converts Degree Value into Radians
             float fsinbeta = (float)Math.Sin(fBeta);
             float fcosbeta = (float)Math.Cos(fBeta);
 
