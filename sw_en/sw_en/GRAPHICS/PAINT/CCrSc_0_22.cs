@@ -8,7 +8,7 @@ namespace CENEX
 {
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
-    public class CCrSc_TU : CCrSc
+    public class CCrSc_0_22 : CCrSc
     {
         // Tube / Rura
 
@@ -44,8 +44,8 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_TU()  {   }
-        public CCrSc_TU(float fd, float ft, int iNoPoints)
+        public CCrSc_0_22()  {   }
+        public CCrSc_0_22(float fd, float ft, int iNoPoints)
         {
             m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fd = fd;
@@ -97,6 +97,7 @@ namespace CENEX
 
         private float GetPositionY(float radius, float theta)
         {
+            // Clock-wise (for counterclock-wise change sign for vertical coordinate)
             return -radius * (float)Math.Sin(theta * Math.PI / 180);
         }
 

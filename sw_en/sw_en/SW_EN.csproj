@@ -92,6 +92,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GRAPHICS\PAINT\CCrSc.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_03.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_I.cs" />
     <Compile Include="GRAPHICS\PAINT\CLine.cs" />
     <Compile Include="GRAPHICS\PAINT\CMat.cs" />
@@ -105,13 +106,14 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_T.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_Z.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_RB.cs" />
-    <Compile Include="GRAPHICS\PAINT\CCrSc_TU.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_22.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_FB.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_GE.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_B_TRIAN.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_24.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_00.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_01.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_0_23.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest10.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest9.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest8.cs" />
@@ -616,6 +618,10 @@
     <Content Include="TEMPORARY\BIN\WindowsFormsApplication1.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\3DTools-1.0-src\Samples\ModelViewer\ModelViewer.csproj">
+      <Project>{0231FAF0-6A94-4211-8C62-82043BD747AD}</Project>
+      <Name>ModelViewer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRSC\CRSC.csproj">
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
       <Name>CRSC %28CRSC\CRSC%29</Name>
