@@ -77,6 +77,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ALGEBRA\MathF.cs" />
+    <Compile Include="GEOMETRY\Geom2D.cs" />
+    <Compile Include="GEOMETRY\Geom3D.cs" />
     <Compile Include="MATRIX\CMatrix.cs" />
     <Compile Include="MATRIX\MatrixF64.cs" />
     <Compile Include="Program.cs" />

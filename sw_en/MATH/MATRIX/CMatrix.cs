@@ -1010,8 +1010,6 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
             // iSize2 = 6
 
             string sOutput = null;
-
-            int b = 0;
             
             for (int a = 0; a < iSize1; a++) // (k11 + k12) and (k21 and k22)
             {

@@ -38,9 +38,10 @@ namespace sw_en_GUI
 			view.Show();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void Button01_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+            Window2 view = new Window2();
+            view.Show();
 		}
 	}
 }

@@ -36,12 +36,12 @@ namespace sw_en_GUI
         private Int32Collection M_LProfileTriangelsIndices;
         private Int32Collection M_TProfileTriangelsIndices;
         private Int32Collection M_ZProfileTriangelsIndices;
-        private Int32Collection M_RBProfileTriangelsIndices;
         private Int32Collection M_FBProfileTriangelsIndices;
-        private Int32Collection M_TUProfileTriangelsIndices;
         private Int32Collection M_B_TRIAN_TriangelsIndices;
-        private Int32Collection M_0_24_TriangelsIndices;
         private Int32Collection M_0_00_TriangelsIndices;
+        private Int32Collection M_0_02_03_TriangelsIndices;
+        private Int32Collection M_0_22_23_TriangelsIndices;
+        private Int32Collection M_0_24_TriangelsIndices;
 
         private void DrawRectangleIndices(Int32Collection Indices,
               int point1, int point2,
@@ -383,52 +383,52 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_ZProfileTriangelsIndices, 7, 15, 8, 0);
         }
 
-        private void loadRBProfileTriangelIndices()
+        private void load_0_02_03_TriangelIndices()
         {
             const int secNum = 37;  // Number of points in section (2D) includes centroid
-            M_RBProfileTriangelsIndices = new Int32Collection();
+            M_0_02_03_TriangelsIndices = new Int32Collection();
 
             // Front Side / Forehead
             for (int i = 0; i < secNum-1; i++)
             {
                 if (i < secNum - 2)
                 {
-                    M_RBProfileTriangelsIndices.Add(i);
-                    M_RBProfileTriangelsIndices.Add(secNum-1);
-                    M_RBProfileTriangelsIndices.Add(i + 1);
+                    M_0_02_03_TriangelsIndices.Add(i);
+                    M_0_02_03_TriangelsIndices.Add(secNum-1);
+                    M_0_02_03_TriangelsIndices.Add(i + 1);
                 }
                 else // Last Element
                 {
-                    M_RBProfileTriangelsIndices.Add(i);
-                    M_RBProfileTriangelsIndices.Add(secNum-1);
-                    M_RBProfileTriangelsIndices.Add(0);
+                    M_0_02_03_TriangelsIndices.Add(i);
+                    M_0_02_03_TriangelsIndices.Add(secNum-1);
+                    M_0_02_03_TriangelsIndices.Add(0);
                 }
             }
 
             // Back Side
-            for (int i = 0; i < secNum-1; i++)
+            for (int i = 0; i < secNum - 1; i++)
             {
                 if (i < secNum - 2)
                 {
-                    M_RBProfileTriangelsIndices.Add(secNum+i);
-                    M_RBProfileTriangelsIndices.Add(secNum + i + 1);
-                    M_RBProfileTriangelsIndices.Add(secNum + secNum-1);
+                    M_0_02_03_TriangelsIndices.Add(secNum + i);
+                    M_0_02_03_TriangelsIndices.Add(secNum + i + 1);
+                    M_0_02_03_TriangelsIndices.Add(secNum + secNum - 1);
                 }
                 else // Last Element
                 {
-                    M_RBProfileTriangelsIndices.Add(secNum + i);
-                    M_RBProfileTriangelsIndices.Add(secNum);
-                    M_RBProfileTriangelsIndices.Add(secNum + secNum - 1);
+                    M_0_02_03_TriangelsIndices.Add(secNum + i);
+                    M_0_02_03_TriangelsIndices.Add(secNum);
+                    M_0_02_03_TriangelsIndices.Add(secNum + secNum - 1);
                 }
             }
 
             // Shell Surface OutSide
-            for (int i = 0; i < secNum-1; i++)
+            for (int i = 0; i < secNum - 1; i++)
             {
                 if (i < secNum - 2)
-                    DrawRectangleIndices(M_RBProfileTriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
+                    DrawRectangleIndices(M_0_02_03_TriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
                 else
-                    DrawRectangleIndices(M_RBProfileTriangelsIndices, i, secNum + i, secNum, 0); // Last Element
+                    DrawRectangleIndices(M_0_02_03_TriangelsIndices, i, secNum + i, secNum, 0); // Last Element
             }
         }
 
@@ -450,48 +450,48 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_FBProfileTriangelsIndices, 3, 7, 4, 0);
         }
 
-        private void loadTUProfileTriangelIndices()
+        private void load_0_22_23_TriangelIndices()
         {
             // const int secNum = 2*36;  // Number of points in section (2D)
             const int secNum = 36; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
 
-            M_TUProfileTriangelsIndices = new Int32Collection();
+            M_0_22_23_TriangelsIndices = new Int32Collection();
 
             // Front Side / Forehead
 
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum-1)
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
                 else
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
             }
 
             // Back Side
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
                 else
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
             }
 
             // Shell Surface OutSide
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
                 else
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, i, 2 * secNum + i, 2 * secNum, 0); // Last Element
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, i, 2 * secNum + i, 2 * secNum, 0); // Last Element
             }
 
             // Shell Surface Inside
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, secNum+i, secNum + i+1, 2 * secNum + i +secNum + 1, 2 * secNum + i+ secNum);
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, secNum+i, secNum + i+1, 2 * secNum + i +secNum + 1, 2 * secNum + i+ secNum);
                 else
-                    DrawRectangleIndices(M_TUProfileTriangelsIndices, 2 * secNum + i + 1, 2 * secNum + i + secNum, secNum + i, secNum); // Last Element
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, 2 * secNum + i + 1, 2 * secNum + i + secNum, secNum + i, secNum); // Last Element
             }
         }
 
@@ -608,12 +608,12 @@ namespace sw_en_GUI
             // loadTProfileTriangelIndices();
             // Z-section / Z section
             // loadZProfileTriangelIndices();
-            // TUBE / PIPE
-            // loadTUProfileTriangelIndices();
-            // Round Bar
-            // loadRBProfileTriangelIndices();
+            // TUBE / PIPE Circle or Ellipse Shape
+            load_0_22_23_TriangelIndices();
+            // Round or Ellipse Bar
+            // load_0_02_03_TriangelIndices();
             // Flat Bar
-             loadFBProfileTriangelIndices();
+            // loadFBProfileTriangelIndices();
             // Triangular Prism 
             // load_B_TRIAN_TriangelsIndices();
             // Triangular Prism with Opening
@@ -646,16 +646,16 @@ namespace sw_en_GUI
 			CTest1 test1 = new CTest1();
 
             // Number of Points per section
-            int iNoCrScPoints2D = 4; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL,L, ..............
+            int iNoCrScPoints2D = 37; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL,L, ..............
 
             // Points 2D Coordinate Array
-			float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL,L, ..............
+			// float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL,L, ..............
 
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Tube !!!
-            //float[,] res1 = test1.objCrSc.m_CrScPointOut; // RB, TU
-            //float[,] res2 = test1.objCrSc.m_CrScPointIn; // RB, TU
+            float[,] res1 = test1.objCrSc.m_CrScPointOut; // TU
+            float[,] res2 = test1.objCrSc.m_CrScPointIn; // TU
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -664,44 +664,44 @@ namespace sw_en_GUI
 
             // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
 
-            // I,U,Z,HL, L, ....
-            for (int j = 0; j < iNoCrScPoints2D; j++)
-			{
-				mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
-			}
-            for (int j = 0; j < iNoCrScPoints2D; j++)
-			{
-                mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
-			}
+            //// I,U,Z,HL, L, ....
+            //for (int j = 0; j < iNoCrScPoints2D; j++)
+            //{
+            //    mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
+            //}
+            //for (int j = 0; j < iNoCrScPoints2D; j++)
+            //{
+            //    mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
+            //}
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Tube
-            // RB, TU
+            // TU
 
-            //// Start
-            //// OutSide Radius Points
-            //for (int j = 0; j < test1.objCrSc.INoPoints; j++)
-            //{
-            //    mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
-            //}
-            //// Inside Radius Points
-            //for (int j = 0; j < test1.objCrSc.INoPoints; j++)
-            //{
-            //    mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
-            //}
+            // Start
+            // OutSide Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
+            }
+            // Inside Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
+            }
 
-            //// End
-            //// OutSide Radius Points
-            //for (int j = 0; j < test1.objCrSc.INoPoints; j++)
-            //{
-            //    mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
-            //}
-            //// Inside Radius Points
-            //for (int j = 0; j < test1.objCrSc.INoPoints; j++)
-            //{
-            //    mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
-            //}
+            // End
+            // OutSide Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
+            }
+            // Inside Radius Points
+            for (int j = 0; j < test1.objCrSc.INoPoints; j++)
+            {
+                mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
+            }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -728,11 +728,13 @@ namespace sw_en_GUI
             // mesh.TriangleIndices = M_TProfileTriangelsIndices;
             // mesh.TriangleIndices = M_ZProfileTriangelsIndices;
             // mesh.TriangleIndices = M_RBProfileTriangelsIndices;
-             mesh.TriangleIndices = M_FBProfileTriangelsIndices;
+            // mesh.TriangleIndices = M_FBProfileTriangelsIndices;
             // mesh.TriangleIndices = M_TUProfileTriangelsIndices;
             // mesh.TriangleIndices = M_B_TRIAN_TriangelsIndices;
-            // mesh.TriangleIndices = M_0_24_TriangelsIndices;
             // mesh.TriangleIndices = M_0_00_TriangelsIndices;
+            // mesh.TriangleIndices = M_0_02_03_TriangelsIndices;
+            mesh.TriangleIndices = M_0_22_23_TriangelsIndices;
+            // mesh.TriangleIndices = M_0_24_TriangelsIndices;
 
 			//ScreenSpaceLines3D line = new ScreenSpaceLines3D();
 			//line.Color = Color.FromRgb(0,255,0);

@@ -31,15 +31,17 @@ namespace CENEX
         // public CCrSc_T objCrSc = new CCrSc_T(200, 100, 30, 10, 5, 20, 130);
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 10, 5);
         // public CCrSc_Z objCrSc = new CCrSc_Z(200, 100, 150, 10, 15, 5, 30, 70);
-        // public CCrSc_TU objCrSc = new CCrSc_TU(200, 10, 36);
         // public CCrSc_RB objCrSc = new CCrSc_RB(50, 37);
-        public CCrSc_FB objCrSc = new CCrSc_FB(100, 50);
+        public CCrSc_FB objCrScWF = new CCrSc_FB(100, 50);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(100);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(100, 40);
         // public CCrSc_B_TRIAN objCrSc = new CCrSc_B_TRIAN(-100, -40, 100,0, 0,50);
-        // public CCrSc_0_24 objCrSc = new CCrSc_0_24(100, 10);
         // public CCrSc_0_00 objCrSc = new CCrSc_0_00(100, 20);
         // public CCrSc_0_01 objCrSc = new CCrSc_0_01(100, 20);
+        // public CCrSc_0_03 objCrSc = new CCrSc_0_03(100, 50,37);
+        // public CCrSc_0_22 objCrSc = new CCrSc_0_22(200, 10, 36);
+        public CCrSc_0_23 objCrSc = new CCrSc_0_23(200, 100, 20, 36);
+        // public CCrSc_0_24 objCrSc = new CCrSc_0_24(100, 10);
 
         public CTest1()
         {
