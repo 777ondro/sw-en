@@ -8,7 +8,7 @@ namespace CENEX
 {
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
-    public class CCrSc_T : CCrSc
+    public class CCrSc_0_56 : CCrSc
     {
         // Welded monosymmetric T section
 
@@ -94,8 +94,8 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_T()  {   }
-        public CCrSc_T(float fh, float fb, float ft_f, float ft_w, float fz_c)
+        public CCrSc_0_56()  {   }
+        public CCrSc_0_56(float fh, float fb, float ft_f, float ft_w, float fz_c)
         {
             m_iTotNoPoints = 8;
             m_fh = fh;
@@ -189,7 +189,7 @@ namespace CENEX
         private float m_fb_l;   // Width of Free Left Part Flange  / Sirka volnej lavej strany pasnice
         private float m_fy_c; // Centroid coordinate / Suradnica tažiska
 
-        public CCrSc_T(float fh, float fb, float fb_l, float ft_f, float ft_w, float fy_c, float fz_c)
+        public CCrSc_0_56(float fh, float fb, float fb_l, float ft_f, float ft_w, float fy_c, float fz_c)
         {
             m_iTotNoPoints = 8;
             m_fh = fh;

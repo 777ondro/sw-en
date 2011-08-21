@@ -890,7 +890,7 @@ namespace CENEX
         // Temporary
         // Draw Cross-section in 2D
 
-        public void DrawCrSc2D(Graphics g, CCrSc_I objCrSc)
+        public void DrawCrSc2D(Graphics g, CCrSc_0_50 objCrSc)
         { 
            Brush b  = new SolidBrush(Color.Yellow);
            Pen p = new Pen(Color.Cornsilk,1);

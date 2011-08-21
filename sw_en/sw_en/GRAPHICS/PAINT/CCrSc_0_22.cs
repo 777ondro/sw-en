@@ -10,7 +10,7 @@ namespace CENEX
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_22 : CCrSc
     {
-        // Tube / Rura
+        // Tube / Ring / Annulus / Rura
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
