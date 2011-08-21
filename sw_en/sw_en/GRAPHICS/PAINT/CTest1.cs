@@ -36,7 +36,7 @@ namespace CENEX
         // public CCrSc_0_27 objCrScHollow = new CCrSc_0_27(200, 10);
         public CCrSc_0_28 objCrScHollow = new CCrSc_0_28(200, 10);
         // public CCrSc_0_50 objCrScSolid = new CCrSc_0_50(200,100,10,5);
-        public CCrSc_0_50 objCrScSolid = new CCrSc_0_50(200, 100, 150, 10, 15, 5, 70);
+        // public CCrSc_0_50 objCrScSolid = new CCrSc_0_50(200, 100, 150, 10, 15, 5, 70);
         // public CCrSc_0_52 objCrScSolid = new CCrSc_0_52(200, 100, 10, 5, 30);
         // public CCrSc_0_52 objCrScSolid = new CCrSc_0_52(200, 100, 150, 10, 15, 5, 30, 70);
         // public CCrSc_0_54 objCrScSolid = new CCrSc_0_54(200, 100, 10, 5,30,50);
@@ -45,6 +45,7 @@ namespace CENEX
         // public CCrSc_0_58 objCrScSolid = new CCrSc_0_58(200, 100, 10, 5);
         // public CCrSc_0_58 objCrScSolid = new CCrSc_0_58(200, 100, 150, 10, 15, 5, 30, 70);
         // public CCrSc_0_60 objCrScSolid = new CCrSc_0_60(200,100,10);
+        public CCrSc_0_61 objCrScSolid = new CCrSc_0_61(100,10);
 
         public CTest1()
         {

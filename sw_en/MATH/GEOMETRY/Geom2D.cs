@@ -10,13 +10,13 @@ namespace MATH
         public static float[,] m_ArrfPointsCoord2D;
 
         // Transformation of coordinates
-        // Polar to Carthesian
-        static float GetPositionX(float radius, float theta)
+        // Polar to Carthesian, Input angle in degrees
+        public static float GetPositionX(float radius, float theta)
         {
             return radius * (float)Math.Cos(theta * Math.PI / 180);
         }
 
-        static float GetPositionY(float radius, float theta)
+        public static float GetPositionY(float radius, float theta)
         {
             // Clock-wise (for counterclock-wise change sign for vertical coordinate)
             return -radius * (float)Math.Sin(theta * Math.PI / 180);
