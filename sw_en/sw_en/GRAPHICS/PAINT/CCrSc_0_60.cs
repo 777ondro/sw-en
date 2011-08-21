@@ -91,11 +91,11 @@ namespace CENEX
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
             // Fill Array Data
-            CalcCrSc_Coord_I_DS();
+            CalcCrSc_Coord();
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord_I_DS()
+        void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 

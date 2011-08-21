@@ -107,7 +107,7 @@ namespace CENEX
         public CCrSc_0_54()  {   }
         public CCrSc_0_54(float fh, float fb, float ft_f, float ft_w, float fy_c, float fz_c)
         {
-            m_iTotNoPoints = 8;
+            m_iTotNoPoints = 6;
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;

@@ -340,18 +340,7 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 17, 20, 19, 18);
 
             // Shell Surface 
-            DrawRectangleIndices(M_TriangelsIndices, 0, 12, 13, 1);
-            DrawRectangleIndices(M_TriangelsIndices, 1, 13, 14, 2);
-            DrawRectangleIndices(M_TriangelsIndices, 2, 14, 15, 3);
-            DrawRectangleIndices(M_TriangelsIndices, 3, 15, 16, 4);
-            DrawRectangleIndices(M_TriangelsIndices, 4, 16, 17, 5);
-            DrawRectangleIndices(M_TriangelsIndices, 5, 17, 18, 6);
-            DrawRectangleIndices(M_TriangelsIndices, 6, 18, 19, 7);
-            DrawRectangleIndices(M_TriangelsIndices, 20, 8, 7, 19);
-            DrawRectangleIndices(M_TriangelsIndices, 21, 9, 8, 20);
-            DrawRectangleIndices(M_TriangelsIndices, 22, 10, 9, 21);
-            DrawRectangleIndices(M_TriangelsIndices, 23, 11, 10, 22);
-            DrawRectangleIndices(M_TriangelsIndices, 12, 0, 11, 23);
+            DrawCaraLaterals(12, M_TriangelsIndices);
         }
 
         private void load_0_52_TriangelIndices()
@@ -370,14 +359,7 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 13, 12, 15, 14);
 
             // Shell Surface 
-            DrawRectangleIndices(M_TriangelsIndices, 9, 1, 0, 8);
-            DrawRectangleIndices(M_TriangelsIndices, 1, 9, 10, 2);
-            DrawRectangleIndices(M_TriangelsIndices, 2, 10, 11, 3);
-            DrawRectangleIndices(M_TriangelsIndices, 3, 11, 12, 4);
-            DrawRectangleIndices(M_TriangelsIndices, 4, 12, 13, 5);
-            DrawRectangleIndices(M_TriangelsIndices, 5, 13, 14, 6);
-            DrawRectangleIndices(M_TriangelsIndices, 6, 14, 15, 7);
-            DrawRectangleIndices(M_TriangelsIndices, 8, 0, 7, 15);
+            DrawCaraLaterals(8, M_TriangelsIndices);
         }
 
         private void load_0_54_TriangelIndices()
@@ -394,12 +376,7 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 9, 8, 11, 10);
 
             // Shell Surface
-            DrawRectangleIndices(M_TriangelsIndices, 0, 6, 7, 1);
-            DrawRectangleIndices(M_TriangelsIndices, 1, 7, 8, 2);
-            DrawRectangleIndices(M_TriangelsIndices, 2, 8, 9, 3);
-            DrawRectangleIndices(M_TriangelsIndices, 3, 9, 10, 4);
-            DrawRectangleIndices(M_TriangelsIndices, 4, 10, 11, 5);
-            DrawRectangleIndices(M_TriangelsIndices, 6, 0, 5, 11);
+            DrawCaraLaterals(6, M_TriangelsIndices);
         }
 
         private void load_0_56_TriangelIndices()
@@ -416,15 +393,7 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 11, 14, 13, 12);
 
             // Shell Surface
-            DrawRectangleIndices(M_TriangelsIndices, 0, 8, 9, 1);
-            DrawRectangleIndices(M_TriangelsIndices, 1, 9, 10, 2);
-            DrawRectangleIndices(M_TriangelsIndices, 2, 10, 11, 3);
-            DrawRectangleIndices(M_TriangelsIndices, 3, 11, 12, 4);
-
-            DrawRectangleIndices(M_TriangelsIndices, 4, 12, 13, 5);
-            DrawRectangleIndices(M_TriangelsIndices, 14, 6, 5, 13);
-            DrawRectangleIndices(M_TriangelsIndices, 15, 7, 6, 14);
-            DrawRectangleIndices(M_TriangelsIndices, 8, 0, 7, 15);
+            DrawCaraLaterals(8, M_TriangelsIndices);
         }
 
         private void load_0_58_TriangelIndices()
@@ -443,14 +412,7 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 11, 10, 13, 12);
 
             // Shell Surface
-            DrawRectangleIndices(M_TriangelsIndices, 0, 8, 9, 1);
-            DrawRectangleIndices(M_TriangelsIndices, 1, 9, 10, 2);
-            DrawRectangleIndices(M_TriangelsIndices, 2, 10, 11, 3);
-            DrawRectangleIndices(M_TriangelsIndices, 3, 11, 12, 4);
-            DrawRectangleIndices(M_TriangelsIndices, 4, 12, 13, 5);
-            DrawRectangleIndices(M_TriangelsIndices, 5, 13, 14, 6);
-            DrawRectangleIndices(M_TriangelsIndices, 6, 14, 15, 7);
-            DrawRectangleIndices(M_TriangelsIndices, 7, 15, 8, 0);
+            DrawCaraLaterals(8, M_TriangelsIndices);
         }
 
         private void load_0_60_TriangelIndices(int secNum)
@@ -474,6 +436,33 @@ namespace sw_en_GUI
 
             // Shell
             DrawCaraLaterals(12, M_TriangelsIndices);
+        }
+
+        private void load_0_61_TriangelIndices()
+        {
+            // const int secNum = 9;  // Number of points in section (2D)
+            M_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            DrawRectangleIndices(M_TriangelsIndices, 0, 1, 7, 8);
+            DrawRectangleIndices(M_TriangelsIndices, 1, 2, 3, 4);
+            DrawRectangleIndices(M_TriangelsIndices, 4, 5, 6, 7);
+            // Front Side / Forehead
+            M_TriangelsIndices.Add(1);
+            M_TriangelsIndices.Add(7);
+            M_TriangelsIndices.Add(4);
+
+            // Back Side 
+            DrawRectangleIndices(M_TriangelsIndices, 17, 16, 10, 9);
+            DrawRectangleIndices(M_TriangelsIndices, 13, 12, 11, 10);
+            DrawRectangleIndices(M_TriangelsIndices, 16, 15, 14, 13);
+            // Back Side 
+            M_TriangelsIndices.Add(10);
+            M_TriangelsIndices.Add(13);
+            M_TriangelsIndices.Add(16);
+
+            // Shell
+            DrawCaraLaterals(9, M_TriangelsIndices);
         }
 
 		public Window2()
@@ -500,7 +489,7 @@ namespace sw_en_GUI
             // Polygonal Hollow Section
             //load_0_26_28_TriangelIndices(test1.objCrScHollow.INoPoints);
             // I - section
-            load_0_50_TriangelIndices();
+            //load_0_50_TriangelIndices();
             // U-section
             //load_0_52_TriangelIndices();
             // L-section / Angle section
@@ -508,9 +497,11 @@ namespace sw_en_GUI
             // T-section / T section
             //load_0_56_TriangelIndices();
             // Z-section / Z section
-            //load_0_58_TriangelIndices();
+            // load_0_58_TriangelIndices();
             // Cruciform Bar
             //load_0_60_TriangelIndices(test1.objCrScSolid.ITotNoPoints);
+            // Y-section / Y section
+            load_0_61_TriangelIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -540,7 +531,7 @@ namespace sw_en_GUI
             // Number of Points per section
             short iNoCrScPoints2D;
             // Length of Element
-            float fELength = -500; // Temporary load flor Member Segment geometry
+            float fELength = -2000; // Temporary load flor Member Segment geometry
 
             // Points 2D Coordinate Array
 
