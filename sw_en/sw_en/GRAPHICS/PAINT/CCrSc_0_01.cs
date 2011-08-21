@@ -11,7 +11,7 @@ namespace CENEX
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_01:CCrSc
     {
-        // Quater Round Bar
+        // Solid Quater Cirlce / Stvrtkruh
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer

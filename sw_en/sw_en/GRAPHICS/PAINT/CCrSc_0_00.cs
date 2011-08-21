@@ -11,7 +11,7 @@ namespace CENEX
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_00:CCrSc
     {
-        // Half Round Bar
+        // Solid Half Circle / Semicircle shape / Polkruh
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
@@ -39,13 +39,29 @@ namespace CENEX
         public CCrSc_0_00()  {   }
         public CCrSc_0_00(float fd, short iTotNoPoints)
         {
-            // m_iTotNoPoints = 20+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
+            // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
             m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
             m_fr_out = m_fd / 2f;
 
             if (iTotNoPoints < 2 || m_fr_out <= 0f)
+                return;
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+            CalcCrSc_Coord();
+        }
+        public CCrSc_0_00(float fd)
+        {
+            // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
+            m_fd = fd;
+            m_iTotNoPoints = 20; // 1 auxialiary node in centroid / stredovy bod v tazisku
+
+            m_fr_out = m_fd / 2f;
+
+            if (m_fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
@@ -60,26 +76,11 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            for (int i = 0; i < ITotNoPoints-1; i++)
-            {
-                m_CrScPoint[i, 0] = GetPositionX(m_fr_out, i * 180 / (ITotNoPoints-1));  // y
-                m_CrScPoint[i, 1] = GetPositionY(m_fr_out, i * 180 / (ITotNoPoints-1));  // z
-            }
+            Geom2D.GetArcPointCoord(m_fr_out, 0, 180, (short)((int)ITotNoPoints - 1));
 
             // Centroid
             m_CrScPoint[ITotNoPoints-1, 0] = 0f;
             m_CrScPoint[ITotNoPoints-1, 1] = 0f;
-        }
-
-        // Transformation of coordinates
-        private float GetPositionX(float radius, float theta)
-        {
-            return radius * (float)Math.Cos(theta * Math.PI / 180);
-        }
-
-        private float GetPositionY(float radius, float theta)
-        {
-            return -radius * (float)Math.Sin(theta * Math.PI / 180);
         }
     }
 }

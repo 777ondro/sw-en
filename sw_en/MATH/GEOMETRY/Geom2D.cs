@@ -25,6 +25,32 @@ namespace MATH
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Get Basic 2D Shapes Coordinates
+
+        // List
+        // semicircle shape,
+        // incomplete circle shape,
+        // half rounded rectangle shape,
+        // right triangle shape,
+        // isosceles triangle shape,
+        // equilateral triangle shape,
+        // trapezium shape,
+        // square shape,
+        // pentagon shape,
+        // hexagon shape,
+        // heptagon shape,
+        // octagon shape,
+        // nonagon shape,
+        // decagon shape, 
+        // rhombus shape,
+        // isosceles trapezium shape,
+        // circle shape,
+        // semicircle curve shape,
+        // curve shape,
+        // incomplete circle shape,
+        // empty semicircle shape, 
+        // right trapezium shape
+
+        
         #region Circle
         // Circle
         // Get Points Coordinates
@@ -119,9 +145,19 @@ namespace MATH
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        private static float GetRadiusfromSideLength(float fa, short iNumEdges)
+        public static float GetRadiusfromSideLength(float fa, short iNumEdges)
         {
-            return fa / 2f * 1f / ((float)Math.Sin(360 / (2 * iNumEdges)));
+            return fa / 2f * 1f / ((float)Math.Sin((2 * MathF.fPI) / (2 * iNumEdges)));
+        }
+
+        public static float GetIntRadiusfromSideLength(float fa, short iNumEdges)
+        {
+            return fa / 2f * 1f / ((float)Math.Tan((2 * MathF.fPI) / (2 * iNumEdges)));
+        }
+
+        public static float GetRegularPolygonInternalSideLength(float fa1, float fr1, float fr2)
+        {
+            return fa1 / fr1 * fr2;
         }
 
         // Regular Polygonal Shapes
