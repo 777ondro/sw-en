@@ -43,5 +43,20 @@ namespace sw_en_GUI
             Window2 view = new Window2();
             view.Show();
 		}
+
+        private void Button02_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button03_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button04_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 	}
 }
