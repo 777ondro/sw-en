@@ -39,13 +39,29 @@ namespace CENEX
         public CCrSc_0_01()  {   }
         public CCrSc_0_01(float fd, short iTotNoPoints)
         {
-            // m_iTotNoPoints = 20+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
+            // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
             m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
             m_fr_out = m_fd / 2f;
 
             if (iTotNoPoints < 2 || m_fr_out <= 0f)
+                return;
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+            CalcCrSc_Coord();
+        }
+        public CCrSc_0_01(float fd)
+        {
+            // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
+            m_fd = fd;
+            m_iTotNoPoints = 20; // + 1 auxialiary node in centroid / stredovy bod v tazisku
+
+            m_fr_out = m_fd / 2f;
+
+            if (m_fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
@@ -60,26 +76,11 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            for (int i = 0; i < ITotNoPoints-1; i++)
-            {
-                m_CrScPoint[i, 0] = GetPositionX(m_fr_out, (MathF.fPI / 2) + i * 90 / (ITotNoPoints - 1));  // y rotation + 90 degrees
-                m_CrScPoint[i, 1] = GetPositionY(m_fr_out, (MathF.fPI / 2) + i * 90 / (ITotNoPoints - 1));  // z rotation + 90 degrees
-            }
+            m_CrScPoint = Geom2D.GetArcPointCoord(m_fr_out, 180, 270, ITotNoPoints);
 
             // Centroid
             m_CrScPoint[ITotNoPoints-1, 0] = 0f;
             m_CrScPoint[ITotNoPoints-1, 1] = 0f;
-        }
-
-        // Transformation of coordinates
-        private float GetPositionX(float radius, float theta)
-        {
-            return radius * (float)Math.Cos(theta * Math.PI / 180);
-        }
-
-        private float GetPositionY(float radius, float theta)
-        {
-            return -radius * (float)Math.Sin(theta * Math.PI / 180);
         }
     }
 }

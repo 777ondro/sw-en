@@ -71,12 +71,19 @@ namespace MATH
         // Arc
         public static float[,] GetArcPointCoord(float fr, int fStartAngle, int fEndAngle, short iNumber)
         {
-            m_ArrfPointsCoord2D = new float[iNumber, 2];
+            // iNumber - number of points of section (arc + centroid)
+            // iNumber - 1 - number of points arc
+            m_ArrfPointsCoord2D = new float[iNumber, 2];  // Allocate Memory for whole section (all section points including centroid)
 
-            for (int i = 0; i < fEndAngle - fStartAngle; i += (fEndAngle - fStartAngle) / iNumber)
+            // Decrease Number
+            --iNumber;
+            // iNumber - number of points of arc
+            // iNumber - 1 - number of segments of arc
+
+            for (int i = 0; i < iNumber; i++)
             {
-                m_ArrfPointsCoord2D[i, 0] = GetPositionX(fr, fStartAngle + i * (fEndAngle - fStartAngle) / iNumber);  // y
-                m_ArrfPointsCoord2D[i, 1] = GetPositionY(fr, fStartAngle + i * (fEndAngle - fStartAngle) / iNumber);  // z
+                m_ArrfPointsCoord2D[i, 0] = GetPositionX(fr, fStartAngle + i * (fEndAngle - fStartAngle) / (iNumber - 1));  // y
+                m_ArrfPointsCoord2D[i, 1] = GetPositionY(fr, fStartAngle + i * (fEndAngle - fStartAngle) / (iNumber - 1));  // z
             }
 
             return m_ArrfPointsCoord2D;

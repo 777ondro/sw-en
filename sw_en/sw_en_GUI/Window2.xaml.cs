@@ -82,9 +82,9 @@ namespace sw_en_GUI
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void load_0_00_TriangelsIndices()
+        private void load_0_00_01_TriangelsIndices()
         {
-            const int secNum = 21;  // Number of points in section (2D)
+            const int secNum = 20;  // Number of points in section (2D)
             M_TriangelsIndices = new Int32Collection();
 
             // Front Side / Forehead
@@ -121,14 +121,14 @@ namespace sw_en_GUI
                 }
             }
 
-            // Shell Surface OutSide
-            for (int i = 0; i < secNum - 1; i++)
-            {
-                if (i < secNum - 2)
-                    DrawRectangleIndices(M_TriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
-                else
-                    DrawRectangleIndices(M_TriangelsIndices, i, secNum + i, secNum, 0); // Last Element
-            }
+            // Shell Surface Arc
+            for (int i = 0; i < secNum - 2; i++)
+                DrawRectangleIndices(M_TriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
+
+            // Flat Sides - !!! Clock-wise points of arc generation
+            DrawRectangleIndices(M_TriangelsIndices, 0, secNum - 1, 2*secNum - 1,secNum);
+            DrawRectangleIndices(M_TriangelsIndices, secNum-1, secNum - 2, 2*secNum - 2, 2*secNum - 1);
+
         }
 
         private void load_0_02_03_TriangelIndices()
@@ -472,10 +472,11 @@ namespace sw_en_GUI
             CTest1 test1 = new CTest1(); // Basic Cross Section Data
 
             // Temp
-            // Half Round Bar
-            //load_0_00_TriangelsIndices();
+            // Half Circle Bar
+            // Quater Circle Bar
+            load_0_00_01_TriangelsIndices();
             // Round or Ellipse Bar
-            //load_0_02_03_TriangelIndices();
+            // load_0_02_03_TriangelIndices();
             // Triangular Prism 
             //load_0_04_TriangelsIndices();
             // Flat Bar
@@ -501,7 +502,7 @@ namespace sw_en_GUI
             // Cruciform Bar
             //load_0_60_TriangelIndices(test1.objCrScSolid.ITotNoPoints);
             // Y-section / Y section
-            load_0_61_TriangelIndices();
+            // load_0_61_TriangelIndices();
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 

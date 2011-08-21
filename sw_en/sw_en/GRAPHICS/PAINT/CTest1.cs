@@ -20,10 +20,10 @@ namespace CENEX
 
         // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
 
-        // public CCrSc_0_00 objCrSc = new CCrSc_0_00(100, 20);
-        // public CCrSc_0_01 objCrSc = new CCrSc_0_01(100, 20);
-        // public CCrSc_0_02 objCrSc = new CCrSc_0_02(50, 37);
-        // public CCrSc_0_03 objCrSc = new CCrSc_0_03(100, 50,37);
+         public CCrSc_0_00 objCrScSolid = new CCrSc_0_00(100);
+        // public CCrSc_0_01 objCrScSolid = new CCrSc_0_01(100);
+        // public CCrSc_0_02 objCrScSolid = new CCrSc_0_02(50);
+        // public CCrSc_0_03 objCrSc = new CCrSc_0_03(100, 50);
         // public CCrSc_0_04 objCrSc = new CCrSc_0_04(100);
         // public CCrSc_0_04 objCrSc = new CCrSc_0_04(100, 40);
         // public CCrSc_0_04 objCrSc = new CCrSc_0_04(-100, -40, 100,0, 0,50);
@@ -45,7 +45,7 @@ namespace CENEX
         // public CCrSc_0_58 objCrScSolid = new CCrSc_0_58(200, 100, 10, 5);
         // public CCrSc_0_58 objCrScSolid = new CCrSc_0_58(200, 100, 150, 10, 15, 5, 30, 70);
         // public CCrSc_0_60 objCrScSolid = new CCrSc_0_60(200,100,10);
-        public CCrSc_0_61 objCrScSolid = new CCrSc_0_61(100,10);
+        // public CCrSc_0_61 objCrScSolid = new CCrSc_0_61(100,10);
 
         public CTest1()
         {
