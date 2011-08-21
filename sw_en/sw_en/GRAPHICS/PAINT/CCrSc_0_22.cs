@@ -15,7 +15,7 @@ namespace CENEX
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
         private float m_ft;   // Thickness/ Hrubka
-        private int m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
+        private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
         public  float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
         public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
         //----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ namespace CENEX
             set { m_ft = value; }
         }
 
-        public int INoPoints
+        public short INoPoints
         {
             get { return m_iNoPoints; }
             set { m_iNoPoints = value; }
@@ -45,7 +45,7 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public CCrSc_0_22()  {   }
-        public CCrSc_0_22(float fd, float ft, int iNoPoints)
+        public CCrSc_0_22(float fd, float ft, short iNoPoints)
         {
             m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fd = fd;
@@ -60,6 +60,27 @@ namespace CENEX
             if (iNoPoints < 2 || m_fr_in == m_fr_out)
                 return;
 
+            // Create Array - allocate memory
+            m_CrScPointOut = new float[m_iNoPoints, 2];
+            m_CrScPointIn = new float[m_iNoPoints, 2];
+
+            // Fill Array Data
+            CalcCrSc_Coord();
+        }
+        public CCrSc_0_22(float fd, float ft)
+        {
+            m_iNoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+            m_fd = fd;
+            m_ft = ft;
+
+            float fd_in = m_fd - 2 * m_ft;
+
+            // Radii
+            m_fr_out = m_fd / 2f;
+            m_fr_in = fd_in / 2f;
+
+            if (m_fr_in == m_fr_out)
+                return;
 
             // Create Array - allocate memory
             m_CrScPointOut = new float[m_iNoPoints, 2];
@@ -78,7 +99,7 @@ namespace CENEX
             m_CrScPointOut = Geom2D.GetCirclePointCoord(m_fr_out, INoPoints);
 
             // Inside Points
-            m_CrScPointOut = Geom2D.GetCirclePointCoord(m_fr_in, INoPoints);
+            m_CrScPointIn = Geom2D.GetCirclePointCoord(m_fr_in, INoPoints);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CENEX
         private float m_ft_min; // Mimimum Thickness  / Minimalna hrubka elementu
         private float[,] m_CrScKeyPoint; // Array of Nodes / y-Coordinate, z-Coordinate, t-Thickness
         private float[,] m_CrScElem; // Array of Elements / Start Node, End Node, Thickness at the Start, Thickness at the End, Element Support Type (Both Side / One Side / Tube / Curved / Flat / Circle / None)
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
 
         private float m_fc_El;   // Element Length / Delka Elementu
         public  float[][,] m_CrScPoint; // Array of Points and values for Drawing in 2D
@@ -45,7 +45,7 @@ namespace CENEX
             get { return m_ft_min; }
             set { m_ft_min = value; }
         }
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }

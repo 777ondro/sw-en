@@ -9,10 +9,8 @@ namespace MATH
     {
         public static float[,] m_ArrfPointsCoord2D;
 
-        // Get Basic 2D Shapes Coordinates
-        #region Circle
-        // Circle
         // Transformation of coordinates
+        // Polar to Carthesian
         static float GetPositionX(float radius, float theta)
         {
             return radius * (float)Math.Cos(theta * Math.PI / 180);
@@ -24,8 +22,13 @@ namespace MATH
             return -radius * (float)Math.Sin(theta * Math.PI / 180);
         }
 
-        // Points Coordinates
-        public static float[,] GetCirclePointCoord(float fr, int iNumber)
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Get Basic 2D Shapes Coordinates
+        #region Circle
+        // Circle
+        // Get Points Coordinates
+        public static float[,] GetCirclePointCoord(float fr, short iNumber)
         {
             m_ArrfPointsCoord2D = new float[iNumber, 2];
 
@@ -40,7 +43,7 @@ namespace MATH
         #endregion
         #region Arc
         // Arc
-        public static float[,] GetArcPointCoord(float fr, int fStartAngle, int fEndAngle, int iNumber)
+        public static float[,] GetArcPointCoord(float fr, int fStartAngle, int fEndAngle, short iNumber)
         {
             m_ArrfPointsCoord2D = new float[iNumber, 2];
 
@@ -68,12 +71,14 @@ namespace MATH
 
         * Read more: http://www.answers.com/topic/ellipse#ixzz1UN0OIaGS
         */
-        public static float[,] GetEllipsePointCoord(float fa, float fb, float fAngle, int isteps)
+        public static float[,] GetEllipsePoints(float fx, float fy, float fa, float fb, float fAngle, short isteps)
         {
             //if (isteps == null)
             //    isteps = 36;
+            //if (fangle == null)
+            //    fangle = 0f;
 
-            float[,] farr_points = new float[isteps, 2];
+            m_ArrfPointsCoord2D = new float[isteps, 2];
 
             // Angle is given by Degree Value
             float fBeta = -fAngle * (MathF.fPI / 180f); //(Math.PI/180) converts Degree Value into Radians
@@ -89,48 +94,58 @@ namespace MATH
                 float fcosalpha = (float)Math.Cos(falpha);
 
                 // Clock-wise (for counterclock-wise change sign for vertical coordinate)
-                farr_points[iNodeTemp, 0] = fa * fcosalpha * fcosbeta - fb * fsinalpha * fsinbeta;      // Point x-coordinate
-                farr_points[iNodeTemp, 1] = -(fa * fcosalpha * fsinbeta + fb * fsinalpha * fcosbeta);      // Point y-coordinate
+                m_ArrfPointsCoord2D[iNodeTemp, 0] = fx + (fa * fcosalpha * fcosbeta - fb * fsinalpha * fsinbeta);      // Point x-coordinate
+                m_ArrfPointsCoord2D[iNodeTemp, 1] = fy - (fa * fcosalpha * fsinbeta + fb * fsinalpha * fcosbeta);      // Point y-coordinate
 
                 iNodeTemp++;
             }
-            return farr_points;
+            return m_ArrfPointsCoord2D;
         }
-
-        public static float[,] GetEllipsePoints(float fx, float fy, float fa, float fb, float fangle, int isteps)
+        public static float[,] GetEllipsePointCoord(float fa, float fb, float fAngle, short isteps)
         {
             //if (isteps == null)
             //    isteps = 36;
-            //if (fangle == null)
-            //    fangle = 0f;
 
-            float[,] farr_points = new float[isteps, 2];
+            m_ArrfPointsCoord2D = GetEllipsePoints(0.0f, 0.0f, fa, fb, fAngle, isteps);
+            return m_ArrfPointsCoord2D;
+        }
+        public static float[,] GetEllipsePointCoord(float fa, float fb, float fAngle)
+        {
+            m_ArrfPointsCoord2D = GetEllipsePointCoord(fa, fb, fAngle, 72);
+            return m_ArrfPointsCoord2D;
+        }
+        #endregion
 
-            // Angle is given by Degree Value
-            float fBeta = -fangle * (MathF.fPI / 180f); //(Math.PI/180) converts Degree Value into Radians
-            float fsinbeta = (float)Math.Sin(fBeta);
-            float fcosbeta = (float)Math.Cos(fBeta);
 
-            int iNodeTemp = 0; // Temporary Number of Current Point
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
-            for (int i = 0; i < 360; i += 360 / isteps)
+        private static float GetRadiusfromSideLength(float fa, short iNumEdges)
+        {
+            return fa / 2f * 1f / ((float)Math.Sin(360 / (2 * iNumEdges)));
+        }
+
+        // Regular Polygonal Shapes
+
+        #region n-Polygon
+        // (n) polygon
+        public static float[,] GetPolygonPointCoord(float fa, short iNumEdges)
+        {
+            m_ArrfPointsCoord2D = new float[iNumEdges, 2];
+
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            for (int i = 0; i < iNumEdges; i++)
             {
-                float falpha = i * (MathF.fPI / 180);
-                float fsinalpha = (float)Math.Sin(falpha);
-                float fcosalpha = (float)Math.Cos(falpha);
-
-                // Clock-wise (for counterclock-wise change sign for vertical coordinate)
-                farr_points[iNodeTemp, 0] = fx + (fa * fcosalpha * fcosbeta - fb * fsinalpha * fsinbeta);      // Point x-coordinate
-                farr_points[iNodeTemp, 1] = fy - (fa * fcosalpha * fsinbeta + fb * fsinalpha * fcosbeta);      // Point y-coordinate
-
-                iNodeTemp++;
+                m_ArrfPointsCoord2D[i, 0] = GetPositionX(GetRadiusfromSideLength(fa, iNumEdges), i * 360 / iNumEdges);  // y
+                m_ArrfPointsCoord2D[i, 1] = GetPositionY(GetRadiusfromSideLength(fa, iNumEdges), i * 360 / iNumEdges);  // z
             }
-            return farr_points;
+
+            return m_ArrfPointsCoord2D;
         }
         #endregion
         #region Triangle
         // Triangle
-        public static float[,] GetTrianEqLatPointCoord(float fa)
+        public static float[,] GetTrianEqLatPointCoord1(float fa)
         {
             m_ArrfPointsCoord2D = new float[3, 2];
 
@@ -148,6 +163,11 @@ namespace MATH
             m_ArrfPointsCoord2D[2, 0] = -m_ArrfPointsCoord2D[1, 0];           // y
             m_ArrfPointsCoord2D[2, 1] = m_ArrfPointsCoord2D[1, 1];            // z
 
+            return m_ArrfPointsCoord2D;
+        }
+        public static float[,] GetTrianEqLatPointCoord2(float fa)
+        {
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 3);
             return m_ArrfPointsCoord2D;
         }
         // Isosceles
@@ -195,7 +215,7 @@ namespace MATH
         #endregion
         #region Square
         // Square (4)
-        public static float[,] GetSquarePointCoord(float fa)
+        public static float[,] GetSquarePointCoord1(float fa)
         {
             m_ArrfPointsCoord2D = new float[4, 2];
 
@@ -217,6 +237,11 @@ namespace MATH
             m_ArrfPointsCoord2D[3, 0] = m_ArrfPointsCoord2D[0, 0];   // y
             m_ArrfPointsCoord2D[3, 1] = -m_ArrfPointsCoord2D[0, 1];  // z
 
+            return m_ArrfPointsCoord2D;
+        }
+        public static float[,] GetSquarePointCoord2(float fa)
+        {
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 4);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -247,23 +272,11 @@ namespace MATH
             return m_ArrfPointsCoord2D;
         }
         #endregion
-        // Regular Polygonal Shapes
-
-        private static float GetRadiusfromSideLength(float fa, short iNumEdges)
-        {
-            return fa / 2f * 1f / ((float)Math.Sin(360 / (2 * iNumEdges)));
-        }
-
         #region Pentagon
         // Pentagon (5)
         public static float[,] GetPentagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[5, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 5), 5);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 5);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -271,12 +284,7 @@ namespace MATH
         // Hexafgon (6)
         public static float[,] GetHexagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[6, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 6), 6);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 6);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -284,12 +292,7 @@ namespace MATH
         // Heptagon (7)
         public static float[,] GetHeptagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[7, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 7), 7);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 7);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -297,12 +300,7 @@ namespace MATH
         // Octagon  (8)
         public static float[,] GetOctagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[8, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 8), 8);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 8);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -310,12 +308,7 @@ namespace MATH
         // Nonagon  (9)
         public static float[,] GetNonagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[9, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 9), 9);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 9);
             return m_ArrfPointsCoord2D;
         }
         #endregion
@@ -323,12 +316,7 @@ namespace MATH
         // Decagon  (10)
         public static float[,] GetDecagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[10, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 10), 10);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 10);
             return m_ArrfPointsCoord2D;
         }
         #endregion        
@@ -336,41 +324,19 @@ namespace MATH
         // Hendecagon(11)
         public static float[,] GetHendecagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[11, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 11),11);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 11);
             return m_ArrfPointsCoord2D;
         }
         #endregion        
         #region Dodecagon
         // Dodecagon (12)
-        public static float[,] GetPentagonPointCoord(float fa)
+        public static float[,] GetDodecagonPointCoord(float fa)
         {
-            m_ArrfPointsCoord2D = new float[12, 2];
-
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, 12), 12);
-
+            m_ArrfPointsCoord2D = GetPolygonPointCoord(fa, 12);
             return m_ArrfPointsCoord2D;
         }
         #endregion
-        #region Polygon
-        // Nonagon  (n)
-        public static float[,] GetNonagonPointCoord(float fa, short iNumEdges)
-        {
-            m_ArrfPointsCoord2D = new float[iNumEdges, 2];
 
-            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            m_ArrfPointsCoord2D = GetCirclePointCoord(GetRadiusfromSideLength(fa, iNumEdges), iNumEdges);
-
-            return m_ArrfPointsCoord2D;
-        }
-        #endregion
 
 
 

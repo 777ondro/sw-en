@@ -15,7 +15,7 @@ namespace CENEX
         //----------------------------------------------------------------------------
         private float m_fh;   // Height/ Depth/ Vyska
         private float m_fb;   // Width  / Sirka
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
         public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ namespace CENEX
             set { m_fb = value; }
         }
 
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }

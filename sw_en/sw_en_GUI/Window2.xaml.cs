@@ -385,7 +385,7 @@ namespace sw_en_GUI
 
         private void load_0_02_03_TriangelIndices()
         {
-            const int secNum = 37;  // Number of points in section (2D) includes centroid
+            const int secNum = 73;  // Number of points in section (2D) includes centroid
             M_0_02_03_TriangelsIndices = new Int32Collection();
 
             // Front Side / Forehead
@@ -453,7 +453,7 @@ namespace sw_en_GUI
         private void load_0_22_23_TriangelIndices()
         {
             // const int secNum = 2*36;  // Number of points in section (2D)
-            const int secNum = 36; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
+            const int secNum = 72; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
 
             M_0_22_23_TriangelsIndices = new Int32Collection();
 
@@ -489,7 +489,7 @@ namespace sw_en_GUI
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, secNum+i, secNum + i+1, 2 * secNum + i +secNum + 1, 2 * secNum + i+ secNum);
+                    DrawRectangleIndices(M_0_22_23_TriangelsIndices, secNum + i, secNum + i + 1, 2 * secNum + i + secNum + 1, 2 * secNum + i + secNum);
                 else
                     DrawRectangleIndices(M_0_22_23_TriangelsIndices, 2 * secNum + i + 1, 2 * secNum + i + secNum, secNum + i, secNum); // Last Element
             }
@@ -646,14 +646,15 @@ namespace sw_en_GUI
 			CTest1 test1 = new CTest1();
 
             // Number of Points per section
-            int iNoCrScPoints2D = 37; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL,L, ..............
+            // short iNoCrScPoints2D = /* test1.objCrSc.INoPoints*/ 73; // Depends on Section Type - nacitavat priamo z objektu objCrSc // I,U,Z,HL,L, ..............
 
             // Points 2D Coordinate Array
 			// float[,] res = test1.objCrSc.m_CrScPoint; // I,U,Z,HL,L, ..............
 
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // Tube !!!
+            // Tube , hollow section !!!
+            short iNoCrScPoints2D = (short)(2*test1.objCrSc.INoPoints);
             float[,] res1 = test1.objCrSc.m_CrScPointOut; // TU
             float[,] res2 = test1.objCrSc.m_CrScPointIn; // TU
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -676,7 +677,7 @@ namespace sw_en_GUI
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            // Tube
+            // Tube, regular hollow sections
             // TU
 
             // Start

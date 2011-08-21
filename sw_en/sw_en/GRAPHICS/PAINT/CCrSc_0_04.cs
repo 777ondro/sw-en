@@ -15,7 +15,7 @@ namespace CENEX
 
         //----------------------------------------------------------------------------
         private float m_fa;   // Length of Side
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
         public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ namespace CENEX
             set { m_fa = value; }
         }
 
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
@@ -43,7 +43,7 @@ namespace CENEX
             // Create Array - allocate memory
             m_CrScPoint = new float[m_iTotNoPoints, 2];
             // Fill Array Data
-            m_CrScPoint = Geom2D.GetTrianEqLatPointCoord(m_fa);
+            m_CrScPoint = Geom2D.GetTrianEqLatPointCoord1(m_fa);
         }
 
         private float m_fh;  // Height
