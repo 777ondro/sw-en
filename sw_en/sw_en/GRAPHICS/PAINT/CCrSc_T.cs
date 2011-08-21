@@ -49,7 +49,7 @@ namespace CENEX
         private float m_ft_f; // Flange Thickness / Hrubka pasnice
         private float m_ft_w; // Web Thickness  / Hrubka steny/stojiny
         private float m_fz_c; // Centroid coordinate / Suradnica tažiska / Absolute value
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
         public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ namespace CENEX
           get { return m_fz_c; }
           set { m_fz_c = value; }
         }
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }

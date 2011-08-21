@@ -50,7 +50,7 @@ namespace CENEX
         private float m_fb;   // Flange Width  / Sirka Pasnice
         private float m_ft_f; // Flange Thickness / Hrubka pasnice
         private float m_ft_w; // Web Thickness  / Hrubka steny/stojiny
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
         public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
@@ -74,7 +74,7 @@ namespace CENEX
             get { return m_ft_w; }
             set { m_ft_w = value; }
         }
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }

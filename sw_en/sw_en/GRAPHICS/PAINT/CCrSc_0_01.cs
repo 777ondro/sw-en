@@ -15,7 +15,7 @@ namespace CENEX
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
-        private int m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
+        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
         public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ namespace CENEX
             set { m_fd = value; }
         }
 
-        public int ITotNoPoints
+        public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
@@ -37,7 +37,7 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public CCrSc_0_01()  {   }
-        public CCrSc_0_01(float fd, int iTotNoPoints)
+        public CCrSc_0_01(float fd, short iTotNoPoints)
         {
             // m_iTotNoPoints = 20+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;

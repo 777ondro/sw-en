@@ -39,8 +39,8 @@ namespace CENEX
         // public CCrSc_0_00 objCrSc = new CCrSc_0_00(100, 20);
         // public CCrSc_0_01 objCrSc = new CCrSc_0_01(100, 20);
         // public CCrSc_0_03 objCrSc = new CCrSc_0_03(100, 50,37);
-        // public CCrSc_0_22 objCrSc = new CCrSc_0_22(200, 10, 36);
-        public CCrSc_0_23 objCrSc = new CCrSc_0_23(200, 100, 5, 36);
+        public CCrSc_0_22 objCrSc = new CCrSc_0_22(200, 10);
+        // public CCrSc_0_23 objCrSc = new CCrSc_0_23(200, 100, 5);
         // public CCrSc_0_24 objCrSc = new CCrSc_0_24(100, 10);
 
         public CTest1()
