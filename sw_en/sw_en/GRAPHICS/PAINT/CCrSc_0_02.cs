@@ -75,7 +75,7 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPoint = Geom2D.GetCirclePointCoord(m_fr_out, (short)((int)ITotNoPoints-1));
+            m_CrScPoint = Geom2D.GetCirclePointCoord(m_fr_out, ITotNoPoints);
 
             // Centroid
             m_CrScPoint[ITotNoPoints-1, 0] = 0f;
