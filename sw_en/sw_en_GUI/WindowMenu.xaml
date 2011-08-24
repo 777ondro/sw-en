@@ -22,7 +22,7 @@
 			<ColumnDefinition Width="3*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<GroupBox  Grid.Row="0" Grid.Column="0" Header="Rolled Cross-Sections">
-			<Grid>
+			<Grid x:Name="myGrid">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
@@ -35,7 +35,7 @@
 				</Grid.ColumnDefinitions>
 				
 				<Button Grid.Row="0" Grid.Column="0" Click="Button00_Click">
-					<Image x:Name="imageButton00"></Image>
+					<Image x:Name="imageButton00" x:FieldModifier="public"></Image>
 				</Button>
 				<Button Grid.Row="0" Grid.Column="1" Click="Button01_Click">
 					<Image x:Name="imageButton01"></Image>
