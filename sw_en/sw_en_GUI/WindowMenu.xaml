@@ -63,6 +63,8 @@
 				</Button>
 			</Grid>
 		</GroupBox >
-		<Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Width="100" Content="Cancel" Click="Button01_Click"></Button>
-		</Grid>
+		
+		<Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Width="100" Content="Cancel" Name="buttonCancel" Click="buttonCancel_Click"></Button>
+		<DataGrid AutoGenerateColumns="True" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" />
+	</Grid>
 </Window>
