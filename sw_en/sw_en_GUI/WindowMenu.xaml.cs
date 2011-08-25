@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Reflection;
+using System.Data.SQLite;
+using System.Data;
 
 namespace sw_en_GUI
 {
@@ -49,15 +51,32 @@ namespace sw_en_GUI
 
         private void Button02_Click(object sender, RoutedEventArgs e)
         {
-			//string connString = String.Format("Data Source={0};New=True;Version=3", "test.db3");
+			string connString = String.Format("Data Source={0};New=True;Version=3", "test.db");
 
-			//SQLiteConnection sqlconn = new SQLiteConnection(connString);
+			SQLiteConnection sqlconn = new SQLiteConnection(connString);
 
-			//sqlconn.Open();
+			sqlconn.Open();
 
-			//lblconnected.Text = "YES";
+			SQLiteCommand cmd = sqlconn.CreateCommand();
+			string CommandText = "SELECT * FROM CONCRETE";
+			cmd.CommandText = CommandText;
 
-			//sqlconn.Close();
+			//SQLiteDataReader reader = cmd.ExecuteReader();
+			//List<string> list = new List<string>();
+			//while (reader.Read()) 
+			//{
+			//    list.Add(reader["mat_name"].ToString());
+			//}
+
+			//dataGrid1.ItemsSource = list;
+
+			SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sqlconn);
+			DataSet DS = new DataSet();
+			DS.Reset();
+			DB.Fill(DS);
+			DataTable DT = DS.Tables[0];
+			dataGrid1.ItemsSource = DT.DefaultView; 
+			sqlconn.Close();
         }
 
         private void Button03_Click(object sender, RoutedEventArgs e)
@@ -69,5 +88,10 @@ namespace sw_en_GUI
         {
 
         }
+
+		private void buttonCancel_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
 	}
 }
