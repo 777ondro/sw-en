@@ -173,12 +173,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="bin\Debug\test.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\test.db" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\3DTools-1.0-src\3DTools\3DTools.csproj">
