@@ -28,13 +28,14 @@ namespace CENEX
         // public CCrSc_0_04 objCrSc = new CCrSc_0_04(100, 40);
         // public CCrSc_0_04 objCrSc = new CCrSc_0_04(-100, -40, 100,0, 0,50);
         public CCrSc_0_05 objCrScWF = new CCrSc_0_05(100, 50);
+        public CCrSc_0_20 objCrScHollow = new CCrSc_0_20(200, 10);
         // public CCrSc_0_22 objCrScHollow = new CCrSc_0_22(200, 10);
         // public CCrSc_0_23 objCrScHollow = new CCrSc_0_23(200, 100, 5);
         // public CCrSc_0_24 objCrScHollow = new CCrSc_0_24(100, 10);
         // public CCrSc_0_25 objCrScHollow = new CCrSc_HL(200, 100, 10, 5);
         // public CCrSc_0_26 objCrScHollow = new CCrSc_0_26(200,10);
         // public CCrSc_0_27 objCrScHollow = new CCrSc_0_27(200, 10);
-        public CCrSc_0_28 objCrScHollow = new CCrSc_0_28(200, 10);
+        // public CCrSc_0_28 objCrScHollow = new CCrSc_0_28(200, 10);
         // public CCrSc_0_50 objCrScSolid = new CCrSc_0_50(200,100,10,5);
         // public CCrSc_0_50 objCrScSolid = new CCrSc_0_50(200, 100, 150, 10, 15, 5, 70);
         // public CCrSc_0_52 objCrScSolid = new CCrSc_0_52(200, 100, 10, 5, 30);
