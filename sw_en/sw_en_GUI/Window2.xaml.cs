@@ -31,7 +31,7 @@ namespace sw_en_GUI
         
         // Shape Type
         // Auxiliary identification of shape
-        short sShapeType = 0; // 0 - solid, 1 - hollow
+        short sShapeType = 1; // 0 - solid, 1 - hollow
 
         // Collection of Indices for Various Sections
         private Int32Collection M_TriangelsIndices;
@@ -217,6 +217,46 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 1, 5, 6, 2);
             DrawRectangleIndices(M_TriangelsIndices, 2, 6, 7, 3);
             DrawRectangleIndices(M_TriangelsIndices, 3, 7, 4, 0);
+        }
+
+        private void load_0_20_TriangelIndices()
+        {
+            const int secNum = 37;  // Number of points in section (2D) 36+1 -centroid
+            M_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+
+            for (int i = 0; i < secNum-1; i++)
+            {
+                if (i < secNum - 2)
+                    DrawRectangleIndices(M_TriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
+                else
+                    DrawRectangleIndices(M_TriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
+            }
+
+            // Back Side
+            for (int i = 0; i < secNum-1; i++)
+            {
+                if (i < secNum - 2)
+                    DrawRectangleIndices(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
+                else
+                    DrawRectangleIndices(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
+            }
+
+            //// Shell Surface OutSide
+            for (int i = 0; i < secNum - 2; i++)
+            {
+                DrawRectangleIndices(M_TriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
+            }
+            // Shell Surface Inside
+            for (int i = 0; i < secNum - 2; i++)
+            {
+                DrawRectangleIndices(M_TriangelsIndices, secNum + i, secNum + i + 1, 2 * secNum + i + secNum + 1, 2 * secNum + i + secNum);
+            }
+
+            // Base
+            DrawRectangleIndices(M_TriangelsIndices, 0, secNum, 3 * secNum, 2 * secNum);
+            DrawRectangleIndices(M_TriangelsIndices, secNum - 2,  3 * secNum - 2, 4 * secNum-2, secNum + (secNum - 2));
         }
 
         private void load_0_22_23_TriangelIndices()
@@ -474,13 +514,15 @@ namespace sw_en_GUI
             // Temp
             // Half Circle Bar
             // Quater Circle Bar
-            load_0_00_01_TriangelsIndices();
+            // load_0_00_01_TriangelsIndices();
             // Round or Ellipse Bar
             // load_0_02_03_TriangelIndices();
             // Triangular Prism 
             //load_0_04_TriangelsIndices();
             // Flat Bar
             //load_0_05_TriangelIndices();
+            // Half Circle
+            load_0_20_TriangelIndices();
             // TUBE / PIPE Circle or Ellipse Shape
             //load_0_22_23_TriangelIndices();
             // Triangular Prism with Opening
@@ -532,7 +574,7 @@ namespace sw_en_GUI
             // Number of Points per section
             short iNoCrScPoints2D;
             // Length of Element
-            float fELength = -2000; // Temporary load flor Member Segment geometry
+            float fELength = -500; // Temporary load flor Member Segment geometry
 
             // Points 2D Coordinate Array
 

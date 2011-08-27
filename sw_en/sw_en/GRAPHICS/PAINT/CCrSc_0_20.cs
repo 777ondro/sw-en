@@ -47,7 +47,7 @@ namespace CENEX
         public CCrSc_0_20()  {   }
         public CCrSc_0_20(float fd, float ft, short iNoPoints)
         {
-            m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
+            m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid
             m_fd = fd;
             m_ft = ft;
 
@@ -69,7 +69,7 @@ namespace CENEX
         }
         public CCrSc_0_20(float fd, float ft)
         {
-            m_iNoPoints = 36; // vykreslujeme ako n-uholnik, pocet bodov n
+            m_iNoPoints = 37; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid 
             m_fd = fd;
             m_ft = ft;
 
@@ -96,10 +96,10 @@ namespace CENEX
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPointOut = Geom2D.GetArcPointCoord(m_fr_out, 0,180, INoPoints);
+            m_CrScPointOut = Geom2D.GetArcPointCoord(m_fr_out, 180, 360, INoPoints);
 
             // Inside Points
-            m_CrScPointIn = Geom2D.GetArcPointCoord(m_fr_in, 0, 180, INoPoints);
+            m_CrScPointIn = Geom2D.GetArcPointCoord(m_fr_in, 180, 360, INoPoints);
         }
     }
 }
