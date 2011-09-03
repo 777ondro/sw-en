@@ -413,19 +413,15 @@ namespace M_EC2
                 bool bLimit2 = true;
                 // Buckling and Bending
 
-                float fM_Rd_temp=0f, fDesRatio_Temp=0f;
-                
+                // Note
+                // pre referenciu ref alebo out - argument s ref musi byt inicializovany, out nie 
                 if (m_fM_Ed_1_y != 0.0f)
                 {
-                    EC2_Buckling_Bending(m_fM_Ed_y, bLimit2, fM_Rd_temp, fDesRatio_Temp);
-                    FM_Rd_y = fM_Rd_temp;
-                    FDesRatio = fDesRatio_Temp;
+                    EC2_Buckling_Bending(m_fM_Ed_y, bLimit2, out m_fM_Rd_y, out m_fDesRatio1);
                 }
                 if (m_fM_Ed_1_z != 0.0f)
                 {
-                    EC2_Buckling_Bending(m_fM_Ed_z, bLimit2, fM_Rd_temp, fDesRatio_Temp);
-                    FM_Rd_z = fM_Rd_temp;
-                    FDesRatio = fDesRatio_Temp;
+                    EC2_Buckling_Bending(m_fM_Ed_z, bLimit2, out m_fM_Rd_z, out m_fDesRatio2);
                 }
 
 
@@ -574,7 +570,10 @@ namespace M_EC2
         }
 
         // Flexural-Buckling and Single Bending
-        public void EC2_Buckling_Bending(float fM_Ed, bool bLimit2, float fM_Rd_min, float fDesRatio)
+        // Note
+        // pre referenciu ref alebo out - argument s ref musi byt inicializovany, out nie 
+
+        public void EC2_Buckling_Bending(float fM_Ed, bool bLimit2, out float fM_Rd_min, out float fDesRatio)
         {
             // bLimit2 = true; // Limit!
 
@@ -653,9 +652,9 @@ namespace M_EC2
         float fa = Get_a_Table(fRatio_N_Ed_N_Rd);
         float fRatio_M = Eq_DesRatio(m_fM_Ed_y, m_fM_Ed_z, m_fM_Rd_y, m_fM_Rd_z, fa);
 
-        float fRatio_N_Ed_N_eu = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), m_fN_eu);
+        float fRatio_N_Ed_N_eu = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), Math.Abs(m_fN_eu));
 
-        m_fDesRatio = MathF.Min(fRatio_N_Ed_N_Rd, fRatio_M, fRatio_N_Ed_N_eu);
+        m_fDesRatio = MathF.Max(fRatio_N_Ed_N_Rd, fRatio_M, fRatio_N_Ed_N_eu);
         }
 
 

@@ -323,8 +323,6 @@ namespace M_EC2
             // Načítanie dat
             Load_data();
 
-
-
             // Vypocet vstupov 
             // Premenne ktore je mozne spocitat pred hlavnym vypoctom
             // Sive policka
@@ -482,8 +480,6 @@ namespace M_EC2
             {
                 MessageBox.Show(sHeaderFormatError, sTextFormatError);
             }
-
-
        }
 
         public void TestCode_data()
