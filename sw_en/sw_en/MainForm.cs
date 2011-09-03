@@ -121,7 +121,7 @@ namespace CENEX
         }
         private void eC2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EN1992_1_1Form obj_EN1992_1_1Form = new EN1992_1_1Form();
+            Form_M_EC2 obj_EN1992_1_1Form = new Form_M_EC2();
             obj_EN1992_1_1Form.ShowDialog();
         }
         private void eC3ToolStripMenuItem_Click(object sender, EventArgs e)
