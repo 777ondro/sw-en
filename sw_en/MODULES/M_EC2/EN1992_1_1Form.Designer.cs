@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.d_b_textB = new System.Windows.Forms.TextBox();
+            this.Value_b = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.d_h_textB = new System.Windows.Forms.TextBox();
-            this.d_A_textB = new System.Windows.Forms.TextBox();
+            this.Value_h = new System.Windows.Forms.TextBox();
+            this.Value_A = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Calculate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.d_Iy_textB = new System.Windows.Forms.TextBox();
-            this.d_Iz_textB = new System.Windows.Forms.TextBox();
+            this.Value_Iy = new System.Windows.Forms.TextBox();
+            this.Value_Iz = new System.Windows.Forms.TextBox();
             this.Value_f_ctm = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -133,20 +133,30 @@
             this.Value_c_y = new System.Windows.Forms.TextBox();
             this.Value_c_z = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.Value_d_ss = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.Value_A_ss = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.Value_ss = new System.Windows.Forms.TextBox();
             this.label56 = new System.Windows.Forms.Label();
+            this.Value_tb = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.Value_E_s = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.Value_f_yk = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.Value_Gamma_Ms = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.Value_f_uk = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // d_b_textB
+            // Value_b
             // 
-            this.d_b_textB.Location = new System.Drawing.Point(698, 119);
-            this.d_b_textB.Name = "d_b_textB";
-            this.d_b_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_b_textB.TabIndex = 0;
+            this.Value_b.Location = new System.Drawing.Point(698, 119);
+            this.Value_b.Name = "Value_b";
+            this.Value_b.Size = new System.Drawing.Size(66, 20);
+            this.Value_b.TabIndex = 0;
             // 
             // label1
             // 
@@ -176,20 +186,20 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "h =";
             // 
-            // d_h_textB
+            // Value_h
             // 
-            this.d_h_textB.Location = new System.Drawing.Point(698, 148);
-            this.d_h_textB.Name = "d_h_textB";
-            this.d_h_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_h_textB.TabIndex = 4;
+            this.Value_h.Location = new System.Drawing.Point(698, 148);
+            this.Value_h.Name = "Value_h";
+            this.Value_h.Size = new System.Drawing.Size(66, 20);
+            this.Value_h.TabIndex = 4;
             // 
-            // d_A_textB
+            // Value_A
             // 
-            this.d_A_textB.Location = new System.Drawing.Point(698, 174);
-            this.d_A_textB.Name = "d_A_textB";
-            this.d_A_textB.ReadOnly = true;
-            this.d_A_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_A_textB.TabIndex = 5;
+            this.Value_A.Location = new System.Drawing.Point(698, 174);
+            this.Value_A.Name = "Value_A";
+            this.Value_A.ReadOnly = true;
+            this.Value_A.Size = new System.Drawing.Size(66, 20);
+            this.Value_A.TabIndex = 5;
             // 
             // label4
             // 
@@ -228,21 +238,21 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Ib.z =";
             // 
-            // d_Iy_textB
+            // Value_Iy
             // 
-            this.d_Iy_textB.Location = new System.Drawing.Point(698, 201);
-            this.d_Iy_textB.Name = "d_Iy_textB";
-            this.d_Iy_textB.ReadOnly = true;
-            this.d_Iy_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_Iy_textB.TabIndex = 10;
+            this.Value_Iy.Location = new System.Drawing.Point(698, 201);
+            this.Value_Iy.Name = "Value_Iy";
+            this.Value_Iy.ReadOnly = true;
+            this.Value_Iy.Size = new System.Drawing.Size(66, 20);
+            this.Value_Iy.TabIndex = 10;
             // 
-            // d_Iz_textB
+            // Value_Iz
             // 
-            this.d_Iz_textB.Location = new System.Drawing.Point(698, 228);
-            this.d_Iz_textB.Name = "d_Iz_textB";
-            this.d_Iz_textB.ReadOnly = true;
-            this.d_Iz_textB.Size = new System.Drawing.Size(66, 20);
-            this.d_Iz_textB.TabIndex = 11;
+            this.Value_Iz.Location = new System.Drawing.Point(698, 228);
+            this.Value_Iz.Name = "Value_Iz";
+            this.Value_Iz.ReadOnly = true;
+            this.Value_Iz.Size = new System.Drawing.Size(66, 20);
+            this.Value_Iz.TabIndex = 11;
             // 
             // Value_f_ctm
             // 
@@ -422,9 +432,9 @@
             "ø 28",
             "ø 32",
             "ø 36"});
-            this.comboBox4.Location = new System.Drawing.Point(472, 121);
+            this.comboBox4.Location = new System.Drawing.Point(503, 222);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(99, 21);
+            this.comboBox4.Size = new System.Drawing.Size(68, 21);
             this.comboBox4.TabIndex = 28;
             this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
@@ -457,7 +467,7 @@
             "ø 28",
             "ø 32",
             "ø 36"});
-            this.ComboBox_Rein3.Location = new System.Drawing.Point(442, 177);
+            this.ComboBox_Rein3.Location = new System.Drawing.Point(442, 278);
             this.ComboBox_Rein3.Name = "ComboBox_Rein3";
             this.ComboBox_Rein3.Size = new System.Drawing.Size(129, 21);
             this.ComboBox_Rein3.TabIndex = 29;
@@ -465,7 +475,7 @@
             // 
             // Value_As
             // 
-            this.Value_As.Location = new System.Drawing.Point(505, 227);
+            this.Value_As.Location = new System.Drawing.Point(505, 328);
             this.Value_As.Name = "Value_As";
             this.Value_As.ReadOnly = true;
             this.Value_As.Size = new System.Drawing.Size(66, 20);
@@ -474,7 +484,7 @@
             // Label_As
             // 
             this.Label_As.AutoSize = true;
-            this.Label_As.Location = new System.Drawing.Point(439, 230);
+            this.Label_As.Location = new System.Drawing.Point(439, 331);
             this.Label_As.Name = "Label_As";
             this.Label_As.Size = new System.Drawing.Size(28, 13);
             this.Label_As.TabIndex = 30;
@@ -878,7 +888,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(439, 126);
+            this.label39.Location = new System.Drawing.Point(439, 227);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(27, 13);
             this.label39.TabIndex = 79;
@@ -887,7 +897,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(439, 100);
+            this.label40.Location = new System.Drawing.Point(439, 201);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(64, 13);
             this.label40.TabIndex = 80;
@@ -1103,13 +1113,6 @@
             this.label52.TabIndex = 105;
             this.label52.Text = "cz =";
             // 
-            // Value_d_ss
-            // 
-            this.Value_d_ss.Location = new System.Drawing.Point(505, 402);
-            this.Value_d_ss.Name = "Value_d_ss";
-            this.Value_d_ss.Size = new System.Drawing.Size(66, 20);
-            this.Value_d_ss.TabIndex = 108;
-            // 
             // label53
             // 
             this.label53.AutoSize = true;
@@ -1152,16 +1155,137 @@
             this.label56.TabIndex = 113;
             this.label56.Text = "ss =";
             // 
+            // Value_tb
+            // 
+            this.Value_tb.Location = new System.Drawing.Point(505, 529);
+            this.Value_tb.Name = "Value_tb";
+            this.Value_tb.Size = new System.Drawing.Size(66, 20);
+            this.Value_tb.TabIndex = 116;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(439, 532);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(25, 13);
+            this.label55.TabIndex = 115;
+            this.label55.Text = "tb =";
+            // 
+            // Value_E_s
+            // 
+            this.Value_E_s.Location = new System.Drawing.Point(505, 148);
+            this.Value_E_s.Name = "Value_E_s";
+            this.Value_E_s.ReadOnly = true;
+            this.Value_E_s.Size = new System.Drawing.Size(66, 20);
+            this.Value_E_s.TabIndex = 120;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(439, 151);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(28, 13);
+            this.label57.TabIndex = 119;
+            this.label57.Text = "Es =";
+            // 
+            // Value_f_yk
+            // 
+            this.Value_f_yk.Location = new System.Drawing.Point(505, 91);
+            this.Value_f_yk.Name = "Value_f_yk";
+            this.Value_f_yk.ReadOnly = true;
+            this.Value_f_yk.Size = new System.Drawing.Size(66, 20);
+            this.Value_f_yk.TabIndex = 118;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(439, 94);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(30, 13);
+            this.label58.TabIndex = 117;
+            this.label58.Text = "fyk =";
+            // 
+            // Value_Gamma_Ms
+            // 
+            this.Value_Gamma_Ms.Location = new System.Drawing.Point(503, 174);
+            this.Value_Gamma_Ms.Name = "Value_Gamma_Ms";
+            this.Value_Gamma_Ms.Size = new System.Drawing.Size(68, 20);
+            this.Value_Gamma_Ms.TabIndex = 122;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(439, 177);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(36, 13);
+            this.label59.TabIndex = 121;
+            this.label59.Text = "γMs =";
+            // 
+            // Value_f_uk
+            // 
+            this.Value_f_uk.Location = new System.Drawing.Point(505, 122);
+            this.Value_f_uk.Name = "Value_f_uk";
+            this.Value_f_uk.ReadOnly = true;
+            this.Value_f_uk.Size = new System.Drawing.Size(66, 20);
+            this.Value_f_uk.TabIndex = 124;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(439, 125);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(31, 13);
+            this.label60.TabIndex = 123;
+            this.label60.Text = "fuk =";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "ø 4,0",
+            "ø 4,5",
+            "ø 5,0",
+            "ø 5,5",
+            "ø 6,0",
+            "ø 6,5",
+            "ø 7,0",
+            "ø 8,0",
+            "ø 10",
+            "ø 12",
+            "ø 14",
+            "ø 16",
+            "ø 18",
+            "ø 20",
+            "ø 22",
+            "ø 25",
+            "ø 28",
+            "ø 32",
+            "ø 36"});
+            this.comboBox5.Location = new System.Drawing.Point(505, 397);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(68, 21);
+            this.comboBox5.TabIndex = 125;
+            // 
             // EN1992_1_1Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 745);
+            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.Value_f_uk);
+            this.Controls.Add(this.label60);
+            this.Controls.Add(this.Value_Gamma_Ms);
+            this.Controls.Add(this.label59);
+            this.Controls.Add(this.Value_E_s);
+            this.Controls.Add(this.label57);
+            this.Controls.Add(this.Value_f_yk);
+            this.Controls.Add(this.label58);
+            this.Controls.Add(this.Value_tb);
+            this.Controls.Add(this.label55);
             this.Controls.Add(this.Value_ss);
             this.Controls.Add(this.label56);
             this.Controls.Add(this.Value_A_ss);
             this.Controls.Add(this.label54);
-            this.Controls.Add(this.Value_d_ss);
             this.Controls.Add(this.label53);
             this.Controls.Add(this.Value_c_z);
             this.Controls.Add(this.label52);
@@ -1256,18 +1380,18 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.Value_f_ck);
-            this.Controls.Add(this.d_Iz_textB);
-            this.Controls.Add(this.d_Iy_textB);
+            this.Controls.Add(this.Value_Iz);
+            this.Controls.Add(this.Value_Iy);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Calculate);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.d_A_textB);
-            this.Controls.Add(this.d_h_textB);
+            this.Controls.Add(this.Value_A);
+            this.Controls.Add(this.Value_h);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.d_b_textB);
+            this.Controls.Add(this.Value_b);
             this.Name = "EN1992_1_1Form";
             this.Text = "EN 1992-1-1";
             this.ResumeLayout(false);
@@ -1277,18 +1401,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox d_b_textB;
+        private System.Windows.Forms.TextBox Value_b;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox d_h_textB;
-        private System.Windows.Forms.TextBox d_A_textB;
+        private System.Windows.Forms.TextBox Value_h;
+        private System.Windows.Forms.TextBox Value_A;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button Calculate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox d_Iy_textB;
-        private System.Windows.Forms.TextBox d_Iz_textB;
+        private System.Windows.Forms.TextBox Value_Iy;
+        private System.Windows.Forms.TextBox Value_Iz;
         private System.Windows.Forms.TextBox Value_f_ctm;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -1382,12 +1506,22 @@
         private System.Windows.Forms.TextBox Value_c_y;
         private System.Windows.Forms.TextBox Value_c_z;
         private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.TextBox Value_d_ss;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.TextBox Value_A_ss;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.TextBox Value_ss;
         private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.TextBox Value_tb;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.TextBox Value_E_s;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox Value_f_yk;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.TextBox Value_Gamma_Ms;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox Value_f_uk;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.ComboBox comboBox5;
     }
 }
 

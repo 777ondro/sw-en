@@ -346,7 +346,6 @@ return (unsigned short)(root >> 1);
  }
 */
 
-        /*
         public static float Sqrt(float num)
         {
             if (num >= 0)
@@ -362,8 +361,9 @@ return (unsigned short)(root >> 1);
             else
                 return 1f; // Exception
         }
-        */
 
+
+        /*
         public static float Sqrt(float value)
         {
             if (value > 0f)
@@ -390,6 +390,8 @@ return (unsigned short)(root >> 1);
             else
                 return 1f;
         }
+
+        */
         #endregion
         //----------------------------------------------------------------------------------------------------------------------------
         // Constants / Konstatny 
