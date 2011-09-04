@@ -376,21 +376,10 @@ namespace M_EC2
 
                 // Note
                 // pre referenciu ref alebo out - argument s ref musi byt inicializovany, out nie 
-                if (m_fM_Ed_1_y != 0.0f)
-                {
-                    EC2_Buckling_Bending(sResults.m_fM_Ed_y, bLimit2, out sResults.m_fM_Rd_y, out sResults.m_fDesRatio1);
-                }
-                if (m_fM_Ed_1_z != 0.0f)
-                {
-                    EC2_Buckling_Bending(sResults.m_fM_Ed_z, bLimit2, out sResults.m_fM_Rd_z, out sResults.m_fDesRatio2);
-                }
 
-
-                // Final Check
-
-                EC2_Buckling_BiBending();
-
-
+                EC2_Buckling_Bending(sResults.m_fM_Ed_y, bLimit2, out sResults.m_fM_Rd_y, out sResults.m_fDesRatio1);
+                EC2_Buckling_Bending(sResults.m_fM_Ed_z, bLimit2, out sResults.m_fM_Rd_z, out sResults.m_fDesRatio2);
+                EC2_Buckling_BiBending(); // Final Check
             }
             else
             {
@@ -627,6 +616,7 @@ namespace M_EC2
         float fRatio_My = Eq_Ratio_M_Ed_M_Rd(sResults.m_fM_Ed_y, sResults.m_fM_Rd_y);
         float fRatio_Mz = Eq_Ratio_M_Ed_M_Rd(sResults.m_fM_Ed_z, sResults.m_fM_Rd_z);
         sResults.m_fa = Get_a_Table(fRatio_N_Ed_N_Rd);
+
         float fRatio_M = Eq_DesRatio(sResults.m_fM_Ed_y, sResults.m_fM_Ed_z, sResults.m_fM_Rd_y, sResults.m_fM_Rd_z, sResults.m_fa);
 
         float fRatio_N_Ed_N_eu = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), Math.Abs(sResults.m_fN_eu));
