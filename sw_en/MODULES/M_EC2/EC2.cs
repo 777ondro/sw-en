@@ -200,77 +200,7 @@ namespace M_EC2
         // Output
         // Resistances and Design Ratio
 
-        public float m_fPhi_y_ef;
-        public float m_fPhi_z_ef;
-
-        public float m_fM_Ed_y;
-        public float m_fM_Ed_z;
-
-        public float m_fe_tot_z;
-        public float m_fe_tot_y;
-
-        public float m_fLambda_y;
-        public float m_fLambda_z;
-
-        private float m_fN_Rd;
-
-        public float FN_Rd
-        {
-            get { return m_fN_Rd; }
-            set { m_fN_Rd = value; }
-        }
-
-        float m_fN_eu;
-
-        public float FN_eu
-        {
-            get { return m_fN_eu; }
-            set { m_fN_eu = value; }
-        }
-
-        private float m_fM_Rd_y;
-
-        public float FM_Rd_y
-        {
-            get { return m_fM_Rd_y; }
-            set { m_fM_Rd_y = value; }
-        }
-
-        private float m_fM_Rd_z;
-
-        public float FM_Rd_z
-        {
-            get { return m_fM_Rd_z; }
-            set { m_fM_Rd_z = value; }
-        }
-
-
-
-
-
-        private float m_fDesRatio1;
-
-        public float FDesRatio1
-        {
-            get { return m_fDesRatio1; }
-            set { m_fDesRatio1 = value; }
-        }
-
-        private float m_fDesRatio2;
-
-        public float FDesRatio2
-        {
-            get { return m_fDesRatio2; }
-            set { m_fDesRatio2 = value; }
-        }
-
-        private float m_fDesRatio;
-
-        public float FDesRatio
-        {
-            get { return m_fDesRatio; }
-            set { m_fDesRatio = value; }
-        }
+        public sRes sResults;
 
         // Konstruktor
         public EC2(float fN_Ed,
@@ -394,18 +324,49 @@ namespace M_EC2
 
 
             //Calculation
-            // Cross-Section Properties
-            EC2_CrScProp();
 
             // Design - temporary
             if (m_fN_Ed > 0.0f)
                 EC2_2_TAH();
-            else if (m_fN_Ed < 0.0f && !m_bStabBuck)
-                EC2_3_TLAK();
-            else if (m_fN_Ed == 0.0f && FM_Ed_1_y != 0.0f)
-                EC2_4_OHYB(Ff_cd, ff_yd, fA_s, fb, fh, fLambda, FM_Ed_1_y, m_fM_Rd_y, m_fDesRatio); // Design
-            else if (m_fN_Ed == 0.0f && FM_Ed_1_z != 0.0f)
-                EC2_4_OHYB(Ff_cd, ff_yd, fA_s, fh, fb, fLambda, FM_Ed_1_z, m_fM_Rd_z, m_fDesRatio); // Design
+            else if (m_fN_Ed < 0.0f && MathF.d_equal(FM_Ed_1_y, 0.0f) && MathF.d_equal(FM_Ed_1_z, 0.0f))
+            {
+                if (!m_bStabBuck)
+                    EC2_3_TLAK(); // No Buckling
+                else
+                {
+                    EC2_Buckling();  // Buckling
+                    sResults.m_fDesRatio1 = sResults.m_fDesRatio2 = 0f;
+
+                    // Final Check
+                    bool bLimit2 = true;
+                    EC2_Buckling_Bending(sResults.m_fM_Ed_y, bLimit2, out sResults.m_fM_Rd_y, out sResults.m_fDesRatio1);
+                    EC2_Buckling_Bending(sResults.m_fM_Ed_z, bLimit2, out sResults.m_fM_Rd_z, out sResults.m_fDesRatio2);
+                    EC2_Buckling_BiBending();
+                }
+            }
+            else if (m_fN_Ed == 0.0f)
+            {
+               if(FM_Ed_1_y != 0.0f)
+                EC2_4_OHYB(Ff_cd, ff_yd, fA_s, fb, fh, fLambda, FM_Ed_1_y, out sResults.m_fM_Rd_y, out sResults.m_fDesRatio1); // Design
+
+               if (FM_Ed_1_z != 0.0f)
+                EC2_4_OHYB(Ff_cd, ff_yd, fA_s, fh, fb, fLambda, FM_Ed_1_z, out sResults.m_fM_Rd_z, out sResults.m_fDesRatio2); // Design
+
+               if ((!MathF.d_equal(FM_Ed_1_y, 0.0f)) && (MathF.d_equal(FM_Ed_1_z, 0.0f)))
+               {
+                   sResults.m_fDesRatio = sResults.m_fDesRatio1;
+                   sResults.m_fDesRatio2 = 0f;
+               }
+               else if ((MathF.d_equal(FM_Ed_1_y, 0.0f)) && (!MathF.d_equal(FM_Ed_1_z, 0.0f)))
+               {
+                   sResults.m_fDesRatio = sResults.m_fDesRatio2;
+                   sResults.m_fDesRatio1 = 0f;
+               }
+               else
+               {
+                   EC2_BiBending();
+               }
+            }
             else if (m_fN_Ed < 0.0f && m_bStabBuck)
             {
                 EC2_Buckling();  // Buckling 
@@ -417,11 +378,11 @@ namespace M_EC2
                 // pre referenciu ref alebo out - argument s ref musi byt inicializovany, out nie 
                 if (m_fM_Ed_1_y != 0.0f)
                 {
-                    EC2_Buckling_Bending(m_fM_Ed_y, bLimit2, out m_fM_Rd_y, out m_fDesRatio1);
+                    EC2_Buckling_Bending(sResults.m_fM_Ed_y, bLimit2, out sResults.m_fM_Rd_y, out sResults.m_fDesRatio1);
                 }
                 if (m_fM_Ed_1_z != 0.0f)
                 {
-                    EC2_Buckling_Bending(m_fM_Ed_z, bLimit2, out m_fM_Rd_z, out m_fDesRatio2);
+                    EC2_Buckling_Bending(sResults.m_fM_Ed_z, bLimit2, out sResults.m_fM_Rd_z, out sResults.m_fDesRatio2);
                 }
 
 
@@ -462,7 +423,7 @@ namespace M_EC2
 
 
         }
-        public void EC2_4_OHYB(float ff_cd, float ff_yd, float fA_s, float fb, float fh, float fLambda, float fM_Ed, float fM_Rd, float fRatio)
+        public void EC2_4_OHYB(float ff_cd, float ff_yd, float fA_s, float fb, float fh, float fLambda, float fM_Ed, out float fM_Rd, out float fRatio)
         {
             // Jednotlive metody byte som pomenoval podla nejako podla čísel článkov ale nesmu tam byt bodky "."
 
@@ -516,57 +477,57 @@ namespace M_EC2
             float fAlpha_1 = Eq_Alpha_1(m_ff_cm);
             float fAlpha_2 = Eq_Alpha_2(m_ff_cm);
             float fAlpha_3 = Eq_Alpha_3(m_ff_cm);
-            float fPhi_RH = Eq_Phi_RH(m_fRH, fh_0, fAlpha_1, fAlpha_2);
+            sResults.m_fPhi_RH = Eq_Phi_RH(m_fRH, fh_0, fAlpha_1, fAlpha_2);
             float fBeta_f_cm = Eq_Beta_f_cm(m_ff_cm);
             float fBeta_t_0 = Eq_Beta_ft_0(m_ft_0);
-            float fPhi_0 = Eq_Phi_0(fPhi_RH, fBeta_f_cm, fBeta_t_0);
-            float fBeta_H = Eq_Beta_H(m_fRH, fh_0, fAlpha_3);
+            float fPhi_0 = Eq_Phi_0(sResults.m_fPhi_RH, fBeta_f_cm, fBeta_t_0);
+            sResults.m_fBeta_H = Eq_Beta_H(m_fRH, fh_0, fAlpha_3);
             float ft_0_T = Eq_t_0_T(m_fT_Delta_t_i, m_ft_0);
             float ft_0_2 = Eq_t_0_2(ft_0_T, m_fAlpha); // Uprava hodnoty t_0 - je zadana uzivatelom a potom sa modifikuje ???
-            float fBeta_c_ft_ft_0 = Eq_Beta_c_ft_ft_0(m_ft, ft_0_2, fBeta_H);
-            float fPhi_Infinity_ft_0 = Eq_Ph_Infinity_ft_0(fPhi_0, fBeta_c_ft_ft_0);
+            float fBeta_c_ft_ft_0 = Eq_Beta_c_ft_ft_0(m_ft, ft_0_2, sResults.m_fBeta_H);
+            sResults.m_fPhi_Infinity_ft_0 = Eq_Ph_Infinity_ft_0(fPhi_0, fBeta_c_ft_ft_0);
 
             float fEps_d = Eq_Eps_d(ff_yd, m_fE_s);
 
             // y-y
-            m_fLambda_y = Eq_Lambda(m_fL_0_y, fh);
-            float fBeta_y = Eq_Beta(m_ff_ck, m_fLambda_y);
+            sResults.m_fLambda_y = Eq_Lambda(m_fL_0_y, fh);
+            sResults.m_fBeta_y_ef = Eq_Beta(m_ff_ck, sResults.m_fLambda_y);
             float fr_m_y = Eq_r_m(m_fM_0_1_y, m_fM_0_2_y);
             float fC_y = Eq_C(fr_m_y);
             float fe_i_z = Eq_e_i(m_fL_0_y);
-            float fM_0_Ed_y = Eq_M_0_Ed(m_fM_Ed_1_y, fN_c_Ed, fe_i_z);
-            float fe_0_z = Eq_e_0(fM_0_Ed_y, fN_c_Ed);
-            m_fPhi_y_ef = Eq_Phi_ef(fPhi_Infinity_ft_0, m_fM_0_Ed_qp_y, m_fM_Ed_1_y); // fM_0_Ed_y alebo m_fM_Ed_1_y ???!!!!
-            float fA_y = Eq_A(m_fPhi_y_ef);
-            float fLambda_y_lim = Eq_fLambda_lim(fA_y, fB, fC_y, fn);
-            float fK_Phi_y = Eq_fK_Phi(fBeta_y, m_fPhi_y_ef);
+            sResults.m_fM_0_Ed_y = Eq_M_0_Ed(m_fM_Ed_1_y, fN_c_Ed, fe_i_z);
+            float fe_0_z = Eq_e_0(sResults.m_fM_0_Ed_y, fN_c_Ed);
+            sResults.m_fPhi_y_ef = Eq_Phi_ef(sResults.m_fPhi_Infinity_ft_0, m_fM_0_Ed_qp_y, m_fM_Ed_1_y); // fM_0_Ed_y alebo m_fM_Ed_1_y ???!!!!
+            float fA_y = Eq_A(sResults.m_fPhi_y_ef);
+            sResults.m_fLambda_y_lim = Eq_fLambda_lim(fA_y, fB, fC_y, fn);
+            float fK_Phi_y = Eq_fK_Phi(sResults.m_fBeta_y_ef, sResults.m_fPhi_y_ef);
             float fd_y = Eq_d(fh, m_fi_s_y);
             float f1_r_0_y = Eq_1_r_0(fEps_d, fd_y);
-            float f1_r_y = Eq_1_r(fK_r, fK_Phi_y, f1_r_0_y);
-            float fM_2_y = Eq_M_2(fN_c_Ed, f1_r_y, m_fL_0_y, m_fc_y);
+            sResults.m_f1_r_y = Eq_1_r(fK_r, fK_Phi_y, f1_r_0_y);
+            float fM_2_y = Eq_M_2(fN_c_Ed, sResults.m_f1_r_y, m_fL_0_y, m_fc_y);
             float fe_2_z = Eq_e_2(fM_2_y, fN_c_Ed);
-            m_fM_Ed_y = Eq_M_Ed(fM_0_Ed_y, fM_2_y);
-            m_fe_tot_z = Eq_e_tot(m_fM_Ed_y, fN_c_Ed);
+            sResults.m_fM_Ed_y = Eq_M_Ed(sResults.m_fM_0_Ed_y, fM_2_y);
+            sResults.m_fe_tot_z = Eq_e_tot(sResults.m_fM_Ed_y, fN_c_Ed);
 
             // z-z
-            m_fLambda_z = Eq_Lambda(m_fL_0_z, fb);
-            float fBeta_z = Eq_Beta(m_ff_ck, m_fLambda_z);
+            sResults.m_fLambda_z = Eq_Lambda(m_fL_0_z, fb);
+            sResults.m_fBeta_z_ef = Eq_Beta(m_ff_ck, sResults.m_fLambda_z);
             float fr_m_z = Eq_r_m(m_fM_0_1_z, m_fM_0_2_z);
             float fC_z = Eq_C(fr_m_z);
             float fe_i_y = Eq_e_i(m_fL_0_z);
-            float fM_0_Ed_z = Eq_M_0_Ed(m_fM_Ed_1_z, fN_c_Ed, fe_i_y);
-            float fe_0_y = Eq_e_0(fM_0_Ed_z, fN_c_Ed);
-            m_fPhi_z_ef = Eq_Phi_ef(fPhi_Infinity_ft_0, m_fM_0_Ed_qp_z, m_fM_Ed_1_z);
-            float fA_z = Eq_A(m_fPhi_z_ef);
-            float fLambda_z_lim = Eq_fLambda_lim(fA_z, fB, fC_z, fn);
-            float fK_Phi_z = Eq_fK_Phi(fBeta_z, m_fPhi_z_ef);
+            sResults.m_fM_0_Ed_z = Eq_M_0_Ed(m_fM_Ed_1_z, fN_c_Ed, fe_i_y);
+            float fe_0_y = Eq_e_0(sResults.m_fM_0_Ed_z, fN_c_Ed);
+            sResults.m_fPhi_z_ef = Eq_Phi_ef(sResults.m_fPhi_Infinity_ft_0, m_fM_0_Ed_qp_z, m_fM_Ed_1_z);
+            float fA_z = Eq_A(sResults.m_fPhi_z_ef);
+            sResults.m_fLambda_z_lim = Eq_fLambda_lim(fA_z, fB, fC_z, fn);
+            float fK_Phi_z = Eq_fK_Phi(sResults.m_fBeta_z_ef, sResults.m_fPhi_z_ef);
             float fd_z = Eq_d(fb, m_fi_s_z);
             float f1_r_0_z = Eq_1_r_0(fEps_d, fd_z);
-            float f1_r_z = Eq_1_r(fK_r, fK_Phi_z, f1_r_0_z);
-            float fM_2_z = Eq_M_2(m_fN_Ed, f1_r_z, m_fL_0_z, m_fc_z);
+            sResults.m_f1_r_z = Eq_1_r(fK_r, fK_Phi_z, f1_r_0_z);
+            float fM_2_z = Eq_M_2(fN_c_Ed, sResults.m_f1_r_z, m_fL_0_z, m_fc_z);
             float fe_2_y = Eq_e_2(fM_2_z, fN_c_Ed);
-            m_fM_Ed_z = Eq_M_Ed(fM_0_Ed_z, fM_2_z);
-            m_fe_tot_y = Eq_e_tot(m_fM_Ed_z, fN_c_Ed);
+            sResults.m_fM_Ed_z = Eq_M_Ed(sResults.m_fM_0_Ed_z, fM_2_z);
+            sResults.m_fe_tot_y = Eq_e_tot(sResults.m_fM_Ed_z, fN_c_Ed);
         }
 
         // Flexural-Buckling and Single Bending
@@ -606,7 +567,7 @@ namespace M_EC2
             float fM_Rd_0 = Eq_M_Rd_0(fA_s_t_1, fz_1, fA_s_t_2, fz_2, fSigma_s);
 
             //Bod 0´
-            m_fN_eu = Eq_N_eu(fb, fh, m_fEta, m_ff_cd, m_fA_s, fSigma_s);
+            sResults.m_fN_eu = Eq_N_eu(fb, fh, m_fEta, m_ff_cd, m_fA_s, fSigma_s);
 
             //Bod 1
             float fN_Rd_1 = Eq_N_Rd_1(FLambda, Fb, fd, m_ff_cd, fF_s2);
@@ -639,22 +600,38 @@ namespace M_EC2
             fDesRatio = fM_Ed / fM_Rd_min;
         }
 
+        // Bi-axial Bending
+        public void EC2_BiBending()
+        {
+
+            // Interaction of Internal Forces
+            // Biaxial Bending
+            sResults.m_fN_Rd = Eq_N_Rd(m_fA_c, m_ff_cd, FA_s, ff_yd);
+            float fRatio_N_Ed_N_Rd = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), sResults.m_fN_Rd);
+            float fRatio_My = Eq_Ratio_M_Ed_M_Rd(m_fM_Ed_1_y, sResults.m_fM_Rd_y);
+            float fRatio_Mz = Eq_Ratio_M_Ed_M_Rd(m_fM_Ed_1_z, sResults.m_fM_Rd_z);
+            sResults.m_fa = Get_a_Table(fRatio_N_Ed_N_Rd);
+            float fRatio_M = Eq_DesRatio(m_fM_Ed_1_y, m_fM_Ed_1_z, sResults.m_fM_Rd_y, sResults.m_fM_Rd_z, sResults.m_fa);
+
+            sResults.m_fDesRatio = fRatio_M;
+        }
+
         // Flexural-Buckling and Bi-axial Bending
         public void EC2_Buckling_BiBending()
         {
 
         // Interaction of Internal Forces
         // Axial Force and Biaxial Bending
-        FN_Rd = Eq_N_Rd(m_fA_c, m_ff_cd, FA_s,ff_yd);
-        float fRatio_N_Ed_N_Rd = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), FN_Rd);
-        float fRatio_My = Eq_Ratio_M_Ed_M_Rd(m_fM_Ed_y, m_fM_Rd_y);
-        float fRatio_Mz = Eq_Ratio_M_Ed_M_Rd(m_fM_Ed_z, m_fM_Rd_z);
-        float fa = Get_a_Table(fRatio_N_Ed_N_Rd);
-        float fRatio_M = Eq_DesRatio(m_fM_Ed_y, m_fM_Ed_z, m_fM_Rd_y, m_fM_Rd_z, fa);
+        sResults.m_fN_Rd = Eq_N_Rd(m_fA_c, m_ff_cd, FA_s,ff_yd);
+        float fRatio_N_Ed_N_Rd = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), sResults.m_fN_Rd);
+        float fRatio_My = Eq_Ratio_M_Ed_M_Rd(sResults.m_fM_Ed_y, sResults.m_fM_Rd_y);
+        float fRatio_Mz = Eq_Ratio_M_Ed_M_Rd(sResults.m_fM_Ed_z, sResults.m_fM_Rd_z);
+        sResults.m_fa = Get_a_Table(fRatio_N_Ed_N_Rd);
+        float fRatio_M = Eq_DesRatio(sResults.m_fM_Ed_y, sResults.m_fM_Ed_z, sResults.m_fM_Rd_y, sResults.m_fM_Rd_z, sResults.m_fa);
 
-        float fRatio_N_Ed_N_eu = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), Math.Abs(m_fN_eu));
+        float fRatio_N_Ed_N_eu = Eq_Ratio_N_Ed_N_Rd(Math.Abs(m_fN_Ed), Math.Abs(sResults.m_fN_eu));
 
-        m_fDesRatio = MathF.Max(fRatio_N_Ed_N_Rd, fRatio_M, fRatio_N_Ed_N_eu);
+        sResults.m_fDesRatio = MathF.Max(fRatio_N_Ed_N_Rd, fRatio_M, fRatio_N_Ed_N_eu);
         }
 
 
@@ -952,7 +929,10 @@ namespace M_EC2
         }
         public float Eq_Phi_ef(float fPhi_Infinity_ft_0, float fM_0_Ed_qp, float fM_0_Ed)
         {
-            return fPhi_Infinity_ft_0 * fM_0_Ed_qp / fM_0_Ed; // fPhi_ef
+            if(!MathF.d_equal(fM_0_Ed, 0f))
+                return fPhi_Infinity_ft_0 * fM_0_Ed_qp / fM_0_Ed; // fPhi_ef
+            else
+                return 0f;
         }
         public float Eq_fK_Phi(float fBeta, float fPhi_ef)
         {
@@ -980,7 +960,10 @@ namespace M_EC2
         }
         public float Eq_e_2(float fM_2, float fN_Ed)
         {
-            return fM_2 / fN_Ed; // f_e_2
+            if (!MathF.d_equal(fN_Ed, 0f))
+                return fM_2 / fN_Ed; // f_e_2
+            else
+                return 0f;
         }
         public float Eq_M_Ed(float fM_0_Ed, float fM_2)
         {
@@ -988,7 +971,10 @@ namespace M_EC2
         }
         public float Eq_e_tot(float fM_Ed, float fN_Ed)
         {
-            return fM_Ed / fN_Ed; // fe_tot
+            if (!MathF.d_equal(fN_Ed, 0f))
+                return fM_Ed / fN_Ed; // fe_tot
+            else
+                return 0f;
         }
 
         // Axial Force and Bending Moment
@@ -1109,7 +1095,14 @@ namespace M_EC2
         }
         public float Eq_DesRatio(float fM_y_Ed, float fM_z_Ed, float fM_y_Rd, float fM_z_Rd, float fa)
         {
-            return ((float)Math.Pow(fM_z_Ed / fM_z_Rd, fa) + (float)Math.Pow(fM_y_Ed / fM_y_Ed, fa)) / 1f; // Design Ratio
+            if (MathF.d_equal(fM_y_Ed,0f) && MathF.d_equal(fM_z_Ed,0f))
+                return 0f;
+            else if(MathF.d_equal(fM_y_Ed,0f))
+                return (float)Math.Pow(fM_z_Ed / fM_z_Rd, fa) / 1f;
+            else if (MathF.d_equal(fM_z_Ed,0f))
+                return (float)Math.Pow(fM_y_Ed / fM_y_Ed, fa) / 1f;
+            else
+                return ((float)Math.Pow(fM_z_Ed / fM_z_Rd, fa) + (float)Math.Pow(fM_y_Ed / fM_y_Rd, fa)) / 1f; // Design Ratio
         }
 
 
