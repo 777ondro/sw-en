@@ -794,7 +794,7 @@ namespace M_EC2
         }
         public float Eq_A(float fPhi_ef)
         {
-            return 1 / (1 + 0.2f * fPhi_ef); // fA
+            return 1f / (1f + 0.2f * fPhi_ef); // fA
         }
         public float Eq_B(float fOmega)
         {
@@ -806,11 +806,19 @@ namespace M_EC2
         }
         public float Eq_r_m(float fM_0_1, float fM_0_2)
         {
-            return fM_0_1 / fM_0_2; // r_m
+            if (!MathF.d_equal(fM_0_2, 0f))
+                return fM_0_1 / fM_0_2; // r_m
+            else if (!MathF.d_equal(fM_0_1, 0f))
+                return fM_0_2 / fM_0_1; // r_m
+            else
+                return 0f;
         }
         public float Eq_fLambda_lim(float fA, float fB, float fC, float fn)
         {
-            return 20 * fA * fB * fC / MathF.Sqrt(fn); // fLambda_lim
+            if (fn >= 0f)
+                return 20 * fA * fB * fC / MathF.Sqrt(fn); // fLambda_lim
+            else
+                return 0f;
         }
         /*
         public float Eq_(float b)
@@ -820,7 +828,7 @@ namespace M_EC2
         */
         public float Eq_e_i(float fL_0)
         {
-            return fL_0 / 400; // fe_i
+            return fL_0 / 400; // fe_i  Imperfection
         }
         public float Eq_M_0_Ed(float fM_1_Ed, float fN_Ed, float fe_i)
         {
@@ -828,7 +836,10 @@ namespace M_EC2
         }
         public float Eq_e_0(float fM_0_Ed, float fN_Ed)
         {
-            return fM_0_Ed / fN_Ed;  // fe_0
+            if (!MathF.d_equal(fN_Ed, 0f))
+                return fM_0_Ed / fN_Ed;  // fe_0
+            else
+                return 0f;
         }
         public float Eq_fOmega(float fA_s, float ff_yd, float fA_c, float ff_cd)
         {
@@ -836,7 +847,7 @@ namespace M_EC2
         }
         public float Eq_n_u(float fOmega)
         {
-            return 1 + fOmega; // fn_u
+            return 1f + fOmega; // fn_u
         }
         public float Eq_n(float fN_Ed, float fA_c, float ff_cd)
         {
@@ -844,7 +855,10 @@ namespace M_EC2
         }
         public float Eq_K_r(float fn_u, float fn, float fn_bal)
         {
-            return Math.Min((fn_u - fn) / (fn_u - fn_bal), 1.0f); //fK_r
+            if (!MathF.d_equal(fn_u - fn_bal, 0f))
+                return Math.Min((fn_u - fn) / (fn_u - fn_bal), 1.0f); //fK_r
+            else
+                return 0f;
         }
         public float Eq_Beta(float ff_ck, float fLambda)
         {
@@ -861,7 +875,10 @@ namespace M_EC2
         }
         public float Eq_h_0(float fA_c, float fu)
         {
-            return 2 * fA_c / fu; // fh_0
+            if (fu > 0f)
+                return 2 * fA_c / fu; // fh_0
+            else
+                return 0f;
         }
         public float Eq_Alpha_1(float ff_cm)
         {
