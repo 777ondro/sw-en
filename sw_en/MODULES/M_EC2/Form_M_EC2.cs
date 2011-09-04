@@ -11,6 +11,51 @@ using MATH;
 
 namespace M_EC2
 {
+    public struct sRes
+    {
+        // Results
+
+        public float m_fLambda_y;
+        public float m_fLambda_z;
+
+        public float m_fLambda_y_lim;
+        public float m_fLambda_z_lim;
+
+        public float m_fM_0_Ed_y;
+        public float m_fM_0_Ed_z;
+
+        public float m_fBeta_y_ef;
+        public float m_fBeta_z_ef;
+
+        public float m_f1_r_y;
+        public float m_f1_r_z;
+
+        public float m_fPhi_y_ef;
+        public float m_fPhi_z_ef;
+
+        public float m_fM_Ed_y;
+        public float m_fM_Ed_z;
+
+        public float m_fe_tot_z;
+        public float m_fe_tot_y;
+
+        public float m_fPhi_RH;
+        public float m_fBeta_H;
+        public float m_fPhi_Infinity_ft_0;
+
+        public float m_fN_Rd;
+        public float m_fN_eu;
+        public float m_fM_Rd_y;
+        public float m_fM_Rd_z;
+
+        public float m_fa;
+
+        public float m_fDesRatio1;
+        public float m_fDesRatio2;
+        public float m_fDesRatio;
+    }
+
+
     public partial class Form_M_EC2 : Form
     {
         // Internal Forces
@@ -285,24 +330,13 @@ namespace M_EC2
         public float m_fc_y;
         public float m_fc_z;
 
-
-
-
-
-
-
         // Results
 
-        public float m_fPhi_ef_y;
-        public float m_fPhi_ef_z;
+        public sRes sResults;
 
-        public float m_fN_Rd;
-        public float m_fM_Rd_y;
-        public float m_fM_Rd_z;
 
-        public float m_fDesRatio1;
-        public float m_fDesRatio2;
-        public float m_fDesRatio;
+
+
 
         MatTemp m_objDatabase = new MatTemp(); // Objet databazy Concrete a Reinforcement
 
@@ -311,35 +345,42 @@ namespace M_EC2
             InitializeComponent();
 
             // Text and Default Values
-            // Temporary
-            TestCode_data();
+            Default_data();
             // Display Deafult Values
-            Set_DefaultInput_Data();
+            Display_Input_Data();
         }
-        
-        // Metoda ktora sa spusti po stlaceni tlacidla calculate
-        private void Calculate_Click(object sender, EventArgs e)
-        {
-            // Načítanie dat
-            Load_data();
 
+        // Metoda ktora prepocita medzivysledky z udajov zadanych uzivatelom
+        private void Calculate_Auxiliary()
+        {
             // Vypocet vstupov 
             // Premenne ktore je mozne spocitat pred hlavnym vypoctom
             // Sive policka
 
             // Resulting IF
-            m_fM_Ed_1 =MathF.Sqrt(MathF.Pow2(m_fM_Ed_1_y) + MathF.Pow2(m_fM_Ed_1_z));
+            if (MathF.d_equal(m_fM_Ed_1_y, 0f) && MathF.d_equal(m_fM_Ed_1_z, 0f))
+                m_fM_Ed_1 = 0f;
+            else
+                m_fM_Ed_1 = MathF.Sqrt(MathF.Pow2(m_fM_Ed_1_y) + MathF.Pow2(m_fM_Ed_1_z));
             //m_fM_Ed_1 = (float)Math.Sqrt(Math.Pow(m_fM_Ed_1_y,2) + Math.Pow(m_fM_Ed_1_z,2));
-            m_fM_0_Ed_qp = MathF.Sqrt(MathF.Pow2(m_fM_0_Ed_qp_y) + MathF.Pow2(m_fM_0_Ed_qp_z));
+            if (MathF.d_equal(m_fM_0_Ed_qp_y, 0f) && MathF.d_equal(m_fM_0_Ed_qp_z, 0f))
+                m_fM_0_Ed_qp = 0f;
+            else
+                m_fM_0_Ed_qp = MathF.Sqrt(MathF.Pow2(m_fM_0_Ed_qp_y) + MathF.Pow2(m_fM_0_Ed_qp_z));
             //m_fM_0_Ed_qp = (float)Math.Sqrt(Math.Pow(m_fM_0_Ed_qp_y, 2) + Math.Pow(m_fM_0_Ed_qp_z, 2));
 
-            m_fe_Sd_y = Math.Abs(m_fM_Ed_1_y / m_fN_Ed);
-            m_fe_Sd_z = Math.Abs(m_fM_Ed_1_z / m_fN_Ed);
+            if (MathF.d_equal(m_fN_Ed, 0f))
+                m_fe_Sd_y = m_fe_Sd_z = 0f;
+            else
+            {
+                m_fe_Sd_y = Math.Abs(m_fM_Ed_1_y / m_fN_Ed);
+                m_fe_Sd_z = Math.Abs(m_fM_Ed_1_z / m_fN_Ed);
+            }
 
             m_fL_0_y = m_fBeta_y * m_fL;
             m_fL_0_z = m_fBeta_z * m_fL;
 
-            float fA_s_1 = MathF.fPI * MathF.Pow2(Fd_s)/ 4; // Plocha jedneho pruta pre konkretny priemer a polohu
+            float fA_s_1 = MathF.fPI * MathF.Pow2(Fd_s) / 4; // Plocha jedneho pruta pre konkretny priemer a polohu
             float fA_s_t_1; //Plocha vsetkych nosnych pozdlznych prutov jedneho typu
             FA_s_t = fA_s_t_1 = m_iNo * fA_s_1; // Suma plocha vsetkych nosnych pozdlznych prutov
 
@@ -364,9 +405,23 @@ namespace M_EC2
             FA = Fb * Fh;
             FA_c = FA - FA_s_t;
 
+            // Moments of Inertia - whole cross-section
+            FI_y = 1 / 12f * Fb * MathF.Pow3(Fh);
+            FI_z = 1 / 12f * Fh * MathF.Pow3(Fb);
+
             Fu = 2 * Fb + 2 * fh; // obvod prierezu
+        }
+        // Metoda ktora sa spusti po stlaceni tlacidla calculate
+        private void Calculate_Click(object sender, EventArgs e)
+        {
+            // Load Actual Input Data / Načítanie dat
+            Load_data();
+
+            // Vypocet pomocnych dat
+            Calculate_Auxiliary();
             
-            // Vypocet vysledkov
+            // Vypocet hlavnych vysledkov
+
             // Vytvori sa objekt triedy vypoctu
             EC2 objekt_EC2 = new EC2(
 
@@ -409,38 +464,36 @@ namespace M_EC2
             m_fL_0_y,
             m_fL_0_z,
 
-           m_objDatabase.m_ff_cm * 1000000f,
-           m_objDatabase.m_ff_ck * 1000000f,
-           m_objDatabase.m_fE_cm * 1000000f,
+           m_objDatabase.m_ff_cm * 1e+6f,
+           m_objDatabase.m_ff_ck * 1e+6f,
+           m_objDatabase.m_fE_cm * 1e+9f,
            m_fLambda,
            m_fEta,
            m_fGamma_Mc,
 
-           m_ff_yk * 1000000f,
-           m_fE_s * 1000000f,
+           m_ff_yk * 1e+6f,
+           m_fE_s * 1e+9f,
            m_fGamma_Ms);
 
+            // Get Results
+            sResults = objekt_EC2.sResults;
 
-            m_fN_Rd = objekt_EC2.FN_Rd;
-            m_fM_Rd_y = objekt_EC2.FM_Rd_y;
-            m_fM_Rd_z = objekt_EC2.FM_Rd_z;
+            // Check Results
+            string sHeaderResultsError = "Resistance Error";
+            string sTextResultsError = "Some resistance value or design ratio can't be calculated. Check input, please.";
+            if ((!MathF.d_equal(m_fN_Ed,0) && sResults.m_fN_Rd <= 0f) ||
+                (!MathF.d_equal(m_fM_Ed_1_y, 0) &&  sResults.m_fM_Rd_y <= 0f) ||
+                (!MathF.d_equal(m_fM_Ed_1_z, 0) && sResults.m_fM_Rd_z <= 0f) ||
+                (!MathF.d_equal(m_fM_Ed_1_y, 0) && sResults.m_fDesRatio1 < 0f) ||
+                (!MathF.d_equal(m_fM_Ed_1_z, 0) && sResults.m_fDesRatio2 < 0f) ||
+                (sResults.m_fDesRatio < 0f))
+            {
+                MessageBox.Show(sTextResultsError, sHeaderResultsError);
+                return;
+            }
 
-            m_fDesRatio1 = objekt_EC2.FDesRatio1;
-            m_fDesRatio2 = objekt_EC2.FDesRatio2;
-            m_fDesRatio = objekt_EC2.FDesRatio;
- 
-            // Naplnia sa premenne po vypocte
-            this.FI_y = objekt_EC2.FI_y;
-            this.FI_z = objekt_EC2.FI_z;
-           
-            
-            
-            //MessageBox.Show("Vysledky v EN 1992_1_1 Form \n " + (" A = " + D_A + " mm2 \n Iy = " + D_I_y + " mm4 \n Iz = " + D_I_z + " mm4"));
-
-            // zapísanie výsledkov do READONLY textboxov
-            this.Set_data();
-
-
+            // Zapísanie výsledkov do READONLY textboxov
+            Display_data();
         }
         // Metoda - Load data from textboxes
         // Tato metoda nacita udaje z textboxov a skonvertuje na cislo
@@ -454,11 +507,11 @@ namespace M_EC2
                 m_fN_Ed = (float)Convert.ToDouble(Value_N_Ed.Text.ToString());
                 m_fM_Ed_1_y = (float)Convert.ToDouble(Value_M_Ed_1_y.Text.ToString());
                 m_fM_Ed_1_z = (float)Convert.ToDouble(Value_M_Ed_1_z.Text.ToString());
-                
+
                 m_fN_0_Ed_qp = (float)Convert.ToDouble(Value_N_0_Ed_qp.Text.ToString());
                 m_fM_0_Ed_qp_y = (float)Convert.ToDouble(Value_M_0_Ed_qp_y.Text.ToString());
                 m_fM_0_Ed_qp_z = (float)Convert.ToDouble(Value_M_0_Ed_qp_z.Text.ToString());
-                
+
                 m_fM_0_1_y = (float)Convert.ToDouble(Value_M_0_1_y.Text.ToString());
                 m_fM_0_1_z = (float)Convert.ToDouble(Value_M_0_1_z.Text.ToString());
                 m_fM_0_2_y = (float)Convert.ToDouble(Value_M_0_2_y.Text.ToString());
@@ -468,22 +521,107 @@ namespace M_EC2
                 fb = (float)Convert.ToDouble(Value_b.Text.ToString());
                 fh = (float)Convert.ToDouble(Value_h.Text.ToString());
 
-               // Member
-               m_fL = (float)Convert.ToDouble(Value_L.Text.ToString());
-               m_fBeta_y =  (float)Convert.ToDouble(Value_Beta_y.Text.ToString());
-               m_fBeta_z = (float)Convert.ToDouble(Value_Beta_z.Text.ToString());
+                // Member
+                m_fL = (float)Convert.ToDouble(Value_L.Text.ToString());
+                m_fBeta_y = (float)Convert.ToDouble(Value_Beta_cr_y.Text.ToString());
+                m_fBeta_z = (float)Convert.ToDouble(Value_Beta_cr_z.Text.ToString());
 
                 // Reinforcement
-               m_ft_b = (float)Convert.ToDouble(Value_tb.Text.ToString());
+                m_fGamma_Ms = (float)Convert.ToDouble(Value_Gamma_Ms.Text.ToString());
+                m_fs_s = (float)Convert.ToDouble(Value_ss.Text.ToString());
+                m_ft_b = (float)Convert.ToDouble(Value_tb.Text.ToString());
+
+                // Materials
+                // Concrete settings
+                m_fAlpha_cc = (float)Convert.ToDouble(Value_Alpha_cc.Text.ToString());
+                m_fEta = (float)Convert.ToDouble(Value_Eta.Text.ToString());
+                m_fLambda = (float)Convert.ToDouble(Value_Lambda.Text.ToString());
+                m_fGamma_Mc = (float)Convert.ToDouble(Value_Gamma_Mc.Text.ToString());
+
+                m_fn_bal = (float)Convert.ToDouble(Value_n_bal.Text.ToString());
+                m_ft_0 = (float)Convert.ToDouble(Value_t_0.Text.ToString());
+                m_ft = (float)Convert.ToDouble(Value_t.Text.ToString());
+                m_fRH = (float)Convert.ToDouble(Value_RH.Text.ToString());
+                m_fT_Delta_t_i = (float)Convert.ToDouble(Value_T_Delta_t_i.Text.ToString());
+                m_fAlpha = (float)Convert.ToDouble(Value_Alpha.Text.ToString());
+                m_fc_y = (float)Convert.ToDouble(Value_c_y.Text.ToString());
+                m_fc_z = (float)Convert.ToDouble(Value_c_z.Text.ToString());
             }
             catch
             {
-                MessageBox.Show(sHeaderFormatError, sTextFormatError);
+                MessageBox.Show(sTextFormatError, sHeaderFormatError);
+                return;
             }
        }
 
-        public void TestCode_data()
+        public void Default_data()
         {
+            // EditBoxes
+
+            // Internal Forces
+            m_fN_Ed = 0f;
+            m_fM_Ed_1_y = 0f;
+            m_fM_Ed_1_z = 0f;
+
+            m_fN_0_Ed_qp = 0f;
+            m_fM_0_Ed_qp_y = 0f;
+            m_fM_0_Ed_qp_z = 0f;
+
+            m_fM_0_1_y = 0f;
+            m_fM_0_1_z = 0f;
+            m_fM_0_2_y = 0f;
+            m_fM_0_2_z = 0f;
+
+
+            // Cross -section Data
+            fb = 0.5f;
+            fh = 0.5f;
+
+            // Member Data
+            m_fL = 10f;
+            m_fBeta_y = 1f;
+            m_fBeta_z = 1f;
+
+            // Reinforcement
+            INo = 4; // Pocet aktivnych pozdlznych prutov jedneho typu - 1/4 - symetria  !!!!
+            m_fs_s = 0.25f;
+            m_ft_b = 0.02f;
+
+            // Materials
+            // Concrete settings
+            // Temp - default
+            m_fAlpha_cc = 1.0f;
+            m_fEta = 1.0f;
+            m_fLambda = 0.8f;
+            m_fGamma_Mc = 1.5f;
+
+            m_fn_bal = 0.4f;
+            m_ft_0 = 28f; // Days
+            m_ft = 25550f; // Days
+            m_fRH = 50;
+            m_fT_Delta_t_i = 20f;
+            m_fAlpha = 0.0f;
+            m_fc_y = 9f;
+            m_fc_z = 9f;
+
+            // Reinforcement
+            m_fGamma_Ms = 1.15f;
+
+            // ComboBoxes
+
+            comboBox1_Concrete.SelectedIndex = 4;
+            comboBox2_Reinfor.SelectedIndex = 4;
+            comboBox2_Reinfor_Long_ds.SelectedIndex = 15;
+            comboBox2_Reinfor_Tran_dss.SelectedIndex = 7;
+            comboBox3_CrScShape.SelectedIndex = 1;
+        }
+
+        private void But_LoadTestData_Click(object sender, EventArgs e)
+        {
+            // Load Test Data acc. to xls file
+
+            // EditBoxes
+
             // Internal Forces
             m_fN_Ed = -2880f;
             m_fM_Ed_1_y = 85f;
@@ -523,11 +661,8 @@ namespace M_EC2
             m_fBeta_z = 1f;
 
             // Reinforcement
-            m_fd_s = 0.025f;
-            m_iNo = 4; // Pocet aktivnych pozdlznych prutov jedneho typu - 1/4 - symetria  !!!!
-            m_fd_s_s = 0.008f;
+            INo = 4; // Pocet aktivnych pozdlznych prutov jedneho typu - 1/4 - symetria  !!!!
             m_fs_s = 0.25f;
-
             m_ft_b = 0.0275f;
 
             // Materials
@@ -549,26 +684,54 @@ namespace M_EC2
 
             // Reinforcement
             m_fGamma_Ms = 1.15f;
-        } 
+
+            // ComboBoxes
+
+            comboBox1_Concrete.SelectedIndex = 4;
+            comboBox2_Reinfor.SelectedIndex = 4;
+            comboBox2_Reinfor_Long_ds.SelectedIndex = 15;
+            comboBox2_Reinfor_Tran_dss.SelectedIndex = 7;
+            comboBox3_CrScShape.SelectedIndex = 1;
+
+            // Update display of Inputs
+            Display_Input_Data();
+        }
 
         // Metoda - Nastaví vypocitane hodnoty v textboxoch
-        public void Set_data ()
+        public void Display_data()
         {
             Update_IF_Data();
             Update_Member_Data();
+            Update_Reinforcement_Long_Data();
+            Update_Reinforcement_Trans_Data();
             Update_CrSc_Data();
             Update_Results_Data();
         }
 
-        public void Set_DefaultInput_Data()
+        public void Display_Input_Data()
         {
+            // Internal Forces
+            Value_N_Ed.Text = m_fN_Ed.ToString();
+            Value_M_Ed_1_y.Text = m_fM_Ed_1_y.ToString();
+            Value_M_Ed_1_z.Text = m_fM_Ed_1_z.ToString();
+
+            Value_N_0_Ed_qp.Text = m_fN_0_Ed_qp.ToString();
+            Value_M_0_Ed_qp_y.Text = m_fM_0_Ed_qp_y.ToString();
+            Value_M_0_Ed_qp_z.Text = m_fM_0_Ed_qp_z.ToString();
+
+            Value_M_0_1_y.Text = m_fM_0_1_y.ToString();
+            Value_M_0_1_z.Text = m_fM_0_1_z.ToString();
+            Value_M_0_2_y.Text = m_fM_0_2_y.ToString();
+            Value_M_0_2_z.Text = m_fM_0_2_z.ToString();
+
             // Cross -section Data
             Value_b.Text = fb.ToString();
             Value_h.Text = fh.ToString();
 
             // Member Data
-            Value_Beta_y.Text = m_fBeta_y.ToString();
-            Value_Beta_z.Text = m_fBeta_z.ToString();
+            Value_L.Text = m_fL.ToString();
+            Value_Beta_cr_y.Text = m_fBeta_y.ToString();
+            Value_Beta_cr_z.Text = m_fBeta_z.ToString();
 
             // Reinforcement
             Value_Gamma_Ms.Text = m_fGamma_Ms.ToString();
@@ -615,6 +778,8 @@ namespace M_EC2
             Value_A.Text = FA.ToString();
             Value_Iy.Text = FI_y.ToString();
             Value_Iz.Text = FI_z.ToString();
+
+            Value_Ac.Text = FA_c.ToString();
         }
 
         public void Update_Concrete_Data()
@@ -642,7 +807,7 @@ namespace M_EC2
         {
             // Longitudinal Reinforcement Data
 
-            Value_As.Text = FA_s_t.ToString();
+            Value_Ast.Text = FA_s_t.ToString();
         }
 
         public void Update_Reinforcement_Trans_Data()
@@ -655,53 +820,100 @@ namespace M_EC2
         public void Update_Results_Data()
         {
             // Results
-            Value_M_Rd.Text = m_fM_Rd_y.ToString();
-            Value_DesRatio.Text = m_fDesRatio.ToString();
+            Value_Lambda_y.Text = sResults.m_fLambda_y.ToString();
+            Value_Lambda_z.Text = sResults.m_fLambda_z.ToString();
+
+            Value_Lambda_y_lim.Text = sResults.m_fLambda_y_lim.ToString();
+            Value_Lambda_z_lim.Text = sResults.m_fLambda_z_lim.ToString();
+
+            Value_M_0_Ed_y.Text = sResults.m_fM_0_Ed_y.ToString();
+            Value_M_0_Ed_z.Text = sResults.m_fM_0_Ed_z.ToString();
+
+            Value_Beta_y_ef.Text = sResults.m_fBeta_y_ef.ToString();
+            Value_Beta_z_ef.Text = sResults.m_fBeta_z_ef.ToString();
+
+            Value_1_ry.Text = sResults.m_f1_r_y.ToString();
+            Value_1_rz.Text = sResults.m_f1_r_z.ToString();
+
+            Value_Phi_y_ef.Text = sResults.m_fPhi_y_ef.ToString();
+            Value_Phi_z_ef.Text = sResults.m_fPhi_z_ef.ToString();
+
+            Value_M_Ed_y.Text = sResults.m_fM_Ed_y.ToString();
+            Value_M_Ed_z.Text = sResults.m_fM_Ed_z.ToString();
+
+            Value_e_tot_y.Text = sResults.m_fe_tot_y.ToString();
+            Value_e_tot_z.Text = sResults.m_fe_tot_z.ToString();
+
+            Value_Phi_RH.Text = sResults.m_fPhi_RH.ToString();
+            Value_Beta_H.Text = sResults.m_fBeta_H.ToString();
+            Value_Phi_Inf_t0.Text = sResults.m_fPhi_Infinity_ft_0.ToString();
+
+            Value_N_Rd.Text = sResults.m_fN_Rd.ToString();
+            Value_N_eu.Text = sResults.m_fN_eu.ToString();
+
+            Value_M_Rd_y.Text = sResults.m_fM_Rd_y.ToString();
+            Value_M_Rd_z.Text = sResults.m_fM_Rd_z.ToString();
+
+            Value_factor_a.Text = sResults.m_fa.ToString();
+
+            Value_DesRatio1.Text = sResults.m_fDesRatio1.ToString();
+            Value_DesRatio2.Text = sResults.m_fDesRatio2.ToString();
+            Value_DesRatio.Text = sResults.m_fDesRatio.ToString();
         }
 
 
         private void ComboBox_Rein3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            INo = ComboBox_Rein3.SelectedIndex;
+            INo = comboBox2_Reinfor_Long_Count.SelectedIndex;
             INo++; //Number of bars
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_Concrete_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_objDatabase.m_ff_ck = m_objDatabase.Get_f_ck((short)comboBox1.SelectedIndex);
-            m_objDatabase.m_ff_ck_cube = m_objDatabase.Get_f_ck_cube((short)comboBox1.SelectedIndex);
+            m_objDatabase.m_ff_ck = m_objDatabase.Get_f_ck((short)comboBox1_Concrete.SelectedIndex);
+            m_objDatabase.m_ff_ck_cube = m_objDatabase.Get_f_ck_cube((short)comboBox1_Concrete.SelectedIndex);
            
             m_objDatabase.GetConData();
 
             Update_Concrete_Data();
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_Reinfor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Not implemented yet
-        }
-
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            m_ff_yk = m_objDatabase.Get_Reinf_f_yk((short)comboBox3.SelectedIndex);
-            m_ff_uk = m_objDatabase.Get_Reinf_f_tk((short)comboBox3.SelectedIndex);
-            m_fE_s = 200000f; // 200 000 MPa
+            m_ff_yk = m_objDatabase.Get_Reinf_f_yk((short)comboBox2_Reinfor.SelectedIndex);
+            m_ff_uk = m_objDatabase.Get_Reinf_f_tk((short)comboBox2_Reinfor.SelectedIndex);
+            m_fE_s = 200f; // 200 GPa
 
             Update_Reinforcement_Data();
         }
 
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_Reinfor_Long_ds_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Fd_s = m_objDatabase.Get_Reinf_d_s((short)comboBox4.SelectedIndex);
+            Fd_s = m_objDatabase.Get_Reinf_d_s((short)comboBox2_Reinfor_Long_ds.SelectedIndex);
 
+            // Convert mm to m
+            Fd_s /= 1000;
+
+            Calculate_Auxiliary();
             Update_Reinforcement_Long_Data();
+            Update_CrSc_Data(); // Value Ac is changed
         }
 
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox2_Reinfor_Tran_dss_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Fd_s_s = m_objDatabase.Get_Reinf_d_s((short)comboBox5.SelectedIndex);
+            Fd_s_s = m_objDatabase.Get_Reinf_d_s((short)comboBox2_Reinfor_Tran_dss.SelectedIndex);
+            
+            // Convert mm to m
+            Fd_s_s /= 1000;
 
+            Calculate_Auxiliary();
             Update_Reinforcement_Trans_Data();
+        }
+
+        private void comboBox3_CrScShape_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Calculate_Auxiliary();
+            Update_CrSc_Data();
         }
     }
 }
