@@ -51,13 +51,13 @@ namespace sw_en_GUI
 
         private void Button02_Click(object sender, RoutedEventArgs e)
         {
-			string path = AppDomain.CurrentDomain.BaseDirectory;
-			path = path.Substring(0, path.LastIndexOf("\\"));
-			path = path.Substring(0, path.LastIndexOf("\\"));
-			path = path.Substring(0, path.LastIndexOf("\\"));
-			MessageBox.Show(path);
-			path +="\\Resources\\test.db";
-			string connString = String.Format("Data Source={0};New=True;Version=3", path);
+			//string path = AppDomain.CurrentDomain.BaseDirectory;
+			//path = path.Substring(0, path.LastIndexOf("\\"));
+			//path = path.Substring(0, path.LastIndexOf("\\"));
+			//path = path.Substring(0, path.LastIndexOf("\\"));
+			//MessageBox.Show(path);
+			//path +="\\Resources\\test.db";
+			string connString = String.Format("Data Source={0};New=True;Version=3", "test.db");
 				
 
 			SQLiteConnection sqlconn = new SQLiteConnection(connString);

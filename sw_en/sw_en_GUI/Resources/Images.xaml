@@ -32,6 +32,9 @@
 	<ImageSource x:Key="GEN_F_60">Images/0_GEN_F/0_60.png</ImageSource>
 	<ImageSource x:Key="GEN_F_61">Images/0_GEN_F/0_61.png</ImageSource>
 
+	<ImageSource x:Key="0_MASS">Images/SW/0_MASS.png</ImageSource>
+	<ImageSource x:Key="0_THIN">Images/SW/0_THIN.png</ImageSource>
+
 	<ImageSource x:Key="CON_F_00">Images/2_CON_F/2_00.png</ImageSource>
 	<ImageSource x:Key="CON_F_01">Images/2_CON_F/2_01.png</ImageSource>
 	<ImageSource x:Key="CON_F_02">Images/2_CON_F/2_02.png</ImageSource>
