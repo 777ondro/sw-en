@@ -1,0 +1,157 @@
+﻿<Window x:Class="sw_en_GUI.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cross-Section Database" Height="600" Width="800">
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/Images.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="4*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<StackPanel HorizontalAlignment="Center">
+			<Label>Shape Groups</Label>
+			<ListBox Width="130">
+				<ListBoxItem>General</ListBoxItem>
+				<ListBoxItem>Concrete</ListBoxItem>
+				<ListBoxItem>Steel</ListBoxItem>
+				<ListBoxItem>Composite</ListBoxItem>
+				<ListBoxItem>Timber</ListBoxItem>
+				<ListBoxItem>Aluminium</ListBoxItem>
+				<ListBoxItem>Numerical</ListBoxItem>
+			</ListBox>
+		</StackPanel>
+		<GroupBox  Grid.Row="0" Grid.Column="1" Header="General Geometric Shapes">
+			<Grid x:Name="myGrid">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="1.2cm"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton00" x:FieldModifier="public"></Image>
+				</Button>
+				<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton01"></Image>
+				</Button>
+				<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton02"></Image>
+				</Button>
+				<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton03"></Image>
+				</Button>
+				<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton04"></Image>
+				</Button>
+				<Button Grid.Row="0" Grid.Column="5" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton05"></Image>
+				</Button>
+
+				<Button Grid.Row="1" Grid.Column="0" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton10" ></Image>
+				</Button>
+				<Button Grid.Row="1" Grid.Column="1" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton11"></Image>
+				</Button>
+				<Button Grid.Row="1" Grid.Column="2" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton12"></Image>
+				</Button>
+				<Button Grid.Row="1" Grid.Column="3" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton13"></Image>
+				</Button>
+				<Button Grid.Row="1" Grid.Column="4" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton14"></Image>
+				</Button>
+				<Button Grid.Row="1" Grid.Column="5" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton15"></Image>
+				</Button>
+
+				<Button Grid.Row="2" Grid.Column="0" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton20" ></Image>
+				</Button>
+				<Button Grid.Row="2" Grid.Column="1" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton21"></Image>
+				</Button>
+				<Button Grid.Row="2" Grid.Column="2" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton22"></Image>
+				</Button>
+				<Button Grid.Row="2" Grid.Column="3" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton23"></Image>
+				</Button>
+				<Button Grid.Row="2" Grid.Column="4" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton24"></Image>
+				</Button>
+				<Button Grid.Row="2" Grid.Column="5" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton25"></Image>
+				</Button>
+
+				<Button Grid.Row="3" Grid.Column="0" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton30" ></Image>
+				</Button>
+				<Button Grid.Row="3" Grid.Column="1" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton31"></Image>
+				</Button>
+				<Button Grid.Row="3" Grid.Column="2" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton32"></Image>
+				</Button>
+				<Button Grid.Row="3" Grid.Column="3" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton33"></Image>
+				</Button>
+				<Button Grid.Row="3" Grid.Column="4" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton34"></Image>
+				</Button>
+				<Button Grid.Row="3" Grid.Column="5" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton35"></Image>
+				</Button>
+
+				<Button Grid.Row="4" Grid.Column="0" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton40" x:FieldModifier="public"></Image>
+				</Button>
+				<Button Grid.Row="4" Grid.Column="1" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton41"></Image>
+				</Button>
+				<Button Grid.Row="4" Grid.Column="2" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton42"></Image>
+				</Button>
+				<Button Grid.Row="4" Grid.Column="3" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton43"></Image>
+				</Button>
+				<Button Grid.Row="4" Grid.Column="4" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton44"></Image>
+				</Button>
+				<Button Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton45"></Image>
+				</Button>
+
+				<Button Grid.Row="6" Grid.Column="7" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton67"></Image>
+				</Button>
+				<Button Grid.Row="6" Grid.Column="8" Width="1cm" Height="1cm">
+					<Image x:Name="imageButton68"></Image>
+				</Button>
+			</Grid>
+		</GroupBox >
+	</Grid>
+</Window>
