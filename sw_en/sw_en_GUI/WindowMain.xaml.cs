@@ -55,6 +55,45 @@ namespace sw_en_GUI
 
 			imageButton67.Source = (ImageSource)TryFindResource("0_MASS");
 			imageButton68.Source = (ImageSource)TryFindResource("0_THIN");
+
+
+			//concrete
+			imgBtnConcrete00.Source = (ImageSource)TryFindResource("CON_F_00");
+			imgBtnConcrete01.Source = (ImageSource)TryFindResource("CON_F_01");
+			imgBtnConcrete02.Source = (ImageSource)TryFindResource("CON_F_02");
+			imgBtnConcrete03.Source = (ImageSource)TryFindResource("CON_F_03");
+			imgBtnConcrete04.Source = (ImageSource)TryFindResource("CON_F_04");
+			imgBtnConcrete05.Source = (ImageSource)TryFindResource("CON_F_05");
+			imgBtnConcrete10.Source = (ImageSource)TryFindResource("CON_F_06");
+			imgBtnConcrete11.Source = (ImageSource)TryFindResource("CON_F_07");
+			imgBtnConcrete12.Source = (ImageSource)TryFindResource("CON_F_20");
+			imgBtnConcrete13.Source = (ImageSource)TryFindResource("CON_F_21");
+			imgBtnConcrete14.Source = (ImageSource)TryFindResource("CON_F_22");
+			imgBtnConcrete15.Source = (ImageSource)TryFindResource("CON_F_23");
+			imgBtnConcrete20.Source = (ImageSource)TryFindResource("CON_F_24");
+			imgBtnConcrete21.Source = (ImageSource)TryFindResource("CON_F_25");
+			imgBtnConcrete22.Source = (ImageSource)TryFindResource("CON_F_26");
+			imgBtnConcrete23.Source = (ImageSource)TryFindResource("CON_F_27");
+			imgBtnConcrete24.Source = (ImageSource)TryFindResource("CON_F_28");
+			imgBtnConcrete25.Source = (ImageSource)TryFindResource("CON_F_40");
+			imgBtnConcrete30.Source = (ImageSource)TryFindResource("CON_F_41");
+			imgBtnConcrete31.Source = (ImageSource)TryFindResource("CON_F_42");
+			imgBtnConcrete32.Source = (ImageSource)TryFindResource("CON_F_43");
+			imgBtnConcrete33.Source = (ImageSource)TryFindResource("CON_F_44");
+			imgBtnConcrete34.Source = (ImageSource)TryFindResource("CON_F_45");
+			imgBtnConcrete35.Source = (ImageSource)TryFindResource("CON_F_46");
+			imgBtnConcrete40.Source = (ImageSource)TryFindResource("CON_F_47");
+			imgBtnConcrete41.Source = (ImageSource)TryFindResource("CON_F_48");
+			imgBtnConcrete42.Source = (ImageSource)TryFindResource("CON_F_49");
+			imgBtnConcrete43.Source = (ImageSource)TryFindResource("CON_F_50");
+			imgBtnConcrete68.Source = (ImageSource)TryFindResource("0_MASS");
+		}
+
+		private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+		{
+			if (listBoxMenu.SelectedItem != null)
+			Console.WriteLine(listBoxMenu.SelectedItem.ToString());
+			e.Handled = true;
 		}
 	}
 }
