@@ -89,11 +89,10 @@ namespace sw_en_GUI
 			imgBtnConcrete68.Source = (ImageSource)TryFindResource("0_MASS");
 		}
 
-		private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+		
+		private void listBoxMenu_Click(object sender, RoutedEventArgs e)
 		{
-			if (listBoxMenu.SelectedItem != null)
-			Console.WriteLine(listBoxMenu.SelectedItem.ToString());
-			e.Handled = true;
+			MessageBox.Show(e.OriginalSource.ToString());
 		}
 	}
 }
