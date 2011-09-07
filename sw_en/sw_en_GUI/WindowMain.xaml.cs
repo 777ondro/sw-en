@@ -90,7 +90,9 @@ namespace sw_en_GUI
 		}
 
 		
-		private void listBoxMenu_Click(object sender, RoutedEventArgs e)
+		
+
+		private void listBoxMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			MessageBox.Show(e.OriginalSource.ToString());
 		}
