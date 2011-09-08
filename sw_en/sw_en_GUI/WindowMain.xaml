@@ -336,10 +336,6 @@
 					<Button Grid.Row="1" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnSteelHotRolled14"></Image>
 					</Button>
-					<Button Grid.Row="1" Grid.Column="5" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnSteelHotRolled15"></Image>
-					</Button>
-
 				</Grid>
 			</GroupBox>
 			
@@ -594,10 +590,7 @@
 					<Button Grid.Row="3" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnSteelParamThin34"></Image>
 					</Button>
-					<Button Grid.Row="3" Grid.Column="5" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnSteelParamThin35"></Image>
-					</Button>
-
+					
 					<Button Grid.Row="4" Grid.Column="0" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnSteelParamThin40"></Image>
 					</Button>
@@ -646,7 +639,374 @@
 				</Grid>
 			</GroupBox>
 		</Grid>
-			
+
+		<!--			Composite			-->
+		<Grid x:Name="gridComposite" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<!--Composite Columns-->
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Columns">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeColumns00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeColumns01"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeColumns02"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeColumns03"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeColumns04"></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			<!--Composite Beams-->
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Beams">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeBeams00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeBeams01"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeBeams02"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnCompositeBeams03"></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			</Grid>
+
+		<!--			Timber			-->
+		<Grid x:Name="gridTimber" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="100px"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<!--Timber Solid-->
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Solid">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberSolid00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberSolid01"></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			<!--Timber Glued (laminated)-->
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Glued (Laminated)">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued01"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued02"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued03"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued04"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberGlued05"></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			<!--Timber Built-up-->
+			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp01"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp02"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp03"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp04"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnTimberBuiltUp05"></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+		</Grid>
+
+		<!--			Aluminium			-->
+		<Grid x:Name="gridAluminium" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="100px"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<!--Aluminium Extruded-->
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Extruded">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded01"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded02" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded03"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded04" ></Image>
+					</Button>
+					
+					<Button Grid.Row="1" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded10" ></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded11"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded12" ></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded13"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumExtruded14" ></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			<!--Aluminium Parametric-->
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Parametric">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Row="0" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam00" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam01"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam02" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam03"></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam04" ></Image>
+					</Button>
+					<Button Grid.Row="0" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam05" ></Image>
+					</Button>
+
+					<Button Grid.Row="1" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam10" ></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam11"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam12" ></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam13"></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam14" ></Image>
+					</Button>
+					<Button Grid.Row="1" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam15" ></Image>
+					</Button>
+
+					<Button Grid.Row="2" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam20" ></Image>
+					</Button>
+					<Button Grid.Row="2" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam21"></Image>
+					</Button>
+					<Button Grid.Row="2" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam22" ></Image>
+					</Button>
+					<Button Grid.Row="2" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam23"></Image>
+					</Button>
+					<Button Grid.Row="2" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam24" ></Image>
+					</Button>
+					<Button Grid.Row="2" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam25" ></Image>
+					</Button>
+
+					<Button Grid.Row="3" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam30" ></Image>
+					</Button>
+					<Button Grid.Row="3" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam31"></Image>
+					</Button>
+					<Button Grid.Row="3" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam32" ></Image>
+					</Button>
+					<Button Grid.Row="3" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam33"></Image>
+					</Button>
+					<Button Grid.Row="3" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam34" ></Image>
+					</Button>
+					<Button Grid.Row="3" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam35" ></Image>
+					</Button>
+
+					<Button Grid.Row="4" Grid.Column="0" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam40" ></Image>
+					</Button>
+					<Button Grid.Row="4" Grid.Column="1" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam41"></Image>
+					</Button>
+					<Button Grid.Row="4" Grid.Column="2" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam42" ></Image>
+					</Button>
+					<Button Grid.Row="4" Grid.Column="3" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam43"></Image>
+					</Button>
+					<Button Grid.Row="4" Grid.Column="4" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam44" ></Image>
+					</Button>
+					<Button Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm">
+						<Image x:Name="imgBtnAluminiumParam45" ></Image>
+					</Button>
+				</Grid>
+			</GroupBox>
+			<!--Aluminium Built-up-->
+			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1.2cm"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+						<ColumnDefinition Width="1.2cm"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+				</Grid>
+			</GroupBox>
+		</Grid>
 		
 
 	</Grid>

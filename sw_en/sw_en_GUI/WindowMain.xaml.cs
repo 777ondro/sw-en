@@ -89,7 +89,87 @@ namespace sw_en_GUI
 			imgBtnConcrete68.Source = (ImageSource)TryFindResource("0_MASS");
 
 
+			//Steel
+			imgBtnSteelHotRolled00.Source = (ImageSource)TryFindResource("STE_F_00");
+			imgBtnSteelHotRolled01.Source = (ImageSource)TryFindResource("STE_F_01");
+			imgBtnSteelHotRolled02.Source = (ImageSource)TryFindResource("STE_F_02");
+			imgBtnSteelHotRolled03.Source = (ImageSource)TryFindResource("STE_F_03");
+			imgBtnSteelHotRolled04.Source = (ImageSource)TryFindResource("STE_F_04");
+			imgBtnSteelHotRolled05.Source = (ImageSource)TryFindResource("STE_F_05");
+			imgBtnSteelHotRolled10.Source = (ImageSource)TryFindResource("STE_F_06");
+			imgBtnSteelHotRolled11.Source = (ImageSource)TryFindResource("STE_F_07");
+			imgBtnSteelHotRolled12.Source = (ImageSource)TryFindResource("STE_F_08");
+			imgBtnSteelHotRolled13.Source = (ImageSource)TryFindResource("STE_F_09");
+			imgBtnSteelHotRolled14.Source = (ImageSource)TryFindResource("STE_F_10");
 
+			imgBtnSteelColdFormed00.Source = (ImageSource)TryFindResource("STE_F_79");
+			imgBtnSteelColdFormed01.Source = (ImageSource)TryFindResource("STE_F_80");
+			imgBtnSteelColdFormed02.Source = (ImageSource)TryFindResource("STE_F_87");
+			imgBtnSteelColdFormed03.Source = (ImageSource)TryFindResource("STE_F_88");
+			imgBtnSteelColdFormed04.Source = (ImageSource)TryFindResource("STE_F_89");
+			imgBtnSteelColdFormed05.Source = (ImageSource)TryFindResource("STE_F_90");
+			imgBtnSteelColdFormed10.Source = (ImageSource)TryFindResource("STE_F_91");
+			imgBtnSteelColdFormed11.Source = (ImageSource)TryFindResource("STE_F_92");
+			imgBtnSteelColdFormed12.Source = (ImageSource)TryFindResource("STE_F_72");
+			imgBtnSteelColdFormed13.Source = (ImageSource)TryFindResource("STE_F_77");
+			imgBtnSteelColdFormed14.Source = (ImageSource)TryFindResource("STE_F_78");
+
+			imgBtnSteelParamWelded00.Source = (ImageSource)TryFindResource("STE_F_20");
+			imgBtnSteelParamWelded01.Source = (ImageSource)TryFindResource("STE_F_21");
+			imgBtnSteelParamWelded02.Source = (ImageSource)TryFindResource("STE_F_22");
+			imgBtnSteelParamWelded03.Source = (ImageSource)TryFindResource("STE_F_23");
+			imgBtnSteelParamWelded04.Source = (ImageSource)TryFindResource("STE_F_24");
+			imgBtnSteelParamWelded05.Source = (ImageSource)TryFindResource("STE_F_25");
+			imgBtnSteelParamWelded10.Source = (ImageSource)TryFindResource("STE_F_26");
+			imgBtnSteelParamWelded11.Source = (ImageSource)TryFindResource("STE_F_27");
+			imgBtnSteelParamWelded12.Source = (ImageSource)TryFindResource("STE_F_28");
+			imgBtnSteelParamWelded13.Source = (ImageSource)TryFindResource("STE_F_29");
+			imgBtnSteelParamWelded14.Source = (ImageSource)TryFindResource("STE_F_30");
+			imgBtnSteelParamWelded15.Source = (ImageSource)TryFindResource("STE_F_31");
+			imgBtnSteelParamWelded20.Source = (ImageSource)TryFindResource("STE_F_32");
+			imgBtnSteelParamWelded21.Source = (ImageSource)TryFindResource("STE_F_33");
+			imgBtnSteelParamWelded22.Source = (ImageSource)TryFindResource("STE_F_34");
+			imgBtnSteelParamWelded23.Source = (ImageSource)TryFindResource("STE_F_40");
+			imgBtnSteelParamWelded24.Source = (ImageSource)TryFindResource("STE_F_41");
+			imgBtnSteelParamWelded25.Source = (ImageSource)TryFindResource("STE_F_42");
+			imgBtnSteelParamWelded30.Source = (ImageSource)TryFindResource("STE_F_43");
+			imgBtnSteelParamWelded31.Source = (ImageSource)TryFindResource("STE_F_44");
+			imgBtnSteelParamWelded32.Source = (ImageSource)TryFindResource("STE_F_45");
+			imgBtnSteelParamWelded33.Source = (ImageSource)TryFindResource("STE_F_46");
+			imgBtnSteelParamWelded34.Source = (ImageSource)TryFindResource("STE_F_47");
+			imgBtnSteelParamWelded35.Source = (ImageSource)TryFindResource("STE_F_48");
+			imgBtnSteelParamWelded40.Source = (ImageSource)TryFindResource("STE_F_49");
+			imgBtnSteelParamWelded41.Source = (ImageSource)TryFindResource("STE_F_50");
+
+			imgBtnSteelParamThin00.Source = (ImageSource)TryFindResource("STE_F_70");
+			imgBtnSteelParamThin01.Source = (ImageSource)TryFindResource("STE_F_71");
+			imgBtnSteelParamThin02.Source = (ImageSource)TryFindResource("STE_F_72");
+			imgBtnSteelParamThin03.Source = (ImageSource)TryFindResource("STE_F_73");
+			imgBtnSteelParamThin04.Source = (ImageSource)TryFindResource("STE_F_74");
+			imgBtnSteelParamThin05.Source = (ImageSource)TryFindResource("STE_F_75");
+			imgBtnSteelParamThin10.Source = (ImageSource)TryFindResource("STE_F_76");
+			imgBtnSteelParamThin11.Source = (ImageSource)TryFindResource("STE_F_77");
+			imgBtnSteelParamThin12.Source = (ImageSource)TryFindResource("STE_F_78");
+			imgBtnSteelParamThin13.Source = (ImageSource)TryFindResource("STE_F_79");
+			imgBtnSteelParamThin14.Source = (ImageSource)TryFindResource("STE_F_80");
+			imgBtnSteelParamThin15.Source = (ImageSource)TryFindResource("STE_F_81");
+			imgBtnSteelParamThin20.Source = (ImageSource)TryFindResource("STE_F_82");
+			imgBtnSteelParamThin21.Source = (ImageSource)TryFindResource("STE_F_83");
+			imgBtnSteelParamThin22.Source = (ImageSource)TryFindResource("STE_F_84");
+			imgBtnSteelParamThin23.Source = (ImageSource)TryFindResource("STE_F_85");
+			imgBtnSteelParamThin24.Source = (ImageSource)TryFindResource("STE_F_86");
+			imgBtnSteelParamThin25.Source = (ImageSource)TryFindResource("STE_F_87");
+			imgBtnSteelParamThin30.Source = (ImageSource)TryFindResource("STE_F_88");
+			imgBtnSteelParamThin31.Source = (ImageSource)TryFindResource("STE_F_89");
+			imgBtnSteelParamThin32.Source = (ImageSource)TryFindResource("STE_F_90");
+			imgBtnSteelParamThin33.Source = (ImageSource)TryFindResource("STE_F_91");
+			imgBtnSteelParamThin34.Source = (ImageSource)TryFindResource("STE_F_92");
+			imgBtnSteelParamThin40.Source = (ImageSource)TryFindResource("STE_F_93");
+			imgBtnSteelParamThin41.Source = (ImageSource)TryFindResource("STE_F_94");
+			imgBtnSteelParamThin42.Source = (ImageSource)TryFindResource("STE_F_95");
+			imgBtnSteelParamThin43.Source = (ImageSource)TryFindResource("STE_F_96");
+			imgBtnSteelParamThin44.Source = (ImageSource)TryFindResource("");
+			imgBtnSteelParamThin45.Source = (ImageSource)TryFindResource("");
 		}
 
 		
@@ -111,6 +191,18 @@ namespace sw_en_GUI
 					hideAllGroupBoxes();
 					gridSteel.Visibility = Visibility.Visible;
 					break;
+				case 3:
+					hideAllGroupBoxes();
+					gridComposite.Visibility = Visibility.Visible;
+					break;
+				case 4:
+					hideAllGroupBoxes();
+					gridTimber.Visibility = Visibility.Visible;
+					break;
+				case 5:
+					hideAllGroupBoxes();
+					gridAluminium.Visibility = Visibility.Visible;
+					break;
 				default:
 					MessageBox.Show("Not supported value: "+listBoxMenu.SelectedIndex);
 					break;
@@ -122,6 +214,9 @@ namespace sw_en_GUI
 			groupBoxGeneral.Visibility = Visibility.Hidden;
 			groupBoxConcrete. Visibility = Visibility.Hidden;
 			gridSteel.Visibility = Visibility.Hidden;
+			gridComposite.Visibility = Visibility.Hidden;
+			gridTimber.Visibility = Visibility.Hidden;
+			gridAluminium.Visibility = Visibility.Hidden;
 		}
 	}
 }
