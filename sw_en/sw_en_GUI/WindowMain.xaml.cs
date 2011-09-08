@@ -87,6 +87,9 @@ namespace sw_en_GUI
 			imgBtnConcrete42.Source = (ImageSource)TryFindResource("CON_F_49");
 			imgBtnConcrete43.Source = (ImageSource)TryFindResource("CON_F_50");
 			imgBtnConcrete68.Source = (ImageSource)TryFindResource("0_MASS");
+
+
+
 		}
 
 		
@@ -94,7 +97,31 @@ namespace sw_en_GUI
 
 		private void listBoxMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			MessageBox.Show(e.OriginalSource.ToString());
+			switch (listBoxMenu.SelectedIndex) 
+			{
+				case 0:
+					hideAllGroupBoxes();
+					groupBoxGeneral.Visibility = Visibility.Visible;
+					break;
+				case 1:
+					hideAllGroupBoxes();
+					groupBoxConcrete.Visibility = Visibility.Visible;
+					break;
+				case 2:
+					hideAllGroupBoxes();
+					gridSteel.Visibility = Visibility.Visible;
+					break;
+				default:
+					MessageBox.Show("Not supported value: "+listBoxMenu.SelectedIndex);
+					break;
+			}
+		}
+
+		private void hideAllGroupBoxes()
+		{
+			groupBoxGeneral.Visibility = Visibility.Hidden;
+			groupBoxConcrete. Visibility = Visibility.Hidden;
+			gridSteel.Visibility = Visibility.Hidden;
 		}
 	}
 }
