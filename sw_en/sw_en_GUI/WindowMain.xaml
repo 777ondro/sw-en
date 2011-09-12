@@ -277,8 +277,8 @@
 		<!--     STEEL     -->
 		<Grid x:Name="gridSteel" Grid.Row="0" Grid.Column="1" Visibility="Hidden">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="*"></RowDefinition>
-				<RowDefinition Height="3*"></RowDefinition>
+				<RowDefinition Height="2*"></RowDefinition>
+				<RowDefinition Height="4*"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
@@ -287,7 +287,7 @@
 			</Grid.ColumnDefinitions>
 			
 			<!--Steel Hot Rolled-->
-			<GroupBox Grid.Row="0" Grid.Column="0" Header="Hot-Rolled">
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Hot-Rolled" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -340,7 +340,7 @@
 			</GroupBox>
 			
 			<!--Steel Cold Formed-->
-			<GroupBox Grid.Row="0" Grid.Column="1" Header="Cold-Formed">
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Cold-Formed" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -389,14 +389,11 @@
 					<Button Grid.Row="1" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnSteelColdFormed14"></Image>
 					</Button>
-					<Button Grid.Row="1" Grid.Column="5" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnSteelColdFormed15"></Image>
-					</Button>
 				</Grid>
 			</GroupBox>
 
 			<!--Steel Parametric (Welded)-->
-			<GroupBox Grid.Row="1" Grid.Column="0" Header="Parametric (Welded)">
+			<GroupBox Grid.Row="1" Grid.Column="0" Header="Parametric (Welded)" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -500,7 +497,7 @@
 			</GroupBox>
 
 			<!--Steel Parametric (Thin-Walled)-->
-			<GroupBox Grid.Row="1" Grid.Column="1" Header="Parametric (Thin-Walled)">
+			<GroupBox Grid.Row="1" Grid.Column="1" Header="Parametric (Thin-Walled)" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -613,7 +610,7 @@
 			</GroupBox>
 
 			<!--Steel Parametric (Built-up)-->
-			<GroupBox Grid.Row="2" Grid.ColumnSpan="2" Header="Built-up">
+			<GroupBox Grid.Row="2" Grid.ColumnSpan="2" Header="Built-up" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -651,7 +648,7 @@
 			</Grid.ColumnDefinitions>
 
 			<!--Composite Columns-->
-			<GroupBox Grid.Row="0" Grid.Column="0" Header="Columns">
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Columns" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -683,7 +680,7 @@
 				</Grid>
 			</GroupBox>
 			<!--Composite Beams-->
-			<GroupBox Grid.Row="0" Grid.Column="1" Header="Beams">
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Beams" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -722,7 +719,7 @@
 			</Grid.ColumnDefinitions>
 
 			<!--Timber Solid-->
-			<GroupBox Grid.Row="0" Grid.Column="0" Header="Solid">
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Solid" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -745,7 +742,7 @@
 				</Grid>
 			</GroupBox>
 			<!--Timber Glued (laminated)-->
-			<GroupBox Grid.Row="0" Grid.Column="1" Header="Glued (Laminated)">
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Glued (Laminated)" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -780,7 +777,7 @@
 				</Grid>
 			</GroupBox>
 			<!--Timber Built-up-->
-			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up">
+			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -800,18 +797,6 @@
 					<Button Grid.Row="0" Grid.Column="1" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnTimberBuiltUp01"></Image>
 					</Button>
-					<Button Grid.Row="0" Grid.Column="2" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnTimberBuiltUp02"></Image>
-					</Button>
-					<Button Grid.Row="0" Grid.Column="3" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnTimberBuiltUp03"></Image>
-					</Button>
-					<Button Grid.Row="0" Grid.Column="4" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnTimberBuiltUp04"></Image>
-					</Button>
-					<Button Grid.Row="0" Grid.Column="5" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnTimberBuiltUp05"></Image>
-					</Button>
 				</Grid>
 			</GroupBox>
 		</Grid>
@@ -828,7 +813,7 @@
 			</Grid.ColumnDefinitions>
 
 			<!--Aluminium Extruded-->
-			<GroupBox Grid.Row="0" Grid.Column="0" Header="Extruded">
+			<GroupBox Grid.Row="0" Grid.Column="0" Header="Extruded" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -876,7 +861,7 @@
 				</Grid>
 			</GroupBox>
 			<!--Aluminium Parametric-->
-			<GroupBox Grid.Row="0" Grid.Column="1" Header="Parametric">
+			<GroupBox Grid.Row="0" Grid.Column="1" Header="Parametric" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>
@@ -966,9 +951,6 @@
 					<Button Grid.Row="3" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnAluminiumParam34" ></Image>
 					</Button>
-					<Button Grid.Row="3" Grid.Column="5" Width="1cm" Height="1cm">
-						<Image x:Name="imgBtnAluminiumParam35" ></Image>
-					</Button>
 
 					<Button Grid.Row="4" Grid.Column="0" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnAluminiumParam40" ></Image>
@@ -991,7 +973,7 @@
 				</Grid>
 			</GroupBox>
 			<!--Aluminium Built-up-->
-			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up">
+			<GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Built-up" Margin="10px">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1.2cm"></RowDefinition>

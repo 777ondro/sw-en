@@ -168,14 +168,80 @@ namespace sw_en_GUI
 			imgBtnSteelParamThin41.Source = (ImageSource)TryFindResource("STE_F_94");
 			imgBtnSteelParamThin42.Source = (ImageSource)TryFindResource("STE_F_95");
 			imgBtnSteelParamThin43.Source = (ImageSource)TryFindResource("STE_F_96");
-			imgBtnSteelParamThin44.Source = (ImageSource)TryFindResource("");
-			imgBtnSteelParamThin45.Source = (ImageSource)TryFindResource("");
+			imgBtnSteelParamThin44.Source = (ImageSource)TryFindResource("STE_F_97");
+			imgBtnSteelParamThin45.Source = (ImageSource)TryFindResource("0_THIN");
 
 			imgBtnSteelBuiltUp00.Source = (ImageSource)TryFindResource("STE_F_100");
 			imgBtnSteelBuiltUp01.Source = (ImageSource)TryFindResource("STE_F_110");
 			imgBtnSteelBuiltUp02.Source = (ImageSource)TryFindResource("STE_F_120");
 
 			//Composite
+			imgBtnCompositeColumns00.Source = (ImageSource)TryFindResource("COM_F_00");
+			imgBtnCompositeColumns01.Source = (ImageSource)TryFindResource("COM_F_01");
+			imgBtnCompositeColumns02.Source = (ImageSource)TryFindResource("COM_F_02");
+			imgBtnCompositeColumns03.Source = (ImageSource)TryFindResource("COM_F_03");
+			imgBtnCompositeColumns04.Source = (ImageSource)TryFindResource("COM_F_04");
+
+			imgBtnCompositeBeams00.Source = (ImageSource)TryFindResource("COM_F_20");
+			imgBtnCompositeBeams01.Source = (ImageSource)TryFindResource("COM_F_21");
+			imgBtnCompositeBeams02.Source = (ImageSource)TryFindResource("COM_F_30");
+			imgBtnCompositeBeams03.Source = (ImageSource)TryFindResource("COM_F_31");
+
+			//timber
+			imgBtnTimberSolid00.Source = (ImageSource)TryFindResource("TIM_F_00");
+			imgBtnTimberSolid01.Source = (ImageSource)TryFindResource("TIM_F_01");
+
+			imgBtnTimberGlued00.Source = (ImageSource)TryFindResource("TIM_F_02");
+			imgBtnTimberGlued01.Source = (ImageSource)TryFindResource("TIM_F_20");
+			imgBtnTimberGlued02.Source = (ImageSource)TryFindResource("TIM_F_21");
+			imgBtnTimberGlued03.Source = (ImageSource)TryFindResource("TIM_F_22");
+			imgBtnTimberGlued04.Source = (ImageSource)TryFindResource("TIM_F_40");
+			imgBtnTimberGlued05.Source = (ImageSource)TryFindResource("TIM_F_41");
+
+			imgBtnTimberBuiltUp00.Source = (ImageSource)TryFindResource("TIM_F_60");
+			imgBtnTimberBuiltUp01.Source = (ImageSource)TryFindResource("TIM_F_61");
+
+			//Aluminium
+			imgBtnAluminiumExtruded00.Source = (ImageSource)TryFindResource("STE_F_79");
+			imgBtnAluminiumExtruded01.Source = (ImageSource)TryFindResource("STE_F_80");
+			imgBtnAluminiumExtruded02.Source = (ImageSource)TryFindResource("STE_F_87");
+			imgBtnAluminiumExtruded03.Source = (ImageSource)TryFindResource("STE_F_88");
+			imgBtnAluminiumExtruded04.Source = (ImageSource)TryFindResource("STE_F_90");
+			imgBtnAluminiumExtruded10.Source = (ImageSource)TryFindResource("STE_F_91");
+			imgBtnAluminiumExtruded11.Source = (ImageSource)TryFindResource("STE_F_92");
+			imgBtnAluminiumExtruded12.Source = (ImageSource)TryFindResource("STE_F_72");
+			imgBtnAluminiumExtruded13.Source = (ImageSource)TryFindResource("STE_F_77");
+			imgBtnAluminiumExtruded14.Source = (ImageSource)TryFindResource("STE_F_78");
+
+			imgBtnAluminiumParam00.Source = (ImageSource)TryFindResource("STE_F_70");
+			imgBtnAluminiumParam01.Source = (ImageSource)TryFindResource("STE_F_71");
+			imgBtnAluminiumParam02.Source = (ImageSource)TryFindResource("STE_F_72");
+			imgBtnAluminiumParam03.Source = (ImageSource)TryFindResource("STE_F_73");
+			imgBtnAluminiumParam04.Source = (ImageSource)TryFindResource("STE_F_74");
+			imgBtnAluminiumParam05.Source = (ImageSource)TryFindResource("STE_F_75");
+			imgBtnAluminiumParam10.Source = (ImageSource)TryFindResource("STE_F_76");
+			imgBtnAluminiumParam11.Source = (ImageSource)TryFindResource("STE_F_77");
+			imgBtnAluminiumParam12.Source = (ImageSource)TryFindResource("STE_F_78");
+			imgBtnAluminiumParam13.Source = (ImageSource)TryFindResource("STE_F_79");
+			imgBtnAluminiumParam14.Source = (ImageSource)TryFindResource("STE_F_80");
+			imgBtnAluminiumParam15.Source = (ImageSource)TryFindResource("STE_F_81");
+			imgBtnAluminiumParam20.Source = (ImageSource)TryFindResource("STE_F_82");
+			imgBtnAluminiumParam21.Source = (ImageSource)TryFindResource("STE_F_83");
+			imgBtnAluminiumParam22.Source = (ImageSource)TryFindResource("STE_F_84");
+			imgBtnAluminiumParam23.Source = (ImageSource)TryFindResource("STE_F_85");
+			imgBtnAluminiumParam24.Source = (ImageSource)TryFindResource("STE_F_86");
+			imgBtnAluminiumParam25.Source = (ImageSource)TryFindResource("STE_F_87");
+			imgBtnAluminiumParam30.Source = (ImageSource)TryFindResource("STE_F_88");
+			imgBtnAluminiumParam31.Source = (ImageSource)TryFindResource("STE_F_89");
+			imgBtnAluminiumParam32.Source = (ImageSource)TryFindResource("STE_F_90");
+			imgBtnAluminiumParam33.Source = (ImageSource)TryFindResource("STE_F_91");
+			imgBtnAluminiumParam34.Source = (ImageSource)TryFindResource("STE_F_92");
+			imgBtnAluminiumParam40.Source = (ImageSource)TryFindResource("STE_F_93");
+			imgBtnAluminiumParam41.Source = (ImageSource)TryFindResource("STE_F_94");
+			imgBtnAluminiumParam42.Source = (ImageSource)TryFindResource("STE_F_95");
+			imgBtnAluminiumParam43.Source = (ImageSource)TryFindResource("STE_F_96");
+			imgBtnAluminiumParam44.Source = (ImageSource)TryFindResource("STE_F_97");
+			imgBtnAluminiumParam45.Source = (ImageSource)TryFindResource("0_THIN");
 
 		}
 
