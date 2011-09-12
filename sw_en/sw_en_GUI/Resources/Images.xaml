@@ -131,6 +131,7 @@
 	<ImageSource x:Key="STE_F_94">Images/3_STE_F/3_94.png</ImageSource>
 	<ImageSource x:Key="STE_F_95">Images/3_STE_F/3_95.png</ImageSource>
 	<ImageSource x:Key="STE_F_96">Images/3_STE_F/3_96.png</ImageSource>
+	<ImageSource x:Key="STE_F_97">Images/3_STE_F/3_97.png</ImageSource>
 
 	<ImageSource x:Key="COM_F_00">Images/4_COM_F/4_00.png</ImageSource>
 	<ImageSource x:Key="COM_F_01">Images/4_COM_F/4_01.png</ImageSource>

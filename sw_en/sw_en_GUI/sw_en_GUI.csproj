@@ -214,7 +214,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\3_STE_F\3_97.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\0_GEN_F\0_00.png" />
     <Resource Include="Resources\Images\0_GEN_F\0_01.png" />
