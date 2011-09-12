@@ -170,6 +170,13 @@ namespace sw_en_GUI
 			imgBtnSteelParamThin43.Source = (ImageSource)TryFindResource("STE_F_96");
 			imgBtnSteelParamThin44.Source = (ImageSource)TryFindResource("");
 			imgBtnSteelParamThin45.Source = (ImageSource)TryFindResource("");
+
+			imgBtnSteelBuiltUp00.Source = (ImageSource)TryFindResource("STE_F_100");
+			imgBtnSteelBuiltUp01.Source = (ImageSource)TryFindResource("STE_F_110");
+			imgBtnSteelBuiltUp02.Source = (ImageSource)TryFindResource("STE_F_120");
+
+			//Composite
+
 		}
 
 		
