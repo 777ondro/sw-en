@@ -22,5 +22,11 @@ namespace sw_en_GUI
 		{
 			InitializeComponent();
 		}
+
+		
+		private void buttonCancel_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
 	}
 }
