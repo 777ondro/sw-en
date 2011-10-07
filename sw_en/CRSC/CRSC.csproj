@@ -144,6 +144,14 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CrSc_0\" />
+    <Folder Include="CrSc_2\" />
+    <Folder Include="CrSc_3\" />
+    <Folder Include="CrSc_4\" />
+    <Folder Include="CrSc_5\" />
+    <Folder Include="CrSc_9\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
