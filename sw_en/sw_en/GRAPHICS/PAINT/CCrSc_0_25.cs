@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using MATH;
 
 namespace CENEX
 {
@@ -142,5 +143,243 @@ namespace CENEX
             m_CrScPoint[7,0] = m_CrScPoint[4,0];     // y
             m_CrScPoint[7,1] = -m_CrScPoint[4,1];     // z
         }
+
+
+        // Temporary for hollow rectanngular and square section - steel !!!
+
+        // Use for shape 3_07  
+
+
+        // SH(S)S - square hollow (structural) section
+
+        //----------------------------------------------------------------------------
+        // Cross-section properties
+        //----------------------------------------------------------------------------
+
+        float m_ft, m_fr; // Temporary
+
+        // default
+        // m_fr = 2*m_ft;
+
+        float m_fU, m_fA,
+            m_fU_m, m_fA_m,
+            m_fW_t_el, m_fI_t, m_fW_t_pl, m_ff_t_plel,
+            m_fS, m_fI, m_fW_el, m_fW_pl, m_ff_plel,
+            m_fEta_v, m_fA_v_el, m_fA_v_pl, m_ff_v_plel;
+
+        // Mid-thickness perimeter of section
+        void Calc_U_m()
+        {
+            m_fU_m = 2 * (2* m_fh - 2* m_ft + (m_fr - m_ft /2f) * (MathF.fPI - 4));
+        }
+        // Mid-thickness area of section
+        void Calc_A_m()
+        {
+            m_fA_m = MathF.Pow2(m_fh - m_ft) - MathF.Pow2(m_fr - m_ft / 2f) * (4 - MathF.fPI);
+        }
+        // Perimeter of section
+        void Calc_U()
+        {
+            m_fU = 2 * (2 * m_fh + m_fr * (MathF.fPI - 4));
+        }
+        // Section area
+        void Calc_A()
+        {
+            m_fA = m_ft * m_fU_m;
+        }
+        // Torsional inertia constant
+        void Calc_I_t()
+        {
+            m_fI_t = m_fU_m * MathF.Pow3(m_ft) / 3f + 4* m_ft * MathF.Pow2(m_fA_m) / m_fU_m;
+        }
+        // Torsional section modulus - elastic
+        void Calc_W_t_el()
+        {
+            m_fW_t_el = m_fI_t / (m_ft + 2f* m_fA_m / m_fU_m);
+        }
+        // Torsional section modulus - plastic
+        void Calc_W_t_pl()
+        {
+            m_fW_t_pl = m_fW_t_el; // TEMP
+        }
+        // Torsional shape factor plastic/elastic
+        void Calc_f_t_plel()
+        {
+            m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
+        }
+        // First moment o area
+        void Calc_S()
+        {
+            /// ????
+        }
+        // Second moment of area
+        void Calc_I()
+        {
+            /// ????
+        }
+        // Section modulus - elastic
+        void Calc_W_el()
+        {
+            m_fW_el = 2 * m_fI  / m_fh;
+        }
+        // Section modulus - plastic
+        void Calc_W_pl()
+        {
+            /// ????
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_plel()
+        {
+            m_ff_plel = m_fW_pl / m_fW_el;
+        }
+        // Shear factor
+        void Calc_Eta_v()
+        {
+            /// ????
+            // m_fEta_v = (m_fA / MathF.Pow2(m_fI) * Integral m_fSyi^2 / byi dz;
+        }
+        // Shear effective area - elastic
+        void Calc_A_v_el()
+        {
+            /// ????
+            // m_fA_v_el = m_fI * Math.Min(byi / Syi);
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_v_plel()
+        {
+            /// ????
+            m_ff_v_plel = 1.00f;
+        }
+        // Shear effective area - plastic
+        void Calc_A_v_pl()
+        {
+            // ???? 
+            m_fA_v_pl = m_ff_v_plel * m_fA_v_el;
+        }
+
+
+
+
+
+        // RH(S)S - rectangular hollow (structural) section
+
+        
+        // Note - it is better to create two classes , one for SHS and the other one for RHS
+        // just for steel and aluminium rolled profiles !!!!
+
+      
+
+         float  m_fS_y, m_fI_y, m_fW_y_el, m_fW_y_pl, m_ff_y_plel,
+                m_fS_z, m_fI_z, m_fW_z_el, m_fW_z_pl, m_ff_z_plel,
+                m_fEta_y_v, m_fA_y_v_el, m_fA_y_v_pl, m_ff_y_v_plel,
+                m_fEta_z_v, m_fA_z_v_el, m_fA_z_v_pl, m_ff_z_v_plel;
+
+        //// Mid-thickness perimeter of section
+        //void Calc_U_m()
+        //{
+        //    m_fU_m = 2 * (m_fb * m_fh - 2 * m_ft + (m_fr - m_ft / 2f) * (MathF.fPI - 4));
+        //}
+        //// Mid-thickness area of section
+        //void Calc_A_m()
+        //{
+        //    m_fA_m = (m_fh - m_ft) * (m_fb - m_ft) - MathF.Pow2(m_fr - m_ft / 2f) * (4 - MathF.fPI);
+        //}
+        //// Perimeter of section
+        //void Calc_U()
+        //{
+        //    m_fU = 2 * (m_fb + m_fh + m_fr * (MathF.fPI - 4));
+        //}
+        //// Section area
+        //void Calc_A()
+        //{
+        //    m_fA = m_ft * m_fU_m;
+        //}
+        //// Torsional inertia constant
+        //void Calc_I_t()
+        //{
+        //    m_fI_t = m_fU_m * MathF.Pow3(m_ft) / 3f + 4 * m_ft * MathF.Pow2(m_fA_m) / m_fU_m;
+        //}
+        //// Torsional section modulus - elastic
+        //void Calc_W_t_el()
+        //{
+        //    m_fW_t_el = m_fI_t / (m_ft + 2f * m_fA_m / m_fU_m);
+        //}
+        //// Torsional section modulus - plastic
+        //void Calc_W_t_pl()
+        //{
+        //    m_fW_t_pl = m_fW_t_el; // TEMP
+        //}
+        //// Torsional shape factor plastic/elastic
+        //void Calc_f_t_plel()
+        //{
+        //    m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
+        //}
+
+
+        // First moment o area
+        void Calc_S_y()
+        {
+            /// ????
+        }
+        // Second moment of area
+        void Calc_I_y()
+        {
+            /// ????
+        }
+        // Section modulus - elastic
+        void Calc_W_y_el()
+        {
+            m_fW_y_el = 2 * m_fI_y / m_fh;
+        }
+        // Section modulus - plastic
+        void Calc_W_y_pl()
+        {
+            /// ????
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_y_plel()
+        {
+            m_ff_y_plel = m_fW_y_pl / m_fW_y_el;
+        }
+        // Shear factor
+        void Calc_Eta_y_v()
+        {
+            /// ????
+            // m_fEta_y_v = (m_fA / MathF.Pow2(m_fI_y) * Integral m_fSyi^2 / byi dz;
+        }
+        // Shear effective area - elastic
+        void Calc_A_y_v_el()
+        {
+            /// ????
+            // m_fA_y_v_el = m_fI_y * Math.Min(byi / Syi);
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_y_v_plel()
+        {
+            /// ????
+            m_ff_y_v_plel = 1.00f;
+        }
+        // Shear effective area - plastic
+        void Calc_A_y_v_pl()
+        {
+            // ???? 
+            m_fA_y_v_pl = m_ff_y_v_plel * m_fA_y_v_el;
+        }
+
+
+        // First moment o area
+        void Calc_S_z()
+        {
+            /// ????
+        }
+
+        /*
+         * 
+         * 
+         *
+         *  for z-axis
+         * 
+         * 
+         */
     }
 }
