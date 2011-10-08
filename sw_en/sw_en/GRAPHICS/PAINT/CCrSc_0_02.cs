@@ -147,12 +147,12 @@ namespace CENEX
             m_ff_plel = m_fW_pl / m_fW_el;
         }
         // Shear factor
-        void Calc_fEta_v()
+        void Calc_Eta_v()
         {
             m_fEta_v = 1.175f;
         }
         // Shear effective area - elastic
-        void Calc_fA_v_el()
+        void Calc_A_v_el()
         {
             float fNu= 0.3f; // Poisson factor
             m_fA_v_el = 2 *(1+fNu) * m_fA / (3+2*fNu);
@@ -160,13 +160,13 @@ namespace CENEX
         // Shape factor for shear - plastic/elastic
         void Calc_f_v_plel()
         {
-            m_fEta_v = 1.33f;
+            m_ff_v_plel = 1.33f;
         }
         // Shear effective area - plastic
-        void Calc_fA_v_pl()
+        void Calc_A_v_pl()
         {
             //?????  
-            m_fA_v_pl = m_fEta_v* m_fA_v_el;
+            m_fA_v_pl = m_ff_v_plel * m_fA_v_el;
         }
     }
 }
