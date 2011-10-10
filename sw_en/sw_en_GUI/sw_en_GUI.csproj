@@ -106,8 +106,8 @@
     <Compile Include="WindowCrScParam.xaml.cs">
       <DependentUpon>WindowCrScParam.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowMain.xaml.cs">
-      <DependentUpon>WindowMain.xaml</DependentUpon>
+    <Compile Include="WindowCrossSectionDB.xaml.cs">
+      <DependentUpon>WindowCrossSectionDB.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowMenu.xaml.cs">
       <DependentUpon>WindowMenu.xaml</DependentUpon>
@@ -157,7 +157,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WindowMain.xaml">
+    <Page Include="WindowCrossSectionDB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
