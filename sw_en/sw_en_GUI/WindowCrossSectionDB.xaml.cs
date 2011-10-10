@@ -16,9 +16,9 @@ namespace sw_en_GUI
 	/// <summary>
 	/// Interaction logic for WindowMain.xaml
 	/// </summary>
-	public partial class WindowMain : Window
+	public partial class WindowCrossSectionDB : Window
 	{
-		public WindowMain()
+		public WindowCrossSectionDB()
 		{
 			InitializeComponent();
 			imageButton00.Source = (ImageSource)TryFindResource("GEN_F_00");
