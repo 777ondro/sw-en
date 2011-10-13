@@ -278,6 +278,7 @@ namespace CENEX
         // Cross-section properties
         //----------------------------------------------------------------------------
 
+        // Rolled steel
         // Parallel-faced flanges (flat)
         // Doubly symmetrical
 
@@ -299,7 +300,7 @@ namespace CENEX
             m_fh_i = m_fh - 2 * m_ft_f;
         }
 
-        // Web Depth (straight part
+        // Web Depth (straight part)
         void Calc_d()
         {
             m_fd = m_fh - 2 * m_ft_f - 2 * m_fr;
@@ -446,5 +447,46 @@ namespace CENEX
         {
             m_fA_z_v_pl = m_ff_z_v_plel * m_fA_z_v_el; // Temp
         }
+
+
+
+
+        // Tapered flanges
+        // Doubly symmetrical
+
+        float m_fAlpha_Taper, // Pocitat s % (8) alebo s podielom (0,08)
+             m_fr_1, m_fr_2, m_fu;
+
+        // t - stredna hrubka
+
+        // Basic dimmensions
+        void Calc_BasicDimension()
+        {
+            m_fu = (m_fb - m_ft_w) / 4.0f;
+
+            if (m_fr_1 < 0.0f)
+                m_fr_1 = m_ft_w;
+
+            if (m_fr_2 < 0.0f)
+                m_fr_2 = m_ft_w / 2f;
+        }
+
+
+        //// Web Depth (straight part)
+        //void Calc_d()
+        //{
+        //    m_fd = m_fh - 2 * m_ft_f - 2 * m_fr - (m_fb - m_ft_w - 2 * m_fr - 2 * m_fu) * m_fAlpha_Taper; 
+        //}
+        //// Perimeter of section
+        //void Calc_U()
+        //{
+        //    m_fU = 4 * m_fb + 2 * (m_fh - m_ft_w);
+        //}
+        //// Torsional inertia constant
+        //void Calc_I_t()
+        //{
+        //    // t eq ???
+        //    m_fI_t = (2 * m_fb * MathF.Pow3(m_ft_f) + (m_fh - 2 * m_ft_f) * MathF.Pow3(m_ft_w)) / 3f;
+        //}
     }
 }
