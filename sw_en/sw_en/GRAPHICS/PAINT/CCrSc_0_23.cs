@@ -121,5 +121,158 @@ namespace CENEX
             // Inside Points
             m_CrScPointIn = Geom2D.GetEllipsePointCoord(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPoints);
        }
+
+
+        //----------------------------------------------------------------------------
+        // Cross-section properties
+        //----------------------------------------------------------------------------
+
+        float m_fU, m_fA,
+                m_fS_y, m_fI_y, m_fW_y_el, m_fW_y_pl, m_ff_y_plel,
+                m_fS_z, m_fI_z, m_fW_z_el, m_fW_z_pl, m_ff_z_plel,
+                m_fW_t_el, m_fI_t, m_fi_t, m_fq_t, m_fW_t_pl, m_ff_t_plel,
+                m_fEta_y_v, m_fA_y_v_el, m_fA_y_v_pl, m_ff_y_v_plel,
+                m_fEta_z_v, m_fA_z_v_el, m_fA_z_v_pl, m_ff_z_v_plel;
+
+        // Perimeter of section
+        void Calc_U()
+        {
+            m_fU = MathF.fPI * (MathF.Sqrt(2 * (MathF.Pow2(m_fr_out_major) + MathF.Pow2(m_fr_out_minor)) - MathF.Pow2(m_fr_out_major - m_fr_out_minor) / 2.2f)
+                + MathF.Sqrt(2 * (MathF.Pow2(m_fr_in_major) + MathF.Pow2(m_fr_in_minor)) - MathF.Pow2(m_fr_in_major - m_fr_in_minor) / 2.2f));
+        }
+        // Section area
+        void Calc_A()
+        {
+            m_fA = MathF.fPI * m_ft * (m_fr_out_major + m_fr_out_minor - m_ft);
+        }
+        
+        // First moment o area
+        void Calc_S_y()
+        {
+            m_fS_y = 2 * (m_fr_out_minor * MathF.Pow2(m_fr_out_major) - m_fr_in_minor * MathF.Pow2(m_fr_in_major)) / 3f;
+        }
+        // Second moment of area
+        void Calc_I_y()
+        {
+            m_fI_y = MathF.fPI * (m_fr_out_minor * MathF.Pow3(m_fr_out_major) - m_fr_in_minor * MathF.Pow3(m_fr_in_major))  / 4f;
+        }
+        // Section modulus - elastic
+        void Calc_W_y_el()
+        {
+            m_fW_y_el = m_fI_y / m_fr_out_major;
+        }
+        // Section modulus - plastic
+        void Calc_W_y_pl()
+        {
+            m_fW_y_pl = 4 * (m_fr_out_minor * MathF.Pow2(m_fr_out_major) - m_fr_in_minor * MathF.Pow2(m_fr_in_major)) / 3f;
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_y_plel()
+        {
+            m_ff_y_plel = m_fW_y_pl / m_fW_y_el;
+        }
+
+
+        // First moment o area
+        void Calc_S_z()
+        {
+            m_fS_z = 2 * (m_fr_out_major * MathF.Pow2(m_fr_out_minor) - m_fr_in_major * MathF.Pow2(m_fr_in_minor)) / 3f;
+        }
+        // Second moment of area
+        void Calc_I_z()
+        {
+            m_fI_z = MathF.fPI * (m_fr_out_major * MathF.Pow3(m_fr_out_minor) - m_fr_in_major * MathF.Pow3(m_fr_in_minor)) / 4f;
+        }
+        // Section modulus - elastic
+        void Calc_W_z_el()
+        {
+            m_fW_z_el = m_fI_z / m_fr_out_minor;
+        }
+        // Section modulus - plastic
+        void Calc_W_z_pl()
+        {
+            m_fW_z_pl = 4 * (m_fr_out_major * MathF.Pow2(m_fr_out_minor) - m_fr_in_major * MathF.Pow2(m_fr_in_minor)) / 3f;
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_z_plel()
+        {
+            m_ff_z_plel = m_fW_z_pl / m_fW_z_el;
+        }
+
+
+        // Torsional inertia constant
+        void Calc_I_t()
+        {
+            m_fI_t = 2 * MathF.Pow2(m_fW_t_el) / (m_ft * m_fU);
+        }
+        // Torsional radius of gyration
+        void Calc_i_t()
+        {
+            m_fi_t = MathF.Sqrt(m_fI_t / m_fA);
+        }
+        // Torsion factor
+        void Calc_q_t()
+        {
+           // m_fq_t
+        }
+        // Torsional section modulus - elastic
+        void Calc_W_t_el()
+        {
+            m_fW_t_el = 2 * MathF.fPI * m_ft * (m_fr_out_major - m_ft/2.0f) * (m_fr_out_minor - m_ft/2.0f);
+        }
+        // Torsional section modulus - plastic
+        void Calc_W_t_pl()
+        {
+            //m_fW_t_pl
+        }
+        // Torsional shape factor plastic/elastic
+        void Calc_f_t_plel()
+        {
+            m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
+        }
+
+
+        // Shear factor
+        void Calc_Eta_y_v()
+        {
+            m_fEta_y_v = 1.00f; // Temp
+        }
+        // Shear effective area - elastic
+        void Calc_A_y_v_el()
+        {
+            m_fA_y_v_el = 2 * m_ft * m_fI_y / m_fS_y;
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_y_v_plel()
+        {
+            m_ff_y_v_plel = 1.00f; // Temp
+        }
+        // Shear effective area - plastic
+        void Calc_A_y_v_pl()
+        {
+            m_fA_y_v_pl = m_ff_y_v_plel * m_fA_y_v_el; // Temp
+        }
+
+
+        // Shear factor
+        void Calc_Eta_z_v()
+        {
+            m_fEta_z_v = 1.00f; // Temp
+        }
+        // Shear effective area - elastic
+        void Calc_A_z_v_el()
+        {
+            m_fA_z_v_el = 2 * m_ft * m_fI_z / m_fS_z;
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_z_v_plel()
+        {
+            m_ff_z_v_plel = 1.00f; // Temp
+        }
+        // Shear effective area - plastic
+        void Calc_A_z_v_pl()
+        {
+            m_fA_z_v_pl = m_ff_z_v_plel * m_fA_z_v_el; // Temp
+        }
     }
 }
