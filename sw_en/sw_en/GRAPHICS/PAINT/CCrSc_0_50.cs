@@ -399,7 +399,7 @@ namespace CENEX
             m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
         }
         // Section warping constant
-        void Calc_C_w()
+        void Calc_I_w()
         {
             m_fI_w = m_ft_f * MathF.Pow3(m_fb) * MathF.Pow2(m_fh - m_ft_f) / 24.0f;
         }

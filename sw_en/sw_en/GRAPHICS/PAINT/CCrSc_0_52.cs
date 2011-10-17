@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using MATH;
 
 namespace CENEX
 {
@@ -248,5 +249,237 @@ namespace CENEX
             m_CrScPoint[7, 0] = m_CrScPoint[0, 0];        // y
             m_CrScPoint[7, 1] = m_CrScPoint[6, 1];        // z
         }
+
+
+        //----------------------------------------------------------------------------
+        // Cross-section properties
+        //----------------------------------------------------------------------------
+
+        // Rolled steel
+        // Parallel-faced flanges (flat)
+        // Mono symmetrical
+
+        float m_fU, m_fA,
+                m_fS_y, m_fI_y, m_fW_y_el, m_fW_y_pl, m_ff_y_plel,
+                m_fS_z, m_fI_z, m_fW_z_el, m_fW_z_pl, m_ff_z_plel,
+                m_fW_t_el, m_fI_t, m_fi_t, m_fW_t_pl, m_ff_t_plel,
+                m_fEta_y_v, m_fA_y_v_el, m_fA_y_v_pl, m_ff_y_v_plel,
+                m_fEta_z_v, m_fA_z_v_el, m_fA_z_v_pl, m_ff_z_v_plel;
+
+        float m_fh_i, // Web Depth (distance between flange faces)
+              m_fd,   // Web Depth (straight part)
+              m_fr,   // Radius between faces of web and flange
+              m_fI_w, // Section warping constant
+              m_fy_M, // Shear Center
+              m_fy_C; // Centroid
+
+        // Web Depth (distance between flange faces)
+        void Calc_h_i()
+        {
+            m_fh_i = m_fh - 2 * m_ft_f;
+        }
+
+        // Web Depth (straight part)
+        void Calc_d()
+        {
+            m_fd = m_fh - 2 * m_ft_f - 2 * m_fr;
+        }
+
+        // 
+        void Calc_y_M()
+        {
+            m_fy_M = (3 * MathF.Pow2(m_fb - m_ft_w / 2.0f) / (m_fh - m_ft_f + 6.0f *(m_fb - m_ft_w/2.0f))-m_ft_w / 2.0f);
+        }
+
+        // 
+        void Calc_y_C()
+        {
+            // m_fy_C = bzi * y * dy / m_fA;
+        }
+
+
+        // Perimeter of section
+        void Calc_U()
+        {
+            m_fU = 2 * m_fh + 4 * m_fb - 2 * m_ft_w + (MathF.fPI - 4) * m_fr;
+        }
+        // Section area
+        void Calc_A()
+        {
+            // m_fA =  byi * dz;
+        }
+
+
+        // First moment o area
+        void Calc_S_y()
+        {
+            // m_fS_y;
+        }
+        // Second moment of area
+        void Calc_I_y()
+        {
+            // m_fI_y = byi * z^2 * dz;
+        }
+        // Section modulus - elastic
+        void Calc_W_y_el()
+        {
+            m_fW_y_el = 2 * m_fI_y / m_fh;
+        }
+        // Section modulus - plastic
+        void Calc_W_y_pl()
+        {
+           // m_fW_y_pl = byi * z * dz;
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_y_plel()
+        {
+            m_ff_y_plel = m_fW_y_pl / m_fW_y_el;
+        }
+
+
+        // First moment o area
+        void Calc_S_z()
+        {
+            // m_fS_z;
+        }
+        // Second moment of area
+        void Calc_I_z()
+        {
+           // m_fI_z;
+        }
+        // Section modulus - elastic
+        void Calc_W_z_el()
+        {
+            m_fW_z_el = 2 * m_fI_z / (m_fb - m_fy_C);
+        }
+        // Section modulus - plastic
+        void Calc_W_z_pl()
+        {
+            // m_fW_z_pl 
+        }
+        // Shape factor - plastic/elastic
+        void Calc_f_z_plel()
+        {
+            m_ff_z_plel = m_fW_z_pl / m_fW_z_el;
+        }
+
+
+        // Torsional inertia constant
+        void Calc_I_t()
+        {
+            m_fI_t =  ((m_fh - m_ft_f) * MathF.Pow3(m_ft_w) + 2.0f * (m_fb - m_ft_w / 2.0f) * MathF.Pow3(m_ft_f)) / 3.0f;
+        }
+        // Torsional radius of gyration
+        void Calc_i_t()
+        {
+            m_fi_t = MathF.Sqrt(m_fI_t / m_fA);
+        }
+        // Torsional section modulus - elastic
+        void Calc_W_t_el()
+        {
+            m_fW_t_el = m_fI_t / Math.Max(m_ft_w, m_ft_f); // Min or Max Thickness
+        }
+        // Torsional section modulus - plastic
+        void Calc_W_t_pl()
+        {
+            m_fW_t_pl = (m_fb - m_ft_w - m_fr - m_ft_f / 3.0f) * MathF.Pow2(m_ft_f) + m_fd * MathF.Pow2(m_ft_w) / 2.0f /*+   doplnit   */;  // Temp
+        }
+        // Torsional shape factor plastic/elastic
+        void Calc_f_t_plel()
+        {
+            m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
+        }
+        // Section warping constant
+        void Calc_I_w()
+        {
+            m_fI_w = MathF.Pow2(m_fh - m_ft_f) * MathF.Pow3(m_fb- m_ft_w/2.0f) * m_ft_f * (1/6.0f - 1/(8.0f + 4.0f * (m_fh - m_ft_f) / m_ft_w / (m_fb-m_ft_w / 2.0f) / m_ft_f));
+        }
+
+
+        // Shear factor
+        void Calc_Eta_y_v()
+        {
+            m_fEta_y_v = (m_fA / MathF.Pow2(m_fI_y)) /*  Syi^2 / byi *dz */ ;  // Temp
+        }
+        // Shear effective area - elastic
+        void Calc_A_y_v_el()
+        {
+            m_fA_y_v_el = m_fI_y /** MathF.Min (byi / Syi)*/;
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_y_v_plel()
+        {
+            m_ff_y_v_plel = 1.00f; // Temp
+        }
+        // Shear effective area - plastic
+        void Calc_A_y_v_pl()
+        {
+            m_fA_y_v_pl = m_ff_y_v_plel * m_fA_y_v_el; // Temp
+        }
+
+
+        // Shear factor
+        void Calc_Eta_z_v()
+        {
+            m_fEta_z_v = (m_fA / MathF.Pow2(m_fI_z)) /*  Szi^2 / bzi *dy */ ;  // Temp
+        }
+        // Shear effective area - elastic
+        void Calc_A_z_v_el()
+        {
+            m_fA_z_v_el = m_fI_z /** Math.Min (bzi / Szi)*/;
+        }
+        // Shape factor for shear - plastic/elastic
+        void Calc_f_z_v_plel()
+        {
+            m_ff_z_v_plel = 1.00f; // Temp
+        }
+        // Shear effective area - plastic
+        void Calc_A_z_v_pl()
+        {
+            m_fA_z_v_pl = m_ff_z_v_plel * m_fA_z_v_el; // Temp
+        }
+
+
+        // Tapered flanges
+        // Monosymmetrical
+
+        float m_fAlpha_Taper, // Pocitat s % (8) alebo s podielom (0,08)
+             m_fr_1, m_fr_2, m_fu;
+
+        // t - stredna hrubka
+
+        // Basic dimmensions
+        void Calc_BasicDimension()
+        {
+            m_fu = (m_fb - m_ft_w) / 2.0f;
+
+            if (m_fr_1 < 0.0f)
+                m_fr_1 = m_ft_f;
+
+            if (m_fr_2 < 0.0f)
+                m_fr_2 = m_ft_f - m_fu * m_fAlpha_Taper;
+        }
+
+
+        //// Web Depth (straight part)
+        //void Calc_d()
+        //{
+        //    m_fd = m_fh - 2 * (m_ft_f + m_fr + m_fAlpha_Taper * (m_fb - m_fu - m_ft_w));
+        //}
+        //// Perimeter of section
+        //void Calc_U()
+        //{
+        //    m_fU = 2 * (m_fh + 2 * m_fb - m_ft_w - (4.0f - MathF.fPI) * m_fr);
+        //}
+        //// Torsional inertia constant
+        //void Calc_I_t()
+        //{
+        //    m_fI_t = ((m_fh - m_ft_f) * MathF.Pow3(m_ft_w) + 2* (m_fb - m_ft_w / 2.0f) * MathF.Pow3(m_ft_f)) / 3.0f;
+        //}
+        //// Torsional section modulus - plastic
+        //void Calc_W_t_pl()
+        //{
+        //    m_fW_t_pl = (m_fh - m_ft_f) * MathF.Pow2(m_ft_w) / 2.0f + (m_fb - m_ft_w / 2.0f)* MathF.Pow2(m_ft_f);  
+        //}
     }
 }
