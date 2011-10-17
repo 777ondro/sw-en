@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CENEX
 {
+	[Serializable]
     public class CTest2
     {
 
