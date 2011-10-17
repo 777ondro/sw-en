@@ -8,6 +8,7 @@ using System.Collections;
 namespace CENEX
 {
     // Class CNSupport
+	[Serializable]
     public class CNSupport
     {
         public int   m_iSupport_ID;

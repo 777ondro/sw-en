@@ -9,6 +9,7 @@ using System.Collections;
 namespace CENEX
 {
     // Class CLine
+	[Serializable]
     public class CLine
     {
 

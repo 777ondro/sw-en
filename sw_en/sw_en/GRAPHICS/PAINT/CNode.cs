@@ -8,6 +8,7 @@ using System.Collections;
 namespace CENEX
 {
     // Class CNode
+	[Serializable]
     public class CNode
     {
         public int m_iNode_ID,

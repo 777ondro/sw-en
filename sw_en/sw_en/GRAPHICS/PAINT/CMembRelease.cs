@@ -6,6 +6,7 @@ using System.Text;
 namespace CENEX
 {
     // Class CMembRelease
+	[Serializable]
     public class CMembRelease
     {
         /*

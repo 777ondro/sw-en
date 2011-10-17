@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CENEX
 {
+	[Serializable]
     public class CCrSc
     {
         public CMat m_Mat = new CMat();

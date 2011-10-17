@@ -6,6 +6,7 @@ using System.Text;
 namespace CENEX
 {
     // Class CNForce
+	[Serializable]
     public class CNForce
     {
         public CNode m_iNode = new CNode();
