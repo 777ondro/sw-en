@@ -76,7 +76,7 @@ namespace CENEX
         float m_fU, m_fA,
                 m_fS_y, m_fI_y, m_fW_y_el, m_fW_y_pl, m_ff_y_plel,
                 m_fS_z, m_fI_z, m_fW_z_el, m_fW_z_pl, m_ff_z_plel,
-                m_fW_t_el, m_fI_t, m_fi_t, m_fW_t_pl, m_ff_t_plel,
+                m_fW_t_el, m_fI_t, m_fi_t, m_fW_t_pl, m_ff_t_plel, m_fI_w,
                 m_fEta_y_v, m_fA_y_v_el, m_fA_y_v_pl, m_ff_y_v_plel,
                 m_fEta_z_v, m_fA_z_v_el, m_fA_z_v_pl, m_ff_z_v_plel;
 
@@ -149,10 +149,17 @@ namespace CENEX
         // Torsional inertia constant
         void Calc_I_t()
         {
+            // http://www.xcalcs.com
             if (m_fh >= m_fb)
                 m_fI_t = m_fh * MathF.Pow3(m_fb) * ((1 - 192 * m_fb / MathF.Pow5(MathF.fPI) * m_fh * ((float)Math.Tanh(Math.PI * m_fh / (2 * m_fb))) + (float)Math.Tanh(3 * Math.PI * m_fh / (2 * m_fb)) / 243f)) / 3f;
             else
                 m_fI_t = m_fb * MathF.Pow3(m_fh) * ((1 - 192 * m_fh / MathF.Pow5(MathF.fPI) * m_fb * ((float)Math.Tanh(Math.PI * m_fb / (2 * m_fh))) + (float)Math.Tanh(3 * Math.PI * m_fb / (2 * m_fh)) / 243f)) / 3f;
+
+            // Alternative  - EN 1999-1-1, eq. (J.2)
+            if (m_fh >= m_fb)
+                m_fI_t = (m_fh * MathF.Pow3(m_fb) / 3.0f) * (1.0f - 0.63f * m_fb / m_fh + 0.052f * MathF.Pow5(m_fb) / MathF.Pow5(m_fh));
+            else
+                m_fI_t = (m_fb * MathF.Pow3(m_fh) / 3.0f) * (1.0f - 0.63f * m_fh / m_fb + 0.052f * MathF.Pow5(m_fh) / MathF.Pow5(m_fb));
         }
         // Torsional radius of gyration
         void Calc_i_t()
@@ -180,6 +187,15 @@ namespace CENEX
         {
             m_ff_t_plel = m_fW_t_pl / m_fW_t_el;
         }
+        // Section warping constant
+        void Calc_I_w()
+        {
+            if (m_fh >= m_fb)
+                m_fI_w = (MathF.Pow3(m_fh) * MathF.Pow3(m_fb) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(m_fb) / MathF.Pow2(m_fh) + 4.97f * MathF.Pow3(m_fb) / MathF.Pow3(m_fh) - 1.067f * MathF.Pow5(m_fb) / MathF.Pow5(m_fh)); // EN 1999-1-1, eq. (J.4)
+            else
+                m_fI_w = (MathF.Pow3(m_fb) * MathF.Pow3(m_fh) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(m_fh) / MathF.Pow2(m_fb) + 4.97f * MathF.Pow3(m_fh) / MathF.Pow3(m_fb) - 1.067f * MathF.Pow5(m_fh) / MathF.Pow5(m_fb)); // EN 1999-1-1, eq. (J.4)
+        }
+
 
 
         // Shear factor
