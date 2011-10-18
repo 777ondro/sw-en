@@ -519,6 +519,5 @@ namespace CENEX
         {
             m_fW_v_el = m_fI_v / Math.Max(m_fe_v, m_fz_v);
         }
-
     }
 }
