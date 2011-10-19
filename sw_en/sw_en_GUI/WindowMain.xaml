@@ -3,6 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mdi="clr-namespace:WPF.MDI;assembly=WPF.MDI"
         Title="WindowMain" Height="700" Width="1024">
+	<Window.Resources>
+		<ControlTemplate x:Key="HorizontalScrollBarTemplate" TargetType="{x:Type ScrollBar}">
+			<Grid x:Name="Bg" SnapsToDevicePixels="True" Background="Black">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}"/>
+					<ColumnDefinition Width="1E-05*"/>
+					<ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}"/>
+				</Grid.ColumnDefinitions>
+				<RepeatButton IsEnabled="{TemplateBinding IsMouseOver}" Command="ScrollBar.PageLeftCommand">
+					<RepeatButton.Style>
+						<Style TargetType="{x:Type RepeatButton}">
+							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Focusable" Value="False"/>
+							<Setter Property="IsTabStop" Value="False"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type RepeatButton}">
+										<Border Background="{x:Null}" Height="18" Width="18" >
+											<Path Data=" M 8 15 L 8 3 L 2 9 Z" Fill="White" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</RepeatButton.Style>
+				</RepeatButton>
+				<RepeatButton IsEnabled="{TemplateBinding IsMouseOver}" Command="ScrollBar.PageRightCommand" Grid.Column="2" >
+					<RepeatButton.Style>
+						<Style TargetType="{x:Type RepeatButton}">
+							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Focusable" Value="False"/>
+							<Setter Property="IsTabStop" Value="False"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type RepeatButton}">
+										<Border Background="{x:Null}" Height="18" Width="18" >
+											<Path Data=" M 9 15 L 9 3 L 15 9 Z" Fill="White" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</RepeatButton.Style>
+				</RepeatButton>
+			</Grid>
+			<ControlTemplate.Triggers>
+				<Trigger Property="IsEnabled" Value="False">
+					<Setter Property="Background" TargetName="Bg" Value="#FFF4F4F4"/>
+				</Trigger>
+			</ControlTemplate.Triggers>
+		</ControlTemplate>
+	</Window.Resources>
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition></ColumnDefinition>
@@ -52,10 +104,89 @@
 			
 		</ToolBar>
 		
-		<mdi:MdiContainer Theme="Aero" Grid.Column="0" Grid.Row="2">
-			<mdi:MdiChild x:Name="mdiWindow1" Title="Window 1" Resizable="True" MinimizeBox="True" Background="DarkGray" />
-			<mdi:MdiChild x:Name="mdiWindow2" Title="Window 2" Resizable="True" MinimizeBox="True" Background="DarkGray" />
-		</mdi:MdiContainer>
+		<Grid Grid.Column="0" Grid.Row="2" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="4*"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="4*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<GridSplitter HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="1"  Grid.RowSpan="3" ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC"/>
+			<GridSplitter HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Bottom" 
+                  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ResizeBehavior="PreviousAndNext"
+                  Height="5" Background="#FFBCBCBC"/>
+			
+			<TreeView Grid.RowSpan="3" Grid.Column="0">
+				<TreeViewItem Header="Lesenie">
+					<TreeViewItem Header="StructuralData">
+						<TreeViewItem Header="Nodes"></TreeViewItem>
+						<TreeViewItem Header="Materials"></TreeViewItem>
+					</TreeViewItem>
+					
+					<TreeViewItem Header="Loads">
+					</TreeViewItem>
+					<TreeViewItem Header="Results">
+					</TreeViewItem>
+				</TreeViewItem>
+			</TreeView>
+			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0">
+				<mdi:MdiChild x:Name="mdiWindow1" Title="Window 1" Resizable="True" MinimizeBox="True" Background="DarkGray" />
+				<mdi:MdiChild x:Name="mdiWindow2" Title="Window 2" Resizable="True" MinimizeBox="True" Background="DarkGray" />
+			</mdi:MdiContainer>
+			<ScrollViewer SnapsToDevicePixels="True"
+              HorizontalScrollBarVisibility="Auto" 
+              VerticalScrollBarVisibility="Disabled" Grid.Column="2" Grid.Row="2">
+				<TabControl  TabStripPlacement="Bottom" >
+					<TabItem Header="Summary">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+					<TabItem Header="Members-Internal Forces">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+					<TabItem Header="Cross Sections - Internal Forces">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+					<TabItem Header="Nodes- Support Forces">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+					<TabItem Header="Nodes-Deformations">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+					<TabItem Header="Members-Deformations">
+						<TextBlock>
+						dsadasdsa<LineBreak />dsadasda
+						</TextBlock>
+
+					</TabItem>
+
+				</TabControl>
+			</ScrollViewer>
+			
+		</Grid>
+		
 
 	</Grid>
 </Window>
