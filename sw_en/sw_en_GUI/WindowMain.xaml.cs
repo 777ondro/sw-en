@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using CENEX;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using WPF.MDI;
 
 namespace sw_en_GUI
 {
@@ -25,18 +26,42 @@ namespace sw_en_GUI
 		public WindowMain()
 		{
 			InitializeComponent();
+			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
+
+			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1)});
+		}
+
+		/// <summary>
+		/// Refresh windows list
+		/// </summary>
+		void Menu_RefreshWindows()
+		{
+			WindowsMenu.Items.Clear();
+			MenuItem mi;
+			for (int i = 0; i < Container.Children.Count; i++)
+			{
+				MdiChild child = Container.Children[i];
+				mi = new MenuItem { Header = child.Title };
+				mi.Click += (o, e) => child.Focus();
+				WindowsMenu.Items.Add(mi);
+			}
+			WindowsMenu.Items.Add(new Separator());
+			WindowsMenu.Items.Add(mi = new MenuItem { Header = "Cascade" });
+			mi.Click += (o, e) => Container.MdiLayout = MdiLayout.Cascade;
+			WindowsMenu.Items.Add(mi = new MenuItem { Header = "Horizontally" });
+			mi.Click += (o, e) => Container.MdiLayout = MdiLayout.TileHorizontal;
+			WindowsMenu.Items.Add(mi = new MenuItem { Header = "Vertically" });
+			mi.Click += (o, e) => Container.MdiLayout = MdiLayout.TileVertical;
+
+			WindowsMenu.Items.Add(new Separator());
+			WindowsMenu.Items.Add(mi = new MenuItem { Header = "Close all" });
+			mi.Click += (o, e) => Container.Children.Clear();
 		}
 
 		
 		private void menuItemNew_Click(object sender, RoutedEventArgs e)
 		{
-			//mdiWindow.Content = new Window2();
-			//Window2 win1 = new Window2();
-			//win1.Owner = this;
-			//win1.Show();
-			//Window2 win2 = new Window2();
-			//win2.Owner = this;
-			//win2.Show();
+			Container.Children.Add(new MdiChild { Content = (UIElement) new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
 		private void menuItemSave_Click(object sender, RoutedEventArgs e)
