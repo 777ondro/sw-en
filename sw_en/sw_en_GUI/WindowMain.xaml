@@ -96,7 +96,7 @@
 			<MenuItem Header="Modules"></MenuItem>
 			<MenuItem Header="Calculation"></MenuItem>
 			<MenuItem Header="Settings"></MenuItem>
-			<MenuItem Header="Window"></MenuItem>
+			<MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private"></MenuItem>
 			<MenuItem Header="Help"></MenuItem>
 			<MenuItem Header="Support"></MenuItem>
 		</Menu>
@@ -137,10 +137,11 @@
 					</TreeViewItem>
 				</TreeViewItem>
 			</TreeView>
-			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0">
-				<mdi:MdiChild x:Name="mdiWindow1" Title="Window 1" Resizable="True" MinimizeBox="True" Background="DarkGray" />
-				<mdi:MdiChild x:Name="mdiWindow2" Title="Window 2" Resizable="True" MinimizeBox="True" Background="DarkGray" />
+			
+			<!--This is MDI CONTAINER-->
+			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0" Name="Container">
 			</mdi:MdiContainer>
+			
 			<ScrollViewer SnapsToDevicePixels="True"
               HorizontalScrollBarVisibility="Auto" 
               VerticalScrollBarVisibility="Disabled" Grid.Column="2" Grid.Row="2">
@@ -153,19 +154,19 @@
 					</TabItem>
 					<TabItem Header="Members-Internal Forces">
 						<TextBlock>
-						dsadasdsa<LineBreak />dsadasda
+						dsadasdsa<LineBreak />Members-Internal Forces
 						</TextBlock>
 
 					</TabItem>
 					<TabItem Header="Cross Sections - Internal Forces">
 						<TextBlock>
-						dsadasdsa<LineBreak />dsadasda
+						dsadasdsa<LineBreak />Cross Sections - Internal Forces
 						</TextBlock>
 
 					</TabItem>
 					<TabItem Header="Nodes- Support Forces">
 						<TextBlock>
-						dsadasdsa<LineBreak />dsadasda
+						dsadasdsa<LineBreak />Nodes- Support Forces
 						</TextBlock>
 
 					</TabItem>
