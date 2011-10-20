@@ -100,7 +100,7 @@ namespace CENEX
 
             // Point No. 1
             m_CrScPoint[0, 0] = Geom2D.GetPositionX(fr, 210f + fAlpha_Aux);    // y
-            m_CrScPoint[0, 1] = Geom2D.GetPositionY(fr, 210f + fAlpha_Aux);    // z
+            m_CrScPoint[0, 1] = Geom2D.GetPositionY_CW(fr, 210f + fAlpha_Aux);    // z
 
             // Point No. 2
             m_CrScPoint[1, 0] = fArrTemp[0, 0];     // y
@@ -108,11 +108,11 @@ namespace CENEX
 
             // Point No. 3
             m_CrScPoint[2, 0] = Geom2D.GetPositionX(fr, 330f - fAlpha_Aux);    // y
-            m_CrScPoint[2, 1] = Geom2D.GetPositionY(fr, 330f - fAlpha_Aux);    // z
+            m_CrScPoint[2, 1] = Geom2D.GetPositionY_CW(fr, 330f - fAlpha_Aux);    // z
 
             // Point No. 4
             m_CrScPoint[3, 0] = Geom2D.GetPositionX(fr, 330f + fAlpha_Aux);    // y
-            m_CrScPoint[3, 1] = Geom2D.GetPositionY(fr, 330f + fAlpha_Aux);    // z
+            m_CrScPoint[3, 1] = Geom2D.GetPositionY_CW(fr, 330f + fAlpha_Aux);    // z
 
             // Point No. 5
             m_CrScPoint[4, 0] = fArrTemp[1, 0];      // y
@@ -120,11 +120,11 @@ namespace CENEX
 
             // Point No. 6
             m_CrScPoint[5, 0] = Geom2D.GetPositionX(fr, 90f - fAlpha_Aux);    // y
-            m_CrScPoint[5, 1] = Geom2D.GetPositionY(fr, 90f - fAlpha_Aux);    // z
+            m_CrScPoint[5, 1] = Geom2D.GetPositionY_CW(fr, 90f - fAlpha_Aux);    // z
 
             // Point No. 7
             m_CrScPoint[6, 0] = Geom2D.GetPositionX(fr, 90f + fAlpha_Aux);    // y
-            m_CrScPoint[6, 1] = Geom2D.GetPositionY(fr, 90f + fAlpha_Aux);    // z
+            m_CrScPoint[6, 1] = Geom2D.GetPositionY_CW(fr, 90f + fAlpha_Aux);    // z
 
             // Point No. 8
             m_CrScPoint[7, 0] = fArrTemp[2, 0];      // y
@@ -132,7 +132,7 @@ namespace CENEX
 
             // Point No. 9
             m_CrScPoint[8, 0] = Geom2D.GetPositionX(fr, 210f - fAlpha_Aux);    // y
-            m_CrScPoint[8, 1] = Geom2D.GetPositionY(fr, 210f - fAlpha_Aux);    // z
+            m_CrScPoint[8, 1] = Geom2D.GetPositionY_CW(fr, 210f - fAlpha_Aux);    // z
         }
     }
 }
