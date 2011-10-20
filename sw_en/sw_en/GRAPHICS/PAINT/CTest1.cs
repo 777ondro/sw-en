@@ -20,7 +20,7 @@ namespace CENEX
 
         // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
 
-         public CCrSc_0_00 objCrScSolid = new CCrSc_0_00(100);
+        // public CCrSc_0_00 objCrScSolid = new CCrSc_0_00(100);
         // public CCrSc_0_01 objCrScSolid = new CCrSc_0_01(100);
         // public CCrSc_0_02 objCrScSolid = new CCrSc_0_02(50);
         // public CCrSc_0_03 objCrSc = new CCrSc_0_03(100, 50);
@@ -47,6 +47,7 @@ namespace CENEX
         // public CCrSc_0_58 objCrScSolid = new CCrSc_0_58(200, 100, 150, 10, 15, 5, 30, 70);
         // public CCrSc_0_60 objCrScSolid = new CCrSc_0_60(200,100,10);
         // public CCrSc_0_61 objCrScSolid = new CCrSc_0_61(100,10);
+        public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(200,90,11.3f,7.5f,7.5f,4.5f,159.1f);
 
         public CTest1()
         {
@@ -80,6 +81,7 @@ namespace CENEX
 
             // Fill Data of Cross-sections Array
             arrCrSc[0] = objCrScHollow;
+            //arrCrSc[0] = objCrScSolid;
 
             // Lines Automatic Generation
             // Lines List - Lines Array

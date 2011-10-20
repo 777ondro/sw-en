@@ -16,10 +16,16 @@ namespace MATH
             return radius * (float)Math.Cos(theta * Math.PI / 180);
         }
 
-        public static float GetPositionY(float radius, float theta)
+        public static float GetPositionY_CW(float radius, float theta)
         {
             // Clock-wise (for counterclock-wise change sign for vertical coordinate)
             return -radius * (float)Math.Sin(theta * Math.PI / 180);
+        }
+
+        public static float GetPositionY_CCW(float radius, float theta)
+        {
+            // Counter Clock-wise
+            return - GetPositionY_CW(radius, theta);
         }
 
 
@@ -61,7 +67,7 @@ namespace MATH
             for (int i = 0; i < iNumber; i++)
             {
                 m_ArrfPointsCoord2D[i, 0] = GetPositionX(fr, i * 360 / iNumber);  // y
-                m_ArrfPointsCoord2D[i, 1] = GetPositionY(fr, i * 360 / iNumber);  // z
+                m_ArrfPointsCoord2D[i, 1] = GetPositionY_CW(fr, i * 360 / iNumber);  // z
             }
 
             return m_ArrfPointsCoord2D;
@@ -83,7 +89,7 @@ namespace MATH
             for (int i = 0; i < iNumber; i++)
             {
                 m_ArrfPointsCoord2D[i, 0] = GetPositionX(fr, fStartAngle + i * (fEndAngle - fStartAngle) / (iNumber - 1));  // y
-                m_ArrfPointsCoord2D[i, 1] = GetPositionY(fr, fStartAngle + i * (fEndAngle - fStartAngle) / (iNumber - 1));  // z
+                m_ArrfPointsCoord2D[i, 1] = GetPositionY_CW(fr, fStartAngle + i * (fEndAngle - fStartAngle) / (iNumber - 1));  // z
             }
 
             return m_ArrfPointsCoord2D;
@@ -180,7 +186,7 @@ namespace MATH
             for (int i = 0; i < iNumEdges; i++)
             {
                 m_ArrfPointsCoord2D[i, 0] = GetPositionX(GetRadiusfromSideLength(fa, iNumEdges), i * 360 / iNumEdges);  // y
-                m_ArrfPointsCoord2D[i, 1] = GetPositionY(GetRadiusfromSideLength(fa, iNumEdges), i * 360 / iNumEdges);  // z
+                m_ArrfPointsCoord2D[i, 1] = GetPositionY_CW(GetRadiusfromSideLength(fa, iNumEdges), i * 360 / iNumEdges);  // z
             }
 
             return m_ArrfPointsCoord2D;
