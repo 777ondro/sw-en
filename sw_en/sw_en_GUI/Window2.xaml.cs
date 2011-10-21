@@ -630,6 +630,62 @@ namespace sw_en_GUI
             DrawCaraLaterals(iAux, 8 * iRadiusPoints, M_TriangelsIndices);
         }
 
+        private void load_3_02_TriangelIndices(int iAux, int iRadiusSegment)
+        {
+            // const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
+            int iRadiusPoints = iRadiusSegment + 1;
+
+            M_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            // Points order 1,2,3,4
+
+            DrawRectangleIndices(M_TriangelsIndices, 0, 1, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
+            DrawRectangleIndices(M_TriangelsIndices, 0, iAux + 2 + iRadiusSegment, 2, 6);
+
+            DrawRectangleIndices(M_TriangelsIndices, 2, 3, iAux + 2 + 4 * iRadiusPoints - 1, 6);
+
+            DrawRectangleIndices(M_TriangelsIndices, 3, iAux + 3 * iRadiusPoints, 5, iAux + 1 + 4 * iRadiusPoints);
+            DrawRectangleIndices(M_TriangelsIndices, iAux + 3 * iRadiusPoints, iAux + 3 * iRadiusPoints + 1, 4, 5);
+
+            // Arc sectors
+            // 1st SolidCircleSector
+            DrawSolidCircleSector(1, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
+            // 2nd SolidCircleSector
+            DrawSolidCircleSector(2, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+            // 3rd SolidCircleSector
+            DrawSolidCircleSector(3, iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+            // 4th SolidCircleSector
+            DrawSolidCircleSector(4, iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+            // Back Side
+            // Points order 1,4,3,2
+
+            // Arc sectors
+            int iPointNumbersOffset = iAux + 2 + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 1);
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 6, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment);
+
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 2 + 4 * iRadiusPoints - 1, iPointNumbersOffset + 3);
+
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 4 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 3 * iRadiusPoints);
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + 4 , iPointNumbersOffset + iAux + 3 * iRadiusPoints + 1);
+
+            // 1st SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
+            // 2nd SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+            // 3rd SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+            // 4th SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+            // Shell
+            DrawCaraLaterals(iAux, 2 + 4 * iRadiusPoints, M_TriangelsIndices);
+
+        }
+
 
 
         public Window2()
@@ -674,7 +730,9 @@ namespace sw_en_GUI
             // load_0_61_TriangelIndices();
 
             // Rolled I profile, Tapered flanges
-            load_3_00_TriangelIndices(12,8);
+            // load_3_00_TriangelIndices(12,8); // Number of auxiliary point , number of segments of arc
+            // Rolled U profile, Tapered flanges, channel section
+            load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
