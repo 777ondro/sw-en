@@ -7,22 +7,29 @@ using MATH;
 
 namespace CENEX
 {
-    public class CCrSc_3_03 : CCrSc
+    public class CCrSc_3_04 : CCrSc
     {
-        // Rolled monosymmetric L section (angle with equal legs)
+        // Rolled L section (angle with unequal legs)
 
         //----------------------------------------------------------------------------
+        private float m_fh;                 // Depth / Vyska
         private float m_fb;                 // Width  / Sirka
         private float m_ft;                 // Leg Thickness / Hrubka ramena
         private float m_fr_1;               // Radius
         private float m_fr_2;               // Radius - flange edge
         private float m_fy_c;               // Centroid coordinate / Suradnica tažiska / Absolute value
+        private float m_fz_c;               // Centroid coordinate / Suradnica tažiska / Absolute value
         private short m_iNumOfArcSegment;   // Number of Arc Segments
         private short m_iNumOfArcPoints;    // Number of Arc Points
         private short m_iTotNoPoints;       // Total Number of Cross-section Points for Drawing
         public float[,] m_CrScPoint;        // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
+        public float Fh
+        {
+            get { return m_fh; }
+            set { m_fh = value; }
+        }
         public float Fb
         {
             get { return m_fb; }
@@ -48,6 +55,11 @@ namespace CENEX
           get { return m_fy_c; }
           set { m_fy_c = value; }
         }
+        public float Fz_c
+        {
+          get { return m_fz_c; }
+          set { m_fz_c = value; }
+        }
         public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
@@ -57,27 +69,29 @@ namespace CENEX
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_3_03()  {   }
-        public CCrSc_3_03(float fb, float ft, float fr_1, float fr_2, float fy_c)
+        public CCrSc_3_04()  {   }
+        public CCrSc_3_04(float fh, float fb, float ft, float fr_1, float fr_2, float fy_c, float fz_c)
         {
             m_iNumOfArcSegment = 8;
             m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
             m_iTotNoPoints = (short)(3 * (short)m_iNumOfArcPoints + 3 + 1);
 
+            m_fh = fh;
             m_fb = fb;
             m_ft = ft;
             m_fr_1 = fr_1;
             m_fr_2 = fr_2;
             m_fy_c = fy_c;
+            m_fz_c = fz_c;
 
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
             // Fill Array Data
-            CalcCrSc_Coord_L_MS();
+            CalcCrSc_Coord_L();
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord_L_MS()
+        void CalcCrSc_Coord_L()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
@@ -87,15 +101,15 @@ namespace CENEX
 
             // Point No. 1
             m_CrScPoint[0, 0] = -m_fy_c;                         // y
-            m_CrScPoint[0, 1] = m_fb - m_fy_c- m_fr_2;           // z
+            m_CrScPoint[0, 1] = m_fh - m_fz_c- m_fr_2;           // z
 
             // Point No. 2
-            m_CrScPoint[1, 0] = -m_fy_c + m_ft;                 // y
-            m_CrScPoint[1, 1] = -m_fy_c + m_ft;                 // z
+            m_CrScPoint[1, 0] = -m_fy_c + m_ft;                  // y
+            m_CrScPoint[1, 1] = -m_fz_c + m_ft;                  // z
 
             // Point No. 3
-            m_CrScPoint[2, 0] = m_CrScPoint[0, 1];              // y
-            m_CrScPoint[2, 1] = m_CrScPoint[0, 0];              // z
+            m_CrScPoint[2, 0] = m_fb - m_fy_c - m_fr_2; ;        // y
+            m_CrScPoint[2, 1] = -m_fz_c;                         // z
 
             // Surface points
 
@@ -124,7 +138,7 @@ namespace CENEX
 
             // Point No.  - Last edge point - bottom left
             m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints, 0] = -m_fy_c;              // y
-            m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints, 1] = -m_fy_c;              // z
+            m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints, 1] = -m_fz_c;              // z
         }
     }
 }

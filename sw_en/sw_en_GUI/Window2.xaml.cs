@@ -685,7 +685,7 @@ namespace sw_en_GUI
             DrawCaraLaterals(iAux, 2 + 4 * iRadiusPoints, M_TriangelsIndices);
         }
 
-        private void load_3_03_TriangelIndices(int iAux, int iRadiusSegment)
+        private void load_3_03_04_TriangelIndices(int iAux, int iRadiusSegment)
         {
             // const int secNum = iAux + iRadiusPoints * 3 + 1;  // Number of points in section (2D)
             int iRadiusPoints = iRadiusSegment + 1;
@@ -774,7 +774,7 @@ namespace sw_en_GUI
             // Rolled U profile, Tapered flanges, channel section
             // load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
             // Rolled L profile, angle section
-            load_3_03_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
+            load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
