@@ -683,7 +683,47 @@ namespace sw_en_GUI
 
             // Shell
             DrawCaraLaterals(iAux, 2 + 4 * iRadiusPoints, M_TriangelsIndices);
+        }
 
+        private void load_3_03_TriangelIndices(int iAux, int iRadiusSegment)
+        {
+            // const int secNum = iAux + iRadiusPoints * 3 + 1;  // Number of points in section (2D)
+            int iRadiusPoints = iRadiusSegment + 1;
+
+            M_TriangelsIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            // Points order 1,2,3,4
+
+            DrawRectangleIndices(M_TriangelsIndices, 0, iAux + iRadiusSegment, 1, iAux + 3 * iRadiusPoints);
+            DrawRectangleIndices(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints, 2, iAux + 3 * iRadiusPoints);
+
+            // Arc sectors
+            // 1st SolidCircleSector
+            DrawSolidCircleSector(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
+            // 2nd SolidCircleSector
+            DrawSolidCircleSector(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+            // 3rd SolidCircleSector
+            DrawSolidCircleSector(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+            // Back Side
+            // Points order 1,4,3,2
+
+            // Arc sectors
+            int iPointNumbersOffset = iAux + 1 + 3 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusSegment);
+            DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
+
+            // 1st SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
+            // 2nd SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+            // 3rd SolidCircleSector
+            DrawSolidCircleSector(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+            // Shell
+            DrawCaraLaterals(iAux, 1 + 3 * iRadiusPoints, M_TriangelsIndices);
         }
 
 
@@ -705,7 +745,7 @@ namespace sw_en_GUI
             // Flat Bar
             //load_0_05_TriangelIndices();
             // Half Circle
-            load_0_20_TriangelIndices();
+            // load_0_20_TriangelIndices();
             // TUBE / PIPE Circle or Ellipse Shape
             //load_0_22_23_TriangelIndices();
             // Triangular Prism with Opening
@@ -732,7 +772,9 @@ namespace sw_en_GUI
             // Rolled I profile, Tapered flanges
             // load_3_00_TriangelIndices(12,8); // Number of auxiliary point , number of segments of arc
             // Rolled U profile, Tapered flanges, channel section
-            load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
+            // load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
+            // Rolled L profile, angle section
+            load_3_03_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
