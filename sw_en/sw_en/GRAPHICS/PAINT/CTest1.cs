@@ -49,7 +49,8 @@ namespace CENEX
         // public CCrSc_0_61 objCrScSolid = new CCrSc_0_61(100,10);
         // public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(200,90,11.3f,7.5f,7.5f,4.5f,159.1f);
         // public CCrSc_3_02 objCrScSolid = new CCrSc_3_02(300, 100, 16, 10, 10, 8, 232, 27);
-        public CCrSc_3_03 objCrScSolid = new CCrSc_3_03(150, 10, 15, 10, 50);
+        // public CCrSc_3_03 objCrScSolid = new CCrSc_3_03(150, 10, 15, 10, 50);
+        public CCrSc_3_04 objCrScSolid = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
 
         public CTest1()
         {
