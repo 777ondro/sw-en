@@ -128,6 +128,8 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_02.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_03.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_04.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_3_05.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_3_06.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest10.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest9.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest8.cs" />

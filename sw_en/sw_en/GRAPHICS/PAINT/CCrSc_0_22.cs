@@ -38,8 +38,29 @@ namespace CENEX
             set { m_iNoPoints = value; }
         }
 
+        // Auxiliary variables
+
+        float m_fd_in;
+
+        public float Fd_in
+        {
+            get { return m_fd_in; }
+            set { m_fd_in = value; }
+        }
         float m_fr_out;
+
+        public float Fr_out
+        {
+            get { return m_fr_out; }
+            set { m_fr_out = value; }
+        }
         float m_fr_in;
+
+        public float Fr_in
+        {
+            get { return m_fr_in; }
+            set { m_fr_in = value; }
+        }
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -51,11 +72,11 @@ namespace CENEX
             m_fd = fd;
             m_ft = ft;
 
-            float fd_in = m_fd - 2 * m_ft;
+            m_fd_in = m_fd - 2 * m_ft;
 
             // Radii
             m_fr_out = m_fd / 2f;
-            m_fr_in = fd_in / 2f;
+            m_fr_in = m_fd_in / 2f;
 
             if (iNoPoints < 2 || m_fr_in == m_fr_out)
                 return;
@@ -73,11 +94,11 @@ namespace CENEX
             m_fd = fd;
             m_ft = ft;
 
-            float fd_in = m_fd - 2 * m_ft;
+            m_fd_in = m_fd - 2 * m_ft;
 
             // Radii
             m_fr_out = m_fd / 2f;
-            m_fr_in = fd_in / 2f;
+            m_fr_in = m_fd_in / 2f;
 
             if (m_fr_in == m_fr_out)
                 return;
@@ -91,7 +112,7 @@ namespace CENEX
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord()
+        public void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
