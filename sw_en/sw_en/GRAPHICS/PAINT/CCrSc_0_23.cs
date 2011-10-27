@@ -40,16 +40,47 @@ namespace CENEX
             set { m_ft = value; }
         }
 
+        public float FAngle
+        {
+            get { return m_fAngle; }
+            set { m_fAngle = value; }
+        }
+
         public short INoPoints
         {
             get { return m_iNoPoints; }
             set { m_iNoPoints = value; }
         }
-
+        
+        // Auxiliary variables
         float m_fr_out_major;
+
+        public float Fr_out_major
+        {
+            get { return m_fr_out_major; }
+            set { m_fr_out_major = value; }
+        }
         float m_fr_in_major;
+
+        public float Fr_in_major
+        {
+            get { return m_fr_in_major; }
+            set { m_fr_in_major = value; }
+        }
         float m_fr_out_minor;
+
+        public float Fr_out_minor
+        {
+            get { return m_fr_out_minor; }
+            set { m_fr_out_minor = value; }
+        }
         float m_fr_in_minor;
+
+        public float Fr_in_minor
+        {
+            get { return m_fr_in_minor; }
+            set { m_fr_in_minor = value; }
+        }
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -110,7 +141,7 @@ namespace CENEX
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord()
+        public void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
             // INoPoints = 72; // vykreslujeme ako n-uholnik

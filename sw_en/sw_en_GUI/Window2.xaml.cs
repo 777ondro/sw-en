@@ -31,7 +31,7 @@ namespace sw_en_GUI
         
         // Shape Type
         // Auxiliary identification of shape
-        short sShapeType = 0; // 0 - solid, 1 - hollow
+        short sShapeType = 1; // 0 - solid, 1 - hollow
 
         // Collection of Indices for Various Sections
         private Int32Collection M_TriangelsIndices;
@@ -747,7 +747,7 @@ namespace sw_en_GUI
             // Half Circle
             // load_0_20_TriangelIndices();
             // TUBE / PIPE Circle or Ellipse Shape
-            //load_0_22_23_TriangelIndices();
+            load_0_22_23_TriangelIndices();
             // Triangular Prism with Opening
             //load_0_24_TriangelsIndices();
             // HL-section / Rectanglular Hollow Cross-section
@@ -774,7 +774,7 @@ namespace sw_en_GUI
             // Rolled U profile, Tapered flanges, channel section
             // load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
             // Rolled L profile, angle section
-            load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
+            // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
