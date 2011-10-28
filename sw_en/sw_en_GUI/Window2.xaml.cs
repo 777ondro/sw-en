@@ -305,7 +305,7 @@ namespace sw_en_GUI
             // const int secNum = 2*36;  // Number of points in section (2D)
             const int secNum = 72; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
 
-            load_0_26_28_TriangelIndices(secNum);
+            load_0_26_28_TriangelIndices(0,secNum);
         }
 
         private void load_0_24_TriangelsIndices()
@@ -363,8 +363,12 @@ namespace sw_en_GUI
             DrawRectangleIndices(M_TriangelsIndices, 12, 4, 5, 13);
         }
 
-        private void load_0_26_28_TriangelIndices(int secNum)
+        private void load_0_26_28_TriangelIndices(int iAux, int secNum)
         {
+            // iAux - number of auxialiary points in inside/outside collection of points
+            // secNum - numer of real points in inside/outside collection of points
+            // iAux + secNum - total number of points in inside/outside collection of section
+
             M_TriangelsIndices = new Int32Collection();
 
             // Front Side / Forehead
@@ -372,36 +376,36 @@ namespace sw_en_GUI
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
+                    DrawRectangleIndices(M_TriangelsIndices, iAux + i, iAux + i + 1, iAux + i + (iAux + secNum) + 1, iAux + i + (iAux + secNum));
                 else
-                    DrawRectangleIndices(M_TriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
+                    DrawRectangleIndices(M_TriangelsIndices, iAux + i, iAux + 0, iAux + i + iAux + 1, iAux + i + (iAux + secNum)); // Last Element
             }
 
             // Back Side
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
+                    DrawRectangleIndices(M_TriangelsIndices, 2 * (iAux + secNum) + iAux + i, 2 * (iAux + secNum) + i + 2*iAux + secNum, 2 * (iAux + secNum) + i + 2 * iAux + secNum + 1, 2 * (iAux + secNum) + iAux + i + 1);
                 else
-                    DrawRectangleIndices(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
+                    DrawRectangleIndices(M_TriangelsIndices, 2 * (iAux + secNum) + iAux + i, 2 * (iAux + secNum) + i + 2 * iAux + secNum, 2 * (iAux + secNum) + i + 2 * iAux + 1, 2 * (iAux + secNum) + iAux + 0); // Last Element
             }
 
             // Shell Surface OutSide
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
+                    DrawRectangleIndices(M_TriangelsIndices, iAux + i, 2 * (iAux + secNum) + iAux + i, 2 * (iAux + secNum) + iAux + i + 1, iAux + i + 1);
                 else
-                    DrawRectangleIndices(M_TriangelsIndices, i, 2 * secNum + i, 2 * secNum, 0); // Last Element
+                    DrawRectangleIndices(M_TriangelsIndices, iAux + i, 2 * (iAux + secNum) + iAux + i, 2 * (iAux + secNum) + iAux, iAux + 0); // Last Element
             }
 
             // Shell Surface Inside
             for (int i = 0; i < secNum; i++)
             {
                 if (i < secNum - 1)
-                    DrawRectangleIndices(M_TriangelsIndices, secNum + i, secNum + i + 1, 2 * secNum + i + secNum + 1, 2 * secNum + i + secNum);
+                    DrawRectangleIndices(M_TriangelsIndices, iAux + secNum + iAux + i, iAux + secNum + iAux + i + 1, 2 * (iAux + secNum) + i + 2 * iAux + secNum + 1, 2 * (iAux + secNum) + i + 2*iAux + secNum);
                 else
-                    DrawRectangleIndices(M_TriangelsIndices, 2 * secNum + i + 1, 2 * secNum + i + secNum, secNum + i, secNum); // Last Element
+                    DrawRectangleIndices(M_TriangelsIndices, 2 * (iAux + secNum) + 2 * iAux + i + 1, 2 * (iAux + secNum) + i + 2*iAux + secNum, iAux + secNum +iAux+ i, 2*iAux + secNum); // Last Element
             }
         }
 
@@ -726,6 +730,12 @@ namespace sw_en_GUI
             DrawCaraLaterals(iAux, 1 + 3 * iRadiusPoints, M_TriangelsIndices);
         }
 
+        private void load_3_07_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
+        {
+            int secNum = 4 * (iRadiusSegment + 1); // Number of points to draw in one section inside or outside surface
+            load_0_26_28_TriangelIndices(iAux, secNum);
+        }
+
 
 
         public Window2()
@@ -747,13 +757,13 @@ namespace sw_en_GUI
             // Half Circle
             // load_0_20_TriangelIndices();
             // TUBE / PIPE Circle or Ellipse Shape
-            load_0_22_23_TriangelIndices();
+            // load_0_22_23_TriangelIndices();
             // Triangular Prism with Opening
             //load_0_24_TriangelsIndices();
             // HL-section / Rectanglular Hollow Cross-section
             //load_0_25_TriangelIndices();
             // Polygonal Hollow Section
-            //load_0_26_28_TriangelIndices(test1.objCrScHollow.INoPoints);
+            //load_0_26_28_TriangelIndices(0,test1.objCrScHollow.INoPoints);
             // I - section
             //load_0_50_TriangelIndices();
             // U-section
@@ -770,11 +780,13 @@ namespace sw_en_GUI
             // load_0_61_TriangelIndices();
 
             // Rolled I profile, Tapered flanges
-            // load_3_00_TriangelIndices(12,8); // Number of auxiliary point , number of segments of arc
+            // load_3_00_TriangelIndices(12,8); // Number of auxiliary points , number of segments of arc
             // Rolled U profile, Tapered flanges, channel section
-            // load_3_02_TriangelIndices(6, 8); // Number of auxiliary point , number of segments of arc
+            // load_3_02_TriangelIndices(6, 8); // Number of auxiliary points , number of segments of arc
             // Rolled L profile, angle section
-            // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary point , number of segments of arc
+            // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary points, number of segments of arc
+            // Rectanglular Hollow Cross-section
+            load_3_07_TriangelIndices(3, 4, 8); // Shape ID, number of auxiliary points per section, number of segments of one arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
