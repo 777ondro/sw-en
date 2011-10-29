@@ -36,7 +36,7 @@ namespace CENEX
     } // End of Class CNSupport
 
     // Objekt, ktery porovnava Supports podle ID
-    public class CCompare_SupportID : IComparer
+    public class CCompare_NSupportID : IComparer
     {
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
         public int Compare(object x, object y)

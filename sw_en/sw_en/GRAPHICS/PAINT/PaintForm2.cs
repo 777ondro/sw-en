@@ -1299,15 +1299,16 @@ namespace CENEX
 
             DeleteArrays();
 
+            /*
             // Allocate Memory
-            arrNodes = new CNode[objCTest1.arrNodes.Length];
-            arrLines = new CLine[objCTest1.arrLines.Length];
-            arrSupports = new CNSupport[objCTest1.arrSupports.Length];
-            arrForce = new CNForce[objCTest1.arrForces.Length];
+            arrNodes = new BaseClasses.CNode[objCTest1.arrNodes.Length];
+            arrLines = new BaseClasses.CMember[objCTest1.arrMembers.Length];
+            arrSupports = new BaseClasses.CNSupport[objCTest1.arrSupports.Length];
+            arrForce = new BaseClasses.CNLoad[objCTest1.arrForces.Length];
 
             // Fill Data
             arrNodes = objCTest1.arrNodes;
-            arrLines = objCTest1.arrLines;
+            arrLines = objCTest1.arrMembers;
             arrSupports = objCTest1.arrSupports;
             arrForce = objCTest1.arrForces;
 
@@ -1320,6 +1321,7 @@ namespace CENEX
                 CentreDrawing();
                 Refresh();
             }
+            */
         }
 
         private void drawTest2ToolStripMenuItem_Click(object sender, EventArgs e)

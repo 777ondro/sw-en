@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using BaseClasses;
 
 namespace CENEX
 {
     public class CTest1
     {
-        public CNode[] arrNodes = new CNode[6];
-        public CLine[] arrLines = new CLine[9];
+        public BaseClasses.CNode[] arrNodes = new BaseClasses.CNode[6];
+        public CMember[] arrMembers = new CMember[9];
         public CMat_00[] arrMat = new CMat_00[5];
-        public CCrSc[] arrCrSc = new CCrSc[3];
-        public CNSupport[] arrSupports = new CNSupport[3];
-        public CNForce[] arrForces = new CNForce[3];
+        public CRSC.CCrSc[] arrCrSc = new CRSC.CCrSc[3];
+        public BaseClasses.CNSupport[] arrSupports = new BaseClasses.CNSupport[3];
+        public BaseClasses.CNLoad[] arrForces = new BaseClasses.CNLoad[3];
 
         // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
 
@@ -79,9 +80,13 @@ namespace CENEX
 
             // Fill Data of Cross-sections Array
 
-            arrCrSc[0] = new CCrSc_3_07(3, 500, 300, 30);
-            arrCrSc[1] = new CCrSc_0_05(100, 50);
-            arrCrSc[2] = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
+            arrCrSc[0] = new CRSC.CCrSc();
+            arrCrSc[1] = new CRSC.CCrSc();
+            arrCrSc[2] = new CRSC.CCrSc();
+
+            //arrCrSc[0] = new CRSC.CCrSc_3_07(3, 500, 300, 30);
+            //arrCrSc[1] = new CRSC.CCrSc_0_05(100, 50);
+            //arrCrSc[2] = new CRSC.CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
 
             arrCrSc[0].m_Mat = arrMat[0];
             arrCrSc[1].m_Mat = arrMat[1];
@@ -90,31 +95,31 @@ namespace CENEX
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
 
-            arrNodes[0] = new CNode(1, 500, 0, 2500, 0);
-            arrNodes[1] = new CNode(2, 2500, 0, 2500, 0);
-            arrNodes[2] = new CNode(3, 5500, 0, 2500, 0);
-            arrNodes[3] = new CNode(4, 500, 0, 500, 0);
-            arrNodes[4] = new CNode(5, 2500, 0, 500, 0);
-            arrNodes[5] = new CNode(6, 5500, 0, 500, 0);
+            arrNodes[0] = new BaseClasses.CNode(1, 500, 0, 2500, 0);
+            arrNodes[1] = new BaseClasses.CNode(2, 2500, 0, 2500, 0);
+            arrNodes[2] = new BaseClasses.CNode(3, 5500, 0, 2500, 0);
+            arrNodes[3] = new BaseClasses.CNode(4, 500, 0, 500, 0);
+            arrNodes[4] = new BaseClasses.CNode(5, 2500, 0, 500, 0);
+            arrNodes[5] = new BaseClasses.CNode(6, 5500, 0, 500, 0);
 
             // Setridit pole podle ID
-            Array.Sort(arrNodes, new CCompare_NodeID());
+            Array.Sort(arrNodes, new BaseClasses.CCompare_NodeID());
 
             // Lines Automatic Generation
             // Lines List - Lines Array
 
-            arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], arrCrSc[0], 0);
-            arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], arrCrSc[0], 0);
-            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], arrCrSc[1], 0);
-            arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], arrCrSc[0], 0);
-            arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], arrCrSc[0], 0);
-            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], arrCrSc[2], 0);
-            arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], arrCrSc[0], 0);
-            arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], arrCrSc[0], 0);
-            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], arrCrSc[1], 0);
+            arrMembers[0] = new BaseClasses.CMember(1, arrNodes[0], arrNodes[1], arrCrSc[0], 0);
+            arrMembers[1] = new BaseClasses.CMember(2, arrNodes[1], arrNodes[2], arrCrSc[0], 0);
+            arrMembers[2] = new BaseClasses.CMember(3, arrNodes[0], arrNodes[3], arrCrSc[1], 0);
+            arrMembers[3] = new BaseClasses.CMember(4, arrNodes[1], arrNodes[4], arrCrSc[0], 0);
+            arrMembers[4] = new BaseClasses.CMember(5, arrNodes[2], arrNodes[5], arrCrSc[0], 0);
+            arrMembers[5] = new BaseClasses.CMember(6, arrNodes[3], arrNodes[4], arrCrSc[2], 0);
+            arrMembers[6] = new BaseClasses.CMember(7, arrNodes[4], arrNodes[5], arrCrSc[0], 0);
+            arrMembers[7] = new BaseClasses.CMember(8, arrNodes[1], arrNodes[3], arrCrSc[0], 0);
+            arrMembers[8] = new BaseClasses.CMember(9, arrNodes[1], arrNodes[5], arrCrSc[1], 0);
 
             // Setridit pole podle ID
-            Array.Sort(arrLines, new CCompare_LineID());
+            Array.Sort(arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
 
@@ -124,12 +129,12 @@ namespace CENEX
             bool[] bSupport3 = { true, false, false, false, false, false };
 
             // Create Support Objects
-            arrSupports[0] = new CNSupport(1, arrNodes[0], bSupport1, 0);
-            arrSupports[1] = new CNSupport(2, arrNodes[2], bSupport2, 0);
-            arrSupports[2] = new CNSupport(3, arrNodes[5], bSupport3, 0);
+            arrSupports[0] = new BaseClasses.CNSupport(1, arrNodes[0], bSupport1, 0);
+            arrSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
+            arrSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
 
             // Setridit pole podle ID
-            Array.Sort(arrSupports, new CCompare_SupportID());
+            Array.Sort(arrSupports, new BaseClasses.CCompare_NSupportID());
 
             // Member Releases / hinges - fill values
 
@@ -137,18 +142,18 @@ namespace CENEX
             //bool[] bMembRelase1 = { true, false, false, false, false, false };
             //bool[] bMembRelase2 = { false, false, true, false, false, false };
             //bool[] bMembRelase3 = { false, false, false, false, true, false };
-            bool[] bMembRelase4 = { true, false, true, false, true, false };
+            bool [] bMembRelase4 = { true, false, true, false, true, false };
 
 
             // Create Release / Hinge Objects
-            arrLines[7].m_iMR = new CMembRelease(0, bMembRelase4, 0);
-            arrLines[8].m_iMR = new CMembRelease(0, bMembRelase4, 0);
+            arrMembers[7].CnRelease1 = new BaseClasses.CNRelease(bMembRelase4, 0);
+            arrMembers[8].CnRelease2 = new BaseClasses.CNRelease(bMembRelase4, 0);
 
             // Nodal Forces - fill values
 
-            arrForces[0] = new CNForce(arrNodes[1], 40.0f, 0.0f, -50.0f, 0);
-            arrForces[1] = new CNForce(arrNodes[4], -60.0f, 0.0f, 0.0f, 0);
-            arrForces[2] = new CNForce(arrNodes[5], 0.0f, 0.0f, 80.0f, 0);
+            arrForces[0] = new BaseClasses.CNLoad(arrNodes[1], ENLoadType.eNLT_Fx, 40.0f, 0);
+            arrForces[1] = new BaseClasses.CNLoad(arrNodes[4], ENLoadType.eNLT_Fx, -60.0f, 0);
+            arrForces[2] = new BaseClasses.CNLoad(arrNodes[5], ENLoadType.eNLT_Fz, 80.0f, 0);
         }
     }
 }

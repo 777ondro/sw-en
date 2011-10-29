@@ -7,7 +7,8 @@ using System.Collections;
 namespace BaseClasses
 {
     // Class CNode
-    public class CNode : IComparer, IComparable
+    [Serializable]
+    public class CNode
     {
         private int m_iNode_ID;
         private float m_fCoord_X;
@@ -86,4 +87,12 @@ namespace BaseClasses
 
         #endregion
     } // End of Class CNode
+    public class CCompare_NodeID : IComparer
+    {
+        // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
+        public int Compare(object x, object y)
+        {
+            return ((CNode)x).INode_ID - ((CNode)y).INode_ID;
+        }
+    }
 }
