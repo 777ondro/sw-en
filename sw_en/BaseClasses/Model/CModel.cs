@@ -21,6 +21,7 @@ namespace CENEX
         public string m_sFileName;
 
         // Physical Model / Structural data
+        // Collection of references to objects
 
         // Materials used/defined in current model
         public CMat_00[] m_arrMat = new CMat_00[1];
@@ -28,13 +29,18 @@ namespace CENEX
         public CCrSc[] m_arrCrSc = new CCrSc[1];
 
         // Topological nodes (not FEM)
+        // Note !!!
+        // Type of object collections - some dynamically allocated which can be resized - stack, queue, vector ????
+
         public CNode[] m_arrNodes = new CNode[1];
         // 1D Elements (not FEM)
         public CMember [] m_arrMembers = new CMember[1];
-        // Supports
+        // Nodal Supports
         public CNSupport[] m_arrNSupports = new CNSupport[1];
-        // Loads
-        public CNLoad[] m_arrNForces = new CNLoad[1];
+        // Nodal Loads
+        public CNLoad[] m_arrNLoads = new CNLoad[1];
+        // Member Loads
+        public CMLoad[] m_arrMLoads = new CMLoad[1];
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
