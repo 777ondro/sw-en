@@ -5,6 +5,7 @@ using System.Text;
 
 namespace BaseClasses
 {
+        [Serializable]
     public class CNLoad
     {
         //----------------------------------------------------------------------------
