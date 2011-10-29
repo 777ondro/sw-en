@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using CENEX.DATABASE.MAT;
 
 namespace CENEX
 {
@@ -10,15 +11,14 @@ namespace CENEX
     {
         public CNode[] arrNodes = new CNode[6];
         public CLine[] arrLines = new CLine[9];
-        public CMat[] arrMat = new CMat[1];
-        public CCrSc[] arrCrSc = new CCrSc[1];
+        public CMat_00[] arrMat = new CMat_00[5];
+        public CCrSc[] arrCrSc = new CCrSc[3];
         public CNSupport[] arrSupports = new CNSupport[3];
         public CNForce[] arrForces = new CNForce[3];
 
-        // Materials - vsetky by mali byt v poli arrMat hoci to mozu byt ine objekty
-        CMat objMat1 = new CMat();
-
         // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
+
+        // Temporary objecs for testing
 
         // public CCrSc_0_00 objCrScSolid = new CCrSc_0_00(100);
         // public CCrSc_0_01 objCrScSolid = new CCrSc_0_01(100);
@@ -64,6 +64,30 @@ namespace CENEX
 
         public CTest1()
         {
+            // Materials
+            // Fill Data of Materials Array
+
+            arrMat[0] = new CMat_00(); // Vytvarat priamo pre konkretne typy materialov (uzivatelsky, ocel, beton, drevo, hlinik)
+            arrMat[1] = new CMat_02_00();
+            arrMat[2] = new CMat_03_00();
+            arrMat[3] = new CMat_05_00();
+            arrMat[4] = new CMat_09_00();
+
+            // CrSc
+            // Vytvarat len ODKAZY na objekty "ref", aby sa zbytocne nevytvarali lokalne kopie
+
+            objCrScHollow.m_Mat = arrMat[0]; // Temporary
+
+            // Fill Data of Cross-sections Array
+
+            arrCrSc[0] = new CCrSc_3_07(3, 500, 300, 30);
+            arrCrSc[1] = new CCrSc_0_05(100, 50);
+            arrCrSc[2] = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
+
+            arrCrSc[0].m_Mat = arrMat[0];
+            arrCrSc[1].m_Mat = arrMat[1];
+            arrCrSc[2].m_Mat = arrMat[4];
+
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
 
@@ -77,37 +101,18 @@ namespace CENEX
             // Setridit pole podle ID
             Array.Sort(arrNodes, new CCompare_NodeID());
 
-            // Fill Data of Materials Array
-            arrMat[0]= objMat1;
-
-            // Set CrSc Materials
-            /*
-            arrCrSc[0].m_Mat.m_fE = arrMat[0].m_fE;
-            arrCrSc[0].m_Mat.m_fG = arrMat[0].m_fG;
-            arrCrSc[0].m_Mat.m_fAlpha_T = arrMat[0].m_fAlpha_T;
-            arrCrSc[0].m_Mat.m_fnu = arrMat[0].m_fnu;
-             */
-            objCrScHollow.m_Mat.m_fE = arrMat[0].m_fE;
-            objCrScHollow.m_Mat.m_fG = arrMat[0].m_fG;
-            objCrScHollow.m_Mat.m_fAlpha_T = arrMat[0].m_fAlpha_T;
-            objCrScHollow.m_Mat.m_fnu = arrMat[0].m_fnu;
-
-            // Fill Data of Cross-sections Array
-            arrCrSc[0] = objCrScHollow;
-            //arrCrSc[0] = objCrScSolid;
-
             // Lines Automatic Generation
             // Lines List - Lines Array
 
-            arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], objCrScHollow /*arrCrSc[0]*/, 0);
-            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], objCrScHollow /*arrCrSc[0]*/, 0);
+            arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], arrCrSc[0], 0);
+            arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], arrCrSc[0], 0);
+            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], arrCrSc[0], 0);
+            arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], arrCrSc[0], 0);
+            arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], arrCrSc[0], 0);
+            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], arrCrSc[0], 0);
+            arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], arrCrSc[0], 0);
+            arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], arrCrSc[0], 0);
+            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], arrCrSc[0], 0);
 
             // Setridit pole podle ID
             Array.Sort(arrLines, new CCompare_LineID());
