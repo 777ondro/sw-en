@@ -93,16 +93,27 @@
     <Compile Include="Loading\Member\CMLoad_41.cs" />
     <Compile Include="Loading\Member\CMLoad_51z.cs" />
     <Compile Include="Loading\Member\CMLoad_51y.cs" />
+    <Compile Include="Loading\Node\CNLoadAll.cs" />
     <Compile Include="Model\CMember.cs" />
     <Compile Include="Loading\Member\CMLoad.cs" />
     <Compile Include="Loading\Node\CNLoad.cs" />
+    <Compile Include="Model\CModel.cs" />
     <Compile Include="Model\CNode.cs" />
     <Compile Include="Model\CNRelease.cs" />
     <Compile Include="Model\CNSupport.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Model\CSegment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRSC\CRSC.csproj">
+      <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
+      <Name>CRSC %28CRSC\CRSC%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
+      <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
+      <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
       <Name>MATH</Name>

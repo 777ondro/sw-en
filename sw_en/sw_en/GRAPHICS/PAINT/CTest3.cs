@@ -94,7 +94,7 @@ namespace CENEX
             arrSupports[3] = new CNSupport(4, arrNodes[17], bSupport1, 0);
 
             // Setridit pole podle ID
-            Array.Sort(arrSupports, new CCompare_SupportID());
+            Array.Sort(arrSupports, new CCompare_NSupportID());
 
             // Member Releases / hinges - fill values
 

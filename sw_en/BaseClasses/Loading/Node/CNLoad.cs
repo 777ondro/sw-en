@@ -11,6 +11,7 @@ namespace BaseClasses
         private CNode m_Node;
         private float m_Value;
         private ENLoadType m_nLoadType;
+        public int m_fTime;
 
         //----------------------------------------------------------------------------
         public CNode Node
@@ -35,6 +36,16 @@ namespace BaseClasses
         public CNLoad()
         {
 
+        }
+        public CNLoad(CNode Node,
+              ENLoadType nLoadType,
+              float fValue,
+              int fTime)
+        {
+            m_Node = Node;
+            m_nLoadType = nLoadType;
+            m_Value = fValue;
+            m_fTime = fTime;
         }
 
     }
