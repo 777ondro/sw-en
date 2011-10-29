@@ -130,6 +130,8 @@ namespace CENEX
             bool[] bSupport3 = { true, false, false, false, false, false };
 
             // Create Support Objects
+            // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovana tato podpora
+            // objekt podpory bude len jeden a dotknute uzly budu vediet ze na ich podpora existuje a ake je konkretne ID jej nastaveni
             arrNSupports[0] = new BaseClasses.CNSupport(1, arrNodes[0], bSupport1, 0);
             arrNSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
             arrNSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
@@ -138,6 +140,9 @@ namespace CENEX
             Array.Sort(arrNSupports, new BaseClasses.CCompare_NSupportID());
 
             // Member Releases / hinges - fill values
+
+            // Pozn. Jednym z parametrov by malo byt pole ID prutov v ktorych je zadefinovany klb
+            // objekt klbu bude len jeden a dotknute pruty budu vediet ze na ich klb existuje, v ktorom uzle (start 1 / End 2) a ake je konkretne ID jeho nastaveni
 
             // Set values
             //bool[] bMembRelase1 = { true, false, false, false, false, false };
@@ -151,6 +156,10 @@ namespace CENEX
             arrMembers[8].CnRelease2 = new BaseClasses.CNRelease(bMembRelase4, 0);
 
             // Nodal Forces - fill values
+
+            // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovane uzlove zatazenie
+            // objekt zatazenia bude len jeden a dotknute uzly budu vediet ze na ich dane zatazenie existuje a ake je konkretne ID jeho vlastnosti
+
 
             arrNLoads[0] = new BaseClasses.CNLoad(arrNodes[1], ENLoadType.eNLT_Fx, 40.0f, 0);
             arrNLoads[1] = new BaseClasses.CNLoad(arrNodes[4], ENLoadType.eNLT_Fx, -60.0f, 0);
