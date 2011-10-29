@@ -38,7 +38,6 @@ namespace BaseClasses
         public CNRelease(CNode node)
         {
             m_Node = node;
-            m_Member = null;
         }
 
         public CNRelease(bool[] bRestrain, int fTime)
@@ -54,10 +53,10 @@ namespace BaseClasses
             m_fTime = fTime;
         }
 
-        public CNRelease(CNode Node, CMember member, bool[] bRestrain, int fTime)
+        public CNRelease(CNode Node, CMember Member, bool[] bRestrain, int fTime)
         {
             m_Node = Node;
-            m_Member = member;
+            m_Member = Member;
             m_bRestrain = bRestrain;
             m_fTime = fTime;
         }
