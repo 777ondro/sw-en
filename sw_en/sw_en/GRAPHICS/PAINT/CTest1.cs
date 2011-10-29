@@ -106,13 +106,13 @@ namespace CENEX
 
             arrLines[0] = new CLine(1, arrNodes[0], arrNodes[1], arrCrSc[0], 0);
             arrLines[1] = new CLine(2, arrNodes[1], arrNodes[2], arrCrSc[0], 0);
-            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], arrCrSc[0], 0);
+            arrLines[2] = new CLine(3, arrNodes[0], arrNodes[3], arrCrSc[1], 0);
             arrLines[3] = new CLine(4, arrNodes[1], arrNodes[4], arrCrSc[0], 0);
             arrLines[4] = new CLine(5, arrNodes[2], arrNodes[5], arrCrSc[0], 0);
-            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], arrCrSc[0], 0);
+            arrLines[5] = new CLine(6, arrNodes[3], arrNodes[4], arrCrSc[2], 0);
             arrLines[6] = new CLine(7, arrNodes[4], arrNodes[5], arrCrSc[0], 0);
             arrLines[7] = new CLine(8, arrNodes[1], arrNodes[3], arrCrSc[0], 0);
-            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], arrCrSc[0], 0);
+            arrLines[8] = new CLine(9, arrNodes[1], arrNodes[5], arrCrSc[1], 0);
 
             // Setridit pole podle ID
             Array.Sort(arrLines, new CCompare_LineID());
