@@ -12,11 +12,12 @@ namespace CENEX
         //----------------------------------------------------------------------------
         private short m_sShape;       // Section shape
 
-        // 0 - two radius, same centre point (4 auxialiary points)
-        // 1 - two radius, diff centre point (8 auxialiary points)
+        // Section shapes types
+        // 0 - Two radii, coincident centre points (4 auxialiary points)
+        // 1 - Two radii, incoincident centre points (8 auxialiary points)
         // 2 - Outside radius = 0 (4 auxialiary points)
         // 3 - Inside radius = 0, coincident centre points (4 auxialiary points)
-        // 4 - Inside radius = 0, incoincident centre points // Temp
+        // 4 - Inside radius = 0, incoincident centre points // Temp - not implemented
         // 5 - Both radii = 0 (0 auxialiary points)
 
         private float m_fh;                 // Depth - Height / Vyska

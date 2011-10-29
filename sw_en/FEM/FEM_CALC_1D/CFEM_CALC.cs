@@ -13,7 +13,7 @@ using MATH;
   
  1. Member Relases - Klby na prutoch (kompletne dopracovat)
  2. Stiffeness matrices for various restraints conditions
- 3. Add loading vectors for variaous loading types and restraints conditions
+ 3. Add loading vectors for various loading types and restraints conditions
  4. Geometry / various axial systems / correct direction cosine and length for member 
     if node are in varous quadrant 
     (opravit vypocet dlzok a smerovych kosinusov 
@@ -28,7 +28,7 @@ using MATH;
  FEM
  1. Rozhodnut ci budu stvorcove matice vsetky typu matrix, co ma ostat float, podobne vektory
     upravit rozmery poli, asi bude najlepsie vychadzat z nasobkov "6" - pocet stupnov volnosti uzla v priestore
-    zjednotit triedy a funkcie MATRIX a VECTOR, vyrobit Namespace pre matematiku 
+    zjednotit triedy a funkcie MATRIX a VECTOR, vyrobit triedy pre matematiku 
  
  2. Da sa u matic vyuzit symetria - trojuholnikova matica - redukcia poctu prvkov
  3. Generovanie lokalnych a globalnych matic pruta previest na paralelne  - moze sa pocitat pre viacero prutov naraz
@@ -46,7 +46,7 @@ using MATH;
 
   Vela ukonov sa da robit paralelne, napriklad tvorba jednotlivych matic prutov
   Tvorba tuhostnej matice a zatazovacej matice
-  Tvorba maic s priebehmi vyslednych vnutornych sil
+  Tvorba matic s priebehmi vyslednych vnutornych sil, neyavisle pre jednotlive elementy a pruty 
 
 
   Asi by bolo rozumnejsie nealokovat cele matice ale na zaklade kodovych cisel vytvarat 
@@ -795,7 +795,7 @@ namespace FEM_CALC_1D
 
                     for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
                     {
-                        // Assign existing element to temp element from list to get its global stifeness matrix members (12x12)
+                        // Assign existing element from list to the temp element to get its global stifeness matrix members (12x12)
                         CE_1D El_Temp = m_ELemArray[iElemTemp_Index.IndexOf(l)];
 
                         if (m_fDisp_Vector_CN[i, 1] == El_Temp.m_NodeStart.INode_ID - 1) // Current DOF-row is on Start Node
@@ -848,7 +848,7 @@ namespace FEM_CALC_1D
 
                     for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
                     {
-                        // Assign existing element to temp element from list 
+                        // Assign existing element from list to the temp element  
                         CE_1D El_Temp = m_ELemArray[iElemTemp_Index.IndexOf(l)];
 
                         if (m_fDisp_Vector_CN[i, 1] == El_Temp.m_NodeStart.INode_ID - 1) // If DOF is on Start Node of Element
