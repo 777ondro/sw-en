@@ -14,9 +14,10 @@ namespace CENEX
 
         // 0 - two radius, same centre point (4 auxialiary points)
         // 1 - two radius, diff centre point (8 auxialiary points)
-        // 2 - Outside radius = 0
-        // 3 - Inside radius = 0
-        // 4 - Both radii = 0
+        // 2 - Outside radius = 0 (4 auxialiary points)
+        // 3 - Inside radius = 0, coincident centre points (4 auxialiary points)
+        // 4 - Inside radius = 0, incoincident centre points // Temp
+        // 5 - Both radii = 0 (0 auxialiary points)
 
         private float m_fh;                 // Depth - Height / Vyska
         private float m_fb;                 // Width  / Sirka
@@ -67,8 +68,11 @@ namespace CENEX
         public CCrSc_3_07()  {   }
         public CCrSc_3_07(short sShape, float fh, float fb, float ft, float fr)
         {
-            // 0 - two radius, same centre point (4 auxialiary points)
-            m_iNumOfArcSegment = 8;
+            // 0 - Two radii, same centre point (4 auxialiary points)
+            // 2 - Outside radius = 0
+            // 4 - Inside radius = 0, incoincident centre points
+
+            m_iNumOfArcSegment = 4;
             m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
             m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
 
@@ -84,13 +88,13 @@ namespace CENEX
             }
             else if (m_sShape == 2)
             {
-                m_fr_out = fr;
-                m_fr_in = 0f;
-            }
-            else if (m_sShape == 3)
-            {
                m_fr_out = 0f;
                m_fr_in = fr;
+            }
+            else if (m_sShape == 4)
+            {
+                m_fr_out = fr;
+                m_fr_in = 0f;
             }
 
             // Create Array - allocate memory
@@ -99,18 +103,18 @@ namespace CENEX
 
             // Fill Array Data
 
-            if (m_sShape == 0)      // Both radii, coincident centres
+            if (m_sShape == 0)       // Both radii, coincident centres
                 CalcCrSc_Coord_0();
-            else if (m_sShape == 2) // Outside radius
+            else if (m_sShape == 2)  // Outside radius = 0
                 CalcCrSc_Coord_2();
-            else if (m_sShape == 3) // Inside radius
-                CalcCrSc_Coord_3();
-            //else
+            else if (m_sShape == 4)  // Inside radius = 0
+                CalcCrSc_Coord_4();
         }
 
         public CCrSc_3_07(short sShape, float fh, float fb, float ft, float fr_out, float fr_in)
         {
-            // 1 - two radius, diff centre point (8 auxialiary points)
+            // 1 - Two radii, diff centre point (8 auxialiary points)
+
             m_iNumOfArcSegment = 8;
             m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
             m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
@@ -128,6 +132,92 @@ namespace CENEX
 
             // Fill Array Data
             CalcCrSc_Coord_0();
+        }
+
+        public CCrSc_3_07(short sShape, float fh, float fb, float ft)
+        {
+            // 0 - Two radii, same centre point (4 auxialiary points)
+            // 2 - Outside radius = 0  (4 auxialiary points)
+            // 3 - Inside radius = 0, coincident centre points (no auxiliary points)
+            // 5 - No radii (no auxiliary points)
+
+            m_sShape = sShape;
+            m_fh = fh;
+            m_fb = fb;
+            m_ft = ft;
+
+            if (m_sShape == 0)
+            {
+                m_iNumOfArcSegment = 4;
+                m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+                m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
+
+                m_fr_out = 2 * m_ft;
+                m_fr_in = m_ft;
+            }
+            else if (m_sShape == 2)
+            {
+                m_iNumOfArcSegment = 4;
+                m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+                m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
+
+                m_fr_out = 0f;
+                m_fr_in = ft;
+            }
+            else if (m_sShape == 3)
+            {
+                m_iNumOfArcSegment = 4;
+                m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+                m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
+
+                m_fr_out = m_ft; // Radius is not needed
+                m_fr_in = 0f;
+            }
+            else if (m_sShape == 5)
+            {
+                m_iNumOfArcSegment = 0;
+                m_iNumOfArcPoints = 0;
+                m_iNoPoints = 8;
+
+                m_fr_out = 0f;
+                m_fr_in = 0f;
+            }
+
+            // Create Array - allocate memory
+            m_CrScPointOut = new float[INoPoints, 2];
+            m_CrScPointIn = new float[INoPoints, 2];
+
+            // Fill Array Data
+            if (m_sShape == 0) // Two radii with coincident centres - radii are defined only by thickness
+            {
+                // r_out = 2 * t
+                // r_in = t
+
+                CalcCrSc_Coord_0();
+            }
+            else if (m_sShape == 2) // Outside radius = 0
+            {
+                // r_in = t
+
+                CalcCrSc_Coord_2();
+            }
+            else if (m_sShape == 3) // Inside radius = 0
+            {
+                // r_out = t
+
+                // No inside points - set empty
+                m_CrScPointIn = null; // No Inside surface points (auxialiary points of outside surface - centre of radii are identical to inside points)
+                
+                CalcCrSc_Coord_3();
+            }
+            else
+            {
+                // No inside points - set empty
+                m_CrScPointIn = null; // No Inside surface points (auxialiary points of outside surface - centre of radii are identical to inside points)
+
+                CCrSc_0_25 objTemp = new CCrSc_0_25(m_fh, m_fb, m_ft, m_ft);
+                m_CrScPointOut = objTemp.m_CrScPoint; 
+            }
         }
 
         //----------------------------------------------------------------------------
@@ -241,13 +331,6 @@ namespace CENEX
         //----------------------------------------------------------------------------
         void CalcCrSc_Coord_2()
         {
-
-
-        }
-
-        //----------------------------------------------------------------------------
-        void CalcCrSc_Coord_3()
-        {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             short iNumberAux = 4;
@@ -287,7 +370,7 @@ namespace CENEX
                 }
                 else // Horizontal
                 {
-                    m_CrScPointOut[iNumberAux + i, 0] = -m_fb / 2f + (i - m_iNumOfArcSegment/2) * fOutSegmLength; // y                                       // y
+                    m_CrScPointOut[iNumberAux + i, 0] = -m_fb / 2f + (i - m_iNumOfArcSegment/2) * fOutSegmLength; // y      
                     m_CrScPointOut[iNumberAux + i, 1] = m_fh / 2f;                                              // z                
                 }
             }
@@ -297,7 +380,7 @@ namespace CENEX
             {
                 if (i <= m_iNumOfArcPoints / 2) // Horizontal
                 {
-                    m_CrScPointOut[iNumberAux + m_iNumOfArcPoints + i, 0] = m_fb / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y                                       // y
+                    m_CrScPointOut[iNumberAux + m_iNumOfArcPoints + i, 0] = m_fb / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y          
                     m_CrScPointOut[iNumberAux + m_iNumOfArcPoints + i, 1] = m_fh / 2f;                                             // z 
                 }
                 else // Vertical
@@ -317,7 +400,7 @@ namespace CENEX
                 }
                 else // Horizontal
                 {
-                    m_CrScPointOut[iNumberAux + 2 * m_iNumOfArcPoints + i, 0] = m_fb / 2f - i/2 * fOutSegmLength;                         // y                                       // y
+                    m_CrScPointOut[iNumberAux + 2 * m_iNumOfArcPoints + i, 0] = m_fb / 2f - i/2 * fOutSegmLength;                         // y
                     m_CrScPointOut[iNumberAux + 2 * m_iNumOfArcPoints + i, 1] = -m_fh / 2f;                                              // z                
                 }
             }
@@ -327,7 +410,7 @@ namespace CENEX
             {
                 if (i <= m_iNumOfArcPoints / 2) // Horizontal
                 {
-                    m_CrScPointOut[iNumberAux + 3 * m_iNumOfArcPoints + i, 0] = -m_fb / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y                                       // y
+                    m_CrScPointOut[iNumberAux + 3 * m_iNumOfArcPoints + i, 0] = -m_fb / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y                                    
                     m_CrScPointOut[iNumberAux + 3 * m_iNumOfArcPoints + i, 1] = -m_fh / 2f;                                             // z 
                 }
                 else // Vertical
@@ -388,6 +471,72 @@ namespace CENEX
                 m_CrScPointIn[iNumberAux + 3 * m_iNumOfArcPoints + i, 0] = m_CrScPointIn[3, 0] + Geom2D.GetPositionX(m_fr_in, 90 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
                 m_CrScPointIn[iNumberAux + 3 * m_iNumOfArcPoints + i, 1] = m_CrScPointIn[3, 1] + Geom2D.GetPositionY_CW(m_fr_in, 90 + i * iRadiusAngle / m_iNumOfArcSegment);  // z
             }
+        }
+
+        //----------------------------------------------------------------------------
+        void CalcCrSc_Coord_3()
+        {
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            short iNumberAux = 4;
+
+            // Points
+            // Auxialiary nodes for out side points and internal points
+
+            // Point No. 1
+            m_CrScPointOut[0, 0] = -m_fb / 2f + m_fr_out;    // y
+            m_CrScPointOut[0, 1] = m_fh / 2f - m_fr_out;     // z
+
+            // Point No. 2
+            m_CrScPointOut[1, 0] = -m_CrScPointOut[0, 0];        // y
+            m_CrScPointOut[1, 1] = m_CrScPointOut[0, 1];         // z
+
+            // Point No. 3
+            m_CrScPointOut[2, 0] = -m_CrScPointOut[0, 0];        // y
+            m_CrScPointOut[2, 1] = -m_CrScPointOut[1, 1];        // z
+
+            // Point No. 4
+            m_CrScPointOut[3, 0] = m_CrScPointOut[0, 0];         // y
+            m_CrScPointOut[3, 1] = m_CrScPointOut[2, 1];         // z
+
+            // Surface points
+
+            int iRadiusAngle = 90; // Radius Angle
+
+            // 1st radius - centre "1" (180-270 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPointOut[iNumberAux + i, 0] = m_CrScPointOut[0, 0] + Geom2D.GetPositionX(m_fr_out, 180 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPointOut[iNumberAux + i, 1] = m_CrScPointOut[0, 1] + Geom2D.GetPositionY_CW(m_fr_out, 180 + i * iRadiusAngle / m_iNumOfArcSegment);  // z
+            }
+
+            // 2nd radius - centre "2" (270-360 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPointOut[iNumberAux + m_iNumOfArcPoints + i, 0] = m_CrScPointOut[1, 0] + Geom2D.GetPositionX(m_fr_out, 270 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPointOut[iNumberAux + m_iNumOfArcPoints + i, 1] = m_CrScPointOut[1, 1] + Geom2D.GetPositionY_CW(m_fr_out, 270 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+            }
+
+            // 3rd radius - centre "3" (0-90 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPointOut[iNumberAux + 2 * m_iNumOfArcPoints + i, 0] = m_CrScPointOut[2, 0] + Geom2D.GetPositionX(m_fr_out, 0 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPointOut[iNumberAux + 2 * m_iNumOfArcPoints + i, 1] = m_CrScPointOut[2, 1] + Geom2D.GetPositionY_CW(m_fr_out, 0 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+            }
+
+            // 4th radius - centre "4" (90-180 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPointOut[iNumberAux + 3 * m_iNumOfArcPoints + i, 0] = m_CrScPointOut[3, 0] + Geom2D.GetPositionX(m_fr_out, 90 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPointOut[iNumberAux + 3 * m_iNumOfArcPoints + i, 1] = m_CrScPointOut[3, 1] + Geom2D.GetPositionY_CW(m_fr_out, 90 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+            }
+        }
+
+        //----------------------------------------------------------------------------
+        void CalcCrSc_Coord_4()
+        {
+
+
         }
     }
 }

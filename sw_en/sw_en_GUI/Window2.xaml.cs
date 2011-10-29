@@ -733,7 +733,68 @@ namespace sw_en_GUI
         private void load_3_07_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
         {
             int secNum = 4 * (iRadiusSegment + 1); // Number of points to draw in one section inside or outside surface
-            load_0_26_28_TriangelIndices(iAux, secNum);
+
+            if (sShape == 0 || sShape == 1 || sShape == 2)
+                load_0_26_28_TriangelIndices(iAux, secNum);
+            else if (sShape == 3)
+            {
+                // const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
+                int iRadiusPoints = iRadiusSegment + 1;
+
+                M_TriangelsIndices = new Int32Collection();
+
+                // Front Side / Forehead
+                // Points order 1,2,3,4
+
+                DrawRectangleIndices(M_TriangelsIndices, 0, iAux + iRadiusSegment, iAux + 1 + iRadiusSegment, 1);
+                DrawRectangleIndices(M_TriangelsIndices, 1, iAux + 2 * iRadiusSegment + 1, iAux + 2 * iRadiusSegment + 2, 2);
+                DrawRectangleIndices(M_TriangelsIndices, 3, 2, iAux + 3 * iRadiusSegment + 2, iAux + 3 * iRadiusSegment + 3);
+                DrawRectangleIndices(M_TriangelsIndices, iAux, 0, 3, iAux + 4 * iRadiusSegment + 3);
+
+                // Arc sectors
+                // 1st SolidCircleSector
+                DrawSolidCircleSector(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
+                // 2nd SolidCircleSector
+                DrawSolidCircleSector(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+                // 3rd SolidCircleSector
+                DrawSolidCircleSector(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+                // 4th SolidCircleSector
+                DrawSolidCircleSector(3, iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+                // Back Side
+                // Points order 1,4,3,2
+
+                // Arc sectors
+                int iPointNumbersOffset = iAux + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+                DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + iAux + iRadiusSegment);
+                DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 1);
+                DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 2, iPointNumbersOffset + 2);
+                DrawRectangleIndices(M_TriangelsIndices, iPointNumbersOffset + iAux, iPointNumbersOffset + iAux + 4 * iRadiusSegment + 3, iPointNumbersOffset + 3, iPointNumbersOffset + 0);
+
+                // 1st SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
+                // 2nd SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+                // 3rd SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+                // 4th SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+                // Shell - outside
+                DrawCaraLaterals(iAux, 4 * iRadiusPoints, M_TriangelsIndices);
+                // Shell - inside
+                DrawRectangleIndices(M_TriangelsIndices, 0, iPointNumbersOffset + 0, iPointNumbersOffset + 3, 3);
+                DrawRectangleIndices(M_TriangelsIndices, 1, iPointNumbersOffset + 1, iPointNumbersOffset + 0, 0);
+                DrawRectangleIndices(M_TriangelsIndices, 2, iPointNumbersOffset + 2, iPointNumbersOffset + 1, 1);
+                DrawRectangleIndices(M_TriangelsIndices, 3, iPointNumbersOffset + 3, iPointNumbersOffset + 2, 2);
+            }
+            else if (sShape == 4)
+            {
+
+            }
+            else
+                load_0_25_TriangelIndices();
         }
 
 
@@ -786,7 +847,10 @@ namespace sw_en_GUI
             // Rolled L profile, angle section
             // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary points, number of segments of arc
             // Rectanglular Hollow Cross-section
-            load_3_07_TriangelIndices(3, 4, 8); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            // load_3_07_TriangelIndices(0, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            // load_3_07_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            load_3_07_TriangelIndices(3, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc (iAux = 4)
+            //load_3_07_TriangelIndices(5, 0, 0); // Shape ID, number of auxiliary points per section, number of segments of one arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -830,13 +894,20 @@ namespace sw_en_GUI
                 // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
 
                 //// I,U,Z,HL, L, ....
-                for (int j = 0; j < iNoCrScPoints2D; j++)
+                if (res != null) // Check that data are available
                 {
-                    mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
+                    for (int j = 0; j < iNoCrScPoints2D; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
+                    }
+                    for (int j = 0; j < iNoCrScPoints2D; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
+                    }
                 }
-                for (int j = 0; j < iNoCrScPoints2D; j++)
+                else
                 {
-                    mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
+                    // Exception
                 }
             }
             else
@@ -850,27 +921,57 @@ namespace sw_en_GUI
                 // TU
 
                 // Start
-                // OutSide Radius Points
-                for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                if (res1 != null) // Check that data are available
                 {
-                    mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
+                    // OutSide Radius Points
+                    for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
+                    }
                 }
-                // Inside Radius Points
-                for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                else
                 {
-                    mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
+                    // Exception
+                }
+
+                if (res2 != null) // Check that data are available
+                {
+                    // Inside Radius Points
+                    for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
+                    }
+                }
+                else
+                {
+                    // Exception
                 }
 
                 // End
-                // OutSide Radius Points
-                for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                if (res1 != null) // Check that data are available
                 {
-                    mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
+                    // OutSide Radius Points
+                    for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
+                    }
                 }
-                // Inside Radius Points
-                for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                else
                 {
-                    mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
+                    // Exception
+                }
+
+                if (res2 != null) // Check that data are available
+                {
+                    // Inside Radius Points
+                    for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    {
+                        mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
+                    }
+                }
+                else
+                {
+                    // Exception
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

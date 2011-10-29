@@ -107,7 +107,7 @@ namespace CENEX
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord()
+        public void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
