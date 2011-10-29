@@ -8,6 +8,14 @@ namespace CENEX
 	[Serializable]
     public class CCrSc
     {
+        private int m_iCrSc_ID;
+
+        public int ICrSc_ID
+        {
+            get { return m_iCrSc_ID; }
+            set { m_iCrSc_ID = value; }
+        }
+
         public CMat_00 m_Mat = new CMat_00();
         // Predok pre jednotlive tvary prierezov
 

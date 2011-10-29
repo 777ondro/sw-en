@@ -65,8 +65,10 @@ namespace CENEX
 
         public CTest1()
         {
+            // !!!!!! Vytvarat len ODKAZY na objekty "ref", aby sa zbytocne nevytvarali lokalne kopie
+
             // Materials
-            // Fill Data of Materials Array
+            // Materials List - Materials Array - Fill Data of Materials Array
 
             arrMat[0] = new CMat_00(); // Vytvarat priamo pre konkretne typy materialov (uzivatelsky, ocel, beton, drevo, hlinik)
             arrMat[1] = new CMat_02_00();
@@ -75,11 +77,7 @@ namespace CENEX
             arrMat[4] = new CMat_09_00();
 
             // CrSc
-            // Vytvarat len ODKAZY na objekty "ref", aby sa zbytocne nevytvarali lokalne kopie
-
-            objCrScHollow.m_Mat = arrMat[0]; // Temporary
-
-            // Fill Data of Cross-sections Array
+            // CrSc List - CrSc Array - Fill Data of Cross-sections Array
 
             arrCrSc[0] = new CRSC.CCrSc();
             arrCrSc[1] = new CRSC.CCrSc();
@@ -93,7 +91,7 @@ namespace CENEX
             arrCrSc[1].m_Mat = arrMat[1];
             arrCrSc[2].m_Mat = arrMat[4];
 
-            // Nodes Automatic Generation
+            // Nodes
             // Nodes List - Nodes Array
 
             arrNodes[0] = new BaseClasses.CNode(1, 500, 0, 2500, 0);
@@ -103,11 +101,11 @@ namespace CENEX
             arrNodes[4] = new BaseClasses.CNode(5, 2500, 0, 500, 0);
             arrNodes[5] = new BaseClasses.CNode(6, 5500, 0, 500, 0);
 
-            // Setridit pole podle ID
+            // Sort by ID
             Array.Sort(arrNodes, new BaseClasses.CCompare_NodeID());
 
-            // Lines Automatic Generation
-            // Lines List - Lines Array
+            // Members
+            // Members List - Members Array
 
             arrMembers[0] = new BaseClasses.CMember(1, arrNodes[0], arrNodes[1], arrCrSc[0], 0);
             arrMembers[1] = new BaseClasses.CMember(2, arrNodes[1], arrNodes[2], arrCrSc[0], 0);
@@ -119,7 +117,7 @@ namespace CENEX
             arrMembers[7] = new BaseClasses.CMember(8, arrNodes[1], arrNodes[3], arrCrSc[0], 0);
             arrMembers[8] = new BaseClasses.CMember(9, arrNodes[1], arrNodes[5], arrCrSc[1], 0);
 
-            // Setridit pole podle ID
+            //Sort by ID
             Array.Sort(arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
@@ -136,7 +134,7 @@ namespace CENEX
             arrNSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
             arrNSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
 
-            // Setridit pole podle ID
+            // Sort by ID
             Array.Sort(arrNSupports, new BaseClasses.CCompare_NSupportID());
 
             // Member Releases / hinges - fill values
@@ -159,7 +157,6 @@ namespace CENEX
 
             // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovane uzlove zatazenie
             // objekt zatazenia bude len jeden a dotknute uzly budu vediet ze na ich dane zatazenie existuje a ake je konkretne ID jeho vlastnosti
-
 
             arrNLoads[0] = new BaseClasses.CNLoad(arrNodes[1], ENLoadType.eNLT_Fx, 40.0f, 0);
             arrNLoads[1] = new BaseClasses.CNLoad(arrNodes[4], ENLoadType.eNLT_Fx, -60.0f, 0);

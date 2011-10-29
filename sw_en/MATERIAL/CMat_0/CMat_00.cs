@@ -10,6 +10,13 @@ namespace CENEX
     {
         // Predecessor of materials
         // Predok pre jednotlive materialy
+        private int m_iMat_ID;
+
+        public int IMat_ID
+        {
+            get { return m_iMat_ID; }
+            set { m_iMat_ID = value; }
+        }
 
         // Default material - steel
         public short m_sMatType = 3;
