@@ -5,7 +5,8 @@ using System.Text;
 
 namespace BaseClasses
 {
-    class CLoadCombination_E
+        [Serializable]
+    class CLoadCombination_E:CLoadCombination
     {
     }
 }

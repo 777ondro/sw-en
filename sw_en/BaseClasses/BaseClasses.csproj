@@ -77,6 +77,7 @@
     <Compile Include="Loading\Case\CLoadCase.cs" />
     <Compile Include="Loading\Combination\CLoadCombination_E.cs" />
     <Compile Include="Loading\Combination\CLoadCombination_L.cs" />
+    <Compile Include="Loading\Combination\CLoadCombination.cs" />
     <Compile Include="Loading\Member\CMLoad_11.cs" />
     <Compile Include="Loading\Member\CMLoad_12.cs" />
     <Compile Include="Loading\Member\CMLoad_13.cs" />

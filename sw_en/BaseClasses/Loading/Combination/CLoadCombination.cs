@@ -6,21 +6,21 @@ using System.Text;
 namespace BaseClasses
 {
         [Serializable]
-    public class CLoadCase
+    public class CLoadCombination
     {
         //----------------------------------------------------------------------------
-        private int m_iLoadCase_ID;
+        private int m_iLoadComb_ID;
 
-        public int ILoadCase_ID
+        public int ILoadComb_ID
         {
-            get { return m_iLoadCase_ID; }
-            set { m_iLoadCase_ID = value; }
+            get { return m_iLoadComb_ID; }
+            set { m_iLoadComb_ID = value; }
         }
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CLoadCase()
-        {
+        public CLoadCombination()
+        { 
         
         }
     }

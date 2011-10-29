@@ -37,10 +37,17 @@ namespace CENEX
         public CMember [] m_arrMembers = new CMember[1];
         // Nodal Supports
         public CNSupport[] m_arrNSupports = new CNSupport[1];
+
+        // Loading
         // Nodal Loads
         public CNLoad[] m_arrNLoads = new CNLoad[1];
         // Member Loads
         public CMLoad[] m_arrMLoads = new CMLoad[1];
+        // Load Cases
+        public CLoadCase[] m_arrLoadCases = new CLoadCase[1];
+        // Load Combinations
+        public CLoadCombination[] m_arrLoadCombs = new CLoadCombination[1];
+
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
