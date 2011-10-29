@@ -13,8 +13,8 @@ namespace CENEX
         public CMember[] arrMembers = new CMember[9];
         public CMat_00[] arrMat = new CMat_00[5];
         public CRSC.CCrSc[] arrCrSc = new CRSC.CCrSc[3];
-        public BaseClasses.CNSupport[] arrSupports = new BaseClasses.CNSupport[3];
-        public BaseClasses.CNLoad[] arrForces = new BaseClasses.CNLoad[3];
+        public BaseClasses.CNSupport[] arrNSupports = new BaseClasses.CNSupport[3];
+        public BaseClasses.CNLoad[] arrNLoads = new BaseClasses.CNLoad[3];
 
         // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
 
@@ -129,12 +129,12 @@ namespace CENEX
             bool[] bSupport3 = { true, false, false, false, false, false };
 
             // Create Support Objects
-            arrSupports[0] = new BaseClasses.CNSupport(1, arrNodes[0], bSupport1, 0);
-            arrSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
-            arrSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
+            arrNSupports[0] = new BaseClasses.CNSupport(1, arrNodes[0], bSupport1, 0);
+            arrNSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
+            arrNSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
 
             // Setridit pole podle ID
-            Array.Sort(arrSupports, new BaseClasses.CCompare_NSupportID());
+            Array.Sort(arrNSupports, new BaseClasses.CCompare_NSupportID());
 
             // Member Releases / hinges - fill values
 
@@ -151,9 +151,9 @@ namespace CENEX
 
             // Nodal Forces - fill values
 
-            arrForces[0] = new BaseClasses.CNLoad(arrNodes[1], ENLoadType.eNLT_Fx, 40.0f, 0);
-            arrForces[1] = new BaseClasses.CNLoad(arrNodes[4], ENLoadType.eNLT_Fx, -60.0f, 0);
-            arrForces[2] = new BaseClasses.CNLoad(arrNodes[5], ENLoadType.eNLT_Fz, 80.0f, 0);
+            arrNLoads[0] = new BaseClasses.CNLoad(arrNodes[1], ENLoadType.eNLT_Fx, 40.0f, 0);
+            arrNLoads[1] = new BaseClasses.CNLoad(arrNodes[4], ENLoadType.eNLT_Fx, -60.0f, 0);
+            arrNLoads[2] = new BaseClasses.CNLoad(arrNodes[5], ENLoadType.eNLT_Fz, 80.0f, 0);
         }
     }
 }
