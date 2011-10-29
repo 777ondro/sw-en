@@ -11,6 +11,8 @@ namespace BaseClasses
         //---------------------------------------------------------------------------------
         private CNode m_Node;
         private CMember m_Member;
+        public int [] m_iMembCollection; // List / Collection of members where release is defined
+        public bool m_nRelease1;  // true - release in start point of member, false - release in end point
         public bool[] m_bRestrain; // DOF
         public int m_fTime;
 

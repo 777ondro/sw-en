@@ -9,6 +9,7 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private CNode m_Node;
+        public int[] m_iNodeCollection; // List / Collection of nodes where load is defined
         private float m_Value;
         private ENLoadType m_nLoadType;
         public int m_fTime;

@@ -9,6 +9,7 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private CNode m_Node;
+        public int[] m_iNodeCollection; // List / Collection of nodes where support is defined
         private float m_Value_FX;
         private float m_Value_FY;
         private float m_Value_FZ;

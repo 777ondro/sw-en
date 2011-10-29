@@ -11,6 +11,7 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private int m_iSupport_ID;
+        public int[] m_iNodeCollection; // List / Collection of nodes where support is defined
         private CNode m_Node;
         private float m_Value;
         private ENSupportType m_NSupportType;
