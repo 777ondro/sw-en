@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CENEX.DATABASE.MAT
+namespace CENEX
 {
-    // Default steel material class
+    // Default aluminium material class
     public class CMat_09_00:CMat_00
     {
-        // Default - steel
+        // Default - aluminium
         // General material properties
 
         // Design properties

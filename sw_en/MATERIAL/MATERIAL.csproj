@@ -71,6 +71,8 @@
   <ItemGroup>
     <Compile Include="CMat_0\CMat_00.cs" />
     <Compile Include="CMat_5\CMat_05_00.cs" />
+    <Compile Include="CMat_6\CMat_06_00.cs" />
+    <Compile Include="CMat_7\CMat_07_00.cs" />
     <Compile Include="CMat_9\CMat_09_00.cs" />
     <Compile Include="MATERIAL_Form.cs">
       <SubType>Form</SubType>
@@ -139,10 +141,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CMat_6\" />
-    <Folder Include="CMat_7\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
