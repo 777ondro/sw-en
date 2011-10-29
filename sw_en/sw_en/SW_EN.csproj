@@ -96,7 +96,6 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_0_50.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_00.cs" />
     <Compile Include="GRAPHICS\PAINT\CLine.cs" />
-    <Compile Include="GRAPHICS\PAINT\CMat.cs" />
     <Compile Include="GRAPHICS\PAINT\CMembRelease.cs" />
     <Compile Include="GRAPHICS\PAINT\CNForce.cs" />
     <Compile Include="GRAPHICS\PAINT\CNode.cs" />

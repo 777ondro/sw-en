@@ -7,8 +7,11 @@ using DATABASE;
 
 namespace CENEX
 {
-    class Data_Mat_02_CONCRETE
+    // Default concrete material class
+    public class CMat_02_00:CMat_00
     {
+        // Default - concrete
+        // General material properties
 
         #region Variables from CONCRETE-SHEET
         // Material properties
@@ -116,8 +119,13 @@ namespace CENEX
         OleDbDataReader dat_reader;
         DatabaseConnection dat_conn;
 
-        public Data_Mat_02_CONCRETE(string combo1)
+        public CMat_02_00()
         {
+        }
+
+        public CMat_02_00(string combo1)
+        {
+            m_sMatType = 2;
 
             string sql1;
 

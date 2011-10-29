@@ -8,7 +8,7 @@ namespace CENEX
 	[Serializable]
     public class CCrSc
     {
-        public CMat m_Mat = new CMat();
+        public CMat_00 m_Mat = new CMat_00();
         // Predok pre jednotlive tvary prierezov
 
         // Constructor 1
@@ -20,9 +20,9 @@ namespace CENEX
         
         }
         // Constructor 2
-        public CCrSc(CMat objMat)
+        public CCrSc(ref CMat_00 objMat)
         {
-            m_Mat = objMat;
+            m_Mat = objMat; // !!! Nevytvarat lokalne kopie !!!
         }
     }
 }
