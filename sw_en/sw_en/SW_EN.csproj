@@ -130,6 +130,8 @@
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_05.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_06.cs" />
     <Compile Include="GRAPHICS\PAINT\CCrSc_3_07.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_3_08.cs" />
+    <Compile Include="GRAPHICS\PAINT\CCrSc_3_09.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest10.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest9.cs" />
     <Compile Include="GRAPHICS\PAINT\CTest8.cs" />
