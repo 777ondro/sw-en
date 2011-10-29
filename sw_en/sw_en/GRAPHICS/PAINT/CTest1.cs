@@ -50,7 +50,7 @@ namespace CENEX
         // public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(200,90,11.3f,7.5f,7.5f,4.5f,159.1f);
         // public CCrSc_3_02 objCrScSolid = new CCrSc_3_02(300, 100, 16, 10, 10, 8, 232, 27);
         // public CCrSc_3_03 objCrScSolid = new CCrSc_3_03(150, 10, 15, 10, 50);
-        public CCrSc_3_04 objCrScSolid = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
+        // public CCrSc_3_04 objCrScSolid = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
         // public CCrSc_3_05 objCrScHollow = new CCrSc_3_05(200,10);
         // public CCrSc_3_06 objCrScHollow = new CCrSc_3_06(200, 100, 20);
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(0, 200, 100, 10, 30); // Both radii, coincident centres
@@ -60,7 +60,8 @@ namespace CENEX
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(0, 400, 150, 20); // Both radii, coincident centres
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(2, 500, 300, 20); // Outside radius = 0
         public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(3, 500, 300, 30); // Inside radius = 0, coincident centres
-        // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(5, 400, 150, 20); // No radii, Outside radius = 0, Inside radius = 0 
+        // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(5, 400, 150, 20); // No radii, Outside radius = 0, Inside radius = 0
+        public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(120, 100, 12.5f, 15, 120, 10, 10, 5, 90);
 
         public CTest1()
         {
