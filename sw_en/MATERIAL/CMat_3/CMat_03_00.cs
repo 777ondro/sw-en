@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CENEX.DATABASE.MAT
+namespace CENEX
 {
     // Default steel material class
     public class CMat_03_00:CMat_00
