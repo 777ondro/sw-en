@@ -8,6 +8,7 @@ namespace CENEX
 	[Serializable]
     public class CMat_00
     {
+        // Predecessor of materials
         // Predok pre jednotlive materialy
 
         // Default material - steel
