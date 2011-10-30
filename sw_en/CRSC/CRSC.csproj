@@ -104,6 +104,7 @@
     <Compile Include="CrSc_3\CCrSc_3_07.cs" />
     <Compile Include="CrSc_3\CCrSc_3_08.cs" />
     <Compile Include="CrSc_3\CCrSc_3_09.cs" />
+    <Compile Include="CrSc_SW\CCrSc_GE.cs" />
     <Compile Include="CSCClass.cs" />
     <Compile Include="CSGClass.cs" />
     <Compile Include="CSO.cs" />
@@ -188,7 +189,6 @@
     <Folder Include="CrSc_4\" />
     <Folder Include="CrSc_5\" />
     <Folder Include="CrSc_9\" />
-    <Folder Include="CrSc_SW\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
