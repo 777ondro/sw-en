@@ -108,7 +108,7 @@ namespace sw_en_GUI
         // Kresli plast hranola pre pravidelne cislovanie bodov s vynechanim pociatocnych uzlov - pomocne 
         private void DrawCaraLaterals(int iAuxNum, int secNum, Int32Collection TriangelsIndices)
         {
-            // iAuxNum - number of auxialiary points - start ofset
+            // iAuxNum - number of auxiliary points - start ofset
             // secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy (tento pocet neobsahuje pomocne body iAuxNum)
 
             // Shell (Face)Surface
@@ -390,7 +390,7 @@ namespace sw_en_GUI
 
         private void load_0_26_28_TriangelIndices(int iAux, int secNum)
         {
-            // iAux - number of auxialiary points in inside/outside collection of points
+            // iAux - number of auxiliary points in inside/outside collection of points
             // secNum - numer of real points in inside/outside collection of points
             // iAux + secNum - total number of points in inside/outside collection of section
 
@@ -828,7 +828,7 @@ namespace sw_en_GUI
 
             M_TriangelsIndices = new Int32Collection();
 
-            if (sShape == 0) // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+            if (sShape == 0) // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxiliary points)
             {
                 // Front Side / Forehead
                 AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 5 * iRadiusPoints - 1, iAux + 5 * iRadiusPoints);
@@ -886,7 +886,7 @@ namespace sw_en_GUI
                 // Shell
                 DrawCaraLaterals(iAux, 6 * iRadiusPoints - 1, M_TriangelsIndices);
             }
-            else if (sShape == 1) // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxialiary points)
+            else if (sShape == 1) // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxiliary points)
             {
                 // Front Side / Forehead
                 AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 3 * iRadiusPoints + 2, iAux + 3 * iRadiusPoints + 3);
@@ -939,7 +939,7 @@ namespace sw_en_GUI
                 // Shell
                 DrawCaraLaterals(iAux, 4 * iRadiusPoints + 2, M_TriangelsIndices);
             }
-            else if (sShape == 2) // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points)
+            else if (sShape == 2) // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxiliary points)
             {
                 // Front Side / Forehead
                 AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5);
@@ -982,6 +982,43 @@ namespace sw_en_GUI
                 // Shell
                 DrawCaraLaterals(iAux, 2 * iRadiusPoints + 4, M_TriangelsIndices);
             }
+            else if (sShape == 3) // 3 - Two radii at flanges roots, tapered or parallel flanges, optional tapered web (2 auxiliary points)
+            {
+                // Front Side / Forehead
+                AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 2 * iRadiusPoints + 6, iAux + 2 * iRadiusPoints + 7);
+                AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 4, iAux + iRadiusPoints, iAux + 2 * iRadiusPoints + 6);
+                AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, 6, 7);
+                AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + 2 * iRadiusPoints + 2);
+                AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 2, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5, iAux + iRadiusPoints + 6);
+
+                // Arc sectors
+                // 1st SolidCircleSector
+                DrawSolidCircleSector(1, iAux + 5, iRadiusSegment, M_TriangelsIndices, false);
+                // 2nd SolidCircleSector
+                DrawSolidCircleSector(0, iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, false);
+
+                // Back Side 
+
+                // Arc sectors
+                int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 8; // Number of nodes per section - Nodes offset
+
+                // Changed orientation of triangles
+                AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 7);
+                AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6);
+                AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + 6, iPointNumbersOffset + 7);
+                AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2);
+                AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 5, iPointNumbersOffset + iAux + iRadiusPoints + 6);
+
+                // 1st SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5, iRadiusSegment, M_TriangelsIndices, true);
+                // 2nd SolidCircleSector
+                DrawSolidCircleSector(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, true);
+
+                // Shell
+                DrawCaraLaterals(iAux, 2 * iRadiusPoints + 8, M_TriangelsIndices);
+            }
+            else //Exception
+            {}
         }
 
 
@@ -1046,8 +1083,9 @@ namespace sw_en_GUI
             // load_3_07_TriangelIndices(3, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc (iAux = 4)
             //load_3_07_TriangelIndices(5, 0, 0); // Shape ID, number of auxiliary points per section, number of segments of one arc
             // Rolled T profile, Tapered flanges
-            // load_3_08_TriangelIndices(1,6,4); // Number of auxiliary points , number of segments of arc
-            load_3_08_TriangelIndices(2,4,4); // Number of auxiliary points , number of segments of arc
+            load_3_08_TriangelIndices(1,6,4); // Shape ID, number of auxiliary points, number of segments of arc
+            // load_3_08_TriangelIndices(2,4,4); // Shape ID, number of auxiliary points, number of segments of arc
+            // load_3_08_TriangelIndices(3, 2, 4); // Shape ID, number of auxiliary points, number of segments of arc
 
      		//MeshGeometry3D mesh = new MeshGeometry3D();
 

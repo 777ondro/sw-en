@@ -63,8 +63,9 @@ namespace CENEX
         public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(3, 500, 300, 30); // Inside radius = 0, coincident centres
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(5, 400, 150, 20); // No radii, Outside radius = 0, Inside radius = 0
         // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(0, 120, 100, 12.5f, 15, 100, 10, 10, 5, 90);
-        // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(1, 120, 100, 12.5f, 15, 100, 10, 10, 5, 95);
-        public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(2, 120, 100, 12.5f, 15, 100, 10, 5, 105);
+        public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(1, 120, 100, 12.5f, 15, 100, 10, 10, 5, 95);
+        // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(2, 120, 100, 12.5f, 15, 100, 10, 5, 105);
+        // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(3, 120, 100, 12.5f, 15, 100, 10, 5, 95);
 
         public CTest1()
         {
@@ -82,13 +83,9 @@ namespace CENEX
             // CrSc
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
 
-            arrCrSc[0] = new CRSC.CCrSc();
-            arrCrSc[1] = new CRSC.CCrSc();
-            arrCrSc[2] = new CRSC.CCrSc();
-
-            //arrCrSc[0] = new CRSC.CCrSc_3_07(3, 500, 300, 30);
-            //arrCrSc[1] = new CRSC.CCrSc_0_05(100, 50);
-            //arrCrSc[2] = new CRSC.CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
+            arrCrSc[0] = new CRSC.CCrSc_3_07(3, 500, 300, 30);
+            arrCrSc[1] = new CRSC.CCrSc_0_05(100, 50);
+            arrCrSc[2] = new CRSC.CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
 
             arrCrSc[0].m_Mat = arrMat[0];
             arrCrSc[1].m_Mat = arrMat[1];
