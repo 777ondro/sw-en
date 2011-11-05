@@ -95,6 +95,8 @@
     <Compile Include="CrSc_0\CCrSc_0_58.cs" />
     <Compile Include="CrSc_0\CCrSc_0_60.cs" />
     <Compile Include="CrSc_0\CCrSc_0_61.cs" />
+    <Compile Include="CrSc_2\CCrSc_2_00.cs" />
+    <Compile Include="CrSc_2\CCrSc_2_02.cs" />
     <Compile Include="CrSc_3\CCrSc_3_00.cs" />
     <Compile Include="CrSc_3\CCrSc_3_02.cs" />
     <Compile Include="CrSc_3\CCrSc_3_03.cs" />
@@ -104,6 +106,11 @@
     <Compile Include="CrSc_3\CCrSc_3_07.cs" />
     <Compile Include="CrSc_3\CCrSc_3_08.cs" />
     <Compile Include="CrSc_3\CCrSc_3_09.cs" />
+    <Compile Include="CrSc_3\CCrSc_3_10.cs" />
+    <Compile Include="CrSc_5\CCrSc_5_00.cs" />
+    <Compile Include="CrSc_5\CCrSc_5_01.cs" />
+    <Compile Include="CrSc_9\CCrSc_9_10.cs" />
+    <Compile Include="CrSc_9\CCrSc_9_09.cs" />
     <Compile Include="CrSc_SW\CCrSc_GE.cs" />
     <Compile Include="CSCClass.cs" />
     <Compile Include="CSGClass.cs" />
@@ -185,10 +192,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CrSc_2\" />
     <Folder Include="CrSc_4\" />
-    <Folder Include="CrSc_5\" />
-    <Folder Include="CrSc_9\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
