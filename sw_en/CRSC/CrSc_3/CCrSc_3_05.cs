@@ -8,6 +8,7 @@ namespace CRSC
 {
     public class CCrSc_3_05 : CCrSc_0_22
     {
+      // Tube
       public CCrSc_3_05(float fd, float ft)
       {
           INoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n

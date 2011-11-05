@@ -8,6 +8,7 @@ namespace CRSC
 {
     public class CCrSc_3_06 : CCrSc_0_23
     {
+      // Eliptical tube
       public CCrSc_3_06(float fa, float fb, float ft)
       {
           INoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n

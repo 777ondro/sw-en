@@ -32,6 +32,12 @@ namespace CRSC
 
         float m_fr_out; // Radius
 
+        public float Fr_out
+        {
+            get { return m_fr_out; }
+            set { m_fr_out = value; }
+        }
+
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -70,7 +76,7 @@ namespace CRSC
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord()
+        public void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 

@@ -6,7 +6,7 @@ using MATH;
 
 namespace CRSC
 {
-    public class CCrSc_3_09 : CCrSc_0_22
+    public class CCrSc_3_09 : CCrSc_0_02
     {
         // Solid round bar
 
