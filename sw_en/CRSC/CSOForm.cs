@@ -33,17 +33,7 @@ namespace CRSC
         }
         public void button1_Click(object sender, EventArgs e)
         {
-            CSOClass CSOprop = new CSOClass();
-
-
-            CSOprop.CSOMessage();
-
-
-            
-
-
-
-
+            CSO CSOprop = new CSO();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -446,6 +446,39 @@ return (unsigned short)(root >> 1);
             return (float)Math.Log(fx, fbase);
         }
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------------------------
+        // Integral
+        //----------------------------------------------------------------------------------------------------------------------------
+
+        /*
+public double RombergIntegration(Function y, double a, double b, int n) 
+{ 
+  int i, j, m = 0; 
+  double h, trap; 
+  double[,] I = new double[n, n]; 
+  h = b - a; 
+  I[0, 0] = (y(a) + y(b)) * (h / 2); 
+  if (n > 15) n = 15; 
+  do 
+  { 
+  m++; 
+  h = h / 2; 
+  trap = (y(a) + y(b)) / 2; 
+  for (i = 1; i < Math.Pow(2, m); i++) trap += y(a + h * i); 
+  I[0, m] = trap * h; 
+  for (i = 1; i < m + 1; i++) 
+  { 
+  j = m - i; 
+  I[i, j] = (Math.Pow(4, i) * I[i - 1, j + 1] - I[i - 1, j]) / (Math.Pow(4, i) - 1); 
+  } 
+  } while (m < n); 
+  return I[n, 0]; 
+} 
+
+*/
+
+
     }
 }
 

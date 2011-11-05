@@ -115,7 +115,6 @@
     <Compile Include="CSCClass.cs" />
     <Compile Include="CSGClass.cs" />
     <Compile Include="CSO.cs" />
-    <Compile Include="CSOClass.cs" />
     <Compile Include="CSOForm.cs">
       <SubType>Form</SubType>
     </Compile>
