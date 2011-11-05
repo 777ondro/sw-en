@@ -5,13 +5,23 @@ using System.Text;
 using System.Drawing;
 using MATH;
 
-namespace CRSC ///////////////////////////////////////////////ROZPRACOVANE ////////////////////////////////////////////////////////////////////
+namespace CRSC
 {
     public class CCrSc_3_08 : CCrSc
     {
-        // Rolled mono-symmetric T section - tapered flanges
+        // Rolled mono-symmetric T section
 
         //----------------------------------------------------------------------------
+
+        private short m_sShape;       // Section shape
+
+        // Section shapes types
+        // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+        // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxialiary points)
+        // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points)
+        // 3 - Two radii at flanges roots, tapered flanges, optional tapered web (2 auxialiary points)
+        // 4 - Two radii at flanges roots, paralel flanges, optional tapered web (2 auxialiary points)
+
         private float m_fh;                 // Height-depth / Vyska
         private float m_fb;                 // Width  / Sirka
         private float m_ft_f;               // Flange Thickness / Hrubka pasnice
@@ -85,12 +95,16 @@ namespace CRSC ///////////////////////////////////////////////ROZPRACOVANE /////
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public CCrSc_3_08()  {   }
-        public CCrSc_3_08(float fh, float fb, float ft_f, float ft_w, float fz_c, float fr_1, float fr_2, float fr_3, float fd)
+        public CCrSc_3_08(short sShape, float fh, float fb, float ft_f, float ft_w, float fz_c, float fr_1, float fr_2, float fr_3, float fd)
         {
-            m_iNumOfArcSegment = 8;
-            m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
-            m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (2 * m_iNumOfArcPoints - 1) + (5 + 2));
+            // Section shapes types
+            // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+            // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxialiary points) 2*r3 - thickness of web at bottom edge
 
+            m_iNumOfArcSegment = 4;
+            m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+
+            m_sShape = sShape;
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;
@@ -101,19 +115,75 @@ namespace CRSC ///////////////////////////////////////////////ROZPRACOVANE /////
             m_fr_3 = fr_3;
             m_fd = fd;
 
-            //if()
-              m_fSlopeTaperFlange = (m_fh - m_fd - (m_fr_1 + m_fr_2 + m_fr_3)) / ((m_fb - (m_ft_w  + 2*(m_ft_w - 2*m_fr_3)) - 2*(m_fr_1 + m_fr_2)) / 2.0f);
-            //else
-            //  m_fSlopeTaperFlange = 0.08f; // Default
+            // Number of points per section
+            if (m_sShape == 0)       // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+            {
+                m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (2 * m_iNumOfArcPoints - 1) + (5 + 2));
+                m_fSlopeTaperFlange = (m_fh - m_fd - (m_fr_1 + m_fr_2 + m_fr_3)) / ((m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * (m_fr_1 + m_fr_2)) / 2.0f);
+            }
+            else if (m_sShape == 1)  // 1 - Four radii, tapered or paralel flanges, optional tapered web (4+2 auxialiary points)
+            {
+                m_iTotNoPoints = (short)((4 * (short)m_iNumOfArcPoints) + 2 + (4 + 2));
+                m_fSlopeTaperFlange = (m_fh - m_fd - (m_fr_1 + m_fr_2)) / ((m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * (m_fr_1 + m_fr_2)) / 2.0f);
+            }
+            else if (m_sShape == 2)  // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points)
+            {
+                m_iTotNoPoints = (short)((2 * (short)m_iNumOfArcPoints) + 2 + (4 + 2));
+                m_fSlopeTaperFlange = (m_fh - m_fd - (m_fr_1 + m_fr_2)) / ((m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * (m_fr_1 + m_fr_2)) / 2.0f);
+            }
 
             // Create Array - allocate memory
             m_CrScPoint = new float [m_iTotNoPoints,2];
             // Fill Array Data
-            CalcCrSc_Coord_T_MS();
+
+            if (m_sShape == 0)       // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+                CalcCrSc_Coord_T_MS_0();
+            else if (m_sShape == 1)  // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxialiary points)
+                CalcCrSc_Coord_T_MS_1();
         }
 
+        public CCrSc_3_08(short sShape, float fh, float fb, float ft_f, float ft_w, float fz_c, float fr_2, float fr_3, float fd)
+        {
+            // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points) 2*r3 - thickness of web at bottom edge
+
+            m_iNumOfArcSegment = 4;
+            m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+
+            m_sShape = sShape;
+            m_fh = fh;
+            m_fb = fb;
+            m_ft_f = ft_f;
+            m_ft_w = ft_w;
+            m_fz_c = fz_c;
+            m_fr_1 = 0.0f; // !!!
+            m_fr_2 = fr_2;
+            m_fr_3 = fr_3;
+            m_fd = fd;
+
+            // Number of points per section
+            if (m_sShape == 2)  // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points)
+            {
+                m_iTotNoPoints = (short)((2 * (short)m_iNumOfArcPoints) + 4 + 4);
+                m_fSlopeTaperFlange = (m_fh - m_fd - m_fr_2) / ((m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * m_fr_2) / 2.0f);
+            }
+            else // Exception
+            { }
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+
+            if (m_sShape == 2)       // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+                CalcCrSc_Coord_T_MS_2();
+            else // Exception
+            { }
+        }
+
+
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord_T_MS()
+        // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxialiary points)
+
+        void CalcCrSc_Coord_T_MS_0()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
@@ -151,7 +221,7 @@ namespace CRSC ///////////////////////////////////////////////ROZPRACOVANE /////
 
             // Surface points
 
-            // Point No. 7 - 1st Edge point - upper left
+            // Point No. 8 - 1st Edge point - upper left
             m_CrScPoint[iNumberAux, 0] = -m_fb / 2.0f;     // y
             m_CrScPoint[iNumberAux, 1] = m_fh  - m_fz_c;   // z
 
@@ -191,6 +261,154 @@ namespace CRSC ///////////////////////////////////////////////ROZPRACOVANE /////
             {
                 m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints + 2 * m_iNumOfArcPoints + i, 0] = m_CrScPoint[0, 0] + Geom2D.GetPositionX(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);      // y
                 m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints + 2 * m_iNumOfArcPoints + i, 1] = m_CrScPoint[0, 1] + Geom2D.GetPositionY_CW(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);    // z
+            }
+        }
+
+        //----------------------------------------------------------------------------
+        // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxialiary points)
+
+        void CalcCrSc_Coord_T_MS_1()
+        {
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            // Auxialiary nodes
+
+            short iNumberAux = 4 + 2;
+
+            // Point No. 1
+            m_CrScPoint[0, 0] = -m_fb / 2f + m_fr_2;    // y
+            m_CrScPoint[0, 1] = m_fh - m_fz_c;          // z
+
+            // Point No. 2
+            m_CrScPoint[1, 0] = -m_fb / 2f + m_fr_2 + (m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * (m_fr_1 + m_fr_2)) / 2.0f;   // y
+            m_CrScPoint[1, 1] = m_CrScPoint[0, 1];           // z
+
+            // Point No. 3
+            m_CrScPoint[2, 0] = -m_CrScPoint[1, 0];      // y
+            m_CrScPoint[2, 1] = m_CrScPoint[0, 1];       // z
+
+            // Point No. 4
+            m_CrScPoint[3, 0] = -m_CrScPoint[0, 0];      // y
+            m_CrScPoint[3, 1] = m_CrScPoint[0, 1];       // z
+
+            // Point No. 5
+            m_CrScPoint[4, 0] = (m_ft_w + (m_ft_w - 2 * m_fr_3)) / 2f;         // y
+            m_CrScPoint[4, 1] = -m_fz_c + m_fd + m_fr_1;          // z
+
+            // Point No. 6
+            m_CrScPoint[5, 0] = -m_CrScPoint[4, 0];      // y
+            m_CrScPoint[5, 1] = m_CrScPoint[4, 1];     // z
+
+            // Surface points
+
+            // Point No. 7 - 1st Edge point - upper left
+            m_CrScPoint[iNumberAux, 0] = -m_fb / 2.0f;     // y
+            m_CrScPoint[iNumberAux, 1] = m_fh - m_fz_c;   // z
+
+            int iRadiusAngle = 90; // Radius Angle
+
+            // 2nd radius - centre "3" (0-90 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPoint[iNumberAux + i + 1, 0] = m_CrScPoint[3, 0] + Geom2D.GetPositionX(m_fr_2, 0 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPoint[iNumberAux + i + 1, 1] = m_CrScPoint[3, 1] + Geom2D.GetPositionY_CW(m_fr_2, 0 + i * iRadiusAngle / m_iNumOfArcSegment);  // z
+            }
+
+            // 3rd radius - centre "4" (90-180 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPoint[iNumberAux + m_iNumOfArcPoints + i + 1, 0] = m_CrScPoint[4, 0] + m_fr_1 + Geom2D.GetPositionX(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPoint[iNumberAux + m_iNumOfArcPoints + i + 1, 1] = m_CrScPoint[4, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+            }
+
+            // Point No. XX - Bottom Right Edge point
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints +1, 0] = m_fr_3;      // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints+1, 1] = -m_fz_c;     // z
+
+            // Point No. XX - Bottom Left Edge point
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 2, 0] = -m_fr_3;     // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 2, 1] = -m_fz_c;     // z
+
+            // 4th radius - centre "5" (180-270 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 3 + i, 0] = m_CrScPoint[5, 0] - m_fr_1 + Geom2D.GetPositionX(m_fr_1, 0 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 3 + i, 1] = m_CrScPoint[5, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 0 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+            }
+
+            // 1st radius - centre "0" (90-180 degrees)
+            // Do not create last point of segment - it is already defined
+            for (short i = 0; i < m_iNumOfArcPoints - 1; i++)
+            {
+                m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints + 3 + i, 0] = m_CrScPoint[0, 0] + Geom2D.GetPositionX(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);       // y
+                m_CrScPoint[iNumberAux + 3 * m_iNumOfArcPoints + 3 + i, 1] = m_CrScPoint[0, 1] + Geom2D.GetPositionY_CW(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);    // z
+            }
+        }
+
+        //----------------------------------------------------------------------------
+        // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxialiary points)
+
+        void CalcCrSc_Coord_T_MS_2()
+        {
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            // Auxialiary nodes
+
+            short iNumberAux = 4;
+
+            // Point No. 1
+            m_CrScPoint[0, 0] = -m_fb / 2f + m_fr_2;    // y
+            m_CrScPoint[0, 1] = m_fh - m_fz_c;          // z
+
+            // Point No. 2
+            m_CrScPoint[1, 0] = -m_fb / 2f + m_fr_2 + (m_fb - (m_ft_w + 2 * (m_ft_w - 2 * m_fr_3)) - 2 * (m_fr_2)) / 2.0f;   // y
+            m_CrScPoint[1, 1] = m_CrScPoint[0, 1];       // z
+
+            // Point No. 3
+            m_CrScPoint[2, 0] = -m_CrScPoint[1, 0];      // y
+            m_CrScPoint[2, 1] = m_CrScPoint[0, 1];       // z
+
+            // Point No. 4
+            m_CrScPoint[3, 0] = -m_CrScPoint[0, 0];      // y
+            m_CrScPoint[3, 1] = m_CrScPoint[0, 1];       // z
+
+            // Surface points
+
+            // Point No. 5 - 1st Edge point - upper left
+            m_CrScPoint[iNumberAux, 0] = -m_fb / 2.0f;    // y
+            m_CrScPoint[iNumberAux, 1] = m_fh - m_fz_c;   // z
+
+            int iRadiusAngle = 90; // Radius Angle
+
+            // 2nd radius - centre "3" (0-90 degrees)
+            for (short i = 0; i < m_iNumOfArcPoints; i++)
+            {
+                m_CrScPoint[iNumberAux + i + 1, 0] = m_CrScPoint[3, 0] + Geom2D.GetPositionX(m_fr_2, 0 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                m_CrScPoint[iNumberAux + i + 1, 1] = m_CrScPoint[3, 1] + Geom2D.GetPositionY_CW(m_fr_2, 0 + i * iRadiusAngle / m_iNumOfArcSegment);  // z
+            }
+
+            // Point No. XX - Upper right edge web point
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 1, 0] = m_CrScPoint[2, 0];      // y
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 1, 1] = -m_fz_c + m_fd;         // z
+
+            // Point No. XX - Bottom right edge web point
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 2, 0] = m_fr_3;      // y
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 2, 1] = -m_fz_c;     // z
+
+            // Point No. XX - Bottom left edge web point
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 3, 0] = -m_fr_3;     // y
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 3, 1] = -m_fz_c;     // z
+
+            // Point No. XX - Upper left edge web point
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 4, 0] = m_CrScPoint[1, 0];      // y
+            m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 4, 1] = -m_fz_c + m_fd;         // z
+
+            // 1st radius - centre "0" (90-180 degrees)
+            // Do not create last point of segment - it is already defined
+            for (short i = 0; i < m_iNumOfArcPoints - 1; i++)
+            {
+                m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 5 + i, 0] = m_CrScPoint[0, 0] + Geom2D.GetPositionX(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);       // y
+                m_CrScPoint[iNumberAux + m_iNumOfArcPoints + 5 + i, 1] = m_CrScPoint[0, 1] + Geom2D.GetPositionY_CW(m_fr_2, 90 + i * iRadiusAngle / m_iNumOfArcSegment);    // z
             }
         }
     }

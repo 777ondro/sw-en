@@ -62,7 +62,9 @@ namespace CENEX
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(2, 500, 300, 20); // Outside radius = 0
         public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(3, 500, 300, 30); // Inside radius = 0, coincident centres
         // public CCrSc_3_07 objCrScHollow = new CCrSc_3_07(5, 400, 150, 20); // No radii, Outside radius = 0, Inside radius = 0
-        public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(120, 100, 12.5f, 15, 120, 10, 10, 5, 90);
+        // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(0, 120, 100, 12.5f, 15, 100, 10, 10, 5, 90);
+        // public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(1, 120, 100, 12.5f, 15, 100, 10, 10, 5, 95);
+        public CCrSc_3_08 objCrScSolid = new CCrSc_3_08(2, 120, 100, 12.5f, 15, 100, 10, 5, 105);
 
         public CTest1()
         {
