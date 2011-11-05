@@ -7,58 +7,117 @@ using MATH;
 
 namespace CRSC
 {
+    // THIN-WALLED OPENED CROSS-SECTION PROPERTIES CALCULATION
+    // Opened cross section characteristic calculation (closed cell are not allowed)
+
     public class CSO
     {
+
         #region variables
+
+        // VARIABLES
+        // EN 1999-1-1:2007 Annex J - J.4, page 183
+
         List<int> y_suradnice;
         List<int> z_suradnice;
         List<int> t_hodnoty;
-        double _A;
-        double _d_A_vy;
+        double _A;                   // Cross-section area (J.6)
+
+
+        double dA;                   // Area off segment (J.5)
+
+        public double DA
+        {
+            get { return dA; }
+            set { dA = value; }
+        }
+
+        double _d_A_vy;              // Cross-section shear areas
         double _d_A_vz;
-        double _Sy0;
+        double _Sy0;                 // Static modulus to primary axis yO and zO  (J.7) and (J.9)
         double _Sz0;
-        double d_z_gc;
-        double d_y_gc;
-        double _Iy0;
-        double _Iy;
-        double _Iz0;
-        double _Iz;
-        double _Iyz0;
-        double _Iyz;
-        double alfa;
-        double _Iepsilon;
-        double _Imikro;
-       
-        double[] omega0i;
+        double _Sy;                  // Static modulus to centre of gravity
+        double _Sz;
+        double d_z_gc;               // Gentre of gravity coordinate // (J.7)
+        double d_y_gc;               // (J.7)
+        double _Iy0;                 // Moment of inertia (Second moment of area) y0-y0 and z0-z0 // (J.8)
+        double _Iy;                  // Moment of inertia (Second moment of area) y-y and z-z // (J.8)
+        double _Iz0;                 // (J.10)
+        double _Iz;                  // (J.10)
+        double _Iyz0;                // Deviacni moment k puvodnim osam y a z // (J.11)
+        double _Iyz;                 // Deviacni moment k osam y a z prochazejicim tezistem // (J.11)
+        double alfa;                 // Rotation of main axis / Natoceni hlavnich os  // (J.12)
+        double _Iepsilon;            // Moment of inertia (Second moment of area) to main axis - greek letters XI and ETA  // (J.13)
+        double _Imikro;              // (J.14)
+
+        double[] omega0i;            // Vysecove souradnice (J.15)
         double[] omega;
-        double _Iomega;
-        
-        double _omega_mean
-             , _Iy_omega0
-             , _Iz_omega0
-             , _Iomega_omega0
+        double _Iomega;              // Stredni vysecova souradnice  // (J.16)
+
+        double _omega_mean           // Stredni vysecova souradnice  // (J.16)
+             , _Iy_omega0            // Staticky vysecový moment // (J.17)
+             , _Iz_omega0            // (J.18)
+             , _Iomega_omega0        // (J.19)
              , _Iy_omega
              , _Iz_omega
              , _Iomega_omega
-             , _Ip
-             , d_y_sc
-             , d_z_sc
-             , d_y_s
-             , d_z_s
-             , d_I_w
-             , d_I_t
-             , d_W_t
-             , omega_max
-             , d_W_w
-             , d_z_j
-             , d_y_j
-             , d_y_ci
+             , _Ip                   // Polarni moment setrvacnosti // (J.26)
+             , d_y_sc                // Souradnice stredu smyku (J.20) // (J.20)
+             , d_z_sc                // (J.20)
+             , d_y_s                 // Vzdalenost stredu smyku a teziste // (J.25)
+             , d_z_s                 // (J.25)
+             , d_I_w                 // Vysecovy moment setrvacnosti (J.21)  // Warping constant, Iw - Vysecovy moment setrvacnosti
+             , d_I_t                 // St. Venant torsional constant / Moment tuhosti v prostem krouceni // (J.22)
+             , d_W_t                 // Modul odporu prierezu v kruteni / Modul tuhosti v prostem krouceni // (J.22)
+             , omega_max             // Nejvetsi vysecove poradnice a vysecovy modul // (J.24)
+             , d_W_w                 // Vysecovy modul (J.24)
+             , d_z_j                 // Factors of asymetry (J.27) and (J.28)  // according Annex I
+             , d_y_j                 // (J.28)
+             , d_y_ci                //partial coordinates of centre of cross-section segments // (J.29)
              , d_z_ci;
 
-        
+        // Sectorial product of area  Staticky vysecovy moment
+        double _Sw; // missing formula
 
-        double[] d_omega_s;
+        public double Sw
+        {
+            get { return _Sw; }
+            set { _Sw = value; }
+        }
+
+        // Elastic cross-section modulus y-y and z-z
+
+        double _Wy_el;
+
+        public double Wy_el
+        {
+            get { return _Wy_el; }
+            set { _Wy_el = value; }
+        }
+        double _Wz_el;
+
+        public double Wz_el
+        {
+            get { return _Wz_el; }
+            set { _Wz_el = value; }
+        }
+        // Plastic cross-section modulus y-y and z-z
+        double _Wy_pl;
+
+        public double Wy_pl
+        {
+            get { return _Wy_pl; }
+            set { _Wy_pl = value; }
+        }
+        double _Wz_pl;
+
+        public double Wz_pl
+        {
+            get { return _Wz_pl; }
+            set { _Wz_pl = value; }
+        }
+        
+        double[] d_omega_s; // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
         #endregion
 
         #region Properties
@@ -215,11 +274,14 @@ namespace CRSC
             get { return _Iy_omega; }
             set { _Iy_omega = value; }
         }
+
+        // end of cross-section variables definition
         #endregion
 
         
         //KONSTRUCTOR
 
+        public CSO () {}
         public CSO(List<int> y_suradnice,List<int>z_suradnice,List<int> t_hodnoty) 
         {
             int count = y_suradnice.Count;
