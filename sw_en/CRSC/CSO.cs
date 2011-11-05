@@ -22,22 +22,13 @@ namespace CRSC
         List<int> z_suradnice;
         List<int> t_hodnoty;
         double _A;                   // Cross-section area (J.6)
-
-
         double dA;                   // Area off segment (J.5)
-
-        public double DA
-        {
-            get { return dA; }
-            set { dA = value; }
-        }
-
-        double _d_A_vy;              // Cross-section shear areas
-        double _d_A_vz;
+        double _d_A_vy;              // Cross-section shear area
+        double _d_A_vz;              // Cross-section shear area
         double _Sy0;                 // Static modulus to primary axis yO and zO  (J.7) and (J.9)
-        double _Sz0;
+        double _Sz0;                 // Static modulus to primary axis zO
         double _Sy;                  // Static modulus to centre of gravity
-        double _Sz;
+        double _Sz;                  // Static modulus to centre of gravity
         double d_z_gc;               // Gentre of gravity coordinate // (J.7)
         double d_y_gc;               // (J.7)
         double _Iy0;                 // Moment of inertia (Second moment of area) y0-y0 and z0-z0 // (J.8)
@@ -58,9 +49,9 @@ namespace CRSC
              , _Iy_omega0            // Staticky vysecový moment // (J.17)
              , _Iz_omega0            // (J.18)
              , _Iomega_omega0        // (J.19)
-             , _Iy_omega
-             , _Iz_omega
-             , _Iomega_omega
+             , _Iy_omega             // Staticky vysecový moment // (J.17)
+             , _Iz_omega             // Staticky vysecový moment // (J.18) 
+             , _Iomega_omega         // Staticky vysecový moment // (J.19)
              , _Ip                   // Polarni moment setrvacnosti // (J.26)
              , d_y_sc                // Souradnice stredu smyku (J.20) // (J.20)
              , d_z_sc                // (J.20)
@@ -73,51 +64,15 @@ namespace CRSC
              , d_W_w                 // Vysecovy modul (J.24)
              , d_z_j                 // Factors of asymetry (J.27) and (J.28)  // according Annex I
              , d_y_j                 // (J.28)
-             , d_y_ci                //partial coordinates of centre of cross-section segments // (J.29)
-             , d_z_ci;
+             , d_y_ci                // Partial coordinates of centre of cross-section segments // (J.29)
+             , d_z_ci;               // Partial coordinates of centre of cross-section segments
 
-        // Sectorial product of area  Staticky vysecovy moment
-        double _Sw; // missing formula
-
-        public double Sw
-        {
-            get { return _Sw; }
-            set { _Sw = value; }
-        }
-
-        // Elastic cross-section modulus y-y and z-z
-
-        double _Wy_el;
-
-        public double Wy_el
-        {
-            get { return _Wy_el; }
-            set { _Wy_el = value; }
-        }
-        double _Wz_el;
-
-        public double Wz_el
-        {
-            get { return _Wz_el; }
-            set { _Wz_el = value; }
-        }
-        // Plastic cross-section modulus y-y and z-z
-        double _Wy_pl;
-
-        public double Wy_pl
-        {
-            get { return _Wy_pl; }
-            set { _Wy_pl = value; }
-        }
-        double _Wz_pl;
-
-        public double Wz_pl
-        {
-            get { return _Wz_pl; }
-            set { _Wz_pl = value; }
-        }
-        
-        double[] d_omega_s; // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
+        double _Sw;                  // Sectorial product of area  Staticky vysecovy moment // missing formula
+        double _Wy_el;               // Elastic cross-section modulus y-y and z-z
+        double _Wz_el;               // Elastic cross-section modulus y-y and z-z
+        double _Wy_pl;               // Plastic cross-section modulus y-y and z-z
+        double _Wz_pl;    
+        double[] d_omega_s;          // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
         #endregion
 
         #region Properties
@@ -126,6 +81,13 @@ namespace CRSC
             get { return _A; }
             set { _A = value; }
         }
+
+        public double DA
+        {
+            get { return dA; }
+            set { dA = value; }
+        }
+
         public double d_A_vy
         {
             get { return _d_A_vy; }
@@ -273,6 +235,36 @@ namespace CRSC
         {
             get { return _Iy_omega; }
             set { _Iy_omega = value; }
+        }
+
+        public double Sw
+        {
+            get { return _Sw; }
+            set { _Sw = value; }
+        }
+
+        public double Wy_pl
+        {
+            get { return _Wy_pl; }
+            set { _Wy_pl = value; }
+        }
+
+        public double Wz_pl
+        {
+            get { return _Wz_pl; }
+            set { _Wz_pl = value; }
+        }
+
+        public double Wy_el
+        {
+            get { return _Wy_el; }
+            set { _Wy_el = value; }
+        }
+
+        public double Wz_el
+        {
+            get { return _Wz_el; }
+            set { _Wz_el = value; }
         }
 
         // end of cross-section variables definition
