@@ -17,8 +17,6 @@ namespace CENEX
         public BaseClasses.CNSupport[] arrNSupports = new BaseClasses.CNSupport[3];
         public BaseClasses.CNLoad[] arrNLoads = new BaseClasses.CNLoad[3];
 
-        // Cross Sections - vsetky by mali byt v poli arrCrSc, hoci sa jedna o objekty inych tried, neviem ci sa to da tak urobit
-
         // Temporary objecs for testing
 
         // public CCrSc_0_00 objCrScSolid = new CCrSc_0_00(100);
@@ -51,8 +49,10 @@ namespace CENEX
         // public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(0,200,90,11.3f,7.5f,7.5f,4.5f,159.1f);
         // public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(1, 200, 90, 11.3f, 7.5f, 4.5f, 159.1f);
         // public CCrSc_3_00 objCrScSolid = new CCrSc_3_00(2, 200, 90, 11.3f, 7.5f, 7.5f, 159.1f);
+        public CCrSc_3_01 objCrScSolid = new CCrSc_3_01(0, 200, 90, 120, 11.3f, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+        // public CCrSc_3_01 objCrScSolid = new CCrSc_3_01(1, 200, 90, 120, 11.3f, 11.3f, 7.5f, 4.5f, 159.1f);
         // public CCrSc_3_02 objCrScSolid = new CCrSc_3_02(0,300, 100, 16, 10, 10, 8, 232, 27);
-        public CCrSc_3_02 objCrScSolid = new CCrSc_3_02(2,300, 100, 12.5f, 10, 10, 250, 30);
+        // public CCrSc_3_02 objCrScSolid = new CCrSc_3_02(2,300, 100, 12.5f, 10, 10, 250, 30);
         // public CCrSc_3_03 objCrScSolid = new CCrSc_3_03(150, 10, 15, 10, 50);
         // public CCrSc_3_04 objCrScSolid = new CCrSc_3_04(250, 150, 20, 15, 20, 50, 75);
         // public CCrSc_3_05 objCrScHollow = new CCrSc_3_05(200,10);

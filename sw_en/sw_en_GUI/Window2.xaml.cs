@@ -1237,13 +1237,16 @@ namespace sw_en_GUI
             // Y-section / Y section
             // load_0_61_TriangelIndices();
 
-            // Rolled I profile, Tapered flanges
+            // Rolled I doubly symmetric profile, Tapered or parallel flanges
             // load_3_00_TriangelIndices(0, 12,8); // Shape ID, number of auxiliary points , number of segments of arc
             // load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
             // load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
-            // Rolled U profile, Tapered flanges, channel section
+            // Rolled I monosymmetric profile, Tapered or parallel flanges
+            load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // Rolled U profile, Tapered or parallel flanges, channel section
             // load_3_02_TriangelIndices(0,6, 8); // Shape ID, number of auxiliary points , number of segments of arc
-            load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc
+            // load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc
             // Rolled L profile, angle section
             // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary points, number of segments of arc
             // Rectanglular Hollow Cross-section
