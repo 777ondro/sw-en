@@ -107,6 +107,7 @@
     <Compile Include="CrSc_3\CCrSc_3_08.cs" />
     <Compile Include="CrSc_3\CCrSc_3_09.cs" />
     <Compile Include="CrSc_3\CCrSc_3_10.cs" />
+    <Compile Include="CrSc_3\CCrSc_3_01.cs" />
     <Compile Include="CrSc_5\CCrSc_5_00.cs" />
     <Compile Include="CrSc_5\CCrSc_5_01.cs" />
     <Compile Include="CrSc_9\CCrSc_9_10.cs" />
