@@ -1243,7 +1243,8 @@ namespace sw_en_GUI
             // load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
             // Rolled I monosymmetric profile, Tapered or parallel flanges
             // load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
-            load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
+            load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
             // Rolled U profile, Tapered or parallel flanges, channel section
             // load_3_02_TriangelIndices(0,6, 8); // Shape ID, number of auxiliary points , number of segments of arc
             // load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc

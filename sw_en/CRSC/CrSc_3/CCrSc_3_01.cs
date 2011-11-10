@@ -142,25 +142,14 @@ namespace CRSC
             m_fz_c = fz_c;
 
             // Number of points per section
-            if (m_sShape == 1)       // 1 - Four radii at flanges tips, tapered or parallel flanges (8 auxiliary points)
-            {
-                m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 4 + 4));
-                m_fr_1 = 0.0f;
-                m_fr_2 = fr;
-                m_fSlopeTaper_1 = (2.0f * (m_ft_f_1 - m_fr_2)) / ((m_fb_1 - m_ft_w - 2 * m_fr_2) / 2.0f);
-                m_fSlopeTaper_2 = (2.0f * (m_ft_f_2 - m_fr_2)) / ((m_fb_2 - m_ft_w - 2 * m_fr_2) / 2.0f);
-                m_fd = m_fh - 2.0f * m_fr_2 - 2.0f * (m_ft_f_1 - m_fr_2) - 2.0f * (m_ft_f_2 - m_fr_2); 
-            }
-            else if (m_sShape == 2)  // 2 -  Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
-            {
-                m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 6 + 6));
-                m_fr_1 = fr;
-                m_fr_2 = 0.0f;
-                m_fSlopeTaper_1 = (2 * ((m_fh - m_fd - 2 * m_fr_1)/ 2.0f - m_ft_f_1)) / ((m_fb_1 - m_ft_w - 2 * m_fr_1) / 2.0f);
-                m_fSlopeTaper_2 = (2 * ((m_fh - m_fd - 2 * m_fr_1) / 2.0f - m_ft_f_2)) / ((m_fb_2 - m_ft_w - 2 * m_fr_1) / 2.0f);
-            }
-            else // Exception
-            { }
+            // 1 - Four radii at flanges tips, tapered or parallel flanges (8 auxiliary points)
+
+            m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 4 + 4));
+            m_fr_1 = 0.0f;
+            m_fr_2 = fr;
+            m_fSlopeTaper_1 = (2.0f * (m_ft_f_1 - m_fr_2)) / ((m_fb_1 - m_ft_w - 2 * m_fr_2) / 2.0f);
+            m_fSlopeTaper_2 = (2.0f * (m_ft_f_2 - m_fr_2)) / ((m_fb_2 - m_ft_w - 2 * m_fr_2) / 2.0f);
+            m_fd = m_fh - 2.0f * m_fr_2 - 2.0f * (m_ft_f_1 - m_fr_2) - 2.0f * (m_ft_f_2 - m_fr_2); 
 
             //  m_fSlopeTaper = 0.08f; // Default
 
@@ -168,12 +157,41 @@ namespace CRSC
             m_CrScPoint = new float[m_iTotNoPoints, 2];
             // Fill Array Data
 
-            if (m_sShape == 1)       // 1 - Four radii at flanges tips, tapered or parallel flanges (8 auxiliary points)
-                CalcCrSc_Coord_I_MS_1();
-            else if (m_sShape == 2)  // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
-                CalcCrSc_Coord_I_MS_2();
-            else // Exception
-            { }
+            // 1 - Four radii at flanges tips, tapered or parallel flanges (8 auxiliary points)
+            CalcCrSc_Coord_I_MS_1();
+        }
+
+        public CCrSc_3_01(short sShape, float fh, float fb_1, float fb_2, float ft_f_1, float ft_f_1_tip, float ft_f_2, float ft_f_2_tip, float ft_w, float fr, float fz_c)
+        {
+            m_sShape = sShape;
+
+            m_iNumOfArcSegment = 4;
+            m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
+
+            m_fh     = fh;
+            m_fb_1   = fb_1;
+            m_ft_f_1 = ft_f_1;
+            m_fb_2   = fb_2;
+            m_ft_f_2 = ft_f_2;
+            m_ft_w   = ft_w;
+            m_fz_c   = fz_c;
+
+            // Number of points per section
+            // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
+
+            m_iTotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 6 + 6));
+            m_fr_1 = fr;
+            m_fr_2 = 0.0f;
+            m_fSlopeTaper_1 = (2.0f * (m_ft_f_1 - ft_f_1_tip)) / ((m_fb_1 - m_ft_w - 2 * m_fr_1) / 2.0f);
+            m_fSlopeTaper_2 = (2.0f * (m_ft_f_2 - ft_f_2_tip)) / ((m_fb_2 - m_ft_w - 2 * m_fr_1) / 2.0f);
+            m_fd = m_fh - 2.0f * m_fr_1 - 2.0f * (m_ft_f_1 - ft_f_1_tip) - ft_f_1_tip - 2.0f * (m_ft_f_2 - ft_f_2_tip) - ft_f_2_tip; 
+
+            // Create Array - allocate memory
+            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            // Fill Array Data
+
+            // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
+            CalcCrSc_Coord_I_MS_2(ft_f_1_tip);
         }
 
         //----------------------------------------------------------------------------
@@ -395,7 +413,7 @@ namespace CRSC
         }
 
         //----------------------------------------------------------------------------
-        void CalcCrSc_Coord_I_MS_2() // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
+        void CalcCrSc_Coord_I_MS_2(float ft_f_1_tip) // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
@@ -405,7 +423,7 @@ namespace CRSC
 
             // Point No. 1
             m_CrScPoint[0, 0] = -m_ft_w / 2f;           // y
-            m_CrScPoint[0, 1] = m_fd  /2.0f + m_fr_1;   // z
+            m_CrScPoint[0, 1] = m_fh - m_fz_c - ft_f_1_tip - (m_fSlopeTaper_1 * ((m_fb_1 - m_ft_w - 2 * m_fr_1) / 2.0f));   // z
 
             // Point No. 2
             m_CrScPoint[1, 0] = -m_CrScPoint[0, 0];     // y
@@ -413,17 +431,17 @@ namespace CRSC
 
             // Point No. 3
             m_CrScPoint[2, 0] = m_CrScPoint[1, 0];      // y
-            m_CrScPoint[2, 1] = -m_CrScPoint[0, 1];     // z
+            m_CrScPoint[2, 1] = m_CrScPoint[0, 1] - 2.0f * m_fr_1 - m_fd;     // z
 
             // Point No. 4
             m_CrScPoint[3, 0] = m_CrScPoint[0, 0];      // y
-            m_CrScPoint[3, 1] = -m_CrScPoint[0, 1];     // z
+            m_CrScPoint[3, 1] = m_CrScPoint[2, 1];     // z
 
             // Surface points
 
             // Point No. 5
             m_CrScPoint[4, 0] = -m_fb_1 / 2.0f;           // y
-            m_CrScPoint[4, 1] = m_fh / 2.0f;           // z
+            m_CrScPoint[4, 1] = m_fh - m_fz_c;           // z
 
             // Point No. 6
             m_CrScPoint[5, 0] = -m_ft_w / 2.0f - m_fr_1; ;  // y
@@ -439,7 +457,7 @@ namespace CRSC
 
             // Point No. 9
             m_CrScPoint[8, 0] = -m_CrScPoint[4, 0];      // y
-            m_CrScPoint[8, 1] = m_fd / 2 + m_fr_1 +  (2 * ((m_fh - m_fd - 2 * m_fr_1) / 2.0f - m_ft_f_1));     // z
+            m_CrScPoint[8, 1] = m_CrScPoint[4, 1] - ft_f_1_tip;     // z
 
             int iRadiusAngle = 90; // Radius Angle
 
@@ -458,28 +476,28 @@ namespace CRSC
             }
 
             // Point No. XX
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 0] = m_CrScPoint[8, 0];         // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 1] = -m_CrScPoint[8, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 0] = m_fb_2 / 2.0f;         // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 1] = -m_fz_c + (m_fh - ft_f_1_tip - (m_fSlopeTaper_1 * ((m_fb_1 - m_ft_w - 2 * m_fr_1) / 2.0f)) - 2 * m_fr_1 - m_fd - (m_fSlopeTaper_2 * ((m_fb_2 - m_ft_w - 2 * m_fr_1) / 2.0f)));        // z
 
             // Point No. XX
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 6, 0] = m_CrScPoint[7, 0];         // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 6, 1] = -m_CrScPoint[7, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 6, 0] = m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 0];   // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 6, 1] = -m_fz_c;        // z
 
             // Point No. XX
             m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 7, 0] = m_CrScPoint[6, 0];         // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 7, 1] = -m_CrScPoint[6, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 7, 1] = -m_fz_c;        // z
 
             // Point No. XX
             m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 8, 0] = m_CrScPoint[5, 0];         // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 8, 1] = -m_CrScPoint[5, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 8, 1] = -m_fz_c;        // z
 
             // Point No. XX
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 9, 0] = m_CrScPoint[4, 0];         // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 9, 1] = -m_CrScPoint[4, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 9, 0] = -m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 0];         // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 9, 1] = -m_fz_c;        // z
 
             // Point No. XX
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 10, 0] = m_CrScPoint[4, 0];       // y
-            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 10, 1] = -m_CrScPoint[8, 1];        // z
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 10, 0] = - m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 0];       // y
+            m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 10, 1] = m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 5, 1];        // z
 
             // 3rd radius - centre "3" (270-360 degrees)
             for (short i = 0; i < m_iNumOfArcPoints; i++)
