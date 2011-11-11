@@ -24,9 +24,26 @@ namespace MATH
             set { m_iColumns = value; }
         }
 
+        public float [,] m_fArrMembers;
 
+        public CMatrix [,] m_fArrMembers22;
 
+        //-----------------------------------------------------------------------------------------------
+        public CMatrix() {}
 
+        public CMatrix(int iRows, int iCol)
+        {
+            m_iRows = iRows;
+            m_iColumns = iCol;
+
+            m_fArrMembers = new float [m_iRows, m_iColumns];
+        }
+
+        //-----------------------------------------------------------------------------------------------
+        public CMatrix(CMatrix m11, CMatrix m12, CMatrix m21, CMatrix m22)
+        {
+            m_fArrMembers22 = new CMatrix[2,2];
+        }
 
 
 
