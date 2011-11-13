@@ -74,15 +74,26 @@ namespace sw_en_GUI
 			sfd.Filter = "Cenex binary documents (.cnx)|*.cnx";
 			if (sfd.ShowDialog() == true)
 			{
-				string filename = sfd.FileName;
-				CTest2 test2 = new CTest2();
-				FileStream fs = new FileStream(filename, FileMode.Create);
-				// Create a BinaryFormatter object to perform the serialization
-				BinaryFormatter bf = new BinaryFormatter();
-				// Use the BinaryFormatter object to serialize the data to the file
-				bf.Serialize(fs, test2);
-				// Close the file
-				fs.Close();
+				try
+				{
+					string filename = sfd.FileName;
+					CTest2 test2 = new CTest2();
+					FileStream fs = new FileStream(filename, FileMode.Create);
+					// Create a BinaryFormatter object to perform the serialization
+					BinaryFormatter bf = new BinaryFormatter();
+					// Use the BinaryFormatter object to serialize the data to the file
+					bf.Serialize(fs, test2);
+					// Close the file
+					fs.Close();
+				}
+				catch (Exception ex) 
+				{
+					if (!EventLog.SourceExists("sw_en"))
+					{
+						EventLog.CreateEventSource("sw_en", "Application");
+					}
+					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+				}
 			}
 		}
 
@@ -106,7 +117,11 @@ namespace sw_en_GUI
 				}
 				catch(Exception ex)
 				{
-					throw ex;
+					if (!EventLog.SourceExists("sw_en"))
+					{
+						EventLog.CreateEventSource("sw_en", "Application");
+					}
+					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
 				}
 			}
 		}
@@ -121,11 +136,12 @@ namespace sw_en_GUI
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.DefaultExt = ".xlsx";
-			ofd.Filter = "Excel (.xlsx)|*.xlsx";
+			ofd.Filter = "Excel documents(.xlsx, .xls)|*.xlsx;*.xls";
 			if (ofd.ShowDialog() == true)
 			{
 				try
 				{
+
 					DataSet ds = CImportFromExcel.ImportFromExcel(ofd.FileName);
 					dataGridSummary.ItemsSource = ds.Tables[0].DefaultView;
 					dataGridSummary.DataContext = ds;
@@ -146,7 +162,7 @@ namespace sw_en_GUI
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.DefaultExt = ".xlsx";
-			sfd.Filter = "Excel documents (.xlsx)|*.xlsx";
+			sfd.Filter = "Excel documents(.xlsx, .xls)|*.xlsx;*.xls";
 			if (sfd.ShowDialog() == true)
 			{
 				try
