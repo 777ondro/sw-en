@@ -55,7 +55,7 @@
 			</ControlTemplate.Triggers>
 		</ControlTemplate>
 	</Window.Resources>
-    <Grid>
+	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition></ColumnDefinition>
 		</Grid.ColumnDefinitions>
@@ -101,13 +101,14 @@
 			<MenuItem Header="Support"></MenuItem>
 		</Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
-			
+
 		</ToolBar>
-		
+
 		<Grid Grid.Column="0" Grid.Row="2" >
 			<Grid.RowDefinitions>
 				<RowDefinition Height="4*"></RowDefinition>
 				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="20px"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
@@ -123,40 +124,37 @@
                   VerticalAlignment="Bottom" 
                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ResizeBehavior="PreviousAndNext"
                   Height="5" Background="#FFBCBCBC"/>
-			
+
 			<TreeView Grid.RowSpan="3" Grid.Column="0">
 				<TreeViewItem Header="Lesenie">
 					<TreeViewItem Header="StructuralData">
 						<TreeViewItem Header="Nodes"></TreeViewItem>
 						<TreeViewItem Header="Materials"></TreeViewItem>
 					</TreeViewItem>
-					
+
 					<TreeViewItem Header="Loads">
 					</TreeViewItem>
 					<TreeViewItem Header="Results">
 					</TreeViewItem>
 				</TreeViewItem>
 			</TreeView>
-			
+
 			<!--This is MDI CONTAINER-->
 			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0" Name="Container">
 			</mdi:MdiContainer>
-			
+			<StackPanel Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left"   Orientation="Horizontal">
+				<Button x:Name="ButtonExport" Click="ButtonExport_Click">Export</Button>
+				<Button x:Name="ButtonImport" Click="ButtonImport_Click">Import</Button>
+			</StackPanel>
 			<ScrollViewer SnapsToDevicePixels="True"
               HorizontalScrollBarVisibility="Auto" 
-              VerticalScrollBarVisibility="Disabled" Grid.Column="2" Grid.Row="2">
+              VerticalScrollBarVisibility="Disabled" Grid.Column="2" Grid.Row="3">
 				<TabControl  TabStripPlacement="Bottom" >
 					<TabItem Header="Summary">
-						<TextBlock>
-						dsadasdsa<LineBreak />dsadasda
-						</TextBlock>
+						<DataGrid x:Name="dataGridSummary"></DataGrid>
 
 					</TabItem>
 					<TabItem Header="Members-Internal Forces">
-						<TextBlock>
-						dsadasdsa<LineBreak />Members-Internal Forces
-						</TextBlock>
-
 					</TabItem>
 					<TabItem Header="Cross Sections - Internal Forces">
 						<TextBlock>
@@ -185,9 +183,9 @@
 
 				</TabControl>
 			</ScrollViewer>
-			
+
 		</Grid>
-		
+
 
 	</Grid>
 </Window>

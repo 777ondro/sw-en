@@ -15,6 +15,9 @@ using CENEX;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using WPF.MDI;
+using SharedLibraries.EXPIMP;
+using System.Data;
+using System.Diagnostics;
 
 namespace sw_en_GUI
 {
@@ -113,6 +116,66 @@ namespace sw_en_GUI
 			Window2 win2 = new Window2();
 			win2.ShowDialog();
 		}
+
+		private void ButtonImport_Click(object sender, RoutedEventArgs e)
+		{
+			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.DefaultExt = ".xlsx";
+			ofd.Filter = "Excel (.xlsx)|*.xlsx";
+			if (ofd.ShowDialog() == true)
+			{
+				try
+				{
+					DataSet ds = CImportFromExcel.ImportFromExcel(ofd.FileName);
+					dataGridSummary.ItemsSource = ds.Tables[0].DefaultView;
+					dataGridSummary.DataContext = ds;
+				}
+				catch (Exception ex)
+				{
+					if (!EventLog.SourceExists("sw_en"))
+					{
+						EventLog.CreateEventSource("sw_en", "Application");
+					}
+					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+				}
+			}
+			
+		}
+
+		private void ButtonExport_Click(object sender, RoutedEventArgs e)
+		{
+			SaveFileDialog sfd = new SaveFileDialog();
+			sfd.DefaultExt = ".xlsx";
+			sfd.Filter = "Excel documents (.xlsx)|*.xlsx";
+			if (sfd.ShowDialog() == true)
+			{
+				try
+				{
+					CExportToExcel.ExportToExcel(dataGridSummary.DataContext as DataSet, sfd.FileName, "ExportedData sw_en");
+					
+				}
+				catch (ArgumentNullException ex) 
+				{
+					if(!EventLog.SourceExists("sw_en"))
+					{
+						EventLog.CreateEventSource("sw_en", "Application");
+					}
+					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+					
+				}
+				catch (Exception ex)
+				{
+					if (!EventLog.SourceExists("sw_en"))
+					{
+						EventLog.CreateEventSource("sw_en", "Application");
+					}
+					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+				}
+
+			}
+		}
+
+		
 
 		
 
