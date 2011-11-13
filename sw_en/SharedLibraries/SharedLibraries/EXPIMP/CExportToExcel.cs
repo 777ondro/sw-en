@@ -4,61 +4,70 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
+using Microsoft.Office.Interop.Excel;
+using System.IO;
+using System.Drawing;
 
 namespace SharedLibraries.EXPIMP
 {
-	public class CExportToExcel
+	public static class CExportToExcel
 	{
-		string fileName;
-        DataSet ds;
-		public CExportToExcel(string filename, DataSet ds)
-        {
-            this.fileName = filename;
-            this.ds = ds;
-        }
+		public static void ExportToExcel(this DataSet myDataSet, string fileName, string worksheetName)
+		{
+			if (myDataSet == null)
+			{
+				throw new ArgumentNullException("myDataSet");
+			}
 
-        public void writeToExcel()
-        {
+			var excel = new Application();
 
-            System.Data.OleDb.OleDbConnection objConn = new System.Data.OleDb.OleDbConnection(
-        "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileName +
-        ";Extended Properties=Excel 8.0;");
-            try
-            {
-                objConn.Open();
-            }
-            catch (OleDbException) { return; }
+			try
+			{
+				Workbook book;
 
+				if (File.Exists(fileName))
+				{
+					book = excel.Workbooks.Open(fileName);
+				}
+				else
+				{
+					book = excel.Workbooks.Add();
+				}
 
-            System.Data.OleDb.OleDbCommand objCmd = new System.Data.OleDb.OleDbCommand();
-            objCmd.Connection = objConn;
+				dynamic sheet = book.Sheets.Add();
 
-            try
-            {
-                objCmd.CommandText = "CREATE TABLE kurz ( Premenna char(40),Hodnota char(20), " +
-                        "Jednotka char(20), Premenna1 char(40), Hodnota1 char(20),Jednotka1 char(20), Premenna2 char(40), " +
-                        "Hodnota2 char(20),Jednotka2 char(20) )"; ;
-                objCmd.ExecuteNonQuery();
-            }
-            catch (OleDbException e) { /*MessageBox.Show(e.Message);*/ }
+				sheet.Name = worksheetName;
 
-            try
-            {
-                foreach (DataRow r in ds.Tables[0].Rows)
-                {
-                    objCmd.CommandText = @"INSERT INTO [kurz$] VALUES ('" + r.ItemArray[0].ToString() + "','"
-                        + r.ItemArray[1].ToString() + "','" + r.ItemArray[2].ToString() + "','" + r.ItemArray[3].ToString() + "','"
-                        + r.ItemArray[4].ToString() + "','" + r.ItemArray[5].ToString() + "','" + r.ItemArray[6].ToString() + "','"
-                        + r.ItemArray[7].ToString() + "','" + r.ItemArray[8].ToString() + "')";
-                    objCmd.ExecuteNonQuery();
-                }
-            }
-            catch (OleDbException e) { /*MessageBox.Show(e.Message); */}
-            
+				for (int i = 0; i < myDataSet.Tables[0].Columns.Count; i++)
+				{
+					sheet.Cells[1, i + 1] = myDataSet.Tables[0].Columns[i].ColumnName;
+					sheet.Cells[1, i + 1].Font.Bold = true;
+					sheet.Cells[1, i + 1].Interior.Color = ColorTranslator.ToOle(Color.Gray);
+				}
 
-            // Close the connection.
-            objConn.Close();
+				for (int row = 0; row < myDataSet.Tables[0].Rows.Count; row++)
+				{
+					for (int column = 0; column < myDataSet.Tables[0].Columns.Count; column++)
+					{
+						sheet.Cells[row + 2, column + 1] =
+							myDataSet.Tables[0].Rows[row][column].ToString();
+					}
+				}
 
-        }
+				for (int i = 0; i < myDataSet.Tables[0].Columns.Count; i++)
+				{
+					sheet.Columns[i + 1].AutoFit();
+				}
+
+				book.SaveAs(fileName, AccessMode: XlSaveAsAccessMode.xlShared);
+				book.Close();
+			}
+			finally
+			{
+				excel.Workbooks.Close();
+				excel.Quit();
+			}
+		}
+		
 	}
 }
