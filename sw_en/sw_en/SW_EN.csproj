@@ -58,17 +58,11 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="062_FNLabel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v3.5\WindowsCE\062_FNLabel.dll</HintPath>
+    <Reference Include="CheckBoxComboBox">
+      <HintPath>bin\CheckBoxComboBox.dll</HintPath>
     </Reference>
-    <Reference Include="CheckBoxComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\CheckBoxComboBox.dll</HintPath>
-    </Reference>
-    <Reference Include="MagicLibrary, Version=1.7.0.0, Culture=neutral, PublicKeyToken=3a6eb82f876a49bc">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\MagicLibrary.dll</HintPath>
+    <Reference Include="MagicLibrary">
+      <HintPath>bin\MagicLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="System" />
