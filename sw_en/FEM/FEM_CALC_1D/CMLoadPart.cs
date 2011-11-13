@@ -7,7 +7,7 @@ using MATH;
 
 namespace FEM_CALC_1D
 {
-    public class CMLoadPart
+    public class CMLoadPart:CMLoad
     {
         // Temporary array of EIF for particular loading
         float[] m_fEIF_A = new float[6];

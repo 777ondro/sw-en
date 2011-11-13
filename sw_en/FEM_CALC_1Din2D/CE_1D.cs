@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 using MATH;
+using CENEX;
 
 namespace FEM_CALC_1Din2D
 {
@@ -15,18 +16,18 @@ namespace FEM_CALC_1Din2D
 
         public int m_iSuppType;
         // Geometrical properties of Element
-        public float m_flength_X, m_flength_Y, m_frotation_angle = 0f;
+        public float m_flength_X,
+            m_flength_Y,
+            m_frotation_angle = 0f;
+
         public float m_flength;
 
         public float[] m_fC_GCS_Coord = new float[3]; // Relative coordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
-        
-        public float[,] m_fkLocMatr;
 
         // Vector of member displacement
         CMatrix m_Disp = new CMatrix(iNodeDOFNo, 1);
         // Array of global codes numbers of element desgress of freedom (Start node 0-5, and node 6-11)
         public int[] m_ArrCodeNo = new int[2*iNodeDOFNo]; 
-        
         
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
@@ -43,7 +44,6 @@ namespace FEM_CALC_1Din2D
         // Vector of member ends primary forces in Global Coordinate System (GCS) due to the transverse member load
         public float[,] m_ArrElemPEF_GCS = new float[2, iNodeDOFNo];
 
-
         // Results End Forces Vectors
         // Vector of member nodes (ends) forces in GCS
         public float[] m_ArrElemEF_GCS_StNode = new float[iNodeDOFNo];  // Start Node
@@ -59,6 +59,7 @@ namespace FEM_CALC_1Din2D
 
 
         // 2D
+        CMatrix m_fkLocMatr;
         CMatrix m_fATRMatr2D;
         CMatrix m_fBTTMatr2D;
         CMatrix m_fKGlobM;
@@ -71,7 +72,7 @@ namespace FEM_CALC_1Din2D
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
 
-        float m_fAlpha;
+        float m_fAlpha = 0f;
         float m_fSinAlpha, m_fCosAlpha;
 
         CMember m_Member = new CMember();
@@ -80,18 +81,12 @@ namespace FEM_CALC_1Din2D
 
         public CE_1D() 
         {
-            // Create and fill elements base data
-            FillBasic1();
-
             // Fill Arrays / Initialize
             //Fill_EDisp_Init();
             Fill_EEndsLoad_Init();
         }
         public CE_1D(CMember mMember, CFemNode NStart, CFemNode NEnd, int iSuppType)
         {
-            // Create and fill elements base data
-            FillBasic1();
-
             // Main member or segment
             m_Member = mMember; 
 
@@ -105,10 +100,35 @@ namespace FEM_CALC_1Din2D
 
         } // End of constructor
 
-        private void FillBasic1()
+        public CE_1D(CGenex FemModel, int iMemberID, int iSuppType)
         {
-           // CM = new CMatrix();
-        }
+            // Main member or segment
+            m_Member = FemModel.m_arrFemMembers[iMemberID];
+
+            // Nodes
+            m_NodeStart = FemModel.m_arrFemMembers[iMemberID].m_NodeStart;
+            m_NodeEnd = FemModel.m_arrFemMembers[iMemberID].m_NodeEnd;
+            // Support type
+            m_iSuppType = iSuppType;
+
+            FillBasic2();
+
+        } // End of constructor
+
+        public CE_1D(CMember mMember, int iSuppType)
+        {
+            // Main member or segment
+            m_Member = mMember;
+
+            // Nodes
+            m_NodeStart.INode_ID = m_Member.INode1.INode_ID;
+            m_NodeEnd.INode_ID = m_Member.INode1.INode_ID;
+            // Support type
+            m_iSuppType = iSuppType;
+
+            FillBasic2();
+
+        } // End of constructor
 
         public void FillBasic2()
         {
@@ -136,11 +156,11 @@ namespace FEM_CALC_1Din2D
 
 
             // Lengths in Global Coordinates
-           // m_flength_X = GetGCSLengh(0);
-           // m_flength_Y = GetGCSLengh(1);
+            m_flength_X = GetGCSLengh(0);
+            m_flength_Y = GetGCSLengh(1);
 
             // FEM Element Length
-            m_flength = (float)Math.Sqrt((float)Math.Pow(m_flength_X, 2f) + (float)Math.Pow(m_flength_Y, 2f));
+            m_flength = MathF.Sqrt(MathF.Pow2(m_flength_X) + MathF.Pow2(m_flength_Y));
 
             //m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
@@ -247,63 +267,45 @@ namespace FEM_CALC_1Din2D
         }
 
 
-        public float GetGCSLengh(float fCoordStart, float fCoordEnd, float fGCsCoord)
+        public float GetGCSLengh(float fCoordStart, float fCoordEnd, float fGCSCoord)
         {
-            // Prebezne, neuvazuje s tym ze GCS Coord mozu byt zaporne alebo kladne
+            // Priebezne
             if (
-                ((fCoordEnd >= fGCsCoord) && (fCoordStart >= fGCsCoord)) || // Both positive
-                 (fCoordEnd <= fGCsCoord && fCoordStart <= fGCsCoord) // Both negative
-                )
+                ((fCoordEnd >= fGCSCoord) && (fCoordStart >= fGCSCoord)) || // Both positive
+                 (fCoordEnd <= fGCSCoord && fCoordStart <= fGCSCoord) // Both negative
+               )
             {
                 return fCoordEnd - fCoordStart;  // if (fCoordEnd > fCoordStart) Positive length / if (fCoordStart > fCoordEnd) Negative length
             }
-            else if (fCoordEnd <= fGCsCoord && fCoordStart >= fGCsCoord) // Start positive / End negative
+            else if (fCoordEnd <= fGCSCoord && fCoordStart >= fGCSCoord) // Start positive / End negative
             {
                 return fCoordEnd - fCoordStart; // Negative length
             }
-            else if (fCoordStart <= fGCsCoord && fCoordEnd >= fGCsCoord) // Start negative / End positive
+            else if (fCoordStart <= fGCSCoord && fCoordEnd >= fGCSCoord) // Start negative / End positive
             {
-                return fCoordEnd - fCoordStart; // Poaitive length
+                return fCoordEnd - fCoordStart; // Positive length
             }
-            else
+            else // Exception
+            { 
+                return 0.0f;
+            }
+        }
+
+        public float GetGCSLengh(int i)
+        {
+            // global coordinate system direction
+            // 0 - global x-axis
+            // 1 - global y-axis
+            switch (i)
             {
-                // ?????????????
-                return 0f;
+                case 0:
+                    return GetGCSLengh(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_GCS_X);
+                case 1:
+                    return GetGCSLengh(m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_Y);
+                default:
+                    return 0f;
             }
-        
         }
-
-
-        // Length of member in plane of projection into Global Coordinate System (GCS) 
-        // Dlzka priemetu pruta do hlavneho suranicoveho systemu 
-
-        public float GetGCSProjLengh(float fNStartCoord_i, float fNStartCoord_j, float fNEndCoord_i, float fNEndCoord_j, float fGCSLength)
-        {
-                return 0f;
-        }
-        public float GetGCSProjLengh(float fGCSlength_i, float fGCSlength_j)
-        {
-            // FEM Element Length in projection
-            return (float)Math.Sqrt((float)Math.Pow(fGCSlength_i, 2f) + (float)Math.Pow(fGCSlength_j, 2f));
-        }
-
-
-
-        //public float GetGCSLengh(int i)
-        //{
-        //   // GLOBAL COORDINATE SYSTEM direction
-        //    // 0 - Global X-Axis
-        //    // 1 - Global Y-Axis
-        //    switch (i)
-        //    {
-        //        case 0:
-        //            return GetGCSLengh(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_GCS_X);
-        //        case 1:
-        //            return GetGCSLengh(m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_Y);
-        //        default:
-        //            return 0f;
-        //    }
-        //}
 
         public float GetGCSAlpha(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2, float fGCsCoord1, float fGCsCoord2)
         {
@@ -331,22 +333,15 @@ namespace FEM_CALC_1Din2D
                 // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
                 return (1.5f * (float)Math.PI) + (float)Math.Atan((fCoordEnd2 - fCoordStart1) / (fCoordEnd2 - fCoordStart2));
             }
-
         }
 
-        //public float GetGCSAlpha(int i)
-        //{
-        //    // GLOBAL COORDINATE SYSTEM direction
-        //    // 0 - Rotation about Global Z-Axis
+        public float GetGCSAlpha()
+        {
+            // GLOBAL COORDINATE SYSTEM direction
+            // Rotation about Global Z-Axis
 
-        //    switch (i)
-        //    {
-        //        case 0:
-        //            //return GetGCSAlpha(m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_NodeStart.FCoord_Z, m_NodeEnd.FCoord_Z, m_GCS_Y, m_GCS_Z);
-
-        //            return 0f;
-        //    }
-        //}
+            return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_X, m_GCS_Y);
+        }
 
         // Transformation Matrix of Element Rotation - 3D
         // 2x2 - 3x3

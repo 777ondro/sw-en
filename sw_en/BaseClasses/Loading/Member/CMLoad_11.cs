@@ -37,5 +37,12 @@ namespace BaseClasses
         
         
         }
+
+
+        public CMLoad_11(float fF, float fa)
+        {
+            m_fF = fF;
+            m_fa = fa;
+        }
     }
 }

@@ -15,23 +15,23 @@ namespace FEM_CALC_1Din2D
         {
         
 m_arrMat[0] = new CMat_03_00();
-        
-        
-        
-        
+m_arrCrSc[0] = new CCrSc_0_00();
+
+
+m_arrMembers[0] = new CMember();
+
+
+
+
+
+
+
+
+
+
+
+
         
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
