@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.IO;
 using Excel;
+using System.Diagnostics;
 
 namespace SharedLibraries.EXPIMP
 {
@@ -16,12 +17,20 @@ namespace SharedLibraries.EXPIMP
 			try
 			{
 				FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
-
+				IExcelDataReader excelReader = null;
+				if (fileName.EndsWith(".xls")) 
+				{
+					excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+				}
+				else if(fileName.EndsWith(".xlsx"))
+				{
+					excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+				}
 				//1. Reading from a binary Excel file ('97-2003 format; *.xls)
 				//IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
 				//...
 				//2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
-				IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+				//IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 				//...
 				//3. DataSet - The result of each spreadsheet will be created in the result.Tables
 				//DataSet result = excelReader.AsDataSet();
@@ -39,9 +48,13 @@ namespace SharedLibraries.EXPIMP
 				//6. Free resources (IExcelDataReader is IDisposable)
 				excelReader.Close();
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				Console.WriteLine(e.Message);
+				if (!EventLog.SourceExists("sw_en"))
+				{
+					EventLog.CreateEventSource("sw_en", "Application");
+				}
+				EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
 			}
 			return result;
 		}

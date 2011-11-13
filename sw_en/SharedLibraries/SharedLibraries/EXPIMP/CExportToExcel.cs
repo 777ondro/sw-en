@@ -7,6 +7,7 @@ using System.Data.OleDb;
 using Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace SharedLibraries.EXPIMP
 {
@@ -61,6 +62,14 @@ namespace SharedLibraries.EXPIMP
 
 				book.SaveAs(fileName, AccessMode: XlSaveAsAccessMode.xlShared);
 				book.Close();
+			}
+			catch (Exception ex) 
+			{
+				if (!EventLog.SourceExists("sw_en"))
+				{
+					EventLog.CreateEventSource("sw_en", "Application");
+				}
+				EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
 			}
 			finally
 			{
