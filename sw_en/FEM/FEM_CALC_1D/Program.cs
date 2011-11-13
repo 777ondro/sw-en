@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace FEM_CALC_1D
+namespace FEM_CALC_1Din3D
 {
     static class Program
     {

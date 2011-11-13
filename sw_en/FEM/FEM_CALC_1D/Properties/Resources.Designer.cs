@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FEM_CALC_1D.Properties {
+namespace FEM_CALC_1Din3D.Properties {
     using System;
     
     

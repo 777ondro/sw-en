@@ -1,4 +1,4 @@
-﻿namespace FEM_CALC_1Din3D
+﻿namespace FEM_CALC_1Din2D
 {
     partial class CalcForm
     {
