@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FEM_CALC_1Din3D;
 using System.Collections;
 
 namespace CENEX
 {
+    // Degrees of freedom 0-5 (6 - warping)
+    public enum EDOF
+    {
+        eUX = 0, // Displacement in X-Direction
+        eUY = 1, // Displacement in Y-Direction
+        eUZ = 2, // Displacement in Z-Direction
+        eRX = 3, // Rotation around X-Axis
+        eRY = 4, // Rotation around Y-Axis
+        eRZ = 5, // Rotation around Z-Axis
+        eW = 6  // Warping (not implemented yet)
+    }
+
     // Class CNSupport
 	[Serializable]
     public class CNSupport
