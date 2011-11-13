@@ -13,9 +13,13 @@ namespace BaseClasses
         private int m_iSupport_ID;
         public int[] m_iNodeCollection; // List / Collection of nodes where support is defined
         private CNode m_Node;
-        private float m_Value;
         private ENSupportType m_NSupportType;
-        public bool[] m_bRestrain; // ????
+
+        // Restraints - list of node degreess of freedom
+        // false - 0 - free DOF
+        // true - 1 - restrained (rigid)
+
+        public bool[] m_bRestrain = new bool [6]; // Array of boolean values, UX, UY, UZ, RX, RY, RZ
         public int m_fTime;
 
         //----------------------------------------------------------------------------
@@ -28,11 +32,6 @@ namespace BaseClasses
         {
             get { return m_Node; }
             set { m_Node = value; }
-        }
-        public float Value
-        {
-            get { return m_Value; }
-            set { m_Value = value; }
         }
         public ENSupportType NSupportType
         {

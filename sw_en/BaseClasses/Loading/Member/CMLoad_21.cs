@@ -31,5 +31,11 @@ namespace BaseClasses
         
         
         }
+
+        public CMLoad_21(float fqValue, EMLoadDirPCC1 eDir)
+        {
+            m_fq = fqValue;
+            m_eDirPPC = eDir;
+        }
     }
 }

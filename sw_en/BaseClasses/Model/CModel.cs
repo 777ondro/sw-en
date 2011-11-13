@@ -24,29 +24,29 @@ namespace CENEX
         // Collection of references to objects
 
         // Materials used/defined in current model
-        public CMat_00[] m_arrMat = new CMat_00[1];
+        public CMat_00[] m_arrMat;
         // Cross-sections used/ defined in current model
-        public CCrSc[] m_arrCrSc = new CCrSc[1];
+        public CCrSc[] m_arrCrSc;
 
         // Topological nodes (not FEM)
         // Note !!!
         // Type of object collections - some dynamically allocated which can be resized - stack, queue, vector ????
 
-        public CNode[] m_arrNodes = new CNode[1];
+        public CNode[] m_arrNodes;
         // 1D Elements (not FEM)
-        public CMember [] m_arrMembers = new CMember[1];
+        public CMember [] m_arrMembers;
         // Nodal Supports
-        public CNSupport[] m_arrNSupports = new CNSupport[1];
+        public CNSupport[] m_arrNSupports;
 
         // Loading
         // Nodal Loads
-        public CNLoad[] m_arrNLoads = new CNLoad[1];
+        public CNLoad[] m_arrNLoads;
         // Member Loads
-        public CMLoad[] m_arrMLoads = new CMLoad[1];
+        public CMLoad[] m_arrMLoads;
         // Load Cases
-        public CLoadCase[] m_arrLoadCases = new CLoadCase[1];
+        public CLoadCase[] m_arrLoadCases;
         // Load Combinations
-        public CLoadCombination[] m_arrLoadCombs = new CLoadCombination[1];
+        public CLoadCombination[] m_arrLoadCombs;
 
 
         //----------------------------------------------------------------------------
@@ -56,6 +56,22 @@ namespace CENEX
         public CModel(string sFileName)
         {
             m_sFileName = sFileName;
+        }
+        // Alokuje velkost poli zoznamov, malo by to byt dymamicke
+        public CModel(string sFileName,
+            int iMatNum, int iCrScNum, int iNodeNum,
+            int iMemNum, int iNSupNum, int iNLoadNum,
+            int iMLoadNum, int iLoadCaseNum, int iLoadComNum)
+        {
+            m_arrMat = new CMat_00[iMatNum];
+            m_arrCrSc = new CCrSc[iCrScNum];
+            m_arrNodes = new CNode[iNodeNum];
+            m_arrMembers = new CMember[iMemNum];
+            m_arrNSupports = new CNSupport[iNSupNum];
+            m_arrNLoads = new CNLoad[iNLoadNum];
+            m_arrMLoads = new CMLoad[iMLoadNum];
+            m_arrLoadCases = new CLoadCase[iLoadCaseNum];
+            m_arrLoadCombs = new CLoadCombination[iLoadComNum];
         }
         public CModel(string sProjectName, string sConstObjectName, string sFileName)
         {
