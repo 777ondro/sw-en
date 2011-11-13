@@ -228,8 +228,8 @@ namespace CENEX
 
         private void dSolutionToolStripMenuItem2D_Click(object sender, EventArgs e)
         {
-            //FEM_CALC_1Din2D.CalcForm obj_Calc = new FEM_CALC_1Din2D.CalcForm();
-            //obj_Calc.ShowDialog();
+            FEM_CALC_1Din2D.CalcForm obj_Calc = new FEM_CALC_1Din2D.CalcForm();
+            obj_Calc.ShowDialog();
         }
 
         
