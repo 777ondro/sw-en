@@ -7,7 +7,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using FEM_CALC_1Din3D;
 using CRSC;
 
 
