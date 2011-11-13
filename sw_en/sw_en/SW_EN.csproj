@@ -618,6 +618,10 @@
       <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
       <Name>FEM_CALC_1Din3D</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FEM_CALC_1Din2D\FEM_CALC_1Din2D.csproj">
+      <Project>{602C8862-99F4-4595-A033-84194DDFE00A}</Project>
+      <Name>FEM_CALC_1Din2D</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
       <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
       <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>

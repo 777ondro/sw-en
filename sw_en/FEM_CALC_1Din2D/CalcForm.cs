@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FEM_CALC_1Din3D
+namespace FEM_CALC_1Din2D
 {
     public partial class CalcForm : Form
     {
@@ -26,6 +26,7 @@ namespace FEM_CALC_1Din3D
             // Auxialiary string - result data
             string sDOFResults = null;
 
+            /*
             for (int i = 0; i < obj_Calc.m_V_Displ.Length; i++)
             {
                 int iNodeNumber    = obj_Calc.m_fDisp_Vector_CN[i, 1]+1; // Incerase index (1st member "0" to "1"
@@ -36,6 +37,7 @@ namespace FEM_CALC_1Din3D
                              "Value:" + "\t" + obj_Calc.m_V_Displ[i]
                              + "\n";
             }
+             */
 
             // Main String
            string sMessageCalc=

@@ -130,6 +130,8 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.solverSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dSolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dSolutionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -946,15 +948,31 @@
             // solverSetupToolStripMenuItem
             // 
             this.solverSetupToolStripMenuItem.Name = "solverSetupToolStripMenuItem";
-            this.solverSetupToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.solverSetupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.solverSetupToolStripMenuItem.Text = "Solver Setup";
             // 
             // calculateToolStripMenuItem
             // 
+            this.calculateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dSolutionToolStripMenuItem,
+            this.dSolutionToolStripMenuItem1});
             this.calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
-            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.calculateToolStripMenuItem.Text = "Calculate";
-            this.calculateToolStripMenuItem.Click += new System.EventHandler(this.calculateToolStripMenuItem_Click);
+            // 
+            // dSolutionToolStripMenuItem
+            // 
+            this.dSolutionToolStripMenuItem.Name = "dSolutionToolStripMenuItem";
+            this.dSolutionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dSolutionToolStripMenuItem.Text = "3D Solution";
+            this.dSolutionToolStripMenuItem.Click += new System.EventHandler(this.dSolutionToolStripMenuItem3D_Click);
+            // 
+            // dSolutionToolStripMenuItem1
+            // 
+            this.dSolutionToolStripMenuItem1.Name = "dSolutionToolStripMenuItem1";
+            this.dSolutionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.dSolutionToolStripMenuItem1.Text = "2D Solution";
+            this.dSolutionToolStripMenuItem1.Click += new System.EventHandler(this.dSolutionToolStripMenuItem2D_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -1407,6 +1425,8 @@
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rectangularToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polygonalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dSolutionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dSolutionToolStripMenuItem1;
     }
 }
 

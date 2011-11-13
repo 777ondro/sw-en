@@ -34,7 +34,7 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test1",1,1,5,4,3,3,1,1,1);
+            TopoModel = new CModel("Test1",1,1,5,4,3,1,3,1,1);
 
             // Materials
             TopoModel.m_arrMat[0].m_fE= 2.1e+11f;            // Unit [Pa]
@@ -113,26 +113,26 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrNSupports[0].m_iNodeCollection[1] = 4;
 
             // Support 2 - NodeIDs: 3
-            TopoModel.m_arrNSupports[0].ISupport_ID = 2;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = false;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = false;
-            TopoModel.m_arrNSupports[0].m_iNodeCollection = new int[1];
-            TopoModel.m_arrNSupports[0].m_iNodeCollection[0] = 3;
+            TopoModel.m_arrNSupports[1].ISupport_ID = 2;
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = false;
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[1].m_bRestrain[0] = false;
+            TopoModel.m_arrNSupports[1].m_iNodeCollection = new int[1];
+            TopoModel.m_arrNSupports[1].m_iNodeCollection[0] = 3;
 
             // Support 3 - NodeIDs: 5
-            TopoModel.m_arrNSupports[0].ISupport_ID = 3;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = false;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = false;
-            TopoModel.m_arrNSupports[0].m_bRestrain[0] = true;
-            TopoModel.m_arrNSupports[0].m_iNodeCollection = new int[1];
-            TopoModel.m_arrNSupports[0].m_iNodeCollection[0] = 5;
+            TopoModel.m_arrNSupports[2].ISupport_ID = 3;
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = false;
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = false;
+            TopoModel.m_arrNSupports[2].m_bRestrain[0] = true;
+            TopoModel.m_arrNSupports[2].m_iNodeCollection = new int[1];
+            TopoModel.m_arrNSupports[2].m_iNodeCollection[0] = 5;
 
             // Nodal loads
             // Load 1 - NodeIDs: 2
@@ -168,6 +168,14 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrMLoads[2].MLoadType = EMLoadType1.eMLT_FS_H;
             TopoModel.m_arrMLoads[2].m_iMemberCollection = new int[1];
             TopoModel.m_arrMLoads[2].m_iMemberCollection[0] = 4;
+
+            // Load Cases
+            // Load Case 1
+            TopoModel.m_arrLoadCases[0].ILoadCase_ID = 1;
+
+            // Load Combinations
+            // Load Combination 1
+            TopoModel.m_arrLoadCombs[0].ILoadComb_ID = 1;
 
         }
     }

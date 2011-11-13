@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FEM_CALC_1D;
+using FEM_CALC_1Din3D;
 using System.Collections;
 
 namespace CENEX

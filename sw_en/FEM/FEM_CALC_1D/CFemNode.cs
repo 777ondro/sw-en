@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 
-namespace FEM_CALC_1D
+namespace FEM_CALC_1Din3D
 {
     public struct SNodeCoord
     {

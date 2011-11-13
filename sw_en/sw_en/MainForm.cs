@@ -11,12 +11,10 @@ using Crownwood.Magic.Docking;
 using Crownwood.Magic.Common;
 using CENEX.MODULES._03_STEEL.EC3;
 using CENEX.TEMPORARY;
-//using FEM_CALC_1D. 
 using WindowsFormsApplication1;
 using DATABASE;
 using CRSC;
 using MATERIAL;
-//using M_BASE;
 using M_EC1;
 using M_EC2;
 using M_EC3;
@@ -26,6 +24,7 @@ using M_EC6;
 using M_EC7;
 using M_EC8;
 using M_EC9;
+
 
 namespace CENEX
 {
@@ -215,16 +214,21 @@ namespace CENEX
             obj_ModelGraphic.ShowDialog(); // Show Form Dialog
         }
 
-
-        private void calculateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FEM_CALC_1D.CalcForm obj_Calc = new FEM_CALC_1D.CalcForm();
-            obj_Calc.ShowDialog();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dSolutionToolStripMenuItem3D_Click(object sender, EventArgs e)
+        {
+            FEM_CALC_1Din3D.CalcForm obj_Calc = new FEM_CALC_1Din3D.CalcForm();
+            obj_Calc.ShowDialog();
+        }
+
+        private void dSolutionToolStripMenuItem2D_Click(object sender, EventArgs e)
+        {
+            //FEM_CALC_1Din2D.CalcForm obj_Calc = new FEM_CALC_1Din2D.CalcForm();
+            //obj_Calc.ShowDialog();
         }
 
         

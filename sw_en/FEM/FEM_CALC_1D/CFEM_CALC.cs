@@ -59,7 +59,7 @@ using MATH;
 
 */
 
-namespace FEM_CALC_1D
+namespace FEM_CALC_1Din3D
 {
     public enum ESLN
     {
