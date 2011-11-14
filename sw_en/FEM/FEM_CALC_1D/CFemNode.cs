@@ -89,6 +89,16 @@ namespace FEM_CALC_1Din3D
             m_ArrDirNodeLoad = ArrLoad;
         }
 
+        // Constructor 4 - FEM node is copy of topological node
+        public CFemNode(CNode TopoNode)
+        {
+            INode_ID = TopoNode.INode_ID;
+            FCoord_X = TopoNode.FCoord_X;
+            FCoord_Y = TopoNode.FCoord_Y;
+            FCoord_Z = TopoNode.FCoord_Z;
+            FTime = TopoNode.FTime;
+        }
+
         // Function returns list of FEM 1D elements which includes given node
         // Do we need to store whole elements object (array of elements indexes should be enough) !!!
 
