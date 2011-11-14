@@ -237,16 +237,8 @@ namespace FEM_CALC_1Din2D
 
 
 
-
-
-
-
-
-
-
-
-
-
+            // Generate FEM model data from Topological model
+            FEMModel = new CGenex(TopoModel);
         }
     }
 }

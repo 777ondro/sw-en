@@ -65,8 +65,8 @@ namespace FEM_CALC_1Din2D
         CMatrix m_fKGlobM;
 
 
-        public CFemNode m_NodeStart;
-        public CFemNode m_NodeEnd;
+        public CFemNode m_NodeStart = new CFemNode();
+        public CFemNode m_NodeEnd = new CFemNode();
         public CMLoad m_ELoad;
 
         float m_GCS_X = 0f;
@@ -129,6 +129,15 @@ namespace FEM_CALC_1Din2D
             FillBasic2();
 
         } // End of constructor
+
+        // Constructor - FEM Member is copy of topological member or segment
+        public CE_1D(CMember TopoMember)
+        {
+            IMember_ID = TopoMember.IMember_ID;
+            // m_CrSc = (CCrSc)TopoMember.CrSc;
+            m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
+            m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
+        }
 
         public void FillBasic2()
         {
