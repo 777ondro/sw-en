@@ -151,6 +151,16 @@ namespace FEM_CALC_1Din3D
 
         } // End of constructor
 
+
+        // Constructor 3 - FEM Member is copy of topological member or segment
+        public CE_1D(CMember TopoMember)
+        {
+          IMember_ID = TopoMember.IMember_ID;
+         // m_CrSc = (CCrSc)TopoMember.CrSc;
+          m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
+          m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
+        }
+
         private void FillBasic1()
         {
             CM = new CMatrix();
