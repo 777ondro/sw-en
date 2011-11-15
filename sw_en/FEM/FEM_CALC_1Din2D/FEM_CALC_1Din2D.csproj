@@ -58,6 +58,7 @@
     <Compile Include="CFEM_CALC.cs" />
     <Compile Include="CGenex.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="CTest_1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

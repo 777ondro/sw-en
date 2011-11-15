@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using CRSC;
 using MATH;
 using CENEX;
 
@@ -10,63 +11,45 @@ namespace FEM_CALC_1Din2D
 {
     public class CE_1D : CMember
     {
-        static int iNodeDOFNo = 3;
-
-        Constants c = new Constants();
-
         public int m_iSuppType;
         // Geometrical properties of Element
-        public float m_flength_X,
-            m_flength_Y,
-            m_frotation_angle = 0f;
+        public float m_fLength_X, m_fLength_Y, m_frotation_angle = 0f;
 
-        public float m_flength;
+        public float m_fLength;
 
-        public float[] m_fC_GCS_Coord = new float[3]; // Relative coordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
-
-        // Vector of member displacement
-        CMatrix m_Disp = new CMatrix(iNodeDOFNo, 1);
-        // Array of global codes numbers of element desgress of freedom (Start node 0-5, and node 6-11)
-        public int[] m_ArrCodeNo = new int[2*iNodeDOFNo]; 
-        
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public float[] m_ArrElemPEF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemPEF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        CVector m_VElemPEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        CVector m_VElemPEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
-        // Vector of member ends primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public float[,] m_ArrElemPEF_LCS = new float[2, iNodeDOFNo];
-
-        // Vector of member nodes (ends) primary forces in global Coordinate System due to the transverse member load
-        public float[] m_ArrElemPEF_GCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemPEF_GCS_EnNode = new float[iNodeDOFNo];  // End Node
-
-        // Vector of member ends primary forces in Global Coordinate System (GCS) due to the transverse member load
-        public float[,] m_ArrElemPEF_GCS = new float[2, iNodeDOFNo];
+        // Vector of member nodes (ends) primary forces in Global Coordinate System due to the transverse member load
+        CVector m_VElemPEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        CVector m_VElemPEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Results End Forces Vectors
         // Vector of member nodes (ends) forces in GCS
-        public float[] m_ArrElemEF_GCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemEF_GCS_EnNode = new float[iNodeDOFNo];  // End Node
+        CVector m_VElemEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        CVector m_VElemEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) forces in LCS
-        public float[] m_ArrElemEF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemEF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        CVector m_VElemEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        CVector m_VElemEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) internal forces in LCS
-        public float[] m_ArrElemIF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemIF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        CVector m_VElemIF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
 
-        // 2D
-        CMatrix m_fkLocMatr;
-        CMatrix m_fATRMatr2D;
-        CMatrix m_fBTTMatr2D;
-        CMatrix m_fKGlobM;
-
+        // 2D Matrices 
+        CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);   // 3x3
+        CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);  // 3x3
+        CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);  // 3x3
+        CMatrix m_fKGlobM;     // (2x3)*(2x3)
 
         public CFemNode m_NodeStart =  new CFemNode();
         public CFemNode m_NodeEnd = new CFemNode();
+        public CMember m_Member = new CMember();
+        public CCrSc m_CrSc = new CCrSc();
         public CMLoad m_ELoad;
 
         float m_GCS_X = 0f;
@@ -74,8 +57,6 @@ namespace FEM_CALC_1Din2D
 
         float m_fAlpha = 0f;
         float m_fSinAlpha, m_fCosAlpha;
-
-        CMember m_Member = new CMember();
 
         // Constructor
 
@@ -127,16 +108,17 @@ namespace FEM_CALC_1Din2D
             m_iSuppType = iSuppType;
 
             FillBasic2();
-
         } // End of constructor
 
         // Constructor - FEM Member is copy of topological member or segment
         public CE_1D(CMember TopoMember)
         {
             IMember_ID = TopoMember.IMember_ID;
-            // m_CrSc = (CCrSc)TopoMember.CrSc;
+            m_CrSc = (CCrSc)TopoMember.CrSc;
             m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
             m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
+
+            FillBasic2();
         }
 
         public void FillBasic2()
@@ -165,19 +147,15 @@ namespace FEM_CALC_1Din2D
 
 
             // Lengths in Global Coordinates
-            m_flength_X = GetGCSLengh(0);
-            m_flength_Y = GetGCSLengh(1);
+            m_fLength_X = GetGCSLengh(0);
+            m_fLength_Y = GetGCSLengh(1);
 
             // FEM Element Length
-            m_flength = MathF.Sqrt(MathF.Pow2(m_flength_X) + MathF.Pow2(m_flength_Y));
+            m_fLength = MathF.Sqrt(MathF.Pow2(m_fLength_X) + MathF.Pow2(m_fLength_Y));
 
             //m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
             m_fCosAlpha = (float)Math.Cos(m_fAlpha);
-
-            // Get auxialiary point relative coordinates
-            Get_C_GCS_coord();
-
 
             //// 2D
             //// Transformation Matrix of Element Rotation - 2D
@@ -194,7 +172,7 @@ namespace FEM_CALC_1Din2D
             //{
             //{           -1f,              0f,    0f },
             //{            0f,             -1f,    0f },
-            //{  -m_flength_Y,     m_flength_X,   -1f }
+            //{  -m_fLength_Y,     m_fLength_X,   -1f }
             //};
 
 
@@ -252,27 +230,26 @@ namespace FEM_CALC_1Din2D
 
         public void Fill_ECode_Init()
         {
-            m_ArrCodeNo[c.UX] = int.MaxValue;
-            m_ArrCodeNo[c.UY] = int.MaxValue;
-            m_ArrCodeNo[c.RZ] = int.MaxValue;
+           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
+           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
+           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
 
-            // Temporary
-            m_ArrCodeNo[c.RZ + 1] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 2] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 3] = int.MaxValue;
+           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
+           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
+           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
         }
 
         public void Fill_EEndsLoad_Init()
         {
             // Start Node
-            m_ArrElemPEF_LCS[0, c.FX] = 0f;
-            m_ArrElemPEF_LCS[0, c.FY] = 0f;
-            m_ArrElemPEF_LCS[0, c.MZ] = 0f;
+            m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFX] = 0f;
+            m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFY] = 0f;
+            m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] = 0f;
 
             // End Node
-            m_ArrElemPEF_LCS[1, c.FX] = 0f;
-            m_ArrElemPEF_LCS[1, c.FY] = 0f;
-            m_ArrElemPEF_LCS[1, c.MZ] = 0f;
+            m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] = 0f;
+            m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] = 0f;
+            m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] = 0f;
         }
 
 
@@ -376,7 +353,7 @@ namespace FEM_CALC_1Din2D
              */
 
             float[,] RPart = new float[3, 3];
-            //RPart = CM.fTransMatrix(m_flength_X, m_flength_Y, m_flength, m_frotation_angle, m_fC_GCS_Coord);
+            //RPart = CM.fTransMatrix(m_fLength_X, m_fLength_Y, m_fLength, m_frotation_angle, m_fC_GCS_Coord);
 
             /*
             float[,] RPart = new float[3, 3]
@@ -405,7 +382,7 @@ namespace FEM_CALC_1Din2D
         private float Get_Angle1(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
         {
             if (fl_inGCSPlane == 0f) // Paralel to the axis // Perpendicular to the plane
-                return (float)Math.Acos(fl_inGCSAxis / m_flength);
+                return (float)Math.Acos(fl_inGCSAxis / m_fLength);
             else if (fl_inGCSAxis == 0f)  // Perpendicular to the axis // Paralel to the axis
             {
                 if (fl_GCSAxis > 0f)
@@ -414,7 +391,7 @@ namespace FEM_CALC_1Din2D
                     return -(float)Math.PI; 
             }
             else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_flength);
+                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
         }
 
         private float Get_Angle2(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
@@ -434,7 +411,7 @@ namespace FEM_CALC_1Din2D
                     return -((float)Math.PI * 3f / 2f);
             }
             else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_flength);
+                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
         }
 
         private float Get_Angle3(float fl_inGCSAxis, float fl_inGCSPlane)
@@ -442,18 +419,7 @@ namespace FEM_CALC_1Din2D
             if (fl_inGCSPlane == 0f || fl_inGCSAxis == 0f) // Paralel to the axis // Perpendicular to the plane
                 return -(float)Math.PI / 2f;
             else
-                return -(float)Math.Acos((fl_inGCSAxis / m_flength) + (float)Math.PI / 2f);
-
-        }
-
-        // Get relative coordinates of node C(auxialiary point to specify orientation of local z-Axis) to node A (start node of member)
-
-        void Get_C_GCS_coord()
-        {
-            // Default - parallel to the global Z-axis positive (upwards) 
-            m_fC_GCS_Coord[0] = 0f;
-            m_fC_GCS_Coord[1] = 0f;
-            m_fC_GCS_Coord[2] = 1f; // positive global and local z-Axis - upwards
+                return -(float)Math.Acos((fl_inGCSAxis / m_fLength) + (float)Math.PI / 2f);
 
         }
 
@@ -468,11 +434,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_000_000()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_flength;
+            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f04EIy_len1 = (4f * f_EIy) / m_fLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -491,11 +457,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_000_00_a()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
+            float fEA_len = (m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g) / m_fLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -514,11 +480,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_000_00_b()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -537,11 +503,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_000_0_0()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_flength;
+            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f04EIy_len1 = (4f * f_EIy) / m_fLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -560,11 +526,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_000____()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -583,8 +549,8 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_00__0_()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_flength;
-            float f3EIy_len3 = (3f * m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y) / (float)Math.Pow(m_flength, 3f);
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
+            float f3EIy_len3 = (3f * m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y) / (float)Math.Pow(m_fLength, 3f);
 
             // Local Stiffeness Matrix
             return new float[3, 3]  

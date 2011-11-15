@@ -35,7 +35,7 @@ namespace BaseClasses
     {
         eLD_GCC_X = 0,
         eLD_GCC_Y = 1,
-        eLD_GCC_Z = 2,
+        eLD_GCC_Z = 2
     }
 
 
@@ -58,7 +58,7 @@ namespace BaseClasses
     {
         eMLD_LCC_X = 0,
         eMLD_LCC_Y = 1,
-        eMLD_LCC_Z = 2,
+        eMLD_LCC_Z = 2
     }
     //----------------------------------------------------------------------------
     // Define load direction or orientation in PCC (principal coordinate system) of members
@@ -67,7 +67,7 @@ namespace BaseClasses
     {
         eMLD_PCC_X = 0,
         eMLD_PCC_U = 1,
-        eMLD_PCC_V = 2,
+        eMLD_PCC_V = 2
     }
     //----------------------------------------------------------------------------
     // Types of single member loading
