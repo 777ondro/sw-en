@@ -36,7 +36,7 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test1",1,1,5,4,3,1,3,1,1);
+            TopoModel = new CModel("Test1",3,1,1,5,4,3,1,3,1,1);
 
             // Materials
             CMat_00 Mat0 = new CMat_00();
@@ -139,14 +139,11 @@ namespace FEM_CALC_1Din2D
 
             // Nodal Supports
             // Support 1 - NodeIDs: 1,4
-            CNSupport NSupport0 = new CNSupport();
+            CNSupport NSupport0 = new CNSupport(TopoModel.m_eNDOF);
             NSupport0.ISupport_ID = 1;
             NSupport0.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
             NSupport0.m_bRestrain[1] = true;
             NSupport0.m_bRestrain[2] = true;
-            NSupport0.m_bRestrain[3] = true;
-            NSupport0.m_bRestrain[4] = true;
-            NSupport0.m_bRestrain[5] = true;
             NSupport0.m_iNodeCollection = new int[2];
             NSupport0.m_iNodeCollection[0] = 1;
             NSupport0.m_iNodeCollection[1] = 4;
@@ -154,28 +151,22 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrNSupports[0] = NSupport0;
 
             // Support 2 - NodeIDs: 3
-            CNSupport NSupport1 = new CNSupport();
+            CNSupport NSupport1 = new CNSupport(TopoModel.m_eNDOF);
             NSupport1.ISupport_ID = 2;
             NSupport1.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
             NSupport1.m_bRestrain[1] = false;
-            NSupport1.m_bRestrain[2] = true;
-            NSupport1.m_bRestrain[3] = true;
-            NSupport1.m_bRestrain[4] = true;
-            NSupport1.m_bRestrain[5] = false;
+            NSupport1.m_bRestrain[2] = false;
             NSupport1.m_iNodeCollection = new int[1];
             NSupport1.m_iNodeCollection[0] = 3;
 
             TopoModel.m_arrNSupports[1] = NSupport1;
 
             // Support 3 - NodeIDs: 5
-            CNSupport NSupport2 = new CNSupport();
+            CNSupport NSupport2 = new CNSupport(TopoModel.m_eNDOF);
             NSupport2.ISupport_ID = 3;
             NSupport2.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
             NSupport2.m_bRestrain[1] = true;
             NSupport2.m_bRestrain[2] = true;
-            NSupport2.m_bRestrain[3] = false;
-            NSupport2.m_bRestrain[4] = false;
-            NSupport2.m_bRestrain[5] = true;
             NSupport2.m_iNodeCollection = new int[1];
             NSupport2.m_iNodeCollection[0] = 5;
 

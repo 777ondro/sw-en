@@ -28,4 +28,31 @@ namespace FEM_CALC_1Din2D
       eV = 1,
       eM = 2
     }
+
+    // Element SupportType
+    public enum EElemSuppType
+    {
+        e2DEl_000_000 = 0,
+
+        e2DEl_000_00_ = 1,
+        e2DEl_000_0_0 = 2,
+        e2DEl_000_0__ = 3,
+        e2DEl_000__00 = 4,
+        e2DEl_000___0 = 5,
+        e2DEl_000____ = 6,
+
+        e2DEl_00__000 = 7,
+        e2DEl_0_0_000 = 8,
+        e2DEl_0___000 = 9,
+        e2DEl__00_000 = 10,
+        e2DEl___0_000 = 11,
+        e2DEl_____000 = 12,
+
+        e2DEl_00__00_ = 13,
+        e2DEl_0_0_0_0 = 14,
+        e2DEl_0___0__ = 15,
+        e2DEl__00__00 = 16,
+        e2DEl___0___0 = 17,
+        e2DEl_00___0_ = 18,
+    }
 }

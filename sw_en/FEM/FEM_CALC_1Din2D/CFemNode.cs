@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using CENEX;
 using BaseClasses;
+using MATH;
 
 namespace FEM_CALC_1Din2D
 {
     public class CFemNode:CNode
     {
-
-        static int iNodeDOFNo = 6; // int or static int !!!!
-
-        public float[] m_ArrDisp = new float[iNodeDOFNo];
-        public int[] m_ArrNCodeNo = new int[iNodeDOFNo];      // array of global codes numbers
-        public float[] m_ArrDirNodeLoad = new float[iNodeDOFNo];  // Direct nodal load
+        public CVector m_VDisp = new CVector(Constants.i2D_DOFNo);
+        public int[] m_ArrNCodeNo = new int[Constants.i2D_DOFNo];          // Array of global codes numbers
+        public float[] m_ArrDirNodeLoad = new float[Constants.i2D_DOFNo];  // Direct nodal load
+        public bool[] m_ArrNodeDOF = new bool[Constants.i2D_DOFNo];        // Nodal Supports - Node DOF restraints
 
         // Constructor 1
         public CFemNode()
@@ -30,21 +29,37 @@ namespace FEM_CALC_1Din2D
         }
 
         // Constructor 3
-        public CFemNode(int iNNo, float[] ArrDisp, float[] ArrLoad)
+        public CFemNode(int iNNo, CVector VDisp, float[] ArrLoad)
         {
             INode_ID = iNNo;
-            m_ArrDisp = ArrDisp;
+            m_VDisp = VDisp;
             m_ArrDirNodeLoad = ArrLoad;
         }
 
         // Constructor 4 - FEM node is copy of topological node
-        public CFemNode(CNode TopoNode)
+        public CFemNode(CNSupport [] arrNSupports, CNode TopoNode)
         {
             INode_ID = TopoNode.INode_ID;
             FCoord_X = TopoNode.FCoord_X;
             FCoord_Y = TopoNode.FCoord_Y;
             FCoord_Z = TopoNode.FCoord_Z;
             FTime = TopoNode.FTime;
+
+            // Get nodal support
+            // Search if node is in list of supported nodes for each nodal support
+            for (int i = 0; i < arrNSupports.Length; i++) // Check all nodal supports
+            {
+                for (int j = 0; j < arrNSupports[i].m_iNodeCollection.Length; j++) // Check list of nodes (Nodes IDs collection)
+                {
+                    if (INode_ID == arrNSupports[i].m_iNodeCollection[j])
+                    {
+                        m_ArrNodeDOF[(int)e2D_DOF.eUX] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eUX]; // !!! 2D Environment enum
+                        m_ArrNodeDOF[(int)e2D_DOF.eUY] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eUY]; // !!! 2D Environment enum
+                        m_ArrNodeDOF[(int)e2D_DOF.eRZ] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eRZ]; // !!! 2D Environment enum
+                    }
+                }
+
+            }
         }
 
         // Function returns list of FEM 1D elements which includes given node

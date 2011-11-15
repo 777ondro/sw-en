@@ -13,6 +13,7 @@ namespace BaseClasses
         private CMember m_Member;
         public int [] m_iMembCollection; // List / Collection of members where release is defined
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
+        public int m_eNDOF;
         public bool[] m_bRestrain; // DOF
         public int m_fTime;
 
@@ -42,21 +43,24 @@ namespace BaseClasses
             m_Node = node;
         }
 
-        public CNRelease(bool[] bRestrain, int fTime)
+        public CNRelease(int eNDOF, bool[] bRestrain, int fTime)
         {
+            m_eNDOF = eNDOF;
             m_bRestrain = bRestrain;
             m_fTime = fTime;
         }
 
-        public CNRelease(CNode Node,bool[] bRestrain,int fTime)
+        public CNRelease(int eNDOF, CNode Node, bool[] bRestrain, int fTime)
         {
+            m_eNDOF = eNDOF;
             m_Node = Node;
             m_bRestrain = bRestrain;
             m_fTime = fTime;
         }
 
-        public CNRelease(CNode Node, CMember Member, bool[] bRestrain, int fTime)
+        public CNRelease(int eNDOF, CNode Node, CMember Member, bool[] bRestrain, int fTime)
         {
+            m_eNDOF = eNDOF;
             m_Node = Node;
             m_Member = Member;
             m_bRestrain = bRestrain;

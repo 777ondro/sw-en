@@ -19,7 +19,8 @@ namespace BaseClasses
         // false - 0 - free DOF
         // true - 1 - restrained (rigid)
 
-        public bool[] m_bRestrain = new bool [6]; // Array of boolean values, UX, UY, UZ, RX, RY, RZ
+        public int m_eNDOF;
+        public bool[] m_bRestrain; // Array of boolean values, UX, UY, UZ, RX, RY, RZ
         public int m_fTime;
 
         //----------------------------------------------------------------------------
@@ -42,13 +43,15 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CNSupport()
+        public CNSupport(int eNDOF)
         {
-
+            m_bRestrain = new bool[(int)eNDOF];
         }
 
-        public CNSupport(int iSupport_ID,CNode Node, bool[] bRestrain, int fTime)
+        public CNSupport(int eNDOF, int iSupport_ID,CNode Node, bool[] bRestrain, int fTime)
         {
+            m_eNDOF = eNDOF;
+            m_bRestrain = new bool[(int)eNDOF];
             m_iSupport_ID = iSupport_ID;
             m_Node = Node;
             m_bRestrain = bRestrain;
