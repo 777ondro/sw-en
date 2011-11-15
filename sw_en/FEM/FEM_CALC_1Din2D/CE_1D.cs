@@ -529,7 +529,7 @@ namespace FEM_CALC_1Din2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // posuvne ulozenie - valcovy klb / spojite rovnomerne zatazenie - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_00__0_()
+        private float[,] GetLocMatrix_2D_00___0_()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
@@ -556,7 +556,7 @@ namespace FEM_CALC_1Din2D
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_a();
                     break;
                 case EElemSuppType.e2DEl_00___0_:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__0_();
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00___0_();
                     break;
                 case EElemSuppType.e2DEl_000____:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000____();
