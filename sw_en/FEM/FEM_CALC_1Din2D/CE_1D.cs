@@ -51,6 +51,7 @@ namespace FEM_CALC_1Din2D
         public CMember m_Member = new CMember();
         public CCrSc m_CrSc = new CCrSc();
         public CMLoad m_ELoad;
+        EElemSuppType m_eSuppType;
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
@@ -123,26 +124,7 @@ namespace FEM_CALC_1Din2D
 
         public void FillBasic2()
         {
-
-            // Displacement
-            // doplnit vektor premiestneni pruta - sklada sa z vektorov pre zac a konc. uzol
-            // SMemberDisp sElemDisp;
-
-            //// Fill Element Nodes Displacement
-            //for (int i = 0; i < 12; i++)
-            //{
-            //    if (i < 6)
-            //        m_ArrDisp[i] = m_NodeStart.m_ArrDisp[i];   // Fill with Start Node
-            //    else
-            //        m_ArrDisp[i] = m_NodeEnd.m_ArrDisp[i - 6]; // Fill with End Node
-            //}
-
             // Element / Member load
-
-
-
-
-
 
 
 
@@ -157,47 +139,30 @@ namespace FEM_CALC_1Din2D
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
             m_fCosAlpha = (float)Math.Cos(m_fAlpha);
 
-            //// 2D
-            //// Transformation Matrix of Element Rotation - 2D
-            //m_fATRMatr2D = new float[3, 3]
-            //{
-            //{  m_fCosAlpha,     m_fSinAlpha,    0f },
-            //{ -m_fSinAlpha,     m_fCosAlpha,    0f },
-            //{           0f,              0f,    1f }
-            //};
+            // 2D
+            // Transformation Matrix of Element Rotation - 2D
+            m_fATRMatr2D.m_fArrMembers = new float[Constants.i2D_DOFNo, Constants.i2D_DOFNo]
+            {
+            {  m_fCosAlpha,     m_fSinAlpha,    0f },
+            { -m_fSinAlpha,     m_fCosAlpha,    0f },
+            {           0f,              0f,    1f }
+            };
 
 
-            //// Transformation Transfer Matrix - 2D
-            //m_fBTTMatr2D = new float[3, 3]
-            //{
-            //{           -1f,              0f,    0f },
-            //{            0f,             -1f,    0f },
-            //{  -m_fLength_Y,     m_fLength_X,   -1f }
-            //};
+            // Transformation Transfer Matrix - 2D
+            m_fBTTMatr2D.m_fArrMembers = new float[Constants.i2D_DOFNo, Constants.i2D_DOFNo]
+            {
+            {           -1f,              0f,    0f },
+            {            0f,             -1f,    0f },
+            {  -m_fLength_Y,     m_fLength_X,   -1f }
+            };
 
-
+            // Get Element support type
+            // Depends on nodal support and element releases
+            m_eSuppType = Get_iElemSuppType();  // ROZPRACOVANE
+            
             // Get local matrix acc. to end support/restraint of element
-
-            //// 2D
-            //switch (iSuppType)
-            //{
-            //    case 0:
-            //        m_fkLocMatr = GetLocMatrix_2D0();
-            //        break;
-            //    case 1:
-            //        m_fkLocMatr = GetLocMatrix_2D1();
-            //        break;
-            //    case 2:
-            //        m_fkLocMatr = GetLocMatrix_2D2();
-            //        break;
-            //    case 3:
-            //        m_fkLocMatr = GetLocMatrix_2D3();
-            //        break;
-
-            //    default:
-            //        // Error
-            //        break;
-            //}
+            GetLocMatrix_2D();
 
             // Check of partial matrices members
 
@@ -423,6 +388,24 @@ namespace FEM_CALC_1Din2D
 
         }
 
+        private EElemSuppType Get_iElemSuppType()
+        {
+            // ROZPRACOVANE, zahrnut aj klby
+
+            if (
+                (
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) &&
+                (m_Member.CnRelease1 == null && m_Member.CnRelease2 == null)
+                )
+                return EElemSuppType.e2DEl_000_000;
+            else
+                return EElemSuppType.e2DEl_000____;
+
+
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Definition of local stiffeness matrixes depending on loading and restraints
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -561,6 +544,29 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
+
+        private void GetLocMatrix_2D()
+        {
+            switch (m_eSuppType)
+            {
+                case EElemSuppType.e2DEl_000_000:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_000();
+                    break;
+                case EElemSuppType.e2DEl_000_00_:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_a();
+                    break;
+                case EElemSuppType.e2DEl_00___0_:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__0_();
+                    break;
+                case EElemSuppType.e2DEl_000____:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000____();
+                    break;
+
+                default:
+                    // Error or unsupported element
+                    break;
+            }
+        }
 
 
 

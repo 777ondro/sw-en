@@ -19,6 +19,7 @@ namespace CENEX
         public string m_sProjectName;
         public string m_sConstObjectName;
         public string m_sFileName;
+        public int m_eNDOF;
 
         // Physical Model / Structural data
         // Collection of references to objects
@@ -58,11 +59,12 @@ namespace CENEX
             m_sFileName = sFileName;
         }
         // Alokuje velkost poli zoznamov, malo by to byt dymamicke
-        public CModel(string sFileName,
+        public CModel(string sFileName, int eNDOF,
             int iMatNum, int iCrScNum, int iNodeNum,
             int iMemNum, int iNSupNum, int iNLoadNum,
             int iMLoadNum, int iLoadCaseNum, int iLoadComNum)
         {
+            m_eNDOF = eNDOF;
             m_arrMat = new CMat_00[iMatNum];
             m_arrCrSc = new CCrSc[iCrScNum];
             m_arrNodes = new CNode[iNodeNum];

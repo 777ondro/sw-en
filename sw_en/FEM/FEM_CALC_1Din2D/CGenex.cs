@@ -36,7 +36,7 @@ namespace FEM_CALC_1Din2D
             // Nodes
             for (int i = 0; i < TopoModel.m_arrNodes.Length; i++)
             {
-                CFemNode TempNode = new CFemNode(TopoModel.m_arrNodes[i]);
+                CFemNode TempNode = new CFemNode(TopoModel.m_arrNSupports,TopoModel.m_arrNodes[i]);
                 m_arrFemNodes[i] = TempNode;
             }
 

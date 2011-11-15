@@ -134,9 +134,9 @@ namespace CENEX
             // Create Support Objects
             // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovana tato podpora
             // objekt podpory bude len jeden a dotknute uzly budu vediet ze na ich podpora existuje a ake je konkretne ID jej nastaveni
-            arrNSupports[0] = new BaseClasses.CNSupport(1, arrNodes[0], bSupport1, 0);
-            arrNSupports[1] = new BaseClasses.CNSupport(2, arrNodes[2], bSupport2, 0);
-            arrNSupports[2] = new BaseClasses.CNSupport(3, arrNodes[5], bSupport3, 0);
+            arrNSupports[0] = new BaseClasses.CNSupport(6,1, arrNodes[0], bSupport1, 0);
+            arrNSupports[1] = new BaseClasses.CNSupport(6,2, arrNodes[2], bSupport2, 0);
+            arrNSupports[2] = new BaseClasses.CNSupport(6,3, arrNodes[5], bSupport3, 0);
 
             // Sort by ID
             Array.Sort(arrNSupports, new BaseClasses.CCompare_NSupportID());
@@ -154,8 +154,8 @@ namespace CENEX
 
 
             // Create Release / Hinge Objects
-            arrMembers[7].CnRelease1 = new BaseClasses.CNRelease(bMembRelase4, 0);
-            arrMembers[8].CnRelease2 = new BaseClasses.CNRelease(bMembRelase4, 0);
+            arrMembers[7].CnRelease1 = new BaseClasses.CNRelease(6,bMembRelase4, 0);
+            arrMembers[8].CnRelease2 = new BaseClasses.CNRelease(6,bMembRelase4, 0);
 
             // Nodal Forces - fill values
 
