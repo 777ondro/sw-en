@@ -106,6 +106,7 @@ namespace FEM_CALC_1Din2D
             Member0.IMember_ID = 1;
             Member0.INode1 = TopoModel.m_arrNodes[0];
             Member0.INode2 = TopoModel.m_arrNodes[1];
+            Member0.CrSc = TopoModel.m_arrCrSc[0];
 
             TopoModel.m_arrMembers[0] = Member0;
 
@@ -114,6 +115,7 @@ namespace FEM_CALC_1Din2D
             Member1.IMember_ID = 2;
             Member1.INode1 = TopoModel.m_arrNodes[1];
             Member1.INode2 = TopoModel.m_arrNodes[2];
+            Member1.CrSc = TopoModel.m_arrCrSc[0];
 
             TopoModel.m_arrMembers[1] = Member1;
 
@@ -122,6 +124,7 @@ namespace FEM_CALC_1Din2D
             Member2.IMember_ID = 3;
             Member2.INode1 = TopoModel.m_arrNodes[2];
             Member2.INode2 = TopoModel.m_arrNodes[3];
+            Member2.CrSc = TopoModel.m_arrCrSc[0];
 
             TopoModel.m_arrMembers[2] = Member2;
 
@@ -130,6 +133,7 @@ namespace FEM_CALC_1Din2D
             Member3.IMember_ID = 4;
             Member3.INode1 = TopoModel.m_arrNodes[2];
             Member3.INode2 = TopoModel.m_arrNodes[4];
+            Member3.CrSc = TopoModel.m_arrCrSc[0];
 
             TopoModel.m_arrMembers[3] = Member3;
 
@@ -234,11 +238,31 @@ namespace FEM_CALC_1Din2D
             LoadComb0.ILoadComb_ID = 1;
 
             TopoModel.m_arrLoadCombs[0] = LoadComb0;
-
-
-
+            
             // Generate FEM model data from Topological model
             FEMModel = new CGenex(TopoModel);
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Prepare solver data
+            // Fill local and global matrices
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            //FEMModel.m_arrFemMembers[0].FillBasic2();
+            //FEMModel.m_arrFemMembers[1].FillBasic2();
+            //FEMModel.m_arrFemMembers[2].FillBasic2();
+            //FEMModel.m_arrFemMembers[3].FillBasic2();
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
