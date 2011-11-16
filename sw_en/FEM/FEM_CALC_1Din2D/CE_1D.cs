@@ -41,9 +41,9 @@ namespace FEM_CALC_1Din2D
 
 
         // 2D Matrices 
-        CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);   // 3x3
-        CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);  // 3x3
-        CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo, Constants.i2D_DOFNo);  // 3x3
+        CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo);   // 3x3
+        CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
+        CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
         CMatrix m_fKGlobM;     // (2x3)*(2x3)
 
         public CFemNode m_NodeStart =  new CFemNode();
@@ -159,46 +159,34 @@ namespace FEM_CALC_1Din2D
 
             // Get Element support type
             // Depends on nodal support and element releases
-            m_eSuppType = Get_iElemSuppType();  // ROZPRACOVANE
+            m_eSuppType = Get_iElemSuppType();
             
             // Get local matrix acc. to end support/restraint of element
             GetLocMatrix_2D();
 
             // Check of partial matrices members
 
-            // Partial matrices of global matrix of member 6 x 6
-            //Console.WriteLine(CM.Print2DMatrix(GetPartM_k11(m_fkLocMatr, m_fAMatr2D), 6));
+            // Partial matrices of global matrix of member 3 x 3
+            Console.WriteLine(m_fkLocMatr.Print2DMatrix());
 
-            // Return partial matrixes and global matrix of FEM element
+            // Return partial matrixes and global matrix of FEM element 6 x 6 (2*3x2*3) 2D
 
-            // 2D
-
-        //    m_fKGlobM = fGetGlobM(
-        //    GetPartM_k11(m_fkLocMatr, m_fATRMatr2D),
-        //    GetPartM_k12(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
-        //    GetPartM_k21(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
-        //    GetPartM_k22(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D)
-        //    );
+            m_fKGlobM = new CMatrix(
+            GetPartM_k11(m_fkLocMatr, m_fATRMatr2D),
+            GetPartM_k12(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
+            GetPartM_k21(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
+            GetPartM_k22(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D)
+            );
         }
-
-        //public void Fill_EDisp_Init()
-        //{
-        //    m_ArrDisp[c.UX] = float.PositiveInfinity;
-        //    m_ArrDisp[c.UY] = float.PositiveInfinity;
-        //    m_ArrDisp[c.RZ] = float.PositiveInfinity;
-
-        //    // Temporary
-        //    m_ArrDisp[c.RZ + 1] = float.PositiveInfinity;
-        //    m_ArrDisp[c.RZ + 2] = float.PositiveInfinity;
-        //    m_ArrDisp[c.RZ + 3] = float.PositiveInfinity;
-        //}
 
         public void Fill_ECode_Init()
         {
+           // Start Node
            m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
            m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
            m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
 
+           // End Node
            m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
            m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
            m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
@@ -294,116 +282,82 @@ namespace FEM_CALC_1Din2D
             return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_X, m_GCS_Y);
         }
 
-        // Transformation Matrix of Element Rotation - 3D
-        // 2x2 - 3x3
-        public float[,][,] Get_AMatr3D0()
-        {
-            /*
-            // Angles
-            SGCSAngles sAngles = Get_Angles();
-
-            // Matrix Members
-            float flambda1 = (float)Math.Cos(sAngles.fAngleXx0);
-            float flambda2 = (float)Math.Cos(sAngles.fAngleXy0);
-            float flambda3 = (float)Math.Cos(sAngles.fAngleXz0);
-
-            float fmu1 = (float)Math.Cos(sAngles.fAngleYx0);
-            float fmu2 = (float)Math.Cos(sAngles.fAngleYy0);
-            float fmu3 = (float)Math.Cos(sAngles.fAngleYz0);
-
-            float fv1 = (float)Math.Cos(sAngles.fAngleZx0);
-            float fv2 = (float)Math.Cos(sAngles.fAngleZy0);
-            float fv3 = (float)Math.Cos(sAngles.fAngleZz0);
-
-             */
-
-            float[,] RPart = new float[3, 3];
-            //RPart = CM.fTransMatrix(m_fLength_X, m_fLength_Y, m_fLength, m_frotation_angle, m_fC_GCS_Coord);
-
-            /*
-            float[,] RPart = new float[3, 3]
-            {
-            {  flambda1,   fmu1,   fv1 },
-            {  flambda2,   fmu2,   fv2 },
-            {  flambda3,   fmu3,   fv3 }
-            };
-            */
-
-            float[,] MZero = new float[3, 3]
-            {
-            {  0f,   0f,   0f },
-            {  0f,   0f,   0f },
-            {  0f,   0f,   0f }
-            };
-
-            // Local Stiffeness Matrix
-            return new float[2, 2][,] 
-            {
-            {  RPart, MZero },
-            {  MZero, RPart }
-            };
-        }
-
-        private float Get_Angle1(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
-        {
-            if (fl_inGCSPlane == 0f) // Paralel to the axis // Perpendicular to the plane
-                return (float)Math.Acos(fl_inGCSAxis / m_fLength);
-            else if (fl_inGCSAxis == 0f)  // Perpendicular to the axis // Paralel to the axis
-            {
-                if (fl_GCSAxis > 0f)
-                    return 0f;
-                else
-                    return -(float)Math.PI; 
-            }
-            else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
-        }
-
-        private float Get_Angle2(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
-        {
-            if (fl_inGCSPlane == 0f) // Paralel to the axis // Perpendicular to the plane
-            {
-                if(fl_inGCSAxis > 0f)
-                return -(float)Math.PI / 2f;
-                else
-                 return -(float)Math.PI * 3f / 2f;
-            }
-            else if (fl_inGCSAxis == 0f)  // Perpendicular to the axis // Paralel to the axis
-            {
-                if (fl_GCSAxis > 0f)
-                    return -(float)Math.PI;
-                else
-                    return -((float)Math.PI * 3f / 2f);
-            }
-            else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
-        }
-
-        private float Get_Angle3(float fl_inGCSAxis, float fl_inGCSPlane)
-        {
-            if (fl_inGCSPlane == 0f || fl_inGCSAxis == 0f) // Paralel to the axis // Perpendicular to the plane
-                return -(float)Math.PI / 2f;
-            else
-                return -(float)Math.Acos((fl_inGCSAxis / m_fLength) + (float)Math.PI / 2f);
-
-        }
-
         private EElemSuppType Get_iElemSuppType()
         {
             // ROZPRACOVANE, zahrnut aj klby
 
-            if (
-                (
-                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) &&
+            // Is DOF free?
+            // true - yes, it is
+            // false - no, it isnt
+
+            if  (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) &&
                 (m_Member.CnRelease1 == null && m_Member.CnRelease2 == null)
                 )
                 return EElemSuppType.e2DEl_000_000;
-            else
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true)       
+                )
                 return EElemSuppType.e2DEl_000____;
-
-
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
+                (m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true)
+                )
+                return EElemSuppType.e2DEl_____000;
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                )
+                return EElemSuppType.e2DEl_00___0_;
+            else if
+                (
+                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                 ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                )
+                return EElemSuppType.e2DEl__0__00_;
+            else if
+                (
+                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                 ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                )
+                return EElemSuppType.e2DEl_00__00_;
+            else
+                return EElemSuppType.e2DEl________; // Not implemented
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -525,7 +479,7 @@ namespace FEM_CALC_1Din2D
         }
         #endregion
 
-        #region 2D_00__0_
+        #region 2D_00___0_
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // posuvne ulozenie - valcovy klb / spojite rovnomerne zatazenie - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -545,6 +499,7 @@ namespace FEM_CALC_1Din2D
         }
         #endregion
 
+        #region Local stiffeness matrix of member in 2D 
         private void GetLocMatrix_2D()
         {
             switch (m_eSuppType)
@@ -553,21 +508,28 @@ namespace FEM_CALC_1Din2D
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_000();
                     break;
                 case EElemSuppType.e2DEl_000_00_:
+                case EElemSuppType.e2DEl_00__000:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_a();
                     break;
+                case EElemSuppType.e2DEl_000_0_0:
+                case EElemSuppType.e2DEl_0_0_000:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_0_0();
+                    break;
                 case EElemSuppType.e2DEl_00___0_:
+                case EElemSuppType.e2DEl__0__00_:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00___0_();
                     break;
                 case EElemSuppType.e2DEl_000____:
+                case EElemSuppType.e2DEl_____000:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000____();
                     break;
-
                 default:
-                    // Error or unsupported element
+                    // Error or unsupported element - exception
+                    m_fkLocMatr.m_fArrMembers = null;
                     break;
             }
         }
-
+        #endregion
 
 
 
@@ -621,54 +583,41 @@ namespace FEM_CALC_1Din2D
 
         // GENERAL FEM OPERATIONS
 
-        //// Return partial matrix k11 of global matrix of FEM 1D element
-        //float[,] GetPartM_k11(float[,] fMk_0, float[,] fMA)
-        //{
-        //    // [fMA]T * [fMk_0] * [fMA] 
-
-        //    // Output Matrix
-        //    return CM.fMultiplyMatr(CM.fMultiplyMatr(CM.GetTransMatrix(fMA), fMk_0), fMA);
-        //}
-
-        //// Return partial matrix k12 of global matrix of FEM 1D element
-        //float[,] GetPartM_k12(float[,] fMk_0, float[,] fMA, float[,] fMB)
-        //{
-        //    // Output Matrix
-        //    return CM.GetTransMatrix(CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA)));
-        //}
-
-        //// Return partial matrix k21 of global matrix of FEM 1D element
-        //float[,] GetPartM_k21(float[,] fMk_0, float[,] fMA, float[,] fMB)
-        //{
-        //    // Output Matrix
-        //    return CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA));
-        //}
-
-        //// Return partial matrix k22 of global matrix of FEM 1D element
-        //float[,] GetPartM_k22(float[,] fMk_0, float[,] fMA, float[,] fMB)
-        //{
-        //    // Output Matrix
-        //    return CM.fMultiplyMatr(fMB, CM.GetTransMatrix(CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA))));
-        //}
-
-        float[,][,] fGetGlobM(float[,] fMk11, float[,] fMk12, float[,] fMk21, float[,] fMk22)
+        // Return partial matrix k11 of global matrix of FEM 1D element
+        CMatrix GetPartM_k11(CMatrix fMk_0, CMatrix fMA)
         {
-            // Number of Matrix M rows and columns
-            
-            // 2D
-            int iM_iRowsMax = 3;
-            int iM_jColsMax = 3;
-
-            // 3D
-             iM_iRowsMax = 6;
-             iM_jColsMax = 6;
+            // [fMA]T * [fMk_0] * [fMA] 
 
             // Output Matrix
-            return new float[2,2][,]
-            {
-                {fMk11, fMk12},    
-                {fMk21, fMk22}
-            };
+            return MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(MatrixF.GetTransMatrix(fMA), fMk_0), fMA);
+        }
+
+        // Return partial matrix k12 of global matrix of FEM 1D element
+        CMatrix GetPartM_k12(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
+        {
+            // Output Matrix
+            return MatrixF.GetTransMatrix(MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA)));
+        }
+
+        // Return partial matrix k21 of global matrix of FEM 1D element
+        CMatrix GetPartM_k21(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
+        {
+            // Output Matrix
+            return MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA));
+        }
+
+        // Return partial matrix k22 of global matrix of FEM 1D element
+        CMatrix GetPartM_k22(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
+        {
+            // Output Matrix
+            return MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA))));
+        }
+
+        CMatrix fGetGlobM(CMatrix fMk11, CMatrix fMk12, CMatrix fMk21, CMatrix fMk22)
+        {
+            // Number of Matrix M rows and columns
+            // Output Matrix
+            return new CMatrix( fMk11, fMk12, fMk21,fMk22);
         }
 
 
@@ -692,11 +641,11 @@ namespace FEM_CALC_1Din2D
         //public void GetArrElemEF_GCS_StNode()
         //{
         //    m_ArrElemEF_GCS_StNode =
-        //        CM.fGetSum(
+        //        MatrixF.fGetSum(
         //        m_ArrElemPEF_GCS_StNode,
-        //        CM.fGetSum(
-        //        CM.fMultiplyMatr(GetPartM_k11(m_fkLocMatr, m_fAMatr2D), m_NodeStart.m_ArrDisp),
-        //        CM.fMultiplyMatr(GetPartM_k12(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
+        //        MatrixF.fGetSum(
+        //        MatrixF.fMultiplyMatr(GetPartM_k11(m_fkLocMatr, m_fAMatr2D), m_NodeStart.m_ArrDisp),
+        //        MatrixF.fMultiplyMatr(GetPartM_k12(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
         //        )
         //        );
         //}
@@ -706,11 +655,11 @@ namespace FEM_CALC_1Din2D
         //public void GetArrElemEF_GCS_EnNode()
         //{
         //    m_ArrElemEF_GCS_EnNode =
-        //        CM.fGetSum(
+        //        MatrixF.fGetSum(
         //        m_ArrElemPEF_GCS_EnNode,
-        //        CM.fGetSum(
-        //        CM.fMultiplyMatr(GetPartM_k21(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeStart.m_ArrDisp),
-        //        CM.fMultiplyMatr(GetPartM_k22(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
+        //        MatrixF.fGetSum(
+        //        MatrixF.fMultiplyMatr(GetPartM_k21(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeStart.m_ArrDisp),
+        //        MatrixF.fMultiplyMatr(GetPartM_k22(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
         //        )
         //        );
         //}
@@ -723,14 +672,14 @@ namespace FEM_CALC_1Din2D
         ////  [EF_LCS i] = [A0] * [EF_GCS i]
         //public void GetArrElemEF_LCS_StNode()
         //{
-        //    m_ArrElemEF_LCS_StNode = CM.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_StNode);
+        //    m_ArrElemEF_LCS_StNode = MatrixF.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_StNode);
         //}
 
         //// End Node Vector - 1 x 6
         //// [EF_LCS j] = [A0] * [EF_GCS j]
         //public void GetArrElemEF_LCS_EnNode()
         //{
-        //    m_ArrElemEF_LCS_EnNode = CM.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_EnNode);
+        //    m_ArrElemEF_LCS_EnNode = MatrixF.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_EnNode);
         //}
 
 
@@ -743,7 +692,7 @@ namespace FEM_CALC_1Din2D
         //public void GetArrElemIF_LCS_StNode()
         //{
         //    int [] fTempSignTransf = new int[6] { -1, -1, -1, -1, -1, 1 };
-        //    m_ArrElemIF_LCS_StNode = CM.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_StNode);
+        //    m_ArrElemIF_LCS_StNode = MatrixF.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_StNode);
         //}
 
         //// End Node Vector - 1 x 6
@@ -751,7 +700,7 @@ namespace FEM_CALC_1Din2D
         //public void GetArrElemIF_LCS_EnNode()
         //{
         //    int[] fTempSignTransf = new int[6] { 1, 1, 1, 1, 1, -1 };
-        //    m_ArrElemIF_LCS_EnNode = CM.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
+        //    m_ArrElemIF_LCS_EnNode = MatrixF.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
         //}
 
 

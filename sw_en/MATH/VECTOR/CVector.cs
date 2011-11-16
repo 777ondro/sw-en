@@ -23,9 +23,6 @@ namespace MATH
             set { m_fVectorItems = value; }
         }
 
-
-
-
         public CVector()
         { 
         
@@ -34,12 +31,12 @@ namespace MATH
         public CVector(int i)
         {
             m_iRows = i;
+            m_fVectorItems = new float [i];
         }
         public CVector(int i, params float[] fV)
         {
             m_iRows = i;
-            m_fVectorItems = GetVectorSum(i, fV);
-
+            m_fVectorItems = new float[i];
         }
 
 
