@@ -39,7 +39,6 @@ namespace FEM_CALC_1Din2D
         CVector m_VElemIF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
         CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
-
         // 2D Matrices 
         CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo);   // 3x3
         CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
@@ -64,7 +63,6 @@ namespace FEM_CALC_1Din2D
         public CE_1D() 
         {
             // Fill Arrays / Initialize
-            //Fill_EDisp_Init();
             Fill_EEndsLoad_Init();
         }
         public CE_1D(CMember mMember, CFemNode NStart, CFemNode NEnd, int iSuppType)
@@ -78,6 +76,9 @@ namespace FEM_CALC_1Din2D
             // Support type
             m_iSuppType = iSuppType;
 
+            // Cross-section
+            m_CrSc = m_Member.CrSc;
+
             FillBasic2();
 
         } // End of constructor
@@ -88,10 +89,13 @@ namespace FEM_CALC_1Din2D
             m_Member = FemModel.m_arrFemMembers[iMemberID];
 
             // Nodes
-            m_NodeStart = FemModel.m_arrFemMembers[iMemberID].m_NodeStart;
-            m_NodeEnd = FemModel.m_arrFemMembers[iMemberID].m_NodeEnd;
+            m_NodeStart.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeStart);
+            m_NodeEnd.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeEnd);
             // Support type
             m_iSuppType = iSuppType;
+
+            // Cross-section
+            m_CrSc = m_Member.CrSc;
 
             FillBasic2();
 
@@ -103,10 +107,13 @@ namespace FEM_CALC_1Din2D
             m_Member = mMember;
 
             // Nodes
-            m_NodeStart.INode_ID = m_Member.INode1.INode_ID;
-            m_NodeEnd.INode_ID = m_Member.INode1.INode_ID;
+            m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
+            m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
             // Support type
             m_iSuppType = iSuppType;
+
+            // Cross-section
+            m_CrSc = m_Member.CrSc;
 
             FillBasic2();
         } // End of constructor
@@ -114,10 +121,14 @@ namespace FEM_CALC_1Din2D
         // Constructor - FEM Member is copy of topological member or segment
         public CE_1D(CMember TopoMember)
         {
-            IMember_ID = TopoMember.IMember_ID;
-            m_CrSc = (CCrSc)TopoMember.CrSc;
-            m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
-            m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
+            // Main member or segment
+            m_Member = TopoMember;
+            // Nodes
+            m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
+            m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
+
+            // Cross-section
+            m_CrSc = m_Member.CrSc;
 
             FillBasic2();
         }
@@ -204,7 +215,6 @@ namespace FEM_CALC_1Din2D
             m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] = 0f;
             m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] = 0f;
         }
-
 
         public float GetGCSLengh(float fCoordStart, float fCoordEnd, float fGCSCoord)
         {

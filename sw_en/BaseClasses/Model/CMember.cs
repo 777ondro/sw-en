@@ -110,12 +110,12 @@ namespace BaseClasses
         }
         // Constructor 4
         public CMember(
-    int iLine_ID,
-    CNode iNode1,
-    CNode iNode2,
-    CCrSc objCrSc,
-    int fTime
-    )
+            int iLine_ID,
+            CNode iNode1,
+            CNode iNode2,
+            CCrSc objCrSc,
+            int fTime
+            )
         {
             m_iMember_ID = iLine_ID;
             m_iNode1 = iNode1;
