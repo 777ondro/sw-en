@@ -455,7 +455,7 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
-            m_M_K_Structure = new CMatrix(iCodeNo);
+            m_M_K_Structure = new CMatrix(m_iCodeNo);
 
             // Fill Global Stiffeness Matrix
             FillGlobalMatrix();
@@ -704,22 +704,22 @@ namespace FEM_CALC_1Din3D
                         {
                             if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
                             {
-                                temp += (float)El_Temp.m_fKGlobM.m_fArrMembersABxCD[0,0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0,0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                             else  // [0,1] - partial stiffeness matrix k_12 / k_ab
                             {
-                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                         }
                         else                                                     // Current DOF is on End Node
                         {
                             if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [1,1] - partial stiffeness matrix k_22 / k_bb 
                             {
-                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                             else  // [1,0] - partial stiffeness matrix k_21 / k_ba
                             {
-                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                         }
                     }
