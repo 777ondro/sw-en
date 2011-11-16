@@ -62,6 +62,18 @@ namespace FEM_CALC_1Din2D
             }
         }
 
+
+        public void CopyTopoNodetoFemNode(CNode TopoNode)
+        { 
+        // 2D Environment
+        INode_ID = TopoNode.INode_ID;
+        FCoord_X = TopoNode.FCoord_X;
+        FCoord_Y = TopoNode.FCoord_Y;
+
+        FTime = TopoNode.FTime;
+        }
+
+
         // Function returns list of FEM 1D elements which includes given node
         // Do we need to store whole elements object (array of elements indexes should be enough) !!!
 
