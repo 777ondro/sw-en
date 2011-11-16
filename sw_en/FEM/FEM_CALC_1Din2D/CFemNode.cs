@@ -58,7 +58,6 @@ namespace FEM_CALC_1Din2D
                         m_ArrNodeDOF[(int)e2D_DOF.eRZ] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eRZ]; // !!! 2D Environment enum
                     }
                 }
-
             }
         }
 

@@ -26,7 +26,7 @@ namespace MATH
 
         public float [,] m_fArrMembers;
 
-        public CMatrix [,] m_fArrMembers22;
+        public CMatrix[,][,] m_fArrMembersABxCD;
 
         //-----------------------------------------------------------------------------------------------
         public CMatrix() {}
@@ -48,13 +48,13 @@ namespace MATH
         }
 
         //-----------------------------------------------------------------------------------------------
-        public CMatrix(CMatrix m11, CMatrix m12, CMatrix m21, CMatrix m22)
+        public CMatrix (CMatrix m11, CMatrix m12, CMatrix m21, CMatrix m22)
         {
-            m_fArrMembers22 = new CMatrix[2, 2];
-            m_fArrMembers22[0, 0] = m11;
-            m_fArrMembers22[0, 1] = m12;
-            m_fArrMembers22[1, 0] = m21;
-            m_fArrMembers22[1, 1] = m22;
+            m_fArrMembersABxCD = new CMatrix [2,2][,];
+            m_fArrMembersABxCD[0, 0] = m11;
+            m_fArrMembersABxCD[0, 1] = m12;
+            m_fArrMembersABxCD[1, 0] = m21;
+            m_fArrMembersABxCD[1, 1] = m22;
         }
 
 
@@ -140,51 +140,6 @@ namespace MATH
             return null;
             }
         }
-
-        public float[,] fGetSum(float[,] mat1, float[] mat2)
-        {
-            if ((int)Math.Sqrt(mat1.Length) == mat2.Length)
-            {
-                float[,] newMatrix = new float[(int)Math.Sqrt(mat1.Length), (int)Math.Sqrt(mat2.Length)];
-
-                for (int x = 0; x < (int)Math.Sqrt(mat1.Length); x++)
-                    for (int y = 0; y < mat2.Length; y++)
-                        newMatrix[x, y] = mat1[x, y] + mat2[x];
-
-                return newMatrix;
-            }
-            else
-            {
-                //Error - exception
-                return null;
-            }
-        }
-
-        public float[] fGetSum(float[] mat1, float[] mat2)
-        {
-            if (mat1.Length == mat2.Length)
-            {
-                float[] newMatrix = new float[mat1.Length];
-
-                for (int x = 0; x < mat1.Length; x++)
-                        newMatrix[x] = mat1[x] + mat2[x];
-
-                return newMatrix;
-            }
-            else
-            {
-                //Error - exception
-                return null;
-            }
-        }
-
-
-
-
-
-
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Inverse Matrix
@@ -412,25 +367,13 @@ namespace MATH
        */
 
 
-
-
-
-        void GetInverse(float[,] fM, double Mout, int actualsize)
-        {
-        
-        
-        }
-
-
-
-
         // Transformation matrix of Member rotation
 
         public float[,] fTransMatrix(float x_ba, float y_ba, float z_ba, float l, float angle, float[] fCoord_CA)
         {
-           // Podla prezentacie ppt ODM str. 25 
-            
-           // Output - 3x3 matrix
+            // Podla prezentacie ppt ODM str. 25 
+
+            // Output - 3x3 matrix
             /*
              a1  b1  c1
              a2  b2  c2
@@ -438,7 +381,7 @@ namespace MATH
              */
 
             // Local x-Axis
-           // Direction cosine
+            // Direction cosine
 
             float fa1 = x_ba / l;
             float fb1 = y_ba / l;
@@ -471,7 +414,7 @@ namespace MATH
             float fb3 = fa2 * fc1 - fa1 * fc2;
             float fc3 = fa1 * fb2 - fa2 * fb1;
 
-
+            //CMatrix fM = new CMatrix(3, 3);
 
             return new float[3, 3]
         {
@@ -479,9 +422,16 @@ namespace MATH
         {fa2, fb2, fc2 },
         {fa3, fb3 ,fc3 }
         };
+
         }
 
+        // Dokoncit
+        public CMatrix GetInverse(CMatrix fM, double Mout, int actualsize)
+        {
+            CMatrix fInvMatrix = new CMatrix(3, 3);
 
+            return fInvMatrix;
+        }
 
 
 
@@ -813,18 +763,6 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
 
 
         // Display / Print matrix
-
-        public string Print1DVector(float[] fV)
-        {
-            string sOutput = null;
-            foreach (float f in fV)
-            {
-                sOutput += f.ToString();
-                sOutput += "\n";
-            }
-
-            return sOutput;
-        }
 
         public string Print2DMatrix(float[,] fM, int iRows, int iColumns)
         {

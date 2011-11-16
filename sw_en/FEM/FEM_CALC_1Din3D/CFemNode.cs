@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using MATH;
 
 namespace FEM_CALC_1Din3D
 {
@@ -56,9 +57,9 @@ namespace FEM_CALC_1Din3D
 
         static int iNodeDOFNo = 6; // int ot static int !!!!
 
-        public float[] m_ArrDisp = new float [iNodeDOFNo];
+        public CVector m_ArrDisp = new CVector(iNodeDOFNo);
         public int[] m_ArrNCodeNo = new int [iNodeDOFNo];      // array of global codes numbers
-        public float[] m_ArrDirNodeLoad = new float [iNodeDOFNo];  // Direct nodal load
+        public CVector m_ArrDirNodeLoad = new CVector(iNodeDOFNo);  // Direct nodal load
 
         // Constructor 1
         public CFemNode() 
@@ -82,7 +83,7 @@ namespace FEM_CALC_1Din3D
         }
 
         // Constructor 3
-        public CFemNode(int iNNo, float[] ArrDisp, float[] ArrLoad)
+        public CFemNode(int iNNo, CVector ArrDisp, CVector ArrLoad)
         {
             INode_ID = iNNo;
             m_ArrDisp = ArrDisp;

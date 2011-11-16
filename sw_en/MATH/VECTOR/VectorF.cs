@@ -61,5 +61,72 @@ namespace MATH
 
             return fM;
         }
+
+        public static CVector fGetSum(CVector mat1, CVector mat2)
+        {
+            if (mat1.FVectorItems.Length == mat2.FVectorItems.Length)
+            {
+                CVector newMatrix = new CVector(mat1.FVectorItems.Length);
+
+                for (int x = 0; x < mat1.FVectorItems.Length; x++)
+                    newMatrix.FVectorItems[x] = mat1.FVectorItems[x] + mat2.FVectorItems[x];
+
+                return newMatrix;
+            }
+            else
+            {
+                //Error - exception
+                return null;
+            }
+        }
+
+        public static CVector fGetSum(CMatrix mat1, CVector mat2)
+        {
+            // Skontrolovat !!!!!!
+            if ((int)Math.Sqrt(mat1.m_fArrMembers.Length) == mat2.FVectorItems.Length)
+            {
+                CVector newMatrix = new CVector(mat2.FVectorItems.Length);
+
+                for (int x = 0; x < (int)Math.Sqrt(mat1.m_fArrMembers.Length); x++)
+                    for (int y = 0; y < mat2.FVectorItems.Length; y++)
+                        newMatrix.FVectorItems[x] = mat1.m_fArrMembers[x, y] + mat2.FVectorItems[x];
+
+                return newMatrix;
+            }
+            else
+            {
+                //Error - exception
+                return null;
+            }
+        }
+
+        public static CVector fGetSum(CVector mat2, CMatrix mat1)
+        {
+           return fGetSum(mat1, mat2);
+        }
+
+        public static string Print1DVector(float[] fV)
+        {
+            string sOutput = null;
+            foreach (float f in fV)
+            {
+                sOutput += f.ToString();
+                sOutput += "\n";
+            }
+
+            return sOutput;
+        }
+
+        public static string Print1DVector(CVector fV)
+        {
+            string sOutput = null;
+            foreach (float f in fV.FVectorItems)
+            {
+                sOutput += f.ToString();
+                sOutput += "\n";
+            }
+
+            return sOutput;
+        }
     }
 }

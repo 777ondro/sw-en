@@ -19,25 +19,25 @@ namespace FEM_CALC_1Din2D
 
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
-        CVector m_VElemPEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
-        CVector m_VElemPEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
+        public CVector m_VElemPEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        public CVector m_VElemPEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) primary forces in Global Coordinate System due to the transverse member load
-        CVector m_VElemPEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
-        CVector m_VElemPEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
+        public CVector m_VElemPEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        public CVector m_VElemPEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Results End Forces Vectors
         // Vector of member nodes (ends) forces in GCS
-        CVector m_VElemEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
-        CVector m_VElemEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
+        public CVector m_VElemEF_GCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        public CVector m_VElemEF_GCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) forces in LCS
-        CVector m_VElemEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
-        CVector m_VElemEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
+        public CVector m_VElemEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        public CVector m_VElemEF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) internal forces in LCS
-        CVector m_VElemIF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
-        CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
+        public CVector m_VElemIF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
+        public CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // 2D Matrices 
         CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo);   // 3x3

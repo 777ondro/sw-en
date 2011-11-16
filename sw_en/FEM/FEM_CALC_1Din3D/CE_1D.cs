@@ -44,9 +44,6 @@ namespace FEM_CALC_1Din3D
 
     public class CE_1D : CMember
     {
-        Constants c = new Constants();
-        public CMatrix CM;
-
         public int m_iSuppType;
         // Geometrical properties of Element
         public float m_flength_X, m_flength_Y, m_flength_Z, m_frotation_angle = 0f;
@@ -55,63 +52,59 @@ namespace FEM_CALC_1Din3D
 
         public float[] m_fC_GCS_Coord = new float[3]; // Relative oordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
         
-        public float[,] m_fkLocMatr;
+        public CMatrix m_fkLocMatr;
 
         static int iNodeDOFNo = 6; // int ot static int !!!!
 
         // Vector of member displacement
-        public float[] m_ArrDisp = new float[2*iNodeDOFNo];
+        public CVector m_ArrDisp = new CVector(2*Constants.iNodeDOFNo);
         // Array of global codes numbers of element desgress of freedom (Start node 0-5, and node 6-11)
-        public int[] m_ArrCodeNo = new int[2*iNodeDOFNo]; 
+        public int[] m_ArrCodeNo = new int[2 * Constants.iNodeDOFNo]; 
         
         
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public float[] m_ArrElemPEF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemPEF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        public CVector m_ArrElemPEF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
+        public CVector m_ArrElemPEF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
         // Vector of member ends primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public float[,] m_ArrElemPEF_LCS = new float[2, iNodeDOFNo];
+        public CMatrix m_ArrElemPEF_LCS = new CMatrix(2, Constants.iNodeDOFNo);
 
         // Vector of member nodes (ends) primary forces in global Coordinate System due to the transverse member load
-        public float[] m_ArrElemPEF_GCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemPEF_GCS_EnNode = new float[iNodeDOFNo];  // End Node
+        public CVector m_ArrElemPEF_GCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
+        public CVector m_ArrElemPEF_GCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
         // Vector of member ends primary forces in Global Coordinate System (GCS) due to the transverse member load
-        public float[,] m_ArrElemPEF_GCS = new float[2, iNodeDOFNo];
-
+        public CMatrix m_ArrElemPEF_GCS = new CMatrix(2, Constants.iNodeDOFNo);
 
         // Results End Forces Vectors
         // Vector of member nodes (ends) forces in GCS
-        public float[] m_ArrElemEF_GCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemEF_GCS_EnNode = new float[iNodeDOFNo];  // End Node
+        public CVector m_ArrElemEF_GCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
+        public CVector m_ArrElemEF_GCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
         // Vector of member nodes (ends) forces in LCS
-        public float[] m_ArrElemEF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemEF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        public CVector m_ArrElemEF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
+        public CVector m_ArrElemEF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
         // Vector of member nodes (ends) internal forces in LCS
-        public float[] m_ArrElemIF_LCS_StNode = new float[iNodeDOFNo];  // Start Node
-        public float[] m_ArrElemIF_LCS_EnNode = new float[iNodeDOFNo];  // End Node
+        public CVector m_ArrElemIF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
+        public CVector m_ArrElemIF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
 
 
 
         // 3D
-        public float[,] m_fAMatr3D;
-        public float[,] m_fBMatr3D;
+        public CMatrix m_fAMatr3D = new CMatrix(Constants.iNodeDOFNo);
+        public CMatrix m_fBMatr3D = new CMatrix(Constants.iNodeDOFNo);
 
-        // 2D
-        //float[,] m_fATRMatr2D;
-        //float[,] m_fBTTMatr2D;
-        public float[,][,]m_fKGlobM;
+        public CMatrix m_fKGlobM;  // (2x6)*(2x6)
 
-        public CFemNode m_NodeStart;
-        public CFemNode m_NodeEnd;
+        public CFemNode m_NodeStart = new CFemNode();
+        public CFemNode m_NodeEnd = new CFemNode();
         public CLoad m_ELoad;
 
-        public CMaterial m_Mat;
-        public CCrSc m_CrSc;
+        public CMaterial m_Mat = new CMaterial();
+        public CCrSc m_CrSc = new CCrSc();
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
@@ -125,7 +118,6 @@ namespace FEM_CALC_1Din3D
         public CE_1D() 
         {
             // Create and fill elements base data
-            FillBasic1();
 
             // Fill Arrays / Initialize
             Fill_EDisp_Init();
@@ -134,7 +126,6 @@ namespace FEM_CALC_1Din3D
         public CE_1D(CFemNode NStart, CFemNode NEnd, int iSuppType, CMaterial EMat, CCrSc ECrSc)
         {
             // Create and fill elements base data
-            FillBasic1();
 
             // Nodes
             m_NodeStart = NStart;
@@ -161,11 +152,6 @@ namespace FEM_CALC_1Din3D
           m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
         }
 
-        private void FillBasic1()
-        {
-            CM = new  CMatrix();
-        }
-
         public void FillBasic2()
         {
 
@@ -177,9 +163,9 @@ namespace FEM_CALC_1Din3D
             for (int i = 0; i < 12; i++)
             {
                 if (i < 6)
-                    m_ArrDisp[i] = m_NodeStart.m_ArrDisp[i];   // Fill with Start Node
+                    m_ArrDisp.FVectorItems[i] = m_NodeStart.m_ArrDisp.FVectorItems[i];   // Fill with Start Node
                 else
-                    m_ArrDisp[i] = m_NodeEnd.m_ArrDisp[i - 6]; // Fill with End Node
+                    m_ArrDisp.FVectorItems[i] = m_NodeEnd.m_ArrDisp.FVectorItems[i - 6]; // Fill with End Node
             }
 
             /*
@@ -291,33 +277,10 @@ namespace FEM_CALC_1Din3D
                     break;
             }
 
-            // 2D
-            /*switch (iSuppType)
-            {
-                case 0:
-                    m_fkLocMatr = GetLocMatrix_2D0();
-                    break;
-                case 1:
-                    m_fkLocMatr = GetLocMatrix_2D1();
-                    break;
-                case 2:
-                    m_fkLocMatr = GetLocMatrix_2D2();
-                    break;
-                case 3:
-                    m_fkLocMatr = GetLocMatrix_2D3();
-                    break;
-
-                default:
-                    // Error
-                    break;
-            }*/
-
             // Check of partial matrices members
 
             // Partial matrices of global matrix of member 6 x 6
-            Console.WriteLine(CM.Print2DMatrix(GetPartM_k11(m_fkLocMatr, m_fAMatr3D), 6));
-
-
+            Console.WriteLine(GetPartM_k11(m_fkLocMatr,m_fAMatr3D).Print2DMatrix());
 
 
 
@@ -330,77 +293,61 @@ namespace FEM_CALC_1Din3D
             GetPartM_k21(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D),
             GetPartM_k22(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D)
             );
-
-
-
-
-            // 2D
-            /*
-            m_fKGlobM = fGetGlobM(
-            GetPartM_k11(m_fkLocMatr, m_fATRMatr2D),
-            GetPartM_k12(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
-            GetPartM_k21(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D),
-            GetPartM_k22(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D)
-            ); */
-
-
-            
-
         }
 
         public void Fill_EDisp_Init()
         {
-            m_ArrDisp[c.UX] = float.PositiveInfinity;
-            m_ArrDisp[c.UY] = float.PositiveInfinity;
-            m_ArrDisp[c.UZ] = float.PositiveInfinity;
-            m_ArrDisp[c.RX] = float.PositiveInfinity;
-            m_ArrDisp[c.RY] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eUX] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eUY] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eUZ] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRX] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRY] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ] = float.PositiveInfinity;
 
             // Tempoerary
-            m_ArrDisp[c.RZ + 1] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ + 2] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ + 3] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ + 4] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ + 5] = float.PositiveInfinity;
-            m_ArrDisp[c.RZ + 6] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 1] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 2] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 3] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 4] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 5] = float.PositiveInfinity;
+            m_ArrDisp.FVectorItems[(int)e3D_DOF.eRZ + 6] = float.PositiveInfinity;
         }
 
         public void Fill_ECode_Init()
         {
-            m_ArrCodeNo[c.UX] = int.MaxValue;
-            m_ArrCodeNo[c.UY] = int.MaxValue;
-            m_ArrCodeNo[c.UZ] = int.MaxValue;
-            m_ArrCodeNo[c.RX] = int.MaxValue;
-            m_ArrCodeNo[c.RY] = int.MaxValue;
-            m_ArrCodeNo[c.RZ] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eUX] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eUY] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eUZ] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRX] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRY] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ] = int.MaxValue;
 
             // Temporary
-            m_ArrCodeNo[c.RZ + 1] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 2] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 3] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 4] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 5] = int.MaxValue;
-            m_ArrCodeNo[c.RZ + 6] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 1] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 2] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 3] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 4] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 5] = int.MaxValue;
+            m_ArrCodeNo[(int)e3D_DOF.eRZ + 6] = int.MaxValue;
         }
 
         public void Fill_EEndsLoad_Init()
         {
             // Start Node
-            m_ArrElemPEF_LCS[0, c.FX] = 0f;
-            m_ArrElemPEF_LCS[0, c.FY] = 0f;
-            m_ArrElemPEF_LCS[0, c.FZ] = 0f;
-            m_ArrElemPEF_LCS[0, c.MX] = 0f;
-            m_ArrElemPEF_LCS[0, c.MY] = 0f;
-            m_ArrElemPEF_LCS[0, c.MZ] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eFX] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eFY] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eFZ] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eMX] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eMY] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[0, (int)e3D_E_F.eMZ] = 0f;
 
             // End Node
-            m_ArrElemPEF_LCS[1, c.FX] = 0f;
-            m_ArrElemPEF_LCS[1, c.FY] = 0f;
-            m_ArrElemPEF_LCS[1, c.FZ] = 0f;
-            m_ArrElemPEF_LCS[1, c.MX] = 0f;
-            m_ArrElemPEF_LCS[1, c.MY] = 0f;
-            m_ArrElemPEF_LCS[1, c.MZ] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eFX] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eFY] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eFZ] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eMX] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eMY] = 0f;
+            m_ArrElemPEF_LCS.m_fArrMembers[1, (int)e3D_E_F.eMZ] = 0f;
         }
 
 
@@ -536,9 +483,8 @@ namespace FEM_CALC_1Din3D
 
              */
 
-            float[,] RPart = new float[3, 3];
-            RPart = CM.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
-            
+            CMatrix RPart = new CMatrix (3);
+            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
 
             /*
             float[,] RPart = new float[3, 3]
@@ -559,14 +505,14 @@ namespace FEM_CALC_1Din3D
             // Local Stiffeness Matrix
             return new float[2, 2][,] 
             {
-            {  RPart, MZero },
-            {  MZero, RPart }
+            {  RPart.m_fArrMembers, MZero },
+            {  MZero, RPart.m_fArrMembers }
             };
         }
 
         // Transformation Matrix of Element Rotation - 3D
         // 6x6
-        private float[,] Get_AMatr3D1()
+        private CMatrix Get_AMatr3D1()
         {
             /*
             // Angles
@@ -588,22 +534,22 @@ namespace FEM_CALC_1Din3D
 
              */
  
-
             
-            float[,] RPart = new float[3, 3];
-            RPart = CM.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
+            
+            CMatrix RPart = new CMatrix(3,3);
+            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
 
-            float flambda1 = RPart[0, 0];
-            float flambda2 = RPart[1, 0];
-            float flambda3 = RPart[2, 0];
+            float flambda1 = RPart.m_fArrMembers[0, 0];
+            float flambda2 = RPart.m_fArrMembers[1, 0];
+            float flambda3 = RPart.m_fArrMembers[2, 0];
 
-            float fmu1 = RPart[0, 1];
-            float fmu2 = RPart[1, 1];
-            float fmu3 = RPart[2, 1];
+            float fmu1 = RPart.m_fArrMembers[0, 1];
+            float fmu2 = RPart.m_fArrMembers[1, 1];
+            float fmu3 = RPart.m_fArrMembers[2, 1];
 
-            float fv1 = RPart[0, 2];
-            float fv2 = RPart[1, 2];
-            float fv3 = RPart[2, 2];
+            float fv1 = RPart.m_fArrMembers[0, 2];
+            float fv2 = RPart.m_fArrMembers[1, 2];
+            float fv3 = RPart.m_fArrMembers[2, 2];
             
 
             /*
@@ -615,7 +561,8 @@ namespace FEM_CALC_1Din3D
                  };
              */
 
-            return new float[6, 6]
+            CMatrix fM_output = new CMatrix(6);
+            fM_output.m_fArrMembers = new float[6, 6]
                 {
                 {    flambda1,   fmu1,   fv1,       0f,     0f,    0f },
                 {    flambda2,   fmu2,   fv2,       0f,     0f,    0f },
@@ -624,6 +571,8 @@ namespace FEM_CALC_1Din3D
                 {          0f,     0f,    0f, flambda2,   fmu2,   fv2 },
                 {          0f,     0f,    0f, flambda3,   fmu3,   fv3 },
                 };
+
+            return fM_output;
         }
 
 
@@ -632,25 +581,31 @@ namespace FEM_CALC_1Din3D
 
         // Transformation Transfer Matrix - 3D
         // 2x2 - 3x3
-        private float[,][,] Get_BMatr3D0()
+        private CMatrix Get_BMatr3D0()
         {
             // SubMatrix
             // Ksi (Xi) 
-            float[,] RXi = new float[3, 3]
+            CMatrix RXi = new CMatrix(3, 3);
+
+            RXi.m_fArrMembers = new float[3,3]
             {
             {            0f,   -m_flength_Z,   -m_flength_Y },
             {   m_flength_Z,             0f,   -m_flength_X },
             {  -m_flength_Y,    m_flength_X,             0f }
             };
 
-            float[,] MZero = new float[3, 3]
+            CMatrix MZero = new CMatrix(3, 3);
+
+            MZero.m_fArrMembers = new float[3, 3]
             {
             {  0f,   0f,   0f },
             {  0f,   0f,   0f },
             {  0f,   0f,   0f }
             };
 
-            float[,] EPart = new float[3, 3]
+            CMatrix EPart = new CMatrix(3, 3);
+
+            EPart.m_fArrMembers = new float[3, 3]
             {
             {  1f,   0f,   0f },
             {  0f,   1f,   0f },
@@ -658,19 +613,19 @@ namespace FEM_CALC_1Din3D
             };
 
             // Local Stiffeness Matrix
-            return new float[2, 2][,] 
-            {
-            {  CM.fChangeSignMatr(EPart),                    MZero },
-            {                       RXi, CM.fChangeSignMatr(EPart) }
-            };
+
+            // Matrix 2x2 * 3x3
+            CMatrix fM = new CMatrix(MatrixF.fChangeSignMatr(EPart), MZero, RXi, MatrixF.fChangeSignMatr(EPart));
+            return fM;
         }
 
 
         // Transformation Transfer Matrix - 3D
         // 6x6
-        private float[,] Get_BMatr3D1()
+        private CMatrix Get_BMatr3D1()
         {
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers = new float[6, 6]  
             {
             {           -1f,           0f,           0f,    0f,   0f,   0f },
             {            0f,          -1f,           0f,    0f,   0f,   0f },
@@ -680,6 +635,7 @@ namespace FEM_CALC_1Din3D
             {  -m_flength_Y,  m_flength_X,           0f,    0f,   0f,  -1f }
             };
 
+            return fM;
         }
 
         private SGCSAngles Get_Angles()
@@ -799,33 +755,11 @@ namespace FEM_CALC_1Din3D
         // Definition of local stiffeness matrixes depending on loading and restraints
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        #region 2D_000_000
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - votknutie 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_000()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_flength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,               0f,            0f },
-            {       0f,      f12EIy_len3,   f06EIy_len2 },
-            {       0f,      f06EIy_len2,   f04EIy_len1 }
-            };
-        }
-        #endregion
         #region 3D_000000_000000
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - votknutie - 3D - spojite zatazenie
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000000_000000()
+        private CMatrix GetLocMatrix_3D_000000_000000()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -843,7 +777,8 @@ namespace FEM_CALC_1Din3D
             float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers= new float[6, 6]  
             {
             {  fEA_len,          0f,            0f,         0f,            0f,            0f },
             {       0f, f12EIz_len3,            0f,         0f,            0f,   f06EIz_len2 },
@@ -852,36 +787,16 @@ namespace FEM_CALC_1Din3D
             {       0f,          0f,  -f06EIy_len2,         0f,   f04EIy_len1,            0f },
             {       0f, f06EIz_len2,            0f,         0f,            0f,   f04EIz_len1 }
             };
+
+            return fM;
         }
         #endregion
 
-        #region 2D_000_00_a
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - valcovy klb / osamele bremeno 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_00_a()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,                0f,           0f },
-            {       0f,      f3EIy_len3,   f3EIy_len2 },
-            {       0f,      f3EIy_len2,   f3EIy_len1 }
-            };
-        }
-        #endregion
         #region 3D_000000_000___a
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - valcovy klb / osamele bremeno - 3D / osamely krutiaci moment - 3D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000000_000___a()
+        private CMatrix GetLocMatrix_3D_000000_000___a()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -898,7 +813,8 @@ namespace FEM_CALC_1Din3D
             float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers = new float[6, 6]  
             {
             {  fEA_len,              0f,           0f,           0f,             0f,           0f },
             {       0f,      f3EIz_len3,           0f,           0f,             0f,   f3EIz_len2 },
@@ -907,36 +823,16 @@ namespace FEM_CALC_1Din3D
             {       0f,              0f,  -f3EIy_len2,           0f,     f3EIy_len1,           0f },
             {       0f,      f3EIz_len2,           0f,           0f,             0f,   f3EIz_len1 }
             };
+
+            return fM;
         }
         #endregion
 
-        #region 2D_000_00_b
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - valcovy klb / ohyb moment - 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_00_b()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {  fEA_len,             0f,           0f },
-            {       0f,     f3EIy_len3,   f3EIy_len2 },
-            {       0f,     f3EIy_len2,   f3EIy_len1 }
-            };
-        }
-        #endregion
         #region 3D_000000_000___b
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - valcovy klb / ohyb moment - 3D / skripta (bey tuhosti v kruteni)!!!!
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000000_000___b()
+        private CMatrix GetLocMatrix_3D_000000_000___b()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -952,7 +848,8 @@ namespace FEM_CALC_1Din3D
             float f3EIz_len1 = (3f * f_EIz) / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers = new float[6, 6]  
             {
             {  fEA_len,             0f,           0f,     0f,         0f,           0f },
             {       0f,     f3EIz_len3,           0f,     0f,         0f,   f3EIz_len2 },
@@ -961,36 +858,16 @@ namespace FEM_CALC_1Din3D
             {       0f,             0f,  -f3EIy_len2,     0f, f3EIy_len1,           0f },
             {       0f,     f3EIz_len2,           0f,     0f,         0f,   f3EIz_len1 }
             };
+
+            return fM;
         }
         #endregion
 
-        #region 2D_000_0_0
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - vidlicove ulozenie 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_0_0()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_flength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,                 0f,            0f },
-            {       0f,      f12EIy_len3,   f06EIy_len2 },
-            {       0f,      f06EIy_len2,   f04EIy_len1 }
-            };
-        }
-        #endregion
         #region 3D_000000_0_00_0
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - vidlicove ulozenie - 3D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000000_0_00_0()
+        private CMatrix GetLocMatrix_3D_000000_0_00_0()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -1008,7 +885,8 @@ namespace FEM_CALC_1Din3D
             float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers = new float[6, 6]  
             {
             {  fEA_len,          0f,            0f,         0f,            0f,            0f },
             {       0f, f12EIz_len3,            0f,         0f,            0f,   f06EIz_len2 },
@@ -1017,36 +895,16 @@ namespace FEM_CALC_1Din3D
             {       0f,          0f,  -f03EIy_len2,         0f,   f03EIy_len1,            0f },
             {       0f, f06EIz_len2,            0f,         0f,            0f,   f04EIz_len1 }
             };
+
+            return fM;
         }
         #endregion
 
-        #region 2D_000____
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - volny koniec konzola - 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000____()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,                0f,           0f },
-            {       0f,      f3EIy_len3,   f3EIy_len2 },
-            {       0f,      f3EIy_len2,   f3EIy_len1 }
-            };
-        }
-        #endregion
         #region 3D_000000_______
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - volny koniec - konzola - 3D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000000_______()
+        private CMatrix GetLocMatrix_3D_000000_______()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -1063,7 +921,8 @@ namespace FEM_CALC_1Din3D
             float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers= new float[6, 6]  
             {
             {  fEA_len,              0f,           0f,            0f,             0f,           0f },
             {       0f,      f3EIz_len3,           0f,            0f,             0f,   f3EIz_len2 },
@@ -1072,34 +931,17 @@ namespace FEM_CALC_1Din3D
             {       0f,              0f,  -f3EIy_len2,            0f,     f3EIy_len1,           0f },
             {       0f,      f3EIz_len2,           0f,            0f,             0f,   f3EIz_len1 }
             };
+
+            return fM;
         }
         #endregion
 
-        #region 2D_00__0_
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // posuvne ulozenie - valcovy klb / spojite rovnomerne zatazenie - 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_00__0_()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
-            float f3EIy_len3 = (3f * m_Mat.m_fE * m_CrSc.m_fIy) / (float)Math.Pow(m_flength, 3f);
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,          0f,    0f },
-            {       0f, f3EIy_len3,   0f },
-            {       0f,        0f,    0f }
-            };
-        }
-        #endregion
         #region 3D_000____00___
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // posuvne ulozenie - valcovy klb / spojite rovnomerne zatazenie - 3D
         // najst podklady pre priecne zatazenie !!!! ????????????????????????????????????????????????????????????????
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_3D_000____00___()
+        private CMatrix GetLocMatrix_3D_000____00___()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
@@ -1114,7 +956,8 @@ namespace FEM_CALC_1Din3D
             float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
 
             // Local Stiffeness Matrix
-            return new float[6, 6]  
+            CMatrix fM = new CMatrix(6);
+            fM.m_fArrMembers = new float[6, 6]  
             {
             {fEA_len,           0f,         0f,         0f,          0f,      0f },
             {       0f, f3EIz_len3,         0f,         0f,          0f,      0f },
@@ -1123,6 +966,8 @@ namespace FEM_CALC_1Din3D
             {       0f,         0f,-f3EIy_len2,         0f,  f3EIy_len1,      0f },
             {       0f,         0f,         0f,         0f,          0f,      0f }
             };
+
+            return fM;
         }
         #endregion
 
@@ -1179,53 +1024,40 @@ namespace FEM_CALC_1Din3D
         // GENERAL FEM OPERATIONS
 
         // Return partial matrix k11 of global matrix of FEM 1D element
-        float[,] GetPartM_k11(float[,] fMk_0, float[,] fMA)
+        CMatrix GetPartM_k11(CMatrix fMk_0, CMatrix fMA)
         {
             // [fMA]T * [fMk_0] * [fMA] 
 
             // Output Matrix
-            return CM.fMultiplyMatr(CM.fMultiplyMatr(CM.GetTransMatrix(fMA), fMk_0), fMA);
+            return MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(MatrixF.GetTransMatrix(fMA), fMk_0), fMA);
         }
 
         // Return partial matrix k12 of global matrix of FEM 1D element
-        float[,] GetPartM_k12(float[,] fMk_0, float[,] fMA, float[,] fMB)
+        CMatrix GetPartM_k12(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
         {
             // Output Matrix
-            return CM.GetTransMatrix(CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA)));
+            return MatrixF.GetTransMatrix(MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA)));
         }
 
         // Return partial matrix k21 of global matrix of FEM 1D element
-        float[,] GetPartM_k21(float[,] fMk_0, float[,] fMA, float[,] fMB)
+        CMatrix GetPartM_k21(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
         {
             // Output Matrix
-            return CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA));
+            return MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA));
         }
 
         // Return partial matrix k22 of global matrix of FEM 1D element
-        float[,] GetPartM_k22(float[,] fMk_0, float[,] fMA, float[,] fMB)
+        CMatrix GetPartM_k22(CMatrix fMk_0, CMatrix fMA, CMatrix fMB)
         {
             // Output Matrix
-            return CM.fMultiplyMatr(fMB, CM.GetTransMatrix(CM.fMultiplyMatr(CM.fMultiplyMatr(fMB, CM.GetTransMatrix(fMA)), CM.fMultiplyMatr(fMk_0, fMA))));
+            return MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(MatrixF.fMultiplyMatr(MatrixF.fMultiplyMatr(fMB, MatrixF.GetTransMatrix(fMA)), MatrixF.fMultiplyMatr(fMk_0, fMA))));
         }
 
-        float[,][,] fGetGlobM(float[,] fMk11, float[,] fMk12, float[,] fMk21, float[,] fMk22)
+        CMatrix fGetGlobM(CMatrix fMk11, CMatrix fMk12, CMatrix fMk21, CMatrix fMk22)
         {
             // Number of Matrix M rows and columns
-            
-            // 2D
-            int iM_iRowsMax = 3;
-            int iM_jColsMax = 3;
-
-            // 3D
-             iM_iRowsMax = 6;
-             iM_jColsMax = 6;
-
             // Output Matrix
-            return new float[2,2][,]
-            {
-                {fMk11, fMk12},    
-                {fMk21, fMk22}
-            };
+            return new CMatrix(fMk11, fMk12,fMk21, fMk22);
         }
 
 
@@ -1249,11 +1081,11 @@ namespace FEM_CALC_1Din3D
         public void GetArrElemEF_GCS_StNode()
         {
             m_ArrElemEF_GCS_StNode =
-                CM.fGetSum(
+                VectorF.fGetSum(
                 m_ArrElemPEF_GCS_StNode,
-                CM.fGetSum(
-                CM.fMultiplyMatr(GetPartM_k11(m_fkLocMatr, m_fAMatr3D), m_NodeStart.m_ArrDisp),
-                CM.fMultiplyMatr(GetPartM_k12(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeEnd.m_ArrDisp)
+                VectorF.fGetSum(
+                VectorF.fMultiplyMatrVectr(GetPartM_k11(m_fkLocMatr, m_fAMatr3D), m_NodeStart.m_ArrDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k12(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeEnd.m_ArrDisp)
                 )
                 );
         }
@@ -1263,11 +1095,11 @@ namespace FEM_CALC_1Din3D
         public void GetArrElemEF_GCS_EnNode()
         {
             m_ArrElemEF_GCS_EnNode =
-                CM.fGetSum(
+                VectorF.fGetSum(
                 m_ArrElemPEF_GCS_EnNode,
-                CM.fGetSum(
-                CM.fMultiplyMatr(GetPartM_k21(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeStart.m_ArrDisp),
-                CM.fMultiplyMatr(GetPartM_k22(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeEnd.m_ArrDisp)
+                VectorF.fGetSum(
+                VectorF.fMultiplyMatrVectr(GetPartM_k21(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeStart.m_ArrDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k22(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), m_NodeEnd.m_ArrDisp)
                 )
                 );
         }
@@ -1280,14 +1112,14 @@ namespace FEM_CALC_1Din3D
         //  [EF_LCS i] = [A0] * [EF_GCS i]
         public void GetArrElemEF_LCS_StNode()
         {
-            m_ArrElemEF_LCS_StNode = CM.fMultiplyMatr(m_fAMatr3D, m_ArrElemEF_GCS_StNode);
+            m_ArrElemEF_LCS_StNode = VectorF.fMultiplyMatrVectr(m_fAMatr3D, m_ArrElemEF_GCS_StNode);
         }
 
         // End Node Vector - 1 x 6
         // [EF_LCS j] = [A0] * [EF_GCS j]
         public void GetArrElemEF_LCS_EnNode()
         {
-            m_ArrElemEF_LCS_EnNode = CM.fMultiplyMatr(m_fAMatr3D, m_ArrElemEF_GCS_EnNode);
+            m_ArrElemEF_LCS_EnNode = VectorF.fMultiplyMatrVectr(m_fAMatr3D, m_ArrElemEF_GCS_EnNode);
         }
 
 
@@ -1299,16 +1131,16 @@ namespace FEM_CALC_1Din3D
         //  [IF_LCS i] = [-1,-1,-1,-1,-1,1] * [EF_LCS i]
         public void GetArrElemIF_LCS_StNode()
         {
-            int [] fTempSignTransf = new int[6] { -1, -1, -1, -1, -1, 1 };
-            m_ArrElemIF_LCS_StNode = CM.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_StNode);
+            CVector fTempSignTransf = new CVector(6, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f );
+            m_ArrElemIF_LCS_StNode = VectorF.fMultiplyVectors(fTempSignTransf, m_ArrElemEF_LCS_StNode);
         }
 
         // End Node Vector - 1 x 6
         // [IF_LCS j]  = [ 1, 1, 1, 1, 1,-1] * [EF_LCS j]
         public void GetArrElemIF_LCS_EnNode()
         {
-            int[] fTempSignTransf = new int[6] { 1, 1, 1, 1, 1, -1 };
-            m_ArrElemIF_LCS_EnNode = CM.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
+            CVector fTempSignTransf = new CVector(6, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, -1.0f);
+            m_ArrElemIF_LCS_EnNode = VectorF.fMultiplyVectors(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
         }
 
 

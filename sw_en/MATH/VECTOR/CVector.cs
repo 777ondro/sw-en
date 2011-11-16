@@ -62,5 +62,17 @@ namespace MATH
             return fVa;
         }
 
+        public string Print1DVector()
+        {
+            string sOutput = null;
+            foreach (float f in m_fVectorItems)
+            {
+                sOutput += f.ToString();
+                sOutput += "\n";
+            }
+
+            return sOutput;
+        }
+
     }
 }
