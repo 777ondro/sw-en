@@ -26,14 +26,14 @@ namespace FEM_CALC_1Din3D
             // Auxialiary string - result data
             string sDOFResults = null;
 
-            for (int i = 0; i < obj_Calc.m_V_Displ.Length; i++)
+            for (int i = 0; i < obj_Calc.m_V_Displ.FVectorItems.Length; i++)
             {
                 int iNodeNumber    = obj_Calc.m_fDisp_Vector_CN[i, 1]+1; // Incerase index (1st member "0" to "1"
                 int iNodeDOFNumber = obj_Calc.m_fDisp_Vector_CN[i, 2]+1;
 
                 sDOFResults += "Node No:" + "\t" + iNodeNumber + "\t" +
                              "Node DOF No:" + "\t" + iNodeDOFNumber + "\t" +
-                             "Value:" + "\t" + obj_Calc.m_V_Displ[i]
+                             "Value:" + "\t" + obj_Calc.m_V_Displ.FVectorItems[i]
                              + "\n";
             }
 

@@ -61,104 +61,6 @@ using MATH;
 
 namespace FEM_CALC_1Din3D
 {
-    public enum ESLN
-    {
-        e1D_1D,  // 1D members - simple member - colum or beam / continuous beam
-        e2DD_1D, // 1D members - 2D truss, 2D frame
-        e3DD_1D, // 1D members - 2D truss, 2D frame
-        e4DD_1D  // 1D members - 3D + time
-    }
-
-    // Cartesian coordinate system, point in n-dimensional Euclidean space
-
-    // In two dimensions
-
-    /*Fixing or choosing the x-axis determines the y-axis up to direction. Namely, the y-axis is necessarily the perpendicular 
-     * to the x-axis through the point marked 0 on the x-axis. But there is a choice of which of the two half lines on the perpendicular
-     * to designate as positive and which as negative. Each of these two choices determines a different orientation (also called handedness) of the Cartesian plane.
-    The usual way of orienting the axes, with the positive x-axis pointing right and the positive y-axis pointing up (and the x-axis being
-     * the "first" and the y-axis the "second" axis) is considered the positive or standard orientation, also called the right-handed orientation.
-    A commonly used mnemonic for defining the positive orientation is the right hand rule. Placing a somewhat closed right hand on the plane with the thumb pointing up,
-     * the fingers point from the x-axis to the y-axis, in a positively oriented coordinate system.
-    The other way of orienting the axes is following the left hand rule, placing the left hand on the plane with the thumb pointing up.
-    When pointing the thumb away from the origin along an axis, the curvature of the fingers indicates a positive rotation along that axis.
-    Regardless of the rule used to orient the axes, rotating the coordinate system will preserve the orientation. Switching any two axes will reverse the orientation.*/
-
-    // In three dimensions
-
-    /*
-     Once the x- and y-axes are specified, they determine the line along which the z-axis should lie,
-     but there are two possible directions on this line. The two possible coordinate systems which result are called 'right-handed' and 'left-handed'.
-     The standard orientation, where the xy-plane is horizontal and the z-axis points up (and the x- and the y-axis form a positively oriented two-dimensional coordinate system
-     in the xy-plane if observed from above the xy-plane) is called right-handed or positive.
-     The name derives from the right-hand rule. If the index finger of the right hand is pointed forward, the middle finger bent inward at a right angle to it,
-     and the thumb placed at a right angle to both, the three fingers indicate the relative directions of the x-, y-, and z-axes in a right-handed system.
-     The thumb indicates the x-axis, the index finger the y-axis and the middle finger the z-axis. Conversely, if the same is done with the left hand, a left-handed system results.
-     Because a three-dimensional object is represented on the two-dimensional screen, distortion and ambiguity result. The axis pointing downward (and to the right)
-     is also meant to point towards the observer, whereas the "middle" axis is meant to point away from the observer.
-     The red circle is parallel to the horizontal xy-plane and indicates rotation from the x-axis to the y-axis (in both cases).
-     Hence the red arrow passes in front of the z-axis. */
-    public enum EGCS
-    {
-        eGCSRightHanded,
-        eGCSLeftHanded
-    }
-
-    // Degrees of freedom 0-5 (6 - warping)
-    public enum EDOF
-    {
-        eUX = 0, // Displacement in X-Direction
-        eUY = 1, // Displacement in Y-Direction
-        eUZ = 2, // Displacement in Z-Direction
-        eRX = 3, // Rotation around X-Axis
-        eRY = 4, // Rotation around Y-Axis
-        eRZ = 5, // Rotation around Z-Axis
-        eW  = 6  // Warping (not implemented yet)
-    }
-
-    public enum EElemSuppType
-    {
-        e3DEl_000000_000000 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
-        e3DEl_000000_______ = 1, // Start Node - restrained DOF,                                                    End Node - free DOF
-        e3DEl________000000 = 2, // Start Node - free DOF,                                                          End Node - restrained DOF
-        e3DEl_000000_000___ = 3, // Start Node - restrained DOF,                                                    End Node - rotation hinge
-        e3DEl_000____000000 = 4, // Start Node - rotation hinge,                                                    End Node - restrained DOF
-        e3DEl_000000_0_00_0 = 5, // Start Node - restrained DOF,                                                    End Node - free displacement in y-Axis nad rotation about y-Axis
-        e3DEl_0_00_0_000000 = 6, // Start Node - free displacement in y-Axis nad rotation about y-Axis,             End Node - restrained DOF
-        e3DEl_000____000___ = 7  // Start Node - rotation hinge,                                                    End Node - rotation hinge
-    }
-
-    public enum ECrScShType1
-    {
-        eCrScType_I,   // I and H - section
-        eCrScType_C,   // C and U (channel) - section
-        eCrScType_L,   // L (angle) - section , equal and unequal
-        eCrScType_T,   // T - section
-        eCrScType_Z,   // Z - section
-        eCrScType_BOX, // box - section, hollow - section (square and rectangular) 
-        eCrScType_FB,  // flat bar
-        eCrScType_RB,  // round bar
-        eCrScType_TU,  // Tube
-        eCrScType_GE   // General
-    }
-
-    public enum ECrScSym
-    {
-        eSym_D, // Doubly symmetrical cross-section
-        eSym_M, // Monosymetrical cross-section
-        eSym_C, // Centrally symmetrical cross-section
-        eSym_A  // Asymetrical cross-section
-    }
-
-    public enum ECrScShType2
-    {
-        eO,  // Open cross-section
-        eOC, // Open cross-section with closed parts
-        eCO, // Closed cross-section with some outstanding parts
-        eC,  // closed cross-section
-        eS   // Solid cross-section
-    }
-
     public class CFEM_CALC
     {
         // Settings
@@ -184,9 +86,9 @@ namespace FEM_CALC_1Din3D
 
         public int[,] m_fDisp_Vector_CN;
 
-        float[,] m_M_K_Structure;
-        float[]  m_V_Load;
-        public float[]  m_V_Displ;
+        CMatrix m_M_K_Structure;
+        public CVector  m_V_Load;
+        public CVector  m_V_Displ;
 
         
         
@@ -292,28 +194,28 @@ namespace FEM_CALC_1Din3D
             // m_NodeArray[0].m_sDisp.s_fUX = 0f;
 
             // Node 2
-            m_NodeArray[1].m_ArrDisp[0] = 0f;
-            m_NodeArray[1].m_ArrDisp[1] = 0f;
-            m_NodeArray[1].m_ArrDisp[2] = 0f;
-            m_NodeArray[1].m_ArrDisp[3] = 0f;
-            m_NodeArray[1].m_ArrDisp[4] = 0f;
-            m_NodeArray[1].m_ArrDisp[5] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[0] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[1] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[2] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[3] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[4] = 0f;
+            m_NodeArray[1].m_ArrDisp.FVectorItems[5] = 0f;
 
             // Node 3
-            m_NodeArray[2].m_ArrDisp[0] = 0f;
-            m_NodeArray[2].m_ArrDisp[1] = 0f;
-            m_NodeArray[2].m_ArrDisp[2] = 0f;
-            m_NodeArray[2].m_ArrDisp[3] = 0f;
-            m_NodeArray[2].m_ArrDisp[4] = 0f;
-            m_NodeArray[2].m_ArrDisp[5] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[0] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[1] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[2] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[3] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[4] = 0f;
+            m_NodeArray[2].m_ArrDisp.FVectorItems[5] = 0f;
 
             // Node 4
-            m_NodeArray[3].m_ArrDisp[0] = 0f;
-            m_NodeArray[3].m_ArrDisp[1] = 0f;
-            m_NodeArray[3].m_ArrDisp[2] = 0f;
-            m_NodeArray[3].m_ArrDisp[3] = 0f;
-            m_NodeArray[3].m_ArrDisp[4] = 0f;
-            m_NodeArray[3].m_ArrDisp[5] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[0] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[1] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[2] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[3] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[4] = 0f;
+            m_NodeArray[3].m_ArrDisp.FVectorItems[5] = 0f;
 
             // Update Node's Array
             foreach (CFemNode i_CNode in m_NodeArray)
@@ -327,7 +229,7 @@ namespace FEM_CALC_1Din3D
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrDisp[i] != 0)  // Perform for not restrained DOF
+                    if (i_CNode.m_ArrDisp.FVectorItems[i] != 0)  // Perform for not restrained DOF
                     {
                         i_CNode.m_ArrNCodeNo[i] = m_iCodeNo; // Set global code number of degree of freedom (DOF)
 
@@ -412,15 +314,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[0].GetEndLoad_g(m_ELemArray[0], m_fq);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[0].m_fkLocMatr, 6));
+            Console.WriteLine(m_ELemArray[0].m_fkLocMatr.Print2DMatrix());
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[0].m_fAMatr3D, 6));
+            Console.WriteLine(m_ELemArray[0].m_fAMatr3D.Print2DMatrix());
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[0].m_fBMatr3D, 6));
+            Console.WriteLine(m_ELemArray[0].m_fBMatr3D.Print2DMatrix());
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[0].m_fKGlobM, 2, 6));
+            Console.WriteLine(m_ELemArray[0].m_fKGlobM.Print2DMatrix());
             // Element Load Vector                   2 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[0].m_ArrElemPEF_LCS, 2, 6));
+            Console.WriteLine(m_ELemArray[0].m_ArrElemPEF_LCS.Print2DMatrix());
 
             
             #region MATRIX TEST
@@ -492,15 +394,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[1].GetEndLoad_F(m_ELemArray[1], 0f, 0f, m_fF);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[1].m_fkLocMatr, 6));
+            Console.WriteLine(m_ELemArray[1].m_fkLocMatr.Print2DMatrix());
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[1].m_fAMatr3D, 6));
+            Console.WriteLine(m_ELemArray[1].m_fAMatr3D.Print2DMatrix());
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[1].m_fBMatr3D, 6));
+            Console.WriteLine(m_ELemArray[1].m_fBMatr3D.Print2DMatrix());
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[1].m_fKGlobM, 2, 6));
+            Console.WriteLine(m_ELemArray[1].m_fKGlobM.Print2DMatrix());
             // Element Load Vector                   2 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[1].m_ArrElemPEF_LCS,2,6));
+            Console.WriteLine(m_ELemArray[1].m_ArrElemPEF_LCS.Print2DMatrix());
 
 
             // Member 3 [2] Nodes 1 - 4 ([0] [3])
@@ -518,15 +420,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[2].GetEndLoad_M(m_ELemArray[2], m_fM, 0f, 0f);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[2].m_fkLocMatr, 6));
+            Console.WriteLine(m_ELemArray[2].m_fkLocMatr.Print2DMatrix());
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[2].m_fAMatr3D, 6));
+            Console.WriteLine(m_ELemArray[2].m_fAMatr3D.Print2DMatrix());
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[2].m_fBMatr3D, 6));
+            Console.WriteLine(m_ELemArray[2].m_fBMatr3D.Print2DMatrix());
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[2].m_fKGlobM, 2, 6));
+            Console.WriteLine(m_ELemArray[2].m_fKGlobM.Print2DMatrix());
             // Element Load Vector                   2 x  6
-            Console.WriteLine(x.Print2DMatrix(m_ELemArray[2].m_ArrElemPEF_LCS, 2, 6));
+            Console.WriteLine(m_ELemArray[2].m_ArrElemPEF_LCS.Print2DMatrix());
 
             /*
             // Nodal loads (sum nodal loads and nodal loads due to element loads)
@@ -553,13 +455,13 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
-            m_M_K_Structure = new float[m_iCodeNo, m_iCodeNo];
+            m_M_K_Structure = new CMatrix(iCodeNo);
 
             // Fill Global Stiffeness Matrix
             FillGlobalMatrix();
 
             // Global Stiffeness Matrix    m_iCodeNo x  m_iCodeNo
-            x.Print2DMatrix(m_M_K_Structure, m_iCodeNo, m_iCodeNo, 5);
+            m_M_K_Structure.Print2DMatrix();
 
 
 
@@ -574,7 +476,7 @@ namespace FEM_CALC_1Din3D
 
             CArray objArray = new CArray();
             // Convert Size
-            float[] m_M_K_fTemp1D = objArray.ArrTranf2Dto1D(m_M_K_Structure);
+            float[] m_M_K_fTemp1D = objArray.ArrTranf2Dto1D(m_M_K_Structure.m_fArrMembers);
             // Convert Type
             double[] m_M_K_dTemp1D = objArray.ArrConverFloatToDouble1D(m_M_K_fTemp1D);
 
@@ -590,8 +492,8 @@ namespace FEM_CALC_1Din3D
             // Convert Type
             float[] m_M_K_Inv_fTemp1D = objArray.ArrConverMatrixF64ToFloat1D(objMatrixInv);
             // Inverse Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
-            float [,] m_M_K_Structure_Inv = new float[m_iCodeNo, m_iCodeNo];
-            m_M_K_Structure_Inv = objArray.ArrTranf1Dto2D(m_M_K_Inv_fTemp1D);
+            CMatrix m_M_K_Structure_Inv = new CMatrix(m_iCodeNo);
+            m_M_K_Structure_Inv.m_fArrMembers = objArray.ArrTranf1Dto2D(m_M_K_Inv_fTemp1D);
 
 
 
@@ -613,13 +515,13 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Global Load Vector - Allocate Memory (Vector Size)
-            m_V_Load = new float[m_iCodeNo];
+            m_V_Load = new CVector(m_iCodeNo);
                          
             // Fill Global Load Vector
             FillGlobalLoadVector();
 
             // Display Global Load Vector
-            Console.WriteLine(x.Print1DVector(m_V_Load));
+            Console.WriteLine(m_V_Load.Print1DVector());
 
 
 
@@ -631,27 +533,27 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Global Displacement Vector - Allocate Memory (Vector Size)
-            m_V_Displ = new float[m_iCodeNo];
+            m_V_Displ = new CVector(m_iCodeNo);
             
             // Fill Global Displacement Vector
-            m_V_Displ = x.fMultiplyMatr(m_M_K_Structure_Inv, m_V_Load);
+            m_V_Displ = VectorF.fMultiplyMatrVectr(m_M_K_Structure_Inv, m_V_Load);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // End Solver
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Display Global Displacemnt Vector - solution result
-            Console.WriteLine(x.Print1DVector(m_V_Displ));
+            Console.WriteLine(m_V_Displ.Print1DVector());
 
             // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
             for (int i = 0; i < m_iCodeNo; i++)
             {
                 // Check if DOF is default (free - ) or has some initial value (settlement; soil consolidation etc.)
                 // See Fill_NDisp_InitStr() for default values - float.PositiveInfinity
-                if (m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp[m_fDisp_Vector_CN[i, 2]] == float.PositiveInfinity)
-                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp[m_fDisp_Vector_CN[i, 2]] = m_V_Displ[i]; // set calculated
+                if (m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] == float.PositiveInfinity)
+                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] = m_V_Displ.FVectorItems[i]; // set calculated
                 else // some real initial value exists
-                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp[m_fDisp_Vector_CN[i, 2]] += m_V_Displ[i]; // add calculated (to sum)
+                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
             }
 
 
@@ -663,22 +565,22 @@ namespace FEM_CALC_1Din3D
                 {
                     m_ELemArray[i].GetArrElemEF_GCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node End Forces in GCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemEF_GCS_StNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_StNode);
                     m_ELemArray[i].GetArrElemEF_GCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node End Forces in GCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemEF_GCS_EnNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node End Forces in LCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemEF_LCS_StNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node End Forces in LCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemEF_LCS_EnNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_EnNode.Print1DVector());
                     m_ELemArray[i].GetArrElemIF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node Internal Forces in LCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemIF_LCS_StNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemIF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node Internal Forces in LCS");
-                    Console.WriteLine(x.Print1DVector(m_ELemArray[i].m_ArrElemIF_LCS_EnNode));
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_EnNode.Print1DVector());
                 }
         } // End of Constructor
 
@@ -703,7 +605,7 @@ namespace FEM_CALC_1Din3D
 
             for (int i = 0; i < iNNoTot; i++)
             {
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Ux] != 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Ux] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ux] = m_iCodeNo;
                     m_iCodeNo++;
@@ -711,7 +613,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ux] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Uy] != 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Uy] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uy] = m_iCodeNo;
                     m_iCodeNo++;
@@ -719,7 +621,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uy] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Uz]!= 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Uz]!= 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uz] = m_iCodeNo;
                     m_iCodeNo++;
@@ -727,7 +629,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uz] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Rx]!= 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Rx]!= 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rx] = m_iCodeNo;
                     m_iCodeNo++;
@@ -735,7 +637,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rx] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Ry] != 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Ry] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ry] = m_iCodeNo;
                     m_iCodeNo++;
@@ -743,7 +645,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ry] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp[(int)ENSupportType.eNST_Rz] != 0f)
+                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Rz] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rz] = m_iCodeNo;
                     m_iCodeNo++;
@@ -762,7 +664,7 @@ namespace FEM_CALC_1Din3D
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrDisp[i] != 0f)       // Perform for not restrained DOF
+                    if (i_CNode.m_ArrDisp.FVectorItems[i] != 0f)       // Perform for not restrained DOF
                     {
                         m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
                         m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.INode_ID - 1;        // Add Node index !!! Node ID starts with 1
@@ -802,28 +704,28 @@ namespace FEM_CALC_1Din3D
                         {
                             if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
                             {
-                                temp += El_Temp.m_fKGlobM[0,0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += (float)El_Temp.m_fKGlobM.m_fArrMembersABxCD[0,0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                             else  // [0,1] - partial stiffeness matrix k_12 / k_ab
                             {
-                                temp += El_Temp.m_fKGlobM[0, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                         }
                         else                                                     // Current DOF is on End Node
                         {
                             if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [1,1] - partial stiffeness matrix k_22 / k_bb 
                             {
-                                temp += El_Temp.m_fKGlobM[1, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                             else  // [1,0] - partial stiffeness matrix k_21 / k_ba
                             {
-                                temp += El_Temp.m_fKGlobM[1, 0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0][m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                         }
                     }
 
                     // Fill member of Global Stiffeness Matrix of Structure
-                    m_M_K_Structure[i, j] = temp;
+                    m_M_K_Structure.m_fArrMembers[i, j] = temp;
                 }
             }
         }
@@ -836,7 +738,7 @@ namespace FEM_CALC_1Din3D
         {
             for (int i = 0; i < m_iCodeNo; i++)
             {
-                m_V_Load[i] = 0f; // Set default value of variable
+                m_V_Load.FVectorItems[i] = 0f; // Set default value of variable
 
                 // Fill Member of Global Load Vector of Structure
                 // Node DOF load due to elements loads - sum of for array of elements
@@ -855,7 +757,7 @@ namespace FEM_CALC_1Din3D
                         {
                             // Temporary transposed transformation matrix of element rotation multiplied by load vector
                             /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_StNode);*/
-                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_StNode;
+                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_StNode.FVectorItems;
                             // Add Value
                             tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
                         }
@@ -863,7 +765,7 @@ namespace FEM_CALC_1Din3D
                         {
                             // Temporary transposed transformation matrix of element rotation multiplied by load vector
                             /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_EnNode);*/
-                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_EnNode;
+                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_EnNode.FVectorItems;
                             // Add Value
                             tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
                         }
@@ -875,12 +777,12 @@ namespace FEM_CALC_1Din3D
 
                     // Node DOF Load due to direct node loading
 
-                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDirNodeLoad[m_fDisp_Vector_CN[i, 2]];
+                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
 
 
                     // Sum loads
 
-                    m_V_Load[i] = tempNode - tempEl;
+                    m_V_Load.FVectorItems[i] = tempNode - tempEl;
 
             }
         }

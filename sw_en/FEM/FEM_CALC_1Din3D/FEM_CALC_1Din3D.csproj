@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="CMLoadPart.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="MATH\MATRIX\matrix.cs" />
     <Compile Include="MATH\MATRIX\Matrix_1.cs" />
     <Compile Include="Program.cs" />
