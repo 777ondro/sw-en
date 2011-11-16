@@ -40,9 +40,21 @@ namespace MATH
         }
 
         //-----------------------------------------------------------------------------------------------
+        public CMatrix(int iRowsCols) // square matrix 
+        {
+            m_iRows = m_iColumns = iRowsCols;
+
+            m_fArrMembers = new float[m_iRows, m_iColumns];
+        }
+
+        //-----------------------------------------------------------------------------------------------
         public CMatrix(CMatrix m11, CMatrix m12, CMatrix m21, CMatrix m22)
         {
-            m_fArrMembers22 = new CMatrix[2,2];
+            m_fArrMembers22 = new CMatrix[2, 2];
+            m_fArrMembers22[0, 0] = m11;
+            m_fArrMembers22[0, 1] = m12;
+            m_fArrMembers22[1, 0] = m21;
+            m_fArrMembers22[1, 1] = m22;
         }
 
 
@@ -64,131 +76,6 @@ namespace MATH
 
 
 
-        //// GENERAL MATRIX OPERATIONS
-
-        // Return transformed matrix - change rows and columns
-        public float[,] GetTransMatrix(float[,] fM)
-        {
-            // Number of Matrix M rows and columns
-            int iM_iRowsMax = (int)Math.Sqrt(fM.Length); // square
-            int iM_jColsMax = (int)Math.Sqrt(fM.Length);
-
-            // Output Matrix
-            float[,] fM_T = new float[iM_jColsMax, iM_iRowsMax];
-
-            for (int i = 0; i < iM_jColsMax; i++)
-                for (int j = 0; j < iM_iRowsMax; j++)
-                    fM_T[i, j] = fM[j, i];
-            return fM_T;
-        }
-
-        // Return result of matrix multiplying
-        public float[,] fMultiplyMatr(float[,] fM1, float[,] fM2)
-        {
-            // Number of Matrix M1 rows and columns
-            int iM1_iRowsMax = (int)Math.Sqrt(fM1.Length); // square
-            int iM1_jColsMax = (int)Math.Sqrt(fM1.Length);
-
-            // Number of Matrix M2 rows and columns
-            int iM2_iRowsMax = (int)Math.Sqrt(fM2.Length);
-            int iM2_jColsMax = (int)Math.Sqrt(fM2.Length);
-
-            // Number of columns of the first one must be equal to number of rows of the second
-            // Number of rows of the first one must be equal to number of columns of the second
-
-            if (iM1_jColsMax != iM2_iRowsMax)
-            {
-                throw new ArgumentException();
-            }
-            // Output Matrix
-            float[,] fM = new float[iM1_iRowsMax, iM2_jColsMax];
-
-            for (int i = 0; i < iM1_iRowsMax; ++i)
-            {
-                for (int j = 0; j < iM2_jColsMax; ++j)
-                {
-                    float sum = 0;
-                    for (int it = 0; it < iM1_jColsMax; ++it)
-                    {
-                        sum += fM1[i, it] * fM2[it, j];
-                    }
-                    fM[i, j] = sum;
-                }
-            }
-            return fM;
-        }
-
-        // Return result of matrix multiplying
-        public float[] fMultiplyMatr(float[,] fM1, float[] fM2)
-        {
-            // Number of Matrix M1 rows and columns
-            int iM1_iRowsMax = (int)Math.Sqrt(fM1.Length); // square
-            int iM1_jColsMax = (int)Math.Sqrt(fM1.Length);
-
-            // Number of Matrix M2 rows and columns
-            int iM2_iRowsMax = (int)fM2.Length;
-
-            // Number of columns of the first one must be equal to number of rows of the second
-            // Number of rows of the first one must be equal to number of columns of the second
-
-            if (iM1_jColsMax != iM2_iRowsMax)
-            {
-                throw new ArgumentException();
-            }
-            // Output Matrix
-            float[] fM = new float[iM1_iRowsMax];
-
-            for (int i = 0; i < iM1_iRowsMax; ++i)
-            {
-                float sum = 0;
-                for (int it = 0; it < iM1_jColsMax; ++it)
-                {
-                    sum += fM1[i, it] * fM2[it];
-                }
-                fM[i] = sum;
-            }
-            return fM;
-        }
-
-        // Return result of matrix multiplying
-        public float[] fMultiplyMatr(int[] fM1, float[] fM2)
-        {
-            // Number of Matrix M1 columns
-            int iM1_jColsMax = fM1.Length;
-
-            // Number of Matrix M2 rows
-            int iM2_iRowsMax = fM2.Length;
-           
-            if (iM1_jColsMax != iM2_iRowsMax)
-            {
-                throw new ArgumentException();
-            }
-            // Output Matrix
-            float[] fM = new float[iM1_jColsMax];
-
-            for (int i = 0; i < iM1_jColsMax; ++i)
-                fM[i] = fM1[i] * fM2[i];
-
-            return fM;
-        }
-
-
-
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Change matrix sign
-        ///// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        public float[,] fChangeSignMatr(float[,] fM)
-        {
-            for (int i = 0; i < (int)Math.Sqrt(fM.Length); i++)
-            {
-                for (int j = 0; j < (int)Math.Sqrt(fM.Length); j++)
-                    fM[i, j] = -fM[i, j];
-            }
-            return fM;
-        }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Determinant
@@ -955,6 +842,22 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
             return sOutput;
         }
 
+        public string Print2DMatrix()
+        {
+            string sOutput = null;
+            for (int i = 0; i < m_iRows; i++)
+            {
+                for (int j = 0; j < m_iColumns; j++)
+                {
+                    sOutput += m_fArrMembers[i, j].ToString();
+                    sOutput += "\t"; // New Tab between columns
+                }
+                sOutput += "\n"; // New row
+            }
+
+            return sOutput;
+        }
+
         public string Print2DMatrix(float[,] fM, int iSize)
         {
             string sOutput = null;
@@ -970,6 +873,8 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
 
             return sOutput;
         }
+
+
 
 
         public void Print2DMatrix(float[,] fM, int iRows, int iColumns, int precision)

@@ -54,5 +54,9 @@ namespace FEM_CALC_1Din2D
         e2DEl__00__00 = 16,
         e2DEl___0___0 = 17,
         e2DEl_00___0_ = 18,
+        e2DEl__0__00_ = 19,
+
+
+        e2DEl________ = 99 // not supported member
     }
 }

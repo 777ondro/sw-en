@@ -80,6 +80,9 @@
     <Compile Include="GEOMETRY\Geom2D.cs" />
     <Compile Include="GEOMETRY\Geom3D.cs" />
     <Compile Include="MATRIX\CMatrix.cs" />
+    <Compile Include="MATRIX\CMatrix3x3.cs" />
+    <Compile Include="MATRIX\CMatrix6x6.cs" />
+    <Compile Include="MATRIX\MatrixF.cs" />
     <Compile Include="MATRIX\MatrixF64.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +106,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="VECTOR\CVector.cs" />
+    <Compile Include="VECTOR\VectorF.cs" />
     <Compile Include="VECTOR\VectorF64.cs" />
   </ItemGroup>
   <ItemGroup>
