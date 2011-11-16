@@ -26,7 +26,7 @@ namespace MATH
 
         public float [,] m_fArrMembers;
 
-        public CMatrix[,][,] m_fArrMembersABxCD;
+        public CMatrix[,] m_fArrMembersABxCD;
 
         //-----------------------------------------------------------------------------------------------
         public CMatrix() {}
@@ -50,7 +50,7 @@ namespace MATH
         //-----------------------------------------------------------------------------------------------
         public CMatrix (CMatrix m11, CMatrix m12, CMatrix m21, CMatrix m22)
         {
-            m_fArrMembersABxCD = new CMatrix [2,2][,];
+            m_fArrMembersABxCD = new CMatrix [2,2];
             m_fArrMembersABxCD[0, 0] = m11;
             m_fArrMembersABxCD[0, 1] = m12;
             m_fArrMembersABxCD[1, 0] = m21;
