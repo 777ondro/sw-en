@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CRSC;
 
 namespace FEM_CALC_1Din3D
 {
-    public class CCrSc
+    // Temporary class - zmazat po prepojeni na databazu a triedy projektu CRSC
+    // !!! Pre FEM vypocet nepotrebujeme vsetky charakteristiky, len A, Iy, Iz, It !!!!
+    // Ostatne charakteristiky postaci nacitat az pri posudeni
+
+    public class CCrSc:CCrSc_0_00
     {
         // Load data of cross section, there could be different values in each section of member / segment (tapered member)
         // For members/ segment with constant size can be used parameters directly of database profile or parametric cross-section
@@ -33,11 +38,11 @@ namespace FEM_CALC_1Din3D
 
         // Temporary !!!!!
 
-        public void CalcProp_RecSol(ECrScShType1 eCrScType)
+        public void CalcProp_RecSol(CRSC.Enums.ECrScShType1 eCrScType)
         {
             switch (eCrScType)
             {
-                case ECrScShType1.eCrScType_I:
+                case CRSC.Enums.ECrScShType1.eCrScType_I:
                     {
                         // Temp
                         m_fb = 0.125f;
@@ -59,7 +64,7 @@ namespace FEM_CALC_1Din3D
                         m_fI_T = 5.69e-7f;
                         break;
                     }
-                case ECrScShType1.eCrScType_BOX:
+                case CRSC.Enums.ECrScShType1.eCrScType_BOX:
                     {
                         // Gross-cross section area
                         m_fAg = m_fb * m_fh; // Unit [m2]

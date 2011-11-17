@@ -98,35 +98,4 @@ namespace FEM_CALC_1Din3D
         e3DEl_0_00_0_000000 = 6, // Start Node - free displacement in y-Axis nad rotation about y-Axis,             End Node - restrained DOF
         e3DEl_000____000___ = 7  // Start Node - rotation hinge,                                                    End Node - rotation hinge
     }
-
-    public enum ECrScShType1
-    {
-        eCrScType_I,   // I and H - section
-        eCrScType_C,   // C and U (channel) - section
-        eCrScType_L,   // L (angle) - section , equal and unequal
-        eCrScType_T,   // T - section
-        eCrScType_Z,   // Z - section
-        eCrScType_BOX, // box - section, hollow - section (square and rectangular) 
-        eCrScType_FB,  // flat bar
-        eCrScType_RB,  // round bar
-        eCrScType_TU,  // Tube
-        eCrScType_GE   // General
-    }
-
-    public enum ECrScSym
-    {
-        eSym_D, // Doubly symmetrical cross-section
-        eSym_M, // Monosymetrical cross-section
-        eSym_C, // Centrally symmetrical cross-section
-        eSym_A  // Asymetrical cross-section
-    }
-
-    public enum ECrScShType2
-    {
-        eO,  // Open cross-section
-        eOC, // Open cross-section with closed parts
-        eCO, // Closed cross-section with some outstanding parts
-        eC,  // closed cross-section
-        eS   // Solid cross-section
-    }
 }

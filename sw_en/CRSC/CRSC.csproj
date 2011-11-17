@@ -134,6 +134,7 @@
     <Compile Include="CRSC_Form.Designer.cs">
       <DependentUpon>CRSC_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CSOForm.resx">
