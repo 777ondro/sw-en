@@ -38,6 +38,8 @@ namespace CENEX
         public CMember [] m_arrMembers;
         // Nodal Supports
         public CNSupport[] m_arrNSupports;
+        // Member Releases
+        public CNRelease[] m_arrNReleases;
 
         // Loading
         // Nodal Loads
@@ -61,7 +63,7 @@ namespace CENEX
         // Alokuje velkost poli zoznamov, malo by to byt dymamicke
         public CModel(string sFileName, int eNDOF,
             int iMatNum, int iCrScNum, int iNodeNum,
-            int iMemNum, int iNSupNum, int iNLoadNum,
+            int iMemNum, int iNSupNum, int iNRelNum, int iNLoadNum,
             int iMLoadNum, int iLoadCaseNum, int iLoadComNum)
         {
             m_eNDOF = eNDOF;
@@ -70,6 +72,7 @@ namespace CENEX
             m_arrNodes = new CNode[iNodeNum];
             m_arrMembers = new CMember[iMemNum];
             m_arrNSupports = new CNSupport[iNSupNum];
+            m_arrNReleases = new CNRelease[iNRelNum];
             m_arrNLoads = new CNLoad[iNLoadNum];
             m_arrMLoads = new CMLoad[iMLoadNum];
             m_arrLoadCases = new CLoadCase[iLoadCaseNum];

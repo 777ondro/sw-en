@@ -11,7 +11,8 @@ namespace BaseClasses
         //---------------------------------------------------------------------------------
         private CNode m_Node;
         private CMember m_Member;
-        public int [] m_iMembCollection; // List / Collection of members where release is defined
+        public int [] m_iMembCollection; // List / Collection of members IDs where release is defined
+        public int [] m_iNodeCollection; // List / Collection of nodes IDs where release is defined (need for local stiffeness matrix)
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
         public int m_eNDOF;
         public bool[] m_bRestrain; // DOF

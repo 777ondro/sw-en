@@ -26,7 +26,7 @@ namespace FEM_CALC_1Din2D
             float fF1 = 45000f;   // Unit [N]
             float fF2 = 55000f;   // Unit [N]
             float fM = 60000000f;   // Unit [Nm]
-            float fq = 16f;   // Unit [N/m]
+            float fq = 22f;   // Unit [N/m]
 
             // Geometry
             float fa = 2.8f,
@@ -36,13 +36,13 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test1",3,1,1,5,4,3,1,3,1,1);
+            TopoModel = new CModel("Test1",3,1,1,5,4,3,1,1,3,1,1);
 
             // Materials
             CMat_00 Mat0 = new CMat_00();
-            Mat0.m_fE= 2.1e+11f;            // Unit [Pa]
+            Mat0.m_fE= 10000000f;           // Unit [Pa]
             Mat0.m_fNu = 0.3f;              // Unit [-]
-            Mat0.m_fG = 0.8076923e+11f;     // Unit [Pa]
+            Mat0.m_fG = 4000000;     // Unit [Pa]
 
             TopoModel.m_arrMat[0] = Mat0;
 
@@ -51,6 +51,7 @@ namespace FEM_CALC_1Din2D
             CrSc0.FA_g = 0.12f;   // Unit [m^2]
             CrSc0.FI_y = 0.0016f; // Unit [m^4]
             CrSc0.FI_z = 0.0016f; // Unit [m^4]
+            CrSc0.m_Mat = TopoModel.m_arrMat[0]; // Set CrSc Material
 
             TopoModel.m_arrCrSc[0] = CrSc0;
 
@@ -59,7 +60,7 @@ namespace FEM_CALC_1Din2D
             CNode Node0 = new CNode();
             Node0.INode_ID = 1;
             Node0.FCoord_X = fa + fb;
-            Node0.FCoord_Y = -fc;
+            Node0.FCoord_Y = fc;
             Node0.FCoord_Z = 0f;
 
             TopoModel.m_arrNodes[0] = Node0;
@@ -86,7 +87,7 @@ namespace FEM_CALC_1Din2D
             CNode Node3 = new CNode();
             Node3.INode_ID = 4;
             Node3.FCoord_X = 0f;
-            Node3.FCoord_Y = fa;
+            Node3.FCoord_Y = -fa;
             Node3.FCoord_Z = 0f;
 
             TopoModel.m_arrNodes[3] = Node3;
@@ -95,7 +96,7 @@ namespace FEM_CALC_1Din2D
             CNode Node4 = new CNode();
             Node4.INode_ID = 5;
             Node4.FCoord_X = 0f;
-            Node4.FCoord_Y = -fc;
+            Node4.FCoord_Y = fc;
             Node4.FCoord_Z = 0f;
 
             TopoModel.m_arrNodes[4] = Node4;
@@ -166,11 +167,27 @@ namespace FEM_CALC_1Din2D
             NSupport2.ISupport_ID = 3;
             NSupport2.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
             NSupport2.m_bRestrain[1] = true;
-            NSupport2.m_bRestrain[2] = true;
+            NSupport2.m_bRestrain[2] = false;
             NSupport2.m_iNodeCollection = new int[1];
             NSupport2.m_iNodeCollection[0] = 5;
 
             TopoModel.m_arrNSupports[2] = NSupport2;
+
+            // Member releases
+            bool [] bRelTemp = new bool [TopoModel.m_eNDOF];
+            bRelTemp[0] = false;
+            bRelTemp[1] = false;
+            bRelTemp[2] = true;
+
+            CNRelease NRelease1 = new CNRelease(TopoModel.m_eNDOF, TopoModel.m_arrNodes[1], TopoModel.m_arrMembers[0], bRelTemp, 0);
+            NRelease1.m_iNodeCollection = new int[1];
+            NRelease1.m_iNodeCollection[0] = 2;
+            NRelease1.m_iMembCollection = new int[2];
+            NRelease1.m_iMembCollection[0] = 1;
+            NRelease1.m_iMembCollection[1] = 2;
+            TopoModel.m_arrNReleases[0] = NRelease1;
+            TopoModel.m_arrMembers[0].CnRelease2 = TopoModel.m_arrNReleases[0]; // Release at end node
+            TopoModel.m_arrMembers[1].CnRelease1 = TopoModel.m_arrNReleases[0]; // Release at start node
 
             // Nodal loads
             // Load 1 - NodeIDs: 2
@@ -231,18 +248,40 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrLoadCombs[0] = LoadComb0;
             
             // Generate FEM model data from Topological model
+            // Prepare solver data
+            // Fill local and global matrices of FEM elements
+
             FEMModel = new CGenex(TopoModel);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // Prepare solver data
-            // Fill local and global matrices
+            // Temp - display matrices
+
+            for(int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+            {
+            // Member ID
+            Console.WriteLine("Member ID: " + FEMModel.m_arrFemMembers[i].IMember_ID + "\n");
+            // kij_0 - local stiffeness matrix       3 x  3
+            Console.WriteLine("Local stiffeness matrix k" + FEMModel.m_arrFemMembers[i].m_NodeStart.INode_ID + FEMModel.m_arrFemMembers[i].m_NodeEnd.INode_ID + "0 - Dimensions: 3 x 3 \n");
+            FEMModel.m_arrFemMembers[i].m_fkLocMatr.Print2DMatrixFormated();
+            // A  Tranformation Rotation Matrixes    3 x  3
+            Console.WriteLine("Tranformation rotation matrix A - Dimensions: 3 x 3 \n");
+            FEMModel.m_arrFemMembers[i].m_fATRMatr2D.Print2DMatrixFormated();
+            // B  Transfer Matrixes                  3 x  3
+            Console.WriteLine("Tranfer matrix B - Dimensions: 3 x 3 \n");
+            FEMModel.m_arrFemMembers[i].m_fBTTMatr2D.Print2DMatrixFormated();
+            // Kij - global matrix of member         6 x 6
+            Console.WriteLine("Global stiffeness matrix K" + FEMModel.m_arrFemMembers[i].m_NodeStart.INode_ID + FEMModel.m_arrFemMembers[i].m_NodeEnd.INode_ID + "0 - Dimensions: 6 x 6 \n");
+            FEMModel.m_arrFemMembers[i].m_fKGlobM.Print2DMatrixFormated();
+            // Element Load Vector                   2 x 3
+            Console.WriteLine("Member load vector - start node ID: " + FEMModel.m_arrFemMembers[i].m_NodeStart.INode_ID + " - Dimensions: 3 x 1 \n");
+            FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_StNode.Print1DVector();
+            Console.WriteLine("Member load vector - end node ID: " + FEMModel.m_arrFemMembers[i].m_NodeEnd.INode_ID + " - Dimensions: 3 x 1 \n");
+            FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_EnNode.Print1DVector();
+            }
+
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-            //FEMModel.m_arrFemMembers[0].FillBasic2();
-            //FEMModel.m_arrFemMembers[1].FillBasic2();
-            //FEMModel.m_arrFemMembers[2].FillBasic2();
-            //FEMModel.m_arrFemMembers[3].FillBasic2();
 
 
 
