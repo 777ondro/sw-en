@@ -168,28 +168,6 @@ namespace FEM_CALC_1Din3D
                     m_ArrDisp.FVectorItems[i] = m_NodeEnd.m_ArrDisp.FVectorItems[i - 6]; // Fill with End Node
             }
 
-            /*
-            // Element start
-            sElemDisp.s_fUX_St = NStart.m_sDisp.s_fUX;
-            sElemDisp.s_fUY_St = NStart.m_sDisp.s_fUY;
-            sElemDisp.s_fUZ_St = NStart.m_sDisp.s_fUZ;
-
-            sElemDisp.s_fRX_St = NStart.m_sDisp.s_fRX;
-            sElemDisp.s_fRY_St = NStart.m_sDisp.s_fRY;
-            sElemDisp.s_fRZ_St = NStart.m_sDisp.s_fRZ;
-
-            // Element end
-            sElemDisp.s_fUX_En = NEnd.m_sDisp.s_fUX;
-            sElemDisp.s_fUY_En = NEnd.m_sDisp.s_fUY;
-            sElemDisp.s_fUZ_En = NEnd.m_sDisp.s_fUZ;
-
-            sElemDisp.s_fRX_En = NEnd.m_sDisp.s_fRX;
-            sElemDisp.s_fRY_En = NEnd.m_sDisp.s_fRY;
-            sElemDisp.s_fRZ_En = NEnd.m_sDisp.s_fRZ;
-             */
-
-
-
             // Element / Member load
 
 
@@ -218,27 +196,8 @@ namespace FEM_CALC_1Din3D
 
             // Get auxialiary point relative coordinates
             Get_C_GCS_coord();
-
-
-            // 2D
-            // Transformation Matrix of Element Rotation - 2D
-            /*m_fATRMatr2D = new float[3, 3]
-            {
-            {  m_fCosAlpha,     m_fSinAlpha,    0f },
-            { -m_fSinAlpha,     m_fCosAlpha,    0f },
-            {           0f,              0f,    1f }
-            };*/
-
-
-            // Transformation Transfer Matrix - 2D
-            /*m_fBTTMatr2D = new float[3, 3]
-            {
-            {           -1f,              0f,    0f },
-            {            0f,             -1f,    0f },
-            {  -m_flength_Y,     m_flength_X,   -1f }
-            };*/
-
-             // 3D
+            
+            // 3D
 
             // Transformation Matrix of Element Rotation (12x12) - 3D
             m_fAMatr3D = Get_AMatr3D1();
@@ -246,8 +205,6 @@ namespace FEM_CALC_1Din3D
             // Transformation Transfer Matrix - 3D
 
             m_fBMatr3D = Get_BMatr3D1();
-
-
 
 
 
@@ -280,9 +237,7 @@ namespace FEM_CALC_1Din3D
             // Check of partial matrices members
 
             // Partial matrices of global matrix of member 6 x 6
-            Console.WriteLine(GetPartM_k11(m_fkLocMatr,m_fAMatr3D).Print2DMatrix());
-
-
+            // Console.WriteLine(GetPartM_k11(m_fkLocMatr,m_fAMatr3D).Print2DMatrix());
 
             // Return partial matrixes and global matrix of FEM element
 

@@ -277,15 +277,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[0].GetEndLoad_g(m_ELemArray[0], m_fq);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(m_ELemArray[0].m_fkLocMatr.Print2DMatrix());
+            m_ELemArray[0].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(m_ELemArray[0].m_fAMatr3D.Print2DMatrix());
+            m_ELemArray[0].m_fAMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(m_ELemArray[0].m_fBMatr3D.Print2DMatrix());
+            m_ELemArray[0].m_fBMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(m_ELemArray[0].m_fKGlobM.Print2DMatrix());
+            m_ELemArray[0].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
-            Console.WriteLine(m_ELemArray[0].m_ArrElemPEF_LCS.Print2DMatrix());
+            m_ELemArray[0].m_ArrElemPEF_LCS.Print2DMatrixFormated();
 
             
             #region MATRIX TEST
@@ -357,15 +357,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[1].GetEndLoad_F(m_ELemArray[1], 0f, 0f, m_fF);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(m_ELemArray[1].m_fkLocMatr.Print2DMatrix());
+           m_ELemArray[1].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(m_ELemArray[1].m_fAMatr3D.Print2DMatrix());
+            m_ELemArray[1].m_fAMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(m_ELemArray[1].m_fBMatr3D.Print2DMatrix());
+            m_ELemArray[1].m_fBMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(m_ELemArray[1].m_fKGlobM.Print2DMatrix());
+            m_ELemArray[1].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
-            Console.WriteLine(m_ELemArray[1].m_ArrElemPEF_LCS.Print2DMatrix());
+            m_ELemArray[1].m_ArrElemPEF_LCS.Print2DMatrixFormated();
 
 
             // Member 3 [2] Nodes 1 - 4 ([0] [3])
@@ -383,15 +383,15 @@ namespace FEM_CALC_1Din3D
             m_ELoadArray[2].GetEndLoad_M(m_ELemArray[2], m_fM, 0f, 0f);
             // Output
             // kij_0 - local stiffeness matrix       6 x  6
-            Console.WriteLine(m_ELemArray[2].m_fkLocMatr.Print2DMatrix());
+            m_ELemArray[2].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            Console.WriteLine(m_ELemArray[2].m_fAMatr3D.Print2DMatrix());
+            m_ELemArray[2].m_fAMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            Console.WriteLine(m_ELemArray[2].m_fBMatr3D.Print2DMatrix());
+            m_ELemArray[2].m_fBMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
-            Console.WriteLine(m_ELemArray[2].m_fKGlobM.Print2DMatrix());
+            m_ELemArray[2].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
-            Console.WriteLine(m_ELemArray[2].m_ArrElemPEF_LCS.Print2DMatrix());
+            m_ELemArray[2].m_ArrElemPEF_LCS.Print2DMatrixFormated();
 
             /*
             // Nodal loads (sum nodal loads and nodal loads due to element loads)

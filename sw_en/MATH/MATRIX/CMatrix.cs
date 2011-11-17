@@ -818,7 +818,7 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
         public void Print2DMatrix(float[,] fM, int iRows, int iColumns, int precision)
         {
 
-            precision = 0;
+            //precision = 0;
 
             // Determine the largest entry width in characters
             // so that we can make all columns an equal width.
@@ -861,8 +861,12 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
             }
 
             System.Console.WriteLine(' '); // Empty line
-
         }
+
+        public void Print2DMatrixFormated()
+        {
+            Print2DMatrix(m_fArrMembers, m_iRows,m_iColumns, 5);
+        }          
 
         public string Print2DMatrix(float[,][,] fM, int iSize1, int iSize2)
         {
