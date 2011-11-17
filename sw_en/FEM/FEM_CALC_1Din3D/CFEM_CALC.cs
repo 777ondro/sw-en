@@ -169,29 +169,8 @@ namespace FEM_CALC_1Din3D
             m_NodeArray[3].FCoord_Y = -m_fGeom_b;
             m_NodeArray[3].FCoord_Z = 0f;
 
-           
-            /*
-            // Fill Node's Array - initialization
-
-            foreach (CNode i_CNode in m_NodeArray)
-            {
-                // Fill Structures / Initialize
-                i_CNode.Fill_NDisp_InitStr();
-                i_CNode.Fill_NCode_InitStr();
-                i_CNode.Fill_NLoad_InitStr();
-
-                // Fill Arrays / Initialize
-                i_CNode.Fill_NDisp_ArrwithStr();
-                i_CNode.Fill_NCode_ArrwithStr();
-                i_CNode.Fill_NLoad_ArrwithStr();
-            }
-           */
-
-
-
             // Set Nodal Supports (for restraint set 0f)
             // Node 1
-            // m_NodeArray[0].m_sDisp.s_fUX = 0f;
 
             // Node 2
             m_NodeArray[1].m_ArrDisp.FVectorItems[0] = 0f;
@@ -216,10 +195,6 @@ namespace FEM_CALC_1Din3D
             m_NodeArray[3].m_ArrDisp.FVectorItems[3] = 0f;
             m_NodeArray[3].m_ArrDisp.FVectorItems[4] = 0f;
             m_NodeArray[3].m_ArrDisp.FVectorItems[5] = 0f;
-
-            // Update Node's Array
-            foreach (CFemNode i_CNode in m_NodeArray)
-                i_CNode.Fill_NDisp_ArrwithStr();
 
             // Set Global Code Numbers
 
@@ -255,14 +230,6 @@ namespace FEM_CALC_1Din3D
 
 
 
-            // Update Node's Array
-            foreach (CFemNode i_CNode in m_NodeArray)
-                i_CNode.Fill_NLoad_ArrwithStr();
-
-
-
-
-
 
 
 
@@ -294,10 +261,6 @@ namespace FEM_CALC_1Din3D
                 // Fill array object item
                 m_ELoadArray[i] = CLoad_i;
             }
-
-            // Matrix operations
-            CMatrix x = new CMatrix();
-
 
             // Member 1 [0] Nodes 1 - 2 ([0] [1]) 
             m_ELemArray[0].m_NodeStart = m_NodeArray[0];
