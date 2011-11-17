@@ -118,7 +118,7 @@ namespace FEM_CALC_1Din3D
         */
 
         // Cross-section properties / Geometrical data
-        ECrScShType1 m_eCrScType = ECrScShType1.eCrScType_I;
+        CRSC.Enums.ECrScShType1 m_eCrScType = CRSC.Enums.ECrScShType1.eCrScType_I;
  
 
 
