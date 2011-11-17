@@ -11,7 +11,14 @@ namespace FEM_CALC_1Din2D
 {
     public class CE_1D : CMember
     {
-        public int m_iSuppType;
+        private int m_MemberID;
+
+        public int MemberID
+        {
+            get { return m_MemberID; }
+            set { m_MemberID = value; }
+        }
+
         // Geometrical properties of Element
         public float m_fLength_X, m_fLength_Y, m_frotation_angle = 0f;
 
@@ -40,10 +47,10 @@ namespace FEM_CALC_1Din2D
         public CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i2D_DOFNo);  // End Node
 
         // 2D Matrices 
-        CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo);   // 3x3
-        CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
-        CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
-        CMatrix m_fKGlobM;     // (2x3)*(2x3)
+        public CMatrix m_fkLocMatr = new CMatrix(Constants.i2D_DOFNo);   // 3x3
+        public CMatrix m_fATRMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
+        public CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
+        public CMatrix m_fKGlobM;     // (2x3)*(2x3)
 
         public CFemNode m_NodeStart =  new CFemNode();
         public CFemNode m_NodeEnd = new CFemNode();
@@ -65,7 +72,7 @@ namespace FEM_CALC_1Din2D
             // Fill Arrays / Initialize
             Fill_EEndsLoad_Init();
         }
-        public CE_1D(CMember mMember, CFemNode NStart, CFemNode NEnd, int iSuppType)
+        public CE_1D(CMember mMember, CFemNode NStart, CFemNode NEnd)
         {
             // Main member or segment
             m_Member = mMember; 
@@ -73,8 +80,6 @@ namespace FEM_CALC_1Din2D
             // Nodes
             m_NodeStart = NStart;
             m_NodeEnd   = NEnd;
-            // Support type
-            m_iSuppType = iSuppType;
 
             // Cross-section
             m_CrSc = m_Member.CrSc;
@@ -83,7 +88,7 @@ namespace FEM_CALC_1Din2D
 
         } // End of constructor
 
-        public CE_1D(CGenex FemModel, int iMemberID, int iSuppType)
+        public CE_1D(CGenex FemModel, int iMemberID)
         {
             // Main member or segment
             m_Member = FemModel.m_arrFemMembers[iMemberID];
@@ -91,31 +96,12 @@ namespace FEM_CALC_1Din2D
             // Nodes
             m_NodeStart.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeStart);
             m_NodeEnd.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeEnd);
-            // Support type
-            m_iSuppType = iSuppType;
 
             // Cross-section
-            m_CrSc = m_Member.CrSc;
+            m_CrSc = FemModel.m_arrFemMembers[iMemberID].m_CrSc;
 
             FillBasic2();
 
-        } // End of constructor
-
-        public CE_1D(CMember mMember, int iSuppType)
-        {
-            // Main member or segment
-            m_Member = mMember;
-
-            // Nodes
-            m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
-            m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
-            // Support type
-            m_iSuppType = iSuppType;
-
-            // Cross-section
-            m_CrSc = m_Member.CrSc;
-
-            FillBasic2();
         } // End of constructor
 
         // Constructor - FEM Member is copy of topological member or segment
@@ -123,15 +109,16 @@ namespace FEM_CALC_1Din2D
         {
             // Main member or segment
             m_Member = TopoMember;
+            IMember_ID = TopoMember.IMember_ID; // Temporary - TopoMember ID is same as FemMember
             // Nodes
             m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
             m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
 
             // Cross-section
-            m_CrSc = m_Member.CrSc;
+            m_CrSc = TopoMember.CrSc;
 
             FillBasic2();
-        }
+        } // End of constructor
 
         public void FillBasic2()
         {
@@ -145,6 +132,9 @@ namespace FEM_CALC_1Din2D
 
             // FEM Element Length
             m_fLength = MathF.Sqrt(MathF.Pow2(m_fLength_X) + MathF.Pow2(m_fLength_Y));
+
+            // Calculate rotation of meber - clockwise system
+            m_fAlpha = GetGCSAlpha();
 
             //m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
@@ -178,7 +168,7 @@ namespace FEM_CALC_1Din2D
             // Check of partial matrices members
 
             // Partial matrices of global matrix of member 3 x 3
-            Console.WriteLine(m_fkLocMatr.Print2DMatrix());
+            //Console.WriteLine(m_fkLocMatr.Print2DMatrix());
 
             // Return partial matrixes and global matrix of FEM element 6 x 6 (2*3x2*3) 2D
 
@@ -256,7 +246,7 @@ namespace FEM_CALC_1Din2D
             }
         }
 
-        public float GetGCSAlpha(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2, float fGCsCoord1, float fGCsCoord2)
+        public float GetGCSAlpha(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2)
         {
             ///////////////////////////////////////////////////////////////////
             // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
@@ -289,7 +279,7 @@ namespace FEM_CALC_1Din2D
             // GLOBAL COORDINATE SYSTEM direction
             // Rotation about Global Z-Axis
 
-            return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_X, m_GCS_Y);
+            return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
         }
 
         private EElemSuppType Get_iElemSuppType()
@@ -312,7 +302,8 @@ namespace FEM_CALC_1Din2D
                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                 (m_Member.CnRelease2 != null &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true &&
                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true)       
                 )
@@ -322,20 +313,47 @@ namespace FEM_CALC_1Din2D
                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
-                (m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                (m_Member.CnRelease1 != null &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true &&
                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true)
                 )
                 return EElemSuppType.e2DEl_____000;
             else if
                 (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                ((m_Member.CnRelease1 == null) ||
+                 (m_Member.CnRelease2 != null &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                )
+                return EElemSuppType.e2DEl_000_00_;
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
+                ((m_Member.CnRelease2 == null) ||
+                (m_Member.CnRelease1 != null &&
+                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                )
+                return EElemSuppType.e2DEl_00__000;
+            else if
+                (
                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                ((m_Member.CnRelease1 != null &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2 != null &&
+                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
                 )
@@ -345,12 +363,14 @@ namespace FEM_CALC_1Din2D
                  (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
                   m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
                   m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                 ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                 ((m_Member.CnRelease1 != null &&
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 ( m_Member.CnRelease2 != null &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
                 )
                 return EElemSuppType.e2DEl__0__00_;
             else if
@@ -358,10 +378,12 @@ namespace FEM_CALC_1Din2D
                  (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
                   m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
                   m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                 ((m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                 ((m_Member.CnRelease1 != null &&
+                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
+                 (m_Member.CnRelease2 != null &&
+                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
                 )
