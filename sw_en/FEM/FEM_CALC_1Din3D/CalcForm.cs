@@ -24,6 +24,8 @@ namespace FEM_CALC_1Din3D
 
 
             // Auxialiary string - result data
+
+            int iDispDecPrecision = 3; // Precision of numerical values of displacement and rotations
             string sDOFResults = null;
 
             for (int i = 0; i < obj_Calc.m_V_Displ.FVectorItems.Length; i++)
@@ -32,9 +34,9 @@ namespace FEM_CALC_1Din3D
                 int iNodeDOFNumber = obj_Calc.m_fDisp_Vector_CN[i, 2]+1;
 
                 sDOFResults += "Node No:" + "\t" + iNodeNumber + "\t" +
-                             "Node DOF No:" + "\t" + iNodeDOFNumber + "\t" +
-                             "Value:" + "\t" + obj_Calc.m_V_Displ.FVectorItems[i]
-                             + "\n";
+                               "Node DOF No:" + "\t" + iNodeDOFNumber + "\t" +
+                               "Value:" + "\t" + String.Format("{0:0.000}" ,Math.Round(obj_Calc.m_V_Displ.FVectorItems[i], iDispDecPrecision))
+                               + "\n";
             }
 
             // Main String
