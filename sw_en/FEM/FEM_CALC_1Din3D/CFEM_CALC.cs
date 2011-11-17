@@ -528,7 +528,7 @@ namespace FEM_CALC_1Din3D
                 {
                     m_ELemArray[i].GetArrElemEF_GCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node End Forces in GCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_StNode);
+                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_GCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node End Forces in GCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector());
