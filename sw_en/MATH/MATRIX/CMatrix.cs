@@ -866,7 +866,83 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
         public void Print2DMatrixFormated()
         {
             Print2DMatrix(m_fArrMembers, m_iRows,m_iColumns, 5);
-        }          
+        }
+
+        public void Print2DMatrixFormated_ABxCD(CMatrix[,] fM_ABxCD,  int precision)
+        {
+            // Determine the largest entry width in characters
+            // so that we can make all columns an equal width.
+            int largestEntryWidth = 1;
+
+            for (int l = 0; l < Math.Sqrt(fM_ABxCD.Length); l++) // SubMatrix rows
+            {
+                for (int m = 0; m < Math.Sqrt(fM_ABxCD.Length); m++) // SubMatrix columns
+                {
+                    for (int i = 0; i < fM_ABxCD[l, m].m_iRows; i++)
+                    {
+                        for (int j = 0; j < fM_ABxCD[l, m].m_iColumns; j++)
+                        {
+                            String text = String.Format(String.Empty
+                                + '{' + '0' + ':' + 'g' + precision + '}', fM_ABxCD[l, m].m_fArrMembers[i, j]);
+                            if (text.Length > largestEntryWidth)
+                            {
+                                largestEntryWidth = text.Length;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // Print each row of the matrix.
+            for (int i = 0; i < 2 * fM_ABxCD[0,0].m_iRows; i++)
+            {
+                System.Console.Write('[');
+                for (int j = 0; j <  2 * fM_ABxCD[0,0].m_iColumns; j++)
+                {
+                    System.Console.Write(' ');
+
+                    String text;
+
+                    if (i < fM_ABxCD[0, 0].m_iRows && j < fM_ABxCD[0, 0].IColumns) // k11
+                        text = String.Format(String.Empty
+                        + '{' + '0' + ',' + largestEntryWidth + ':' + 'g'
+                        + precision + '}', fM_ABxCD[0,0].m_fArrMembers[i, j]);
+                    else if(i < fM_ABxCD[0, 0].m_iRows && j >= fM_ABxCD[0, 0].IColumns) // k12
+                        text = String.Format(String.Empty
+                        + '{' + '0' + ',' + largestEntryWidth + ':' + 'g'
+                        + precision + '}', fM_ABxCD[0,1].m_fArrMembers[i, j-fM_ABxCD[0,1].IColumns]);
+                    else if(i >= fM_ABxCD[0, 0].m_iRows && j < fM_ABxCD[0, 0].IColumns) // k21
+                        text = String.Format(String.Empty
+                        + '{' + '0' + ',' + largestEntryWidth + ':' + 'g'
+                        + precision + '}', fM_ABxCD[1, 0].m_fArrMembers[i- fM_ABxCD[1,0].IRows, j]);
+                    else                                                               // k22
+                        text = String.Format(String.Empty
+                        + '{' + '0' + ',' + largestEntryWidth + ':' + 'g'
+                        + precision + '}', fM_ABxCD[1, 1].m_fArrMembers[i - fM_ABxCD[1, 1].IRows, j - fM_ABxCD[1, 1].IColumns]);
+
+                    System.Console.Write(text);
+
+                    // Separator
+                    if ((j + 1) <  2 * fM_ABxCD[0,0].m_iColumns)
+                    {
+                        System.Console.Write(',');
+                    }
+                    else
+                    {
+                        System.Console.Write(' ');
+                    }
+                }
+                System.Console.WriteLine(']');
+            }
+
+            System.Console.WriteLine(' '); // Empty line
+        }
+
+        public void Print2DMatrixFormated_ABxCD(CMatrix[,] fM_ABxCD)
+        {
+            Print2DMatrixFormated_ABxCD(fM_ABxCD, 5);
+        }
 
         public string Print2DMatrix(float[,][,] fM, int iSize1, int iSize2)
         {
