@@ -18,6 +18,8 @@ using WPF.MDI;
 using SharedLibraries.EXPIMP;
 using System.Data;
 using System.Diagnostics;
+using System.Threading;
+using System.Collections;
 
 namespace sw_en_GUI
 {
@@ -31,7 +33,7 @@ namespace sw_en_GUI
 			InitializeComponent();
 			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
 
-			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1)});
+			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
 		/// <summary>
@@ -61,10 +63,10 @@ namespace sw_en_GUI
 			mi.Click += (o, e) => Container.Children.Clear();
 		}
 
-		
+
 		private void menuItemNew_Click(object sender, RoutedEventArgs e)
 		{
-			Container.Children.Add(new MdiChild { Content = (UIElement) new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
+			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
 		private void menuItemSave_Click(object sender, RoutedEventArgs e)
@@ -86,7 +88,7 @@ namespace sw_en_GUI
 					// Close the file
 					fs.Close();
 				}
-				catch (Exception ex) 
+				catch (Exception ex)
 				{
 					if (!EventLog.SourceExists("sw_en"))
 					{
@@ -115,7 +117,7 @@ namespace sw_en_GUI
 					// Close the file
 					fs.Close();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					if (!EventLog.SourceExists("sw_en"))
 					{
@@ -141,10 +143,23 @@ namespace sw_en_GUI
 			{
 				try
 				{
-
 					DataSet ds = CImportFromExcel.ImportFromExcel(ofd.FileName);
-					dataGridSummary.ItemsSource = ds.Tables[0].DefaultView;
-					dataGridSummary.DataContext = ds;
+					dataGridNodes.ItemsSource = ds.Tables[0].DefaultView;
+					dataGridNodes.DataContext = ds;
+					dataGridMaterials.ItemsSource = ds.Tables[1].DefaultView;
+					dataGridMaterials.DataContext = ds;
+					dataGridCrossSections.ItemsSource = ds.Tables[2].DefaultView;
+					dataGridCrossSections.DataContext = ds;
+					dataGridMemberReleases.ItemsSource = ds.Tables[3].DefaultView;
+					dataGridMemberReleases.DataContext = ds;
+					dataGridMemberEccentricities.ItemsSource = ds.Tables[4].DefaultView;
+					dataGridMemberEccentricities.DataContext = ds;
+					dataGridMemberDivisions.ItemsSource = ds.Tables[5].DefaultView;
+					dataGridMemberDivisions.DataContext = ds;
+					dataGridNodalSupport.ItemsSource = ds.Tables[6].DefaultView;
+					dataGridNodalSupport.DataContext = ds;
+					dataGridMemberElasticFoundations.ItemsSource = ds.Tables[7].DefaultView;
+					dataGridMemberElasticFoundations.DataContext = ds;
 				}
 				catch (Exception ex)
 				{
@@ -155,29 +170,78 @@ namespace sw_en_GUI
 					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
 				}
 			}
-			
+
 		}
 
 		private void ButtonExport_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.DefaultExt = ".xlsx";
-			sfd.Filter = "Excel documents(.xlsx, .xls)|*.xlsx;*.xls";
+			sfd.Filter = "Excel documents(.xlsx)|*.xlsx|Excel documents(.xls)|*.xls";
 			if (sfd.ShowDialog() == true)
 			{
 				try
 				{
-					CExportToExcel.ExportToExcel(dataGridSummary.DataContext as DataSet, sfd.FileName, "ExportedData sw_en");
-					
+					ArrayList a = new ArrayList();
+					a.Add(dataGridNodes.DataContext);
+					a.Add(sfd.FileName);
+					ThreadPool.QueueUserWorkItem(exportData, (object)a);
+
+
+					//ArrayList a = new ArrayList();
+					//a.Add(dataGridNodes.DataContext);
+					//a.Add(sfd.FileName);
+					//a.Add("Nodes");
+					//ThreadPool.QueueUserWorkItem(exportData, (object) a);
+					//ArrayList a1 = new ArrayList();
+					//a1.Add(dataGridMaterials.DataContext);
+					//a1.Add(sfd.FileName);
+					//a1.Add("Materials");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a1);
+					//ArrayList a2 = new ArrayList();
+					//a2.Add(dataGridCrossSections.DataContext);
+					//a2.Add(sfd.FileName);
+					//a2.Add("Cross Sections");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a2);
+					//ArrayList a3 = new ArrayList();
+					//a3.Add(dataGridMemberReleases.DataContext);
+					//a3.Add(sfd.FileName);
+					//a3.Add("Member Releases");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a3);
+					//ArrayList a4 = new ArrayList();
+					//a4.Add(dataGridMemberEccentricities.DataContext);
+					//a4.Add(sfd.FileName);
+					//a4.Add("Member Eccentricities");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a4);
+					//ArrayList a5 = new ArrayList();
+					//a5.Add(dataGridMemberDivisions.DataContext);
+					//a5.Add(sfd.FileName);
+					//a5.Add("Members Divisions");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a5);
+					//ArrayList a6 = new ArrayList();
+					//a6.Add(dataGridNodalSupport.DataContext);
+					//a6.Add(sfd.FileName);
+					//a6.Add("Nodal Support");
+					//ThreadPool.QueueUserWorkItem(exportData, (object)a6);
+
+					//CExportToExcel.ExportToExcel(dataGridNodes.DataContext as DataTable, sfd.FileName, "Nodes");
+					//CExportToExcel.ExportToExcel(dataGridMaterials.DataContext as DataTable, sfd.FileName, "Materials");
+					//CExportToExcel.ExportToExcel(dataGridCrossSections.DataContext as DataTable, sfd.FileName, "Cross Sections");
+					//CExportToExcel.ExportToExcel(dataGridMemberReleases.DataContext as DataTable, sfd.FileName, "Member Releases");
+					//CExportToExcel.ExportToExcel(dataGridMemberEccentricities.DataContext as DataTable, sfd.FileName, "Member Eccentricities");
+					//CExportToExcel.ExportToExcel(dataGridMemberDivisions.DataContext as DataTable, sfd.FileName, "Members Divisions");
+					//CExportToExcel.ExportToExcel(dataGridNodalSupport.DataContext as DataTable, sfd.FileName, "Nodal Support");
+					//CExportToExcel.ExportToExcel(dataGridMemberElasticFoundations.DataContext as DataTable, sfd.FileName, "Members Elastic Foundations");
+
 				}
-				catch (ArgumentNullException ex) 
+				catch (ArgumentNullException ex)
 				{
-					if(!EventLog.SourceExists("sw_en"))
+					if (!EventLog.SourceExists("sw_en"))
 					{
 						EventLog.CreateEventSource("sw_en", "Application");
 					}
 					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
-					
+
 				}
 				catch (Exception ex)
 				{
@@ -191,10 +255,16 @@ namespace sw_en_GUI
 			}
 		}
 
-		
+		public static void exportData(object obj) 
+		{
+			ArrayList args = (ArrayList)obj;
+			CExportToExcel.ExportToExcel(args[0] as DataSet, args[1] as string);
+		}
 
-		
 
-		
+
+
+
+
 	}
 }
