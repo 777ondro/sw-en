@@ -19,13 +19,15 @@ namespace FEM_CALC_1Din2D
         // Constructor 1
         public CFemNode()
         {
-
+            Fill_Node_Init();
         }
 
         // Constructor 2
         public CFemNode(int iNNo)
         {
             INode_ID = iNNo;
+
+            Fill_Node_Init();
         }
 
         // Constructor 3
@@ -34,10 +36,12 @@ namespace FEM_CALC_1Din2D
             INode_ID = iNNo;
             m_VDisp = VDisp;
             m_ArrDirNodeLoad = ArrLoad;
+
+            Fill_Node_Init();
         }
 
         // Constructor 4 - FEM node is copy of topological node
-        public CFemNode(CNSupport [] arrNSupports, CNode TopoNode)
+        public CFemNode(CNode TopoNode)
         {
             INode_ID = TopoNode.INode_ID;
             FCoord_X = TopoNode.FCoord_X;
@@ -45,20 +49,43 @@ namespace FEM_CALC_1Din2D
             FCoord_Z = TopoNode.FCoord_Z;
             FTime = TopoNode.FTime;
 
-            // Get nodal support
-            // Search if node is in list of supported nodes for each nodal support
-            for (int i = 0; i < arrNSupports.Length; i++) // Check all nodal supports
-            {
-                for (int j = 0; j < arrNSupports[i].m_iNodeCollection.Length; j++) // Check list of nodes (Nodes IDs collection)
-                {
-                    if (INode_ID == arrNSupports[i].m_iNodeCollection[j])
-                    {
-                        m_ArrNodeDOF[(int)e2D_DOF.eUX] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eUX]; // !!! 2D Environment enum
-                        m_ArrNodeDOF[(int)e2D_DOF.eUY] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eUY]; // !!! 2D Environment enum
-                        m_ArrNodeDOF[(int)e2D_DOF.eRZ] = arrNSupports[i].m_bRestrain[(int)e2D_DOF.eRZ]; // !!! 2D Environment enum
-                    }
-                }
-            }
+            Fill_Node_Init();
+        }
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Nodal loads in GCS
+        public void Fill_ArrDirNodeLoad_Init()
+        {
+           m_ArrDirNodeLoad[(int)e2D_E_F.eFX] = 0f;
+           m_ArrDirNodeLoad[(int)e2D_E_F.eFY] = 0f;
+           m_ArrDirNodeLoad[(int)e2D_E_F.eMZ] = 0f;
+        }
+
+        // Nodal displacement
+        public void Fill_VDisp_Init()
+        {
+         m_VDisp.FVectorItems[(int)e2D_DOF.eUX] = 0f;
+         m_VDisp.FVectorItems[(int)e2D_DOF.eUY] = 0f;
+         m_VDisp.FVectorItems[(int)e2D_DOF.eRZ] = 0f;
+        }
+
+        public void Fill_ArrNodeDOF_Init()
+        {
+            // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            m_ArrNodeDOF[(int)e2D_DOF.eUX] = false;
+            m_ArrNodeDOF[(int)e2D_DOF.eUY] = false;
+            m_ArrNodeDOF[(int)e2D_DOF.eRZ] = false;
+        }
+
+        public void Fill_Node_Init()
+        {
+            Fill_ArrDirNodeLoad_Init();
+            Fill_VDisp_Init();
+            Fill_ArrNodeDOF_Init();
         }
 
 

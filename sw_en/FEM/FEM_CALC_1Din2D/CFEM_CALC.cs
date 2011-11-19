@@ -175,9 +175,9 @@ namespace FEM_CALC_1Din2D
 
             // Member releases
             bool [] bRelTemp = new bool [TopoModel.m_eNDOF];
-            bRelTemp[0] = false;
-            bRelTemp[1] = false;
-            bRelTemp[2] = true;
+            bRelTemp[0] = true; // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
+            bRelTemp[1] = true;
+            bRelTemp[2] = false; 
 
             CNRelease NRelease1 = new CNRelease(TopoModel.m_eNDOF, TopoModel.m_arrNodes[1], TopoModel.m_arrMembers[0], bRelTemp, 0);
             NRelease1.m_iNodeCollection = new int[1];
