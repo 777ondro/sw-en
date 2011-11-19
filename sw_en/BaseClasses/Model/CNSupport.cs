@@ -7,7 +7,7 @@ using System.Text;
 namespace BaseClasses
 {
     [Serializable]
-    public class CNSupport
+    public class CNSupport : CEntity
     {
         //----------------------------------------------------------------------------
         private int m_iSupport_ID;

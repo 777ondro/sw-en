@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CEntity.cs" />
     <Compile Include="GraphObj\CLine.cs" />
     <Compile Include="GraphObj\CPoint.cs" />
     <Compile Include="GraphObj\CArea.cs" />

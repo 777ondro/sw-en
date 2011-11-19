@@ -6,7 +6,7 @@ using System.Text;
 namespace BaseClasses
 {
     [Serializable]
-    public class CNRelease
+    public class CNRelease : CEntity
     {
         //---------------------------------------------------------------------------------
         private CNode m_Node;

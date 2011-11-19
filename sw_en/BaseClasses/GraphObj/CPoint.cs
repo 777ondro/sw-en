@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    class CPoint
+    class CPoint : CEntity
     {
     }
 }

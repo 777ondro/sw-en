@@ -8,7 +8,7 @@ namespace BaseClasses
 {
     // Class CNode
     [Serializable]
-    public class CNode
+    public class CNode : CEntity
     {
         private int m_iNode_ID;
         private float m_fCoord_X;

@@ -8,7 +8,7 @@ using CRSC;
 namespace BaseClasses
 {
     [Serializable]
-    public class CMember
+    public class CMember:CEntity
     {
         private int      m_iMember_ID, m_fTime;
 
