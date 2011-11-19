@@ -174,7 +174,7 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrNSupports[2] = NSupport2;
 
             // Member releases
-            bool[] bRelTemp = new bool[TopoModel.m_eNDOF];
+            bool? [] bRelTemp = new bool?[TopoModel.m_eNDOF];
             bRelTemp[0] = true; // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
             bRelTemp[1] = true;
             bRelTemp[2] = false;
