@@ -28,6 +28,11 @@ namespace MATH
         // Return result of matrix multiplying
         public static CMatrix fMultiplyMatr(CMatrix fM1, CMatrix fM2)
         {
+            if (fM1.m_fArrMembers == null || fM2.m_fArrMembers == null) // Empty matrix
+            {
+                throw new ArgumentException();
+            }
+
             // Number of Matrix M1 rows and columns
             int iM1_iRowsMax = (int)Math.Sqrt(fM1.m_fArrMembers.Length); // square
             int iM1_jColsMax = (int)Math.Sqrt(fM1.m_fArrMembers.Length);
