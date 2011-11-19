@@ -15,7 +15,7 @@ namespace FEM_CALC_1Din2D
         public int[] m_ArrNCodeNo = new int[Constants.i2D_DOFNo];          // Array of global codes numbers
         public float[] m_ArrDirNodeLoad = new float[Constants.i2D_DOFNo];  // Direct nodal load
         public bool[] m_ArrNodeDOF = new bool[Constants.i2D_DOFNo];        // Nodal Supports - Node DOF restraints
-        public ArrayList m_iMemberCollection; // List / Collection of FEM members connected to the node
+        public ArrayList m_iMemberCollection = new ArrayList(); // List / Collection of FEM members connected to the node
 
         // Constructor 1
         public CFemNode()
