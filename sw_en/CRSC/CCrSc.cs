@@ -18,6 +18,8 @@ namespace CRSC
             set { m_iCrSc_ID = value; }
         }
 
+        private float m_fh, m_fb; // Total depth and width of section (must be defined for all section shapes)
+
         private float m_fU,
         m_fA_g,
         m_fS_y,
@@ -45,6 +47,24 @@ namespace CRSC
         m_fA_z_v_pl,
         m_ff_z_v_plel;
 
+        public float Fh
+        {
+            get { return m_fh; }
+            set { m_fh = value; }
+        }
+
+        public float Fb
+        {
+            get { return m_fb; }
+            set { m_fb = value; }
+        }
+
+        public float FI_y
+        {
+            get { return m_fI_y; }
+            set { m_fI_y = value; }
+        }
+
         public float FI_z
         {
             get { return m_fI_z; }
@@ -57,16 +77,16 @@ namespace CRSC
             set { m_fI_t = value; }
         }
 
-        public float FI_y
-        {
-            get { return m_fI_y; }
-            set { m_fI_y = value; }
-        }
-
         public float FS_y
         {
             get { return m_fS_y; }
             set { m_fS_y = value; }
+        }
+
+        public float FS_z
+        {
+            get { return m_fS_z; }
+            set { m_fS_z = value; }
         }
 
         public float FA_g
