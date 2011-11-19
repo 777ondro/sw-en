@@ -94,7 +94,10 @@ namespace FEM_CALC_1Din2D
                 for (int j = 0; j < m_arrFemMembers.Length; j++)
                 {
                     if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeStart.INode_ID || m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeEnd.INode_ID) // Is node ID same as member start or end node ID
+                    {
+                        m_arrFemNodes[i].m_iMemberCollection = new System.Collections.ArrayList(); // Allocate collection memory
                         m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].MemberID); // Add FEMmember ID to the FEM node list
+                    }
                 }
             }
 
