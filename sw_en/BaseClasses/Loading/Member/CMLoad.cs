@@ -64,8 +64,19 @@ namespace BaseClasses
 
         public CMLoad()
         {
+            // m_V_EIF_MembStart = new CVector(6); // Vector size depending on DOF of node in D or 3D environment
+            // m_V_EIF_MembEnd = new CVector(6);
+            Fill_Load_Init(); // Initial values
+        }
 
-        
+        void Fill_Load_Init()
+        {
+            // Zero load initial values
+            for (int i = 0; i < V_EIF_MembStart.FVectorItems.Length; i++)
+            {
+                m_V_EIF_MembStart.FVectorItems[i] = 0f;
+                m_V_EIF_MembEnd.FVectorItems[i] = 0f;
+            }
         }
     }
 }
