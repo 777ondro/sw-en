@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 using MATH;
+using MATERIAL;
+using CRSC;
+using CENEX;
 
-namespace FEM_CALC_1Din3D
+namespace FEM_CALC_BASE
 {
     public class CMLoadPart:CMLoad
     {
@@ -124,7 +127,7 @@ namespace FEM_CALC_1Din3D
         {
             switch (Element.m_iSuppType)
             {
-                case (int)EElemSuppType.e3DEl_000000_______:
+                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl_000000_______:
                     {
                         switch (eLDirPCC)
                         {
@@ -149,22 +152,22 @@ namespace FEM_CALC_1Din3D
                         }
                         break;
                     }
-                case (int)EElemSuppType.e3DEl_000000_000000:
+                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl_000000_000000:
                     {
 
                         break;
                     }
-                case (int)EElemSuppType.e3DEl_000000_000___:
+                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl_000000_000___:
                     {
 
                         break;
                     }
-                case (int)EElemSuppType.e3DEl_000000_0_00_0:
+                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl_000000_0_00_0:
                     {
 
                         break;
                     }
-                case (int)EElemSuppType.e3DEl________000000:
+                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl________000000:
                     {
 
                         break;
@@ -370,16 +373,16 @@ namespace FEM_CALC_1Din3D
             fMb = -fMa;
         }
         // Temperature
-        void GetEIF_00_51_UV(CMLoad_51z Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF_00_51_UV(CMLoad_51z Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
             fA = fB = 0f;
-            fMa = -objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh;
+            fMa = -objMat.m_fE * objCrSc.FI_y * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.Fh;
             fMb = -fMa;
         }
-        void GetEIF_00_51_UV(CMLoad_51y Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF_00_51_UV(CMLoad_51y Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
             fA = fB = 0f;
-            fMa = -objMat.m_fE * objCrSc.m_fIz * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fb;
+            fMa = -objMat.m_fE * objCrSc.FI_z * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.Fb;
             fMb = -fMa;
         }
         #endregion
@@ -499,19 +502,19 @@ namespace FEM_CALC_1Din3D
             // Not implemented yet
         }
         // Temperature
-        void GetEIF__0_51_UV(CMLoad_51z Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF__0_51_UV(CMLoad_51z Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh; 
+            fA = -3f / 2f * objMat.m_fE * objCrSc.FI_y / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.Fh; 
             fB = -fA;
             fMa = 0f;
-            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u)) / objCrSc.m_fh);
+            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.FI_y * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u)) / objCrSc.Fh);
         }
-        void GetEIF__0_51_UV(CMLoad_51y Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF__0_51_UV(CMLoad_51y Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fh; 
+            fA = -3f / 2f * objMat.m_fE * objCrSc.FI_y / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.Fh; 
             fB = -fA;
             fMa = 0f;
-            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.m_fIy * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r)) / objCrSc.m_fh);
+            fMb = 3f / 2f * ((objMat.m_fE * objCrSc.FI_y * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r)) / objCrSc.Fh);
         }
         #endregion
 
@@ -615,15 +618,15 @@ namespace FEM_CALC_1Din3D
             fMa = fMb = 0f;
         }
         // Temperature
-        void GetEIF____51_UV(CMLoad_51z Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF____51_UV(CMLoad_51z Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.m_fh;
+            fA = -3f / 2f * objMat.m_fE * objCrSc.FI_y / fL * objMat.m_fAlpha_T * (Load.Ft_0_b - Load.Ft_0_u) / objCrSc.Fh;
             fB = -fA;
             fMa = fMb = 0f;
         }
-        void GetEIF____51_UV(CMLoad_51y Load, CMaterial objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
+        void GetEIF____51_UV(CMLoad_51y Load, CMat_00 objMat, CCrSc objCrSc, float fL, float fA, float fB, float fMa, float fMb)
         {
-            fA = -3f / 2f * objMat.m_fE * objCrSc.m_fIy / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.m_fh;
+            fA = -3f / 2f * objMat.m_fE * objCrSc.FI_y / fL * objMat.m_fAlpha_T * (Load.Ft_0_l - Load.Ft_0_r) / objCrSc.Fh;
             fB = -fA;
             fMa = fMb = 0f;
         }
