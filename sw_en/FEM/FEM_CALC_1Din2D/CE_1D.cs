@@ -306,7 +306,7 @@ namespace FEM_CALC_1Din2D
                 if (iMemberCollection == null || iMemberCollection.Count == 1) // No or just one FEM Member is connected, means free end - support DOF are governing
                     return bNodeDOF[(int)eDOF];
                 else // Node is connected to two or more members, releases are necessary to define DOF
-                    return true; // two members are connection is rigid as default if no release exists
+                    return true; // two members connection is rigid as default if no release exists
             else
             {
                 if (bNodeDOF[(int)eDOF] == true && bReleaseDOF[(int)eDOF] == true) // Support DOF is rigid and release DOF rigid restraint exist 
@@ -321,7 +321,6 @@ namespace FEM_CALC_1Din2D
         private EElemSuppType Get_iElemSuppType()
         {
             // ROZPRACOVANE, zahrnut aj klby opravit !!!!!!!
-
 
 
 

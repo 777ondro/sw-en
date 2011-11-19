@@ -101,6 +101,63 @@ namespace FEM_CALC_1Din2D
                 }
             }
 
+            //  If only two members are connected in one node and if release exists at that node, copy this release from one member to the another
+            for (int i = 0; i < m_arrFemNodes.Length; i++)
+            {
+                if (m_arrFemNodes[i].m_iMemberCollection != null && m_arrFemNodes[i].m_iMemberCollection.Count == 2) // Node is connected to two members
+                { 
+                    // We know member ID, so we can get index of members in list
+                    int iMember1_index = -1;
+                    int iMember2_index = -1;
+
+                    for (int j = 0; j < m_arrFemMembers.Length; j++)
+                    {
+                        // 1st member index
+                        if (m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].ID)) // if Member ID is in the list
+                        {
+                            iMember1_index = j; // Set 1st
+
+                            // 2nd member index
+                            for (int k = m_arrFemMembers.Length - j; k < m_arrFemMembers.Length; k++) // Search for second
+                            {
+                                if (m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].ID))
+                                    iMember2_index = j;
+                            }
+                        }
+                    }
+
+                   // If relases exist, they are neccesary to define DOF of both members, therefore copy release of one member to the another one
+                   if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 != null)
+                   {
+                          if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                             m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
+                         else if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                             m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
+                   }
+                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 != null)
+                   {
+                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                           m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
+                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                           m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
+                   }
+                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 != null)
+                   {
+                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                           m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
+                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                           m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
+                   }
+                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 != null)
+                   {
+                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                           m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
+                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                           m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
+                   }
+                }
+            }
+
             // Additional data of members
             // Fill Members stifeness matrices
             for (int i = 0; i < m_arrFemMembers.Length; i++)
