@@ -218,7 +218,7 @@ namespace FEM_CALC_1Din2D
                     for (int j = 0; j < TopoModel.m_arrMLoads[i].IMemberCollection.Length; j++) // Each node in collection
                     {
                         // Set end forces due to member load 
-                        for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
+                        for (int k = 0; k < m_arrFemMembers.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
                         {
                             if (TopoModel.m_arrMLoads[i].IMemberCollection.Contains(TopoModel.m_arrMembers[k].IMember_ID)) // If member ID is same as collection item
                             {
