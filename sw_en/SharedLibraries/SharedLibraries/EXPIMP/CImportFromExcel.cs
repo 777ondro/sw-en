@@ -20,18 +20,15 @@ namespace SharedLibraries.EXPIMP
 				IExcelDataReader excelReader = null;
 				if (fileName.EndsWith(".xls")) 
 				{
+					// Reading from a binary Excel file ('97-2003 format; *.xls)
 					excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
 				}
 				else if(fileName.EndsWith(".xlsx"))
 				{
+					//Reading from a OpenXml Excel file (2007 format; *.xlsx)
 					excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 				}
-				//1. Reading from a binary Excel file ('97-2003 format; *.xls)
-				//IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-				//...
-				//2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
-				//IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-				//...
+				
 				//3. DataSet - The result of each spreadsheet will be created in the result.Tables
 				//DataSet result = excelReader.AsDataSet();
 				//...
