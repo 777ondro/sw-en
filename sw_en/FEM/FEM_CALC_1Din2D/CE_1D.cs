@@ -300,16 +300,16 @@ namespace FEM_CALC_1Din2D
             return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
         }
 
-        private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, bool ? [] bReleaseDOF, e2D_DOF eDOF)
+        private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, CNRelease NRelease, e2D_DOF eDOF)
         {
-            if (bReleaseDOF == null) // No release at point - support restraints are governing
+            if (NRelease == null) // No release at point - support restraints are governing
                 if (iMemberCollection == null || iMemberCollection.Count == 1) // None or just one FEM Member is connected, means free end - support DOF are governing
                     return bNodeDOF[(int)eDOF];
                 else // Node is connected to two or more members, releases are necessary to define DOF
                     return true; // two members connection is rigid as default if no release exists
             else
             {
-                if (bNodeDOF[(int)eDOF] == true && bReleaseDOF[(int)eDOF] == true) // Support DOF is rigid and release DOF rigid restraint exist 
+                if (bNodeDOF[(int)eDOF] == true && NRelease.m_bRestrain[(int)eDOF] == true) // Support DOF is rigid and release DOF rigid restraint exist 
                     return true;
                 else
                     return false;
@@ -330,102 +330,102 @@ namespace FEM_CALC_1Din2D
             // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
 
             if (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_000_000;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_000____;
             else if
                 (
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_____000;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                )
                 return EElemSuppType.e2DEl_000_00_;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_00__000;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_00___0_;
             else if
                 (
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl__0__00_;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_00__00_;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_00__0__;
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1.m_bRestrain, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2.m_bRestrain, e2D_DOF.eRZ)
+                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
                 return EElemSuppType.e2DEl_0___00_;
             else
