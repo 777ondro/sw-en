@@ -12,7 +12,7 @@ namespace BaseClasses
     // For polynomial members list of segments exists
 
     [Serializable]
-    public class CSegment
+    public class CSegment : CMember
     {
         private int m_iSegm_ID;
 

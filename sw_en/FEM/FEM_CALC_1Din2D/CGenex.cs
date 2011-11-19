@@ -33,6 +33,7 @@ namespace FEM_CALC_1Din2D
 
         public void GenerateMesh1D(CModel TopoModel)
         {
+            // Generate FEM nodes
             // Nodes
             for (int i = 0; i < TopoModel.m_arrNodes.Length; i++)
             {
@@ -59,6 +60,7 @@ namespace FEM_CALC_1Din2D
                 }
             }
 
+            // Generate FEM members
             // Members
             for (int i = 0; i < TopoModel.m_arrMembers.Length; i++)
             {
@@ -82,6 +84,26 @@ namespace FEM_CALC_1Din2D
                         }
                     }
                 }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            // Additional data of nodes depending on generated members
+
+            for (int i = 0; i < m_arrFemNodes.Length; i++)
+            {
+                for (int j = 0; j < m_arrFemMembers.Length; j++)
+                {
+                    if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeStart.INode_ID || m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeEnd.INode_ID) // Is node ID same as member start or end node ID
+                        m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].MemberID); // Add FEMmember ID to the FEM node list
+                }
+            }
+
+            // Additional data of members
+            // Fill Members stifeness matrices
+            for (int i = 0; i < m_arrFemMembers.Length; i++)
+            {
+                m_arrFemMembers[i].FillBasic3_StiffMatrices();
+
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    class CVolume
+    class CVolume : CEntity
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 namespace BaseClasses
 {
         [Serializable]
-    public class CNLoad
+    public class CNLoad : CEntity
     {
         //----------------------------------------------------------------------------
         private int m_iNLoad_ID;
