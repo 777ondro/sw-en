@@ -36,15 +36,52 @@ namespace FEM_CALC_1Din2D
             // Nodes
             for (int i = 0; i < TopoModel.m_arrNodes.Length; i++)
             {
-                CFemNode TempNode = new CFemNode(TopoModel.m_arrNSupports,TopoModel.m_arrNodes[i]);
+                // Create FEM node
+                CFemNode TempNode = new CFemNode(TopoModel.m_arrNodes[i]);
                 m_arrFemNodes[i] = TempNode;
+
+                // Set FEM node DOF
+
+                // Get nodal support
+                // Search if node is in list of supported nodes for each nodal support
+                for (int i2 = 0; i2 < TopoModel.m_arrNSupports.Length; i2++) // Check all nodal supports
+                {
+                    for (int j = 0; j < TopoModel.m_arrNSupports[i2].m_iNodeCollection.Length; j++) // Check list of nodes (Nodes IDs collection)
+                    {
+                        if (m_arrFemNodes[i].INode_ID == TopoModel.m_arrNSupports[i2].m_iNodeCollection[j])
+                        {
+                            // DOF of nodes are free - zero rigidity of restraints  false as default
+                            m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eUX] = TopoModel.m_arrNSupports[i2].m_bRestrain[(int)e2D_DOF.eUX]; // !!! 2D Environment enum
+                            m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eUY] = TopoModel.m_arrNSupports[i2].m_bRestrain[(int)e2D_DOF.eUY]; // !!! 2D Environment enum
+                            m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eRZ] = TopoModel.m_arrNSupports[i2].m_bRestrain[(int)e2D_DOF.eRZ]; // !!! 2D Environment enum
+                        }
+                    }
+                }
             }
 
             // Members
             for (int i = 0; i < TopoModel.m_arrMembers.Length; i++)
             {
-                CE_1D TempMember = new CE_1D(TopoModel.m_arrMembers[i]);
+                CE_1D TempMember = new CE_1D(TopoModel.m_arrMembers[i], m_arrFemNodes);
                 m_arrFemMembers[i] = TempMember;
+
+                // Set FEM Member DOF
+                if (TopoModel.m_arrNReleases != null) // Some releases exist
+                {
+                    for (int j = 0; j < TopoModel.m_arrNReleases.Length; j++) // Check each release
+                    {
+                        for (int k = 0; k < TopoModel.m_arrNReleases[j].m_iMembCollection.Length; k++) //  Check each member in collection
+                        {
+                            if (TopoModel.m_arrNReleases[j].m_iMembCollection[k] == m_arrFemMembers[i].MemberID) // if release exists on member
+                            {
+                                if (TopoModel.m_arrMembers[i].CnRelease1 != null)
+                                    m_arrFemMembers[i].CnRelease1 = TopoModel.m_arrMembers[i].CnRelease1;
+                                if (TopoModel.m_arrMembers[i].CnRelease2 != null)
+                                    m_arrFemMembers[i].CnRelease2 = TopoModel.m_arrMembers[i].CnRelease2;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

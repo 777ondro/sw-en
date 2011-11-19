@@ -15,7 +15,7 @@ namespace BaseClasses
         public int [] m_iNodeCollection; // List / Collection of nodes IDs where release is defined (need for local stiffeness matrix)
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
         public int m_eNDOF;
-        public bool[] m_bRestrain; // DOF
+        public bool[] m_bRestrain; // DOF is rigid - 1, DOF is free - 0
         public int m_fTime;
 
         //---------------------------------------------------------------------------------

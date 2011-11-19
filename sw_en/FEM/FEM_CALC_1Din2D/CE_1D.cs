@@ -94,8 +94,8 @@ namespace FEM_CALC_1Din2D
             m_Member = FemModel.m_arrFemMembers[iMemberID];
 
             // Nodes
-            m_NodeStart.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeStart);
-            m_NodeEnd.CopyTopoNodetoFemNode(FemModel.m_arrFemMembers[iMemberID].m_NodeEnd);
+            m_NodeStart =FemModel.m_arrFemMembers[iMemberID].m_NodeStart;
+            m_NodeEnd = FemModel.m_arrFemMembers[iMemberID].m_NodeEnd;
 
             // Cross-section
             m_CrSc = FemModel.m_arrFemMembers[iMemberID].m_CrSc;
@@ -105,14 +105,28 @@ namespace FEM_CALC_1Din2D
         } // End of constructor
 
         // Constructor - FEM Member is copy of topological member or segment
-        public CE_1D(CMember TopoMember)
+        public CE_1D(CMember TopoMember, CFemNode[] arrFemNodes)
         {
             // Main member or segment
             m_Member = TopoMember;
             IMember_ID = TopoMember.IMember_ID; // Temporary - TopoMember ID is same as FemMember
             // Nodes
-            m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
-            m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
+            //m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
+            //m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
+
+            // Nodes - temporary - nodes of Topo and Fem model are same
+            // Search FEM nodes
+            for (int i = 0; i < arrFemNodes.Length; i++)
+            {
+                if( m_Member.INode1.INode_ID == arrFemNodes[i].INode_ID)
+                m_NodeStart = arrFemNodes[i];
+            }
+
+            for (int i = 0; i < arrFemNodes.Length; i++)
+            {
+                if (m_Member.INode2.INode_ID == arrFemNodes[i].INode_ID)
+                    m_NodeEnd = arrFemNodes[i];
+            }
 
             // Cross-section
             m_CrSc = TopoMember.CrSc;
@@ -284,110 +298,119 @@ namespace FEM_CALC_1Din2D
 
         private EElemSuppType Get_iElemSuppType()
         {
-            // ROZPRACOVANE, zahrnut aj klby
+            // ROZPRACOVANE, zahrnut aj klby opravit !!!!!!!
 
-            // Is DOF free?
-            // true - yes, it is
-            // false - no, it isnt
 
-            if  (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) &&
+
+
+            // Is DOF rigid?
+            // true - 1 - yes, it is
+            // false - 0 - no, it isnt
+            // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
+
+            if (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) &&
                 (m_Member.CnRelease1 == null && m_Member.CnRelease2 == null)
                 )
                 return EElemSuppType.e2DEl_000_000;
             else if
                 (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2 != null &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true)       
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_Member.CnRelease1 == null &&
+                 (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false) &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_Member.CnRelease1 == null &&
+                 (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false) &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_Member.CnRelease1 == null &&
+                 (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)
                 )
                 return EElemSuppType.e2DEl_000____;
             else if
                 (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
                 (m_Member.CnRelease1 != null &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true)
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
+                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false)
                 )
                 return EElemSuppType.e2DEl_____000;
             else if
                 (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                ((m_Member.CnRelease1 == null) ||
-                 (m_Member.CnRelease2 != null &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
-                )
+                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_Member.CnRelease1 == null &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true) &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_Member.CnRelease1 == null &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true) &&
+                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_Member.CnRelease1 == null &&
+               (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)
+               )
                 return EElemSuppType.e2DEl_000_00_;
             else if
                 (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
-                ((m_Member.CnRelease2 == null) ||
-                (m_Member.CnRelease1 != null &&
-                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true) &&
+                m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_Member.CnRelease2 == null &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true) &&
+                m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_Member.CnRelease2 == null &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false) &&
+                m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_Member.CnRelease2 == null
                 )
                 return EElemSuppType.e2DEl_00__000;
             else if
                 (
-                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                 m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                ((m_Member.CnRelease1 != null &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                 m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2 != null &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                 m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)))
                 )
                 return EElemSuppType.e2DEl_00___0_;
             else if
                 (
-                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
+                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true &&
+                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) ||
                  ((m_Member.CnRelease1 != null &&
-                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true &&
-                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 ( m_Member.CnRelease2 != null &&
-                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true &&
+                   m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false) ||
+                 (m_Member.CnRelease2 != null &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true &&
+                   m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false))
                 )
                 return EElemSuppType.e2DEl__0__00_;
             else if
                 (
-                 (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == false &&
-                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false &&
-                  m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true && m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == true) ||
-                 ((m_Member.CnRelease1 != null &&
-                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                  m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == true) ||
-                 (m_Member.CnRelease2 != null &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false &&
-                  m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == true))
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)))
                 )
                 return EElemSuppType.e2DEl_00__00_;
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true &&(m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true && (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == true))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false || (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == false))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)))
+                )
+                return EElemSuppType.e2DEl_00__0__;
+            else if
+                (
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUX] == true && (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUX] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eUY] == false && (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eUY] == false))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eUY] == true || (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eUY] == true))) &&
+                (m_NodeStart.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease1 == null || (m_Member.CnRelease1 != null && m_Member.CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false))) &&
+                (m_NodeEnd.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false || (m_Member.CnRelease2 == null || (m_Member.CnRelease2 != null && m_Member.CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false)))
+                )
+                return EElemSuppType.e2DEl_0___00_;
             else
                 return EElemSuppType.e2DEl________; // Not implemented
         }
@@ -397,8 +420,12 @@ namespace FEM_CALC_1Din2D
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         #region 2D_000_000
+        // 000_000
+        // 000_0_0
+        // 0_0_000
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - votknutie 2D
+        // votknutie - vidlicove ulozenie 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         private float[,] GetLocMatrix_2D_000_000()
         {
@@ -418,12 +445,14 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
-
-        #region 2D_000_00_a
+        #region 2D_000_00_
+        // 000_00_
+        // 000_0__
+        // 000____
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - valcovy klb / osamele bremeno 2D
+        // votknutie na zaciatku - posuvne ulozenie / valcovy klbna konci - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_00_a()
+        private float[,] GetLocMatrix_2D_000_00_()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = (m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g) / m_fLength;
@@ -441,81 +470,14 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
-
-        #region 2D_000_00_b
+        #region 2D_00__000
+        // 00__000
+        // 0___000
+        // ____000
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - valcovy klb / ohyb moment - 2D
+        // posuvne ulozenie / valcovy klb na zaciatku  - votknutie na konci - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_00_b()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
-            float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {  fEA_len,             0f,           0f },
-            {       0f,     f3EIy_len3,   f3EIy_len2 },
-            {       0f,     f3EIy_len2,   f3EIy_len1 }
-            };
-        }
-        #endregion
-
-        #region 2D_000_0_0
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - vidlicove ulozenie 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_0_0()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
-            float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_fLength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,                 0f,            0f },
-            {       0f,      f12EIy_len3,   f06EIy_len2 },
-            {       0f,      f06EIy_len2,   f04EIy_len1 }
-            };
-        }
-        #endregion
-
-        #region 2D_000____
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // votknutie - volny koniec konzola - 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000____()
-        {
-            // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
-            float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
-
-            // Local Stiffeness Matrix
-            return new float[3, 3]  
-            {
-            {fEA_len,                0f,           0f },
-            {       0f,      f3EIy_len3,   f3EIy_len2 },
-            {       0f,      f3EIy_len2,   f3EIy_len1 }
-            };
-        }
-        #endregion
-
-        #region 2D_00___0_
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // posuvne ulozenie - valcovy klb / spojite rovnomerne zatazenie - 2D
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_00___0_()
+        private float[,] GetLocMatrix_2D_00__000()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
@@ -530,6 +492,25 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
+        #region 2D_00__00_
+        // 00__00_
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // posuvne ulozenie / valcovy klb na zaciatku  - posuvne ulozenie / valcovy klb na konci - 2D
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        private float[,] GetLocMatrix_2D_00__00_()
+        {
+            // Local Stiffeness Matrix Members
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
+
+            // Local Stiffeness Matrix
+            return new float[3, 3]  
+            {
+            {fEA_len,          0f,    0f },
+            {       0f,        0f,   0f },
+            {       0f,        0f,    0f }
+            };
+        }
+        #endregion
 
         #region Local stiffeness matrix of member in 2D 
         private void GetLocMatrix_2D()
@@ -537,23 +518,24 @@ namespace FEM_CALC_1Din2D
             switch (m_eSuppType)
             {
                 case EElemSuppType.e2DEl_000_000:
+                case EElemSuppType.e2DEl_000_0_0:
+                case EElemSuppType.e2DEl_0_0_000:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_000();
                     break;
                 case EElemSuppType.e2DEl_000_00_:
+                case EElemSuppType.e2DEl_000_0__:
+                case EElemSuppType.e2DEl_000____: 
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_();
+                    break;
                 case EElemSuppType.e2DEl_00__000:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_a();
-                    break;
-                case EElemSuppType.e2DEl_000_0_0:
-                case EElemSuppType.e2DEl_0_0_000:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_0_0();
-                    break;
-                case EElemSuppType.e2DEl_00___0_:
-                case EElemSuppType.e2DEl__0__00_:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00___0_();
-                    break;
-                case EElemSuppType.e2DEl_000____:
+                case EElemSuppType.e2DEl_0___000:
                 case EElemSuppType.e2DEl_____000:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000____();
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__000();
+                    break;
+                case EElemSuppType.e2DEl_00__00_:
+                case EElemSuppType.e2DEl_00__0__:
+                case EElemSuppType.e2DEl_0___00_:
+                  m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__00_();
                     break;
                 default:
                     // Error or unsupported element - exception
