@@ -15,7 +15,7 @@ namespace BaseClasses
         public int [] m_iNodeCollection; // List / Collection of nodes IDs where release is defined (need for local stiffeness matrix)
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
         public int m_eNDOF;
-        public bool[] m_bRestrain; // DOF is rigid - 1, DOF is free - 0
+        public bool?[] m_bRestrain; // DOF is rigid - 1, DOF is free - 0
         public int m_fTime;
 
         //---------------------------------------------------------------------------------
@@ -44,14 +44,14 @@ namespace BaseClasses
             m_Node = node;
         }
 
-        public CNRelease(int eNDOF, bool[] bRestrain, int fTime)
+        public CNRelease(int eNDOF, bool?[] bRestrain, int fTime)
         {
             m_eNDOF = eNDOF;
             m_bRestrain = bRestrain;
             m_fTime = fTime;
         }
 
-        public CNRelease(int eNDOF, CNode Node, bool[] bRestrain, int fTime)
+        public CNRelease(int eNDOF, CNode Node, bool?[] bRestrain, int fTime)
         {
             m_eNDOF = eNDOF;
             m_Node = Node;
@@ -59,7 +59,7 @@ namespace BaseClasses
             m_fTime = fTime;
         }
 
-        public CNRelease(int eNDOF, CNode Node, CMember Member, bool[] bRestrain, int fTime)
+        public CNRelease(int eNDOF, CNode Node, CMember Member, bool?[] bRestrain, int fTime)
         {
             m_eNDOF = eNDOF;
             m_Node = Node;

@@ -300,7 +300,7 @@ namespace FEM_CALC_1Din2D
             return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
         }
 
-        private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, bool[] bReleaseDOF, e2D_DOF eDOF)
+        private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, bool ? [] bReleaseDOF, e2D_DOF eDOF)
         {
             if (bReleaseDOF == null) // No release at point - support restraints are governing
                 if (iMemberCollection == null || iMemberCollection.Count == 1) // None or just one FEM Member is connected, means free end - support DOF are governing

@@ -150,7 +150,7 @@ namespace CENEX
             //bool[] bMembRelase1 = { true, false, false, false, false, false };
             //bool[] bMembRelase2 = { false, false, true, false, false, false };
             //bool[] bMembRelase3 = { false, false, false, false, true, false };
-            bool [] bMembRelase4 = { true, false, true, false, true, false };
+            bool? [] bMembRelase4 = { true, false, true, false, true, false };
 
 
             // Create Release / Hinge Objects
