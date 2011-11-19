@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -173,8 +174,73 @@ namespace FEM_CALC_1Din2D
             for (int i = 0; i < m_arrFemMembers.Length; i++)
             {
                 m_arrFemMembers[i].FillBasic3_StiffMatrices();
-
             }
+
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // External Loads
+            // Fill vectors
+
+            // Nodal loads
+            // Fill vector of external load for each node in list
+            // Node could be included in all lists only once, more than one nodal load in one node is not allowed
+            for (int i = 0; i < TopoModel.m_arrNLoads.Length; i++) // Each load
+            {
+                if (TopoModel.m_arrNLoads[i].INodeCollection != null) // Check if some nodes are in list
+                {
+                    for (int j = 0; j < TopoModel.m_arrNLoads[i].INodeCollection.Length; j++) // Each node in collection
+                    {
+                        // Set load vector values
+                        for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky uzly kedze pozname konkretne ID zatazenych
+                        {
+                            if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
+                            {
+                                m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eFX] = TopoModel.m_arrNLoads[i].Value_FX;
+                                m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
+                                m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // Member loads
+
+            // Summation of loads applied on one member 
+            // There can by more loads on one member, member could be in various loads lists (but only once in one list)
+
+            for (int i = 0; i < TopoModel.m_arrMLoads.Length; i++) // Each load
+            {
+                if (TopoModel.m_arrMLoads[i].IMemberCollection != null) // Check if some members are in list
+                {
+                    for (int j = 0; j < TopoModel.m_arrMLoads[i].IMemberCollection.Length; j++) // Each node in collection
+                    {
+                        // Set end forces due to member load 
+                        for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
+                        {
+                            if (TopoModel.m_arrMLoads[i].IMemberCollection.Contains(TopoModel.m_arrMembers[k].IMember_ID)) // If member ID is same as collection item
+                            {
+                                // Primary end forces due member loading in local coordinate system LCS
+
+                                // Start Node
+                                m_arrFemMembers[k].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[i].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX];
+                                m_arrFemMembers[k].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[i].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY];
+                                m_arrFemMembers[k].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[i].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ];
+
+                                // End Node
+
+                                m_arrFemMembers[k].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[i].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX];
+                                m_arrFemMembers[k].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[i].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY];
+                                m_arrFemMembers[k].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[i].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ];
+
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

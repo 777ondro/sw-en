@@ -191,12 +191,12 @@ namespace FEM_CALC_1Din2D
 
             // Nodal loads
             // Load 1 - NodeIDs: 2
-            CNLoad NLoad0 = new CNLoad();
+            CNLoadAll NLoad0 = new CNLoadAll();
             NLoad0.INLoad_ID = 1;
             NLoad0.NLoadType = ENLoadType.eNLT_Fy;
-            NLoad0.m_iNodeCollection = new int[1];
-            NLoad0.m_iNodeCollection[0] = 2;
-            NLoad0.Value = fF2; // Positive
+            NLoad0.INodeCollection = new int[1];
+            NLoad0.INodeCollection[0] = 2;
+            NLoad0.Value_FY = fF2; // Positive
 
             TopoModel.m_arrNLoads[0] = NLoad0;
 
@@ -210,8 +210,8 @@ namespace FEM_CALC_1Din2D
             CMLoad_11 MLoad_F1 = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
             MLoad_F1.IMLoad_ID = 1;
             MLoad_F1.MLoadType = EMLoadType1.eMLT_FS_H;
-            MLoad_F1.m_iMemberCollection = new int[1];
-            MLoad_F1.m_iMemberCollection[0] = 1;
+            MLoad_F1.IMemberCollection = new int[1];
+            MLoad_F1.IMemberCollection[0] = 1;
 
             TopoModel.m_arrMLoads[0] = MLoad_F1;
 
@@ -219,8 +219,8 @@ namespace FEM_CALC_1Din2D
             CMLoad_21 MLoad_q = new CMLoad_21(fq, EMLoadDirPCC1.eMLD_PCC_V);
             MLoad_q.IMLoad_ID = 2;
             MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W;
-            MLoad_q.m_iMemberCollection = new int[1];
-            MLoad_q.m_iMemberCollection[0] = 3;
+            MLoad_q.IMemberCollection = new int[1];
+            MLoad_q.IMemberCollection[0] = 3;
 
             TopoModel.m_arrMLoads[1] = MLoad_q;
 
@@ -228,8 +228,8 @@ namespace FEM_CALC_1Din2D
             CMLoad_11 MLoad_M = new CMLoad_11(fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
             MLoad_M.IMLoad_ID = 3;
             MLoad_M.MLoadType = EMLoadType1.eMLT_FS_H;
-            MLoad_M.m_iMemberCollection = new int[1];
-            MLoad_M.m_iMemberCollection[0] = 4;
+            MLoad_M.IMemberCollection = new int[1];
+            MLoad_M.IMemberCollection[0] = 4;
 
             TopoModel.m_arrMLoads[2] = MLoad_M;
 
