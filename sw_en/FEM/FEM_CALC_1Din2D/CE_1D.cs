@@ -264,8 +264,10 @@ namespace FEM_CALC_1Din2D
             }
         }
 
-        public float GetGCSAlpha(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2)
+        public float GetGCSAlpha2D_CW(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2)
         {
+            // Clockwise rotation in 2D environment
+
             ///////////////////////////////////////////////////////////////////
             // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
             ///////////////////////////////////////////////////////////////////
@@ -275,20 +277,20 @@ namespace FEM_CALC_1Din2D
                // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
                 return (float)Math.Atan((fCoordEnd2 - fCoordStart2) / (fCoordEnd1 - fCoordStart1));
             }
-            else if ((fCoordEnd1 >= fCoordStart1) && (fCoordEnd2 <= fCoordStart2))
+            else if ((fCoordEnd1 <= fCoordStart1) && (fCoordEnd2 >= fCoordStart2))
             {
                // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
-                return (float)Math.PI/2 + (float)Math.Atan((fCoordEnd1 - fCoordStart1) / (fCoordEnd2 - fCoordStart2));
+                return (float)Math.PI/2 + (float)Math.Atan((fCoordStart1 - fCoordEnd1) / (fCoordEnd2 - fCoordStart2));
             }
             else if ((fCoordEnd1 <= fCoordStart1) && (fCoordEnd2 <= fCoordStart2))
             {
                 // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
-                return (float)Math.PI + (float)Math.Atan((fCoordEnd2 - fCoordStart2) / (fCoordEnd1 - fCoordStart1));
+                return (float)Math.PI + (float)Math.Atan((fCoordStart2 - fCoordEnd2) / (fCoordStart1 - fCoordEnd1));
             }
-            else /*((fCoordEnd1 <= fCoordStart1) && (fCoordEnd2 >= fCoordStart2))*/
+            else /*((fCoordEnd1 >= fCoordStart1) && (fCoordEnd2 <= fCoordStart2))*/
             {
                 // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
-                return (1.5f * (float)Math.PI) + (float)Math.Atan((fCoordEnd2 - fCoordStart1) / (fCoordEnd2 - fCoordStart2));
+                return (1.5f * (float)Math.PI) + (float)Math.Atan((fCoordEnd1 - fCoordStart1) / (fCoordStart2 - fCoordEnd2));
             }
         }
 
@@ -297,7 +299,7 @@ namespace FEM_CALC_1Din2D
             // GLOBAL COORDINATE SYSTEM direction
             // Rotation about Global Z-Axis
 
-            return GetGCSAlpha(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
+            return GetGCSAlpha2D_CW(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
         }
 
         private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, CNRelease NRelease, e2D_DOF eDOF)

@@ -91,12 +91,13 @@ namespace FEM_CALC_1Din2D
 
             for (int i = 0; i < m_arrFemNodes.Length; i++)
             {
+                m_arrFemNodes[i].m_iMemberCollection = new System.Collections.ArrayList(); // Allocate collection memory
+
                 for (int j = 0; j < m_arrFemMembers.Length; j++)
                 {
                     if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeStart.INode_ID || m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeEnd.INode_ID) // Is node ID same as member start or end node ID
                     {
-                        m_arrFemNodes[i].m_iMemberCollection = new System.Collections.ArrayList(); // Allocate collection memory
-                        m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].MemberID); // Add FEMmember ID to the FEM node list
+                        m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].m_Member.IMember_ID); // Add FEMmember ID to the FEM node list
                     }
                 }
             }
@@ -113,18 +114,27 @@ namespace FEM_CALC_1Din2D
                     for (int j = 0; j < m_arrFemMembers.Length; j++)
                     {
                         // 1st member index
-                        if (m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].ID)) // if Member ID is in the list
+                        if (iMember1_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].m_Member.IMember_ID)) // if Member ID is in the list
                         {
                             iMember1_index = j; // Set 1st
-
-                            // 2nd member index
-                            for (int k = m_arrFemMembers.Length - j; k < m_arrFemMembers.Length; k++) // Search for second
-                            {
-                                if (m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].ID))
-                                    iMember2_index = j;
-                            }
                         }
+
+                        if(iMember1_index > -1) // Index was defined, we can break cycle
+                          break;
                     }
+
+                    // 2nd member index
+                    for (int k = iMember1_index + 1; k < m_arrFemMembers.Length; k++) // Search for second only in interval between first founded member and last member
+                    {
+                        if (iMember2_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].m_Member.IMember_ID)) // if Member ID is in the list interval
+                        {
+                            iMember2_index = k;
+                        }
+
+                        if (iMember2_index > -1) // Index was defined, we can break cycle
+                            break;
+                    }
+
 
                    // If relases exist, they are neccesary to define DOF of both members, therefore copy release of one member to the another one
                    if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 != null)
