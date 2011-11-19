@@ -43,7 +43,7 @@ namespace CENEX
 
         // Loading
         // Nodal Loads
-        public CNLoad[] m_arrNLoads;
+        public CNLoadAll[] m_arrNLoads;
         // Member Loads
         public CMLoad[] m_arrMLoads;
         // Load Cases
@@ -73,7 +73,7 @@ namespace CENEX
             m_arrMembers = new CMember[iMemNum];
             m_arrNSupports = new CNSupport[iNSupNum];
             m_arrNReleases = new CNRelease[iNRelNum];
-            m_arrNLoads = new CNLoad[iNLoadNum];
+            m_arrNLoads = new CNLoadAll[iNLoadNum];
             m_arrMLoads = new CMLoad[iMLoadNum];
             m_arrLoadCases = new CLoadCase[iLoadCaseNum];
             m_arrLoadCombs = new CLoadCombination[iLoadComNum];

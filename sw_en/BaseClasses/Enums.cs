@@ -9,11 +9,11 @@ namespace BaseClasses
     //----------------------------------------------------------------------------
     // Node DOF - number of degrees of freedom
     //----------------------------------------------------------------------------
-    //public enum ENDOF
-    //{
-    //    e2DEnv = 3, // 3 for 2D environment
-    //    e3DEnv = 6  // 6 for 3D environment
-    //}
+    public enum ENDOF
+    {
+        e2DEnv = 3, // 3 for 2D environment
+        e3DEnv = 6  // 6 for 3D environment
+    }
 
     //----------------------------------------------------------------------------
     // Nodes

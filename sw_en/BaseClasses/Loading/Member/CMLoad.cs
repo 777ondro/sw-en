@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MATH;
 
 namespace BaseClasses
 {
@@ -11,10 +12,11 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         private int m_iMLoad_ID;
         private CMember m_Member;
-        public int[] m_iMemberCollection; // List / Collection of members where load is defined
+        private int[] m_iMemberCollection; // List / Collection of members where load is defined
         //private float m_Value;
         private EMLoadType1 m_mLoadType;
-
+        private CVector m_V_EIF_MembStart = new CVector(3); // Vector or Member end forces at start node in LCS , Define size acc. to main settings 2D - 3 or 3D  - 6 items
+        private CVector m_V_EIF_MembEnd = new CVector(3);   // Vector or Member end forces at end node in LCS , Define size acc. to main settings 2D - 3 or 3D  - 6 items
         //----------------------------------------------------------------------------
         public int IMLoad_ID
         {
@@ -25,6 +27,11 @@ namespace BaseClasses
         {
           get { return m_Member; }
           set { m_Member = value; }
+        }
+        public int[] IMemberCollection
+        {
+            get { return m_iMemberCollection; }
+            set { m_iMemberCollection = value; }
         }
         /*
         public float Value
@@ -39,9 +46,22 @@ namespace BaseClasses
             set { m_mLoadType = value; }
         }
 
+        public CVector V_EIF_MembStart
+        {
+            get { return m_V_EIF_MembStart; }
+            set { m_V_EIF_MembStart = value; }
+        }
+        public CVector V_EIF_MembEnd
+        {
+            get { return m_V_EIF_MembEnd; }
+            set { m_V_EIF_MembEnd = value; }
+        }
+
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
+
+
         public CMLoad()
         {
 

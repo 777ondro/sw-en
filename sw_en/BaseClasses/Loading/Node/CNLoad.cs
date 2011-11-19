@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CENEX;
 
 namespace BaseClasses
 {
-        [Serializable]
+    [Serializable]
     public class CNLoad : CEntity
     {
         //----------------------------------------------------------------------------
         private int m_iNLoad_ID;
         private CNode m_Node;
-        public int[] m_iNodeCollection; // List / Collection of nodes where load is defined
+        private int[] m_iNodeCollection; // List / Collection of nodes where load is defined
         private float m_Value;
         private ENLoadType m_nLoadType;
         public int m_fTime;
@@ -26,6 +28,11 @@ namespace BaseClasses
         {
             get { return m_Node; }
             set { m_Node = value; }
+        }
+        public int[] INodeCollection
+        {
+            get { return m_iNodeCollection; }
+            set { m_iNodeCollection = value; }
         }
         public float Value
         {
