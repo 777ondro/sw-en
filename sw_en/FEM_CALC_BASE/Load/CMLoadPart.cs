@@ -12,20 +12,12 @@ namespace FEM_CALC_BASE
 {
     public class CMLoadPart:CMLoad
     {
-        // Temporary array of EIF for particular loading
-        float[] m_fEIF_A = new float[6];
-        float[] m_fEIF_B = new float[6];
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart(EMLoadType1 eLoadType, EMLoadDirPCC1 eLDirPCC, CMLoad Load)
+        public CMLoadPart(CMLoad Load)
         {
-            //  Fill with zero
-            for (int i = 0; i < 6; i++)
-            {
-                m_fEIF_A[i] = m_fEIF_B[i] = 0f;
-            }
+           
         }
 
 
