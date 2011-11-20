@@ -129,18 +129,18 @@ namespace FEM_CALC_1Din2D
                     {
                         switch (eLDirPCC)
                         {
-                            case EMLoadDirPCC1.eMLD_PCC_X:
+                            case EMLoadDirPCC1.eMLD_PCC_XX:
                                 {
                                     // m_fEIF_A[];
                                     break;
                                 }
-                            case EMLoadDirPCC1.eMLD_PCC_U:
+                            case EMLoadDirPCC1.eMLD_PCC_YU:
                                 {
                                     // Potrebujem vztvorit objekt triedy ktory bude mat rovnaky typ ale vzdy ine clenske premenne ????
                                     // GetEIF_11_UV(Load, Element.m_flength, m_fEIF_A[(int)EM_IF.eFy], m_fEIF_B[(int)EM_IF.eFy], m_fEIF_A[(int)EM_IF.eMz], m_fEIF_B[(int)EM_IF.eMz]);
                                     break;
                                 }
-                            case EMLoadDirPCC1.eMLD_PCC_V:
+                            case EMLoadDirPCC1.eMLD_PCC_ZV:
                                 {
                                     // GetEIF_11_UV(Load, Element.m_flength, m_fEIF_A[(int)EM_IF.eFz], m_fEIF_B[(int)EM_IF.eFz], m_fEIF_A[(int)EM_IF.eMy], m_fEIF_B[(int)EM_IF.eMy]);
                                     break;
