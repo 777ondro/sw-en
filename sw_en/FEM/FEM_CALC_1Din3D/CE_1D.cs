@@ -49,7 +49,7 @@ namespace FEM_CALC_1Din3D
         // Geometrical properties of Element
         public float m_flength_X, m_flength_Y, m_flength_Z, m_frotation_angle = 0f;
         public float m_flength_XY, m_flength_YZ, m_flength_XZ;
-        public float m_flength;
+        // public float m_fLength;
 
         public float[] m_fC_GCS_Coord = new float[3]; // Relative oordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
         
@@ -189,7 +189,7 @@ namespace FEM_CALC_1Din3D
             m_flength_XZ = GetGCSProjLengh(m_flength_X, m_flength_Z);
 
             // FEM Element Length
-            m_flength = (float)Math.Sqrt((float)Math.Pow(m_flength_X, 2f) + (float)Math.Pow(m_flength_Y, 2f) + (float)Math.Pow(m_flength_Z, 2f));
+            m_fLength = (float)Math.Sqrt((float)Math.Pow(m_flength_X, 2f) + (float)Math.Pow(m_flength_Y, 2f) + (float)Math.Pow(m_flength_Z, 2f));
 
             m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
@@ -440,7 +440,7 @@ namespace FEM_CALC_1Din3D
              */
 
             CMatrix RPart = new CMatrix (3);
-            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
+            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_fLength, m_frotation_angle, m_fC_GCS_Coord);
 
             /*
             float[,] RPart = new float[3, 3]
@@ -493,7 +493,7 @@ namespace FEM_CALC_1Din3D
             
             
             CMatrix RPart = new CMatrix(3,3);
-            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_flength, m_frotation_angle, m_fC_GCS_Coord);
+            RPart.m_fArrMembers = RPart.fTransMatrix(m_flength_X, m_flength_Y, m_flength_Z, m_fLength, m_frotation_angle, m_fC_GCS_Coord);
 
             float flambda1 = RPart.m_fArrMembers[0, 0];
             float flambda2 = RPart.m_fArrMembers[1, 0];
@@ -623,7 +623,7 @@ namespace FEM_CALC_1Din3D
         private float Get_Angle1(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
         {
             if (fl_inGCSPlane == 0f) // Paralel to the axis // Perpendicular to the plane
-                return (float)Math.Acos(fl_inGCSAxis / m_flength);
+                return (float)Math.Acos(fl_inGCSAxis / m_fLength);
             else if (fl_inGCSAxis == 0f)  // Perpendicular to the axis // Paralel to the axis
             {
                 if (fl_GCSAxis > 0f)
@@ -632,7 +632,7 @@ namespace FEM_CALC_1Din3D
                     return -(float)Math.PI; 
             }
             else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_flength);
+                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
         }
 
         private float Get_Angle2(float fl_inGCSAxis, float fl_GCSAxis, float fl_inGCSPlane)
@@ -652,7 +652,7 @@ namespace FEM_CALC_1Din3D
                     return -((float)Math.PI * 3f / 2f);
             }
             else // General
-                return (float)Math.Acos(fl_inGCSPlane / m_flength);
+                return (float)Math.Acos(fl_inGCSPlane / m_fLength);
         }
 
         private float Get_Angle3(float fl_inGCSAxis, float fl_inGCSPlane)
@@ -660,7 +660,7 @@ namespace FEM_CALC_1Din3D
             if (fl_inGCSPlane == 0f || fl_inGCSAxis == 0f) // Paralel to the axis // Perpendicular to the plane
                 return -(float)Math.PI / 2f;
             else
-                return -(float)Math.Acos((fl_inGCSAxis / m_flength) + (float)Math.PI / 2f);
+                return -(float)Math.Acos((fl_inGCSAxis / m_fLength) + (float)Math.PI / 2f);
 
         }
 
@@ -718,19 +718,19 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000000_000000()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
 
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_flength;
+            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f04EIy_len1 = (4f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f12EIz_len3 = (12f * f_EIz) / (float)Math.Pow(m_flength, 3f);
-            float f06EIz_len2 = (6f * f_EIz) / (float)Math.Pow(m_flength, 2f);
-            float f04EIz_len1 = (4f * f_EIz) / m_flength;
+            float f12EIz_len3 = (12f * f_EIz) / (float)Math.Pow(m_fLength, 3f);
+            float f06EIz_len2 = (6f * f_EIz) / (float)Math.Pow(m_fLength, 2f);
+            float f04EIz_len1 = (4f * f_EIz) / m_fLength;
 
-            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
+            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
@@ -755,18 +755,18 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000000_000___a()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_flength, 3f);
-            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_flength, 2f);
-            float f3EIz_len1 = (3f * f_EIz) / m_flength;
+            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIz_len1 = (3f * f_EIz) / m_fLength;
 
-            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
+            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
@@ -791,17 +791,17 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000000_000___b()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
 
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_flength, 3f);
-            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_flength, 2f);
-            float f3EIz_len1 = (3f * f_EIz) / m_flength;
+            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIz_len1 = (3f * f_EIz) / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
@@ -826,19 +826,19 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000000_0_00_0()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
 
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f03EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f03EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f03EIy_len1 = (3f * f_EIy) / m_flength;
+            float f03EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f03EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f03EIy_len1 = (3f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f12EIz_len3 = (12f * f_EIz) / (float)Math.Pow(m_flength, 3f);
-            float f06EIz_len2 = (6f * f_EIz) / (float)Math.Pow(m_flength, 2f);
-            float f04EIz_len1 = (4f * f_EIz) / m_flength;
+            float f12EIz_len3 = (12f * f_EIz) / (float)Math.Pow(m_fLength, 3f);
+            float f06EIz_len2 = (6f * f_EIz) / (float)Math.Pow(m_fLength, 2f);
+            float f04EIz_len1 = (4f * f_EIz) / m_fLength;
 
-            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
+            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
@@ -863,18 +863,18 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000000_______()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_flength, 3f);
-            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_flength, 2f);
-            float f3EIz_len1 = (3f * f_EIz) / m_flength;
+            float f3EIz_len3 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIz_len2 = (3f * f_EIz) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIz_len1 = (3f * f_EIz) / m_fLength;
 
-            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
+            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
@@ -900,16 +900,16 @@ namespace FEM_CALC_1Din3D
         private CMatrix GetLocMatrix_3D_000____00___()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_flength;
+            float fEA_len = m_Mat.m_fE * m_CrSc.m_fAg / m_fLength;
             float f_EIy = m_Mat.m_fE * m_CrSc.m_fIy;
-            float f3EIy_len3 = (3f * f_EIy * m_CrSc.m_fIy) / (float)Math.Pow(m_flength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_flength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_flength;
+            float f3EIy_len3 = (3f * f_EIy * m_CrSc.m_fIy) / (float)Math.Pow(m_fLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
 
             float f_EIz = m_Mat.m_fE * m_CrSc.m_fIz;
-            float f3EIz_len3 = (3f * f_EIz * m_CrSc.m_fIz) / (float)Math.Pow(m_flength, 3f);
+            float f3EIz_len3 = (3f * f_EIz * m_CrSc.m_fIz) / (float)Math.Pow(m_fLength, 3f);
 
-            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_flength;
+            float fGIT_len1 = m_Mat.m_fG * m_CrSc.m_fI_T / m_fLength;
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
