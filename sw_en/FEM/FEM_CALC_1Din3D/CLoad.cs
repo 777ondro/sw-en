@@ -62,18 +62,18 @@ namespace FEM_CALC_1Din3D
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = fg_z * Element.m_flength / 2f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = fg_z * Element.m_fLength / 2f;
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = -fg_z * (float)Math.Pow(Element.m_flength, 2f) / 12f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = -fg_z * (float)Math.Pow(Element.m_fLength, 2f) / 12f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = 0f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = fg_z * Element.m_flength / 2f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = fg_z * Element.m_fLength / 2f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_flength, 2f) / 12f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_fLength, 2f) / 12f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                        
                         break;
@@ -82,7 +82,7 @@ namespace FEM_CALC_1Din3D
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = -3 * fg_z * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = -3 * fg_z * Element.m_fLength / 8f;
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = 0f;
@@ -90,10 +90,10 @@ namespace FEM_CALC_1Din3D
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 5 * fg_z * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 5 * fg_z * Element.m_fLength / 8f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_flength, 2f) / 8f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_fLength, 2f) / 8f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
 
                         break;
@@ -102,15 +102,15 @@ namespace FEM_CALC_1Din3D
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 5 * fg_z * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 5 * fg_z * Element.m_fLength / 8f;
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_flength, 2f) / 8f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fg_z * (float)Math.Pow(Element.m_fLength, 2f) / 8f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = 0f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = -3 * fg_z * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = -3 * fg_z * Element.m_fLength / 8f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = 0f;
@@ -158,7 +158,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = -0.5f * fFz;
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fFz * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fFz * Element.m_fLength / 8f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = 0f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = fFx / 2f;
@@ -166,7 +166,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = -0.5f * fFz;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = -fFz * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = -fFz * Element.m_fLength / 8f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
@@ -185,7 +185,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 11f / 16f * fFz;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = 3f / 16f * fFz * Element.m_flength;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = 3f / 16f * fFz * Element.m_fLength;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
@@ -196,7 +196,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 11f / 16f * fFz;
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = 3f / 16f * fFz * Element.m_flength;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = 3f / 16f * fFz * Element.m_fLength;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = 0f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = fFx / 2f;
@@ -240,20 +240,20 @@ namespace FEM_CALC_1Din3D
                 case (int)EElemSuppType.e3DEl_0_00_0_000000:
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 9f * fMz / (8f * Element.m_flength);
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 9f * fMz / (8f * Element.m_fLength);
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
                         
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = fMx / 2f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fMy * Element.m_flength / 12f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = fMz * Element.m_flength / 12f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fMy * Element.m_fLength / 12f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = fMz * Element.m_fLength / 12f;
                         
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 9f * fMz / (8f * Element.m_flength);
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 9f * fMz / (8f * Element.m_fLength);
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
                         
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = -fMx / 2f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = -fMy * Element.m_flength / 12f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = -fMz * Element.m_flength / 12f; 
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = -fMy * Element.m_fLength / 12f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = -fMz * Element.m_fLength / 12f; 
 
                         break;
                     }
@@ -261,7 +261,7 @@ namespace FEM_CALC_1Din3D
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = 0f;
@@ -269,10 +269,10 @@ namespace FEM_CALC_1Din3D
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = -fMx;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fMy * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = fMy * Element.m_fLength / 8f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
@@ -280,15 +280,15 @@ namespace FEM_CALC_1Din3D
                     {
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
 
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[3] = fMx;
-                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fMy * Element.m_flength / 8f;
+                        Element.m_ArrElemPEF_LCS_StNode.FVectorItems[4] = fMy * Element.m_fLength / 8f;
                         Element.m_ArrElemPEF_LCS_StNode.FVectorItems[5] = 0f;
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[0] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[1] = 0f;
-                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_flength);
+                        Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[2] = 9f * fMy / (8f * Element.m_fLength);
 
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[3] = 0f;
                         Element.m_ArrElemPEF_LCS_EnNode.FVectorItems[4] = 0f;
