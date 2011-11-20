@@ -119,6 +119,9 @@
     <Compile Include="WindowMenu.xaml.cs">
       <DependentUpon>WindowMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowPaint.xaml.cs">
+      <DependentUpon>WindowPaint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WireFrame.xaml.cs">
       <DependentUpon>WireFrame.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowPaint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

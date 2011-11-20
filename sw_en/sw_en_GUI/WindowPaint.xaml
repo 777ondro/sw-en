@@ -1,0 +1,41 @@
+﻿<Window x:Class="sw_en_GUI.WindowPaint"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WindowPaint" Height="300" Width="300">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20px"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Menu Grid.Row="0" Grid.Column="0">
+			<MenuItem Header="Display">
+				<MenuItem Header="Nodes"></MenuItem>
+				<MenuItem Header="Lines"></MenuItem>
+				<MenuItem Header="Supports"></MenuItem>
+				<MenuItem Header="Forces"></MenuItem>
+			</MenuItem>
+			<MenuItem Header="GCS"></MenuItem>
+			<MenuItem Header="Test">
+				<MenuItem Header="Draw test 1"></MenuItem>
+				<MenuItem Header="Draw test 2"></MenuItem>
+				<MenuItem Header="Draw test 3"></MenuItem>
+				<MenuItem Header="Draw test 4"></MenuItem>
+				<MenuItem Header="Draw test 5"></MenuItem>
+			</MenuItem>
+		</Menu>
+		<Image Grid.Row="1" Grid.Column="0">
+			<Image.Source>
+				<DrawingImage>
+					<DrawingImage.Drawing>
+						<GeometryDrawing x:Name="myDrawing" Brush="Orange">
+							<GeometryDrawing.Pen>
+								<Pen Brush="Black" Thickness="10"/>
+							</GeometryDrawing.Pen>
+							
+						</GeometryDrawing>
+					</DrawingImage.Drawing>
+				</DrawingImage>
+			</Image.Source>
+		</Image>
+	</Grid>
+</Window>

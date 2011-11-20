@@ -261,6 +261,12 @@ namespace sw_en_GUI
 			CExportToExcel.ExportToExcel(args[0] as DataSet, args[1] as string);
 		}
 
+		private void menuItemView2Dview_Click(object sender, RoutedEventArgs e)
+		{
+			WindowPaint p = new WindowPaint();
+			p.ShowDialog();
+		}
+
 
 
 

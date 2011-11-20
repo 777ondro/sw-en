@@ -89,6 +89,7 @@
 			</MenuItem>
 			<MenuItem Header="View">
 				<MenuItem x:Name="menuItemView3Dview" Header="3D view" Click="menuItemView3Dview_Click"></MenuItem>
+				<MenuItem x:Name="menuItemView2Dview" Header="2D Paint" Click="menuItemView2Dview_Click"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="Modeling"></MenuItem>
 			<MenuItem Header="Loading"></MenuItem>
