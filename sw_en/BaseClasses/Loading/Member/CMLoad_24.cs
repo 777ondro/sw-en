@@ -36,10 +36,13 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoad_24()
+        public CMLoad_24(float fq, float faA, float fs)
         {
+            Fq = fq;
+            FaA = faA;
+            Fs = fs;
             // Calculate Load Centre Position from Start of Member
-            m_fa = m_faA + m_fs / 2;
+            m_fa = m_faA + m_fs / 2.0f;
         }
     }
 }

@@ -30,5 +30,11 @@ namespace BaseClasses
         
         
         }
+        public CMLoad_22(float fq, float fa)
+        {
+            Fq = fq;
+            Fa = fa;
+
+        }
     }
 }

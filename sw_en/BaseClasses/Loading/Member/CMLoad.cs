@@ -13,7 +13,6 @@ namespace BaseClasses
         private int m_iMLoad_ID;
         private CMember m_Member;
         private int[] m_iMemberCollection; // List / Collection of members where load is defined
-        //private float m_Value;
         private EMLoadType1 m_mLoadType; // Type of external force
         private EMLoadDirPCC1 m_eDirPPC; // External Force Direction in Principal Coordinate System of Member
         private CVector m_V_EIF_MembStart = new CVector(3); // Vector or Member end forces at start node in LCS , Define size acc. to main settings 2D - 3 or 3D  - 6 items
@@ -34,13 +33,6 @@ namespace BaseClasses
             get { return m_iMemberCollection; }
             set { m_iMemberCollection = value; }
         }
-        /*
-        public float Value
-        {
-            get { return m_Value; }
-            set { m_Value = value; }
-        }
-        */
         public EMLoadType1 MLoadType
         {
             get { return m_mLoadType; }
