@@ -61,12 +61,21 @@ namespace BaseClasses
         eMy,
         eMz
     }
+
+    // Definition support conditions for members loading and local stiffeness matrix determination
+    public enum EM_PCS_DIR1
+    {
+        eUXRX,
+        eUYRZ,
+        eUZRY
+    }
+
     //----------------------------------------------------------------------------
     // Define load direction or orientation in LCC (local coordinate system) of members
     //----------------------------------------------------------------------------
     public enum EMLoadDirLCC1
     {
-        eMLD_LCC_X = 0,
+        eMLD_LCC_FX_MX = 0,
         eMLD_LCC_Y = 1,
         eMLD_LCC_Z = 2
     }
@@ -75,7 +84,7 @@ namespace BaseClasses
     //----------------------------------------------------------------------------
     public enum EMLoadDirPCC1
     {
-        eMLD_PCC_XX = 0,
+        eMLD_PCC_FXX_MXX = 0, 
         eMLD_PCC_YU = 1,
         eMLD_PCC_ZV = 2
     }

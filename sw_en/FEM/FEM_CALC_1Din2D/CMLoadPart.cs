@@ -11,7 +11,7 @@ using FEM_CALC_BASE;
 
 namespace FEM_CALC_1Din2D
 {
-    public class CMLoadPart
+    public class CMLoadPart_1
     {
         // Temporary array of EIF for particular loading
         float[] m_fEIF_A = new float[6];
@@ -20,7 +20,7 @@ namespace FEM_CALC_1Din2D
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart(EMLoadType1 eLoadType, EMLoadDirPCC1 eLDirPCC, CMLoad Load, CE_1D Element)
+        public CMLoadPart_1(EMLoadType1 eLoadType, EMLoadDirPCC1 eLDirPCC, CMLoad Load, CE_1D Element)
         {
             //  Fill with zero
             for (int i = 0; i < 6; i++)
@@ -123,13 +123,13 @@ namespace FEM_CALC_1Din2D
         // Particular calculation of end IF
         void GetEIF_11(CE_1D Element, EMLoadDirPCC1 eLDirPCC)
         {
-            switch (Element.m_eSuppType)
+            switch (Element.m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
             {
-                case EElemSuppType.e2DEl_000____:
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
                     {
                         switch (eLDirPCC)
                         {
-                            case EMLoadDirPCC1.eMLD_PCC_XX:
+                            case EMLoadDirPCC1.eMLD_PCC_FXX_MXX:
                                 {
                                     // m_fEIF_A[];
                                     break;
@@ -150,22 +150,27 @@ namespace FEM_CALC_1Din2D
                         }
                         break;
                     }
-                case EElemSuppType.e2DEl_000_000:
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
                     {
 
                         break;
                     }
-                case EElemSuppType.e2DEl_000_00_:
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
                     {
 
                         break;
                     }
-                case EElemSuppType.e2DEl_000_0_0:
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
                     {
 
                         break;
                     }
-                case EElemSuppType.e2DEl_____000:
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
+                    {
+
+                        break;
+                    }
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
                     {
 
                         break;
