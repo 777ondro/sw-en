@@ -27,8 +27,8 @@ namespace FEM_CALC_1Din3D
         public float m_fAg;
         public float m_fIy;
         public float m_fIz;
-        public float m_fh; // not needed
-        public float m_fb; // not needed
+        public float m_fh; // needed for temperature load
+        public float m_fb; // needed for temperature load
         public float m_fI_T;
 
         public CCrSc()
