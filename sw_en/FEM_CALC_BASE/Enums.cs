@@ -17,12 +17,14 @@ namespace FEM_CALC_BASE
             eEl_00___ = 4, // Start Node - restrained DOF,                                                    End Node - restrained DOF
             eEl____00 = 5, // Start Node - free DOF,                                                          End Node - free DOF
 
-            eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
-            eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
-            eEl__0__0 = 8, // Start Node - free displacement DOF,                                             End Node - free displacement DOF
+            // We dont have special stiffeness matrix for this DOF arrangement
 
-            eEl_0____ = 9, // Start Node - free rotation DOF,                                                 End Node - free DOF
-            eEl____0_ = 10, // Start Node - free DOF,                                                         End Node - free rotation DOF
+            //eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
+            //eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
+            //eEl__0__0 = 8, // Start Node - free displacement DOF,                                             End Node - free displacement DOF
+
+            //eEl_0____ = 9, // Start Node - free rotation DOF,                                                 End Node - free DOF
+            //eEl____0_ = 10, // Start Node - free DOF,                                                         End Node - free rotation DOF
 
             eEl______ = 99  // Start Node - free DOF,                                                         End Node - free DOF
         }    }
