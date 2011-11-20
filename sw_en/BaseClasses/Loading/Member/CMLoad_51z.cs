@@ -30,5 +30,10 @@ namespace BaseClasses
         
         
         }
+        public CMLoad_51z(float ft_0_u, float ft_0_b)
+        {
+            Ft_0_u = ft_0_u;
+            Ft_0_b = ft_0_b;
+        }
     }
 }

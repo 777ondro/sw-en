@@ -24,5 +24,10 @@ namespace BaseClasses
         
         
         }
+        public CMLoad_31(float fq)
+        {
+            float Fq = fq;
+
+        }
     }
 }

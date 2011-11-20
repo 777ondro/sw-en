@@ -37,5 +37,12 @@ namespace BaseClasses
         
         
         }
+        public CMLoad_41(float fq, float fa, float fb)
+        {
+            Fq = fq;
+            Fa = fa;
+            Fb = fb;
+
+        }
     }
 }
