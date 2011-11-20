@@ -11,8 +11,6 @@ namespace BaseClasses
         private float m_fq; // Force Value
         private float m_fa;      // Slope projection
         private float m_fb;      // Distance of horiyontal plateau of Load / User Input
-        EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
-
         //----------------------------------------------------------------------------
         public float Fq
         {
@@ -29,11 +27,6 @@ namespace BaseClasses
         {
             get { return m_fb; }
             set { m_fb = value; }
-        }
-        public EMLoadDirPCC1 EDirPPC
-        {
-            get { return m_eDirPPC; }
-            set { m_eDirPPC = value; }
         }
 
         //----------------------------------------------------------------------------

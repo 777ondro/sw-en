@@ -10,8 +10,6 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         private float m_fq; // Force Value
         private float m_fa;      // Distance from Member Start along which load acts
-        EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
-
         //----------------------------------------------------------------------------
         public float Fq
         {
@@ -22,11 +20,6 @@ namespace BaseClasses
         {
             get { return m_fa; }
             set { m_fa = value; }
-        }
-        public EMLoadDirPCC1 EDirPPC
-        {
-            get { return m_eDirPPC; }
-            set { m_eDirPPC = value; }
         }
 
         //----------------------------------------------------------------------------
