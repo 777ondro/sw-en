@@ -75,9 +75,9 @@ namespace BaseClasses
     //----------------------------------------------------------------------------
     public enum EMLoadDirPCC1
     {
-        eMLD_PCC_X = 0,
-        eMLD_PCC_U = 1,
-        eMLD_PCC_V = 2
+        eMLD_PCC_XX = 0,
+        eMLD_PCC_YU = 1,
+        eMLD_PCC_ZV = 2
     }
     //----------------------------------------------------------------------------
     // Types of single member loading
