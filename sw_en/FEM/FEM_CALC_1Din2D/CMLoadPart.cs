@@ -31,82 +31,82 @@ namespace FEM_CALC_1Din2D
             // Find appropriate case for load and  support conditions (acc. to member nodes DOF)
             switch (eLoadType)
             {
-                case EMLoadType1.eMLT_FS_G:
+                case EMLoadType1.eMLT_FS_G_11:
                     {
                         GetEIF_11(Element, eLDirPCC);
                         break;
                     }
-                case EMLoadType1.eMLT_FS_H:
+                case EMLoadType1.eMLT_FS_H_12:
                     {
                         GetEIF_12(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_MS_G:
+                case EMLoadType1.eMLT_MS_G_13:
                     {
                         GetEIF_13(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QUF_W:
+                case EMLoadType1.eMLT_QUF_W_21:
                     {
                         GetEIF_21(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QUF_PA:
+                case EMLoadType1.eMLT_QUF_PA_22:
                     {
                         GetEIF_22(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QUF_PB:
+                case EMLoadType1.eMLT_QUF_PB_23:
                     {
                         GetEIF_23(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QUF_PG:
+                case EMLoadType1.eMLT_QUF_PG_24:
                     {
                         GetEIF_24(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_SW:
+                case EMLoadType1.eMLT_QTNF_SW_31:
                     {
                         GetEIF_31(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_MA_W:
+                case EMLoadType1.eMLT_QTNF_MA_W_32:
                     {
                         GetEIF_32(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_MB_W:
+                case EMLoadType1.eMLT_QTNF_MB_W_33:
                     {
                         GetEIF_33(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_MA_P:
+                case EMLoadType1.eMLT_QTNF_MA_P_34:
                     {
                         GetEIF_34(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_MB_P:
+                case EMLoadType1.eMLT_QTNF_MB_P_35:
                     {
                         GetEIF_35(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTNF_SP:
+                case EMLoadType1.eMLT_QTNF_SP_36:
                     {
                         GetEIF_36(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_QTPF_SW:
+                case EMLoadType1.eMLT_QTPF_SW_41:
                     {
                         GetEIF_41(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_TMP_UNQ_Wz:
+                case EMLoadType1.eMLT_TMP_UNQ_Wz_51:
                     {
                         GetEIF_51z(Element);
                         break;
                     }
-                case EMLoadType1.eMLT_TMP_UNQ_Wy:
+                case EMLoadType1.eMLT_TMP_UNQ_Wy_52:
                     {
                         GetEIF_51y(Element);
                         break;
@@ -150,7 +150,7 @@ namespace FEM_CALC_1Din2D
                         }
                         break;
                     }
-                case (int)FEM_CALC_BASE.Enums.EElemSuppType.e3DEl_000000_000000:
+                case EElemSuppType.e2DEl_000_000:
                     {
 
                         break;

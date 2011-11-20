@@ -7,13 +7,20 @@ namespace FEM_CALC_BASE
 {
     public class Enums
     {
-        // Element SupportType in 3D
+        // Element SupportType
         public enum EElemSuppType
         {
-            eEl_0_0 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
-            eEl_0__ = 1, // Start Node - restrained DOF,                                                    End Node - free DOF
-            eEl___0 = 2, // Start Node - free DOF,                                                          End Node - restrained DOF
-            eEl____ = 3  // Start Node - free DOF,                                                          End Node - free DOF
+            eEl_00_00 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
+            eEl_00_0_ = 1, // Start Node - restrained DOF,                                                    End Node - free rotation DOF
+            eEl_0__00 = 2, // Start Node - free rotation DOF,                                                 End Node - restrained DOF
+            eEl_0__0_ = 3, // Start Node - free rotation DOF,                                                 End Node - free rotation DOF
+            eEl_00___ = 4, // Start Node - restrained DOF,                                                    End Node - restrained DOF
+            eEl____00 = 5,  // Start Node - free DOF,                                                         End Node - free DOF
+
+            eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
+            eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
+            eEl__0__0 = 8, // Start Node - free displacement DOF,                                             End Node - free displacement DOF
+            eEl______ = 9  // Start Node - free DOF,                                                          End Node - free DOF
         }
     }
 }
