@@ -15,7 +15,87 @@ namespace FEM_CALC_BASE
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        public CMLoadPart()
+        { }
+
+
+        public CMLoadPart(CMLoad Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        {
+            // Type objType = Load.GetType(); // typeof(Load)
+
+            if (Load is CMLoad_11)
+            {
+                GetMLoadPart_11((CMLoad_11)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_12)
+            {
+                GetMLoadPart_12((CMLoad_12)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_13)
+            {
+                GetMLoadPart_13((CMLoad_13)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_21)
+            {
+                GetMLoadPart_21((CMLoad_21)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_22)
+            {
+                GetMLoadPart_22((CMLoad_22)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_23)
+            {
+                GetMLoadPart_23((CMLoad_23)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_24)
+            {
+                GetMLoadPart_24((CMLoad_24)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_31)
+            {
+                GetMLoadPart_31((CMLoad_31)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_32)
+            {
+                GetMLoadPart_32((CMLoad_32)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_33)
+            {
+                GetMLoadPart_33((CMLoad_33)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_34)
+            {
+                GetMLoadPart_34((CMLoad_34)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_35)
+            {
+                GetMLoadPart_35((CMLoad_35)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_36)
+            {
+                GetMLoadPart_36((CMLoad_36)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_41)
+            {
+                GetMLoadPart_41((CMLoad_41)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_51z)
+            {
+               GetMLoadPart_51z((CMLoad_51z)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else if (Load is CMLoad_51y)
+            {
+                GetMLoadPart_51y((CMLoad_51y)Load, Member, eMType, ref fA, ref fB, ref fMa, ref fMb);
+            }
+            else // Exception
+            {
+            }
+       }
+        
+        
+
+
+        void GetMLoadPart_11(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -58,7 +138,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -101,7 +181,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_13 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_13(CMLoad_13 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -144,7 +224,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -187,7 +267,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_22 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_22(CMLoad_22 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -230,7 +310,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_23 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_23(CMLoad_23 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -273,7 +353,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_24 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_24(CMLoad_24 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -316,7 +396,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_31 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_31(CMLoad_31 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -359,7 +439,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_32 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_32(CMLoad_32 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -402,7 +482,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_33 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_33(CMLoad_33 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -445,7 +525,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_34 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_34(CMLoad_34 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -488,7 +568,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_35 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_35(CMLoad_35 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -531,7 +611,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_36 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_36(CMLoad_36 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -574,7 +654,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_41 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_41(CMLoad_41 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -617,7 +697,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_51z Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_51z(CMLoad_51z Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {
@@ -660,7 +740,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-        public CMLoadPart(CMLoad_51y Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
+        void GetMLoadPart_51y(CMLoad_51y Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, ref float fA, ref float fB, ref float fMa, ref float fMb)
         {
             switch (eMType)
             {

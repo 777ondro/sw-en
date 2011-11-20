@@ -59,7 +59,7 @@ namespace FEM_CALC_1Din2D
         public CMember m_Member = new CMember();
         public CCrSc m_CrSc = new CCrSc();
         public CMLoad m_ELoad;
-        public EElemSuppType m_eSuppType;
+        public FEM_CALC_BASE.Enums.EElemSuppType [] m_eSuppType;
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
@@ -334,11 +334,9 @@ namespace FEM_CALC_1Din2D
 
 
 
-        private EElemSuppType Get_iElemSuppType()
+        private FEM_CALC_BASE.Enums.EElemSuppType [] Get_iElemSuppType()
         {
-            // ROZPRACOVANE, zahrnut aj klby opravit !!!!!!!
-
-
+            FEM_CALC_BASE.Enums.EElemSuppType[] eArrSuppType = new FEM_CALC_BASE.Enums.EElemSuppType[3];
 
             // Is DOF rigid?
             // true - 1 - yes, it is
@@ -353,7 +351,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_000_000;
+            {
+                // 000_000
+                eArrSuppType[(int) EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int) EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int) EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -363,7 +367,13 @@ namespace FEM_CALC_1Din2D
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_000____;
+            {
+                // 000____
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -373,7 +383,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_____000;
+            {
+                // ____000
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl____00; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -383,7 +399,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                )
-                return EElemSuppType.e2DEl_000_00_;
+            {
+                // 000_00_
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;        
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -393,7 +415,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_00__000;
+            {
+                // 00__000
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType; 
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -403,7 +431,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_00___0_;
+            {
+                // 00___0_
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -413,7 +447,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl__0__00_;
+            {
+                // _0__00_
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -423,7 +463,13 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_00__00_;
+            {
+                // 00__00_
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -433,7 +479,13 @@ namespace FEM_CALC_1Din2D
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_00__0__;
+            {
+                // 00__0__
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else if
                 (
                 IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
@@ -443,24 +495,34 @@ namespace FEM_CALC_1Din2D
                 IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
                 !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
-                return EElemSuppType.e2DEl_0___00_;
+            {
+                // 0___00_
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
             else
-                return EElemSuppType.e2DEl________; // Not supported member !!!  or other not implemented restraint conditions
+            {
+                // _______  // Not supported member !!!  or other not implemented restraint conditions
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl______; // Displacement in x-axis and rotation about x-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl______; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl______; // Displacement in z-axis and rotation about y-axis in PCS
+                return eArrSuppType;
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Definition of local stiffeness matrixes depending on loading and restraints
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        #region 2D_000_000
-        // 000_000
-        // 000_0_0
-        // 0_0_000
+        #region 2D_00_00
+        // 00_00
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie - votknutie 2D
         // votknutie - vidlicove ulozenie 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_000()
+        private float[,] GetLocMatrix_2D_00_00()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
@@ -478,14 +540,13 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
-        #region 2D_000_00_
-        // 000_00_
-        // 000_0__
-        // 000____
+        #region 2D_00_0_
+        // 00_0_
+
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // votknutie na zaciatku - posuvne ulozenie / valcovy klbna konci - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_000_00_()
+        private float[,] GetLocMatrix_2D_00_0_()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = (m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g) / m_fLength;
@@ -503,14 +564,13 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
-        #region 2D_00__000
-        // 00__000
-        // 0___000
-        // ____000
+        #region 2D_0__00
+        // 0__00
+
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // posuvne ulozenie / valcovy klb na zaciatku  - votknutie na konci - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_00__000()
+        private float[,] GetLocMatrix_2D_0__00()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
@@ -525,12 +585,12 @@ namespace FEM_CALC_1Din2D
             };
         }
         #endregion
-        #region 2D_00__00_
-        // 00__00_
+        #region 2D_0__0_
+        // 0__0_
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // posuvne ulozenie / valcovy klb na zaciatku  - posuvne ulozenie / valcovy klb na konci - 2D
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        private float[,] GetLocMatrix_2D_00__00_()
+        private float[,] GetLocMatrix_2D_0__0_()
         {
             // Local Stiffeness Matrix Members
             float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
@@ -548,27 +608,19 @@ namespace FEM_CALC_1Din2D
         #region Local stiffeness matrix of member in 2D 
         private void GetLocMatrix_2D()
         {
-            switch (m_eSuppType)
+            switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
             {
-                case EElemSuppType.e2DEl_000_000:
-                case EElemSuppType.e2DEl_000_0_0:
-                case EElemSuppType.e2DEl_0_0_000:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_000();
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00_00();
                     break;
-                case EElemSuppType.e2DEl_000_00_:
-                case EElemSuppType.e2DEl_000_0__:
-                case EElemSuppType.e2DEl_000____: 
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_000_00_();
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00_0_();
                     break;
-                case EElemSuppType.e2DEl_00__000:
-                case EElemSuppType.e2DEl_0___000:
-                case EElemSuppType.e2DEl_____000:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__000();
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_0__00();
                     break;
-                case EElemSuppType.e2DEl_00__00_:
-                case EElemSuppType.e2DEl_00__0__:
-                case EElemSuppType.e2DEl_0___00_:
-                  m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00__00_();
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                  m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_0__0_();
                     break;
                 default:
                     // Error or unsupported element - exception
