@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using FEM_CALC_BASE;
 using MATH;
 
 namespace FEM_CALC_1Din3D
@@ -42,7 +43,7 @@ namespace FEM_CALC_1Din3D
         public float fAngleZz0;
     };
 
-    public class CE_1D : CMember
+    public class CE_1D:CE_1D_BASE
     {
         public int m_iSuppType;
         // Geometrical properties of Element

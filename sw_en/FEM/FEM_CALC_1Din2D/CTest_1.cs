@@ -209,7 +209,7 @@ namespace FEM_CALC_1Din2D
 
             CMLoad_11 MLoad_F1 = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
             MLoad_F1.IMLoad_ID = 1;
-            MLoad_F1.MLoadType = EMLoadType1.eMLT_FS_H;
+            MLoad_F1.MLoadType = EMLoadType1.eMLT_FS_H_12;
             MLoad_F1.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_F1.IMemberCollection = new int[1];
             MLoad_F1.IMemberCollection[0] = 1;
@@ -219,7 +219,7 @@ namespace FEM_CALC_1Din2D
             // Load 2 - MemberIDs: 2
             CMLoad_21 MLoad_q = new CMLoad_21(fq);
             MLoad_q.IMLoad_ID = 2;
-            MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W;
+            MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W_21;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_q.IMemberCollection = new int[1];
             MLoad_q.IMemberCollection[0] = 3;
@@ -229,7 +229,7 @@ namespace FEM_CALC_1Din2D
             // Load 3 - MemberIDs: 4
             CMLoad_11 MLoad_M = new CMLoad_11(fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
             MLoad_M.IMLoad_ID = 3;
-            MLoad_M.MLoadType = EMLoadType1.eMLT_FS_H;
+            MLoad_M.MLoadType = EMLoadType1.eMLT_FS_H_12;
             MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_ZV;
             MLoad_M.IMemberCollection = new int[1];
             MLoad_M.IMemberCollection[0] = 4;

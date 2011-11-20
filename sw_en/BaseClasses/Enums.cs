@@ -88,39 +88,39 @@ namespace BaseClasses
         // Pozri: Sobota Jan, Statika Stavebnych konstrukcii 2, Tab. 2.1
 
         // Singular loading
-        eMLT_FS_G = 11, // Singular Force - general position
-        eMLT_FS_H = 12, // Singular Force - in half of member length
-        eMLT_MS_G = 13, // Singular Moment - general position
+        eMLT_FS_G_11 = 11, // Singular Force - general position
+        eMLT_FS_H_12 = 12, // Singular Force - in half of member length
+        eMLT_MS_G_13 = 13, // Singular Moment - general position
         //eMLT_M_SH = 14, // Singular Moment - in half of member length
 
         // Uniform loading
         // Whole Member
-        eMLT_QUF_W = 21,  // Uniformly Distributed Force - whole length of member
+        eMLT_QUF_W_21 = 21,  // Uniformly Distributed Force - whole length of member
 
         // Part of Member
-        eMLT_QUF_PA = 22, // Uniformly Distributed Force - partly from begining of member
-        eMLT_QUF_PB = 23, // Uniformly Distributed Force - partly from end of member
-        eMLT_QUF_PG = 24, // Uniformly Distributed Force - partly in general position on member
+        eMLT_QUF_PA_22 = 22, // Uniformly Distributed Force - partly from begining of member
+        eMLT_QUF_PB_23 = 23, // Uniformly Distributed Force - partly from end of member
+        eMLT_QUF_PG_24 = 24, // Uniformly Distributed Force - partly in general position on member
 
         // Triangular loading
         // Whole Member
-        eMLT_QTNF_SW = 31,   // Triangular load, symmetrical acc. to half of length of member
-        eMLT_QTNF_MA_W = 32, // Triangular load on whole member, maximum at start
-        eMLT_QTNF_MB_W = 33, // Triangular load on whole member, maximum at end
+        eMLT_QTNF_SW_31 = 31,   // Triangular load, symmetrical acc. to half of length of member
+        eMLT_QTNF_MA_W_32 = 32, // Triangular load on whole member, maximum at start
+        eMLT_QTNF_MB_W_33 = 33, // Triangular load on whole member, maximum at end
 
         // Part of Member
-        eMLT_QTNF_MA_P = 34, // Triangular load on part of member, maximum near to the start
-        eMLT_QTNF_MB_P = 35, // Triangular load on part of member, maximum near to the end
-        eMLT_QTNF_SP = 36,   // Triangular load, symmetrical acc. to transversal axis of member, in general position
+        eMLT_QTNF_MA_P_34 = 34, // Triangular load on part of member, maximum near to the start
+        eMLT_QTNF_MB_P_35 = 35, // Triangular load on part of member, maximum near to the end
+        eMLT_QTNF_SP_36 = 36,   // Triangular load, symmetrical acc. to transversal axis of member, in general position
 
         // Trapezoidal loading
         // Whole Member
-        eMLT_QTPF_SW = 41,   // Trapezoidal load, symmetrical acc. to half of member, apllied on whole member
+        eMLT_QTPF_SW_41 = 41,   // Trapezoidal load, symmetrical acc. to half of member, apllied on whole member
 
         // Temperature
         // Whole Member
-        eMLT_TMP_UNQ_Wz = 51,   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
-        eMLT_TMP_UNQ_Wy = 52   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
+        eMLT_TMP_UNQ_Wz_51 = 51,   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
+        eMLT_TMP_UNQ_Wy_52 = 52    // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
     }
 
 

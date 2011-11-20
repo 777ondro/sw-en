@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 using CRSC;
+using FEM_CALC_BASE;
 using MATH;
 using CENEX;
 
 namespace FEM_CALC_1Din2D
 {
-    public class CE_1D : CMember
+    public class CE_1D : CE_1D_BASE
     {
         private int m_MemberID;
 

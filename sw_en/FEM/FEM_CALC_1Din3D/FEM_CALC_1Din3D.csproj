@@ -124,6 +124,10 @@
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
       <Name>CRSC %28CRSC\CRSC%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FEM_CALC_BASE\FEM_CALC_BASE.csproj">
+      <Project>{1AD8C2C0-40CF-4C23-A715-43214CD8DB89}</Project>
+      <Name>FEM_CALC_BASE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MATERIAL\MATERIAL.csproj">
       <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
       <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>
