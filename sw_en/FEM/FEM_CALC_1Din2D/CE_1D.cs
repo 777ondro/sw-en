@@ -58,7 +58,7 @@ namespace FEM_CALC_1Din2D
         public CMember m_Member = new CMember();
         public CCrSc m_CrSc = new CCrSc();
         public CMLoad m_ELoad;
-        EElemSuppType m_eSuppType;
+        public EElemSuppType m_eSuppType;
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;

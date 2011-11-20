@@ -9,7 +9,6 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private float m_fF; // Force Value
-        EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
 
         //----------------------------------------------------------------------------
         public float FF
@@ -17,12 +16,6 @@ namespace BaseClasses
             get { return m_fF; }
             set { m_fF = value; }
         }
-        public EMLoadDirPCC1 EDirPPC
-        {
-            get { return m_eDirPPC; }
-            set { m_eDirPPC = value; }
-        }
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------

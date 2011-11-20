@@ -12,8 +12,6 @@ namespace BaseClasses
         private float m_faA;     // Distance of Load from Member Start / User Input
         private float m_fa;      // Distance of Midpoint(Centre, Tip) of Load from Member Start 
         private float m_fs;      // Half of Distance of Load / Halft of Length along which load acts
-        EMLoadDirPCC1 m_eDirPPC; // Force Direction in Principal Coordinate System of Member
-
         //----------------------------------------------------------------------------
         public float Fq
         {
@@ -35,12 +33,6 @@ namespace BaseClasses
             get { return m_fs; }
             set { m_fs = value; }
         }
-        public EMLoadDirPCC1 EDirPPC
-        {
-            get { return m_eDirPPC; }
-            set { m_eDirPPC = value; }
-        }
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------

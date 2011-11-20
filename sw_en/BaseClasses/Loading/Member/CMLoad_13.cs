@@ -10,8 +10,6 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         private float m_fM; // Moment Value
         private float m_fa;      // Distance from Member Start
-        EMLoadDirPCC1 m_eDirPPC; // Direction in Principal Coordinate System of Member / Axis around which oment acts
-
         //----------------------------------------------------------------------------
         public float FM
         {
@@ -22,11 +20,6 @@ namespace BaseClasses
         {
             get { return m_fa; }
             set { m_fa = value; }
-        }
-        public EMLoadDirPCC1 EDirPPC
-        {
-            get { return m_eDirPPC; }
-            set { m_eDirPPC = value; }
         }
 
         //----------------------------------------------------------------------------
