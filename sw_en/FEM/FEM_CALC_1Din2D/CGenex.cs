@@ -196,9 +196,16 @@ namespace FEM_CALC_1Din2D
                         {
                             if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
                             {
-                                m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eFX] = TopoModel.m_arrNLoads[i].Value_FX;
+
+                                m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
                                 m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
                                 m_arrFemNodes[k].m_ArrDirNodeLoad[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+
+                                //for (int l = 0; l < m_arrFemNodes[k].m_ArrDirNodeLoad.Length; l++) // For all items in vector array
+                                //{
+                                //    m_arrFemNodes[k].m_ArrDirNodeLoad[l] = TopoModel.m_arrNLoads[i].Value_FX; // General !!!
+                                //}
+
                             }
                         }
                     }
