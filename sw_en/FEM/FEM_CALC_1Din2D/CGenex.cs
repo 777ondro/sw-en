@@ -263,9 +263,9 @@ namespace FEM_CALC_1Din2D
                                                         break;
                                                     }
                                                 // XX - direction start supported, end free displacement
-                                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0:
+                                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0:
                                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
-                                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
+                                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
                                                     {
                                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[i],
                                                         m_arrFemMembers[k],
@@ -278,9 +278,9 @@ namespace FEM_CALC_1Din2D
                                                         break;
                                                     }
                                                 // XX - direction start free displacement, end supported
-                                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00:
+                                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00:
                                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
-                                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
+                                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
                                                     {
                                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[i],
                                                 m_arrFemMembers[k],
@@ -293,7 +293,7 @@ namespace FEM_CALC_1Din2D
                                                         break;
                                                     }
                                                 // XX - direction start free displacement, end free displacement
-                                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0__0:
+                                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0__0:
                                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
                                                 default:
                                                     {
