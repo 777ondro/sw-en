@@ -241,6 +241,7 @@ namespace FEM_CALC_BASE
         // Jedna strana nosnika votknuta a druha jednoducho podopreta
         //----------------------------------------------------------------------------------------------------------------------------
 
+        #region End Moments and Reactions of One Side Restraint and Other Side Simply Supported Member
         // OTOCENIE PODOPRETIA DOPRACOVAT !!!!
 
         void GetEIF_00_0__11_UV(CMLoad_11 Load, float fL, float fA, float fB, float fMa, float fMb)
@@ -255,6 +256,60 @@ namespace FEM_CALC_BASE
         {
 
         }
+        void GetEIF_00_0__21_UV(CMLoad_21 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__22_UV(CMLoad_22 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__23_UV(CMLoad_23 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__24_UV(CMLoad_24 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__31_UV(CMLoad_31 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__32_UV(CMLoad_32 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__33_UV(CMLoad_33 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }         
+        void GetEIF_00_0__34_UV(CMLoad_34 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__35_UV(CMLoad_35 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__36_UV(CMLoad_36 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__41_UV(CMLoad_41 Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__51z_UV(CMLoad_51z Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        void GetEIF_00_0__51y_UV(CMLoad_51y Load, float fL, float fA, float fB, float fMa, float fMb)
+        {
+
+        }
+        #endregion
+
 
         //----------------------------------------------------------------------------------------------------------------------------
         // Jedna strana nosnika jednoducho podopreta a druha votknuta
