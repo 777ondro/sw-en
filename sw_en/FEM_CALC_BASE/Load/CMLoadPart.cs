@@ -933,7 +933,11 @@ namespace FEM_CALC_BASE
 
         void GetEIF_00_0__11_UV(CMLoad_11 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
-
+            float fb = fL - Load.Fa;
+            fA = Load.FF *fb / (2 * MathF.Pow3(fL)) * (3f * MathF.Pow2(fL) - MathF.Pow2(fb));
+            fB = ((Load.FF * MathF.Pow2(Load.Fa)) / (2f * MathF.Pow3(fL))) * (2f * fL + fb);
+            fMa = (Load.FF * fb * Load.Fa / (2 * MathF.Pow2(fL))) * (fb + fL);
+            fMb = 0f;
         }
         void GetEIF_00_0__12_UV(CMLoad_12 Load, float fL, float fA, float fB, float fMa, float fMb)
         {
@@ -1011,7 +1015,6 @@ namespace FEM_CALC_BASE
             fB = Load.FF * Load.Fa / (2 * MathF.Pow3(fL)) * (3f * MathF.Pow2(fL) - MathF.Pow2(Load.Fa));
             fMa = 0f;
             fMb = (Load.FF * Load.Fa * fb / (2 * MathF.Pow2(fL))) * (Load.Fa + fL);
-
         }
         void GetEIF_0__00_12_UV(CMLoad_12 Load, float fL, float fA, float fB, float fMa, float fMb)
         {

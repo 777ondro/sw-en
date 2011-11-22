@@ -43,10 +43,13 @@ namespace FEM_CALC_1Din3D
         public float fAngleZz0;
     };
 
-    public class CE_1D:CE_1D_BASE
+    public class CE_1D // :CE_1D_BASE
     {
         public int m_iSuppType;
         // Geometrical properties of Element
+        // Temporary re-definiton of member length
+        public float m_fLength;
+
         public float m_flength_X, m_flength_Y, m_flength_Z, m_frotation_angle = 0f;
         public float m_flength_XY, m_flength_YZ, m_flength_XZ;
         // public float m_fLength;
@@ -91,7 +94,7 @@ namespace FEM_CALC_1Din3D
         public CVector m_ArrElemIF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
         public CVector m_ArrElemIF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
-
+        public CMember m_Member = new CMember(); // temporary
 
 
         // 3D
@@ -147,7 +150,7 @@ namespace FEM_CALC_1Din3D
         // Constructor 3 - FEM Member is copy of topological member or segment
         public CE_1D(CMember TopoMember)
         {
-          IMember_ID = TopoMember.IMember_ID;
+          m_Member.IMember_ID = TopoMember.IMember_ID;
          // m_CrSc = (CCrSc)TopoMember.CrSc;
           m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
           m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
@@ -190,6 +193,9 @@ namespace FEM_CALC_1Din3D
 
             // FEM Element Length
             m_fLength = (float)Math.Sqrt((float)Math.Pow(m_flength_X, 2f) + (float)Math.Pow(m_flength_Y, 2f) + (float)Math.Pow(m_flength_Z, 2f));
+
+            // Temporary !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_Member.FLength = m_fLength;
 
             m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);
