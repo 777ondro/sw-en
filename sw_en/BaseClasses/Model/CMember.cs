@@ -88,6 +88,8 @@ namespace BaseClasses
             m_cnRelease1 = null;
             m_cnRelease2 = null;
             m_fTime = fTime;
+
+            Fill_Basic();
         }
 
         // Constructor 3
@@ -107,6 +109,8 @@ namespace BaseClasses
             if (haveRelease2)
                 m_cnRelease2 = new CNRelease(iNode2);
             m_fTime = fTime;
+
+            Fill_Basic();
         }
         // Constructor 4
         public CMember(
@@ -124,8 +128,22 @@ namespace BaseClasses
             m_cnRelease2 = null;
             m_CrSc = objCrSc;
             m_fTime = fTime;
+
+            Fill_Basic();
                 }
+
+
+        //Fill basic data
+        public void Fill_Basic()
+        {
+            // Temporary !!!!!!!!!!!!!!!!!!!!!! Member Length for 3F 
+            FLength = (float)Math.Sqrt((float)Math.Pow(m_iNode2.FCoord_X - m_iNode1.FCoord_X, 2f) + (float)Math.Pow(m_iNode2.FCoord_Y - m_iNode1.FCoord_Y, 2f) + (float)Math.Pow(m_iNode2.FCoord_Z - m_iNode1.FCoord_Z, 2f));
+
+        }
+
     } // End of Class CMember
+
+
     public class CCompare_MemberID : IComparer
     {
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
