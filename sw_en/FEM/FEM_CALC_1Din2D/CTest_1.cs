@@ -108,6 +108,7 @@ namespace FEM_CALC_1Din2D
             Member0.INode1 = TopoModel.m_arrNodes[0];
             Member0.INode2 = TopoModel.m_arrNodes[1];
             Member0.CrSc = TopoModel.m_arrCrSc[0];
+            Member0.Fill_Basic();
 
             TopoModel.m_arrMembers[0] = Member0;
 
@@ -117,6 +118,7 @@ namespace FEM_CALC_1Din2D
             Member1.INode1 = TopoModel.m_arrNodes[1];
             Member1.INode2 = TopoModel.m_arrNodes[2];
             Member1.CrSc = TopoModel.m_arrCrSc[0];
+            Member1.Fill_Basic();
 
             TopoModel.m_arrMembers[1] = Member1;
 
@@ -126,6 +128,7 @@ namespace FEM_CALC_1Din2D
             Member2.INode1 = TopoModel.m_arrNodes[2];
             Member2.INode2 = TopoModel.m_arrNodes[3];
             Member2.CrSc = TopoModel.m_arrCrSc[0];
+            Member2.Fill_Basic();
 
             TopoModel.m_arrMembers[2] = Member2;
 
@@ -135,6 +138,7 @@ namespace FEM_CALC_1Din2D
             Member3.INode1 = TopoModel.m_arrNodes[2];
             Member3.INode2 = TopoModel.m_arrNodes[4];
             Member3.CrSc = TopoModel.m_arrCrSc[0];
+            Member3.Fill_Basic();
 
             TopoModel.m_arrMembers[3] = Member3;
 

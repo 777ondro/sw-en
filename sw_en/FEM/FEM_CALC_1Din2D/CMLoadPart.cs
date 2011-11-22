@@ -43,7 +43,7 @@ namespace FEM_CALC_1Din2D
                                         // Type ObjLoadType = typeof(TopoModel.m_arrMLoads[i]);
 
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                            arrFemMembers[kMemberIndex],
+                                            (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
@@ -58,7 +58,7 @@ namespace FEM_CALC_1Din2D
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                        arrFemMembers[kMemberIndex],
+                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                         ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
                                         ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
@@ -73,7 +73,7 @@ namespace FEM_CALC_1Din2D
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                arrFemMembers[kMemberIndex],
+                                (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                 arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                 ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
                                 ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
@@ -88,7 +88,7 @@ namespace FEM_CALC_1Din2D
                                 default:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                            arrFemMembers[kMemberIndex],
+                                            (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
@@ -118,7 +118,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                            arrFemMembers[kMemberIndex],
+                                            (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
@@ -131,7 +131,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                        arrFemMembers[kMemberIndex],
+                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
@@ -158,7 +158,7 @@ namespace FEM_CALC_1Din2D
                                 default:
                                     {
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
-                                            arrFemMembers[kMemberIndex],
+                                            (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
                                             ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
