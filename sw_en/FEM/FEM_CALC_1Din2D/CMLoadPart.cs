@@ -11,247 +11,183 @@ using FEM_CALC_BASE;
 
 namespace FEM_CALC_1Din2D
 {
-    public class CMLoadPart_1
+    public class CMLoadPart
     {
-        // Temporary array of EIF for particular loading
-        float[] m_fEIF_A = new float[6];
-        float[] m_fEIF_B = new float[6];
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart_1(EMLoadType1 eLoadType, EMLoadDirPCC1 eLDirPCC, CMLoad Load, CE_1D Element)
+        public CMLoadPart(CModel TopoModel, CE_1D[] arrFemMembers, int iMLoadIndex, int kMemberIndex)
         {
-            //  Fill with zero
-            for (int i = 0; i < 6; i++)
+            if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].IMember_ID)) // If member ID is same as collection item
             {
-                m_fEIF_A[i] = m_fEIF_B[i] = 0f;
-            }
+                float fTemp_1 = 0f, fTemp_2 = 0f; // Auxialiary for not used components
 
-            // Find appropriate case for load and  support conditions (acc. to member nodes DOF)
-            switch (eLoadType)
-            {
-                case EMLoadType1.eMLT_FS_G_11:
-                    {
-                        GetEIF_11(Element, eLDirPCC);
-                        break;
-                    }
-                case EMLoadType1.eMLT_FS_H_12:
-                    {
-                        GetEIF_12(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_MS_G_13:
-                    {
-                        GetEIF_13(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QUF_W_21:
-                    {
-                        GetEIF_21(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QUF_PA_22:
-                    {
-                        GetEIF_22(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QUF_PB_23:
-                    {
-                        GetEIF_23(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QUF_PG_24:
-                    {
-                        GetEIF_24(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_SW_31:
-                    {
-                        GetEIF_31(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_MA_W_32:
-                    {
-                        GetEIF_32(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_MB_W_33:
-                    {
-                        GetEIF_33(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_MA_P_34:
-                    {
-                        GetEIF_34(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_MB_P_35:
-                    {
-                        GetEIF_35(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTNF_SP_36:
-                    {
-                        GetEIF_36(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_QTPF_SW_41:
-                    {
-                        GetEIF_41(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_TMP_UNQ_Wz_51:
-                    {
-                        GetEIF_51z(Element);
-                        break;
-                    }
-                case EMLoadType1.eMLT_TMP_UNQ_Wy_52:
-                    {
-                        GetEIF_51y(Element);
-                        break;
-                    }
-                default:
-                    {
+                // Fill external forces vectors 
 
-                        break;
-                    }
-            }
-        }
-
-        //------------------------------------------------------------------------
-        // Particular calculation of end IF
-        void GetEIF_11(CE_1D Element, EMLoadDirPCC1 eLDirPCC)
-        {
-            switch (Element.m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
-            {
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
-                    {
-                        switch (eLDirPCC)
+                switch (TopoModel.m_arrMLoads[iMLoadIndex].EDirPPC) // Load direction in principal coordinate system XX / YU / ZV
+                {
+                    case EMLoadDirPCC1.eMLD_PCC_FXX_MXX: // Axial load on member
                         {
-                            case EMLoadDirPCC1.eMLD_PCC_FXX_MXX:
-                                {
-                                    // m_fEIF_A[];
-                                    break;
-                                }
-                            case EMLoadDirPCC1.eMLD_PCC_YU:
-                                {
-                                    // Potrebujem vztvorit objekt triedy ktory bude mat rovnaky typ ale vzdy ine clenske premenne ????
-                                    // GetEIF_11_UV(Load, Element.m_flength, m_fEIF_A[(int)EM_IF.eFy], m_fEIF_B[(int)EM_IF.eFy], m_fEIF_A[(int)EM_IF.eMz], m_fEIF_B[(int)EM_IF.eMz]);
-                                    break;
-                                }
-                            case EMLoadDirPCC1.eMLD_PCC_ZV:
-                                {
-                                    // GetEIF_11_UV(Load, Element.m_flength, m_fEIF_A[(int)EM_IF.eFz], m_fEIF_B[(int)EM_IF.eFz], m_fEIF_A[(int)EM_IF.eMy], m_fEIF_B[(int)EM_IF.eMy]);
-                                    break;
-                                }
-                            default:
-                                { break; }
+                            // DOF RX can't be released - always rigid
+                            switch (arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX])
+                            {
+                                // Type of supports is already defined  but I check it once more in body of function !!!
+
+                                // XX - direction both sides supported displacement
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                                    {
+
+                                        // Type ObjLoadType = typeof(TopoModel.m_arrMLoads[i]);
+
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                            arrFemMembers[kMemberIndex],
+                                            arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
+                                            ref fTemp_1,
+                                            ref fTemp_2);
+
+                                        break;
+                                    }
+                                // XX - direction start supported, end free displacement
+                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
+                                    //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        arrFemMembers[kMemberIndex],
+                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
+                                        ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
+                                        ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
+                                        ref fTemp_1,
+                                        ref fTemp_2);
+
+                                        break;
+                                    }
+                                // XX - direction start free displacement, end supported
+                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
+                                    //case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                arrFemMembers[kMemberIndex],
+                                arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
+                                ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
+                                ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
+                                ref fTemp_1,
+                                ref fTemp_2);
+
+                                        break;
+                                    }
+                                // XX - direction start free displacement, end free displacement
+                                //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0__0:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
+                                default:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                            arrFemMembers[kMemberIndex],
+                                            arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
+                                            ref fTemp_1,
+                                            ref fTemp_2);
+
+                                        break;
+                                    }
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
-                    {
+                    case EMLoadDirPCC1.eMLD_PCC_YU:
+                       // {
+                       //    // DOF UY and RZ can't be released - always rigid
+                       //     break;
+                       // }
+                    case EMLoadDirPCC1.eMLD_PCC_ZV:
+                        {
+                            switch (arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
+                            {
+                                // Type of supports is already defined  but I check it once more in body of function !!!
 
-                        break;
-                    }
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
-                    {
+                                // UZRY - direction both sides supported displacement
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                            arrFemMembers[kMemberIndex],
+                                            arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
 
-                        break;
-                    }
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
-                    {
+                                        break;
+                                    }
+                                // UZRY - direction start supported, end free displacement
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        arrFemMembers[kMemberIndex],
+                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
 
-                        break;
-                    }
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
-                    {
+                                        break;
+                                    }
+                                // UZRY - direction start free displacement, end supported
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        arrFemMembers[kMemberIndex],
+                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
 
-                        break;
-                    }
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
-                    {
+                                        break;
+                                    }
+                                // UZRY - direction start free displacement, end free displacement
+                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
+                                default:
+                                    {
+                                        FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
+                                            arrFemMembers[kMemberIndex],
+                                            arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
+                                            ref TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
 
-                        break;
-                    }
-                default:
-                    {
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
+                    default: // Exception
+                        {
+                            break;
+                        }
+                }
 
-                        break;
-                    }
+                // Primary end forces due member loading in local coordinate system LCS
+
+                // Start Node
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX];
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY];
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ];
+
+                // End Node
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX];
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY];
+                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ];
             }
-        }
-        void GetEIF_12(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_13(CE_1D Element)
-        {
-
-        }
-        void GetEIF_21(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_22(CE_1D Element)
-        {
-
-        }
-        void GetEIF_23(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_24(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_31(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_32(CE_1D Element)
-        {
-
-        }
-        void GetEIF_33(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_34(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_35(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_36(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_41(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_51z(CE_1D Element)
-        {
-
-
-        }
-        void GetEIF_51y(CE_1D Element)
-        {
-
 
         }
     }

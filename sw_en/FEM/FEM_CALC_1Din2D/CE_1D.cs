@@ -24,7 +24,7 @@ namespace FEM_CALC_1Din2D
         // Geometrical properties of Element
         public float m_fLength_X, m_fLength_Y, m_frotation_angle = 0f;
 
-        // public float m_fLength;
+        public float m_fLength;
 
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
@@ -148,6 +148,9 @@ namespace FEM_CALC_1Din2D
 
             // FEM Element Length
             m_fLength = MathF.Sqrt(MathF.Pow2(m_fLength_X) + MathF.Pow2(m_fLength_Y));
+
+            // Temporary !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_Member.FLength = m_fLength;
 
             // Calculate rotation of meber - clockwise system
             m_fAlpha = GetGCSAlpha();
