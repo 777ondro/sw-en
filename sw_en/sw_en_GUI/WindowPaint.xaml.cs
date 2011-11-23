@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace sw_en_GUI
 {
@@ -67,6 +68,20 @@ namespace sw_en_GUI
 
 		}
 
+
+		public void SaveImage(Visual visual, int width, int height, string filePath)
+		{
+			RenderTargetBitmap bitmap = new RenderTargetBitmap(width, height, 96, 96,
+														 PixelFormats.Pbgra32);
+			bitmap.Render(visual);
+
+			PngBitmapEncoder image = new PngBitmapEncoder();
+			image.Frames.Add(BitmapFrame.Create(bitmap));
+			using (Stream fs = File.Create(filePath))
+			{
+				image.Save(fs);
+			}
+		} 
 
 
 		/// <summary>
