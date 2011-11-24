@@ -6,10 +6,11 @@ using System.Text;
 using CENEX;
 using BaseClasses;
 using MATH;
+using FEM_CALC_BASE;
 
 namespace FEM_CALC_1Din2D
 {
-    public class CFemNode:CNode
+    public class CFemNode:CN
     {
         public CVector m_VDisp = new CVector(Constants.i2D_DOFNo);
         public int[] m_ArrNCodeNo = new int[Constants.i2D_DOFNo];          // Array of global codes numbers
@@ -26,7 +27,7 @@ namespace FEM_CALC_1Din2D
         // Constructor 2
         public CFemNode(int iNNo)
         {
-            INode_ID = iNNo;
+            ID = iNNo;
 
             Fill_Node_Init();
         }
@@ -34,7 +35,7 @@ namespace FEM_CALC_1Din2D
         // Constructor 3
         public CFemNode(int iNNo, CVector VDisp, float[] ArrLoad)
         {
-            INode_ID = iNNo;
+            ID = iNNo;
             m_VDisp = VDisp;
             m_ArrDirNodeLoad = ArrLoad;
 
@@ -44,10 +45,9 @@ namespace FEM_CALC_1Din2D
         // Constructor 4 - FEM node is copy of topological node
         public CFemNode(CNode TopoNode)
         {
-            INode_ID = TopoNode.INode_ID;
-            FCoord_X = TopoNode.FCoord_X;
-            FCoord_Y = TopoNode.FCoord_Y;
-            FCoord_Z = TopoNode.FCoord_Z;
+            ID = TopoNode.INode_ID;
+            FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
+            FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
             FTime = TopoNode.FTime;
 
             Fill_Node_Init();
@@ -93,9 +93,9 @@ namespace FEM_CALC_1Din2D
         public void CopyTopoNodetoFemNode(CNode TopoNode)
         { 
         // 2D Environment
-        INode_ID = TopoNode.INode_ID;
-        FCoord_X = TopoNode.FCoord_X;
-        FCoord_Y = TopoNode.FCoord_Y;
+        ID = TopoNode.INode_ID;
+        FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
+        FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
 
         FTime = TopoNode.FTime;
         }
@@ -111,7 +111,7 @@ namespace FEM_CALC_1Din2D
 
             for (int i = 0; i < iElemNo; i++)
             {
-                if ((ElemArray[i].m_NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
+                if ((ElemArray[i].NodeStart == Node) || (ElemArray[i].NodeEnd == Node))
                 {
                     ElemTempList.Add(i); // Add Element to Element List
                     j++;
@@ -129,7 +129,7 @@ namespace FEM_CALC_1Din2D
 
             for (int i = 0; i < iElemNo; i++)
             {
-                if ((ElemArray[i].m_NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
+                if ((ElemArray[i].NodeStart == Node) || (ElemArray[i].NodeEnd == Node))
                 {
                     IndexList.Add(i); // Add Element to Element Index Array
                     j++;
