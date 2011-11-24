@@ -50,7 +50,7 @@ namespace FEM_CALC_1Din2D
                 {
                     for (int j = 0; j < TopoModel.m_arrNSupports[i2].m_iNodeCollection.Length; j++) // Check list of nodes (Nodes IDs collection)
                     {
-                        if (m_arrFemNodes[i].INode_ID == TopoModel.m_arrNSupports[i2].m_iNodeCollection[j])
+                        if (m_arrFemNodes[i].ID == TopoModel.m_arrNSupports[i2].m_iNodeCollection[j])
                         {
                             // DOF of nodes are free - zero rigidity of restraints  false as default
                             m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eUX] = TopoModel.m_arrNSupports[i2].m_bRestrain[(int)e2D_DOF.eUX]; // !!! 2D Environment enum
@@ -96,7 +96,7 @@ namespace FEM_CALC_1Din2D
 
                 for (int j = 0; j < m_arrFemMembers.Length; j++)
                 {
-                    if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeStart.INode_ID || m_arrFemNodes[i].INode_ID == m_arrFemMembers[j].m_NodeEnd.INode_ID) // Is node ID same as member start or end node ID
+                    if (m_arrFemNodes[i].ID == m_arrFemMembers[j].NodeStart.ID || m_arrFemNodes[i].ID == m_arrFemMembers[j].NodeEnd.INode_ID) // Is node ID same as member start or end node ID
                     {
                         m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].m_Member.IMember_ID); // Add FEMmember ID to the FEM node list
                     }
@@ -138,32 +138,32 @@ namespace FEM_CALC_1Din2D
 
 
                    // If relases exist, they are neccesary to define DOF of both members, therefore copy release of one member to the another one
-                   if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 != null)
+                   if(m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 != null)
                    {
-                          if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                       if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
                              m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
-                         else if(m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                          else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
                              m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
                    }
-                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 != null)
+                   else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 != null)
                    {
-                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                       if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
                            m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
-                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                       else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
                            m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
                    }
-                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode1.INode_ID && m_arrFemMembers[iMember2_index].CnRelease1 != null)
+                   else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 != null)
                    {
-                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                       if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
                            m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
-                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                       else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
                            m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
                    }
-                   else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember2_index].INode2.INode_ID && m_arrFemMembers[iMember2_index].CnRelease2 != null)
+                   else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 != null)
                    {
-                       if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode1.INode_ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                       if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
                            m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
-                       else if (m_arrFemNodes[i].INode_ID == m_arrFemMembers[iMember1_index].INode2.INode_ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                       else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
                            m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
                    }
                 }

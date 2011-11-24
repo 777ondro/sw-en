@@ -10,9 +10,6 @@ namespace FEM_CALC_1Din3D
 {
     public struct SMemberDisp
     {
-        //SNodeDisp s_f_St;  
-        //SNodeDisp s_f_En;
-
         public float s_fUX_St;
         public float s_fUY_St;
         public float s_fUZ_St;
@@ -47,12 +44,8 @@ namespace FEM_CALC_1Din3D
     {
         public int m_iSuppType;
         // Geometrical properties of Element
-        // Temporary re-definiton of member length
-        public float m_fLength;
-
         public float m_flength_X, m_flength_Y, m_flength_Z, m_frotation_angle = 0f;
         public float m_flength_XY, m_flength_YZ, m_flength_XZ;
-        // public float m_fLength;
 
         public float[] m_fC_GCS_Coord = new float[3]; // Relative oordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
         
@@ -94,17 +87,12 @@ namespace FEM_CALC_1Din3D
         public CVector m_ArrElemIF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
         public CVector m_ArrElemIF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
 
-        public CMember m_Member = new CMember(); // temporary
-
-
         // 3D
         public CMatrix m_fAMatr3D = new CMatrix(Constants.iNodeDOFNo);
         public CMatrix m_fBMatr3D = new CMatrix(Constants.iNodeDOFNo);
 
         public CMatrix m_fKGlobM;  // (2x6)*(2x6)
 
-        public CFemNode m_NodeStart = new CFemNode();
-        public CFemNode m_NodeEnd = new CFemNode();
         public CLoad m_ELoad;
 
         public CMaterial m_Mat = new CMaterial();
@@ -127,7 +115,7 @@ namespace FEM_CALC_1Din3D
             Fill_EDisp_Init();
             Fill_EEndsLoad_Init();
         }
-        public CE_1D(CFemNode NStart, CFemNode NEnd, int iSuppType, CMaterial EMat, CCrSc ECrSc)
+        public CE_1D(CFemNode NStart, CFemNode NEnd, int iSuppType, CCrSc ECrSc)
         {
             // Create and fill elements base data
 
@@ -137,8 +125,6 @@ namespace FEM_CALC_1Din3D
             // Support type
             m_iSuppType = iSuppType;
 
-            // Material 
-            m_Mat = EMat;
             // Cross-section
             m_CrSc = ECrSc;
 
@@ -150,10 +136,10 @@ namespace FEM_CALC_1Din3D
         // Constructor 3 - FEM Member is copy of topological member or segment
         public CE_1D(CMember TopoMember)
         {
-          m_Member.IMember_ID = TopoMember.IMember_ID;
-         // m_CrSc = (CCrSc)TopoMember.CrSc;
-          m_NodeStart.INode_ID = TopoMember.INode1.INode_ID;
-          m_NodeEnd.INode_ID = TopoMember.INode2.INode_ID;
+          Member.IMember_ID = TopoMember.IMember_ID;
+          CrSc = (CCrSc)TopoMember.CrSc;
+          NodeStart.ID = TopoMember.INode1.INode_ID;
+          NodeEnd.ID = TopoMember.INode2.INode_ID;
         }
 
         public void FillBasic2()
@@ -195,7 +181,7 @@ namespace FEM_CALC_1Din3D
             m_fLength = (float)Math.Sqrt((float)Math.Pow(m_flength_X, 2f) + (float)Math.Pow(m_flength_Y, 2f) + (float)Math.Pow(m_flength_Z, 2f));
 
             // Temporary !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_Member.FLength = m_fLength;
+            Member.FLength = m_fLength;
 
             m_fAlpha = GetGCSAlpha(1);
             m_fSinAlpha = (float)Math.Sin(m_fAlpha);

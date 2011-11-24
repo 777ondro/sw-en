@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 using MATH;
+using FEM_CALC_BASE;
 
 namespace FEM_CALC_1Din3D
 {
-    public class CFemNode : CNode
+    public class CFemNode : CN
     {
         static int iNodeDOFNo = 6; // int or static int !!!!
 
@@ -28,7 +29,7 @@ namespace FEM_CALC_1Din3D
         // Constructor 2
         public CFemNode(int iNNo)
         {
-            INode_ID = iNNo;
+            ID = iNNo;
             Fill_NDisp_Init();
             Fill_NCode_Init();
             Fill_NLoad_Init();
@@ -37,7 +38,7 @@ namespace FEM_CALC_1Din3D
         // Constructor 3
         public CFemNode(int iNNo, CVector ArrDisp, CVector ArrLoad)
         {
-            INode_ID = iNNo;
+            ID = iNNo;
             Fill_NDisp_Init();
             Fill_NCode_Init();
             Fill_NLoad_Init();
@@ -48,13 +49,13 @@ namespace FEM_CALC_1Din3D
         // Constructor 4 - FEM node is copy of topological node
         public CFemNode(CNode TopoNode)
         {
-            INode_ID = TopoNode.INode_ID;
+            ID = TopoNode.INode_ID;
             Fill_NDisp_Init();
             Fill_NCode_Init();
             Fill_NLoad_Init();
-            FCoord_X = TopoNode.FCoord_X;
-            FCoord_Y = TopoNode.FCoord_Y;
-            FCoord_Z = TopoNode.FCoord_Z;
+            FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX] = TopoNode.FCoord_X;
+            FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY] = TopoNode.FCoord_Y;
+            FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ] = TopoNode.FCoord_Z;
             FTime = TopoNode.FTime;
         }
 
@@ -68,7 +69,7 @@ namespace FEM_CALC_1Din3D
             
             for (int i = 0; i < iElemNo; i++)
             {
-                if ((ElemArray[i].m_NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
+                if ((ElemArray[i].NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
                 {
                     ElemTempList.Add(i); // Add Element to Element List
                     j++;
@@ -86,7 +87,7 @@ namespace FEM_CALC_1Din3D
 
             for (int i = 0; i < iElemNo; i++)
             {
-                if ((ElemArray[i].m_NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
+                if ((ElemArray[i].NodeStart == Node) || (ElemArray[i].m_NodeEnd == Node))
                 {
                     IndexList.Add(i); // Add Element to Element Index Array
                     j++;

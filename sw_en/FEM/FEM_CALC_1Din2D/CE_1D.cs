@@ -24,8 +24,6 @@ namespace FEM_CALC_1Din2D
         // Geometrical properties of Element
         public float m_fLength_X, m_fLength_Y, m_frotation_angle = 0f;
 
-        public float m_fLength;
-
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
         public CVector m_VElemPEF_LCS_StNode = new CVector(Constants.i2D_DOFNo);  // Start Node
@@ -54,8 +52,6 @@ namespace FEM_CALC_1Din2D
         public CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
         public CMatrix m_fKGlobM;     // (2x3)*(2x3)
 
-        public CFemNode m_NodeStart =  new CFemNode();
-        public CFemNode m_NodeEnd = new CFemNode();
         public CMember m_Member = new CMember();
         public CCrSc m_CrSc = new CCrSc();
         public CMLoad m_ELoad;
@@ -80,27 +76,11 @@ namespace FEM_CALC_1Din2D
             m_Member = mMember; 
 
             // Nodes
-            m_NodeStart = NStart;
-            m_NodeEnd   = NEnd;
+            NodeStart = NStart;
+            NodeEnd   = NEnd;
 
             // Cross-section
             m_CrSc = m_Member.CrSc;
-
-            FillBasic2_GeomMatrices();
-
-        } // End of constructor
-
-        public CE_1D(CGenex FemModel, int iMemberID)
-        {
-            // Main member or segment
-            m_Member = FemModel.m_arrFemMembers[iMemberID];
-
-            // Nodes
-            m_NodeStart =FemModel.m_arrFemMembers[iMemberID].m_NodeStart;
-            m_NodeEnd = FemModel.m_arrFemMembers[iMemberID].m_NodeEnd;
-
-            // Cross-section
-            m_CrSc = FemModel.m_arrFemMembers[iMemberID].m_CrSc;
 
             FillBasic2_GeomMatrices();
 
@@ -111,7 +91,7 @@ namespace FEM_CALC_1Din2D
         {
             // Main member or segment
             m_Member = TopoMember;
-            IMember_ID = TopoMember.IMember_ID; // Temporary - TopoMember ID is same as FemMember
+            ID = TopoMember.IMember_ID; // Temporary - TopoMember ID is same as FemMember
             // Nodes
             //m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
             //m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
@@ -120,14 +100,14 @@ namespace FEM_CALC_1Din2D
             // Search FEM nodes
             for (int i = 0; i < arrFemNodes.Length; i++)
             {
-                if( m_Member.INode1.INode_ID == arrFemNodes[i].INode_ID)
-                m_NodeStart = arrFemNodes[i];
+                if( m_Member.INode1.INode_ID == arrFemNodes[i].ID)
+                NodeStart = arrFemNodes[i];
             }
 
             for (int i = 0; i < arrFemNodes.Length; i++)
             {
-                if (m_Member.INode2.INode_ID == arrFemNodes[i].INode_ID)
-                    m_NodeEnd = arrFemNodes[i];
+                if (m_Member.INode2.INode_ID == arrFemNodes[i].ID)
+                    NodeEnd = arrFemNodes[i];
             }
 
             // Cross-section
@@ -147,10 +127,10 @@ namespace FEM_CALC_1Din2D
             m_fLength_Y = GetGCSLengh(1);
 
             // FEM Element Length
-            m_fLength = MathF.Sqrt(MathF.Pow2(m_fLength_X) + MathF.Pow2(m_fLength_Y));
+            FLength = MathF.Sqrt(MathF.Pow2(m_fLength_X) + MathF.Pow2(m_fLength_Y));
 
             // Temporary !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_Member.FLength = m_fLength;
+            m_Member.FLength = FLength;
 
             // Calculate rotation of meber - clockwise system
             m_fAlpha = GetGCSAlpha();
@@ -205,14 +185,14 @@ namespace FEM_CALC_1Din2D
         public void Fill_ECode_Init()
         {
            // Start Node
-           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
-           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
-           m_NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
+           NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
+           NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
+           NodeStart.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
 
            // End Node
-           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
-           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
-           m_NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
+           NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUX] = int.MaxValue;
+           NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eUY] = int.MaxValue;
+           NodeEnd.m_ArrNCodeNo[(int)e2D_DOF.eRZ] = int.MaxValue;
         }
 
         public void Fill_EEndsLoad_Init()
@@ -260,9 +240,9 @@ namespace FEM_CALC_1Din2D
             switch (i)
             {
                 case 0:
-                    return GetGCSLengh(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_GCS_X);
+                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], m_GCS_X);
                 case 1:
-                    return GetGCSLengh(m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y, m_GCS_Y);
+                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], m_GCS_Y);
                 default:
                     return 0f;
             }
@@ -303,7 +283,7 @@ namespace FEM_CALC_1Din2D
             // GLOBAL COORDINATE SYSTEM direction
             // Rotation about Global Z-Axis
 
-            return GetGCSAlpha2D_CW(m_NodeStart.FCoord_X, m_NodeEnd.FCoord_X, m_NodeStart.FCoord_Y, m_NodeEnd.FCoord_Y);
+            return GetGCSAlpha2D_CW(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY]);
         }
 
         private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, CNRelease NRelease, e2D_DOF eDOF)
@@ -347,12 +327,12 @@ namespace FEM_CALC_1Din2D
             // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
 
             if (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 000_000
@@ -363,12 +343,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 000____
@@ -380,12 +360,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // ____000
@@ -397,12 +377,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                )
             {
                 // 000_00_
@@ -413,12 +393,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 00__000
@@ -429,12 +409,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 00___0_
@@ -446,12 +426,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // _0__00_
@@ -463,12 +443,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 00__00_
@@ -479,12 +459,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 00__0__
@@ -496,12 +476,12 @@ namespace FEM_CALC_1Din2D
             }
             else if
                 (
-                IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeStart.m_ArrNodeDOF, m_NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
-                IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
-                !IsMemberDOFRigid(m_NodeEnd.m_ArrNodeDOF, m_NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
+                IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUX) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, m_Member.CnRelease1, e2D_DOF.eRZ) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUX) &&
+                IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eUY) &&
+                !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, m_Member.CnRelease2, e2D_DOF.eRZ)
                 )
             {
                 // 0___00_
@@ -533,11 +513,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_00_00()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / FLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
-            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
-            float f04EIy_len1 = (4f * f_EIy) / m_fLength;
+            float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(FLength, 3f);
+            float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(FLength, 2f);
+            float f04EIy_len1 = (4f * f_EIy) / FLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -557,11 +537,11 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_00_0_()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = (m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g) / m_fLength;
+            float fEA_len = (m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g) / FLength;
             float f_EIy = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y;
-            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 3f);
-            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(m_fLength, 2f);
-            float f3EIy_len1 = (3f * f_EIy) / m_fLength;
+            float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(FLength, 3f);
+            float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(FLength, 2f);
+            float f3EIy_len1 = (3f * f_EIy) / FLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -581,8 +561,8 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_0__00()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
-            float f3EIy_len3 = (3f * m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y) / (float)Math.Pow(m_fLength, 3f);
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / FLength;
+            float f3EIy_len3 = (3f * m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FI_y) / (float)Math.Pow(FLength, 3f);
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -601,7 +581,7 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_0__0_()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / m_fLength;
+            float fEA_len = m_Member.CrSc.m_Mat.m_fE * m_Member.CrSc.FA_g / FLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
