@@ -146,55 +146,55 @@ namespace FEM_CALC_1Din3D
             }
 
             // Node 1
-            m_NodeArray[0].INode_ID = 1;
-            m_NodeArray[0].FCoord_X = m_fGeom_a;
-            m_NodeArray[0].FCoord_Y = 0f;
-            m_NodeArray[0].FCoord_Z = 0f;
+            m_NodeArray[0].ID = 1;
+            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Node 2
-            m_NodeArray[1].INode_ID = 2;
-            m_NodeArray[1].FCoord_X = 0f;
-            m_NodeArray[1].FCoord_Y = 0f;
-            m_NodeArray[1].FCoord_Z = 0f;
+            m_NodeArray[1].ID = 2;
+            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = 0f;
+            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Node 3
-            m_NodeArray[2].INode_ID = 5;
-            m_NodeArray[2].FCoord_X = m_fGeom_a;
-            m_NodeArray[2].FCoord_Y = 0f;
-            m_NodeArray[2].FCoord_Z = -m_fGeom_c;
+            m_NodeArray[2].ID = 5;
+            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = -m_fGeom_c;
 
             // Node 4
-            m_NodeArray[3].INode_ID = 3;
-            m_NodeArray[3].FCoord_X = m_fGeom_a;
-            m_NodeArray[3].FCoord_Y = -m_fGeom_b;
-            m_NodeArray[3].FCoord_Z = 0f;
+            m_NodeArray[3].ID = 3;
+            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = -m_fGeom_b;
+            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Set Nodal Supports (for restraint set 0f)
             // Node 1
 
             // Node 2
-            m_NodeArray[1].m_ArrDisp.FVectorItems[0] = 0f;
-            m_NodeArray[1].m_ArrDisp.FVectorItems[1] = 0f;
-            m_NodeArray[1].m_ArrDisp.FVectorItems[2] = 0f;
-            m_NodeArray[1].m_ArrDisp.FVectorItems[3] = 0f;
-            m_NodeArray[1].m_ArrDisp.FVectorItems[4] = 0f;
-            m_NodeArray[1].m_ArrDisp.FVectorItems[5] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[0] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[1] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[2] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[3] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[4] = 0f;
+            m_NodeArray[1].m_VDisp.FVectorItems[5] = 0f;
 
             // Node 3
-            m_NodeArray[2].m_ArrDisp.FVectorItems[0] = 0f;
-            m_NodeArray[2].m_ArrDisp.FVectorItems[1] = 0f;
-            m_NodeArray[2].m_ArrDisp.FVectorItems[2] = 0f;
-            m_NodeArray[2].m_ArrDisp.FVectorItems[3] = 0f;
-            m_NodeArray[2].m_ArrDisp.FVectorItems[4] = 0f;
-            m_NodeArray[2].m_ArrDisp.FVectorItems[5] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[0] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[1] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[2] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[3] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[4] = 0f;
+            m_NodeArray[2].m_VDisp.FVectorItems[5] = 0f;
 
             // Node 4
-            m_NodeArray[3].m_ArrDisp.FVectorItems[0] = 0f;
-            m_NodeArray[3].m_ArrDisp.FVectorItems[1] = 0f;
-            m_NodeArray[3].m_ArrDisp.FVectorItems[2] = 0f;
-            m_NodeArray[3].m_ArrDisp.FVectorItems[3] = 0f;
-            m_NodeArray[3].m_ArrDisp.FVectorItems[4] = 0f;
-            m_NodeArray[3].m_ArrDisp.FVectorItems[5] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[0] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[1] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[2] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[3] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[4] = 0f;
+            m_NodeArray[3].m_VDisp.FVectorItems[5] = 0f;
 
             // Set Global Code Numbers
 
@@ -204,7 +204,7 @@ namespace FEM_CALC_1Din3D
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrDisp.FVectorItems[i] != 0)  // Perform for not restrained DOF
+                    if (i_CNode.m_VDisp.FVectorItems[i] != 0)  // Perform for not restrained DOF
                     {
                         i_CNode.m_ArrNCodeNo[i] = m_iCodeNo; // Set global code number of degree of freedom (DOF)
 
@@ -263,8 +263,8 @@ namespace FEM_CALC_1Din3D
             }
 
             // Member 1 [0] Nodes 1 - 2 ([0] [1]) 
-            m_ELemArray[0].m_NodeStart = m_NodeArray[0];
-            m_ELemArray[0].m_NodeEnd = m_NodeArray[1];
+            m_ELemArray[0].NodeStart = m_NodeArray[0];
+            m_ELemArray[0].NodeEnd = m_NodeArray[1];
             // Element  Type
             m_ELemArray[0].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000000;
             // Element Material
@@ -343,8 +343,8 @@ namespace FEM_CALC_1Din3D
              
 
             // Member 2 [1] Nodes 1 - 3 ([0] [2])
-            m_ELemArray[1].m_NodeStart = m_NodeArray[0];
-            m_ELemArray[1].m_NodeEnd = m_NodeArray[2];
+            m_ELemArray[1].NodeStart = m_NodeArray[0];
+            m_ELemArray[1].NodeEnd = m_NodeArray[2];
             // Element  Type
             m_ELemArray[1].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000000;
             // Element Material
@@ -369,8 +369,8 @@ namespace FEM_CALC_1Din3D
 
 
             // Member 3 [2] Nodes 1 - 4 ([0] [3])
-            m_ELemArray[2].m_NodeStart = m_NodeArray[0];
-            m_ELemArray[2].m_NodeEnd = m_NodeArray[3];
+            m_ELemArray[2].NodeStart = m_NodeArray[0];
+            m_ELemArray[2].NodeEnd = m_NodeArray[3];
             // Element  Type
             m_ELemArray[2].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000___;
             // Element Material
@@ -513,10 +513,10 @@ namespace FEM_CALC_1Din3D
             {
                 // Check if DOF is default (free - ) or has some initial value (settlement; soil consolidation etc.)
                 // See Fill_NDisp_InitStr() for default values - float.PositiveInfinity
-                if (m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] == float.PositiveInfinity)
-                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] = m_V_Displ.FVectorItems[i]; // set calculated
+                if (m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] == float.PositiveInfinity)
+                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] = m_V_Displ.FVectorItems[i]; // set calculated
                 else // some real initial value exists
-                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
+                    m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
             }
 
 
@@ -527,22 +527,22 @@ namespace FEM_CALC_1Din3D
                 for (int i = 0; i < iElemNoTot; i++)
                 {
                     m_ELemArray[i].GetArrElemEF_GCS_StNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node End Forces in GCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_GCS_EnNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node End Forces in GCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_LCS_StNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node End Forces in LCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemEF_LCS_EnNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node End Forces in LCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_EnNode.Print1DVector());
                     m_ELemArray[i].GetArrElemIF_LCS_StNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeStart.INode_ID + "; " + "Start Node Internal Forces in LCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_StNode.Print1DVector());
                     m_ELemArray[i].GetArrElemIF_LCS_EnNode();
-                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].m_NodeEnd.INode_ID + "; " + "End Node Internal Forces in LCS");
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
                     Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_EnNode.Print1DVector());
                 }
         } // End of Constructor
@@ -568,7 +568,7 @@ namespace FEM_CALC_1Din3D
 
             for (int i = 0; i < iNNoTot; i++)
             {
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Ux] != 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Ux] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ux] = m_iCodeNo;
                     m_iCodeNo++;
@@ -576,7 +576,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ux] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Uy] != 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Uy] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uy] = m_iCodeNo;
                     m_iCodeNo++;
@@ -584,7 +584,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uy] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Uz]!= 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Uz]!= 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uz] = m_iCodeNo;
                     m_iCodeNo++;
@@ -592,7 +592,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Uz] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Rx]!= 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Rx]!= 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rx] = m_iCodeNo;
                     m_iCodeNo++;
@@ -600,7 +600,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rx] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Ry] != 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Ry] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ry] = m_iCodeNo;
                     m_iCodeNo++;
@@ -608,7 +608,7 @@ namespace FEM_CALC_1Din3D
                 else
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Ry] = 0;
 
-                if (m_NodeArray[i].m_ArrDisp.FVectorItems[(int)ENSupportType.eNST_Rz] != 0f)
+                if (m_NodeArray[i].m_VDisp.FVectorItems[(int)ENSupportType.eNST_Rz] != 0f)
                 {
                     m_NodeArray[i].m_ArrNCodeNo[(int)ENSupportType.eNST_Rz] = m_iCodeNo;
                     m_iCodeNo++;
@@ -627,10 +627,10 @@ namespace FEM_CALC_1Din3D
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrDisp.FVectorItems[i] != 0f)       // Perform for not restrained DOF
+                    if (i_CNode.m_VDisp.FVectorItems[i] != 0f)       // Perform for not restrained DOF
                     {
                         m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
-                        m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.INode_ID - 1;        // Add Node index !!! Node ID starts with 1
+                        m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.ID - 1;        // Add Node index !!! Node ID starts with 1
                         m_fDisp_Vector_CN[m_iCodeNo, 2] = i_CNode.m_ArrNCodeNo[i];   // Add local code number of degree of freedom (DOF) 0-5
 
                         m_iCodeNo++;
@@ -663,7 +663,7 @@ namespace FEM_CALC_1Din3D
                         // Assign existing element from list to the temp element to get its global stifeness matrix members (12x12)
                         CE_1D El_Temp = m_ELemArray[iElemTemp_Index.IndexOf(l)];
 
-                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.m_NodeStart.INode_ID - 1) // Current DOF-row is on Start Node
+                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // Current DOF-row is on Start Node
                         {
                             if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
                             {
@@ -716,7 +716,7 @@ namespace FEM_CALC_1Din3D
                         // Assign existing element from list to the temp element  
                         CE_1D El_Temp = m_ELemArray[iElemTemp_Index.IndexOf(l)];
 
-                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.m_NodeStart.INode_ID - 1) // If DOF is on Start Node of Element
+                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // If DOF is on Start Node of Element
                         {
                             // Temporary transposed transformation matrix of element rotation multiplied by load vector
                             /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_StNode);*/
@@ -740,7 +740,7 @@ namespace FEM_CALC_1Din3D
 
                     // Node DOF Load due to direct node loading
 
-                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_ArrDirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
+                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_DirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
 
 
                     // Sum loads

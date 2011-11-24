@@ -12,12 +12,6 @@ namespace FEM_CALC_1Din2D
 {
     public class CFemNode:CN
     {
-        public CVector m_VDisp = new CVector(Constants.i2D_DOFNo);
-        public int[] m_ArrNCodeNo = new int[Constants.i2D_DOFNo];          // Array of global codes numbers
-        public float[] m_ArrDirNodeLoad = new float[Constants.i2D_DOFNo];  // Direct external nodal load
-        public bool[] m_ArrNodeDOF = new bool[Constants.i2D_DOFNo];        // Nodal Supports - Node DOF restraints
-        public ArrayList m_iMemberCollection = new ArrayList(); // List / Collection of FEM members connected to the node
-
         // Constructor 1
         public CFemNode()
         {
@@ -33,11 +27,11 @@ namespace FEM_CALC_1Din2D
         }
 
         // Constructor 3
-        public CFemNode(int iNNo, CVector VDisp, float[] ArrLoad)
+        public CFemNode(int iNNo, CVector VDisp, CVector ArrLoad)
         {
             ID = iNNo;
             m_VDisp = VDisp;
-            m_ArrDirNodeLoad = ArrLoad;
+            m_DirNodeLoad = ArrLoad;
 
             Fill_Node_Init();
         }
@@ -61,9 +55,9 @@ namespace FEM_CALC_1Din2D
         // Nodal loads in GCS
         public void Fill_ArrDirNodeLoad_Init()
         {
-           m_ArrDirNodeLoad[(int)e2D_E_F.eFX] = 0f;
-           m_ArrDirNodeLoad[(int)e2D_E_F.eFY] = 0f;
-           m_ArrDirNodeLoad[(int)e2D_E_F.eMZ] = 0f;
+           m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eFX] = 0f;
+           m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = 0f;
+           m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = 0f;
         }
 
         // Nodal displacement
