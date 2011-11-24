@@ -350,11 +350,11 @@ namespace FEM_CALC_1Din3D
             switch (i)
             {
                 case 0:
-                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], m_GCS_X);
+                    return GetGCSLengh(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], m_GCS_X);
                 case 1:
-                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], m_GCS_Y);
+                    return GetGCSLengh(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], m_GCS_Y);
                 case 2:
-                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_Z);
+                    return GetGCSLengh(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_Z);
                 default:
                     return 0f;
             }
@@ -398,11 +398,11 @@ namespace FEM_CALC_1Din3D
             switch (i)
             {
                 case 0:
-                    return GetGCSAlpha(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_Y, m_GCS_Z);
+                    return GetGCSAlpha(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_Y, m_GCS_Z);
                 case 1:
-                    return GetGCSAlpha(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_X, m_GCS_Z);
+                    return GetGCSAlpha(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ], m_GCS_X, m_GCS_Z);
                 case 2:
-                    return GetGCSAlpha(NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeStart.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], m_GCS_X, m_GCS_Y);
+                    return GetGCSAlpha(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX], NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY], m_GCS_X, m_GCS_Y);
                 default:
                     return 0f;
             }

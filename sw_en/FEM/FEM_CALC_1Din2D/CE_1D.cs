@@ -231,9 +231,9 @@ namespace FEM_CALC_1Din2D
             switch (i)
             {
                 case 0:
-                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], m_GCS_X);
+                    return GetGCSLengh(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], m_GCS_X);
                 case 1:
-                    return GetGCSLengh(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], m_GCS_Y);
+                    return GetGCSLengh(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], m_GCS_Y);
                 default:
                     return 0f;
             }
@@ -274,7 +274,7 @@ namespace FEM_CALC_1Din2D
             // GLOBAL COORDINATE SYSTEM direction
             // Rotation about Global Z-Axis
 
-            return GetGCSAlpha2D_CW(NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeStart.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY]);
+            return GetGCSAlpha2D_CW(NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX], NodeStart.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY], NodeEnd.m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY]);
         }
 
         private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, CNRelease NRelease, e2D_DOF eDOF)

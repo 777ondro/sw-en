@@ -20,13 +20,7 @@ namespace FEM_CALC_BASE
         const int m_iNodeDOFNumber = 3; // 3 in 2D, 6 in 3D
 
         // Vector of node coordinates in carthesian coordinate system
-        CVector m_fVNodeCoordinates = new CVector(m_iNodeDOFNumber);
-        
-        public CVector FVNodeCoordinates
-        {
-            get { return m_fVNodeCoordinates; }
-            set { m_fVNodeCoordinates = value; }
-        }
+        public CVector m_fVNodeCoordinates = new CVector(m_iNodeDOFNumber);
 
         float fTime;
 

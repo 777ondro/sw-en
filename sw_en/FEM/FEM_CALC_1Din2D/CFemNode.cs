@@ -40,8 +40,8 @@ namespace FEM_CALC_1Din2D
         public CFemNode(CNode TopoNode)
         {
             ID = TopoNode.INode_ID;
-            FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
-            FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
+            m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
+            m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
             FTime = TopoNode.FTime;
 
             Fill_Node_Init();
@@ -88,8 +88,8 @@ namespace FEM_CALC_1Din2D
         { 
         // 2D Environment
         ID = TopoNode.INode_ID;
-        FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
-        FVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
+        m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
+        m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
 
         FTime = TopoNode.FTime;
         }
