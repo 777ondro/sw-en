@@ -147,27 +147,27 @@ namespace FEM_CALC_1Din3D
 
             // Node 1
             m_NodeArray[0].ID = 1;
-            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
-            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
-            m_NodeArray[0].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
+            m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Node 2
             m_NodeArray[1].ID = 2;
-            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = 0f;
-            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
-            m_NodeArray[1].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
+            m_NodeArray[1].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = 0f;
+            m_NodeArray[1].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[1].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Node 3
             m_NodeArray[2].ID = 5;
-            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
-            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
-            m_NodeArray[2].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = -m_fGeom_c;
+            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
+            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = -m_fGeom_c;
 
             // Node 4
             m_NodeArray[3].ID = 3;
-            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
-            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = -m_fGeom_b;
-            m_NodeArray[3].FVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
+            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = -m_fGeom_b;
+            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Set Nodal Supports (for restraint set 0f)
             // Node 1
