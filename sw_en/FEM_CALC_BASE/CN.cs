@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Collections;
 
 namespace FEM_CALC_BASE
 {
@@ -16,6 +17,7 @@ namespace FEM_CALC_BASE
             set { m_ID = value; }
         }
 
+        const int m_iNodeDOFNumber = 3; // 3 in 2D, 6 in 3D
 
         // Vector of node coordinates in carthesian coordinate system
         CVector m_fVNodeCoordinates;
@@ -33,6 +35,13 @@ namespace FEM_CALC_BASE
             get { return fTime; }
             set { fTime = value; }
         }
+
+
+        public CVector m_VDisp = new CVector(m_iNodeDOFNumber);
+        public int[] m_ArrNCodeNo = new int[m_iNodeDOFNumber];        // Array of global codes numbers
+        public CVector m_DirNodeLoad = new CVector(m_iNodeDOFNumber);  // Direct external nodal load vector
+        public bool[] m_ArrNodeDOF = new bool [m_iNodeDOFNumber];        // Nodal Supports - Node DOF restraints
+        public ArrayList m_iMemberCollection = new ArrayList(); // List / Collection of FEM members connected to the node
 
         public CN()
         { 

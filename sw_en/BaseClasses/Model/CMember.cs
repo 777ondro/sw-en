@@ -17,19 +17,19 @@ namespace BaseClasses
           get { return m_iMember_ID; }
           set { m_iMember_ID = value; }
         }
-        private CNode    m_iNode1;
+        private CNode    m_NodeStart;
 
-        public CNode INode1
+        public CNode NodeStart
         {
-          get { return m_iNode1; }
-          set { m_iNode1 = value; }
+          get { return m_NodeStart; }
+          set { m_NodeStart = value; }
         }
-        private CNode    m_iNode2;
+        private CNode    m_NodeEnd;
 
-        public CNode INode2
+        public CNode NodeEnd
         {
-          get { return m_iNode2; }
-          set { m_iNode2 = value; }
+          get { return m_NodeEnd; }
+          set { m_NodeEnd = value; }
         }
 
         private CNRelease m_cnRelease1;
@@ -70,8 +70,8 @@ namespace BaseClasses
         // Constructor 1
         public CMember()
         {
-            m_iNode1 = new CNode();
-            m_iNode2 = new CNode();
+            m_NodeStart = new CNode();
+            m_NodeEnd = new CNode();
             m_cnRelease1 = null;
             m_cnRelease2 = null;
         }
@@ -83,8 +83,8 @@ namespace BaseClasses
             int fTime)
         {
             m_iMember_ID = iLine_ID;
-            m_iNode1 = iNode1;
-            m_iNode2 = iNode2;
+            m_NodeStart = iNode1;
+            m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
             m_fTime = fTime;
@@ -102,8 +102,8 @@ namespace BaseClasses
             int fTime)
         {
             m_iMember_ID = iLine_ID;
-            m_iNode1 = iNode1;
-            m_iNode2 = iNode2;
+            m_NodeStart = iNode1;
+            m_NodeEnd = iNode2;
             if (haveRelease1)
                 m_cnRelease1 = new CNRelease(iNode1);
             if (haveRelease2)
@@ -122,8 +122,8 @@ namespace BaseClasses
             )
         {
             m_iMember_ID = iLine_ID;
-            m_iNode1 = iNode1;
-            m_iNode2 = iNode2;
+            m_NodeStart = iNode1;
+            m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
             m_CrSc = objCrSc;
@@ -137,7 +137,7 @@ namespace BaseClasses
         public void Fill_Basic()
         {
             // Temporary !!!!!!!!!!!!!!!!!!!!!! Member Length for 3F 
-            FLength = (float)Math.Sqrt((float)Math.Pow(m_iNode2.FCoord_X - m_iNode1.FCoord_X, 2f) + (float)Math.Pow(m_iNode2.FCoord_Y - m_iNode1.FCoord_Y, 2f) + (float)Math.Pow(m_iNode2.FCoord_Z - m_iNode1.FCoord_Z, 2f));
+            FLength = (float)Math.Sqrt((float)Math.Pow(m_NodeEnd.FCoord_X - m_NodeStart.FCoord_X, 2f) + (float)Math.Pow(m_NodeEnd.FCoord_Y - m_NodeStart.FCoord_Y, 2f) + (float)Math.Pow(m_NodeEnd.FCoord_Z - m_NodeStart.FCoord_Z, 2f));
 
         }
 
