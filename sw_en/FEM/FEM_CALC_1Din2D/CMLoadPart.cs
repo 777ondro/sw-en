@@ -188,7 +188,6 @@ namespace FEM_CALC_1Din2D
                 arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY];
                 arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ];
             }
-
         }
     }
 }
