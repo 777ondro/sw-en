@@ -962,11 +962,11 @@ namespace FEM_CALC_BASE
         }
         void GetEIF_00_0__21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
-            fA = 0.0f;
-            fB = 0.0f;
-            fMa = 0.0f;
-            fMb = 0.0f;
+            // !!! Signs
+            fA = 5 / 8f * Load.Fq * fL;
+            fB = -3 / 8f * Load.Fq * fL;
+            fMa = Load.Fq * fL * fL / 8f;
+            fMb = 0f;
         }
         void GetEIF_00_0__22_UV(CMLoad_22 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {

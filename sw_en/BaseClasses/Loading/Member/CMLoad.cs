@@ -11,7 +11,6 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         private int m_iMLoad_ID;
-        private CMember m_Member;
         private int[] m_iMemberCollection; // List / Collection of members where load is defined
         private EMLoadType1 m_mLoadType; // Type of external force
         private EMLoadDirPCC1 m_eDirPPC; // External Force Direction in Principal Coordinate System of Member
@@ -20,11 +19,6 @@ namespace BaseClasses
         {
             get { return m_iMLoad_ID; }
             set { m_iMLoad_ID = value; }
-        }
-        public CMember Member
-        {
-          get { return m_Member; }
-          set { m_Member = value; }
         }
         public int[] IMemberCollection
         {

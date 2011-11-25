@@ -235,7 +235,7 @@ namespace FEM_CALC_1Din2D
             MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W_21;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_q.IMemberCollection = new int[1];
-            MLoad_q.IMemberCollection[0] = 3;
+            MLoad_q.IMemberCollection[0] = 2;
 
             TopoModel.m_arrMLoads[2] = MLoad_q;
 
