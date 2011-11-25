@@ -850,7 +850,7 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
                     System.Console.Write(text);
                     if ((j + 1) < iColumns)
                     {
-                        System.Console.Write(',');
+                        System.Console.Write(';');
                     }
                     else
                     {
@@ -926,7 +926,7 @@ Apparently the 5th function is enough, because for example "Rotation around X ax
                     // Separator
                     if ((j + 1) <  2 * fM_ABxCD[0,0].m_iColumns)
                     {
-                        System.Console.Write(',');
+                        System.Console.Write(';');
                     }
                     else
                     {

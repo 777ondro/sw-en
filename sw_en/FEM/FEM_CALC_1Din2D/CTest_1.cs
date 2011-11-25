@@ -36,7 +36,7 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test1", 3, 1, 1, 5, 4, 3, 1, 1, 3, 1, 1);
+            TopoModel = new CModel("Test1", 3, 1, 1, 5, 4, 3, 1, 1, 4, 1, 1);
 
             // Materials
             CMat_00 Mat0 = new CMat_00();
@@ -205,40 +205,49 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrNLoads[0] = NLoad0;
 
             // Member loads
-            // Load 1 - MemberIDs: 1
+            // Load 1 and 2 - MemberIDs: 1
 
             float fAlpha_1 = (236.3099f / 360f) * 2 * MathF.fPI;  // Radians
-            float fF1x = fF1 * (float)Math.Sin(fAlpha_1);       // Force in local coordinate system of member
-            float fF1y = fF1 * (float)Math.Cos(fAlpha_1);        // Force in local coordinate system of member
+            float fF1x = Math.Abs(fF1 * (float)Math.Cos(fAlpha_1));    // Force in local coordinate system of member + possitive orientation  in x-axis
+            float fF1y = fF1 * (float)Math.Sin(fAlpha_1);              // Force in local coordinate system of member + negative orientation in y-axis
 
-            CMLoad_11 MLoad_F1 = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
-            MLoad_F1.IMLoad_ID = 1;
-            MLoad_F1.MLoadType = EMLoadType1.eMLT_FS_H_12;
-            MLoad_F1.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
-            MLoad_F1.IMemberCollection = new int[1];
-            MLoad_F1.IMemberCollection[0] = 1;
+            CMLoad_11 MLoad_F1x = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
+            MLoad_F1x.IMLoad_ID = 1;
+            MLoad_F1x.MLoadType = EMLoadType1.eMLT_FS_H_12;
+            MLoad_F1x.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FXX_MXX;
+            MLoad_F1x.IMemberCollection = new int[1];
+            MLoad_F1x.IMemberCollection[0] = 1;
 
-            TopoModel.m_arrMLoads[0] = MLoad_F1;
+            TopoModel.m_arrMLoads[0] = MLoad_F1x;
 
-            // Load 2 - MemberIDs: 2
+            CMLoad_11 MLoad_F1y = new CMLoad_11(fF1y, 0.5f * TopoModel.m_arrMembers[0].FLength);
+            MLoad_F1y.IMLoad_ID = 2;
+            MLoad_F1y.MLoadType = EMLoadType1.eMLT_FS_H_12;
+            MLoad_F1y.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
+            MLoad_F1y.IMemberCollection = new int[1];
+            MLoad_F1y.IMemberCollection[0] = 1;
+
+            TopoModel.m_arrMLoads[1] = MLoad_F1y;
+
+            // Load 3 - MemberIDs: 3
             CMLoad_21 MLoad_q = new CMLoad_21(fq);
-            MLoad_q.IMLoad_ID = 2;
+            MLoad_q.IMLoad_ID = 3;
             MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W_21;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_q.IMemberCollection = new int[1];
             MLoad_q.IMemberCollection[0] = 3;
 
-            TopoModel.m_arrMLoads[1] = MLoad_q;
+            TopoModel.m_arrMLoads[2] = MLoad_q;
 
-            // Load 3 - MemberIDs: 4
+            // Load 4 - MemberIDs: 4
             CMLoad_11 MLoad_M = new CMLoad_11(fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
-            MLoad_M.IMLoad_ID = 3;
+            MLoad_M.IMLoad_ID = 4;
             MLoad_M.MLoadType = EMLoadType1.eMLT_FS_H_12;
             MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_ZV;
             MLoad_M.IMemberCollection = new int[1];
             MLoad_M.IMemberCollection[0] = 4;
 
-            TopoModel.m_arrMLoads[2] = MLoad_M;
+            TopoModel.m_arrMLoads[3] = MLoad_M;
 
             // Load Cases
             // Load Case 1

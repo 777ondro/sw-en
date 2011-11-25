@@ -243,13 +243,13 @@ namespace FEM_CALC_1Din2D
 
                             // Start Node
                             m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFX] += fTemp_A_UXRX;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_A_UYRZ;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Ma_UYRZ;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
+                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Ma_UYRZ; 
 
                             // End Node
                             m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += fTemp_B_UXRX;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_B_UYRZ;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Mb_UYRZ;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_B_UYRZ; 
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Mb_UYRZ; 
 
 
                         }
