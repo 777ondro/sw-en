@@ -227,8 +227,31 @@ namespace FEM_CALC_1Din2D
                         // Set end forces due to member load 
                         for (int k = 0; k < m_arrFemMembers.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
                         {
-                            // // Fill external forces vectors for member load index i and member index k
-                            CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k);
+                            // Temporary value of end forces due to particular external force
+                            float fTemp_A_UXRX = 0f, fTemp_B_UXRX = 0f; // Auxialiary variables for values of end internal forces due to particular loads in load case, value of torsional moments about x-axis reactions are just auxialiary // never used to fill item of vectors in 2D in-plane solution
+                            float fTemp_A_UYRZ = 0f, fTemp_B_UYRZ = 0f, fTemp_Ma_UYRZ = 0f, fTemp_Mb_UYRZ = 0f; // Auxialiary variables for values of end internal forces due to particular loads in load case
+
+
+                            // Fill end forces due to external forces vectors for member particular load index i and member index k
+                            CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
+                                out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
+                                out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
+                            );
+                                                        
+                            // Add values of temperary end forces due to particular load to the end forces items of vector
+                            // Primary end forces due member loading in local coordinate system LCS
+
+                            // Start Node
+                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFX] += fTemp_A_UXRX;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_A_UYRZ;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Ma_UYRZ;
+
+                            // End Node
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += fTemp_B_UXRX;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_B_UYRZ;
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Mb_UYRZ;
+
+
                         }
                     }
                 }

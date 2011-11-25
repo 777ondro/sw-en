@@ -16,13 +16,31 @@ namespace FEM_CALC_1Din2D
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart(CModel TopoModel, CE_1D[] arrFemMembers, int iMLoadIndex, int kMemberIndex)
+        public CMLoadPart(CModel TopoModel,
+            CE_1D[] arrFemMembers,
+            int iMLoadIndex,
+            int kMemberIndex,
+            out float fTemp_A_UXRX,
+            out float fTemp_A_UYRZ, 
+            out float fTemp_Ma_UYRZ,
+            out float fTemp_B_UXRX,
+            out float fTemp_B_UYRZ,
+            out float fTemp_Mb_UYRZ)
         {
+            // Default
+            fTemp_A_UXRX = 0.0f;
+            fTemp_B_UXRX = 0.0f;
+            fTemp_A_UYRZ = 0.0f;
+            fTemp_B_UYRZ = 0.0f;
+            fTemp_Ma_UYRZ = 0.0f;
+            fTemp_Mb_UYRZ = 0.0f;
+
             if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].IMember_ID)) // If member ID is same as collection item
             {
-                float fTemp_1 = 0f, fTemp_2 = 0f; // Auxialiary for not used components
 
-                // Fill external forces vectors 
+                float fTemp_Ma_UXRX = 0.0f, fTemp_Mb_UXRX = 0.0f; // Temporary for output of Mx which is not used in 2D in-plane solution
+
+                // Fill external forces temp values 
 
                 switch (TopoModel.m_arrMLoads[iMLoadIndex].EDirPPC) // Load direction in principal coordinate system XX / YU / ZV
                 {
@@ -45,10 +63,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
-                                            out fTemp_1,
-                                            out fTemp_2);
+                                            out fTemp_A_UXRX,
+                                            out fTemp_B_UXRX,
+                                            out fTemp_Ma_UXRX,
+                                            out fTemp_Mb_UXRX);
 
                                         break;
                                     }
@@ -60,10 +78,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                         (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
-                                        out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
-                                        out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
-                                        out fTemp_1,
-                                        out fTemp_2);
+                                            out fTemp_A_UXRX,
+                                            out fTemp_B_UXRX,
+                                            out fTemp_Ma_UXRX,
+                                            out fTemp_Mb_UXRX);
 
                                         break;
                                     }
@@ -75,10 +93,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                 (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                 arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
-                                out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
-                                out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
-                                out fTemp_1,
-                                out fTemp_2);
+                                            out fTemp_A_UXRX,
+                                            out fTemp_B_UXRX,
+                                            out fTemp_Ma_UXRX,
+                                            out fTemp_Mb_UXRX);
 
                                         break;
                                     }
@@ -90,10 +108,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX],
-                                            out fTemp_1,
-                                            out fTemp_2);
+                                            out fTemp_A_UXRX,
+                                            out fTemp_B_UXRX,
+                                            out fTemp_Ma_UXRX,
+                                            out fTemp_Mb_UXRX);
 
                                         break;
                                     }
@@ -101,10 +119,10 @@ namespace FEM_CALC_1Din2D
                             break;
                         }
                     case EMLoadDirPCC1.eMLD_PCC_YU:
-                       // {
-                       //    // DOF UY and RZ can't be released - always rigid
-                       //     break;
-                       // }
+                    // {
+                    //    // DOF UY and RZ can't be released - always rigid
+                    //     break;
+                    // }
                     case EMLoadDirPCC1.eMLD_PCC_ZV:
                         {
                             switch (arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
@@ -120,10 +138,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
+                                            out fTemp_A_UYRZ,
+                                            out fTemp_B_UYRZ,
+                                            out fTemp_Ma_UYRZ,
+                                            out fTemp_Mb_UYRZ);
 
                                         break;
                                     }
@@ -133,10 +151,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                         (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
+                                            out fTemp_A_UYRZ,
+                                            out fTemp_B_UYRZ,
+                                            out fTemp_Ma_UYRZ,
+                                            out fTemp_Mb_UYRZ);
 
                                         break;
                                     }
@@ -146,10 +164,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                         arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
+                                            out fTemp_A_UYRZ,
+                                            out fTemp_B_UYRZ,
+                                            out fTemp_Ma_UYRZ,
+                                            out fTemp_Mb_UYRZ);
 
                                         break;
                                     }
@@ -160,10 +178,10 @@ namespace FEM_CALC_1Din2D
                                         FEM_CALC_BASE.CMLoadPart objMLoadPart = new FEM_CALC_BASE.CMLoadPart(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ],
-                                            out TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ]);
+                                            out fTemp_A_UYRZ,
+                                            out fTemp_B_UYRZ,
+                                            out fTemp_Ma_UYRZ,
+                                            out fTemp_Mb_UYRZ);
 
                                         break;
                                     }
@@ -172,22 +190,26 @@ namespace FEM_CALC_1Din2D
                         }
                     default: // Exception
                         {
+                            fTemp_A_UXRX = float.MaxValue;
+                            fTemp_B_UXRX = float.MaxValue;
+                            fTemp_A_UYRZ = float.MaxValue;
+                            fTemp_B_UYRZ = float.MaxValue;
+                            fTemp_Ma_UYRZ = float.MaxValue;
+                            fTemp_Mb_UYRZ = float.MaxValue;
                             break;
                         }
                 }
-
-                // Primary end forces due member loading in local coordinate system LCS
-
-                // Start Node
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFX];
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eFY];
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_StNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembStart.FVectorItems[(int)e2D_E_F.eMZ];
-
-                // End Node
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFX];
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eFY];
-                arrFemMembers[kMemberIndex].m_VElemPEF_GCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += TopoModel.m_arrMLoads[iMLoadIndex].V_EIF_MembEnd.FVectorItems[(int)e2D_E_F.eMZ];
             }
+            //else
+            //{
+            //    // Default
+            //    fTemp_A_UXRX = 0.0f;
+            //    fTemp_B_UXRX = 0.0f;
+            //    fTemp_A_UYRZ = 0.0f;
+            //    fTemp_B_UYRZ = 0.0f;
+            //    fTemp_Ma_UYRZ = 0.0f;
+            //    fTemp_Mb_UYRZ = 0.0f;
+            //}
         }
     }
 }

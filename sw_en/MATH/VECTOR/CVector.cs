@@ -62,16 +62,27 @@ namespace MATH
             return fVa;
         }
 
-        public string Print1DVector()
+        public void Print1DVector()
         {
-            string sOutput = null;
-            foreach (float f in m_fVectorItems)
+            if(m_fVectorItems != null)
             {
-                sOutput += f.ToString();
-                sOutput += "\n";
+            System.Console.Write('[');
+            System.Console.Write(' ');
+            string sOutput = null;
+            for(int i = 0; i < m_fVectorItems.Length; i++)
+            {
+                sOutput += m_fVectorItems[i].ToString();
+                if(i < m_fVectorItems.Length)
+                sOutput += ",";
             }
-
-            return sOutput;
+                System.Console.WriteLine(sOutput);
+            System.Console.Write(' ');
+            System.Console.WriteLine(']');
+            }
+            else
+            {
+            System.Console.WriteLine("Vector is empty!");
+            }
         }
 
     }
