@@ -64,26 +64,27 @@ namespace MATH
 
         public void Print1DVector()
         {
-            if(m_fVectorItems != null)
+            if (m_fVectorItems != null)
             {
-            System.Console.Write('[');
-            System.Console.Write(' ');
-            string sOutput = null;
-            for(int i = 0; i < m_fVectorItems.Length; i++)
-            {
-                sOutput += m_fVectorItems[i].ToString();
-                if(i < m_fVectorItems.Length)
-                sOutput += ",";
-            }
-                System.Console.WriteLine(sOutput);
-            System.Console.Write(' ');
-            System.Console.WriteLine(']');
+                System.Console.Write('[');
+                System.Console.Write(' ');
+
+                for (int i = 0; i < m_fVectorItems.Length; i++)
+                {
+                    System.Console.WriteLine(m_fVectorItems[i].ToString());
+                    if (i < m_fVectorItems.Length - 1)
+                    {
+                        System.Console.WriteLine(',');
+                        System.Console.WriteLine(' ');
+                    }
+                }
+                System.Console.Write(' ');
+                System.Console.WriteLine(']');
             }
             else
             {
-            System.Console.WriteLine("Vector is empty!");
+                System.Console.WriteLine("Vector is empty!");
             }
         }
-
     }
 }
