@@ -59,6 +59,22 @@ namespace FEM_CALC_BASE
             set { m_cnRelease2 = value; }
         }
 
+        //private CVector m_V_EIF_MembStart = new CVector(3); // Vector or Member end forces at start node in LCS , Define size acc. to main settings 2D - 3 or 3D  - 6 items
+
+        //public CVector V_EIF_MembStart
+        //{
+        //    get { return m_V_EIF_MembStart; }
+        //    set { m_V_EIF_MembStart = value; }
+        //}
+
+        //private CVector m_V_EIF_MembEnd = new CVector(3);   // Vector or Member end forces at end node in LCS , Define size acc. to main settings 2D - 3 or 3D  - 6 items
+
+        //public CVector V_EIF_MembEnd
+        //{
+        //    get { return m_V_EIF_MembEnd; }
+        //    set { m_V_EIF_MembEnd = value; }
+        //}
+
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
@@ -69,7 +85,21 @@ namespace FEM_CALC_BASE
         {
             m_NodeStart = NStart;
             m_NodeEnd = NEnd;
+
+            // m_V_EIF_MembStart = new CVector(6); // Vector size depending on DOF of node in D or 3D environment
+            // m_V_EIF_MembEnd = new CVector(6);
+            //Fill_Load_Init(); // Initial values
         }
+
+        //void Fill_Load_Init()
+        //{
+        //    // Zero load initial values
+        //    for (int i = 0; i < V_EIF_MembStart.FVectorItems.Length; i++)
+        //    {
+        //        m_V_EIF_MembStart.FVectorItems[i] = 0f;
+        //        m_V_EIF_MembEnd.FVectorItems[i] = 0f;
+        //    }
+        //}
 
     }
 }
