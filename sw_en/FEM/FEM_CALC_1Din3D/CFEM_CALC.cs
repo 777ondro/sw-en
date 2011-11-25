@@ -484,7 +484,7 @@ namespace FEM_CALC_1Din3D
             FillGlobalLoadVector();
 
             // Display Global Load Vector
-            Console.WriteLine(m_V_Load.Print1DVector());
+            m_V_Load.Print1DVector();
 
 
 
@@ -506,7 +506,7 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Display Global Displacemnt Vector - solution result
-            Console.WriteLine(m_V_Displ.Print1DVector());
+            m_V_Displ.Print1DVector();
 
             // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
             for (int i = 0; i < m_iCodeNo; i++)
@@ -528,22 +528,22 @@ namespace FEM_CALC_1Din3D
                 {
                     m_ELemArray[i].GetArrElemEF_GCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_StNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemEF_GCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_GCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_StNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemEF_LCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemEF_LCS_EnNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemEF_LCS_EnNode.Print1DVector();
                     m_ELemArray[i].GetArrElemIF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_StNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemIF_LCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemIF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
-                    Console.WriteLine(m_ELemArray[i].m_ArrElemIF_LCS_EnNode.Print1DVector());
+                    m_ELemArray[i].m_ArrElemIF_LCS_EnNode.Print1DVector();
                 }
         } // End of Constructor
 
