@@ -64,21 +64,43 @@ namespace MATH
 
         public void Print1DVector()
         {
+            int precision = 5;
+            int largestEntryWidth = 1;
+
+            // Find largest entity
+
+            for (int j = 0; j < m_fVectorItems.Length; j++)
+            {
+                String text = String.Format(String.Empty
+                    + '{' + '0' + ':' + 'g' + precision + '}', m_fVectorItems[j]);
+                if (text.Length > largestEntryWidth)
+                {
+                    largestEntryWidth = text.Length;
+                }
+            }
+
             if (m_fVectorItems != null)
             {
                 System.Console.Write('[');
-                System.Console.Write(' ');
 
                 for (int i = 0; i < m_fVectorItems.Length; i++)
                 {
-                    System.Console.WriteLine(m_fVectorItems[i].ToString());
+                    System.Console.Write(' ');
+                    String text = String.Format(String.Empty
+                    + '{' + '0' + ',' + largestEntryWidth + ':' + 'g'
+                    + precision + '}', m_fVectorItems[i]);
+
+                    System.Console.Write(text);
+
                     if (i < m_fVectorItems.Length - 1)
                     {
-                        System.Console.WriteLine(',');
-                        System.Console.WriteLine(' ');
+                        System.Console.Write(';');
+                    }
+                    else
+                    {
+                        System.Console.Write(' ');
                     }
                 }
-                System.Console.Write(' ');
                 System.Console.WriteLine(']');
             }
             else
