@@ -213,7 +213,8 @@ namespace FEM_CALC_1Din2D
 
             CMLoad_11 MLoad_F1x = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
             MLoad_F1x.IMLoad_ID = 1;
-            MLoad_F1x.MLoadType = EMLoadType1.eMLT_FS_H_12;
+            MLoad_F1x.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
+            MLoad_F1x.MLoadType = EMLoadType.eMLT_F;
             MLoad_F1x.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FXX_MXX;
             MLoad_F1x.IMemberCollection = new int[1];
             MLoad_F1x.IMemberCollection[0] = 1;
@@ -222,7 +223,8 @@ namespace FEM_CALC_1Din2D
 
             CMLoad_11 MLoad_F1y = new CMLoad_11(fF1y, 0.5f * TopoModel.m_arrMembers[0].FLength);
             MLoad_F1y.IMLoad_ID = 2;
-            MLoad_F1y.MLoadType = EMLoadType1.eMLT_FS_H_12;
+            MLoad_F1y.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
+            MLoad_F1y.MLoadType = EMLoadType.eMLT_F;
             MLoad_F1y.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_F1y.IMemberCollection = new int[1];
             MLoad_F1y.IMemberCollection[0] = 1;
@@ -232,7 +234,8 @@ namespace FEM_CALC_1Din2D
             // Load 3 - MemberIDs: 3
             CMLoad_21 MLoad_q = new CMLoad_21(fq);
             MLoad_q.IMLoad_ID = 3;
-            MLoad_q.MLoadType = EMLoadType1.eMLT_QUF_W_21;
+            MLoad_q.MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
+            MLoad_q.MLoadType = EMLoadType.eMLT_F;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
             MLoad_q.IMemberCollection = new int[1];
             MLoad_q.IMemberCollection[0] = 2;
@@ -242,7 +245,8 @@ namespace FEM_CALC_1Din2D
             // Load 4 - MemberIDs: 4
             CMLoad_11 MLoad_M = new CMLoad_11(fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
             MLoad_M.IMLoad_ID = 4;
-            MLoad_M.MLoadType = EMLoadType1.eMLT_FS_H_12;
+            MLoad_M.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
+            MLoad_M.MLoadType = EMLoadType.eMLT_M;
             MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_ZV;
             MLoad_M.IMemberCollection = new int[1];
             MLoad_M.IMemberCollection[0] = 4;

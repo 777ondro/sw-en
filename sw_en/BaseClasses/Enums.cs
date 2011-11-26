@@ -69,7 +69,6 @@ namespace BaseClasses
         eUYRZ,
         eUZRY
     }
-
     //----------------------------------------------------------------------------
     // Define load direction or orientation in LCC (local coordinate system) of members
     //----------------------------------------------------------------------------
@@ -92,7 +91,7 @@ namespace BaseClasses
     // Types of single member loading
     // Typy zatazenia jednoducheho pruta - podla druhu zatazenia, polohy a koncoveho podopretia prvku
     //----------------------------------------------------------------------------
-    public enum EMLoadType1
+    public enum EMLoadTypeDistr
     {
         // Pozri: Sobota Jan, Statika Stavebnych konstrukcii 2, Tab. 2.1
 
@@ -130,6 +129,15 @@ namespace BaseClasses
         // Whole Member
         eMLT_TMP_UNQ_Wz_51 = 51,   // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
         eMLT_TMP_UNQ_Wy_52 = 52    // Temperature loading on whole member, two temperatures (different for upper and bottom surface of member)
+    }
+    //----------------------------------------------------------------------------
+    // Define load type
+    //----------------------------------------------------------------------------
+    public enum EMLoadType
+    {
+        eMLT_F = 0, // Force
+        eMLT_M = 1, // Moment
+        eMLD_Temperature = 2 // Temperature
     }
 
 

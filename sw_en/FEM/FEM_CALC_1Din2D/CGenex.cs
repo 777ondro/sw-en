@@ -233,6 +233,7 @@ namespace FEM_CALC_1Din2D
 
 
                             // Fill end forces due to external forces vectors for member particular load index i and member index k
+                            // Depends on load dirrection and member support type
                             CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
                                 out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
                                 out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
