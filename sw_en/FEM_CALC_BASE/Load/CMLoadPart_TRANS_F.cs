@@ -31,10 +31,6 @@ namespace FEM_CALC_BASE
             {
                 GetMLoadPart_12((CMLoad_12)Load, Member, eMType, out fA, out fB, out fMa, out fMb);
             }
-            else if (Load is CMLoad_13)
-            {
-                GetMLoadPart_13((CMLoad_13)Load, Member, eMType, out fA, out fB, out fMa, out fMb);
-            }
             else if (Load is CMLoad_21)
             {
                 GetMLoadPart_21((CMLoad_21)Load, Member, eMType, out fA, out fB, out fMa, out fMb);
@@ -171,49 +167,6 @@ namespace FEM_CALC_BASE
                 case Enums.EElemSuppType.eEl____00:
                     {
                         GetEIF____00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                default:
-                    {
-                        // Exception
-                        fA = fB = fMa = fMb = 0.0f;
-                        return;
-                    }
-            }
-        }
-
-        void GetMLoadPart_13(CMLoad_13 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            switch (eMType)
-            {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
-                    {
-                        GetEIF_00_00_13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                case Enums.EElemSuppType.eEl_00_0_:
-                    {
-                        GetEIF_00_0__13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                case Enums.EElemSuppType.eEl_0__00:
-                    {
-                        GetEIF_0__00_13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                case Enums.EElemSuppType.eEl_0__0_:
-                    {
-                        GetEIF_0__0__13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                case Enums.EElemSuppType.eEl_00___:
-                    {
-                        GetEIF_00____13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
-                        return;
-                    }
-                case Enums.EElemSuppType.eEl____00:
-                    {
-                        GetEIF____00_13_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
                 default:
@@ -820,13 +773,6 @@ namespace FEM_CALC_BASE
             fMa = -Load.FF * fL / 8f;
             fMb = -fMa; /*Load.FF * fL/8f;*/
         }
-        void GetEIF_00_00_13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            fA = -6 * Load.FM / (float)Math.Pow(fL, 3) * Load.Fa * (fL - Load.Fa);
-            fB = -fA; /*6 * Load.FM / (float)Math.Pow(fL, 3) * Load.Fa * (fL - Load.Fa);*/
-            fMa = Load.FM * (fL - Load.Fa) / (float)Math.Pow(fL, 2) * (2 * fL - 3 * (fL - Load.Fa));
-            fMb = Load.FM * Load.Fa / (float)Math.Pow(fL, 2) * (2 * fL - 3 * Load.Fa);
-        }
         // Uniform Load
         void GetEIF_00_00_21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
@@ -945,14 +891,6 @@ namespace FEM_CALC_BASE
             fMb = 0f;
         }
         void GetEIF_00_0__12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            // Temporary
-            fA = 0.0f;
-            fB = 0.0f;
-            fMa = 0.0f;
-            fMb = 0.0f;
-        }
-        void GetEIF_00_0__13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = 0.0f;
@@ -1088,13 +1026,6 @@ namespace FEM_CALC_BASE
             fMa = 0f;
             fMb = 3f/16f*Load.FF*fL;
         }
-        void GetEIF_0__00_13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            fA = -3f/2f * ((MathF.Pow2(fL) - MathF.Pow2(Load.Fa)) / MathF.Pow3(fL)) * Load.FM;
-            fB = - fA;
-            fMa =0f;
-            fMb = (Load.FM/(2*MathF.Pow2(fL))) * (MathF.Pow2(fL) - 3*MathF.Pow2(Load.Fa));
-        }
         // Uniform Load
         void GetEIF_0__00_21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
@@ -1220,12 +1151,6 @@ namespace FEM_CALC_BASE
             fB = fA;
             fMa = fMb = 0f;
         }
-        void GetEIF_0__0__13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            fA = -Load.FM / fL;
-            fB = -fA;
-            fMa = fMb = 0f;
-        }
         // Uniform Load
         void GetEIF_0__0__21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
@@ -1332,14 +1257,6 @@ namespace FEM_CALC_BASE
             fMb = 0.0f;
         }
         void GetEIF_00____12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            // Temporary
-            fA = 0.0f;
-            fB = 0.0f;
-            fMa = 0.0f;
-            fMb = 0.0f;
-        }
-        void GetEIF_00____13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = 0.0f;
@@ -1469,14 +1386,6 @@ namespace FEM_CALC_BASE
             fMb = 0.0f;
         }
         void GetEIF____00_12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            // Temporary
-            fA = 0.0f;
-            fB = 0.0f;
-            fMa = 0.0f;
-            fMb = 0.0f;
-        }
-        void GetEIF____00_13_UV(CMLoad_13 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = 0.0f;
