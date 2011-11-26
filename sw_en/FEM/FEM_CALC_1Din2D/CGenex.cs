@@ -249,7 +249,7 @@ namespace FEM_CALC_1Din2D
 
                             // End Node
                             m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFX] += fTemp_B_UXRX;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += fTemp_B_UYRZ; 
+                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eFY] += -fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
                             m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e2D_E_F.eMZ] += fTemp_Mb_UYRZ; 
 
 

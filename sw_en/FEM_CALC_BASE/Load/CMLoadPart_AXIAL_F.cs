@@ -205,14 +205,12 @@ namespace FEM_CALC_BASE
 
         void GetEIF_00____11_XX(CMLoad_11 Load, float fL, out float fA, out float fB)
         {
-            // Temporary
-            fA = 0.0f;
+            fA = Load.FF;
             fB = 0.0f;
         }
         void GetEIF_00____12_XX(CMLoad_12 Load, float fL, out float fA, out float fB)
         {
-            // Temporary
-            fA = 0.0f;
+            fA = Load.FF;
             fB = 0.0f;
         }
 
@@ -228,15 +226,14 @@ namespace FEM_CALC_BASE
 
         void GetEIF____00_11_XX(CMLoad_11 Load, float fL, out float fA, out float fB)
         {
-            // Temporary
             fA = 0.0f;
-            fB = 0.0f;
+            fB = Load.FF;
         }
         void GetEIF____00_12_XX(CMLoad_12 Load, float fL, out float fA, out float fB)
         {
             // Temporary
             fA = 0.0f;
-            fB = 0.0f;
+            fB = Load.FF;
         }
 
 
