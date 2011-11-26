@@ -162,80 +162,80 @@ namespace FEM_CALC_BASE
          }
 
         void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            // Temporary
-            fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
-        }
+         {
+             // Temporary
+             fA = fB = 0.0f;
+             fMa = fMb = 0.0f;
+         }
 
         void GetMLoadPart_22(CMLoad_22 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_23(CMLoad_23 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_24(CMLoad_24 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_31(CMLoad_31 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_32(CMLoad_32 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_33(CMLoad_33 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_34(CMLoad_34 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_35(CMLoad_35 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_36(CMLoad_36 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
         void GetMLoadPart_41(CMLoad_41 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = fMb = 0.0f;
         }
 
 
@@ -249,14 +249,14 @@ namespace FEM_CALC_BASE
         {
             fA = -6 * Load.FF / (float)Math.Pow(fL, 3) * Load.Fa * (fL - Load.Fa);
             fB = -fA; /*6 * Load.FM / (float)Math.Pow(fL, 3) * Load.Fa * (fL - Load.Fa);*/
-            fMa = Load.FF * (fL - Load.Fa) / (float)Math.Pow(fL, 2) * (2 * fL - 3 * (fL - Load.Fa));
-            fMb = Load.FF * Load.Fa / (float)Math.Pow(fL, 2) * (2 * fL - 3 * Load.Fa);
+            fMa = -Load.FF * (fL - Load.Fa) / (float)Math.Pow(fL, 2) * (2 * fL - 3 * (fL - Load.Fa));
+            fMb = -Load.FF * Load.Fa / (float)Math.Pow(fL, 2) * (2 * fL - 3 * Load.Fa);
         }
         void GetEIF_00_00_12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = -1.5f * Load.FF / fL;
             fB = -fA;
-            fMa = fMb = 0.25f * Load.FF / MathF.Pow2(fL);
+            fMa = fMb = - 0.25f * Load.FF / MathF.Pow2(fL);
         }
 
 
@@ -331,15 +331,15 @@ namespace FEM_CALC_BASE
 
         void GetEIF_00____11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
             fA = fB = 0.0f;
-            fMa = fMb = 0.0f;
+            fMa = -Load.FF;
+            fMb = 0.0f;
         }
         void GetEIF_00____12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
             fA = fB = 0.0f;
-            fMa = fMb = 0.0f;
+            fMa = -Load.FF;
+            fMb = 0.0f;
         }
 
 
@@ -355,15 +355,15 @@ namespace FEM_CALC_BASE
 
         void GetEIF____00_11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = 0.0f;
+            fMb = -Load.FF;
         }
         void GetEIF____00_12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
             fA = fB = 0.0f;
-                        fMa = fMb = 0.0f;
+            fMa = 0.0f;
+            fMb = -Load.FF;
         }
 
 

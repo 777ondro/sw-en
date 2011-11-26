@@ -902,8 +902,8 @@ namespace FEM_CALC_BASE
         {
             // !!! Signs
             fA = 5 / 8f * Load.Fq * fL;
-            fB = -3 / 8f * Load.Fq * fL;
-            fMa = Load.Fq * fL * fL / 8f;
+            fB = 3 / 8f * Load.Fq * fL;
+            fMa = - Load.Fq * fL * fL / 8f;
             fMb = 0f;
         }
         void GetEIF_00_0__22_UV(CMLoad_22 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
@@ -1029,17 +1029,18 @@ namespace FEM_CALC_BASE
         // Uniform Load
         void GetEIF_0__00_21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
+             // !!! Signs
             fA = 3/8f * Load.Fq * fL;
             fB = 5/8f*Load.Fq * fL;
             fMa = 0f;
-            fMb =-Load.Fq * fL * fL / 8f;
+            fMb = Load.Fq * fL * fL / 8f;
         }
         void GetEIF_0__00_22_UV(CMLoad_22 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             float fb = fL - Load.Fa;
             fA = (Load.Fq * Load.Fa) / (8f * MathF.Pow3(fL)) * (2f * MathF.Pow2(fL) * (Load.Fa + 4f * fb) + MathF.Pow3(Load.Fa));
             fB = (Load.Fq * MathF.Pow3(Load.Fa)) / (8f * MathF.Pow3(fL)) * (6f * MathF.Pow2(fL) -MathF.Pow2(Load.Fa));
-            fMa = 0f;;
+            fMa = 0f;
             fMb = (Load.Fq * MathF.Pow2(Load.Fa)) / (8f * MathF.Pow2(fL)) * (2f*MathF.Pow2(fL) - MathF.Pow2(Load.Fa));
         }
         void GetEIF_0__00_23_UV(CMLoad_23 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
