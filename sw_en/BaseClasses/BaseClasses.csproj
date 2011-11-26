@@ -81,7 +81,6 @@
     <Compile Include="Loading\Combination\CLoadCombination.cs" />
     <Compile Include="Loading\Member\CMLoad_11.cs" />
     <Compile Include="Loading\Member\CMLoad_12.cs" />
-    <Compile Include="Loading\Member\CMLoad_13.cs" />
     <Compile Include="Loading\Member\CMLoad_21.cs" />
     <Compile Include="Loading\Member\CMLoad_22.cs" />
     <Compile Include="Loading\Member\CMLoad_23.cs" />

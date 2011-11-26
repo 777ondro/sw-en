@@ -99,8 +99,8 @@ namespace BaseClasses
         // Singular loading
         eMLT_FS_G_11 = 11, // Singular Force - general position
         eMLT_FS_H_12 = 12, // Singular Force - in half of member length
-        eMLT_MS_G_13 = 13, // Singular Moment - general position
-        //eMLT_M_SH = 14, // Singular Moment - in half of member length
+        //eMLT_MS_G_13 = 13, // Singular Moment - general position
+        //eMLT_M_SH_14 = 14, // Singular Moment - in half of member length
 
         // Uniform loading
         // Whole Member
