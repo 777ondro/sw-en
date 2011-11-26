@@ -60,7 +60,7 @@ namespace FEM_CALC_1Din2D
 
                                         // Type ObjLoadType = typeof(TopoModel.m_arrMLoads[i]);
 
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             out fTemp_A_UXRX,
@@ -75,7 +75,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                         (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             out fTemp_A_UXRX,
@@ -90,7 +90,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                 (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                 arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             out fTemp_A_UXRX,
@@ -105,7 +105,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
                                 default:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUXRX],
                                             out fTemp_A_UXRX,
@@ -135,7 +135,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             out fTemp_A_UYRZ,
@@ -148,7 +148,7 @@ namespace FEM_CALC_1Din2D
                                 // UZRY - direction start supported, end free displacement
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                         (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             out fTemp_A_UYRZ,
@@ -161,7 +161,7 @@ namespace FEM_CALC_1Din2D
                                 // UZRY - direction start free displacement, end supported
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                         arrFemMembers[kMemberIndex],
                                         arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             out fTemp_A_UYRZ,
@@ -175,7 +175,7 @@ namespace FEM_CALC_1Din2D
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
                                 default:
                                     {
-                                        FEM_CALC_BASE.CMLoadPart_TR objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TR(TopoModel.m_arrMLoads[iMLoadIndex],
+                                        FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
                                             (CE_1D_BASE)arrFemMembers[kMemberIndex],
                                             arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
                                             out fTemp_A_UYRZ,
