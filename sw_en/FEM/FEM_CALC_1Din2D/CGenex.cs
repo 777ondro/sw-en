@@ -98,7 +98,7 @@ namespace FEM_CALC_1Din2D
                 {
                     if (m_arrFemNodes[i].ID == m_arrFemMembers[j].NodeStart.ID || m_arrFemNodes[i].ID == m_arrFemMembers[j].NodeEnd.ID) // Is node ID same as member start or end node ID
                     {
-                        m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].Member.ID); // Add FEMmember ID to the FEM node list
+                        m_arrFemNodes[i].m_iMemberCollection.Add(m_arrFemMembers[j].ID); // Add FEMmember ID to the FEM node list
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace FEM_CALC_1Din2D
                     for (int j = 0; j < m_arrFemMembers.Length; j++)
                     {
                         // 1st member index
-                        if (iMember1_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].Member.ID)) // if Member ID is in the list
+                        if (iMember1_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].ID)) // if Member ID is in the list
                         {
                             iMember1_index = j; // Set 1st
                         }
@@ -127,7 +127,7 @@ namespace FEM_CALC_1Din2D
                     // 2nd member index
                     for (int k = iMember1_index + 1; k < m_arrFemMembers.Length; k++) // Search for second only in interval between first founded member and last member
                     {
-                        if (iMember2_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].Member.ID)) // if Member ID is in the list interval
+                        if (iMember2_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].ID)) // if Member ID is in the list interval
                         {
                             iMember2_index = k;
                         }
@@ -197,9 +197,9 @@ namespace FEM_CALC_1Din2D
                             if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
                             {
 
-                                m_arrFemNodes[k].m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
-                                m_arrFemNodes[k].m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
-                                m_arrFemNodes[k].m_DirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
+                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
+                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
 
                                 //for (int l = 0; l < m_arrFemNodes[k].m_ArrDirNodeLoad.Length; l++) // For all items in vector array
                                 //{

@@ -198,7 +198,7 @@ namespace FEM_CALC_1Din3D
 
             // Set Global Code Numbers
 
-            int m_iCodeNo = 0; // Number of restrained degrees of freedom - finally gives size of structure global matrix
+            int m_iCodeNo = 0; // Number of unrestrained degrees of freedom - finally gives size of structure global matrix
 
             foreach (CFemNode i_CNode in m_NodeArray) // Each Node
             {
@@ -740,7 +740,7 @@ namespace FEM_CALC_1Din3D
 
                     // Node DOF Load due to direct node loading
 
-                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_DirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
+                    float tempNode = m_NodeArray[m_fDisp_Vector_CN[i, 1]].m_VDirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
 
 
                     // Sum loads
