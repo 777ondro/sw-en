@@ -394,7 +394,7 @@ namespace FEM_CALC_1Din2D
             {
                 // 00__000
                 eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
-                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_; // Displacement in y-axis and rotation about z-axis in PCS
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00; // Displacement in y-axis and rotation about z-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
                 return eArrSuppType; 
             }
@@ -477,7 +477,7 @@ namespace FEM_CALC_1Din2D
             {
                 // 0___00_
                 eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
-                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_; // Displacement in y-axis and rotation about z-axis in PCS
+                //eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_; // Displacement in y-axis and rotation about z-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
                 return eArrSuppType;
             }

@@ -158,7 +158,7 @@ namespace FEM_CALC_1Din2D
             // Support 2 - NodeIDs: 3
             CNSupport NSupport1 = new CNSupport(TopoModel.m_eNDOF);
             NSupport1.ISupport_ID = 2;
-            NSupport1.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            NSupport1.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X-axis
             NSupport1.m_bRestrain[1] = false;
             NSupport1.m_bRestrain[2] = false;
             NSupport1.m_iNodeCollection = new int[1];
@@ -169,7 +169,7 @@ namespace FEM_CALC_1Din2D
             // Support 3 - NodeIDs: 5
             CNSupport NSupport2 = new CNSupport(TopoModel.m_eNDOF);
             NSupport2.ISupport_ID = 3;
-            NSupport2.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            NSupport2.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X and Y-axis
             NSupport2.m_bRestrain[1] = true;
             NSupport2.m_bRestrain[2] = false;
             NSupport2.m_iNodeCollection = new int[1];
@@ -179,7 +179,7 @@ namespace FEM_CALC_1Din2D
 
             // Member releases
             bool? [] bRelTemp = new bool?[TopoModel.m_eNDOF];
-            bRelTemp[0] = true; // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
+            bRelTemp[0] = true; // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity) - support in LCS X and Y-axis
             bRelTemp[1] = true;
             bRelTemp[2] = false;
 
@@ -225,7 +225,7 @@ namespace FEM_CALC_1Din2D
             MLoad_F1y.IMLoad_ID = 2;
             MLoad_F1y.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             MLoad_F1y.MLoadType = EMLoadType.eMLT_F;
-            MLoad_F1y.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
+            MLoad_F1y.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
             MLoad_F1y.IMemberCollection = new int[1];
             MLoad_F1y.IMemberCollection[0] = 1;
 
@@ -236,18 +236,18 @@ namespace FEM_CALC_1Din2D
             MLoad_q.IMLoad_ID = 3;
             MLoad_q.MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
             MLoad_q.MLoadType = EMLoadType.eMLT_F;
-            MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_YU;
+            MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
             MLoad_q.IMemberCollection = new int[1];
             MLoad_q.IMemberCollection[0] = 2;
 
             TopoModel.m_arrMLoads[2] = MLoad_q;
 
             // Load 4 - MemberIDs: 4
-            CMLoad_11 MLoad_M = new CMLoad_11(fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
+            CMLoad_11 MLoad_M = new CMLoad_11(-fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
             MLoad_M.IMLoad_ID = 4;
             MLoad_M.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             MLoad_M.MLoadType = EMLoadType.eMLT_M;
-            MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_ZV;
+            MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
             MLoad_M.IMemberCollection = new int[1];
             MLoad_M.IMemberCollection[0] = 4;
 
