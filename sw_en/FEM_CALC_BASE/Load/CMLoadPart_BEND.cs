@@ -80,11 +80,23 @@ namespace FEM_CALC_BASE
             switch (eMType)
             {
                 case Enums.EElemSuppType.eEl_00_00: // Both Side restrained against axial direction displacement
-                case Enums.EElemSuppType.eEl_00_0_:
-                case Enums.EElemSuppType.eEl_0__00:
-                case Enums.EElemSuppType.eEl_0__0_:
                     {
                         GetEIF_00_00_11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                        return;
+                    }
+                case Enums.EElemSuppType.eEl_00_0_:
+                    {
+                        GetEIF_00_0__11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                        return;
+                    }
+                case Enums.EElemSuppType.eEl_0__00:
+                    {
+                        GetEIF_0__00_11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                        return;
+                    }
+                case Enums.EElemSuppType.eEl_0__0_:
+                    {
+                        GetEIF_0__0__11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
                 case Enums.EElemSuppType.eEl_00___:
@@ -106,12 +118,48 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
-        {
-            // Temporary
-            fA = fB = 0.0f;
-            fMa = fMb = 0.0f;
-        }
+         void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+         {
+             switch (eMType)
+             {
+                 case Enums.EElemSuppType.eEl_00_00: // Both Side restrained against axial direction displacement
+                     {
+                         GetEIF_00_00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 case Enums.EElemSuppType.eEl_00_0_:
+                     {
+                         GetEIF_00_0__12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 case Enums.EElemSuppType.eEl_0__00:
+                     {
+                         GetEIF_0__00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 case Enums.EElemSuppType.eEl_0__0_:
+                     {
+                         GetEIF_0__0__12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 case Enums.EElemSuppType.eEl_00___:
+                     {
+                         GetEIF_00____12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 case Enums.EElemSuppType.eEl____00:
+                     {
+                         GetEIF____00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
+                         return;
+                     }
+                 default:
+                     {
+                         // Exception
+                         fA = fB = fMa = fMb = 0.0f;
+                         return;
+                     }
+             }
+         }
 
         void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
@@ -204,11 +252,11 @@ namespace FEM_CALC_BASE
             fMa = Load.FF * (fL - Load.Fa) / (float)Math.Pow(fL, 2) * (2 * fL - 3 * (fL - Load.Fa));
             fMb = Load.FF * Load.Fa / (float)Math.Pow(fL, 2) * (2 * fL - 3 * Load.Fa);
         }
-        void GetEIF_00_00_12_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
+        void GetEIF_00_00_12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
-            // Temporary
-            fA = fB = 0.0f;
-            fMa = fMb = 0.0f;
+            fA = -1.5f * Load.FF / fL;
+            fB = -fA;
+            fMa = fMb = 0.25f * Load.FF / MathF.Pow2(fL);
         }
 
 
@@ -227,6 +275,14 @@ namespace FEM_CALC_BASE
             fMa = -(Load.FF / (2 * MathF.Pow2(fL))) * (MathF.Pow2(fL) - 3 * MathF.Pow2(fb));
             fMb = 0.0f;
         }
+        void GetEIF_00_0__12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
+        {
+            fA = -1.125f * Load.FF / fL;
+            fB = -fA;
+            fMa = -Load.FF / 8f;
+            fMb = 0.0f;
+        }
+
 
         #endregion
 
@@ -239,7 +295,13 @@ namespace FEM_CALC_BASE
             fMa = 0f;
             fMb = (Load.FF / (2 * MathF.Pow2(fL))) * (MathF.Pow2(fL) - 3 * MathF.Pow2(Load.Fa));
         }
-
+        void GetEIF_0__00_12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
+        {
+            fA = -1.125f * Load.FF / fL;
+            fB = -fA;
+            fMa = 0.0f;
+            fMb = Load.FF / 8f; ;
+        }
 
 
 
@@ -255,7 +317,12 @@ namespace FEM_CALC_BASE
             fB = -fA;
             fMa = fMb = 0f;
         }
-
+        void GetEIF_0__0__12_UV(CMLoad_12 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
+        {
+            fA = -Load.FF / fL;
+            fB = -fA;
+            fMa = fMb = 0f;
+        }
 
 
         #endregion
