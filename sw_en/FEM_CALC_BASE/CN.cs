@@ -33,13 +33,68 @@ namespace FEM_CALC_BASE
 
         public CVector m_VDisp = new CVector(m_iNodeDOFNumber);
         public int[] m_ArrNCodeNo = new int[m_iNodeDOFNumber];        // Array of global codes numbers
-        public CVector m_DirNodeLoad = new CVector(m_iNodeDOFNumber);  // Direct external nodal load vector
+        public CVector m_VDirNodeLoad = new CVector(m_iNodeDOFNumber);  // Direct external nodal load vector
         public bool[] m_ArrNodeDOF = new bool [m_iNodeDOFNumber];        // Nodal Supports - Node DOF restraints
-        public ArrayList m_iMemberCollection = new ArrayList(); // List / Collection of FEM members connected to the node
+        public ArrayList m_iMemberCollection; // List / Collection of FEM members connected to the node
 
         public CN()
-        { 
-        
+        {
+            // Fill Arrays / Initialize
+            Fill_Node_Init();
         }
+
+        /////////////////////////////////////////////////////////////////
+        // Auxiliary operations
+
+        // Detaulf values of Vectors (Array)
+
+        // Nodal displacement
+        public void Fill_VDisp_Init()
+        {
+            for (int i = 0; i < m_VDisp.FVectorItems.Length; i++)
+                m_VDisp.FVectorItems[i] = float.PositiveInfinity;
+        }
+
+        public void Fill_NCode_Init()
+        {
+            foreach (int i in m_ArrNCodeNo)
+            m_ArrNCodeNo[i] = int.MaxValue;
+        }
+
+        public void Fill_ArrNodeDOF_Init()
+        {
+            for (int i = 0; i < m_ArrNodeDOF.Length; i++)
+            m_ArrNodeDOF[i] = false;
+        }
+
+        // Direct nodal loads in GCS
+        public void Fill_VDirNodeLoad_Init()
+        {
+            for (int i = 0; i < m_VDirNodeLoad.FVectorItems.Length; i++)
+            m_VDirNodeLoad.FVectorItems[i] = 0f;
+        }
+
+        public void Fill_Node_Init()
+        {
+
+            Fill_VDisp_Init();
+            Fill_ArrNodeDOF_Init();
+            Fill_VDirNodeLoad_Init();
+        }
+
+
+        
+
+
+        
+
+
+
+
+ 
+
+
+
+
     }
 }
