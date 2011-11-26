@@ -631,6 +631,8 @@ namespace FEM_CALC_1Din3D
                     {
                         m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
                         m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.ID - 1;        // Add Node index !!! Node ID starts with 1
+
+                        // Asi by malo by local code number len i a nie podla nasledujuceho zapisu - to je totiz globalne
                         m_fDisp_Vector_CN[m_iCodeNo, 2] = i_CNode.m_ArrNCodeNo[i];   // Add local code number of degree of freedom (DOF) 0-5
 
                         m_iCodeNo++;

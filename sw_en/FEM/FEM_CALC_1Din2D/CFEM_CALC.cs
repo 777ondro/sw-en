@@ -272,8 +272,8 @@ namespace FEM_CALC_1Din2D
                     if (i_CNode.m_ArrNodeDOF[i] != true)       // Perform for not restrained DOF
                     {
                         m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
-                        m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.ID - 1;            // Add Node index !!! Node ID starts with 1
-                        m_fDisp_Vector_CN[m_iCodeNo, 2] = i_CNode.m_ArrNCodeNo[i];   // Add local code number of degree of freedom (DOF) 0-5
+                        m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.ID - 1;            // Add Node index !!! Node IDs start with 1
+                        m_fDisp_Vector_CN[m_iCodeNo, 2] = i;                         // Add local code number of degree of freedom (DOF) 0-2
 
                         m_iCodeNo++;
 
@@ -294,44 +294,38 @@ namespace FEM_CALC_1Din2D
             for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
             {
                 // Create temporary Arraylist of FEM elements which include node
-                // List/collection which is defined in fem node class is used instead of next code line
-                //ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]], FEMModel.m_arrFemMembers);
+                ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]],FEMModel.m_arrFemMembers);
 
                 for (int j = 0; j < m_iCodeNo; j++) // Fill each row of current DOF // number of column of global structure matrix into which we insert value
                 {
-                    float temp = 0f; // Temporary for sum of matrix values from all elements which transfer connected to the node for current DOF
+                    float temp = 0f; // Temporary for sum of matrix values from all elements which are connected to the node for current DOF
 
-                    for (int l = 0; l < FEMModel.m_arrFemNodes[i].m_iMemberCollection.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
+                    for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given degree of freedom of node
                     {
-                        foreach (CE_1D El_Temp in FEMModel.m_arrFemMembers) // Search element - neefektivne prehladavat zase cele pole ked mame zoznam ID prvok ktore obsahuju uzol !!!!!
-                        {
-                            // Assign existing element from list to the temp element to get its global stifeness matrix members (6x6)
-                            if (FEMModel.m_arrFemNodes[i].m_iMemberCollection.Contains(El_Temp.ID))
-                            {
-                                // CE_1D El_Temp = FEMModel.m_arrFemMembers[FEMModel.m_arrFemNodes[i].m_iMemberCollection.IndexOf(l)];
+                        // Assign existing element from list to the temp element to get its global stifeness matrix (6x6)
+                        int a = iElemTemp_Index.IndexOf(l);
+                        CE_1D El_Temp = FEMModel.m_arrFemMembers[iElemTemp_Index.IndexOf(l)];
 
-                                if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // Current DOF-row is on Start Node
-                                {
-                                    if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
-                                    {
-                                        temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
-                                    }
-                                    else  // [0,1] - partial stiffeness matrix k_12 / k_ab
-                                    {
-                                        temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
-                                    }
-                                }
-                                else                                                     // Current DOF is on End Node
-                                {
-                                    if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [1,1] - partial stiffeness matrix k_22 / k_bb 
-                                    {
-                                        temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
-                                    }
-                                    else  // [1,0] - partial stiffeness matrix k_21 / k_ba
-                                    {
-                                        temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
-                                    }
-                                }
+                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // Current DOF-row is on Start Node
+                        {
+                            if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                            else  // [0,1] - partial stiffeness matrix k_12 / k_ab
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                        }
+                        else                                                     // Current DOF is on End Node
+                        {
+                            if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [1,1] - partial stiffeness matrix k_22 / k_bb 
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                            else  // [1,0] - partial stiffeness matrix k_21 / k_ba
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
                             }
                         }
                     }
