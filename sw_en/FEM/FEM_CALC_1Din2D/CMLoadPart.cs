@@ -45,6 +45,10 @@ namespace FEM_CALC_1Din2D
                 switch (TopoModel.m_arrMLoads[iMLoadIndex].EDirPPC) // Load direction in principal coordinate system XX / YU / ZV
                 {
 
+                    // 0 - Displacement in x-axis and rotation about x-axis in PCS
+                    // 1 - Displacement in y-axis and rotation about z-axis in PCS
+                    // 2 - Displacement in z-axis and rotation about y-axis in PCS - not used
+
                     case EMLoadDirPCC1.eMLD_PCC_FXX_MXX: // Axial force or torsional moment
                         {
                             // DOF RX can't be released - always rigid
@@ -197,13 +201,7 @@ namespace FEM_CALC_1Din2D
                             }
                             break;
                         }
-                    case EMLoadDirPCC1.eMLD_PCC_YU:
-                    // {
-                    //    // DOF UY and RZ can't be released - always rigid
-                    //     break;
-                    // }
-
-                    case EMLoadDirPCC1.eMLD_PCC_ZV: // Transversal load
+                    case EMLoadDirPCC1.eMLD_PCC_FYU_MZV: // Transversal load
                         {
                             switch (arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
                             {
@@ -211,8 +209,116 @@ namespace FEM_CALC_1Din2D
 
                                 // UZRY - direction both sides supported displacement
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                                    {
+                                        switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
+                                        {
+                                            case BaseClasses.EMLoadType.eMLT_F:  // Axial Force
+                                                {
+                                                    FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+
+                                                    break;
+                                                }
+                                            case BaseClasses.EMLoadType.eMLT_M: // Torsional Moment
+                                                {
+
+                                                    FEM_CALC_BASE.CMLoadPart_BEND objMLoadPart = new FEM_CALC_BASE.CMLoadPart_BEND(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+                                                    break;
+                                                }
+                                            default:
+                                                {
+
+                                                    break;
+                                                }
+                                        }
+
+                                        break;
+                                    }
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                                    {
+                                        switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
+                                        {
+                                            case BaseClasses.EMLoadType.eMLT_F:  // Axial Force
+                                                {
+                                                    FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+
+                                                    break;
+                                                }
+                                            case BaseClasses.EMLoadType.eMLT_M: // Torsional Moment
+                                                {
+
+                                                    FEM_CALC_BASE.CMLoadPart_BEND objMLoadPart = new FEM_CALC_BASE.CMLoadPart_BEND(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+                                                    break;
+                                                }
+                                            default:
+                                                {
+
+                                                    break;
+                                                }
+                                        }
+
+                                        break;
+                                    }
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                                    {
+                                        switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
+                                        {
+                                            case BaseClasses.EMLoadType.eMLT_F:  // Axial Force
+                                                {
+                                                    FEM_CALC_BASE.CMLoadPart_TRANS_F objMLoadPart = new FEM_CALC_BASE.CMLoadPart_TRANS_F(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+
+                                                    break;
+                                                }
+                                            case BaseClasses.EMLoadType.eMLT_M: // Torsional Moment
+                                                {
+
+                                                    FEM_CALC_BASE.CMLoadPart_BEND objMLoadPart = new FEM_CALC_BASE.CMLoadPart_BEND(TopoModel.m_arrMLoads[iMLoadIndex],
+                                                        (CE_1D_BASE)arrFemMembers[kMemberIndex],
+                                                        arrFemMembers[kMemberIndex].m_eSuppType[(int)EM_PCS_DIR1.eUYRZ],
+                                                        out fTemp_A_UYRZ,
+                                                        out fTemp_B_UYRZ,
+                                                        out fTemp_Ma_UYRZ,
+                                                        out fTemp_Mb_UYRZ);
+                                                    break;
+                                                }
+                                            default:
+                                                {
+
+                                                    break;
+                                                }
+                                        }
+
+                                        break;
+                                    }
                                 case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
@@ -226,7 +332,7 @@ namespace FEM_CALC_1Din2D
                                                         out fTemp_B_UYRZ,
                                                         out fTemp_Ma_UYRZ,
                                                         out fTemp_Mb_UYRZ);
-                                                        
+
                                                     break;
                                                 }
                                             case BaseClasses.EMLoadType.eMLT_M: // Torsional Moment
@@ -368,6 +474,11 @@ namespace FEM_CALC_1Din2D
                             }
                             break;
                         }
+                    case EMLoadDirPCC1.eMLD_PCC_FZV_MYU: // Transversal load
+                    {
+                       // DOF UZ and RY can't be released - always rigid for 2D in-plane solution x- axial load, y - transverse load, - z bending moment about axis
+                        break;
+                    }
                     default: // Exception
                         {
                             fTemp_A_UXRX = float.MaxValue;

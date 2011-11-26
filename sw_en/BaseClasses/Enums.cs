@@ -84,8 +84,8 @@ namespace BaseClasses
     public enum EMLoadDirPCC1
     {
         eMLD_PCC_FXX_MXX = 0, 
-        eMLD_PCC_YU = 1,
-        eMLD_PCC_ZV = 2
+        eMLD_PCC_FYU_MZV = 1,
+        eMLD_PCC_FZV_MYU = 2
     }
     //----------------------------------------------------------------------------
     // Types of single member loading
