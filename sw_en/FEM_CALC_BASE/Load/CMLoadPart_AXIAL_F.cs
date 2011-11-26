@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 
-namespace FEM_CALC_BASE.Load
+namespace FEM_CALC_BASE
 {
     public class CMLoadPart_AXIAL_F : CMLoad
     {
