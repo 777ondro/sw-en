@@ -10,16 +10,16 @@ using CENEX;
 
 namespace FEM_CALC_BASE
 {
-    public class CMLoadPart:CMLoad
+    public class CMLoadPart_TR:CMLoad
     {
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CMLoadPart()
+        public CMLoadPart_TR()
         { }
 
 
-        public CMLoadPart(CMLoad Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        public CMLoadPart_TR(CMLoad Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Type objType = Load.GetType(); // typeof(Load)
 
