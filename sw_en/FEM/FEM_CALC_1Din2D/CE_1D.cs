@@ -704,82 +704,82 @@ namespace FEM_CALC_1Din2D
 
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //// Results
-        //// Get internal forces in global and local coordinate system
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Results
+        // Get internal forces in global and local coordinate system
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //// Element Final End Forces GCS
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Element Final End Forces GCS
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //// Start Node Vector - 1 x 6
-        //// [EF_GCS i] = [ELoad i LCS] + [Kii] * [delta i] + [Kij] * [delta j]
-        //public void GetArrElemEF_GCS_StNode()
-        //{
-        //    m_ArrElemEF_GCS_StNode =
-        //        MatrixF.fGetSum(
-        //        m_ArrElemPEF_GCS_StNode,
-        //        MatrixF.fGetSum(
-        //        MatrixF.fMultiplyMatr(GetPartM_k11(m_fkLocMatr, m_fAMatr2D), m_NodeStart.m_ArrDisp),
-        //        MatrixF.fMultiplyMatr(GetPartM_k12(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
-        //        )
-        //        );
-        //}
+        // Start Node Vector - 1 x 3
+        // [EF_GCS i] = [ELoad i LCS] + [Kii] * [delta i] + [Kij] * [delta j]
+        public void GetArrElemEF_GCS_StNode()
+        {
+            m_VElemEF_GCS_StNode =
+                VectorF.fGetSum(
+                m_VElemPEF_GCS_StNode,
+                VectorF.fGetSum(
+                VectorF.fMultiplyMatrVectr(GetPartM_k11(m_fkLocMatr, m_fATRMatr2D), NodeStart.m_VDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k12(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D), NodeEnd.m_VDisp)
+                )
+                );
+        }
 
-        //// End Node Vector - 1 x 6
-        //// [EF_GCS j] = [ELoad j LCS] + [Kji] * [delta i] + [Kjj] * [delta j]
-        //public void GetArrElemEF_GCS_EnNode()
-        //{
-        //    m_ArrElemEF_GCS_EnNode =
-        //        MatrixF.fGetSum(
-        //        m_ArrElemPEF_GCS_EnNode,
-        //        MatrixF.fGetSum(
-        //        MatrixF.fMultiplyMatr(GetPartM_k21(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeStart.m_ArrDisp),
-        //        MatrixF.fMultiplyMatr(GetPartM_k22(m_fkLocMatr, m_fAMatr2D, m_fBMatr2D), m_NodeEnd.m_ArrDisp)
-        //        )
-        //        );
-        //}
+        // End Node Vector - 1 x 3
+        // [EF_GCS j] = [ELoad j LCS] + [Kji] * [delta i] + [Kjj] * [delta j]
+        public void GetArrElemEF_GCS_EnNode()
+        {
+            m_VElemEF_GCS_EnNode =
+                VectorF.fGetSum(
+                m_VElemPEF_GCS_EnNode,
+                VectorF.fGetSum(
+                VectorF.fMultiplyMatrVectr(GetPartM_k21(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D), NodeStart.m_VDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k22(m_fkLocMatr, m_fATRMatr2D, m_fBTTMatr2D), NodeEnd.m_VDisp)
+                )
+                );
+        }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //// Element Final End forces LCS
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        //// Start Node Vector - 1 x 6
-        ////  [EF_LCS i] = [A0] * [EF_GCS i]
-        //public void GetArrElemEF_LCS_StNode()
-        //{
-        //    m_ArrElemEF_LCS_StNode = MatrixF.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_StNode);
-        //}
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Element Final End forces LCS
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //// End Node Vector - 1 x 6
-        //// [EF_LCS j] = [A0] * [EF_GCS j]
-        //public void GetArrElemEF_LCS_EnNode()
-        //{
-        //    m_ArrElemEF_LCS_EnNode = MatrixF.fMultiplyMatr(m_fAMatr2D, m_ArrElemEF_GCS_EnNode);
-        //}
+        // Start Node Vector - 1 x 3
+        //  [EF_LCS i] = [A0] * [EF_GCS i]
+        public void GetArrElemEF_LCS_StNode()
+        {
+            m_VElemEF_LCS_StNode = VectorF.fMultiplyMatrVectr(m_fATRMatr2D, m_VElemEF_GCS_StNode);
+        }
+
+        // End Node Vector - 1 x 3
+        // [EF_LCS j] = [A0] * [EF_GCS j]
+        public void GetArrElemEF_LCS_EnNode()
+        {
+            m_VElemEF_LCS_EnNode = VectorF.fMultiplyMatrVectr(m_fATRMatr2D, m_VElemEF_GCS_EnNode);
+        }
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //// Element final internal forces in LCS
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Element final internal forces in LCS
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //// Start Node Vector - 1 x 6
-        ////  [IF_LCS i] = [-1,-1,-1,-1,-1,1] * [EF_LCS i]
-        //public void GetArrElemIF_LCS_StNode()
-        //{
-        //    int [] fTempSignTransf = new int[6] { -1, -1, -1, -1, -1, 1 };
-        //    m_ArrElemIF_LCS_StNode = MatrixF.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_StNode);
-        //}
+        // Start Node Vector - 1 x 3
+        //  [IF_LCS i] = [-1,-1,-1] * [EF_LCS i]
+        public void GetArrElemIF_LCS_StNode()
+        {
+            CVector fTempSignTransf = new CVector(-1, -1, 1 );
+            m_VElemIF_LCS_StNode = VectorF.fMultiplyVectors(fTempSignTransf, m_VElemEF_LCS_StNode);
+        }
 
-        //// End Node Vector - 1 x 6
-        //// [IF_LCS j]  = [ 1, 1, 1, 1, 1,-1] * [EF_LCS j]
-        //public void GetArrElemIF_LCS_EnNode()
-        //{
-        //    int[] fTempSignTransf = new int[6] { 1, 1, 1, 1, 1, -1 };
-        //    m_ArrElemIF_LCS_EnNode = MatrixF.fMultiplyMatr(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
-        //}
+        // End Node Vector - 1 x 3
+        // [IF_LCS j]  = [1, 1,-1] * [EF_LCS j]
+        public void GetArrElemIF_LCS_EnNode()
+        {
+            CVector fTempSignTransf = new CVector(1, 1, -1 );
+            m_VElemIF_LCS_EnNode = VectorF.fMultiplyVectors(fTempSignTransf, m_VElemEF_LCS_EnNode);
+        }
 
 
 
