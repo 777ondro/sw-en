@@ -54,7 +54,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Load\CMLoadPart_TR.cs" />
+    <Compile Include="Load\CMLoadPart_AXIAL_F.cs" />
+    <Compile Include="Load\CMLoadPart_BEND.cs" />
+    <Compile Include="Load\CMLoadPart_TORS.cs" />
+    <Compile Include="Load\CMLoadPart_TRANS_F.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
