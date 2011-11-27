@@ -78,7 +78,33 @@ namespace FEM_CALC_1Din2D
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrNodeDOF[i] != true)  // Perform for not restrained DOF
+                    // DOF is restrained if node DOF is suppored or if member rotation release exits in node
+
+                    // 1) // Check if some release of rotation DOF is applied at node
+                    bool bRotReleaseExistAtNode = false;
+
+                    if (i == (int)e2D_DOF.eRZ) // If DOF is rotation
+                    {
+                        // Check member releases
+                        for (int l = 0; l < FEMModel.m_arrFemMembers.Length; l++)
+                        {
+                            // Check if some release exist and its DOF for rotation is free
+                            if ((FEMModel.m_arrFemMembers[l].CnRelease1 != null && (FEMModel.m_arrFemMembers[l].CnRelease1.m_iNodeCollection.Contains(i_CNode.ID) && FEMModel.m_arrFemMembers[l].CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false)) ||  // Start node relase
+                               (FEMModel.m_arrFemMembers[l].CnRelease2 != null && (FEMModel.m_arrFemMembers[l].CnRelease2.m_iNodeCollection.Contains(i_CNode.ID) && FEMModel.m_arrFemMembers[l].CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false))) // End node relase
+                                bRotReleaseExistAtNode = true;
+                        }
+
+                        // Check nodal supports if rotation release doesn't exist
+                        if (!bRotReleaseExistAtNode)
+                        {
+                        if(i_CNode.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) // If rotation support is free (0 - false, zero rotation rigidity)
+                            bRotReleaseExistAtNode = true;
+                        }
+
+                    }
+
+                    // 2) Set code number
+                    if (i_CNode.m_ArrNodeDOF[i] != true && !bRotReleaseExistAtNode)  // Perform for not restrained DOF
                     {
                         i_CNode.m_ArrNCodeNo[i] = m_iCodeNo; // Set global code number of degree of freedom (DOF)
 

@@ -159,7 +159,7 @@ namespace FEM_CALC_1Din2D
             CNSupport NSupport1 = new CNSupport(TopoModel.m_eNDOF);
             NSupport1.ISupport_ID = 2;
             NSupport1.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X-axis
-            NSupport1.m_bRestrain[1] = true; // Temporary to get only 4 free DOF as it is in printed example !!!!!
+            NSupport1.m_bRestrain[1] = false;
             NSupport1.m_bRestrain[2] = false;
             NSupport1.m_iNodeCollection = new int[1];
             NSupport1.m_iNodeCollection[0] = 3;
@@ -171,7 +171,7 @@ namespace FEM_CALC_1Din2D
             NSupport2.ISupport_ID = 3;
             NSupport2.m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X and Y-axis
             NSupport2.m_bRestrain[1] = true;
-            NSupport2.m_bRestrain[2] = true; // Temporary to get only 4 free DOF as it is in printed example !!!!!
+            NSupport2.m_bRestrain[2] = false;
             NSupport2.m_iNodeCollection = new int[1];
             NSupport2.m_iNodeCollection[0] = 5;
 
