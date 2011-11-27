@@ -74,58 +74,23 @@ namespace FEM_CALC_1Din2D
 
             int m_iCodeNo = 0; // Number of unrestrained degrees of freedom - finally gives size of structure global matrix
 
-            foreach (CFemNode i_CNode in FEMModel.m_arrFemNodes) // Each Node
-            {
-                for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
-                {
-                    // DOF is restrained if node DOF is suppored or if member rotation release exits in node
-
-                    // 1) // Check if some release of rotation DOF is applied at node
-                    bool bRotReleaseExistAtNode = false;
-
-                    if (i == (int)e2D_DOF.eRZ) // If DOF is rotation
-                    {
-                        // Check member releases
-                        for (int l = 0; l < FEMModel.m_arrFemMembers.Length; l++)
-                        {
-                            // Check if some release exist and its DOF for rotation is free
-                            if ((FEMModel.m_arrFemMembers[l].CnRelease1 != null && (FEMModel.m_arrFemMembers[l].CnRelease1.m_iNodeCollection.Contains(i_CNode.ID) && FEMModel.m_arrFemMembers[l].CnRelease1.m_bRestrain[(int)e2D_DOF.eRZ] == false)) ||  // Start node relase
-                               (FEMModel.m_arrFemMembers[l].CnRelease2 != null && (FEMModel.m_arrFemMembers[l].CnRelease2.m_iNodeCollection.Contains(i_CNode.ID) && FEMModel.m_arrFemMembers[l].CnRelease2.m_bRestrain[(int)e2D_DOF.eRZ] == false))) // End node relase
-                                bRotReleaseExistAtNode = true;
-                        }
-
-                        // Check nodal supports if rotation release doesn't exist
-                        if (!bRotReleaseExistAtNode)
-                        {
-                        if(i_CNode.m_ArrNodeDOF[(int)e2D_DOF.eRZ] == false) // If rotation support is free (0 - false, zero rotation rigidity)
-                            bRotReleaseExistAtNode = true;
-                        }
-
-                    }
-
-                    // 2) Set code number
-                    if (i_CNode.m_ArrNodeDOF[i] != true && !bRotReleaseExistAtNode)  // Perform for not restrained DOF
-                    {
-                        i_CNode.m_ArrNCodeNo[i] = m_iCodeNo; // Set global code number of degree of freedom (DOF)
-
-                        m_iCodeNo++;
-                    }
-                }
-            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
+            // Save indexes of nodes and DOF which are free and represent vector of uknown variables in solution
+            SetNodesGlobCodeNo(); // Nastavi DOF v uzloch a ich globalne kodove cisla
 
             // Fill members of structure global vector of displacement
             // Now we know number of not restrained DOF, so we can allocate array size
             m_fDisp_Vector_CN = new int[m_iCodeNo, 3]; // 1st - global DOF code number, 2nd - Node index, 3rd - local code number of DOF in NODE
 
-            FillGlobalDisplCodeNo();
-
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
-            // Save indexes of nodes and DOF which are free and represent vector of uknown variables in solution 
             // Save it as array of arrays n x 2 (1st value is index - node index (0 - n-1) , 2nd value is DOF index (0-5)
             // n - total number of nodes in model
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            SetNodesGlobCodeNo(); // Nastavi DOF v uzlov globalne kodove cisla ???
+            FillGlobalDisplCodeNo();
+
+
+
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Right side of Equation System
@@ -266,48 +231,68 @@ namespace FEM_CALC_1Din2D
         {
             // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
 
-            m_iCodeNo = 0;
-
-            for (int i = 0; i < FEMModel.m_arrFemNodes.Length; i++)
+            for (int j = 0; j < FEMModel.m_arrFemNodes.Length; j++)
             {
-                if (FEMModel.m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eUX] != true)
+                // Set DOF from supports
+                for (int k = 0; k < TopoModelFile.TopoModel.m_arrNSupports.Length; k++)
                 {
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eUX] = m_iCodeNo;
-                    m_iCodeNo++;
+                    if (TopoModelFile.TopoModel.m_arrNSupports[k].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Some support exists in node
+                    {
+                        // Set all DOF of nodal support to the node
+                        for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
+                        {
+                            FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = TopoModelFile.TopoModel.m_arrNSupports[k].m_bRestrain[l];
+                        }
+                    }
                 }
-                else
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eUX] = 0;
 
-                if (FEMModel.m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eUY] != true)
+                for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
                 {
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eUY] = m_iCodeNo;
-                    m_iCodeNo++;
-                }
-                else
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eUY] = 0;
+                    bool bIsDOFReleased = false;
+                    // Set DOF from releases
+                    for (int nr = 0; nr < TopoModelFile.TopoModel.m_arrNReleases.Length; nr++)
+                    {
+                        // If only less than two elements are conected to the node and current node is release collection of nodes
+                        if (FEMModel.m_arrFemNodes[j].m_iMemberCollection.Count <= 2 &&
+                            TopoModelFile.TopoModel.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
+                        {
+                            if (FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] == true &&
+                                TopoModelFile.TopoModel.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
+                            {
+                                FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = false; // DOF of release is free, therefore set it to the node
+                                // DOF release exist therefore do not add DOF to the global code numbers
+                                bIsDOFReleased = true;
+                            }
+                        }
+                    }
 
-                if (FEMModel.m_arrFemNodes[i].m_ArrNodeDOF[(int)e2D_DOF.eRZ] != true)
-                {
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eRZ] = m_iCodeNo;
-                    m_iCodeNo++;
+                    // Set global code number
+                    if (!FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] && !bIsDOFReleased)  // Perform for not restrained DOF which are not released by member hinge
+                    {
+                        FEMModel.m_arrFemNodes[j].m_ArrNCodeNo[l] = m_iCodeNo; // Set global code number of degree of freedom (DOF), start with zero
+
+                        m_iCodeNo++;
+                    }
+                    else // Set zero
+                    {
+                        FEMModel.m_arrFemNodes[j].m_ArrNCodeNo[l] = -1;
+                    }
                 }
-                else
-                    FEMModel.m_arrFemNodes[i].m_ArrNCodeNo[(int)e2D_DOF.eRZ] = 0;
             }
         }
-
+        
         void FillGlobalDisplCodeNo()
         {
             m_iCodeNo = 0;
 
-            foreach (CFemNode i_CNode in FEMModel.m_arrFemNodes) // Each Node
+            for (int h = 0; h < FEMModel.m_arrFemNodes.Length; h++ ) // Each Node
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
                 {
-                    if (i_CNode.m_ArrNodeDOF[i] != true)       // Perform for not restrained DOF
+                    if (FEMModel.m_arrFemNodes[h].m_ArrNCodeNo[i] >= 0)       // Perform for not restrained DOF (global code number exist)
                     {
                         m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
-                        m_fDisp_Vector_CN[m_iCodeNo, 1] = i_CNode.ID - 1;            // Add Node index !!! Node IDs start with 1
+                        m_fDisp_Vector_CN[m_iCodeNo, 1] = h;                         // Add Node index in colletion !!! It is not same as Node ID !!!
                         m_fDisp_Vector_CN[m_iCodeNo, 2] = i;                         // Add local code number of degree of freedom (DOF) 0-2
 
                         m_iCodeNo++;
@@ -315,7 +300,7 @@ namespace FEM_CALC_1Din2D
                         if (m_iCodeNo >= m_fDisp_Vector_CN.Length / 3)
                             continue;
                     }
-                } 
+                }
             }
         }
 
