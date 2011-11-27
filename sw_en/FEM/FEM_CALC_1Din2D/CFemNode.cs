@@ -76,7 +76,7 @@ namespace FEM_CALC_1Din2D
             return ElemTempList;
         }
 
-        // Array of int values
+        // Array of int values - returns members indexes not IDs
         public ArrayList GetFoundedMembers_Index(CFemNode Node, CE_1D[] ElemArray)
         {
             ArrayList IndexList = new ArrayList();

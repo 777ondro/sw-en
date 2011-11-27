@@ -129,7 +129,7 @@ namespace FEM_CALC_1Din2D
 
 
 
-            MatrixF64 objMatrix = new MatrixF64(4, 4, m_M_K_dTemp1D);
+            MatrixF64 objMatrix = new MatrixF64(m_iCodeNo, m_iCodeNo, m_M_K_dTemp1D);
             // Print Created Matrix of MatrixF64 Class
             objMatrix.WriteLine();
             // Get Inverse Global Stiffeness Matrix
@@ -294,6 +294,7 @@ namespace FEM_CALC_1Din2D
             for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
             {
                 // Create temporary Arraylist of FEM elements which include node
+                // List of members indexes in array (not IDs !!!)
                 ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]],FEMModel.m_arrFemMembers);
 
                 for (int j = 0; j < m_iCodeNo; j++) // Fill each row of current DOF // number of column of global structure matrix into which we insert value
@@ -303,8 +304,7 @@ namespace FEM_CALC_1Din2D
                     for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given degree of freedom of node
                     {
                         // Assign existing element from list to the temp element to get its global stifeness matrix (6x6)
-                        int a = iElemTemp_Index.IndexOf(l);
-                        CE_1D El_Temp = FEMModel.m_arrFemMembers[iElemTemp_Index.IndexOf(l)];
+                        CE_1D El_Temp = FEMModel.m_arrFemMembers[(int)iElemTemp_Index[l]];
 
                         if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // Current DOF-row is on Start Node
                         {
@@ -350,6 +350,7 @@ namespace FEM_CALC_1Din2D
                 // Node DOF load due to elements loads - sum of for array of elements
 
                 // Create temporary Arraylist of FEM elements which include node
+                // List of members indexes in array (not IDs !!!)
                 ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]], FEMModel.m_arrFemMembers);
 
                 float tempEl = 0f; // Temporary for sum of values from all elements which transfer connected to the node for current DOF
@@ -357,7 +358,7 @@ namespace FEM_CALC_1Din2D
                 for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
                 {
                     // Assign existing element from list to the temp element  
-                    CE_1D El_Temp = FEMModel.m_arrFemMembers[iElemTemp_Index.IndexOf(l)];
+                    CE_1D El_Temp = FEMModel.m_arrFemMembers[(int)iElemTemp_Index[l]];
 
                     if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // If DOF is on Start Node of Element
                     {
