@@ -703,6 +703,20 @@ namespace FEM_CALC_1Din2D
 
 
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Transformation of element primary end forces in LCS to GCS
+        // Set vector of ends  primary forces in global coordinate system
+        public void SetGetPEF_GCS()
+        {
+            // Start Node
+            // [PEF_GCS i] = [A0T] * [PEF_LCS i]
+            m_VElemPEF_GCS_StNode = VectorF.fMultiplyMatrVectr(MatrixF.GetTransMatrix(m_fATRMatr2D), m_VElemPEF_LCS_StNode);
+
+            // End Node
+            // [PEF_GCS j] = [A0T] * [PEF_LCS j]
+            m_VElemPEF_GCS_EnNode = VectorF.fMultiplyMatrVectr(MatrixF.GetTransMatrix(m_fATRMatr2D), m_VElemPEF_LCS_EnNode);
+        }
+
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Results

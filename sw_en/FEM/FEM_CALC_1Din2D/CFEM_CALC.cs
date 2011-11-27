@@ -56,11 +56,15 @@ namespace FEM_CALC_1Din2D
             // Kij - global matrix of member         6 x 6
             Console.WriteLine("Global stiffeness matrix K" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 6 x 6 \n");
             FEMModel.m_arrFemMembers[i].m_fKGlobM.Print2DMatrixFormated_ABxCD(FEMModel.m_arrFemMembers[i].m_fKGlobM.m_fArrMembersABxCD);
-            // Element Load Vector                   2 x 3
+            // Element Load Vectors                  2 x 3
             Console.WriteLine("Member load vector - primary end forces in LCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
             FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_StNode.Print1DVector();
             Console.WriteLine("Member load vector - primary end forces in LCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
             FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_EnNode.Print1DVector();
+            Console.WriteLine("Member load vector - primary end forces in GCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
+            FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_StNode.Print1DVector();
+            Console.WriteLine("Member load vector - primary end forces in GCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
+            FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_EnNode.Print1DVector();
             }
 
 
@@ -108,16 +112,17 @@ namespace FEM_CALC_1Din2D
             FillGlobalMatrix();
 
             // Global Stiffeness Matrix    m_iCodeNo x  m_iCodeNo
-            m_M_K_Structure.Print2DMatrix();
+            Console.WriteLine("Global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+            m_M_K_Structure.Print2DMatrixFormated();
 
 
 
 
 
 
-            // Auxialiary temporary transformation from 2D to 1D array / from float do double 
-            // Pomocne prevody medzi jednorozmernym, dvojroymernym polom a triedom Matrix, 
-            // bude nutne zladit a format v akom budeme pracovat s datami a potom zmazat 
+            // Auxiliary temporary transformation from 2D to 1D array / from float do double 
+            // Pomocne prevody medzi jednorozmernym, dvojrozmernym polom a triedou Matrix, 
+            // bude nutne zladit a urcit jeden format v akom budeme pracovat s datami a potom zmazat 
 
 
 
@@ -131,10 +136,12 @@ namespace FEM_CALC_1Din2D
 
             MatrixF64 objMatrix = new MatrixF64(m_iCodeNo, m_iCodeNo, m_M_K_dTemp1D);
             // Print Created Matrix of MatrixF64 Class
+            Console.WriteLine("Global stiffeness matrix in F64 Class - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
             objMatrix.WriteLine();
             // Get Inverse Global Stiffeness Matrix
             MatrixF64 objMatrixInv = objMatrix.Inverse();
             // Print Inverse Matrix
+            Console.WriteLine("Inverse global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
             objMatrixInv.WriteLine();
             // Convert Type
             float[] m_M_K_Inv_fTemp1D = objArray.ArrConverMatrixF64ToFloat1D(objMatrixInv);
@@ -156,6 +163,7 @@ namespace FEM_CALC_1Din2D
             FillGlobalLoadVector();
 
             // Display Global Load Vector
+            Console.WriteLine("Global load vector - Dimensions: " + m_iCodeNo + " x 1 \n");
             m_V_Load.Print1DVector();
 
 
@@ -178,6 +186,7 @@ namespace FEM_CALC_1Din2D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Display Global Displacement Vector - solution result
+            Console.WriteLine("Global displacement vector - Dimensions: " + m_iCodeNo + " x 1 \n");
             m_V_Displ.Print1DVector();
 
             // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
@@ -299,6 +308,10 @@ namespace FEM_CALC_1Din2D
 
                 for (int j = 0; j < m_iCodeNo; j++) // Fill each row of current DOF // number of column of global structure matrix into which we insert value
                 {
+                    // This source code block get item of global stiffeness matrix of structure kij = "temp" 
+                    // Could be used for optimalization to get particular item of global matrix
+
+
                     float temp = 0f; // Temporary for sum of matrix values from all elements which are connected to the node for current DOF
 
                     for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given degree of freedom of node
