@@ -215,6 +215,7 @@ namespace FEM_CALC_1Din2D
 
             // Member loads
 
+            // Set primary end forces only due to member loads in local coordinate system LCS
             // Summation of loads applied on one member 
             // There can by more loads on one member, member could be in various loads lists (but only once in one list)
 
@@ -257,6 +258,15 @@ namespace FEM_CALC_1Din2D
                     }
                 }
             }
+
+
+            // Set primary end forces only due to member loads in global coordinate system GCS
+
+            foreach (CE_1D Elem in m_arrFemMembers)
+            {
+                Elem.SetGetPEF_GCS();
+            }
+
         } // End of generate
 
 
