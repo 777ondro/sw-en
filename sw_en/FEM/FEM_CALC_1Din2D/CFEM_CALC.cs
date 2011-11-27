@@ -353,7 +353,7 @@ namespace FEM_CALC_1Din2D
                 // List of members indexes in array (not IDs !!!)
                 ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]], FEMModel.m_arrFemMembers);
 
-                float tempEl = 0f; // Temporary for sum of values from all elements which transfer connected to the node for current DOF
+                float tempEl = 0f; // Temporary for sum of values from all elements which transfer load and are connected to the node for current DOF
 
                 for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
                 {
