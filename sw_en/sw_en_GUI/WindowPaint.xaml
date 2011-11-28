@@ -23,9 +23,9 @@
 				<MenuItem x:Name="menuItemTest5" Header="Draw test 5" Click="menuItemTest5_Click"></MenuItem>
 			</MenuItem>
 		</Menu>
-		<!--<Canvas x:Name="canvasForImage" Grid.Column="0" Grid.Row="1">
-		</Canvas>-->
-		<Image Grid.Row="1" Grid.Column="0">
+		<Canvas x:Name="canvasForImage" Grid.Column="0" Grid.Row="1">
+		</Canvas>
+		<!--<Image Grid.Row="1" Grid.Column="0">
 			<Image.Source>
 				<DrawingImage>
 					<DrawingImage.Drawing>
@@ -38,6 +38,6 @@
 					</DrawingImage.Drawing>
 				</DrawingImage>
 			</Image.Source>
-		</Image>
+		</Image>-->
 	</Grid>
 </Window>
