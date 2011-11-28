@@ -16,13 +16,15 @@
 			</MenuItem>
 			<MenuItem Header="GCS"></MenuItem>
 			<MenuItem Header="Test">
-				<MenuItem Header="Draw test 1"></MenuItem>
-				<MenuItem Header="Draw test 2"></MenuItem>
-				<MenuItem Header="Draw test 3"></MenuItem>
-				<MenuItem Header="Draw test 4"></MenuItem>
-				<MenuItem Header="Draw test 5"></MenuItem>
+				<MenuItem x:Name="menuItemTest1" Header="Draw test 1" Click="menuItemTest1_Click"></MenuItem>
+				<MenuItem x:Name="menuItemTest2" Header="Draw test 2"></MenuItem>
+				<MenuItem x:Name="menuItemTest3" Header="Draw test 3"></MenuItem>
+				<MenuItem x:Name="menuItemTest4" Header="Draw test 4"></MenuItem>
+				<MenuItem x:Name="menuItemTest5" Header="Draw test 5" Click="menuItemTest5_Click"></MenuItem>
 			</MenuItem>
 		</Menu>
+		<!--<Canvas x:Name="canvasForImage" Grid.Column="0" Grid.Row="1">
+		</Canvas>-->
 		<Image Grid.Row="1" Grid.Column="0">
 			<Image.Source>
 				<DrawingImage>

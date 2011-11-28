@@ -288,7 +288,7 @@ namespace CENEX
 
         public void DrawNode(Graphics g, Brush b , CNode node)
         {
-            // Fill the rectangle
+			// Fill the rectangle
             g.FillRectangle(b,
                 node.m_fCoord_X - (m_fNodeDrawSizeX/2),
                 node.m_fCoord_Z - (m_fNodeDrawSizeZ/2),

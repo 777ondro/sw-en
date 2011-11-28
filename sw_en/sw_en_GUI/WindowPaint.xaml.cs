@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 
+
+
 namespace sw_en_GUI
 {
 	/// <summary>
@@ -51,20 +53,74 @@ namespace sw_en_GUI
 //            AddLogicalChild(ghostVisual);
 //            //myDrawing.Geometry = ghostVisual.Ge;
 
-			StreamGeometry g = new StreamGeometry();
-			using (StreamGeometryContext context = g.Open())
+			//StreamGeometry g = new StreamGeometry();
+			//using (StreamGeometryContext context = g.Open())
+			//{
+			//    // Triangle #1
+			//    context.BeginFigure(new Point(0, 0), true /*isFilled*/, true /*isClosed*/);
+			//    context.LineTo(new Point(0, 100), true /*isStroked*/, true /*isSmoothJoin*/);
+			//    context.LineTo(new Point(100, 100), true /*isStroked*/, true /*isSmoothJoin*/);
+			//    // Triangle #2
+			//    context.BeginFigure(new Point(70, 0), true /*isFilled*/, true /*isClosed*/);
+			//    context.LineTo(new Point(0, 100), true /*isStroked*/, true /*isSmoothJoin*/);
+			//    context.LineTo(new Point(100, 100), true /*isStroked*/, true /*isSmoothJoin*/);
+			//}
+			//// Apply this Geometry to an existing GeometryDrawing:
+			//myDrawing.Geometry = g;
+
+			// Add a Line Element
+			//Line myLine = new Line();
+			//myLine.Stretch = Stretch.Uniform;
+			//myLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
+			//myLine.X1 = 1;
+			//myLine.X2 = 50;
+			//myLine.Y1 = 1;
+			//myLine.Y2 = 50;
+			//myLine.HorizontalAlignment = HorizontalAlignment.Left;
+			//myLine.VerticalAlignment = VerticalAlignment.Center;
+			//myLine.StrokeThickness = 2;
+			//canvasForImage.Children.Add(myLine);
+
+
+			// Create a path to draw a geometry with.
+			System.Windows.Shapes.Path myPath = new System.Windows.Shapes.Path();
+			myPath.Stroke = Brushes.Black;
+			myPath.StrokeThickness = 5;
+
+			// Create a StreamGeometry to use to specify myPath.
+			StreamGeometry geometry = new StreamGeometry();
+			geometry.FillRule = FillRule.EvenOdd;
+
+			
+			// Open a StreamGeometryContext that can be used to describe this StreamGeometry 
+			// object's contents.
+			using (StreamGeometryContext ctx = geometry.Open())
 			{
-				// Triangle #1
-				context.BeginFigure(new Point(0, 0), true /*isFilled*/, true /*isClosed*/);
-				context.LineTo(new Point(0, 100), true /*isStroked*/, true /*isSmoothJoin*/);
-				context.LineTo(new Point(100, 100), true /*isStroked*/, true /*isSmoothJoin*/);
-				// Triangle #2
-				context.BeginFigure(new Point(70, 0), true /*isFilled*/, true /*isClosed*/);
-				context.LineTo(new Point(0, 100), true /*isStroked*/, true /*isSmoothJoin*/);
-				context.LineTo(new Point(100, 100), true /*isStroked*/, true /*isSmoothJoin*/);
+				DrawRectangle(ctx, new Point(0, 0), new Point(1, 1));
+
+				//// Begin the triangle at the point specified. Notice that the shape is set to 
+				//// be closed so only two lines need to be specified below to make the triangle.
+				//ctx.BeginFigure(new Point(10, 100), true /* is filled */, true /* is closed */);
+
+				//// Draw a line to the next specified point.
+				//ctx.LineTo(new Point(100, 100), true /* is stroked */, false /* is smooth join */);
+
+				//// Draw another line to the next specified point.
+				//ctx.LineTo(new Point(100, 50), true /* is stroked */, false /* is smooth join */);
 			}
-			// Apply this Geometry to an existing GeometryDrawing:
-			myDrawing.Geometry = g;
+
+			// Freeze the geometry (make it unmodifiable)
+			// for additional performance benefits.
+			geometry.Freeze();
+
+			// Specify the shape (triangle) of the Path using the StreamGeometry.
+			myPath.Data = geometry;
+
+			// Add path shape to the UI.
+			//canvasForImage.Children.Add(myPath);
+			myDrawing.Geometry = geometry;
+			//this.Content = mainPanel;
+
 
 		}
 
@@ -87,26 +143,68 @@ namespace sw_en_GUI
 		/// <summary>
 		/// Draw methods for each Draw Element Type
 		/// </summary>
+		public void DrawRectangle(StreamGeometryContext sgc, Point p1, Point p2) 
+		{
+			sgc.BeginFigure(p1, true, true);
+			sgc.LineTo(new Point(p2.X, p1.Y), true, false);
+			sgc.LineTo(p2, true, false);
+			sgc.LineTo(new Point(p1.X, p2.Y), true, false);
+		}
 
-		//public void DrawNode(StreamGeometryContext g, Brush b, CNode node)
-		//{
-		//    g.PolyLineTo(
-		//    // Fill the rectangle
-		//    g.FillRectangle(b,
-		//        node.m_fCoord_X - (m_fNodeDrawSizeX / 2),
-		//        node.m_fCoord_Z - (m_fNodeDrawSizeZ / 2),
-		//        m_fNodeDrawSizeX,
-		//        m_fNodeDrawSizeZ);
-		//}
+		private void menuItemTest1_Click(object sender, RoutedEventArgs e)
+		{
+			StreamGeometry geometry = new StreamGeometry();
+			geometry.FillRule = FillRule.EvenOdd;
 
-		//public void DrawLine(Graphics g, Pen p, CLine line)
-		//{
-		//    g.DrawLine(p,
-		//    line.m_iNode1.m_fCoord_X,
-		//    line.m_iNode1.m_fCoord_Z,
-		//    line.m_iNode2.m_fCoord_X,
-		//    line.m_iNode2.m_fCoord_Z);
-		//}
+			using (StreamGeometryContext ctx = geometry.Open())
+			{
+				CENEX.CTest1 objCTest1 = new CENEX.CTest1();
+				//foreach (CENEX.CNode n in objCTest1.arrNodes)
+				//{
+				//    DrawNode(ctx, n);
+				//}
+				
+				
+			}
+			geometry.Freeze();
+			myDrawing.Geometry = geometry;
+		}
+
+		private void menuItemTest5_Click(object sender, RoutedEventArgs e)
+		{
+			StreamGeometry geometry = new StreamGeometry();
+			geometry.FillRule = FillRule.EvenOdd;
+
+			using (StreamGeometryContext ctx = geometry.Open())
+			{
+				CENEX.CTest5 objCTest5 = new CENEX.CTest5();
+				foreach (CENEX.CNode n in objCTest5.arrNodes)
+				{
+					DrawNode(ctx, n);
+				}
+				foreach (CENEX.CLine l in objCTest5.arrLines)
+				{
+					DrawLine(ctx, l);
+				}
+
+
+			}
+			geometry.Freeze();
+			myDrawing.Geometry = geometry;
+		}
+
+		public void DrawNode(StreamGeometryContext sgc, CENEX.CNode node)
+		{
+			DrawRectangle(sgc, new Point(node.m_fCoord_X, node.m_fCoord_Z), new Point(node.m_fCoord_X + 1, node.m_fCoord_Z + 1));
+		}
+
+		public void DrawLine(StreamGeometryContext sgc, CENEX.CLine line)
+		{
+			sgc.BeginFigure(new Point(line.m_iNode1.m_fCoord_X, line.m_iNode1.m_fCoord_Z), true, true);
+			sgc.LineTo(new Point(line.m_iNode2.m_fCoord_X, line.m_iNode2.m_fCoord_Z), true, false);
+		}
+
+		
 
 		//public void DrawNSupport(Graphics g, Pen p, CNSupport support)
 		//{
