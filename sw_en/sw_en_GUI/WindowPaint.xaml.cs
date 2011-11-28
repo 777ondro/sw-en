@@ -69,57 +69,94 @@ namespace sw_en_GUI
 			//myDrawing.Geometry = g;
 
 			// Add a Line Element
-			//Line myLine = new Line();
-			//myLine.Stretch = Stretch.Uniform;
-			//myLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
-			//myLine.X1 = 1;
-			//myLine.X2 = 50;
-			//myLine.Y1 = 1;
-			//myLine.Y2 = 50;
-			//myLine.HorizontalAlignment = HorizontalAlignment.Left;
-			//myLine.VerticalAlignment = VerticalAlignment.Center;
-			//myLine.StrokeThickness = 2;
-			//canvasForImage.Children.Add(myLine);
+			Line myLine = new Line();
+			myLine.Stretch = Stretch.Uniform;
+			myLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
+			myLine.X1 = 1;
+			myLine.X2 = 50;
+			myLine.Y1 = 1;
+			myLine.Y2 = 50;
+			myLine.HorizontalAlignment = HorizontalAlignment.Left;
+			myLine.VerticalAlignment = VerticalAlignment.Center;
+			myLine.StrokeThickness = 2;
+			myLine.StrokeStartLineCap = PenLineCap.Round;
+			canvasForImage.Children.Add(myLine);
+
+			PointCollection myPointCollection = new PointCollection();
+			myPointCollection.Add(new Point(100, 100));
+			myPointCollection.Add(new Point(100, 200));
+			myPointCollection.Add(new Point(200, 200));
+
+			Polygon myPolygon = new Polygon();
+			myPolygon.Points = myPointCollection;
+			myPolygon.Fill = Brushes.Blue;
+			myPolygon.Width = 100;
+			myPolygon.Height = 100;
+			myPolygon.Stretch = Stretch.Fill;
+			myPolygon.Stroke = Brushes.Black;
+			myPolygon.StrokeThickness = 2;
+
+			canvasForImage.Children.Add(myPolygon);
+
+			Ellipse myEllipse = new Ellipse();
+
+			// Create a SolidColorBrush with a red color to fill the 
+			// Ellipse with.
+			SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+
+			// Describes the brush's color using RGB values. 
+			// Each value has a range of 0-255.
+			mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
+			myEllipse.Fill = mySolidColorBrush;
+			myEllipse.StrokeThickness = 2;
+			myEllipse.Stroke = Brushes.Black;
+
+			// Set the width and height of the Ellipse.
+			myEllipse.Width = 200;
+			myEllipse.Height = 100;
+			
+			// Add the Ellipse to the StackPanel.
+			canvasForImage.Children.Add(myEllipse);
 
 
-			// Create a path to draw a geometry with.
-			System.Windows.Shapes.Path myPath = new System.Windows.Shapes.Path();
-			myPath.Stroke = Brushes.Black;
-			myPath.StrokeThickness = 5;
+			//// Create a path to draw a geometry with.
+			//System.Windows.Shapes.Path myPath = new System.Windows.Shapes.Path();
+			//myPath.Stroke = Brushes.Black;
+			//myPath.StrokeThickness = 5;
 
-			// Create a StreamGeometry to use to specify myPath.
-			StreamGeometry geometry = new StreamGeometry();
-			geometry.FillRule = FillRule.EvenOdd;
+			//// Create a StreamGeometry to use to specify myPath.
+			//StreamGeometry geometry = new StreamGeometry();
+			//geometry.FillRule = FillRule.EvenOdd;
 
 			
-			// Open a StreamGeometryContext that can be used to describe this StreamGeometry 
-			// object's contents.
-			using (StreamGeometryContext ctx = geometry.Open())
-			{
-				DrawRectangle(ctx, new Point(0, 0), new Point(1, 1));
+			//// Open a StreamGeometryContext that can be used to describe this StreamGeometry 
+			//// object's contents.
+			//using (StreamGeometryContext ctx = geometry.Open())
+			//{
+			//    DrawRectangle(ctx, new Point(0, 0), new Point(1, 1));
 
-				//// Begin the triangle at the point specified. Notice that the shape is set to 
-				//// be closed so only two lines need to be specified below to make the triangle.
-				//ctx.BeginFigure(new Point(10, 100), true /* is filled */, true /* is closed */);
+			//    //// Begin the triangle at the point specified. Notice that the shape is set to 
+			//    //// be closed so only two lines need to be specified below to make the triangle.
+			//    //ctx.BeginFigure(new Point(10, 100), true /* is filled */, true /* is closed */);
 
-				//// Draw a line to the next specified point.
-				//ctx.LineTo(new Point(100, 100), true /* is stroked */, false /* is smooth join */);
+			//    //// Draw a line to the next specified point.
+			//    //ctx.LineTo(new Point(100, 100), true /* is stroked */, false /* is smooth join */);
 
-				//// Draw another line to the next specified point.
-				//ctx.LineTo(new Point(100, 50), true /* is stroked */, false /* is smooth join */);
-			}
+			//    //// Draw another line to the next specified point.
+			//    //ctx.LineTo(new Point(100, 50), true /* is stroked */, false /* is smooth join */);
+			//}
 
-			// Freeze the geometry (make it unmodifiable)
-			// for additional performance benefits.
-			geometry.Freeze();
+			//// Freeze the geometry (make it unmodifiable)
+			//// for additional performance benefits.
+			//geometry.Freeze();
 
-			// Specify the shape (triangle) of the Path using the StreamGeometry.
-			myPath.Data = geometry;
+			//// Specify the shape (triangle) of the Path using the StreamGeometry.
+			//myPath.Data = geometry;
 
-			// Add path shape to the UI.
-			//canvasForImage.Children.Add(myPath);
-			myDrawing.Geometry = geometry;
-			//this.Content = mainPanel;
+			//// Add path shape to the UI.
+			////canvasForImage.Children.Add(myPath);
+			//myDrawing.Geometry = geometry;
+			////this.Content = mainPanel;
 
 
 		}
@@ -167,7 +204,7 @@ namespace sw_en_GUI
 				
 			}
 			geometry.Freeze();
-			myDrawing.Geometry = geometry;
+			//myDrawing.Geometry = geometry;
 		}
 
 		private void menuItemTest5_Click(object sender, RoutedEventArgs e)
@@ -190,7 +227,7 @@ namespace sw_en_GUI
 
 			}
 			geometry.Freeze();
-			myDrawing.Geometry = geometry;
+			//myDrawing.Geometry = geometry;
 		}
 
 		public void DrawNode(StreamGeometryContext sgc, CENEX.CNode node)
