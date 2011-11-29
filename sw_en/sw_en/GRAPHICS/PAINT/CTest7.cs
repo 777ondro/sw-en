@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CENEX
 {
-    class CTest7
+    public class CTest7
     {
 
 
