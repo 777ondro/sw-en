@@ -25,33 +25,33 @@ namespace sw_en_GUI
 		{
 			InitializeComponent();
 			//myDrawing.Geometry.
-			
-//            DrawingVisual ghostVisual = new DrawingVisual();
-//            using (DrawingContext dc = ghostVisual.RenderOpen())
-//            {
-//                // The body
-//                dc.DrawGeometry(Brushes.Blue, null, Geometry.Parse(
-//                @"M 240,250
-//				C 200,375 200,250 175,200
-//				C 100,400 100,250 100,200
-//					C 0,350 0,250 30,130
-//				C 75,0 100,0 150,0
-//				C 200,0 250,0 250,150 Z"));
-//                // Left eye
-//                dc.DrawEllipse(Brushes.Black, new Pen(Brushes.White, 10),
-//                new Point(95, 95), 15, 15);
-//                // Right eye
-//                dc.DrawEllipse(Brushes.Black, new Pen(Brushes.White, 10),
-//                new Point(170, 105), 15, 15);
-//                // The mouth
-//                Pen p = new Pen(Brushes.Black, 10);
-//                p.StartLineCap = PenLineCap.Round;
-//                p.EndLineCap = PenLineCap.Round;
-//                dc.DrawLine(p, new Point(75, 160), new Point(175, 150));
-//            }
-//            AddVisualChild(ghostVisual);
-//            AddLogicalChild(ghostVisual);
-//            //myDrawing.Geometry = ghostVisual.Ge;
+
+			//            DrawingVisual ghostVisual = new DrawingVisual();
+			//            using (DrawingContext dc = ghostVisual.RenderOpen())
+			//            {
+			//                // The body
+			//                dc.DrawGeometry(Brushes.Blue, null, Geometry.Parse(
+			//                @"M 240,250
+			//				C 200,375 200,250 175,200
+			//				C 100,400 100,250 100,200
+			//					C 0,350 0,250 30,130
+			//				C 75,0 100,0 150,0
+			//				C 200,0 250,0 250,150 Z"));
+			//                // Left eye
+			//                dc.DrawEllipse(Brushes.Black, new Pen(Brushes.White, 10),
+			//                new Point(95, 95), 15, 15);
+			//                // Right eye
+			//                dc.DrawEllipse(Brushes.Black, new Pen(Brushes.White, 10),
+			//                new Point(170, 105), 15, 15);
+			//                // The mouth
+			//                Pen p = new Pen(Brushes.Black, 10);
+			//                p.StartLineCap = PenLineCap.Round;
+			//                p.EndLineCap = PenLineCap.Round;
+			//                dc.DrawLine(p, new Point(75, 160), new Point(175, 150));
+			//            }
+			//            AddVisualChild(ghostVisual);
+			//            AddLogicalChild(ghostVisual);
+			//            //myDrawing.Geometry = ghostVisual.Ge;
 
 			//StreamGeometry g = new StreamGeometry();
 			//using (StreamGeometryContext context = g.Open())
@@ -83,9 +83,9 @@ namespace sw_en_GUI
 			canvasForImage.Children.Add(myLine);
 
 			PointCollection myPointCollection = new PointCollection();
-			myPointCollection.Add(new Point(100, 100));
-			myPointCollection.Add(new Point(100, 200));
-			myPointCollection.Add(new Point(200, 200));
+			myPointCollection.Add(new Point(0, 0));
+			myPointCollection.Add(new Point(0, 1));
+			myPointCollection.Add(new Point(1, 1));
 
 			Polygon myPolygon = new Polygon();
 			myPolygon.Points = myPointCollection;
@@ -114,7 +114,8 @@ namespace sw_en_GUI
 			// Set the width and height of the Ellipse.
 			myEllipse.Width = 200;
 			myEllipse.Height = 100;
-			
+			Canvas.SetTop(myEllipse, 100);
+			Canvas.SetLeft(myEllipse, 100);
 			// Add the Ellipse to the StackPanel.
 			canvasForImage.Children.Add(myEllipse);
 
@@ -128,7 +129,7 @@ namespace sw_en_GUI
 			//StreamGeometry geometry = new StreamGeometry();
 			//geometry.FillRule = FillRule.EvenOdd;
 
-			
+
 			//// Open a StreamGeometryContext that can be used to describe this StreamGeometry 
 			//// object's contents.
 			//using (StreamGeometryContext ctx = geometry.Open())
@@ -174,13 +175,13 @@ namespace sw_en_GUI
 			{
 				image.Save(fs);
 			}
-		} 
+		}
 
 
 		/// <summary>
 		/// Draw methods for each Draw Element Type
 		/// </summary>
-		public void DrawRectangle(StreamGeometryContext sgc, Point p1, Point p2) 
+		public void DrawRectangle(StreamGeometryContext sgc, Point p1, Point p2)
 		{
 			sgc.BeginFigure(p1, true, true);
 			sgc.LineTo(new Point(p2.X, p1.Y), true, false);
@@ -190,44 +191,143 @@ namespace sw_en_GUI
 
 		private void menuItemTest1_Click(object sender, RoutedEventArgs e)
 		{
-			StreamGeometry geometry = new StreamGeometry();
-			geometry.FillRule = FillRule.EvenOdd;
-
-			using (StreamGeometryContext ctx = geometry.Open())
-			{
 				CENEX.CTest1 objCTest1 = new CENEX.CTest1();
-				//foreach (CENEX.CNode n in objCTest1.arrNodes)
-				//{
-				//    DrawNode(ctx, n);
-				//}
-				
-				
+			
+		}
+
+		private void menuItemTest2_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest2 objCTest2 = new CENEX.CTest2();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest2.arrNodes)
+			{
+
 			}
-			geometry.Freeze();
-			//myDrawing.Geometry = geometry;
+			foreach (CENEX.CLine l in objCTest2.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest3_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest3 objCTest3 = new CENEX.CTest3();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest3.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest3.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest4_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest4 objCTest4 = new CENEX.CTest4();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest4.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest4.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
 		}
 
 		private void menuItemTest5_Click(object sender, RoutedEventArgs e)
 		{
-			StreamGeometry geometry = new StreamGeometry();
-			geometry.FillRule = FillRule.EvenOdd;
-
-			using (StreamGeometryContext ctx = geometry.Open())
+			CENEX.CTest5 objCTest5 = new CENEX.CTest5();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest5.arrNodes)
 			{
-				CENEX.CTest5 objCTest5 = new CENEX.CTest5();
-				foreach (CENEX.CNode n in objCTest5.arrNodes)
-				{
-					DrawNode(ctx, n);
-				}
-				foreach (CENEX.CLine l in objCTest5.arrLines)
-				{
-					DrawLine(ctx, l);
-				}
-
 
 			}
-			geometry.Freeze();
-			//myDrawing.Geometry = geometry;
+			foreach (CENEX.CLine l in objCTest5.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest6_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest6 objCTest6 = new CENEX.CTest6();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest6.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest6.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest7_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest7 objCTest7 = new CENEX.CTest7();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest7.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest7.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest8_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest8 objCTest8 = new CENEX.CTest8();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest8.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest8.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest9_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest9 objCTest9 = new CENEX.CTest9();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest9.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest9.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+		}
+
+		private void menuItemTest10_Click(object sender, RoutedEventArgs e)
+		{
+			CENEX.CTest10 objCTest10 = new CENEX.CTest10();
+			canvasForImage.Children.Clear();
+			foreach (CENEX.CNode n in objCTest10.arrNodes)
+			{
+
+			}
+			foreach (CENEX.CLine l in objCTest10.arrLines)
+			{
+				// Add a Line Element
+				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
 		}
 
 		public void DrawNode(StreamGeometryContext sgc, CENEX.CNode node)
@@ -235,13 +335,28 @@ namespace sw_en_GUI
 			DrawRectangle(sgc, new Point(node.m_fCoord_X, node.m_fCoord_Z), new Point(node.m_fCoord_X + 1, node.m_fCoord_Z + 1));
 		}
 
-		public void DrawLine(StreamGeometryContext sgc, CENEX.CLine line)
+		public void DrawLine(CENEX.CLine line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
 		{
-			sgc.BeginFigure(new Point(line.m_iNode1.m_fCoord_X, line.m_iNode1.m_fCoord_Z), true, true);
-			sgc.LineTo(new Point(line.m_iNode2.m_fCoord_X, line.m_iNode2.m_fCoord_Z), true, false);
+			Line myLine = new Line();
+			myLine.Stretch = Stretch.Fill;
+			myLine.Stroke = color;
+			myLine.X1 = line.m_iNode1.m_fCoord_X;
+			myLine.X2 = line.m_iNode2.m_fCoord_X;
+			myLine.Y1 = line.m_iNode1.m_fCoord_Z;
+			myLine.Y2 = line.m_iNode2.m_fCoord_Z;
+			myLine.StrokeThickness = thickness;
+			myLine.StrokeStartLineCap = startCap;
+			myLine.StrokeEndLineCap = endCap;
+			myLine.HorizontalAlignment = HorizontalAlignment.Left;
+			myLine.VerticalAlignment = VerticalAlignment.Center;
+			Canvas.SetTop(myLine, line.m_iNode1.m_fCoord_Z);
+			Canvas.SetLeft(myLine, line.m_iNode1.m_fCoord_X);
+			imageCanvas.Children.Add(myLine);
 		}
 
 		
+
+
 
 		//public void DrawNSupport(Graphics g, Pen p, CNSupport support)
 		//{
