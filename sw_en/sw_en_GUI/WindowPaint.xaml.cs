@@ -68,56 +68,56 @@ namespace sw_en_GUI
 			//// Apply this Geometry to an existing GeometryDrawing:
 			//myDrawing.Geometry = g;
 
-			// Add a Line Element
-			Line myLine = new Line();
-			myLine.Stretch = Stretch.Uniform;
-			myLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
-			myLine.X1 = 1;
-			myLine.X2 = 50;
-			myLine.Y1 = 1;
-			myLine.Y2 = 50;
-			myLine.HorizontalAlignment = HorizontalAlignment.Left;
-			myLine.VerticalAlignment = VerticalAlignment.Center;
-			myLine.StrokeThickness = 2;
-			myLine.StrokeStartLineCap = PenLineCap.Round;
-			canvasForImage.Children.Add(myLine);
+			//// Add a Line Element
+			//Line myLine = new Line();
+			//myLine.Stretch = Stretch.Uniform;
+			//myLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
+			//myLine.X1 = 1;
+			//myLine.X2 = 50;
+			//myLine.Y1 = 1;
+			//myLine.Y2 = 50;
+			//myLine.HorizontalAlignment = HorizontalAlignment.Left;
+			//myLine.VerticalAlignment = VerticalAlignment.Center;
+			//myLine.StrokeThickness = 2;
+			//myLine.StrokeStartLineCap = PenLineCap.Round;
+			//canvasForImage.Children.Add(myLine);
 
-			PointCollection myPointCollection = new PointCollection();
-			myPointCollection.Add(new Point(0, 0));
-			myPointCollection.Add(new Point(0, 1));
-			myPointCollection.Add(new Point(1, 1));
+			//PointCollection myPointCollection = new PointCollection();
+			//myPointCollection.Add(new Point(0, 0));
+			//myPointCollection.Add(new Point(0, 1));
+			//myPointCollection.Add(new Point(1, 1));
 
-			Polygon myPolygon = new Polygon();
-			myPolygon.Points = myPointCollection;
-			myPolygon.Fill = Brushes.Blue;
-			myPolygon.Width = 100;
-			myPolygon.Height = 100;
-			myPolygon.Stretch = Stretch.Fill;
-			myPolygon.Stroke = Brushes.Black;
-			myPolygon.StrokeThickness = 2;
+			//Polygon myPolygon = new Polygon();
+			//myPolygon.Points = myPointCollection;
+			//myPolygon.Fill = Brushes.Blue;
+			//myPolygon.Width = 100;
+			//myPolygon.Height = 100;
+			//myPolygon.Stretch = Stretch.Fill;
+			//myPolygon.Stroke = Brushes.Black;
+			//myPolygon.StrokeThickness = 2;
 
-			canvasForImage.Children.Add(myPolygon);
+			//canvasForImage.Children.Add(myPolygon);
 
-			Ellipse myEllipse = new Ellipse();
+			//Ellipse myEllipse = new Ellipse();
 
 			// Create a SolidColorBrush with a red color to fill the 
 			// Ellipse with.
-			SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+			//SolidColorBrush mySolidColorBrush = new SolidColorBrush();
 
-			// Describes the brush's color using RGB values. 
-			// Each value has a range of 0-255.
-			mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
-			myEllipse.Fill = mySolidColorBrush;
-			myEllipse.StrokeThickness = 2;
-			myEllipse.Stroke = Brushes.Black;
+			//// Describes the brush's color using RGB values. 
+			//// Each value has a range of 0-255.
+			//mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
+			//myEllipse.Fill = mySolidColorBrush;
+			//myEllipse.StrokeThickness = 2;
+			//myEllipse.Stroke = Brushes.Black;
 
-			// Set the width and height of the Ellipse.
-			myEllipse.Width = 200;
-			myEllipse.Height = 100;
-			Canvas.SetTop(myEllipse, 100);
-			Canvas.SetLeft(myEllipse, 100);
-			// Add the Ellipse to the StackPanel.
-			canvasForImage.Children.Add(myEllipse);
+			//// Set the width and height of the Ellipse.
+			//myEllipse.Width = 200;
+			//myEllipse.Height = 100;
+			//Canvas.SetTop(myEllipse, 100);
+			//Canvas.SetLeft(myEllipse, 100);
+			//// Add the Ellipse to the StackPanel.
+			//canvasForImage.Children.Add(myEllipse);
 
 
 			//// Create a path to draw a geometry with.
@@ -158,8 +158,9 @@ namespace sw_en_GUI
 			////canvasForImage.Children.Add(myPath);
 			//myDrawing.Geometry = geometry;
 			////this.Content = mainPanel;
+			CENEX.CNode n = new CENEX.CNode(1, 10, 10, 10, 10);
 
-
+			DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 		}
 
 
@@ -178,20 +179,16 @@ namespace sw_en_GUI
 		}
 
 
-		/// <summary>
-		/// Draw methods for each Draw Element Type
-		/// </summary>
-		public void DrawRectangle(StreamGeometryContext sgc, Point p1, Point p2)
-		{
-			sgc.BeginFigure(p1, true, true);
-			sgc.LineTo(new Point(p2.X, p1.Y), true, false);
-			sgc.LineTo(p2, true, false);
-			sgc.LineTo(new Point(p1.X, p2.Y), true, false);
-		}
+		
 
 		private void menuItemTest1_Click(object sender, RoutedEventArgs e)
 		{
-				CENEX.CTest1 objCTest1 = new CENEX.CTest1();
+				//CENEX.CTest1 objCTest1 = new CENEX.CTest1();
+				//canvasForImage.Children.Clear();
+				//foreach (CENEX.CNode n in objCTest1.arrNodes)
+				//{
+
+				//}
 			
 		}
 
@@ -199,14 +196,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest2 objCTest2 = new CENEX.CTest2();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest2.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest2.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest2.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -214,14 +212,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest3 objCTest3 = new CENEX.CTest3();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest3.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest3.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest3.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -229,14 +228,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest4 objCTest4 = new CENEX.CTest4();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest4.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest4.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest4.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -244,14 +244,16 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest5 objCTest5 = new CENEX.CTest5();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest5.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest5.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest5.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
+
 			}
 		}
 
@@ -259,14 +261,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest6 objCTest6 = new CENEX.CTest6();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest6.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest6.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest6.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -274,14 +277,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest7 objCTest7 = new CENEX.CTest7();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest7.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest7.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest7.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -289,14 +293,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest8 objCTest8 = new CENEX.CTest8();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest8.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest8.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest8.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -304,14 +309,15 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest9 objCTest9 = new CENEX.CTest9();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest9.arrNodes)
-			{
-
-			}
+			
 			foreach (CENEX.CLine l in objCTest9.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+			}
+			foreach (CENEX.CNode n in objCTest9.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
@@ -319,20 +325,20 @@ namespace sw_en_GUI
 		{
 			CENEX.CTest10 objCTest10 = new CENEX.CTest10();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CNode n in objCTest10.arrNodes)
-			{
-
-			}
 			foreach (CENEX.CLine l in objCTest10.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
+			foreach (CENEX.CNode n in objCTest10.arrNodes)
+			{
+				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
+			}
 		}
 
-		public void DrawNode(StreamGeometryContext sgc, CENEX.CNode node)
+		public void DrawNode(CENEX.CNode node, SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas)
 		{
-			DrawRectangle(sgc, new Point(node.m_fCoord_X, node.m_fCoord_Z), new Point(node.m_fCoord_X + 1, node.m_fCoord_Z + 1));
+			DrawRectangle(strokeColor,fillColor, thickness, imageCanvas, new Point(node.m_fCoord_X, node.m_fCoord_Z), new Point(node.m_fCoord_X + 4, node.m_fCoord_Z + 4));
 		}
 
 		public void DrawLine(CENEX.CLine line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
@@ -354,6 +360,21 @@ namespace sw_en_GUI
 			imageCanvas.Children.Add(myLine);
 		}
 
+		/// <summary>
+		/// Draw methods for each Draw Element Type
+		/// </summary>
+		public void DrawRectangle(SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas, Point lt, Point br)
+		{
+			Rectangle rect = new Rectangle();
+			rect.Stretch = Stretch.Fill;
+			rect.Fill = fillColor;
+			rect.Stroke = strokeColor;
+			rect.Width = br.X - lt.X;
+			rect.Height = br.Y - lt.Y;
+			Canvas.SetTop(rect, lt.Y);
+			Canvas.SetLeft(rect, lt.X);
+			imageCanvas.Children.Add(rect);
+		}
 		
 
 
