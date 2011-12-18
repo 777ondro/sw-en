@@ -189,6 +189,24 @@ namespace sw_en_GUI
 				//{
 
 				//}
+			canvasForImage.Children.Clear();
+			Line myLine = new Line();
+			myLine.Stretch = Stretch.Fill;
+			myLine.Stroke = Brushes.Aquamarine;
+			myLine.X1 = 0;
+			myLine.X2 = 1;
+			myLine.Y1 = 0;
+			myLine.Y2 =	1;
+			myLine.StrokeThickness = 3;
+			myLine.StrokeStartLineCap = PenLineCap.Round;
+			myLine.StrokeEndLineCap = PenLineCap.Triangle;
+			myLine.HorizontalAlignment = HorizontalAlignment.Left;
+			myLine.VerticalAlignment = VerticalAlignment.Center;
+			Canvas.SetTop(myLine, 2);
+			Canvas.SetLeft(myLine, 4);
+			canvasForImage.Children.Add(myLine);
+			
+			
 			
 		}
 
@@ -375,8 +393,37 @@ namespace sw_en_GUI
 			Canvas.SetLeft(rect, lt.X);
 			imageCanvas.Children.Add(rect);
 		}
+
 		
 
+		private void Window_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.OemPlus) 
+			{
+				zoomIn2D();
+				Console.WriteLine("zoomIn");
+			}
+			else if (e.Key == Key.OemMinus) 
+			{
+				zoomOut2D();
+				Console.WriteLine("zoomOut");
+			}
+			else MessageBox.Show("else");
+		}
+
+		private void zoomIn2D() 
+		{
+			Line l = (Line)canvasForImage.Children[0];
+			l.X2 *= 2;
+			l.Y2 *= 2;
+		}
+
+		private void zoomOut2D()
+		{
+			Line l = (Line)canvasForImage.Children[0];
+			l.X2 /= 2;
+			l.Y2 /= 2;
+		}
 
 
 		//public void DrawNSupport(Graphics g, Pen p, CNSupport support)
