@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using CENEX;
+using BaseClasses;
 
 
 
@@ -158,7 +160,7 @@ namespace sw_en_GUI
 			////canvasForImage.Children.Add(myPath);
 			//myDrawing.Geometry = geometry;
 			////this.Content = mainPanel;
-			CENEX.CNode n = new CENEX.CNode(1, 10, 10, 10, 10);
+			CNode n = new CNode(1, 10, 10, 10, 10);
 
 			DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 		}
@@ -183,9 +185,9 @@ namespace sw_en_GUI
 
 		private void menuItemTest1_Click(object sender, RoutedEventArgs e)
 		{
-				//CENEX.CTest1 objCTest1 = new CENEX.CTest1();
+				//CTest1 objCTest1 = new CTest1();
 				//canvasForImage.Children.Clear();
-				//foreach (CENEX.CNode n in objCTest1.arrNodes)
+				//foreach (CNode n in objCTest1.arrNodes)
 				//{
 
 				//}
@@ -212,15 +214,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest2_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest2 objCTest2 = new CENEX.CTest2();
+			CTest2 objCTest2 = new CTest2();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest2.arrLines)
+			foreach (CMember l in objCTest2.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest2.arrNodes)
+			foreach (CNode n in objCTest2.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -228,15 +230,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest3_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest3 objCTest3 = new CENEX.CTest3();
+			CTest3 objCTest3 = new CTest3();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest3.arrLines)
+			foreach (CMember l in objCTest3.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest3.arrNodes)
+			foreach (CNode n in objCTest3.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -244,15 +246,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest4_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest4 objCTest4 = new CENEX.CTest4();
+			CTest4 objCTest4 = new CTest4();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest4.arrLines)
+			foreach (CMember l in objCTest4.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest4.arrNodes)
+			foreach (CNode n in objCTest4.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -260,15 +262,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest5_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest5 objCTest5 = new CENEX.CTest5();
+			CTest5 objCTest5 = new CTest5();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest5.arrLines)
+			foreach (CMember l in objCTest5.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest5.arrNodes)
+			foreach (CNode n in objCTest5.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 
@@ -277,15 +279,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest6_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest6 objCTest6 = new CENEX.CTest6();
+			CTest6 objCTest6 = new CTest6();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest6.arrLines)
+			foreach (CMember l in objCTest6.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest6.arrNodes)
+			foreach (CNode n in objCTest6.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -293,15 +295,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest7_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest7 objCTest7 = new CENEX.CTest7();
+			CTest7 objCTest7 = new CTest7();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest7.arrLines)
+			foreach (CMember l in objCTest7.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest7.arrNodes)
+			foreach (CNode n in objCTest7.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -309,15 +311,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest8_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest8 objCTest8 = new CENEX.CTest8();
+			CTest8 objCTest8 = new CTest8();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest8.arrLines)
+			foreach (CMember l in objCTest8.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest8.arrNodes)
+			foreach (CNode n in objCTest8.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -325,15 +327,15 @@ namespace sw_en_GUI
 
 		private void menuItemTest9_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest9 objCTest9 = new CENEX.CTest9();
+			CTest9 objCTest9 = new CTest9();
 			canvasForImage.Children.Clear();
 			
-			foreach (CENEX.CLine l in objCTest9.arrLines)
+			foreach (CMember l in objCTest9.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest9.arrNodes)
+			foreach (CNode n in objCTest9.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
@@ -341,40 +343,40 @@ namespace sw_en_GUI
 
 		private void menuItemTest10_Click(object sender, RoutedEventArgs e)
 		{
-			CENEX.CTest10 objCTest10 = new CENEX.CTest10();
+			CTest10 objCTest10 = new CTest10();
 			canvasForImage.Children.Clear();
-			foreach (CENEX.CLine l in objCTest10.arrLines)
+			foreach (CMember l in objCTest10.arrLines)
 			{
 				// Add a Line Element
 				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
 			}
-			foreach (CENEX.CNode n in objCTest10.arrNodes)
+			foreach (CNode n in objCTest10.arrNodes)
 			{
 				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
 			}
 		}
 
-		public void DrawNode(CENEX.CNode node, SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas)
+		public void DrawNode(CNode node, SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas)
 		{
-			DrawRectangle(strokeColor,fillColor, thickness, imageCanvas, new Point(node.m_fCoord_X, node.m_fCoord_Z), new Point(node.m_fCoord_X + 4, node.m_fCoord_Z + 4));
+			DrawRectangle(strokeColor,fillColor, thickness, imageCanvas, new Point(node.FCoord_X, node.FCoord_Z), new Point(node.FCoord_X + 4, node.FCoord_Z + 4));
 		}
 
-		public void DrawLine(CENEX.CLine line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
+		public void DrawLine(CMember line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
 		{
 			Line myLine = new Line();
 			myLine.Stretch = Stretch.Fill;
 			myLine.Stroke = color;
-			myLine.X1 = line.m_iNode1.m_fCoord_X;
-			myLine.X2 = line.m_iNode2.m_fCoord_X;
-			myLine.Y1 = line.m_iNode1.m_fCoord_Z;
-			myLine.Y2 = line.m_iNode2.m_fCoord_Z;
+			myLine.X1 = line.NodeStart.FCoord_X;
+			myLine.X2 = line.NodeEnd.FCoord_X;
+			myLine.Y1 = line.NodeStart.FCoord_Z;
+			myLine.Y2 = line.NodeEnd.FCoord_Z;
 			myLine.StrokeThickness = thickness;
 			myLine.StrokeStartLineCap = startCap;
 			myLine.StrokeEndLineCap = endCap;
 			myLine.HorizontalAlignment = HorizontalAlignment.Left;
 			myLine.VerticalAlignment = VerticalAlignment.Center;
-			Canvas.SetTop(myLine, line.m_iNode1.m_fCoord_Z);
-			Canvas.SetLeft(myLine, line.m_iNode1.m_fCoord_X);
+			Canvas.SetTop(myLine, line.NodeStart.FCoord_Z);
+			Canvas.SetLeft(myLine, line.NodeStart.FCoord_X);
 			imageCanvas.Children.Add(myLine);
 		}
 
@@ -563,7 +565,7 @@ namespace sw_en_GUI
 		//    }
 		//}
 
-		//public void DrawMemberRel(Graphics g, Pen p, CLine iLine)
+		//public void DrawMemberRel(Graphics g, Pen p, CMember iLine)
 		//{
 		//    // Drawing points - if empty / do not draw release/hinge at member/line edge 
 		//    Point pNode1 = new Point();
@@ -918,7 +920,7 @@ namespace sw_en_GUI
 		//                    (int)node.m_fCoord_X + 20, (int)node.m_fCoord_Z - 20);
 		//}
 
-		//public void DrawLine_Numbering(Graphics g, CLine line)
+		//public void DrawLine_Numbering(Graphics g, CMember line)
 		//{
 		//    Font font = new Font("Courier new", 10);
 		//    Brush brush = new SolidBrush(Color.Crimson);
