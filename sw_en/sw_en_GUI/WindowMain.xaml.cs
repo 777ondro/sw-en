@@ -159,7 +159,7 @@ namespace sw_en_GUI
 					dataGridMemberDivisions.DataContext = ds;
 					dataGridNodalSupport.ItemsSource = ds.Tables[6].DefaultView;
 					dataGridNodalSupport.DataContext = ds;
-					dataGridMemberElasticFoundations.ItemsSource = ds.Tables[7].DefaultView;
+					//dataGridMemberElasticFoundations.ItemsSource = ds.Tables[7].DefaultView;
 					dataGridMemberElasticFoundations.DataContext = ds;
 					initModelObject(ofd.FileName);
 				}
@@ -178,6 +178,9 @@ namespace sw_en_GUI
 		{
 			CModel model = new CModel(fileName);
 			model.m_arrNodes = getNodes(((DataSet)dataGridNodes.DataContext).Tables[0]);
+			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
+			//model.m_arrMat materials are in CENEX project 
+			model.m_arrCrSc = getCrossSections(((DataSet)dataGridNodes.DataContext).Tables[2]);
 		}
 
 		private CNode[] getNodes(DataTable dt)
@@ -201,17 +204,117 @@ namespace sw_en_GUI
 					float.TryParse(row["NodeCoordinateZ"].ToString(), out Coord_Z);
 
 					node = new CNode(Node_ID, Coord_X, Coord_Y, Coord_Z, fTime);
+					nodes.Add(node);
 				}
 				catch (Exception)
 				{
 					throw;
 				}
-				
 			}
 
-
+			//foreach (CNode n in nodes) 
+			//{
+			//    Console.WriteLine(string.Format("{0},{1},{2},{3},{4}", 
+			//        n.INode_ID, n.FCoord_X, n.FCoord_Y, n.FCoord_Z, n.FTime));
+			//}
 			return nodes.ToArray();
 		}
+
+		private CMember[] getMembers(DataTable dt)
+		{
+			List<CMember> members = new List<CMember>();
+			CMember member = null;
+
+			int Line_ID;
+            CNode Node1;
+			int node1ID;
+            CNode Node2;
+			int node2ID;
+            int Time = 100;
+			float Length;
+			
+			foreach (DataRow row in dt.Rows)
+			{
+				try
+				{
+					int.TryParse(row["MemberID"].ToString(), out Line_ID);
+					Node1 = new CNode();
+					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
+					Node1.INode_ID = node1ID;
+
+					Node2 = new CNode();
+					int.TryParse(row["NodeEndID"].ToString(), out node2ID);
+					Node2.INode_ID = node2ID;
+
+					member = new CMember(Line_ID, Node1, Node2, Time);
+
+					float.TryParse(row["Length"].ToString(), out Length);
+					member.FLength = Length;
+	
+					members.Add(member);
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+			}
+
+			foreach (CMember m in members)
+			{
+				Console.WriteLine(string.Format("IMember_ID: {0},NodeStart.INode_ID: {1},NodeEnd.INode_ID: {2},m.FLength: {3}",
+					m.IMember_ID, m.NodeStart.INode_ID, m.NodeEnd.INode_ID, m.FLength));
+			}
+			return members.ToArray();
+		}
+
+
+		private CMember[] getCrossSections(DataTable dt)
+		{
+			List<CMember> members = new List<CMember>();
+			CMember member = null;
+
+			int Line_ID;
+            CNode Node1;
+			int node1ID;
+            CNode Node2;
+			int node2ID;
+            int Time = 100;
+			float Length;
+			
+			foreach (DataRow row in dt.Rows)
+			{
+				try
+				{
+					int.TryParse(row["MemberID"].ToString(), out Line_ID);
+					Node1 = new CNode();
+					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
+					Node1.INode_ID = node1ID;
+
+					Node2 = new CNode();
+					int.TryParse(row["NodeEndID"].ToString(), out node2ID);
+					Node2.INode_ID = node2ID;
+
+					member = new CMember(Line_ID, Node1, Node2, Time);
+
+					float.TryParse(row["Length"].ToString(), out Length);
+					member.FLength = Length;
+	
+					members.Add(member);
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+			}
+
+			foreach (CMember m in members)
+			{
+				Console.WriteLine(string.Format("IMember_ID: {0},NodeStart.INode_ID: {1},NodeEnd.INode_ID: {2},m.FLength: {3}",
+					m.IMember_ID, m.NodeStart.INode_ID, m.NodeEnd.INode_ID, m.FLength));
+			}
+			return members.ToArray();
+		}
+
 
 		private void ButtonExport_Click(object sender, RoutedEventArgs e)
 		{
