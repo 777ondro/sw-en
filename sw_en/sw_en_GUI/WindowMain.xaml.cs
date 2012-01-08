@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Collections;
 using BaseClasses;
+using CRSC;
 
 namespace sw_en_GUI
 {
@@ -226,13 +227,13 @@ namespace sw_en_GUI
 			CMember member = null;
 
 			int Line_ID;
-            CNode Node1;
+			CNode Node1;
 			int node1ID;
-            CNode Node2;
+			CNode Node2;
 			int node2ID;
-            int Time = 100;
+			int Time = 100;
 			float Length;
-			
+
 			foreach (DataRow row in dt.Rows)
 			{
 				try
@@ -250,7 +251,7 @@ namespace sw_en_GUI
 
 					float.TryParse(row["Length"].ToString(), out Length);
 					member.FLength = Length;
-	
+
 					members.Add(member);
 				}
 				catch (Exception)
@@ -268,51 +269,43 @@ namespace sw_en_GUI
 		}
 
 
-		private CMember[] getCrossSections(DataTable dt)
+		private CCrSc[] getCrossSections(DataTable dt)
 		{
-			List<CMember> members = new List<CMember>();
-			CMember member = null;
+			List<CCrSc> list_crsc = new List<CCrSc>();
+			CCrSc crsc = null;
 
-			int Line_ID;
-            CNode Node1;
-			int node1ID;
-            CNode Node2;
-			int node2ID;
-            int Time = 100;
-			float Length;
-			
+			int CrSc_ID;
+			float fI_t, fI_y, fI_z, fA_g;
+
 			foreach (DataRow row in dt.Rows)
 			{
 				try
 				{
-					int.TryParse(row["MemberID"].ToString(), out Line_ID);
-					Node1 = new CNode();
-					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
-					Node1.INode_ID = node1ID;
+					crsc = new CCrSc();
+					
+					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
+					crsc.ICrSc_ID = CrSc_ID;
+					
+					float.TryParse(row["fI_t"].ToString(), out fI_t);
+					crsc.FI_t = fI_t;
 
-					Node2 = new CNode();
-					int.TryParse(row["NodeEndID"].ToString(), out node2ID);
-					Node2.INode_ID = node2ID;
+					float.TryParse(row["fI_y"].ToString(), out fI_y);
+					crsc.FI_y = fI_y;
 
-					member = new CMember(Line_ID, Node1, Node2, Time);
+					float.TryParse(row["fI_z"].ToString(), out fI_z);
+					crsc.FI_z = fI_z;
 
-					float.TryParse(row["Length"].ToString(), out Length);
-					member.FLength = Length;
-	
-					members.Add(member);
+					float.TryParse(row["fA_g"].ToString(), out fA_g);
+					crsc.FA_g = fA_g;
+
+					list_crsc.Add(crsc);
 				}
 				catch (Exception)
 				{
 					throw;
 				}
 			}
-
-			foreach (CMember m in members)
-			{
-				Console.WriteLine(string.Format("IMember_ID: {0},NodeStart.INode_ID: {1},NodeEnd.INode_ID: {2},m.FLength: {3}",
-					m.IMember_ID, m.NodeStart.INode_ID, m.NodeEnd.INode_ID, m.FLength));
-			}
-			return members.ToArray();
+			return list_crsc.ToArray();
 		}
 
 
