@@ -182,6 +182,8 @@ namespace sw_en_GUI
 			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
 			//model.m_arrMat materials are in CENEX project 
 			model.m_arrCrSc = getCrossSections(((DataSet)dataGridNodes.DataContext).Tables[2]);
+			//model.m_arrNReleases
+			model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);
 		}
 
 		private CNode[] getNodes(DataTable dt)
@@ -282,10 +284,10 @@ namespace sw_en_GUI
 				try
 				{
 					crsc = new CCrSc();
-					
+
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
 					crsc.ICrSc_ID = CrSc_ID;
-					
+
 					float.TryParse(row["fI_t"].ToString(), out fI_t);
 					crsc.FI_t = fI_t;
 
@@ -308,6 +310,62 @@ namespace sw_en_GUI
 			return list_crsc.ToArray();
 		}
 
+
+		private CNSupport[] getNSupports(DataTable dt)
+		{
+			List<CNSupport> nsupports = new List<CNSupport>();
+			CNSupport nsupport = null;
+
+			int eNDOF = 0;
+			int iSupport_ID;
+			List<int> nodeCollection;
+			bool[] bRestrain = new bool[6];
+			int fTime = 100;
+			bool bux, buy, buz, brx, bry, brz;
+
+			foreach (DataRow row in dt.Rows)
+			{
+				try
+				{
+					nodeCollection = new List<int>();
+					nsupport = new CNSupport(eNDOF);
+					int.TryParse(row["NSupportID"].ToString(), out iSupport_ID);
+					nsupport.ISupport_ID = iSupport_ID;
+					foreach( string s in row["NodesIDCollection"].ToString().Split(','))
+					{
+						nodeCollection.Add(int.Parse(s));
+					}
+					nsupport.m_iNodeCollection = nodeCollection.ToArray();
+
+					bool.TryParse(row["bux"].ToString(), out bux);
+					bRestrain[0] = bux;
+
+					bool.TryParse(row["buy"].ToString(), out buy);
+					bRestrain[1] = buy;
+
+					bool.TryParse(row["buz"].ToString(), out buz);
+					bRestrain[2] = buz;
+
+					bool.TryParse(row["brx"].ToString(), out brx);
+					bRestrain[3] = brx;
+
+					bool.TryParse(row["bry"].ToString(), out bry);
+					bRestrain[4] = bry;
+
+					bool.TryParse(row["brz"].ToString(), out brz);
+					bRestrain[5] = brz;
+					nsupport.m_bRestrain = bRestrain;
+					nsupport.m_fTime = fTime;
+
+					nsupports.Add(nsupport);
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+			}
+			return nsupports.ToArray();
+		}
 
 		private void ButtonExport_Click(object sender, RoutedEventArgs e)
 		{
