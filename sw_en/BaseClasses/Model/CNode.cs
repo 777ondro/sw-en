@@ -55,9 +55,9 @@ namespace BaseClasses
         // Konstruktor2 CNode
         public CNode(
             int iNode_ID,
-            int fCoord_X,
-            int fCoord_Y,
-            int fCoord_Z,
+            float fCoord_X,
+            float fCoord_Y,
+            float fCoord_Z,
             int fTime
             )
         {

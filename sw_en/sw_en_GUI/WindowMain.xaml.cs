@@ -20,6 +20,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Threading;
 using System.Collections;
+using BaseClasses;
 
 namespace sw_en_GUI
 {
@@ -160,6 +161,7 @@ namespace sw_en_GUI
 					dataGridNodalSupport.DataContext = ds;
 					dataGridMemberElasticFoundations.ItemsSource = ds.Tables[7].DefaultView;
 					dataGridMemberElasticFoundations.DataContext = ds;
+					initModelObject(ofd.FileName);
 				}
 				catch (Exception ex)
 				{
@@ -170,7 +172,45 @@ namespace sw_en_GUI
 					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
 				}
 			}
+		}
 
+		private void initModelObject(string fileName)
+		{
+			CModel model = new CModel(fileName);
+			model.m_arrNodes = getNodes(((DataSet)dataGridNodes.DataContext).Tables[0]);
+		}
+
+		private CNode[] getNodes(DataTable dt)
+		{
+			List<CNode> nodes = new List<CNode>();
+			CNode node = null;
+
+			int Node_ID;
+			float Coord_X;
+			float Coord_Y;
+			float Coord_Z;
+			int fTime = 100;
+
+			foreach (DataRow row in dt.Rows)
+			{
+				try
+				{
+					int.TryParse(row["NodeID"].ToString(), out Node_ID);
+					float.TryParse(row["NodeCoordinateX"].ToString(), out Coord_X);
+					float.TryParse(row["NodeCoordinateY"].ToString(), out Coord_Y);
+					float.TryParse(row["NodeCoordinateZ"].ToString(), out Coord_Z);
+
+					node = new CNode(Node_ID, Coord_X, Coord_Y, Coord_Z, fTime);
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+				
+			}
+
+
+			return nodes.ToArray();
 		}
 
 		private void ButtonExport_Click(object sender, RoutedEventArgs e)
@@ -186,53 +226,6 @@ namespace sw_en_GUI
 					a.Add(dataGridNodes.DataContext);
 					a.Add(sfd.FileName);
 					ThreadPool.QueueUserWorkItem(exportData, (object)a);
-
-
-					//ArrayList a = new ArrayList();
-					//a.Add(dataGridNodes.DataContext);
-					//a.Add(sfd.FileName);
-					//a.Add("Nodes");
-					//ThreadPool.QueueUserWorkItem(exportData, (object) a);
-					//ArrayList a1 = new ArrayList();
-					//a1.Add(dataGridMaterials.DataContext);
-					//a1.Add(sfd.FileName);
-					//a1.Add("Materials");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a1);
-					//ArrayList a2 = new ArrayList();
-					//a2.Add(dataGridCrossSections.DataContext);
-					//a2.Add(sfd.FileName);
-					//a2.Add("Cross Sections");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a2);
-					//ArrayList a3 = new ArrayList();
-					//a3.Add(dataGridMemberReleases.DataContext);
-					//a3.Add(sfd.FileName);
-					//a3.Add("Member Releases");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a3);
-					//ArrayList a4 = new ArrayList();
-					//a4.Add(dataGridMemberEccentricities.DataContext);
-					//a4.Add(sfd.FileName);
-					//a4.Add("Member Eccentricities");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a4);
-					//ArrayList a5 = new ArrayList();
-					//a5.Add(dataGridMemberDivisions.DataContext);
-					//a5.Add(sfd.FileName);
-					//a5.Add("Members Divisions");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a5);
-					//ArrayList a6 = new ArrayList();
-					//a6.Add(dataGridNodalSupport.DataContext);
-					//a6.Add(sfd.FileName);
-					//a6.Add("Nodal Support");
-					//ThreadPool.QueueUserWorkItem(exportData, (object)a6);
-
-					//CExportToExcel.ExportToExcel(dataGridNodes.DataContext as DataTable, sfd.FileName, "Nodes");
-					//CExportToExcel.ExportToExcel(dataGridMaterials.DataContext as DataTable, sfd.FileName, "Materials");
-					//CExportToExcel.ExportToExcel(dataGridCrossSections.DataContext as DataTable, sfd.FileName, "Cross Sections");
-					//CExportToExcel.ExportToExcel(dataGridMemberReleases.DataContext as DataTable, sfd.FileName, "Member Releases");
-					//CExportToExcel.ExportToExcel(dataGridMemberEccentricities.DataContext as DataTable, sfd.FileName, "Member Eccentricities");
-					//CExportToExcel.ExportToExcel(dataGridMemberDivisions.DataContext as DataTable, sfd.FileName, "Members Divisions");
-					//CExportToExcel.ExportToExcel(dataGridNodalSupport.DataContext as DataTable, sfd.FileName, "Nodal Support");
-					//CExportToExcel.ExportToExcel(dataGridMemberElasticFoundations.DataContext as DataTable, sfd.FileName, "Members Elastic Foundations");
-
 				}
 				catch (ArgumentNullException ex)
 				{
@@ -255,7 +248,7 @@ namespace sw_en_GUI
 			}
 		}
 
-		public static void exportData(object obj) 
+		public static void exportData(object obj)
 		{
 			ArrayList args = (ArrayList)obj;
 			CExportToExcel.ExportToExcel(args[0] as DataSet, args[1] as string);
