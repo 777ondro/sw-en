@@ -179,10 +179,11 @@ namespace sw_en_GUI
 		{
 			CModel model = new CModel(fileName);
 			model.m_arrNodes = getNodes(((DataSet)dataGridNodes.DataContext).Tables[0]);
-			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
-			//model.m_arrMat materials are in CENEX project 
+			//model.m_arrMat materials are in CENEX project  Class should be moved to BaseClassess project. 
 			model.m_arrCrSc = getCrossSections(((DataSet)dataGridNodes.DataContext).Tables[2]);
-			//model.m_arrNReleases
+			//model.m_arrNReleases 
+			//member Eccentricities  
+			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
 			model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);
 		}
 
