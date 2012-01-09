@@ -120,7 +120,7 @@ namespace _3DTools
 			set { _transformForPoints = value; }
 		}
         #region Event Handling
-
+		
         /// <summary>
         ///     The FrameworkElement we listen to for mouse events.
         /// </summary>
@@ -130,12 +130,13 @@ namespace _3DTools
 
             set
             {
-                if (_eventSource != null)
+				if (_eventSource != null)
                 {
 					_eventSource.MouseWheel -= this.OnMouseScroll;
                     _eventSource.MouseDown -= this.OnMouseDown;
                     _eventSource.MouseUp -= this.OnMouseUp;
                     _eventSource.MouseMove -= this.OnMouseMove;
+					//_eventSource.KeyDown -= this.OnCtrlKeyDown;
                 }
 
                 _eventSource = value;
@@ -144,6 +145,7 @@ namespace _3DTools
                 _eventSource.MouseDown += this.OnMouseDown;
                 _eventSource.MouseUp += this.OnMouseUp;
                 _eventSource.MouseMove += this.OnMouseMove;
+				_eventSource.KeyDown += this.OnCtrlKeyDown;
             }
         }
 
@@ -159,7 +161,7 @@ namespace _3DTools
         
         private void OnMouseScroll(object sender, MouseWheelEventArgs e)
         {
-			Console.WriteLine(_transform.Value);
+			//Console.WriteLine(_transform.Value);
             Zoom(e.Delta);
         }
 
@@ -175,7 +177,7 @@ namespace _3DTools
             // Prefer tracking to zooming if both buttons are pressed.
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                Console.WriteLine("middle button");
+                //Console.WriteLine("middle button");
                 if (isCtrlDown)
                 {
                     Track(currentPosition);
@@ -193,6 +195,15 @@ namespace _3DTools
 
             _previousPosition2D = currentPosition;
         }
+
+		private void OnCtrlKeyDown(object sender, KeyEventArgs e) 
+		{
+			switch (e.Key)
+			{
+				case Key.LeftCtrl: this.isCtrlDown = e.IsDown; break;
+
+			}
+		}
 
         #endregion Event Handling
 

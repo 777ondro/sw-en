@@ -140,7 +140,7 @@
 			</TreeView>
 
 			<!--This is MDI CONTAINER-->
-			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0" Name="Container">
+			<mdi:MdiContainer Theme="Aero" Grid.Column="2" Grid.Row="0" Name="Container" KeyUp="Container_KeyUp" KeyDown="Container_KeyDown">
 			</mdi:MdiContainer>
 			<Grid Grid.Column="2" Grid.Row="2">
 				<Grid.RowDefinitions>
