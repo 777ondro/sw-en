@@ -22,6 +22,7 @@ using System.Threading;
 using System.Collections;
 using BaseClasses;
 using CRSC;
+using _3DTools;
 
 namespace sw_en_GUI
 {
@@ -30,12 +31,18 @@ namespace sw_en_GUI
 	/// </summary>
 	public partial class WindowMain : Window
 	{
+		List<Trackport3D> list_trackports;
 		public WindowMain()
 		{
 			InitializeComponent();
 			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
+			Window2 win = new Window2();
+			list_trackports = new List<Trackport3D>();
+			list_trackports.Add(win._trackport);
 
-			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
+			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
+
+			
 		}
 
 		/// <summary>
@@ -68,7 +75,11 @@ namespace sw_en_GUI
 
 		private void menuItemNew_Click(object sender, RoutedEventArgs e)
 		{
-			Container.Children.Add(new MdiChild { Content = (UIElement)new Window2().Content, Title = "Window " + (Container.Children.Count + 1) });
+			Window2 win = new Window2();
+			list_trackports.Add(win._trackport);
+
+			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
+			//Container.Children.Add(new MdiChild { Content = (UIElement)new Window1().Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
 		private void menuItemSave_Click(object sender, RoutedEventArgs e)
@@ -413,6 +424,32 @@ namespace sw_en_GUI
 		{
 			WindowPaint p = new WindowPaint();
 			p.ShowDialog();
+		}
+
+		private void Container_KeyUp(object sender, KeyEventArgs e)
+		{
+			switch (e.Key)
+			{
+				case Key.LeftCtrl:
+					foreach (Trackport3D t in list_trackports)
+					{
+						t.Trackball.IsCtrlDown = e.IsDown;
+					}
+					break;
+			}
+		}
+
+		private void Container_KeyDown(object sender, KeyEventArgs e)
+		{
+			switch (e.Key)
+			{
+				case Key.LeftCtrl: 
+					foreach (Trackport3D t in list_trackports) 
+					{
+						t.Trackball.IsCtrlDown = e.IsDown;
+					}
+					break;
+			}
 		}
 
 

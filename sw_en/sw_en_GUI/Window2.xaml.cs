@@ -44,7 +44,7 @@ namespace sw_en_GUI
               int point1, int point2,
               int point3, int point4)
         {
-           // Main numbering is clockwise
+		   // Main numbering is clockwise
 
             // 1  _______  2
             //   |_______| 
@@ -1201,7 +1201,7 @@ namespace sw_en_GUI
 			InitializeComponent();
 
             CTest1 test1 = new CTest1(); // Basic Cross Section Data
-
+			
             // Temp
             // Half Circle Bar
             // Quater Circle Bar
@@ -1442,21 +1442,50 @@ namespace sw_en_GUI
 				new DiffuseMaterial(brush));
 		}
 
-		private void Window_KeyUp(object sender, KeyEventArgs e)
-		{
-			switch (e.Key) 
-			{
-				case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
+		//private void Window_KeyUp(object sender, KeyEventArgs e)
+		//{
+		//    switch (e.Key) 
+		//    {
+		//        case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
 					
-			}
-		}
+		//    }
+		//}
 
-		private void Window_KeyDown(object sender, KeyEventArgs e)
-		{
-			switch (e.Key)
-			{
-				case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
-			}
-		}
+		//private void Window_KeyDown(object sender, KeyEventArgs e)
+		//{
+		//    switch (e.Key)
+		//    {
+		//        case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
+		//    }
+		//}
+
+		//private void Grid_KeyUp(object sender, KeyEventArgs e)
+		//{
+		//    switch (e.Key)
+		//    {
+		//        case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
+		//    }
+		//}
+
+		//private void Grid_KeyDown(object sender, KeyEventArgs e)
+		//{
+		//    switch (e.Key)
+		//    {
+		//        case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
+		//    }
+		//}
+
+		//private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+		//{
+			
+		//}
+
+		//private void _trackport_KeyUp(object sender, KeyEventArgs e)
+		//{
+		//    switch (e.Key)
+		//    {
+		//        case Key.LeftCtrl: _trackport.Trackball.IsCtrlDown = e.IsDown; break;
+		//    }
+		//}
 	}
 }
