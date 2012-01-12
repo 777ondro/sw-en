@@ -5,6 +5,7 @@ using System.Text;
 
 namespace BaseClasses
 {
+	[Serializable]
     // Base class of all topological model entities
     public class CEntity
     {

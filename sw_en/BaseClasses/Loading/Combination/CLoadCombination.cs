@@ -5,23 +5,23 @@ using System.Text;
 
 namespace BaseClasses
 {
-        [Serializable]
-    public class CLoadCombination
-    {
-        //----------------------------------------------------------------------------
-        private int m_iLoadComb_ID;
+	[Serializable]
+	public class CLoadCombination
+	{
+		//----------------------------------------------------------------------------
+		private int m_iLoadComb_ID;
 
-        public int ILoadComb_ID
-        {
-            get { return m_iLoadComb_ID; }
-            set { m_iLoadComb_ID = value; }
-        }
-        //----------------------------------------------------------------------------
-        //----------------------------------------------------------------------------
-        //----------------------------------------------------------------------------
-        public CLoadCombination()
-        { 
-        
-        }
-    }
+		public int ILoadComb_ID
+		{
+			get { return m_iLoadComb_ID; }
+			set { m_iLoadComb_ID = value; }
+		}
+		//----------------------------------------------------------------------------
+		//----------------------------------------------------------------------------
+		//----------------------------------------------------------------------------
+		public CLoadCombination()
+		{
+
+		}
+	}
 }

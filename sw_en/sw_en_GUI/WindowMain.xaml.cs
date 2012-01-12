@@ -31,6 +31,8 @@ namespace sw_en_GUI
 	/// </summary>
 	public partial class WindowMain : Window
 	{
+		private CModel model = null;
+
 		List<Trackport3D> list_trackports;
 		public WindowMain()
 		{
@@ -84,31 +86,37 @@ namespace sw_en_GUI
 
 		private void menuItemSave_Click(object sender, RoutedEventArgs e)
 		{
-			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.DefaultExt = ".cnx";
-			sfd.Filter = "Cenex binary documents (.cnx)|*.cnx";
-			if (sfd.ShowDialog() == true)
+			if (model != null)
 			{
-				try
+				SaveFileDialog sfd = new SaveFileDialog();
+				sfd.DefaultExt = ".cnx";
+				sfd.Filter = "Cenex binary documents (.cnx)|*.cnx";
+				if (sfd.ShowDialog() == true)
 				{
-					string filename = sfd.FileName;
-					CTest2 test2 = new CTest2();
-					FileStream fs = new FileStream(filename, FileMode.Create);
-					// Create a BinaryFormatter object to perform the serialization
-					BinaryFormatter bf = new BinaryFormatter();
-					// Use the BinaryFormatter object to serialize the data to the file
-					bf.Serialize(fs, test2);
-					// Close the file
-					fs.Close();
-				}
-				catch (Exception ex)
-				{
-					if (!EventLog.SourceExists("sw_en"))
+					try
 					{
-						EventLog.CreateEventSource("sw_en", "Application");
+						string filename = sfd.FileName;
+						FileStream fs = new FileStream(filename, FileMode.Create);
+						// Create a BinaryFormatter object to perform the serialization
+						BinaryFormatter bf = new BinaryFormatter();
+						// Use the BinaryFormatter object to serialize the data to the file
+						bf.Serialize(fs, model);
+						// Close the file
+						fs.Close();
 					}
-					EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+					catch (Exception ex)
+					{
+						if (!EventLog.SourceExists("sw_en"))
+						{
+							EventLog.CreateEventSource("sw_en", "Application");
+						}
+						EventLog.WriteEntry("sw_en", ex.Message + Environment.NewLine + ex.StackTrace, EventLogEntryType.Error);
+					}
 				}
+			}
+			else 
+			{
+				MessageBox.Show("Model not initialized. Import data first!!!");
 			}
 		}
 
@@ -126,7 +134,7 @@ namespace sw_en_GUI
 					// Create a BinaryFormatter object to perform the deserialization
 					BinaryFormatter bf = new BinaryFormatter();
 					// Create the object to store the deserialized data
-					CTest2 test2 = (CTest2)bf.Deserialize(fs);
+					model = (CModel)bf.Deserialize(fs);
 					// Close the file
 					fs.Close();
 				}
@@ -188,7 +196,7 @@ namespace sw_en_GUI
 
 		private void initModelObject(string fileName)
 		{
-			CModel model = new CModel(fileName);
+			model = new CModel(fileName);
 			model.m_arrNodes = getNodes(((DataSet)dataGridNodes.DataContext).Tables[0]);
 			//model.m_arrMat materials are in CENEX project  Class should be moved to BaseClassess project. 
 			model.m_arrCrSc = getCrossSections(((DataSet)dataGridNodes.DataContext).Tables[2]);
