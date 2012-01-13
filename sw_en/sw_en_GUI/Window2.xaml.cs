@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
 using CENEX;
 using _3DTools;
+using MATH;
 
 namespace sw_en_GUI
 {
@@ -1299,6 +1300,25 @@ namespace sw_en_GUI
                 // Solid section
                 float[,] res = test1.objCrScSolid.m_CrScPoint; // I,U,Z,HL,L, ..............
 
+
+
+                // !!!!!!!!!!! TEMP
+                // Before we create mesh we have to transform local coordinates LCS or real member edges to the global GCS
+
+                // 
+
+
+
+                // TransformNodeCoord_LCStoGCS();
+
+
+
+
+
+
+
+                //
+
                 // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
 
                 //// I,U,Z,HL, L, ....
@@ -1441,6 +1461,95 @@ namespace sw_en_GUI
 			return new GeometryModel3D(mesh,
 				new DiffuseMaterial(brush));
 		}
+
+        public void TransformNodeCoord_LCStoGCS()
+        {
+            // Returns transformed coordinates of node
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            // TRANSFORMACE SOUŘADNÉHO SYSTÉMU
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // 13.1.2012
+
+            // Right handed system
+
+
+            /* Rovnice transformace souřadnic v prostoru se dá vyjádřit maticovou rovnicí:
+             a + T.x = r kde T je prostorová transformační matice
+             
+            Transformační matice T je složena z jednotlivých rovinných transformačních matic, přitom záleží na pořadí
+            jednotlivých rotací:
+         
+            T = Tyz.Txz.Txy
+            1.rotace: Txy je rovinná transformační matice při natočení kolem osy Z o úhel Chi.
+            2.rotace: Txz je rovinná transformační matice při natočení kolem osy Y o úhel Beta.
+            3.rotace: Tyz je rovinná transformační matice při natočení kolem osy X o úhel Alpha.
+        
+            */
+
+            float fChi, fBeta, fAlpha;
+
+            // FUNKCIE z FEM 3D
+
+            // Ziskat dlzky priemetov pruta do jednotlivych osi
+            // GetGCSLengh(float fCoordStart, float fCoordEnd, float fGCsCoord);
+
+            // Ziskat uhly pootocenia priemetov pruta do rovin GCS okolo osi GCS
+            // public float[,] fTransMatrix(float x_ba, float y_ba, float z_ba, float l, float angle, float[] fCoord_CA);
+
+            // TEMPORARY
+            fChi = 0f;
+            fBeta = 0f;
+            fAlpha = 0f;
+
+
+
+
+
+
+            CVector VMemberStartPointCoordinGCS_a = new CVector(3); // a1,a2,a3
+            CVector VPointCoordinLCS_x = new CVector(3); // x,y,z
+            CVector VPointCoordinGCS_r = new CVector(3); // r,s,t
+
+
+            CMatrix fTxy = new CMatrix(3);
+            CMatrix fTxz = new CMatrix(3);
+            CMatrix fTyz = new CMatrix(3);
+
+                fTxy.m_fArrMembers = new float[3, 3]
+            {
+                {(float)Math.Cos(fChi), - (float)Math.Sin(fChi), 0.0f},
+                {(float)Math.Sin(fChi),   (float)Math.Cos(fChi), 0.0f},
+                {0f, 0f, 1f}
+            };
+
+                fTxz.m_fArrMembers = new float[3, 3]
+            {
+                {(float)Math.Cos(fBeta),0f,  - (float)Math.Sin(fBeta)},
+                {0f, 1f, 0f},
+                {(float)Math.Sin(fChi), 0f,    (float)Math.Cos(fBeta)}
+            };
+
+                fTyz.m_fArrMembers = new float[3, 3]
+            {
+               {1f, 0f, 0f},
+               {0f, (float)Math.Cos(fAlpha),  - (float)Math.Sin(fAlpha)},
+               {0f, (float)Math.Sin(fChi),      (float)Math.Cos(fBeta)}
+            };
+                // Výsledná rovnice transformace souřadnic v prostoru je:
+                CMatrix fT = new CMatrix(3);
+
+                fT.m_fArrMembers = new float[3, 3]
+            {
+               {(float)(Math.Cos(fBeta) * Math.Cos(fChi)), -(float)(Math.Cos(fBeta) * Math.Sin(fChi)), -(float)Math.Sin(fChi)},
+               {(float)(Math.Cos(fAlpha) * Math.Sin(fChi) - Math.Sin(fAlpha) * Math.Sin(fBeta) * Math.Cos(fChi)), (float)(Math.Cos(fAlpha) * Math.Cos(fChi) + Math.Sin(fAlpha) * Math.Sin(fBeta) * Math.Sin(fChi)), -(float)(Math.Sin(fAlpha)*Math.Cos(fBeta))},
+               {(float)(Math.Cos(fAlpha) * Math.Sin(fBeta) * Math.Cos(fChi) + Math.Sin(fAlpha) * Math.Sin(fChi)), (float)(Math.Sin(fAlpha) * Math.Cos(fChi) - Math.Cos(fAlpha) * Math.Sin(fBeta) * Math.Sin(fChi)), (float)(Math.Cos(fAlpha) * Math.Cos(fBeta))}
+            };
+
+            // r = a + T.x
+            VPointCoordinGCS_r = VectorF.fGetSum(VMemberStartPointCoordinGCS_a,VectorF.fMultiplyMatrVectr(fT, VPointCoordinLCS_x));
+        }
 
 		//private void Window_KeyUp(object sender, KeyEventArgs e)
 		//{
