@@ -525,15 +525,6 @@ namespace MATH
 
         }
 
-
-
-
-
-
-
-
-
-
         /*
 
 http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
