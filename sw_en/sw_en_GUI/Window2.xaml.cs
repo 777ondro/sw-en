@@ -1462,6 +1462,10 @@ namespace sw_en_GUI
 				new DiffuseMaterial(brush));
 		}
 
+        // In work
+        public void GetRotationAngles()
+        { }
+
         public void TransformNodeCoord_LCStoGCS()
         {
             // Returns transformed coordinates of node
@@ -1475,7 +1479,17 @@ namespace sw_en_GUI
             // Right handed system
 
 
-            /* Rovnice transformace souřadnic v prostoru se dá vyjádřit maticovou rovnicí:
+            /* 
+
+            1. Vygenerovat suradnice v LCS pre realnu dlzku
+            2. Pootocit okolo GCS osi X,Y,Z
+            3. Posunut cely prut tak aby zaciatocny bod bol v GCS (dostaneme suradnice uzlov prierezu v realnom GCS)
+            4. Vygenerovat plochy povrchu prvku
+            5. Zobrazit prvok
+
+
+
+             * Rovnice transformace souřadnic v prostoru se dá vyjádřit maticovou rovnicí:
              a + T.x = r kde T je prostorová transformační matice
              
             Transformační matice T je složena z jednotlivých rovinných transformačních matic, přitom záleží na pořadí
