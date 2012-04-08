@@ -267,5 +267,10 @@ namespace CRSC
         {
             m_fF_distance = 2* MathF.Sqrt(MathF.Pow2(m_fa_semi) - MathF.Pow2(m_fb_semi));
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

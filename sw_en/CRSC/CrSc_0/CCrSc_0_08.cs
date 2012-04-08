@@ -73,5 +73,10 @@ namespace CRSC
             m_CrScPoint[ITotNoPoints - 1, 0] = 0f;
             m_CrScPoint[ITotNoPoints - 1, 1] = 0f;
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

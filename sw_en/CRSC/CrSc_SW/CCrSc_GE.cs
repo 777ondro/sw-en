@@ -13,8 +13,6 @@ namespace CRSC
         // General Thin-walled Cross-section
         // onlz c/t fields are available
         //----------------------------------------------------------------------------
-        private float m_fh;   // Height of Cross-section / Vyska
-        private float m_fb;   // Width of Cross-section / Sirka
         private float m_ft_max; // Maximum Thickness / Maximalna hrubka elementu
         private float m_ft_min; // Mimimum Thickness  / Minimalna hrubka elementu
         private float[,] m_CrScKeyPoint; // Array of Nodes / y-Coordinate, z-Coordinate, t-Thickness
@@ -25,16 +23,7 @@ namespace CRSC
         public  float[][,] m_CrScPoint; // Array of Points and values for Drawing in 2D
         //----------------------------------------------------------------------------
 
-        public float Fh
-        {
-            get { return m_fh; }
-            set { m_fh = value; }
-        }
-        public float Fb
-        {
-            get { return m_fb; }
-            set { m_fb = value; }
-        }
+        
         public float Ft_max
         {
             get { return m_ft_max; }
@@ -135,5 +124,10 @@ namespace CRSC
 
 
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

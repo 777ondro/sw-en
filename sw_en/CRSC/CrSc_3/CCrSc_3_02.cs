@@ -304,5 +304,10 @@ namespace CRSC
             m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 7, 0] = m_CrScPoint[2, 0];              // y
             m_CrScPoint[iNumberAux + 2 * m_iNumOfArcPoints + 7, 1] = -m_CrScPoint[2, 1];             // z
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -147,5 +147,10 @@ namespace CRSC
             m_CrScPoint[11,0] = m_CrScPoint[0,0];     // y
             m_CrScPoint[11,1] = m_CrScPoint[2,1];     // z
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -2,14 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using MATERIAL;
 using CENEX;
 
 namespace CRSC
 {
     [Serializable]
-    public class CCrSc
+    public abstract class CCrSc
     {
+		private Int32Collection m_TriangleIndices;
+
+		public Int32Collection TriangleIndices
+		{
+			get { return m_TriangleIndices; }
+			set { m_TriangleIndices = value; }
+		}
+		private bool m_bIsShapeSolid;
+
+		public bool IsShapeSolid
+		{
+			get { return m_bIsShapeSolid; }
+			set { m_bIsShapeSolid = value; }
+		}
+		private short m_iTotNoPoints;
+
+		public short ITotNoPoints
+		{
+			get { return m_iTotNoPoints; }
+			set { m_iTotNoPoints = value; }
+		}
+		private float[,] m_CrSCPointOut;
+
+		public float[,] CrSCPointsOut
+		{
+			get { return m_CrSCPointOut; }
+			set { m_CrSCPointOut = value; }
+		}
+		private float[,] m_CrSCPointsIn;
+
+		public float[,] CrSCPointsIn
+		{
+			get { return m_CrSCPointsIn; }
+			set { m_CrSCPointsIn = value; }
+		}
+
         private int m_iCrSc_ID;
 
         public int ICrSc_ID
@@ -118,16 +155,126 @@ namespace CRSC
 
         public CMat_00 m_Mat = new CMat_00();
 
-        // Constructor 1
-        public CCrSc()
-        { 
+		//// Constructor 1
+		//public CCrSc()
+		//{ 
         
-        }
-        // Constructor 2
-        public CCrSc(CMat_00 objMat)
-        {
-            m_Mat = objMat; // !!! Nevytvarat lokalne kopie !!!
-        }
+		//}
+		//// Constructor 2
+		//public CCrSc(CMat_00 objMat)
+		//{
+		//    m_Mat = objMat; // !!! Nevytvarat lokalne kopie !!!
+		//}
 
+
+		// Draw Rectangle / Add rectangle indices - clockwise CW numbering of input points 1,2,3,4 (see scheme)
+		// Add in order 1,2,3,4
+		protected void AddRectangleIndices_CW_1234(Int32Collection Indices,
+			  int point1, int point2,
+			  int point3, int point4)
+		{
+			// Main numbering is clockwise
+
+			// 1  _______  2
+			//   |_______| 
+			// 4           3
+
+			// Triangles Numbering is Counterclockwise
+			// Top Right
+			Indices.Add(point1);
+			Indices.Add(point3);
+			Indices.Add(point2);
+
+			// Bottom Left
+			Indices.Add(point1);
+			Indices.Add(point4);
+			Indices.Add(point3);
+		}
+
+		// Draw Rectangle / Add rectangle indices - countrer-clockwise CCW numbering of input points 1,2,3,4 (see scheme)
+		// Add in order 1,4,3,2
+		protected void AddRectangleIndices_CCW_1234(Int32Collection Indices,
+			  int point1, int point2,
+			  int point3, int point4)
+		{
+			// Main input numbering is clockwise, add indices counter-clockwise
+
+			// 1  _______  2
+			//   |_______| 
+			// 4           3
+
+			// Triangles Numbering is Clockwise
+			// Top Right
+			Indices.Add(point1);
+			Indices.Add(point2);
+			Indices.Add(point3);
+
+			// Bottom Left
+			Indices.Add(point1);
+			Indices.Add(point3);
+			Indices.Add(point4);
+		}
+
+		// Draw Prism CaraLaterals
+		// Kresli plast hranola pre kontinualne pravidelne cislovanie bodov
+		protected void DrawCaraLaterals(int secNum, Int32Collection TriangelsIndices)
+		{
+			// secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy
+
+			// Shell (Face)Surface
+			// Cycle for regular numbering of section points
+
+			for (int i = 0; i < secNum; i++)
+			{
+				if (i < secNum - 1)
+					AddRectangleIndices_CW_1234(TriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
+				else
+					AddRectangleIndices_CW_1234(TriangelsIndices, i, secNum + i, secNum, 0); // Last Element
+			}
+		}
+
+		// Draw Prism CaraLaterals
+		// Kresli plast hranola pre pravidelne cislovanie bodov s vynechanim pociatocnych uzlov - pomocne 
+		protected void DrawCaraLaterals(int iAuxNum, int secNum, Int32Collection TriangelsIndices)
+		{
+			// iAuxNum - number of auxiliary points - start ofset
+			// secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy (tento pocet neobsahuje pomocne body iAuxNum)
+
+			// Shell (Face)Surface
+			// Cycle for regular numbering of section points
+
+			for (int i = 0; i < secNum; i++)
+			{
+				if (i < secNum - 1)
+					AddRectangleIndices_CW_1234(TriangelsIndices, iAuxNum + i, 2 * iAuxNum + secNum + i, 2 * iAuxNum + secNum + i + 1, iAuxNum + i + 1);
+				else
+					AddRectangleIndices_CW_1234(TriangelsIndices, iAuxNum + i, 2 * iAuxNum + secNum + i, 2 * iAuxNum + secNum, iAuxNum + 0); // Last Element
+			}
+		}
+
+		// Draw Sector of Solid Circle
+		// Kresli vyrez kruhu,
+		// Parametre:
+		// pocet pomocnych uzlov;  ID stredu vyrezu; ID  prvy bod obluka; pocet segmentov (trojuholnikov); kolekcia, do ktorej sa zapisuju trojice, vzostupne cislovanie CW
+		protected void AddSolidCircleSectorIndices(int iCentrePointID, int iArcFirstPointID, int iRadiusSegment, Int32Collection TriangelsIndices, bool bAscendingNumCW)
+		{
+			for (int i = 0; i < iRadiusSegment; i++)
+			{
+				TriangelsIndices.Add(iCentrePointID); // Centre point
+				if (!bAscendingNumCW) // Clock-wise
+				{
+					TriangelsIndices.Add(iArcFirstPointID + 1 + i);
+					TriangelsIndices.Add(iArcFirstPointID + i);
+				}
+				else // Counter Clock-wise
+				{
+					TriangelsIndices.Add(iArcFirstPointID + i);
+					TriangelsIndices.Add(iArcFirstPointID + 1 + i);
+				}
+			}
+		}
+
+
+		 protected abstract void loadCrScIndices();
     }
 }

@@ -174,5 +174,10 @@ namespace CRSC
             //?????  
             m_fA_v_pl = m_ff_v_plel * m_fA_v_el;
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

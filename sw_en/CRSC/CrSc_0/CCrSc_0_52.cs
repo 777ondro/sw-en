@@ -481,5 +481,10 @@ namespace CRSC
         //{
         //    m_fW_t_pl = (m_fh - m_ft_f) * MathF.Pow2(m_ft_w) / 2.0f + (m_fb - m_ft_w / 2.0f)* MathF.Pow2(m_ft_f);  
         //}
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

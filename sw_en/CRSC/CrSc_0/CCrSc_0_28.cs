@@ -128,7 +128,12 @@ namespace CRSC
             // Inside Points
             m_CrScPointIn = Geom2D.GetOctagonPointCoord(m_fa_in);
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
 
 

@@ -240,5 +240,10 @@ namespace CRSC
         {
             m_fA_z_v_pl = m_ff_z_v_plel * m_fA_z_v_el; // Temp
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
