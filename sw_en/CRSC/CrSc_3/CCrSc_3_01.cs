@@ -187,7 +187,7 @@ namespace CRSC
             m_fd = m_fh - 2.0f * m_fr_1 - 2.0f * (m_ft_f_1 - ft_f_1_tip) - ft_f_1_tip - 2.0f * (m_ft_f_2 - ft_f_2_tip) - ft_f_2_tip; 
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+			m_CrScPoint = new float[m_iTotNoPoints, 2];
             // Fill Array Data
 
             // 2 - Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
