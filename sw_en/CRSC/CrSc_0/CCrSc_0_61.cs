@@ -134,5 +134,10 @@ namespace CRSC
             m_CrScPoint[8, 0] = Geom2D.GetPositionX(fr, 210f - fAlpha_Aux);    // y
             m_CrScPoint[8, 1] = Geom2D.GetPositionY_CW(fr, 210f - fAlpha_Aux);    // z
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

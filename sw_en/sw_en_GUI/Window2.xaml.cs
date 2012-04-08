@@ -14,6 +14,7 @@ using System.Windows.Media.Media3D;
 using CENEX;
 using _3DTools;
 using MATH;
+using CRSC;
 
 namespace sw_en_GUI
 {
@@ -32,123 +33,12 @@ namespace sw_en_GUI
 
 		// Shape Type
 		// Auxiliary identification of shape
-		short sShapeType = 0; // 0 - solid, 1 - hollow
-
-		// Collection of Indices for Various Sections
-		private Int32Collection M_TriangelsIndices;
+		
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Auxiliary Functions
-		// Draw Rectangle / Add rectangle indices - clockwise CW numbering of input points 1,2,3,4 (see scheme)
-		// Add in order 1,2,3,4
-		private void AddRectangleIndices_CW_1234(Int32Collection Indices,
-			  int point1, int point2,
-			  int point3, int point4)
-		{
-			// Main numbering is clockwise
-
-			// 1  _______  2
-			//   |_______| 
-			// 4           3
-
-			// Triangles Numbering is Counterclockwise
-			// Top Right
-			Indices.Add(point1);
-			Indices.Add(point3);
-			Indices.Add(point2);
-
-			// Bottom Left
-			Indices.Add(point1);
-			Indices.Add(point4);
-			Indices.Add(point3);
-		}
-
-		// Draw Rectangle / Add rectangle indices - countrer-clockwise CCW numbering of input points 1,2,3,4 (see scheme)
-		// Add in order 1,4,3,2
-		private void AddRectangleIndices_CCW_1234(Int32Collection Indices,
-			  int point1, int point2,
-			  int point3, int point4)
-		{
-			// Main input numbering is clockwise, add indices counter-clockwise
-
-			// 1  _______  2
-			//   |_______| 
-			// 4           3
-
-			// Triangles Numbering is Clockwise
-			// Top Right
-			Indices.Add(point1);
-			Indices.Add(point2);
-			Indices.Add(point3);
-
-			// Bottom Left
-			Indices.Add(point1);
-			Indices.Add(point3);
-			Indices.Add(point4);
-		}
-
-		// Draw Prism CaraLaterals
-		// Kresli plast hranola pre kontinualne pravidelne cislovanie bodov
-		private void DrawCaraLaterals(int secNum, Int32Collection TriangelsIndices)
-		{
-			// secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy
-
-			// Shell (Face)Surface
-			// Cycle for regular numbering of section points
-
-			for (int i = 0; i < secNum; i++)
-			{
-				if (i < secNum - 1)
-					AddRectangleIndices_CW_1234(TriangelsIndices, i, secNum + i, secNum + i + 1, i + 1);
-				else
-					AddRectangleIndices_CW_1234(TriangelsIndices, i, secNum + i, secNum, 0); // Last Element
-			}
-		}
-
-		// Draw Prism CaraLaterals
-		// Kresli plast hranola pre pravidelne cislovanie bodov s vynechanim pociatocnych uzlov - pomocne 
-		private void DrawCaraLaterals(int iAuxNum, int secNum, Int32Collection TriangelsIndices)
-		{
-			// iAuxNum - number of auxiliary points - start ofset
-			// secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy (tento pocet neobsahuje pomocne body iAuxNum)
-
-			// Shell (Face)Surface
-			// Cycle for regular numbering of section points
-
-			for (int i = 0; i < secNum; i++)
-			{
-				if (i < secNum - 1)
-					AddRectangleIndices_CW_1234(TriangelsIndices, iAuxNum + i, 2 * iAuxNum + secNum + i, 2 * iAuxNum + secNum + i + 1, iAuxNum + i + 1);
-				else
-					AddRectangleIndices_CW_1234(TriangelsIndices, iAuxNum + i, 2 * iAuxNum + secNum + i, 2 * iAuxNum + secNum, iAuxNum + 0); // Last Element
-			}
-		}
-
-		// Draw Sector of Solid Circle
-		// Kresli vyrez kruhu,
-		// Parametre:
-		// pocet pomocnych uzlov;  ID stredu vyrezu; ID  prvy bod obluka; pocet segmentov (trojuholnikov); kolekcia, do ktorej sa zapisuju trojice, vzostupne cislovanie CW
-		private void AddSolidCircleSectorIndices(int iCentrePointID, int iArcFirstPointID, int iRadiusSegment, Int32Collection TriangelsIndices, bool bAscendingNumCW)
-		{
-			for (int i = 0; i < iRadiusSegment; i++)
-			{
-				TriangelsIndices.Add(iCentrePointID); // Centre point
-				if (!bAscendingNumCW) // Clock-wise
-				{
-					TriangelsIndices.Add(iArcFirstPointID + 1 + i);
-					TriangelsIndices.Add(iArcFirstPointID + i);
-				}
-				else // Counter Clock-wise
-				{
-					TriangelsIndices.Add(iArcFirstPointID + i);
-					TriangelsIndices.Add(iArcFirstPointID + 1 + i);
-				}
-			}
-		}
-
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		#region zakomentovat
+		/*
+		 
 		private void load_0_00_01_TriangelsIndices()
 		{
 			const int secNum = 20;  // Number of points in section (2D)
@@ -575,619 +465,427 @@ namespace sw_en_GUI
 			// Shell
 			DrawCaraLaterals(9, M_TriangelsIndices);
 		}
+		*/
+		#endregion
 
-		private void load_3_00_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
-		{
-			// const int secNum = iAux + iRadiusPoints * 8;  // Number of points in section (2D)
-			int iRadiusPoints = iRadiusSegment + 1;
-
-			M_TriangelsIndices = new Int32Collection();
-
-			if (sShape == 0)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 7 + 7 * iRadiusSegment, iAux + 8 + 7 * iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + 2 + iRadiusSegment, iAux + 7 + 7 * iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, 10, 11);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 7, iAux + 3 + 3 * iRadiusSegment, iAux + 4 + 3 * iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 7, 8, iAux + 6 + 5 * iRadiusSegment, iAux + 3 + 3 * iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 8, 9, iAux + 5 + 5 * iRadiusSegment, iAux + 6 + 5 * iRadiusSegment);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(4, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(5, iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(6, iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 5th SolidCircleSector
-				AddSolidCircleSectorIndices(9, iAux + 1 + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 6th SolidCircleSector
-				AddSolidCircleSectorIndices(10, iAux + 1 + 5 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 7th SolidCircleSector
-				AddSolidCircleSectorIndices(11, iAux + 1 + 6 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 8th SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 1 + 7 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(0); // 1st Point
-				M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
-				M_TriangelsIndices.Add(iAux + 8 * iRadiusPoints - 1); // Last Point
-
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 8 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 8 + 7 * iRadiusSegment, iPointNumbersOffset + iAux + 7 + 7 * iRadiusSegment, iPointNumbersOffset + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 7 + 7 * iRadiusSegment, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 3);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 11, iPointNumbersOffset + 10, iPointNumbersOffset + 5);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 4 + 3 * iRadiusSegment, iPointNumbersOffset + iAux + 3 + 3 * iRadiusSegment, iPointNumbersOffset + 7);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 7, iPointNumbersOffset + iAux + 3 + 3 * iRadiusSegment, iPointNumbersOffset + iAux + 6 + 5 * iRadiusSegment, iPointNumbersOffset + 8);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 8, iPointNumbersOffset + iAux + 6 + 5 * iRadiusSegment, iPointNumbersOffset + iAux + 5 + 5 * iRadiusSegment, iPointNumbersOffset + 9);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 5th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 9, iPointNumbersOffset + iAux + 1 + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 6th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 10, iPointNumbersOffset + iAux + 1 + 5 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 7th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 11, iPointNumbersOffset + iAux + 1 + 6 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 8th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 1 + 7 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 8 * iRadiusPoints - 1); // Last Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
-
-
-				// Shell
-				DrawCaraLaterals(iAux, 8 * iRadiusPoints, M_TriangelsIndices);
-			}
-			else if (sShape == 1)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 4 + 3 * iRadiusPoints, iAux + 5 + 3 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + iRadiusPoints + 1, iAux + 4 + 3 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + iRadiusPoints, iAux + 1 + iRadiusPoints);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 4 + 3 * iRadiusPoints, iAux + 1 + iRadiusPoints, iAux + 2 + iRadiusPoints, iAux + 3 + 3 * iRadiusPoints);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, iAux + 2 + iRadiusPoints, iAux + 3 + iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 5, 6, iAux + 3 + 3 * iRadiusPoints, iAux + 2 + iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 7, iAux + 2 + 3 * iRadiusPoints, iAux + 3 + 3 * iRadiusPoints);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(4, iAux + 3 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(7, iAux + 3 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 5 + 3 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(0); // 1st Point
-				M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
-				M_TriangelsIndices.Add(iAux + 4 * iRadiusPoints + 3); // Last Point
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 4 * iRadiusPoints + 4; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 4 + 3 * iRadiusPoints, iPointNumbersOffset + iAux + 5 + 3 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + iRadiusPoints + 1, iPointNumbersOffset + iAux + 4 + 3 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + iRadiusPoints, iPointNumbersOffset + iAux + 1 + iRadiusPoints);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 4 + 3 * iRadiusPoints, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iPointNumbersOffset + iAux + 2 + iRadiusPoints, iPointNumbersOffset + iAux + 3 + 3 * iRadiusPoints);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 2 + iRadiusPoints, iPointNumbersOffset + iAux + 3 + iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 5, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 3 + 3 * iRadiusPoints, iPointNumbersOffset + iAux + 2 + iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 6, iPointNumbersOffset + 7, iPointNumbersOffset + iAux + 2 + 3 * iRadiusPoints, iPointNumbersOffset + iAux + 3 + 3 * iRadiusPoints);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 3 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 7, iPointNumbersOffset + iAux + 3 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 5 + 3 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + 4 * iRadiusPoints + 2 * 4 + 3); // Last Point 
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
-
-				// Shell
-				DrawCaraLaterals(iAux, 4 * iRadiusPoints + 4, M_TriangelsIndices);
-			}
-			else if (sShape == 2)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, iAux + 10 + 4 * iRadiusPoints, iAux + 11 + 4 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 5, 6, iAux + 5, iAux + 10 + 4 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 7, 8, 9);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 3);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 4 + 2 * iRadiusPoints, iAux + 5 + 2 * iRadiusPoints, iAux + 6 + 2 * iRadiusPoints, iAux + 7 + 2 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 11 + 2 * iRadiusPoints, iAux + 4 + 2 * iRadiusPoints, iAux + 7 + 2 * iRadiusPoints, iAux + 8 + 2 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 8 + 2 * iRadiusPoints, iAux + 9 + 2 * iRadiusPoints, iAux + 10 + 2 * iRadiusPoints, iAux + 11 + 2 * iRadiusPoints);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(1, iAux + 5, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(2, iAux + 5 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 11 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 11 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 4 * iRadiusPoints + 6 + 6; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 10 + 4 * iRadiusPoints, iPointNumbersOffset + iAux + 11 + 4 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 5, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 5, iPointNumbersOffset + iAux + 10 + 4 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 6, iPointNumbersOffset + 7, iPointNumbersOffset + 8, iPointNumbersOffset + 9);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + 3);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 4 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 5 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 6 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 7 + 2 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 11 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 4 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 7 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 8 + 2 * iRadiusPoints);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 8 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 9 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 10 + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 11 + 2 * iRadiusPoints);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 5 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 11 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 11 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-				// Shell
-				DrawCaraLaterals(iAux, 4 * iRadiusPoints + 6 + 6, M_TriangelsIndices);
-			}
-			else { } // Exception
-		}
-
-		private void load_3_02_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
-		{
-			// const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
-			int iRadiusPoints = iRadiusSegment + 1;
-
-			M_TriangelsIndices = new Int32Collection();
-
-			if (sShape == 0)
-			{
-				// Front Side / Forehead
-				// Points order 1,2,3,4
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + 2 + iRadiusSegment, 2, 6);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 2 + 4 * iRadiusPoints - 1, 6);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, iAux + 3 * iRadiusPoints, 5, iAux + 1 + 4 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 3 * iRadiusPoints, iAux + 3 * iRadiusPoints + 1, 4, 5);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(1, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(2, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(4, iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-				// Back Side
-				// Points order 1,4,3,2
-
-				int iPointNumbersOffset = iAux + 2 + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 6, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 2 + 4 * iRadiusPoints - 1, iPointNumbersOffset + 3);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 4 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 3 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 1);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-				// Shell
-				DrawCaraLaterals(iAux, 2 + 4 * iRadiusPoints, M_TriangelsIndices);
-			}
-			else if (sShape == 1)
-			{
-				// Not implemented
-			}
-			else if (sShape == 2)
-			{
-				// Front Side / Forehead
-				// Points order 1,2,3,4
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 2, 3, 6);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 4, 5, 6);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 7 + 2 * iRadiusPoints, 2);
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints + 6, iAux + 2 * iRadiusPoints + 7);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints + 4, iAux + 2 * iRadiusPoints + 5, iAux + 2 * iRadiusPoints + 6);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 4, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(1, iAux + 4 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-				// Back Side
-				// Points order 1,4,3,2
-
-				int iPointNumbersOffset = iAux + 8 + 2 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + 6);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + 6);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 7 + 2 * iRadiusPoints, iPointNumbersOffset + 2);
-
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 7);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 5, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 4, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 4 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-				// Shell
-				DrawCaraLaterals(iAux, 8 + 2 * iRadiusPoints, M_TriangelsIndices);
-			}
-			else // Exception
-			{
-
-			}
-		}
-
-		private void load_3_03_04_TriangelIndices(int iAux, int iRadiusSegment)
-		{
-			// const int secNum = iAux + iRadiusPoints * 3 + 1;  // Number of points in section (2D)
-			int iRadiusPoints = iRadiusSegment + 1;
-
-			M_TriangelsIndices = new Int32Collection();
-
-			// Front Side / Forehead
-			// Points order 1,2,3,4
-
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + iRadiusSegment, 1, iAux + 3 * iRadiusPoints);
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints, 2, iAux + 3 * iRadiusPoints);
-
-			// Arc sectors
-			// 1st SolidCircleSector
-			AddSolidCircleSectorIndices(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
-			// 2nd SolidCircleSector
-			AddSolidCircleSectorIndices(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-			// 3rd SolidCircleSector
-			AddSolidCircleSectorIndices(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-			// Back Side
-			// Points order 1,4,3,2
-
-			int iPointNumbersOffset = iAux + 1 + 3 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusSegment);
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
-
-			// Arc sectors
-			// 1st SolidCircleSector
-			AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
-			// 2nd SolidCircleSector
-			AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-			// 3rd SolidCircleSector
-			AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-			// Shell
-			DrawCaraLaterals(iAux, 1 + 3 * iRadiusPoints, M_TriangelsIndices);
-		}
-
-		private void load_3_07_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
-		{
-			int secNum = 4 * (iRadiusSegment + 1); // Number of points to draw in one section inside or outside surface
-
-			if (sShape == 0 || sShape == 1 || sShape == 2)
-				load_0_26_28_TriangelIndices(iAux, secNum);
-			else if (sShape == 3)
-			{
-				// const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
-				int iRadiusPoints = iRadiusSegment + 1;
-
-				M_TriangelsIndices = new Int32Collection();
-
-				// Front Side / Forehead
-				// Points order 1,2,3,4
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + iRadiusSegment, iAux + 1 + iRadiusSegment, 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusSegment + 1, iAux + 2 * iRadiusSegment + 2, 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 2, iAux + 3 * iRadiusSegment + 2, iAux + 3 * iRadiusSegment + 3);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux, 0, 3, iAux + 4 * iRadiusSegment + 3);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-				// Back Side
-				// Points order 1,4,3,2
-
-				int iPointNumbersOffset = iAux + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + iAux + iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 2, iPointNumbersOffset + 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux, iPointNumbersOffset + iAux + 4 * iRadiusSegment + 3, iPointNumbersOffset + 3, iPointNumbersOffset + 0);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-				// Shell - outside
-				DrawCaraLaterals(iAux, 4 * iRadiusPoints, M_TriangelsIndices);
-				// Shell - inside
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iPointNumbersOffset + 0, iPointNumbersOffset + 3, 3);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iPointNumbersOffset + 1, iPointNumbersOffset + 0, 0);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, iPointNumbersOffset + 2, iPointNumbersOffset + 1, 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, iPointNumbersOffset + 3, iPointNumbersOffset + 2, 2);
-			}
-			else if (sShape == 4)
-			{
-
-			}
-			else
-				load_0_25_TriangelIndices();
-		}
-
-		private void load_3_08_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
-		{
-			int iRadiusPoints = iRadiusSegment + 1;
-
-			M_TriangelsIndices = new Int32Collection();
-
-			if (sShape == 0) // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxiliary points)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 5 * iRadiusPoints - 1, iAux + 5 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + 2 + iRadiusSegment, iAux + 5 * iRadiusPoints - 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 4, iAux + 2 * iRadiusPoints, iAux + 4 * iRadiusPoints);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 4 * iRadiusPoints, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 1, iAux + 4 * iRadiusPoints - 1);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(4, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(5, iAux + 1 + 2 * iRadiusPoints, 2 * iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(6, iAux + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 5th SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 5 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(0); // 1st Point
-				M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
-				M_TriangelsIndices.Add(iAux + 6 * iRadiusPoints - 2); // Last Point
-
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 6 * iRadiusPoints - 1; // Number of nodes per section - Nodes offset
-
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 5 * iRadiusPoints, iPointNumbersOffset + iAux + 5 * iRadiusPoints - 1, iPointNumbersOffset + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5 * iRadiusPoints - 1, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 3);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + 4);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iPointNumbersOffset + iAux + 4 * iRadiusPoints - 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, 2 * iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 5th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 5 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 6 * iRadiusPoints - 2); // Last Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
-
-
-				// Shell
-				DrawCaraLaterals(iAux, 6 * iRadiusPoints - 1, M_TriangelsIndices);
-			}
-			else if (sShape == 1) // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxiliary points)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 3 * iRadiusPoints + 2, iAux + 3 * iRadiusPoints + 3);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + 1 * iRadiusPoints + 1, iAux + 3 * iRadiusPoints + 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 1 * iRadiusPoints, iAux + 1 * iRadiusPoints + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 5, 4, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 3);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 1, iAux + 2 * iRadiusPoints + 2);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(4, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(5, iAux + 2 * iRadiusPoints + 3, iRadiusSegment, M_TriangelsIndices, false);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 3 * iRadiusPoints + 3, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(0); // 1st Point
-				M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
-				M_TriangelsIndices.Add(iAux + 4 * iRadiusPoints + 1); // Last Point
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 4 * iRadiusPoints + 2; // Number of nodes per section - Nodes offset
-
-				// Changed orientation of triangles
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 2, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 3);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 1 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 2);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 * iRadiusPoints, iPointNumbersOffset + iAux + 1 * iRadiusPoints + 1);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 5, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-				// 3rd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iRadiusSegment, M_TriangelsIndices, true);
-				// 4th SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 3, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 4 * iRadiusPoints + 1); // Last Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
-
-				// Shell
-				DrawCaraLaterals(iAux, 4 * iRadiusPoints + 2, M_TriangelsIndices);
-			}
-			else if (sShape == 2) // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxiliary points)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + iRadiusPoints + 1, iAux + iRadiusPoints + 4);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + iRadiusPoints + 0, iAux + iRadiusPoints + 1);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 1, iAux + iRadiusPoints + 2, iAux + iRadiusPoints + 3);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + iRadiusPoints + 5, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(0); // 1st Point
-				M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
-				M_TriangelsIndices.Add(iAux + 2 * iRadiusPoints + 3); // Last Point
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 4; // Number of nodes per section - Nodes offset
-
-				// Changed orientation of triangles
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 5);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + iRadiusPoints + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + iRadiusPoints + 0, iPointNumbersOffset + iAux + iRadiusPoints + 1);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 1, iPointNumbersOffset + iAux + iRadiusPoints + 2, iPointNumbersOffset + iAux + iRadiusPoints + 3);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + iRadiusPoints + 5, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
-
-				// Last Triangle 
-				M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3); // Last Point
-				M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
-
-				// Shell
-				DrawCaraLaterals(iAux, 2 * iRadiusPoints + 4, M_TriangelsIndices);
-			}
-			else if (sShape == 3) // 3 - Two radii at flanges roots, tapered or parallel flanges, optional tapered web (2 auxiliary points)
-			{
-				// Front Side / Forehead
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 2 * iRadiusPoints + 6, iAux + 2 * iRadiusPoints + 7);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 4, iAux + iRadiusPoints, iAux + 2 * iRadiusPoints + 6);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, 6, 7);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + 2 * iRadiusPoints + 2);
-				AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 2, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5, iAux + iRadiusPoints + 6);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(1, iAux + 5, iRadiusSegment, M_TriangelsIndices, false);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(0, iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, false);
-
-				// Back Side 
-
-				int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 8; // Number of nodes per section - Nodes offset
-
-				// Changed orientation of triangles
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 7);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + 6, iPointNumbersOffset + 7);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2);
-				AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 5, iPointNumbersOffset + iAux + iRadiusPoints + 6);
-
-				// Arc sectors
-				// 1st SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5, iRadiusSegment, M_TriangelsIndices, true);
-				// 2nd SolidCircleSector
-				AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, true);
-
-				// Shell
-				DrawCaraLaterals(iAux, 2 * iRadiusPoints + 8, M_TriangelsIndices);
-			}
-			else //Exception
-			{ }
-		}
+	
 
+		#region zakomentovat
+
+		//private void load_3_02_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
+		//{
+		//    // const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
+		//    int iRadiusPoints = iRadiusSegment + 1;
+
+		//    M_TriangelsIndices = new Int32Collection();
+
+		//    if (sShape == 0)
+		//    {
+		//        // Front Side / Forehead
+		//        // Points order 1,2,3,4
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + 2 + iRadiusSegment, 2, 6);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 2 + 4 * iRadiusPoints - 1, 6);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, iAux + 3 * iRadiusPoints, 5, iAux + 1 + 4 * iRadiusPoints);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 3 * iRadiusPoints, iAux + 3 * iRadiusPoints + 1, 4, 5);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(1, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(2, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(3, iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(4, iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+		//        // Back Side
+		//        // Points order 1,4,3,2
+
+		//        int iPointNumbersOffset = iAux + 2 + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 6, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 2 + 4 * iRadiusPoints - 1, iPointNumbersOffset + 3);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 4 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 3 * iRadiusPoints);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 5, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 1);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 2 + 4 * iRadiusPoints, M_TriangelsIndices);
+		//    }
+		//    else if (sShape == 1)
+		//    {
+		//        // Not implemented
+		//    }
+		//    else if (sShape == 2)
+		//    {
+		//        // Front Side / Forehead
+		//        // Points order 1,2,3,4
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 2, 3, 6);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 4, 5, 6);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 7 + 2 * iRadiusPoints, 2);
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints + 6, iAux + 2 * iRadiusPoints + 7);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints + 4, iAux + 2 * iRadiusPoints + 5, iAux + 2 * iRadiusPoints + 6);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux + 4, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(1, iAux + 4 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+		//        // Back Side
+		//        // Points order 1,4,3,2
+
+		//        int iPointNumbersOffset = iAux + 8 + 2 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + 6);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + 6);
+
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 7 + 2 * iRadiusPoints, iPointNumbersOffset + 2);
+
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 7);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 5, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 4, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 4 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 8 + 2 * iRadiusPoints, M_TriangelsIndices);
+		//    }
+		//    else // Exception
+		//    {
+
+		//    }
+		//}
+
+		//private void load_3_03_04_TriangelIndices(int iAux, int iRadiusSegment)
+		//{
+		//    // const int secNum = iAux + iRadiusPoints * 3 + 1;  // Number of points in section (2D)
+		//    int iRadiusPoints = iRadiusSegment + 1;
+
+		//    M_TriangelsIndices = new Int32Collection();
+
+		//    // Front Side / Forehead
+		//    // Points order 1,2,3,4
+
+		//    AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + iRadiusSegment, 1, iAux + 3 * iRadiusPoints);
+		//    AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints, 2, iAux + 3 * iRadiusPoints);
+
+		//    // Arc sectors
+		//    // 1st SolidCircleSector
+		//    AddSolidCircleSectorIndices(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
+		//    // 2nd SolidCircleSector
+		//    AddSolidCircleSectorIndices(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//    // 3rd SolidCircleSector
+		//    AddSolidCircleSectorIndices(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+		//    // Back Side
+		//    // Points order 1,4,3,2
+
+		//    int iPointNumbersOffset = iAux + 1 + 3 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+		//    AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusSegment);
+		//    AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
+
+		//    // Arc sectors
+		//    // 1st SolidCircleSector
+		//    AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
+		//    // 2nd SolidCircleSector
+		//    AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//    // 3rd SolidCircleSector
+		//    AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+		//    // Shell
+		//    DrawCaraLaterals(iAux, 1 + 3 * iRadiusPoints, M_TriangelsIndices);
+		//}
+
+		//private void load_3_07_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
+		//{
+		//    int secNum = 4 * (iRadiusSegment + 1); // Number of points to draw in one section inside or outside surface
+
+		//    if (sShape == 0 || sShape == 1 || sShape == 2)
+		//        load_0_26_28_TriangelIndices(iAux, secNum);
+		//    else if (sShape == 3)
+		//    {
+		//        // const int secNum = iAux + iRadiusPoints * 4;  // Number of points in section (2D)
+		//        int iRadiusPoints = iRadiusSegment + 1;
+
+		//        M_TriangelsIndices = new Int32Collection();
+
+		//        // Front Side / Forehead
+		//        // Points order 1,2,3,4
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + iRadiusSegment, iAux + 1 + iRadiusSegment, 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusSegment + 1, iAux + 2 * iRadiusSegment + 2, 2);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 2, iAux + 3 * iRadiusSegment + 2, iAux + 3 * iRadiusSegment + 3);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux, 0, 3, iAux + 4 * iRadiusSegment + 3);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(3, iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+
+		//        // Back Side
+		//        // Points order 1,4,3,2
+
+		//        int iPointNumbersOffset = iAux + 4 * iRadiusPoints; // Number of nodes per section - Nodes offset
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + iAux + iRadiusSegment);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 2, iPointNumbersOffset + iAux + 2 * iRadiusSegment + 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 3, iPointNumbersOffset + iAux + 3 * iRadiusSegment + 2, iPointNumbersOffset + 2);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux, iPointNumbersOffset + iAux + 4 * iRadiusSegment + 3, iPointNumbersOffset + 3, iPointNumbersOffset + 0);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+
+		//        // Shell - outside
+		//        DrawCaraLaterals(iAux, 4 * iRadiusPoints, M_TriangelsIndices);
+		//        // Shell - inside
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iPointNumbersOffset + 0, iPointNumbersOffset + 3, 3);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iPointNumbersOffset + 1, iPointNumbersOffset + 0, 0);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, iPointNumbersOffset + 2, iPointNumbersOffset + 1, 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, iPointNumbersOffset + 3, iPointNumbersOffset + 2, 2);
+		//    }
+		//    else if (sShape == 4)
+		//    {
+
+		//    }
+		//    else
+		//        load_0_25_TriangelIndices();
+		//}
+
+		//private void load_3_08_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
+		//{
+		//    int iRadiusPoints = iRadiusSegment + 1;
+
+		//    M_TriangelsIndices = new Int32Collection();
+
+		//    if (sShape == 0) // 0 - Five radii, tapered flanges, optional tapered web (5+2 auxiliary points)
+		//    {
+		//        // Front Side / Forehead
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 5 * iRadiusPoints - 1, iAux + 5 * iRadiusPoints);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + 2 + iRadiusSegment, iAux + 5 * iRadiusPoints - 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 1 + iRadiusSegment, iAux + 2 + iRadiusSegment);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 4, iAux + 2 * iRadiusPoints, iAux + 4 * iRadiusPoints);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 4 * iRadiusPoints, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 1, iAux + 4 * iRadiusPoints - 1);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(4, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(5, iAux + 1 + 2 * iRadiusPoints, 2 * iRadiusSegment, M_TriangelsIndices, false);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(6, iAux + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 5th SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux + 5 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(0); // 1st Point
+		//        M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
+		//        M_TriangelsIndices.Add(iAux + 6 * iRadiusPoints - 2); // Last Point
+
+
+		//        // Back Side 
+
+		//        int iPointNumbersOffset = iAux + 6 * iRadiusPoints - 1; // Number of nodes per section - Nodes offset
+
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 5 * iRadiusPoints, iPointNumbersOffset + iAux + 5 * iRadiusPoints - 1, iPointNumbersOffset + 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5 * iRadiusPoints - 1, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + 2);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iRadiusSegment, iPointNumbersOffset + iAux + 1 + iRadiusSegment, iPointNumbersOffset + 3);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + 4);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iPointNumbersOffset + iAux + 4 * iRadiusPoints - 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 1 + 2 * iRadiusPoints, 2 * iRadiusSegment, M_TriangelsIndices, true);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 6, iPointNumbersOffset + iAux + 4 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 5th SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 5 * iRadiusPoints, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 6 * iRadiusPoints - 2); // Last Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
+
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 6 * iRadiusPoints - 1, M_TriangelsIndices);
+		//    }
+		//    else if (sShape == 1) // 1 - Four radii, tapered or parallel flanges, optional tapered web (4+2 auxiliary points)
+		//    {
+		//        // Front Side / Forehead
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + 3 * iRadiusPoints + 2, iAux + 3 * iRadiusPoints + 3);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + 1 * iRadiusPoints + 1, iAux + 3 * iRadiusPoints + 2);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 1 * iRadiusPoints, iAux + 1 * iRadiusPoints + 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 5, 4, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 3);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 3, iAux + 2 * iRadiusPoints, iAux + 2 * iRadiusPoints + 1, iAux + 2 * iRadiusPoints + 2);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(4, iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(5, iAux + 2 * iRadiusPoints + 3, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux + 3 * iRadiusPoints + 3, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(0); // 1st Point
+		//        M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
+		//        M_TriangelsIndices.Add(iAux + 4 * iRadiusPoints + 1); // Last Point
+
+		//        // Back Side 
+
+		//        int iPointNumbersOffset = iAux + 4 * iRadiusPoints + 2; // Number of nodes per section - Nodes offset
+
+		//        // Changed orientation of triangles
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 2, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 3);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 1 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 2);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1 * iRadiusPoints, iPointNumbersOffset + iAux + 1 * iRadiusPoints + 1);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 5, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 1, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 4, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 3rd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 4th SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints + 3, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 4 * iRadiusPoints + 1); // Last Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 4 * iRadiusPoints + 2, M_TriangelsIndices);
+		//    }
+		//    else if (sShape == 2) // 2 - Two radii at flanges tips, tapered or parallel flanges, optional tapered web (4 auxiliary points)
+		//    {
+		//        // Front Side / Forehead
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, iAux + iRadiusPoints + 1, iAux + iRadiusPoints + 4);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + iRadiusPoints + 0, iAux + iRadiusPoints + 1);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 1, iAux + iRadiusPoints + 2, iAux + iRadiusPoints + 3);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(3, iAux + 1, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux + iRadiusPoints + 5, iRadiusSegment - 1, M_TriangelsIndices, false); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(0); // 1st Point
+		//        M_TriangelsIndices.Add(iAux); // 1st Point of Radii (1st after auxiliary)
+		//        M_TriangelsIndices.Add(iAux + 2 * iRadiusPoints + 3); // Last Point
+
+		//        // Back Side 
+
+		//        int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 4; // Number of nodes per section - Nodes offset
+
+		//        // Changed orientation of triangles
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 5);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + iRadiusPoints + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + iRadiusPoints + 0, iPointNumbersOffset + iAux + iRadiusPoints + 1);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 1, iPointNumbersOffset + iAux + iRadiusPoints + 2, iPointNumbersOffset + iAux + iRadiusPoints + 3);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 1, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + iRadiusPoints + 5, iRadiusSegment - 1, M_TriangelsIndices, true); // Segments number = iRadiusSegment-1
+
+		//        // Last Triangle 
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + 0); // 1st Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux + 2 * iRadiusPoints + 3); // Last Point
+		//        M_TriangelsIndices.Add(iPointNumbersOffset + iAux); // 1st Point of Radii (1st after auxiliary)
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 2 * iRadiusPoints + 4, M_TriangelsIndices);
+		//    }
+		//    else if (sShape == 3) // 3 - Two radii at flanges roots, tapered or parallel flanges, optional tapered web (2 auxiliary points)
+		//    {
+		//        // Front Side / Forehead
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, iAux + 2 * iRadiusPoints + 6, iAux + 2 * iRadiusPoints + 7);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 4, iAux + iRadiusPoints, iAux + 2 * iRadiusPoints + 6);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, 6, 7);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, iAux + iRadiusPoints + 4, iAux + 2 * iRadiusPoints + 2);
+		//        AddRectangleIndices_CW_1234(M_TriangelsIndices, iAux + 2 * iRadiusPoints + 2, iAux + iRadiusPoints + 4, iAux + iRadiusPoints + 5, iAux + iRadiusPoints + 6);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(1, iAux + 5, iRadiusSegment, M_TriangelsIndices, false);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(0, iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, false);
+
+		//        // Back Side 
+
+		//        int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 8; // Number of nodes per section - Nodes offset
+
+		//        // Changed orientation of triangles
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 2, iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 7);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 3, iPointNumbersOffset + 4, iPointNumbersOffset + iAux + iRadiusPoints, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 6);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + 6, iPointNumbersOffset + 7);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2);
+		//        AddRectangleIndices_CCW_1234(M_TriangelsIndices, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iPointNumbersOffset + iAux + iRadiusPoints + 4, iPointNumbersOffset + iAux + iRadiusPoints + 5, iPointNumbersOffset + iAux + iRadiusPoints + 6);
+
+		//        // Arc sectors
+		//        // 1st SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 5, iRadiusSegment, M_TriangelsIndices, true);
+		//        // 2nd SolidCircleSector
+		//        AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 2 * iRadiusPoints + 2, iRadiusSegment, M_TriangelsIndices, true);
+
+		//        // Shell
+		//        DrawCaraLaterals(iAux, 2 * iRadiusPoints + 8, M_TriangelsIndices);
+		//    }
+		//    else //Exception
+		//    { }
+		//}
+#endregion
 
 		/// <summary>
 		/// ///////////////////////////////////////////////////////
@@ -1245,7 +943,10 @@ namespace sw_en_GUI
 			// Rolled I monosymmetric profile, Tapered or parallel flanges
 			// load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
-			load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
+			
+			//load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
+			CCrSc prierez = new CCrSc_3_00(2, 4, 4);
+			
 			// Rolled U profile, Tapered or parallel flanges, channel section
 			// load_3_02_TriangelIndices(0,6, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc
@@ -1293,7 +994,7 @@ namespace sw_en_GUI
 
 			// Points 2D Coordinate Array
 
-			if (sShapeType == 0) // Solid I,U,Z,HL,L, ..............
+			if (prierez.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
 			{
 				iNoCrScPoints2D = test1.objCrScSolid.ITotNoPoints; // Depends on Section Type 
 
@@ -1410,7 +1111,7 @@ namespace sw_en_GUI
 
 
 			// Mesh Triangles - various cross-sections shapes defined
-			mesh.TriangleIndices = M_TriangelsIndices;
+			mesh.TriangleIndices = prierez.TriangleIndices;
 
 			//ScreenSpaceLines3D line = new ScreenSpaceLines3D();
 			//line.Color = Color.FromRgb(0,255,0);

@@ -434,5 +434,10 @@ namespace CRSC
 
 
 
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

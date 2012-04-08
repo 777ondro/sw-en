@@ -519,5 +519,10 @@ namespace CRSC
         {
             m_fW_v_el = m_fI_v / Math.Max(m_fe_v, m_fz_v);
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

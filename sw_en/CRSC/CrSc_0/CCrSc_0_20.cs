@@ -101,7 +101,12 @@ namespace CRSC
             // Inside Points
             m_CrScPointIn = Geom2D.GetArcPointCoord(m_fr_in, 180, 360, INoPoints);
         }
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
 
 

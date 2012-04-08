@@ -488,5 +488,10 @@ namespace CRSC
         //    // t eq ???
         //    m_fI_t = (2 * m_fb * MathF.Pow3(m_ft_f) + (m_fh - 2 * m_ft_f) * MathF.Pow3(m_ft_w)) / 3f;
         //}
-    }
+
+		protected override void loadCrScIndices()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
