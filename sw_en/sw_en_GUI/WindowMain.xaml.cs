@@ -304,7 +304,8 @@ namespace sw_en_GUI
 				try
 				{
 
-                    crsc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+                    // crsc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+                    crsc = new CCrSc_0_05(200.0f, 100.0f);
 
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
 					crsc.ICrSc_ID = CrSc_ID;
