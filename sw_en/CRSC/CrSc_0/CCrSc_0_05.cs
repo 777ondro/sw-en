@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -16,48 +17,27 @@ namespace CRSC
         private float m_fh;   // Height/ Depth/ Vyska
         private float m_fb;   // Width  / Sirka
         private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
-        public  float[,] m_CrScPoint; // Array of Points and values in 2D
+        public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
-
-        public float Fh
-        {
-            get { return m_fh; }
-            set { m_fh = value; }
-        }
-
-        public float Fb
-        {
-            get { return m_fb; }
-            set { m_fb = value; }
-        }
-
-        public short ITotNoPoints
-        {
-            get { return m_iTotNoPoints; }
-            set { m_iTotNoPoints = value; }
-        }
-        /*
-        public float[,] CrScPoint
-        {
-            get { return m_CrScPoint; }
-            set { m_CrScPoint = value; }
-        }
-        */
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_0_05()  {   }
+        public CCrSc_0_05() { }
         public CCrSc_0_05(float fh, float fb)
         {
-            m_iTotNoPoints = 4;
-            m_fh = fh;
-            m_fb = fb;
+            IsShapeSolid = true;
+            ITotNoPoints = 4;
+            Fh = fh;
+            Fb = fb;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float [m_iTotNoPoints,2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -65,7 +45,7 @@ namespace CRSC
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
-            m_CrScPoint = Geom2D.GetRectanglePointCoord(m_fh, m_fb);
+            CrScPointsOut = Geom2D.GetRectanglePointCoord(Fh, Fb);
         }
 
 
@@ -83,7 +63,7 @@ namespace CRSC
         // Perimeter of section
         void Calc_U()
         {
-            m_fU = 2* (m_fh + m_fb);
+            m_fU = 2 * (m_fh + m_fb);
         }
         // Section area
         void Calc_A()
@@ -241,9 +221,22 @@ namespace CRSC
             m_fA_z_v_pl = m_ff_z_v_plel * m_fA_z_v_el; // Temp
         }
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
-	}
+        protected override void loadCrScIndices()
+        {
+            // const int secNum = 4;  // Number of points in section (2D)
+            TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 1, 2, 3);
+
+            // Back Side 
+            AddRectangleIndices_CW_1234(TriangleIndices, 4, 7, 6, 5);
+
+            // Shell Surface
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 4, 5, 1);
+            AddRectangleIndices_CW_1234(TriangleIndices, 1, 5, 6, 2);
+            AddRectangleIndices_CW_1234(TriangleIndices, 2, 6, 7, 3);
+            AddRectangleIndices_CW_1234(TriangleIndices, 3, 7, 4, 0);
+        }
+    }
 }

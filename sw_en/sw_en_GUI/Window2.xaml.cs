@@ -158,24 +158,6 @@ namespace sw_en_GUI
 			AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 5, 3, 0);
 		}
 
-		private void load_0_05_TriangelIndices()
-		{
-			// const int secNum = 4;  // Number of points in section (2D)
-			M_TriangelsIndices = new Int32Collection();
-
-			// Front Side / Forehead
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 3);
-
-			// Back Side 
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 7, 6, 5);
-
-			// Shell Surface
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 4, 5, 1);
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 5, 6, 2);
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 6, 7, 3);
-			AddRectangleIndices_CW_1234(M_TriangelsIndices, 3, 7, 4, 0);
-		}
-
 		private void load_0_20_TriangelIndices()
 		{
 			const int secNum = 37;  // Number of points in section (2D) 36+1 -centroid
@@ -910,6 +892,7 @@ namespace sw_en_GUI
 			// Triangular Prism 
 			//load_0_04_TriangelsIndices();
 			// Flat Bar
+            CCrSc obj_CrSc = new CCrSc_0_05(200.0f, 100.0f);
 			//load_0_05_TriangelIndices();
 			// Half Circle
 			// load_0_20_TriangelIndices();
@@ -937,11 +920,12 @@ namespace sw_en_GUI
 			// load_0_61_TriangelIndices();
 
 			// Rolled I doubly symmetric profile, Tapered or parallel flanges
+            // CCrSc obj_CrSc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
 			// load_3_00_TriangelIndices(0, 12,8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
-			// Rolled I monosymmetric profile, Tapered or parallel flanges
-            CCrSc obj_CrSc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+			
+            // Rolled I monosymmetric profile, Tapered or parallel flanges
 			// load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
