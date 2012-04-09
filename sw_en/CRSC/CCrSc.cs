@@ -11,6 +11,9 @@ namespace CRSC
     [Serializable]
     public abstract class CCrSc
     {
+        // Collection of indices for generation of member surface
+        // Plati aj pre pruty s nabehom s rovnakym poctom bodov v reze - 2D
+        // Use also for tapered members with same number of nodes (points) in section - 2D
 		private Int32Collection m_TriangleIndices;
 
 		public Int32Collection TriangleIndices
@@ -18,13 +21,17 @@ namespace CRSC
 			get { return m_TriangleIndices; }
 			set { m_TriangleIndices = value; }
 		}
-		private bool m_bIsShapeSolid;
+
+        // Type of cross-section
+		private bool m_bIsShapeSolid; // 0 (false) - Hollow section, 1 (true) - Solid section
 
 		public bool IsShapeSolid
 		{
 			get { return m_bIsShapeSolid; }
 			set { m_bIsShapeSolid = value; }
 		}
+
+        // Total number of points per section in 2D
 		private short m_iTotNoPoints;
 
 		public short ITotNoPoints
@@ -32,19 +39,41 @@ namespace CRSC
 			get { return m_iTotNoPoints; }
 			set { m_iTotNoPoints = value; }
 		}
-		private float[,] m_CrSCPointOut;
 
-		public float[,] CrSCPointsOut
+        // Number of points per outside surface of section in 2D - hollow sections
+        private short m_iNoPointsOut;
+
+        public short INoPointsOut
+        {
+            get { return m_iNoPointsOut; }
+            set { m_iNoPointsOut = value; }
+        }
+
+        // Number of points per inside surface of section in 2D - hollow sections
+        private short m_iNoPointsIn;
+
+        public short INoPointsIn
+        {
+            get { return m_iNoPointsIn; }
+            set { m_iNoPointsIn = value; }
+        }
+
+        // Use for Outside surface of hollow sections and surface of solid sections
+		private float[,] m_CrScPointOut;
+
+        public float[,] CrScPointsOut
 		{
-			get { return m_CrSCPointOut; }
-			set { m_CrSCPointOut = value; }
+			get { return m_CrScPointOut; }
+			set { m_CrScPointOut = value; }
 		}
-		private float[,] m_CrSCPointsIn;
 
-		public float[,] CrSCPointsIn
+        // Use for Inside surface of hollow sections and null for solid sections
+		private float[,] m_CrScPointsIn;
+
+		public float[,] CrScPointsIn
 		{
-			get { return m_CrSCPointsIn; }
-			set { m_CrSCPointsIn = value; }
+			get { return m_CrScPointsIn; }
+			set { m_CrScPointsIn = value; }
 		}
 
         private int m_iCrSc_ID;
