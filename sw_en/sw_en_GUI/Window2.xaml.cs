@@ -941,12 +941,11 @@ namespace sw_en_GUI
 			// load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// Rolled I monosymmetric profile, Tapered or parallel flanges
+            CCrSc obj_CrSc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
 			// load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
-			
-			//load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
-			CCrSc prierez = new CCrSc_3_00(2, 4, 4);
-			
+			// load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
+
 			// Rolled U profile, Tapered or parallel flanges, channel section
 			// load_3_02_TriangelIndices(0,6, 8); // Shape ID, number of auxiliary points , number of segments of arc
 			// load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc
@@ -989,40 +988,33 @@ namespace sw_en_GUI
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Number of Points per section
 			short iNoCrScPoints2D;
-			// Length of Element
-			float fELength = -500; // Temporary load flor Member Segment geometry
+
+            // Tieto data ziskame z pruta
+
+            // Main Nodes of Member
+            Point3D m_pA = new Point3D(10, 10, 10);
+            Point3D m_pB = new Point3D(500, 300, 200);
+
+            // Priemet do osi GCS - rozdiel suradnic v GCS
+            double m_dDelta_X = m_pB.X - m_pA.X;
+            double m_dDelta_Y = m_pB.Y - m_pA.Y;
+            double m_dDelta_Z = m_pB.Z - m_pA.Z;
+
+            // Realna dlzka prvku // Length of member - straigth segment of member
+            double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
 
 			// Points 2D Coordinate Array
 
-			if (prierez.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
+			if (obj_CrSc.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
 			{
-				iNoCrScPoints2D = test1.objCrScSolid.ITotNoPoints; // Depends on Section Type 
+                iNoCrScPoints2D = obj_CrSc.ITotNoPoints; // Depends on Section Type 
 
 				// Solid section
-				float[,] res = test1.objCrScSolid.m_CrScPoint; // I,U,Z,HL,L, ..............
-
-
-
-				// !!!!!!!!!!! TEMP
-				// Before we create mesh we have to transform local coordinates LCS or real member edges to the global GCS
-
-				// 
-
-
-
-				// TransformNodeCoord_LCStoGCS();
-
-
-
-
-
-
-
-				//
+                float[,] res = obj_CrSc.CrScPointsOut; // I,U,Z,HL,L, ..............
 
 				// Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
 
-				//// I,U,Z,HL, L, ....
+				// I,U,Z,HL, L, ....
 				if (res != null) // Check that data are available
 				{
 					for (int j = 0; j < iNoCrScPoints2D; j++)
@@ -1031,7 +1023,7 @@ namespace sw_en_GUI
 					}
 					for (int j = 0; j < iNoCrScPoints2D; j++)
 					{
-						mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], fELength));
+                        mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], m_dLength));
 					}
 				}
 				else
@@ -1042,9 +1034,10 @@ namespace sw_en_GUI
 			else
 			{
 				// Tubes , Polygonal Hollow Sections
-				iNoCrScPoints2D = (short)(2 * test1.objCrScHollow.INoPoints);
-				float[,] res1 = test1.objCrScHollow.m_CrScPointOut; // TU
-				float[,] res2 = test1.objCrScHollow.m_CrScPointIn; // TU
+                iNoCrScPoints2D = (short)(2 * obj_CrSc.INoPointsOut); // Twice number of one surface
+                //iNoCrScPoints2D = (short)(obj_CrSc.INoPointsOut + obj_CrSc.INoPointsIn);
+                float[,] res1 = obj_CrSc.CrScPointsOut; // TU
+                float[,] res2 = obj_CrSc.CrScPointsIn; // TU
 
 				// Tube, regular hollow sections
 				// TU
@@ -1053,7 +1046,7 @@ namespace sw_en_GUI
 				if (res1 != null) // Check that data are available
 				{
 					// OutSide Radius Points
-					for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
 					{
 						mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
 					}
@@ -1066,7 +1059,7 @@ namespace sw_en_GUI
 				if (res2 != null) // Check that data are available
 				{
 					// Inside Radius Points
-					for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
 					{
 						mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
 					}
@@ -1080,9 +1073,9 @@ namespace sw_en_GUI
 				if (res1 != null) // Check that data are available
 				{
 					// OutSide Radius Points
-					for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
 					{
-						mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], fELength));
+                        mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], m_dLength));
 					}
 				}
 				else
@@ -1093,9 +1086,9 @@ namespace sw_en_GUI
 				if (res2 != null) // Check that data are available
 				{
 					// Inside Radius Points
-					for (int j = 0; j < test1.objCrScHollow.INoPoints; j++)
+                    for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
 					{
-						mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], fELength));
+                        mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], m_dLength));
 					}
 				}
 				else
@@ -1104,14 +1097,11 @@ namespace sw_en_GUI
 				}
 			}
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
-			Point3D pA = new Point3D(4, 4, 4);
-            Point3D pB = new Point3D(10, 5, 2);
-			TransformMember_LCStoGCS(pA, pB, mesh.Positions);
 
+            TransformMember_LCStoGCS(m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, mesh.Positions);
 
 			// Mesh Triangles - various cross-sections shapes defined
-			mesh.TriangleIndices = prierez.TriangleIndices;
+			mesh.TriangleIndices = obj_CrSc.TriangleIndices;
 
 			//ScreenSpaceLines3D line = new ScreenSpaceLines3D();
 			//line.Color = Color.FromRgb(0,255,0);
@@ -1153,7 +1143,7 @@ namespace sw_en_GUI
 				new DiffuseMaterial(brush));
 		}
 
-		public Point3DCollection TransformMember_LCStoGCS(Point3D pA, Point3D pB, Point3DCollection pointsCollection)
+        public Point3DCollection TransformMember_LCStoGCS(Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, Point3DCollection pointsCollection)
 		{
 			// Returns transformed coordinates of member nodes
 
@@ -1174,7 +1164,7 @@ namespace sw_en_GUI
             4. Vygenerovat plochy povrchu prvku
             5. Zobrazit prvok
 
-             * Rovnice transformace souřadnic v prostoru se dá vyjádřit maticovou rovnicí:
+             Rovnice transformace souřadnic v prostoru se dá vyjádřit maticovou rovnicí:
              a + T.x = r kde T je prostorová transformační matice
              
 			Transformační matice T je složena z jednotlivých rovinných transformačních matic, přitom záleží na pořadí
@@ -1240,25 +1230,18 @@ namespace sw_en_GUI
 			//// r = a + T.x
 			//VPointCoordinGCS_r = VectorF.fGetSum(VMemberStartPointCoordinGCS_a,VectorF.fMultiplyMatrVectr(fT, VPointCoordinLCS_x));
 
-
+            // Angles
 			double dAlphaX, dBetaY, dGammaZ;
-			// Priemet do osi GCS - rozdiel suradnic v GCS
-			double dDelta_X = pB.X - pA.X;
-			double dDelta_Y = pB.Y - pA.Y;
-			double dDelta_Z = pB.Z - pA.Z;
 
 			// Priemet do rovin GCS - dlzka priemetu do roviny
-			double dLength_XY = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2));
-			double dLength_YZ = Math.Sqrt(Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
-			double dLength_XZ = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Z, 2));
-
-			// Realna dlzka prvku
-			double dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
+            double dLength_XY = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaY, 2));
+            double dLength_YZ = Math.Sqrt(Math.Pow(dDeltaY, 2) + Math.Pow(dDeltaZ, 2));
+            double dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
 			// Uhly pootocenia okolo osi GCS
-			dAlphaX = Math.Atan(dDelta_Z / dDelta_Y); // radians
-			dBetaY = Math.Atan(dDelta_Z / dDelta_X); // radians
-			dGammaZ = Math.Atan(dDelta_Y / dDelta_X); // radians  (* Math.PI / 180.0)
+            dAlphaX = Math.Atan(dDeltaZ / dDeltaY); // radians
+            dBetaY = Math.Atan(dDeltaZ / dDeltaX); // radians
+            dGammaZ = Math.Atan(dDeltaY / dDeltaX); // radians  (* Math.PI / 180.0)
 
 			for (int i = 0; i < pointsCollection.Count; i++) 
 			{
