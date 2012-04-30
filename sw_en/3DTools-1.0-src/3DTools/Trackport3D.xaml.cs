@@ -48,10 +48,20 @@ namespace _3DTools
         }
         private readonly ScreenSpaceLines3D Wireframe = new ScreenSpaceLines3D();
 
+        public PerspectiveCamera PerspectiveCamera
+        {
+          get { return this.Camera; }
+        }
+
+        public DirectionalLight Light
+        {
+          get { return this.Headlight; }
+        }
+
         public Trackport3D()
         {
             InitializeComponent();
-
+          
             this.Viewport.Children.Add(Wireframe);
             this.Camera.Transform = _trackball.Transform;
             this.Headlight.Transform = _trackball.Transform;
