@@ -1215,17 +1215,34 @@ namespace sw_en_GUI
    //VPointCoordinGCS_r = VectorF.fGetSum(VMemberStartPointCoordinGCS_a,VectorF.fMultiplyMatrVectr(fT, VPointCoordinLCS_x));
 
             // Angles
-   double dAlphaX, dBetaY, dGammaZ;
+      double dAlphaX = 0,
+             dBetaY  = 0,
+             dGammaZ = 0;
 
    // Priemet do rovin GCS - dlzka priemetu do roviny
-            double dLength_XY = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaY, 2));
-            double dLength_YZ = Math.Sqrt(Math.Pow(dDeltaY, 2) + Math.Pow(dDeltaZ, 2));
-            double dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
+
+            double dLength_XY = 0,
+                   dLength_YZ = 0,
+                   dLength_XZ = 0;
+
+            if (! MathF.d_equal(dDeltaX, 0.0) || ! MathF.d_equal(dDeltaY, 0.0))
+            dLength_XY = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaY, 2));
+
+            if (!MathF.d_equal(dDeltaY, 0.0) || !MathF.d_equal(dDeltaZ, 0.0))
+            dLength_YZ = Math.Sqrt(Math.Pow(dDeltaY, 2) + Math.Pow(dDeltaZ, 2));
+
+            if (!MathF.d_equal(dDeltaX, 0.0) || !MathF.d_equal(dDeltaZ, 0.0))
+            dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
    // Uhly pootocenia okolo osi GCS
+            if (!MathF.d_equal(dDeltaY, 0.0))
             dAlphaX = Math.Atan(dDeltaZ / dDeltaY); // radians
-            dBetaY = Math.Atan(dDeltaZ / dDeltaX); // radians
-            dGammaZ = Math.Atan(dDeltaY / dDeltaX); // radians  (* Math.PI / 180.0)
+
+            if (!MathF.d_equal(dDeltaX, 0.0))
+            {
+                dBetaY = Math.Atan(dDeltaZ / dDeltaX); // radians
+                dGammaZ = Math.Atan(dDeltaY / dDeltaX); // radians  (* Math.PI / 180.0)
+            }
 
    for (int i = 0; i < pointsCollection.Count; i++) 
    {
