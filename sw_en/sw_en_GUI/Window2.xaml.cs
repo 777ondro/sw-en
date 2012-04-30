@@ -1142,8 +1142,7 @@ namespace sw_en_GUI
       for (int i = 0; i < nodes.Length; i = i + 2)
       {
         //if (i != 0) continue;
-        //i++;
-
+        
         Point3D mpA = new Point3D(nodes[i].FCoord_X, nodes[i].FCoord_Y, nodes[i].FCoord_Z);
         Point3D mpB = new Point3D(nodes[i + 1].FCoord_X, nodes[i + 1].FCoord_Y, nodes[i + 1].FCoord_Z);
         GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
