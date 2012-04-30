@@ -462,6 +462,14 @@ namespace sw_en_GUI
 			}
 		}
 
+		private void menuItemViewShowModel_Click(object sender, RoutedEventArgs e)
+		{
+			Window2 win = new Window2(model);
+			list_trackports.Add(win._trackport);
+
+			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
+		}
+
 
 
 
