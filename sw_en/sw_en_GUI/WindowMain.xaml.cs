@@ -203,6 +203,15 @@ namespace sw_en_GUI
 			//model.m_arrNReleases 
 			//member Eccentricities  
 			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
+
+            // Set properties of nodes to the Member nodes
+
+            for(int i = 0; i < model.m_arrMembers.Length; i++)
+            {
+                model.m_arrMembers[i].NodeStart = model.m_arrNodes[model.m_arrMembers[i].NodeStart.INode_ID-1];
+                model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.INode_ID-1];
+            }
+
 			model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);
 		}
 
