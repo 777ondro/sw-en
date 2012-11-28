@@ -1109,19 +1109,13 @@ namespace sw_en_GUI
     {
       InitializeComponent();
       // Flat Bar
-      CCrSc obj_CrSc = new CCrSc_0_05(200.0f, 100.0f);
+      CCrSc obj_CrSc = new CCrSc_0_05(0.2f, 0.1f);
 
       Model3DGroup gr = new Model3DGroup();
       //gr.Children.Add(new AmbientLight());
       SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
 
-      CNode[] nodes = cmodel.m_arrNodes;
-
       //temp !!!!!!!!
-      //absolutne zbytocne je objekt,ked nie je nainicializovany spravne
-      //je potrebne spravne nainicializovat NodeStart a NodeEnd, nie udrziavat dajake debilne idecka do ineho pola
-      // podla mna pole m_arrNodes nema byt nikdy nikomu viditelne, neviem naco
-      // kod by potom mohol vyzerat takto:
 
       //CMember[] members = cmodel.m_arrMembers;   
       //int i = 0;
@@ -1138,15 +1132,22 @@ namespace sw_en_GUI
 
       //end temp!!!!!!!!
 
-
-      for (int i = 0; i < nodes.Length; i = i + 2)
+      // Model Group of Members
+      // Prepare member model
+      for (int i = 0; i < cmodel.m_arrMembers.Length; i++)
       {
         //if (i != 0) continue;
         
-        Point3D mpA = new Point3D(nodes[i].FCoord_X, nodes[i].FCoord_Y, nodes[i].FCoord_Z);
-        Point3D mpB = new Point3D(nodes[i + 1].FCoord_X, nodes[i + 1].FCoord_Y, nodes[i + 1].FCoord_Z);
-        GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
-        gr.Children.Add(model);
+        // Start Node of Member
+          Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
+        // End node of Member
+          Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
+
+        // Create Member model
+        GeometryModel3D membermodel = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
+
+        // Add current member model to the model group
+        gr.Children.Add(membermodel);
       }
 
       Point3D cameraPosition = new Point3D(0, 0, 200);
