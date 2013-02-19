@@ -1204,6 +1204,7 @@ namespace sw_en_GUI
       double m_dDelta_Z = m_pB.Z - m_pA.Z;
 
       // Realna dlzka prvku // Length of member - straigth segment of member
+      // Prečo je záporná ???
       double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
 
       // Number of Points per section
@@ -1438,14 +1439,29 @@ namespace sw_en_GUI
         dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
 
-      // Uhly pootocenia okolo osi GCS
+      // Uhly pootocenia LCS okolo osi GCS
+      // !!!!!!!!!!!!!!!!!!! Nefunguju spravne 19.2.2013, je nutne zohladnit kvadrant -> znamienka a posun o PI/2
+
       if (!MathF.d_equal(dDeltaY, 0.0))
-        dAlphaX = Math.Atan(dDeltaZ / dDeltaY); // radians
+          dAlphaX = Math.Atan(dDeltaZ / dDeltaY); // radians
+      else if (!MathF.d_equal(dLength_YZ, 0.0))
+          dAlphaX = Math.Acos(dDeltaY / dLength_YZ);
+          //dAlphaX = Math.Asin(dDeltaZ / dLength_YZ);
 
       if (!MathF.d_equal(dDeltaX, 0.0))
       {
-        dBetaY = Math.Atan(dDeltaZ / dDeltaX); // radians
-        dGammaZ = Math.Atan(dDeltaY / dDeltaX); // radians  (* Math.PI / 180.0)
+          dBetaY = Math.Atan(dDeltaZ / dDeltaX); // radians
+          dGammaZ = Math.Atan(dDeltaY / dDeltaX); // radians  (* Math.PI / 180.0)
+      }
+      else
+      {
+          if (!MathF.d_equal(dLength_XZ, 0.0))
+              dBetaY = Math.Acos(dDeltaX / dLength_XZ);
+              //dBetaY = Math.Asin(dDeltaZ / dLength_XZ);
+
+          if (!MathF.d_equal(dLength_XY, 0.0))
+            dGammaZ = Math.Acos(dDeltaY / dLength_XY);
+             //dGammaZ = Math.Asin(dDeltaX / dLength_XY);
       }
 
 
