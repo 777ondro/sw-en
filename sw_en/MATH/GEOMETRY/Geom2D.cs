@@ -438,34 +438,50 @@ namespace MATH
             if ((dLength_A >= 0.0) && (dLength_B >= 0.0))
             {
                 // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
-                if (!MathF.d_equal(dLength_A, 0.0))
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI / 2.0;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return 0.0;
+                else if (!MathF.d_equal(dLength_A, 0.0))
                     return Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
                 else
-                    return 0.0;
+                    return Math.Acos(dLength_B / dLength_C);
             }
             else if ((dLength_A <= 0.0) && (dLength_B >= 0.0))
             {
                 // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
-                if (!MathF.d_equal(dLength_A, 0.0))
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI / 2.0;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
                     return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
-                else 
-                    return 0.0;
+                else
+                    return Math.PI + Math.Acos(dLength_B / dLength_C);
             }
             else if ((dLength_A <= 0.0) && (dLength_B <= 0.0))
             {
                 // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
-                if (!MathF.d_equal(dLength_A, 0.0))
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return 1.5 * Math.PI;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
                     return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
                 else
-                    return 0.0;
+                    return Math.PI + Math.Acos(dLength_B / dLength_C);
             }
             else /*((fdLength_A >= 0.0) && (dLength_B <= 0.0))*/
             {
                 // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
-                if (!MathF.d_equal(dLength_A, 0.0))
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return 1.5 * Math.PI;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return 2.0 * Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
                     return (2.0 * Math.PI) + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
                 else
-                    return 0.0;
+                    return (2.0 * Math.PI) + Math.Acos(dLength_B / dLength_C);
             }
 
             // Ukazka vypoctu uhlov
