@@ -1442,6 +1442,7 @@ namespace sw_en_GUI
       // Uhly pootocenia LCS okolo osi GCS
       // !!!!!!!!!!!!!!!!!!! Nefunguju spravne 19.2.2013, je nutne zohladnit kvadrant -> znamienka a posun o PI/2
 
+      /*
       if (!MathF.d_equal(dDeltaY, 0.0))
           dAlphaX = Math.Atan(dDeltaZ / dDeltaY); // radians
       else if (!MathF.d_equal(dLength_YZ, 0.0))
@@ -1463,7 +1464,11 @@ namespace sw_en_GUI
             dGammaZ = Math.Acos(dDeltaY / dLength_XY);
              //dGammaZ = Math.Asin(dDeltaX / dLength_XY);
       }
+      */
 
+      dAlphaX = Geom2D.GetAlpha2D_CW(dDeltaY, dDeltaZ);
+      dBetaY = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaZ); // !!! mozno by mal byt pre pootocenie okolo Y pouzity system counter clock-wise
+      dGammaZ = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaY);
 
       for (int i = 0; i < pointsCollection.Count; i++)
       {
