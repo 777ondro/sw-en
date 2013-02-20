@@ -387,10 +387,102 @@ namespace MATH
         #endregion
 
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Get rotation angle (degree) in 2D environment
 
+        public static float GetAlpha2D_CW(float fCoordStart1, float fCoordEnd1, float fCoordStart2, float fCoordEnd2)
+        {
+            // Clockwise rotation in 2D environment
 
+            ///////////////////////////////////////////////////////////////////
+            // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
+            ///////////////////////////////////////////////////////////////////
 
+            if ((fCoordEnd1 >= fCoordStart1) && (fCoordEnd2 >= fCoordStart2))
+            {
+                // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
+                return (float)Math.Atan((fCoordEnd2 - fCoordStart2) / (fCoordEnd1 - fCoordStart1));
+            }
+            else if ((fCoordEnd1 <= fCoordStart1) && (fCoordEnd2 >= fCoordStart2))
+            {
+                // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
+                return (float)Math.PI / 2 + (float)Math.Atan((fCoordStart1 - fCoordEnd1) / (fCoordEnd2 - fCoordStart2));
+            }
+            else if ((fCoordEnd1 <= fCoordStart1) && (fCoordEnd2 <= fCoordStart2))
+            {
+                // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
+                return (float)Math.PI + (float)Math.Atan((fCoordStart2 - fCoordEnd2) / (fCoordStart1 - fCoordEnd1));
+            }
+            else /*((fCoordEnd1 >= fCoordStart1) && (fCoordEnd2 <= fCoordStart2))*/
+            {
+                // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
+                return (1.5f * (float)Math.PI) + (float)Math.Atan((fCoordEnd1 - fCoordStart1) / (fCoordStart2 - fCoordEnd2));
+            }
+        }
 
+        public static double GetAlpha2D_CW(double dLength_A, double dLength_B)
+        {
+            // Clockwise rotation in 2D environment
+            // Left-handed system
+
+            ///////////////////////////////////////////////////////////////////
+            // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
+            ///////////////////////////////////////////////////////////////////
+
+            // A - adjacent side of triangle
+            // B - opposite side of triangle
+            // C - hypotenuse
+
+            double dLength_C = Math.Sqrt(Math.Pow(dLength_A, 2) + Math.Pow(dLength_B, 2));// length hypotenuse
+
+            if ((dLength_A >= 0.0) && (dLength_B >= 0.0))
+            {
+                // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
+                if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
+                else
+                    return 0.0;
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B >= 0.0))
+            {
+                // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
+                if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
+                else 
+                    return 0.0;
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B <= 0.0))
+            {
+                // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
+                if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
+                else
+                    return 0.0;
+            }
+            else /*((fdLength_A >= 0.0) && (dLength_B <= 0.0))*/
+            {
+                // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
+                if (!MathF.d_equal(dLength_A, 0.0))
+                    return (2.0 * Math.PI) + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
+                else
+                    return 0.0;
+            }
+
+            // Ukazka vypoctu uhlov
+            /*
+
+            A	    B	    B/A	      Gama rad	    Gama deg
+            1	    1	    1	        0,785	    45
+            -1	    1	    -1	        -0,785	    -45
+            -1	    -1	    1       	0,785	    45
+            1	    -1	    -1	        -0,785  	-45
+
+            1	    0,5 	0,5     	0,464	    26,57
+            -0,5    1       -2	        -1,107	    -63,43
+            -1	    -0,5    0,5     	0,464	    26,57
+            0,5	    -1	    -2	        -1,107  	-63,43
+            */
+        }
 
 
 
