@@ -435,6 +435,9 @@ namespace MATH
 
             double dLength_C = Math.Sqrt(Math.Pow(dLength_A, 2) + Math.Pow(dLength_B, 2));// length hypotenuse
 
+             if(MathF.d_equal(dLength_A, 0.0) && MathF.d_equal(dLength_B, 0.0))
+                return 0.0f;
+
             if ((dLength_A >= 0.0) && (dLength_B >= 0.0))
             {
                 // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
