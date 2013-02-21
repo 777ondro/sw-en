@@ -1134,7 +1134,7 @@ namespace sw_en_GUI
 
       // Model Group of Members
       // Prepare member model
-      for (int i = 0; i < cmodel.m_arrMembers.Length; i++)
+      for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
       {
         //if (i != 0) continue;
         
