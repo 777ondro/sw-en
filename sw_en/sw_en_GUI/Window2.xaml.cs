@@ -1467,7 +1467,7 @@ namespace sw_en_GUI
       */
 
       dAlphaX = Geom2D.GetAlpha2D_CW(dDeltaY, dDeltaZ);
-      dBetaY = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaZ); // !!! mozno by mal byt pre pootocenie okolo Y pouzity system counter clock-wise
+      dBetaY = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaZ); // !!! mozno by mal byt pre pootocenie okolo Y pouzity system counter-clockwise
       dGammaZ = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaY);
 
       for (int i = 0; i < pointsCollection.Count; i++)
