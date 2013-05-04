@@ -47,7 +47,7 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrMat[0] = Mat0;
 
             // Cross-section
-            CCrSc CrSc0 = new CCrSc();
+            CCrSc CrSc0 = new CCrSc_0_00(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             CrSc0.FA_g = 0.12f;   // Unit [m^2]
             CrSc0.FI_y = 0.0016f; // Unit [m^4]
             CrSc0.FI_z = 0.0016f; // Unit [m^4]

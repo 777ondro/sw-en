@@ -84,6 +84,29 @@ namespace CRSC
             set { m_iCrSc_ID = value; }
         }
 
+
+        // !!! Pre FEM vypocet nepotrebujeme vsetky charakteristiky, len Ag, Avy, Avz, Iy, Iz, It !!!!
+        // !!! Ostatne charakteristiky postaci nacitavat az pri posudeni
+
+        // Gross- corss-section area Ag
+        // Shear effective area A_y_v (A_2_v, A_u_v) - optional
+        // Shear effective area A_z_v (A_3_v, A_v_v) - optional
+        // Moment of inertia - major principal axis Iy (I2, Iu)
+        // Moment of inertia - minor principal axis Iz (I3, Iv)
+        // Torsional inertia constant I_T
+        // Section warping constant I_w  - optional (7th degree of freedom)
+
+
+        // Gross-cross section area
+        //m_fAg = m_fb * m_fh; // Unit [m2]
+        // Second moment of Area / Moment of inertia
+        //m_fIy = 1f / 12f * m_fb * m_fh * m_fh * m_fh;  // Unit [m4]
+        //m_fIz = 1f / 12f * m_fb * m_fb * m_fb * m_fh;  // Unit [m4]
+        // Torsional constant (St. Venant Section Modulus)
+        //m_fI_t = (m_fb * m_fb * m_fb * m_fh * m_fh * m_fh) / ((3.645f - (0.06f * m_fh / m_fb)) * (m_fb * m_fb + m_fh * m_fh));  // Unit [m4]
+
+
+
         private float m_fh, m_fb; // Total depth and width of section (must be defined for all section shapes)
 
         private float m_fU,

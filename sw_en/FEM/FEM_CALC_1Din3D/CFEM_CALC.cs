@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using BaseClasses;
 using MATH;
+using CRSC;
 
 /*
  Todo
@@ -82,7 +83,7 @@ namespace FEM_CALC_1Din3D
         CMaterial m_Mat = new CMaterial();
 
         // Cross-section
-        CCrSc m_CrSc = new CCrSc();
+        CCrSc m_CrSc = new CCrSc_0_00(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         public int[,] m_fDisp_Vector_CN;
 
@@ -227,27 +228,9 @@ namespace FEM_CALC_1Din3D
             ////////////////////////////////////////////////////////////////////////////////////
             // !!!!!! No kind of these loads actually
 
-
-
-
-
-
-
-
-
-            ///////////////////////////////////////////////////////////////////////////////////////
-            // Define Cross-section
-            ///////////////////////////////////////////////////////////////////////////////////////
-            
-            // Fill CrSc properties
-            m_CrSc.CalcProp_RecSol(m_eCrScType);
-
-
             ///////////////////////////////////////////////////////////////////////////////////////
             // Define FEM 1D elements
             ///////////////////////////////////////////////////////////////////////////////////////
-
-
 
             for (int i = 0; i < iElemNoTot; i++)
             {
