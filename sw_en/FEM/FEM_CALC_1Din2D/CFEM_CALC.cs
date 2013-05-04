@@ -16,7 +16,8 @@ namespace FEM_CALC_1Din2D
         // Settings
         static int iNodeDOFNo = 3; // No warping effect (bimoment)
 
-        CTest_1 TopoModelFile; // Create topological model file
+        //CTest_1 TopoModelFile; // Create topological model file
+        CTest_2 TopoModelFile; // Create topological model file
         CGenex FEMModel;  // Create FEM model
 
         int m_iCodeNo; // Size of structure global matrix / without zero rows 
@@ -29,7 +30,8 @@ namespace FEM_CALC_1Din2D
         public CFEM_CALC()
         {
             // Load Topological model
-            TopoModelFile = new CTest_1(); // Temporary
+            // TopoModelFile = new CTest_1(); // Temporary
+            TopoModelFile = new CTest_2(); // Temporary
             
             // Generate FEM model data from Topological model
             // Prepare solver data
