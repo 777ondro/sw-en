@@ -64,7 +64,7 @@ namespace FEM_CALC_1Din3D
     public class CFEM_CALC
     {
         // Settings
-        static int iNodeDOFNo = 6; // No warping effect (bimoment)
+        static int iNodeDOFNo = 6; // No warping effect (bimoment) // DOF in 3D
 
         EGCS eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
         ESLN eSLN = ESLN.e3DD_1D;        // Solution type - define n-dimesional space and members
@@ -139,7 +139,7 @@ namespace FEM_CALC_1Din3D
             for (int i = 0; i < iNNoTot; i++)
             {
                 // Create auxiliary Node object
-                CFemNode CNode_i = new CFemNode();
+                CFemNode CNode_i = new CFemNode(iNodeDOFNo);
 
                 // Fill array object item with auxliary Node
                 m_NodeArray[i] = CNode_i;
