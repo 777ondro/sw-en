@@ -22,6 +22,7 @@ using System.Threading;
 using System.Collections;
 using BaseClasses;
 using CRSC;
+using FEM_CALC_1Din3D;
 using _3DTools;
 
 namespace sw_en_GUI
@@ -300,10 +301,10 @@ namespace sw_en_GUI
 		}
 
 
-		private CCrSc[] getCrossSections(DataTable dt)
+		private CRSC.CCrSc[] getCrossSections(DataTable dt)
 		{
-			List<CCrSc> list_crsc = new List<CCrSc>();
-			CCrSc crsc = null;
+            List<CRSC.CCrSc> list_crsc = new List<CRSC.CCrSc>();
+            CRSC.CCrSc crsc = null;
 
 			int CrSc_ID;
 			float fI_t, fI_y, fI_z, fA_g;
@@ -313,7 +314,7 @@ namespace sw_en_GUI
 				try
 				{
 
-                    // crsc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+                    //crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
                     crsc = new CCrSc_0_05(200.0f, 100.0f);
 
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
@@ -478,6 +479,12 @@ namespace sw_en_GUI
 
 			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
+
+        private void menuItemCalculate_Click(object sender, RoutedEventArgs e)
+        {
+            // Create calculation object and run calculation
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC();
+        }
 
 
 
