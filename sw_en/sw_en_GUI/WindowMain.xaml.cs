@@ -522,7 +522,37 @@ namespace sw_en_GUI
         private void menuItemCalculate_Click(object sender, RoutedEventArgs e)
         {
             // Create calculation object and run calculation
-            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC();
+            // FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC(model); // Nove vypoctove jadro
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC();         // Povodny priklad - zadanie c 4
+
+
+
+
+
+
+            // Auxialiary string - result data
+
+            int iDispDecPrecision = 3; // Precision of numerical values of displacement and rotations
+            string sDOFResults = null;
+
+            for (int i = 0; i < obj_Calc.m_V_Displ.FVectorItems.Length; i++)
+            {
+                int iNodeNumber = obj_Calc.m_fDisp_Vector_CN[i, 1] + 1; // Incerase index (1st member "0" to "1"
+                int iNodeDOFNumber = obj_Calc.m_fDisp_Vector_CN[i, 2] + 1;
+
+                sDOFResults += "Node No:" + "\t" + iNodeNumber + "\t" +
+                               "Node DOF No:" + "\t" + iNodeDOFNumber + "\t" +
+                               "Value:" + "\t" + String.Format("{0:0.000}", Math.Round(obj_Calc.m_V_Displ.FVectorItems[i], iDispDecPrecision))
+                               + "\n";
+            }
+
+            // Main String
+            string sMessageCalc =
+                "Calculation was successful!" + "\n\n" +
+                "Result - vector of calculated values of unrestraint DOF displacement or rotation" + "\n\n" + sDOFResults;
+
+            // Display Message
+            MessageBox.Show(sMessageCalc, "Solver Message",MessageBoxButton.OK);
         }
 
 

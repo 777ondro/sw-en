@@ -6,6 +6,7 @@ using System.Text;
 using BaseClasses;
 using MATH;
 using CRSC;
+using CENEX;
 
 /*
  Todo
@@ -72,18 +73,14 @@ namespace FEM_CALC_1Din3D
 
         static int iNNoTot = 4;
         static int iElemNoTot = 3;
-        int m_iCodeNo; // Size of structure global matrix / without zero rows 
+        int m_iCodeNo; // Size of structure global matrix / without zero rows
+
+        CModel TopoModelFile; // Create topological model file
+        CGenex FEMModel;  // Create FEM model
 
         CFemNode[] m_NodeArray = new CFemNode[iNNoTot];
         CE_1D[] m_ELemArray = new CE_1D[iElemNoTot];
         CLoad[] m_ELoadArray = new CLoad[iElemNoTot];
-
-
-        // Material
-        CMaterial m_Mat = new CMaterial();
-
-        // Cross-section
-        CCrSc m_CrSc = new CCrSc_0_00(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         public int[,] m_fDisp_Vector_CN;
 
@@ -91,11 +88,6 @@ namespace FEM_CALC_1Din3D
         public CVector  m_V_Load;
         public CVector  m_V_Displ;
 
-        
-        
-        
-        
-        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TEMPORARY EXAMPLE DATA
 
@@ -106,34 +98,58 @@ namespace FEM_CALC_1Din3D
         float m_fM = 20000f;   // Unit [Nm]
         float m_fq =  5000f;   // Unit [N/m]
 
-        // Geometry
-        float m_fGeom_a = 4f,
-              m_fGeom_b = 5f,
-              m_fGeom_c = 3.5f;     // Unit [m]
-
-        // Material properties
-        /*
-        float m_fE  = 2.1e+11f;          // Unit [Pa]
-        float m_fnu = 0.3f;              // Unit [-]
-        float m_fG  = 0.8076923e+11f;    // Unit [Pa]
-        */
-
-        // Cross-section properties / Geometrical data
-        CRSC.Enums.ECrScShType1 m_eCrScType = CRSC.Enums.ECrScShType1.eCrScType_I;
- 
-
-
-
-
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Consructor
+        public CFEM_CALC(CModel model)
+        {
+            TopoModelFile = model;
+
+            // Generate FEM model data from Topological model
+            // Prepare solver data
+            // Fill local and global matrices of FEM elements
+
+            FEMModel = new CGenex(TopoModelFile);
 
 
+
+
+
+
+            // dopracovat
+
+
+
+
+
+
+
+
+
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // TEMPORARY EXAMPLE DATA
 
         // Consructor
         public CFEM_CALC()
         {
+            // Geometry
+            float fGeom_a = 4f,
+                  fGeom_b = 5f,
+                  fGeom_c = 3.5f;     // Unit [m]
+
+            // Material
+            CMaterial m_Mat = new CMaterial();
+
+            // Cross-section
+            CCrSc m_CrSc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_CrSc.FI_t = 5.69e-07f;
+            m_CrSc.FI_y = 9.79e-05f;
+            m_CrSc.FI_z = 4.49e-06f;
+            m_CrSc.FA_g = 6.90e-03f;
+            m_CrSc.FA_vy = 4.01e-03f;
+            m_CrSc.FA_vz = 2.89e-03f;
 
             // Define Nodes Properties
 
@@ -148,7 +164,7 @@ namespace FEM_CALC_1Din3D
 
             // Node 1
             m_NodeArray[0].ID = 1;
-            m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = fGeom_a;
             m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
             m_NodeArray[0].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
@@ -160,14 +176,14 @@ namespace FEM_CALC_1Din3D
 
             // Node 3
             m_NodeArray[2].ID = 5;
-            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
+            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = fGeom_a;
             m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = 0f;
-            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = -m_fGeom_c;
+            m_NodeArray[2].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = -fGeom_c;
 
             // Node 4
             m_NodeArray[3].ID = 3;
-            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = m_fGeom_a;
-            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = -m_fGeom_b;
+            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUX] = fGeom_a;
+            m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUY] = -fGeom_b;
             m_NodeArray[3].m_fVNodeCoordinates.FVectorItems[(int) e3D_DOF.eUZ] = 0f;
 
             // Set Nodal Supports (for restraint set 0f)
@@ -196,6 +212,20 @@ namespace FEM_CALC_1Din3D
             m_NodeArray[3].m_VDisp.FVectorItems[3] = 0f;
             m_NodeArray[3].m_VDisp.FVectorItems[4] = 0f;
             m_NodeArray[3].m_VDisp.FVectorItems[5] = 0f;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Set Global Code Numbers
 
