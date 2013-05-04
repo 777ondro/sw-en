@@ -15,7 +15,7 @@ namespace FEM_CALC_1Din2D
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new CalcForm());
         }
     }
 }
