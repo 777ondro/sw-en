@@ -73,9 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCrSc.cs" />
     <Compile Include="CE_1D.cs" />
     <Compile Include="CFEM_CALC.cs" />
+    <Compile Include="CGenex.cs" />
     <Compile Include="CLoad.cs" />
     <Compile Include="CMaterial.cs" />
     <Compile Include="CFemNode.cs" />

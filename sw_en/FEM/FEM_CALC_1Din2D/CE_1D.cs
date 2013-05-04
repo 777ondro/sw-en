@@ -44,7 +44,7 @@ namespace FEM_CALC_1Din2D
         public CMatrix m_fBTTMatr2D = new CMatrix(Constants.i2D_DOFNo);  // 3x3
         public CMatrix m_fKGlobM;     // (2x3)*(2x3)
 
-        public CCrSc m_CrSc = new CCrSc();
+        public CCrSc m_CrSc /*= new CCrSc()*/; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public CMLoad m_ELoad;
         public FEM_CALC_BASE.Enums.EElemSuppType [] m_eSuppType;
 
