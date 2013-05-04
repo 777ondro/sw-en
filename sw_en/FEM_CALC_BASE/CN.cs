@@ -17,7 +17,8 @@ namespace FEM_CALC_BASE
             set { m_ID = value; }
         }
 
-        const int m_iNodeDOFNumber = 3; // 3 in 2D, 6 in 3D
+        // !!!! Menit dynamicky !!! 
+        const int m_iNodeDOFNumber = 6; // 3 in 2D, 6 in 3D
 
         // Vector of node coordinates in carthesian coordinate system
         public CVector m_fVNodeCoordinates = new CVector(m_iNodeDOFNumber);
