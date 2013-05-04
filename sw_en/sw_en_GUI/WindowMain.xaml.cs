@@ -308,7 +308,7 @@ namespace sw_en_GUI
                     CrSc1.ICrSc_ID = iCrSc1ID;
 
                     CrSc2 = new CRSC.CCrSc_3_00();
-                    int.TryParse(row["CrossSectionStartID"].ToString(), out iCrSc2ID);
+                    int.TryParse(row["CrossSectionEndID"].ToString(), out iCrSc2ID);
                     CrSc2.ICrSc_ID = iCrSc2ID;
 
                     // Create member
