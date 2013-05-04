@@ -66,6 +66,11 @@ namespace CRSC
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
 
+        // Temp
+        public CCrSc_3_00()
+        { }
+
+
         // Shape 0
         public CCrSc_3_00(short sShapeType, short iNumOfArcSegment, float fh, float fb, float ft_f, float ft_w, float fr_1, float fr_2, float fd)
 		{

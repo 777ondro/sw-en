@@ -205,12 +205,26 @@ namespace sw_en_GUI
 			//member Eccentricities  
 			model.m_arrMembers = getMembers(((DataSet)dataGridNodes.DataContext).Tables[5]);
 
-            // Set properties of nodes to the Member nodes
+            // Set properties to the Member (nodes, crsc)
 
             for(int i = 0; i < model.m_arrMembers.Length; i++)
             {
+                // Nodes
                 model.m_arrMembers[i].NodeStart = model.m_arrNodes[model.m_arrMembers[i].NodeStart.INode_ID-1];
                 model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.INode_ID-1];
+
+                // Set Cross-section
+                model.m_arrMembers[i].CrSc = model.m_arrCrSc[model.m_arrMembers[i].CrSc.ICrSc_ID];
+
+                // Temp - nacitava sa z tabulky alebo z databazy, dopracovat
+                // Parametre pre IPN 300
+                model.m_arrMembers[i].CrSc = new CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f);
+                model.m_arrMembers[i].CrSc.FI_t  = 5.69e-07f;
+                model.m_arrMembers[i].CrSc.FI_y  = 9.79e-05f;
+                model.m_arrMembers[i].CrSc.FI_z  = 4.49e-06f;
+                model.m_arrMembers[i].CrSc.FA_g  = 6.90e-03f;
+                model.m_arrMembers[i].CrSc.FA_vy = 4.01e-03f;
+                model.m_arrMembers[i].CrSc.FA_vz = 2.89e-03f;
             }
 
 			model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);
@@ -263,6 +277,13 @@ namespace sw_en_GUI
 			int node1ID;
 			CNode Node2;
 			int node2ID;
+            float fRotation;
+            CRSC.CCrSc_3_00 CrSc1; // Temp
+            int iCrSc1ID;
+            CRSC.CCrSc_3_00 CrSc2; // Temp
+            int iCrSc2ID;
+            // ReleaseStartID
+            // ReleaseEndID
 			int Time = 100;
 			float Length;
 
@@ -270,6 +291,7 @@ namespace sw_en_GUI
 			{
 				try
 				{
+                    // Nodes
 					int.TryParse(row["MemberID"].ToString(), out Line_ID);
 					Node1 = new CNode();
 					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
@@ -279,7 +301,17 @@ namespace sw_en_GUI
 					int.TryParse(row["NodeEndID"].ToString(), out node2ID);
 					Node2.INode_ID = node2ID;
 
-					member = new CMember(Line_ID, Node1, Node2, Time);
+                    //Cross-sections
+                    CrSc1 = new CRSC.CCrSc_3_00();
+                    int.TryParse(row["CrossSectionStartID"].ToString(), out iCrSc1ID);
+                    CrSc1.ICrSc_ID = iCrSc1ID;
+
+                    CrSc2 = new CRSC.CCrSc_3_00();
+                    int.TryParse(row["CrossSectionStartID"].ToString(), out iCrSc2ID);
+                    CrSc2.ICrSc_ID = iCrSc2ID;
+
+                    // Create member
+					member = new CMember(Line_ID, Node1, Node2, CrSc1, Time);
 
 					float.TryParse(row["Length"].ToString(), out Length);
 					member.FLength = Length;
@@ -307,15 +339,15 @@ namespace sw_en_GUI
             CRSC.CCrSc crsc = null;
 
 			int CrSc_ID;
-			float fI_t, fI_y, fI_z, fA_g;
+			float fI_t, fI_y, fI_z, fA_g, fA_vy, fA_vz;
 
 			foreach (DataRow row in dt.Rows)
 			{
 				try
 				{
 
-                    //crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
-                    crsc = new CCrSc_0_05(200.0f, 100.0f);
+                    crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
+                    //crsc = new CCrSc_0_05(200.0f, 100.0f);
 
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
 					crsc.ICrSc_ID = CrSc_ID;
@@ -331,6 +363,12 @@ namespace sw_en_GUI
 
 					float.TryParse(row["fA_g"].ToString(), out fA_g);
 					crsc.FA_g = fA_g;
+
+                    float.TryParse(row["fA_vy"].ToString(), out fA_vy);
+                    crsc.FA_vy = fA_vy;
+
+                    float.TryParse(row["fA_vz"].ToString(), out fA_vz);
+                    crsc.FA_vz = fA_vz;
 
 					list_crsc.Add(crsc);
 				}

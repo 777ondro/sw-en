@@ -88,6 +88,8 @@ namespace CRSC
 
         private float m_fU,
         m_fA_g,
+        m_fA_vy,
+        m_fA_vz,
         m_fS_y,
         m_fI_y,
         m_fW_y_el,
@@ -159,6 +161,18 @@ namespace CRSC
         {
             get { return m_fA_g; }
             set { m_fA_g = value; }
+        }
+
+        public float FA_vy
+        {
+            get { return m_fA_vy; }
+            set { m_fA_vy = value; }
+        }
+
+        public float FA_vz
+        {
+            get { return m_fA_vz; }
+            set { m_fA_vz = value; }
         }
 
         public float FU
