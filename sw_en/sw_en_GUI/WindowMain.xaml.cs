@@ -163,6 +163,7 @@ namespace sw_en_GUI
 			ofd.Filter = "Excel documents(.xlsx, .xls)|*.xlsx;*.xls";
 			if (ofd.ShowDialog() == true)
 			{
+                // Osetrit nacitavanie dat z prazdnych naformatovanych riadkov a pod
 				try
 				{
 					DataSet ds = CImportFromExcel.ImportFromExcel(ofd.FileName);
