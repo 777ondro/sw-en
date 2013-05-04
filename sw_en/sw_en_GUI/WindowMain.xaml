@@ -96,7 +96,9 @@
 			<MenuItem Header="Loading"></MenuItem>
 			<MenuItem Header="Database"></MenuItem>
 			<MenuItem Header="Modules"></MenuItem>
-			<MenuItem Header="Calculation"></MenuItem>
+			<MenuItem Header="Calculation">
+                <MenuItem x:Name="menuItemCalculate" Header="Calculate" Click="menuItemCalculate_Click"></MenuItem>
+            </MenuItem>
 			<MenuItem Header="Settings"></MenuItem>
 			<MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private"></MenuItem>
 			<MenuItem Header="Help"></MenuItem>

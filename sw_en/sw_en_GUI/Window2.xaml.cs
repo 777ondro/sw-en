@@ -1132,23 +1132,29 @@ namespace sw_en_GUI
 
       //end temp!!!!!!!!
 
-      // Model Group of Members
-      // Prepare member model
-      for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
+      // Check that real model exists and create model geometry
+      if (cmodel != null)
       {
-        //if (i != 0) continue;
-        
-        // Start Node of Member
-          Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
-        // End node of Member
-          Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
+          // Model Group of Members
+          // Prepare member model
+          for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
+          {
+              //if (i != 0) continue;
 
-        // Create Member model
-        GeometryModel3D membermodel = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
+              // Start Node of Member
+              Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
+              // End node of Member
+              Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
 
-        // Add current member model to the model group
-        gr.Children.Add(membermodel);
+              // Create Member model
+              GeometryModel3D membermodel = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
+
+              // Add current member model to the model group
+              gr.Children.Add(membermodel);
+          }
       }
+
+
 
       Point3D cameraPosition = new Point3D(0, 0, 200);
 

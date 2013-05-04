@@ -233,6 +233,10 @@
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
       <Name>CRSC %28CRSC\CRSC%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FEM\FEM_CALC_1Din3D\FEM_CALC_1Din3D.csproj">
+      <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
+      <Name>FEM_CALC_1Din3D</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
       <Name>MATH</Name>

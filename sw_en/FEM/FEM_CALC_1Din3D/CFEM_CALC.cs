@@ -506,7 +506,10 @@ namespace FEM_CALC_1Din3D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
             // Display Global Displacemnt Vector - solution result
+            //Console.ForegroundColor = ConsoleColor.Cyan;
             m_V_Displ.Print1DVector();
+            //Console.ForegroundColor = ConsoleColor.Green;
+            //Console.BackgroundColor = ConsoleColor.White;
 
             // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
             for (int i = 0; i < m_iCodeNo; i++)
