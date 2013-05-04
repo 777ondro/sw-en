@@ -882,8 +882,6 @@ namespace sw_en_GUI
     {
       InitializeComponent();
 
-      CTest1 test1 = new CTest1(); // Basic Cross Section Data
-
       // Temp
       // Half Circle Bar
       // Quater Circle Bar
@@ -891,32 +889,31 @@ namespace sw_en_GUI
       // Round or Ellipse Bar
       // load_0_02_03_TriangelIndices();
       // Triangular Prism 
-      //load_0_04_TriangelsIndices();
+      // load_0_04_TriangelsIndices();
       // Flat Bar
-      CCrSc obj_CrSc = new CCrSc_0_05(200.0f, 100.0f);
-      //load_0_05_TriangelIndices();
+      // load_0_05_TriangelIndices();
       // Half Circle
       // load_0_20_TriangelIndices();
       // TUBE / PIPE Circle or Ellipse Shape
       // load_0_22_23_TriangelIndices();
       // Triangular Prism with Opening
-      //load_0_24_TriangelsIndices();
+      // load_0_24_TriangelsIndices();
       // HL-section / Rectanglular Hollow Cross-section
-      //load_0_25_TriangelIndices();
+      // load_0_25_TriangelIndices();
       // Polygonal Hollow Section
-      //load_0_26_28_TriangelIndices(0,test1.objCrScHollow.INoPoints);
+      // load_0_26_28_TriangelIndices(0,test1.objCrScHollow.INoPoints);
       // I - section
-      //load_0_50_TriangelIndices();
+      // load_0_50_TriangelIndices();
       // U-section
-      //load_0_52_TriangelIndices();
+      // load_0_52_TriangelIndices();
       // L-section / Angle section
-      //load_0_54_TriangelIndices();
+      // load_0_54_TriangelIndices();
       // T-section / T section
-      //load_0_56_TriangelIndices();
+      // load_0_56_TriangelIndices();
       // Z-section / Z section
       // load_0_58_TriangelIndices();
       // Cruciform Bar
-      //load_0_60_TriangelIndices(test1.objCrScSolid.ITotNoPoints);
+      // load_0_60_TriangelIndices(test1.objCrScSolid.ITotNoPoints);
       // Y-section / Y section
       // load_0_61_TriangelIndices();
 
@@ -969,125 +966,6 @@ namespace sw_en_GUI
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions = new Point3DCollection();
 
-
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // Number of Points per section
-      short iNoCrScPoints2D;
-
-      // Tieto data ziskame z pruta
-
-      // Main Nodes of Member
-      Point3D m_pA = new Point3D(10, 10, 10);
-      Point3D m_pB = new Point3D(500, 300, 200);
-
-      // Priemet do osi GCS - rozdiel suradnic v GCS
-      double m_dDelta_X = m_pB.X - m_pA.X;
-      double m_dDelta_Y = m_pB.Y - m_pA.Y;
-      double m_dDelta_Z = m_pB.Z - m_pA.Z;
-
-      // Realna dlzka prvku // Length of member - straigth segment of member
-      double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-
-      // Points 2D Coordinate Array
-
-      if (obj_CrSc.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
-      {
-        iNoCrScPoints2D = obj_CrSc.ITotNoPoints; // Depends on Section Type 
-
-        // Solid section
-        float[,] res = obj_CrSc.CrScPointsOut; // I,U,Z,HL,L, ..............
-
-        // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
-
-        // I,U,Z,HL, L, ....
-        if (res != null) // Check that data are available
-        {
-          for (int j = 0; j < iNoCrScPoints2D; j++)
-          {
-            mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
-          }
-          for (int j = 0; j < iNoCrScPoints2D; j++)
-          {
-            mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], m_dLength));
-          }
-        }
-        else
-        {
-          // Exception
-        }
-      }
-      else
-      {
-        // Tubes , Polygonal Hollow Sections
-        iNoCrScPoints2D = (short)(2 * obj_CrSc.INoPointsOut); // Twice number of one surface
-        //iNoCrScPoints2D = (short)(obj_CrSc.INoPointsOut + obj_CrSc.INoPointsIn);
-        float[,] res1 = obj_CrSc.CrScPointsOut; // TU
-        float[,] res2 = obj_CrSc.CrScPointsIn; // TU
-
-        // Tube, regular hollow sections
-        // TU
-
-        // Start
-        if (res1 != null) // Check that data are available
-        {
-          // OutSide Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
-          {
-            mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
-          }
-        }
-        else
-        {
-          // Exception
-        }
-
-        if (res2 != null) // Check that data are available
-        {
-          // Inside Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
-          {
-            mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
-          }
-        }
-        else
-        {
-          // Exception
-        }
-
-        // End
-        if (res1 != null) // Check that data are available
-        {
-          // OutSide Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
-          {
-            mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], m_dLength));
-          }
-        }
-        else
-        {
-          // Exception
-        }
-
-        if (res2 != null) // Check that data are available
-        {
-          // Inside Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
-          {
-            mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], m_dLength));
-          }
-        }
-        else
-        {
-          // Exception
-        }
-      }
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      TransformMember_LCStoGCS(m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, mesh.Positions);
-
-      // Mesh Triangles - various cross-sections shapes defined
-      mesh.TriangleIndices = obj_CrSc.TriangleIndices;
-
       //ScreenSpaceLines3D line = new ScreenSpaceLines3D();
       //line.Color = Color.FromRgb(0,255,0);
       //line.Points.Add(mesh.Positions[0]);
@@ -1105,32 +983,18 @@ namespace sw_en_GUI
       _trackport.SetupScene();
     }
 
+
+
+
+
+
     public Window2(CModel cmodel)
     {
       InitializeComponent();
-      // Flat Bar
-      CCrSc obj_CrSc = new CCrSc_0_05(0.2f, 0.1f);
 
       Model3DGroup gr = new Model3DGroup();
       //gr.Children.Add(new AmbientLight());
       SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
-
-      //temp !!!!!!!!
-
-      //CMember[] members = cmodel.m_arrMembers;   
-      //int i = 0;
-      //foreach (CMember m in members)
-      //{
-      //  if (i != 0) continue;
-      //  i++;
-
-      //  Point3D mpA = new Point3D(m.NodeStart.FCoord_X, m.NodeStart.FCoord_Y, m.NodeStart.FCoord_Z);
-      //  Point3D mpB = new Point3D(m.NodeEnd.FCoord_X, m.NodeEnd.FCoord_Y, m.NodeEnd.FCoord_Z);
-      //  GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
-      //  gr.Children.Add(model);
-      //}
-
-      //end temp!!!!!!!!
 
       // Check that real model exists and create model geometry
       if (cmodel != null)
@@ -1139,15 +1003,13 @@ namespace sw_en_GUI
           // Prepare member model
           for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
           {
-              //if (i != 0) continue;
-
               // Start Node of Member
               Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
               // End node of Member
               Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
 
               // Create Member model
-              GeometryModel3D membermodel = getGeometryModel3D(brush, obj_CrSc, mpA, mpB);
+              GeometryModel3D membermodel = getGeometryModel3D(brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB);
 
               // Add current member model to the model group
               gr.Children.Add(membermodel);
