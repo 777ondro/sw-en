@@ -215,7 +215,7 @@ namespace sw_en_GUI
                 model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.INode_ID-1];
 
                 // Set Cross-section
-                model.m_arrMembers[i].CrSc = model.m_arrCrSc[model.m_arrMembers[i].CrSc.ICrSc_ID];
+                model.m_arrMembers[i].CrSc = model.m_arrCrSc[model.m_arrMembers[i].CrSc.ICrSc_ID-1];
 
                 // Temp - nacitava sa z tabulky alebo z databazy, dopracovat
                 // Parametre pre IPN 300
