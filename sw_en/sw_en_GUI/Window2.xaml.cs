@@ -1008,6 +1008,12 @@ namespace sw_en_GUI
               // End node of Member
               Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
 
+              System.Console.Write("\n" + "Member ID:" +(i+1).ToString() +"\n"); // Write Member ID in console window
+              System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+              System.Console.Write( mpA.X.ToString() + "\t"+ mpA.Y.ToString() +"\t"+ mpA.Z.ToString()+ "\n");
+              System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+              System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+
               // Create Member model
               GeometryModel3D membermodel = getGeometryModel3D(brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB);
 
@@ -1047,7 +1053,7 @@ namespace sw_en_GUI
     {
       GeometryModel3D model = new GeometryModel3D();
 
-      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(obj_CrSc, mpA, mpB);
+      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(obj_CrSc, mpA, mpB); // Mesh one member
 
       model.Geometry = mesh;
 
@@ -1174,6 +1180,32 @@ namespace sw_en_GUI
 
       // Mesh Triangles - various cross-sections shapes defined
       mesh.TriangleIndices = obj_CrSc.TriangleIndices;
+
+
+
+
+
+     // Dislay data in the output window
+
+      string sOutput = null; // create temporary string
+
+      for (int i = 0; i < 2*iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
+      {
+          Point3D p3D = mesh.Positions.ElementAt(i); // Get mesh element/item (returns Point3D)
+
+          sOutput += "Node ID: " + i.ToString();
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.X.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.Y.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.Z.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+
+          sOutput += "\n"; // New row
+      }
+
+      System.Console.Write(sOutput); // Write in console window
 
       return mesh;
     }
