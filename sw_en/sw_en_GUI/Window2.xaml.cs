@@ -1243,6 +1243,7 @@ namespace sw_en_GUI
       // Change mesh triangle indices
       // Change orientation of normals
 
+      /*
       int iFirst = 0;
       int iThird = 2;
 
@@ -1258,6 +1259,7 @@ namespace sw_en_GUI
          iFirst += 3;
          iThird += 2;
       }
+      */
 
       return mesh;
     }
