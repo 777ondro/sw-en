@@ -348,8 +348,8 @@ namespace sw_en_GUI
 				try
 				{
 
-                    crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
-                    //crsc = new CCrSc_0_05(200.0f, 100.0f);
+                    //crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
+                    crsc = new CCrSc_0_05(0.2f, 0.1f);
 
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
 					crsc.ICrSc_ID = CrSc_ID;
