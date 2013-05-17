@@ -40,7 +40,7 @@ namespace _3DTools
     public partial class Trackport3D : UserControl
     {
         private Trackball _trackball = new Trackball();
-
+        
         public Trackball Trackball
         {
             get { return _trackball; }
@@ -65,7 +65,8 @@ namespace _3DTools
             this.Viewport.Children.Add(Wireframe);
             this.Camera.Transform = _trackball.Transform;
             this.Headlight.Transform = _trackball.Transform;
-            
+
+            _trackball.TranslateScale = 200;
             //SetupScene();
         }
 
