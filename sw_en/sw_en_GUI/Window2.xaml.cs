@@ -1236,6 +1236,23 @@ namespace sw_en_GUI
 
       System.Console.Write(sOutput); // Write in console window
 
+      // Change mesh triangle indices
+      // Change orientation of normals
+
+      int iTIcount = mesh.TriangleIndices.Count;
+      for (int i = 0; i < iTIcount / 3 ; i++)
+      {
+         int iFirst = i;
+         int iThird = i + 2;
+
+         int iTI_1 = mesh.TriangleIndices.ElementAt(iFirst);
+         int iTI_3 = mesh.TriangleIndices.ElementAt(iThird);
+
+//mesh.TriangleIndices.ElementAt(iThird). = iTI_1;
+
+
+      }
+
       return mesh;
     }
 
