@@ -1189,7 +1189,7 @@ namespace sw_en_GUI
 
       for (int i = 0; i < 2 * iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
       {
-          Point3D p3D = mesh.Positions.ElementAt(i); // Get mesh element/item (returns Point3D)
+          Point3D p3D = mesh.Positions[i]; // Get mesh element/item (returns Point3D)
 
           sOutput += "Node ID: " + i.ToString();
           sOutput += "\t"; // New Tab between columns
@@ -1220,7 +1220,7 @@ namespace sw_en_GUI
 
       for (int i = 0; i < 2*iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
       {
-          Point3D p3D = mesh.Positions.ElementAt(i); // Get mesh element/item (returns Point3D)
+          Point3D p3D = mesh.Positions[i]; // Get mesh element/item (returns Point3D)
 
           sOutput += "Node ID: " + i.ToString();
           sOutput += "\t"; // New Tab between columns
@@ -1239,18 +1239,20 @@ namespace sw_en_GUI
       // Change mesh triangle indices
       // Change orientation of normals
 
+      int iFirst = 0;
+      int iThird = 2;
+
       int iTIcount = mesh.TriangleIndices.Count;
       for (int i = 0; i < iTIcount / 3 ; i++)
       {
-         int iFirst = i;
-         int iThird = i + 2;
+         int iTI_1 = mesh.TriangleIndices[iFirst];
+         int iTI_3 = mesh.TriangleIndices[iThird];
 
-         int iTI_1 = mesh.TriangleIndices.ElementAt(iFirst);
-         int iTI_3 = mesh.TriangleIndices.ElementAt(iThird);
+         mesh.TriangleIndices[iThird] = iTI_1;
+         mesh.TriangleIndices[iFirst] = iTI_3;
 
-//mesh.TriangleIndices.ElementAt(iThird). = iTI_1;
-
-
+         iFirst += 3;
+         iThird += 2;
       }
 
       return mesh;
