@@ -880,8 +880,9 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     public Window2()
     {
+        
       InitializeComponent();
-
+      
       // Temp
       // Half Circle Bar
       // Quater Circle Bar
@@ -980,6 +981,9 @@ namespace sw_en_GUI
       model.Material = new DiffuseMaterial(br);
       gr.Children.Add(model);
       _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
+
+      _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
+
       _trackport.SetupScene();
     }
 
