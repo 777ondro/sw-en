@@ -295,6 +295,8 @@ namespace sw_en_GUI
 				{
                     // Nodes
 					int.TryParse(row["MemberID"].ToString(), out Line_ID);
+                    if (Line_ID == 0) continue; //do not include empty MemberID or with memberID=0
+
 					Node1 = new CNode();
 					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
 					Node1.INode_ID = node1ID;
