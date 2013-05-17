@@ -1079,7 +1079,8 @@ namespace sw_en_GUI
 
       // Realna dlzka prvku // Length of member - straigth segment of member
       // Prečo je záporná ???
-      double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+      // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+         double m_dLength = Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
 
       // Number of Points per section
       short iNoCrScPoints2D;
@@ -1098,11 +1099,13 @@ namespace sw_en_GUI
         {
           for (int j = 0; j < iNoCrScPoints2D; j++)
           {
-            mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], 0));
+              // X - start, Y, Z
+            mesh.Positions.Add(new Point3D(0, res[j, 0], res[j, 1]));
           }
           for (int j = 0; j < iNoCrScPoints2D; j++)
           {
-            mesh.Positions.Add(new Point3D(res[j, 0], res[j, 1], m_dLength));
+              // X - end, Y, Z
+              mesh.Positions.Add(new Point3D(m_dLength, res[j, 0], res[j, 1]));
           }
         }
         else
@@ -1127,7 +1130,8 @@ namespace sw_en_GUI
           // OutSide Radius Points
           for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
           {
-            mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], 0));
+            // X - start, Y, Z
+            mesh.Positions.Add(new Point3D(0, res1[j, 0], res1[j, 1]));
           }
         }
         else
@@ -1140,7 +1144,8 @@ namespace sw_en_GUI
           // Inside Radius Points
           for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
           {
-            mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], 0));
+            // X - start, Y, Z
+            mesh.Positions.Add(new Point3D(0,res2[j, 0], res2[j, 1]));
           }
         }
         else
@@ -1154,7 +1159,8 @@ namespace sw_en_GUI
           // OutSide Radius Points
           for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
           {
-            mesh.Positions.Add(new Point3D(res1[j, 0], res1[j, 1], m_dLength));
+            // X - end, Y, Z
+            mesh.Positions.Add(new Point3D(m_dLength, res1[j, 0], res1[j, 1]));
           }
         }
         else
@@ -1167,7 +1173,8 @@ namespace sw_en_GUI
           // Inside Radius Points
           for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
           {
-            mesh.Positions.Add(new Point3D(res2[j, 0], res2[j, 1], m_dLength));
+           // X - end, Y, Z
+           mesh.Positions.Add(new Point3D(m_dLength,res2[j, 0], res2[j, 1]));
           }
         }
         else
@@ -1176,18 +1183,40 @@ namespace sw_en_GUI
         }
       }
 
+      // Dislay data in the output window
+
+      string sOutput = "Before transformation \n\n"; // create temporary string
+
+      for (int i = 0; i < 2 * iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
+      {
+          Point3D p3D = mesh.Positions.ElementAt(i); // Get mesh element/item (returns Point3D)
+
+          sOutput += "Node ID: " + i.ToString();
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.X.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.Y.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+          sOutput += p3D.Z.ToString("0.0000");
+          sOutput += "\t"; // New Tab between columns
+
+          sOutput += "\n"; // New row
+      }
+
+      System.Console.Write(sOutput); // Write in console window
+
+
+      // Transform coordinates
       TransformMember_LCStoGCS(m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, mesh.Positions);
 
       // Mesh Triangles - various cross-sections shapes defined
       mesh.TriangleIndices = obj_CrSc.TriangleIndices;
 
 
-
-
-
      // Dislay data in the output window
 
-      string sOutput = null; // create temporary string
+      sOutput = null;
+      sOutput = "After transformation \n\n"; // create temporary string
 
       for (int i = 0; i < 2*iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
       {
