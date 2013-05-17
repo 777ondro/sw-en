@@ -1243,23 +1243,22 @@ namespace sw_en_GUI
       // Change mesh triangle indices
       // Change orientation of normals
 
-      /*
-      int iFirst = 0;
+      int iSecond = 1;
       int iThird = 2;
 
       int iTIcount = mesh.TriangleIndices.Count;
       for (int i = 0; i < iTIcount / 3 ; i++)
       {
-         int iTI_1 = mesh.TriangleIndices[iFirst];
+          int iTI_2 = mesh.TriangleIndices[iSecond];
          int iTI_3 = mesh.TriangleIndices[iThird];
 
-         mesh.TriangleIndices[iThird] = iTI_1;
-         mesh.TriangleIndices[iFirst] = iTI_3;
+         mesh.TriangleIndices[iThird] = iTI_2;
+         mesh.TriangleIndices[iSecond] = iTI_3;
 
-         iFirst += 3;
-         iThird += 2;
+         iSecond += 3;
+         iThird += 3;
       }
-      */
+
 
       return mesh;
     }
