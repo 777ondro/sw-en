@@ -1526,6 +1526,7 @@ namespace sw_en_GUI
       Point3D pTemp1 = new Point3D();
       Point3D pTemp2 = new Point3D();
 
+      /*
       if (eGCS == EGCS.eGCSLeftHanded)
       {
           // Left handed
@@ -1558,6 +1559,23 @@ namespace sw_en_GUI
           p3Drotated.Y = pA.Y + (-Math.Sin(gamaZ) * pTemp2.X + Math.Cos(gamaZ) * pTemp2.Y);
           p3Drotated.Z = pA.Z + pTemp2.Z;
       }
+      */
+
+
+      // http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
+
+      // Rotate around x, y, z
+
+      p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Cos(gamaZ) * Math.Sin(alphaX) * Math.Sin(betaY) - Math.Cos(alphaX) * Math.Sin(gamaZ))        * p.Y + (Math.Cos(alphaX) * Math.Cos(gamaZ) * Math.Sin(betaY) + Math.Sin(alphaX) * Math.Sin(gamaZ))  * p.Z);
+      p3Drotated.Y = pA.Y + ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + (Math.Cos(alphaX)*Math.Cos(gamaZ) + Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Cos(gamaZ) * Math.Sin(alphaX) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Z);
+      p3Drotated.Z = pA.Z + ((-Math.Sin(betaY)) * p.X + (Math.Cos(betaY) * Math.Sin(alphaX)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
+
+      // Rotate around z, y, x
+      /*
+      p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (-Math.Cos(betaY) * Math.Sin(gamaZ)) * p.Y + (Math.Sin(betaY)) * p.Z);
+      p3Drotated.Y = pA.Y + ((Math.Cos(alphaX) * Math.Sin(gamaZ) + Math.Sin(alphaX)*Math.Sin(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Cos(alphaX) * Math.Cos(gamaZ) - Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Sin(alphaX) * Math.Cos(betaY)) * p.Z);
+      p3Drotated.Z = pA.Z + ((Math.Sin(alphaX) * Math.Sin(gamaZ) - Math.Cos(alphaX) * Math.Sin(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Sin(alphaX) * Math.Cos(gamaZ) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin (gamaZ)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
+      */
 
 
       return p3Drotated;
