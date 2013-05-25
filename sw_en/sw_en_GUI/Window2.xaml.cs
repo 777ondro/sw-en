@@ -1523,10 +1523,10 @@ namespace sw_en_GUI
       0                 0              0      1
       */
 
+      /*
       Point3D pTemp1 = new Point3D();
       Point3D pTemp2 = new Point3D();
 
-      /*
       if (eGCS == EGCS.eGCSLeftHanded)
       {
           // Left handed
