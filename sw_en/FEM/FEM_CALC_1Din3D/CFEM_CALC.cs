@@ -23,10 +23,6 @@ using CENEX;
  5. Definicia pootocenia pruta - suradnice bodu C urcujuceho rotaciu - momentalne velmi zjednodusene
  6. Otestovat znamienka zatazeni !!! podla orientacie pruta a podobne
 
- 
-
-
-
  FEM
  1. Rozhodnut ci budu stvorcove matice vsetky typu matrix, co ma ostat float, podobne vektory
     upravit rozmery poli, asi bude najlepsie vychadzat z nasobkov "6" - pocet stupnov volnosti uzla v priestore
@@ -54,10 +50,6 @@ using CENEX;
   Asi by bolo rozumnejsie nealokovat cele matice ale na zaklade kodovych cisel vytvarat 
   len konretne prvky (resp. riadky / stlpce) matic s ktorymi sa naozaj pracuje, aby nebolo v pamati mnozstvo poli, ktore sa pouziju ovela neskor - napriklad urcenie vyslednych priebehov 
   vnutornych sil IF v GCS aj LCS 
-
-
-
-
 
 */
 
