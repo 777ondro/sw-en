@@ -1245,8 +1245,8 @@ namespace sw_en_GUI
       // Change mesh triangle indices
       // Change orientation of normals
 
-      if (eGCS == EGCS.eGCSLeftHanded)
-      {
+      //if (eGCS == EGCS.eGCSLeftHanded)
+      //{
           int iSecond = 1;
           int iThird = 2;
 
@@ -1262,7 +1262,7 @@ namespace sw_en_GUI
               iSecond += 3;
               iThird += 3;
           }
-      }
+      //}
 
 
       return mesh;
