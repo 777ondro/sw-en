@@ -1437,14 +1437,14 @@ namespace sw_en_GUI
 
       for (int i = 0; i < pointsCollection.Count; i++)
       {
-        pointsCollection[i] = RotatePoint(eGCS, pA, pointsCollection[i], dAlphaX, dBetaY, dGammaZ);
+          pointsCollection[i] = RotatePoint(eGCS, pA, pointsCollection[i], dAlphaX, dBetaY, dGammaZ, dDeltaX, dDeltaY, dDeltaZ);
       }
 
       return pointsCollection;
     }
 
 
-    protected Point3D RotatePoint(EGCS eGCS, Point3D pA, Point3D p, double alphaX, double betaY, double gamaZ)
+    protected Point3D RotatePoint(EGCS eGCS, Point3D pA, Point3D p, double alphaX, double betaY, double gamaZ, double dDeltaX, double dDeltaY, double dDeltaZ)
     {
       Point3D p3Drotated = new Point3D();
 
@@ -1527,6 +1527,8 @@ namespace sw_en_GUI
       Point3D pTemp1 = new Point3D();
       Point3D pTemp2 = new Point3D();
 
+      // In case that member is parallel to global axis should be rotated only once
+
       if (eGCS == EGCS.eGCSLeftHanded)
       {
           // Left handed
@@ -1561,14 +1563,27 @@ namespace sw_en_GUI
       }
       */
 
-
+      // Cumulative 3D rotation and translation
       // http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
 
       // Rotate around x, y, z
 
+
+      if (dDeltaX < 0 && MathF.d_equal(dDeltaY, 0.0) && MathF.d_equal(dDeltaZ, 0.0))      // Parallel to X-axis with negative orientation
+          betaY = 0; // Do not rotate about Z-axis
+      else if (MathF.d_equal(dDeltaX, 0.0) && dDeltaY < 0 && MathF.d_equal(dDeltaZ, 0.0)) // Parallel to Y-axis with negative orientation
+          alphaX = 0; // Do not rotate about Z-axis
+      else if (MathF.d_equal(dDeltaX, 0.0) && MathF.d_equal(dDeltaY, 0.0) && dDeltaZ < 0) // Parallel to Z-axis with negative orientation
+          betaY = 0; // Do not rotate about Y-axis
+      else
+      {
+          // No action - General position of member in space 
+      }
+
       p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Cos(gamaZ) * Math.Sin(alphaX) * Math.Sin(betaY) - Math.Cos(alphaX) * Math.Sin(gamaZ)) * p.Y + (Math.Cos(alphaX) * Math.Cos(gamaZ) * Math.Sin(betaY) + Math.Sin(alphaX) * Math.Sin(gamaZ)) * p.Z);
       p3Drotated.Y = pA.Y + ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + (Math.Cos(alphaX) * Math.Cos(gamaZ) + Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Cos(gamaZ) * Math.Sin(alphaX) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Z);
       p3Drotated.Z = pA.Z + ((-Math.Sin(betaY)) * p.X + (Math.Cos(betaY) * Math.Sin(alphaX)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
+
 
       // Rotate around z, y, x
       /*
