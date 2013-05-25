@@ -503,6 +503,75 @@ namespace MATH
             */
         }
 
+        public static double GetAlpha2D_CW_2(double dLength_A, double dLength_B)
+        {
+            // Clockwise rotation in 2D environment
+            // Left-handed system
+            // For rotation about Y-axis
+
+            ///////////////////////////////////////////////////////////////////
+            // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
+            ///////////////////////////////////////////////////////////////////
+
+            // A - adjacent side of triangle
+            // B - opposite side of triangle
+            // C - hypotenuse
+
+            double dLength_C = Math.Sqrt(Math.Pow(dLength_A, 2) + Math.Pow(dLength_B, 2));// length hypotenuse
+
+            if (MathF.d_equal(dLength_A, 0.0) && MathF.d_equal(dLength_B, 0.0))
+                return 0.0f;
+
+            if ((dLength_A >= 0.0) && (dLength_B <= 0.0))
+            {
+                // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI / 2.0;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return 0.0;
+                else if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
+                else
+                    return Math.PI + Math.Acos(dLength_B / dLength_C);
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B <= 0.0))
+            {
+                // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI / 2.0;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI - Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
+                else
+                    return Math.PI - Math.Acos(dLength_B / dLength_C);
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B >= 0.0))
+            {
+                // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return 1.5 * Math.PI;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
+                    return Math.PI - Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
+                else
+                    return Math.PI - Math.Acos(dLength_B / dLength_C);
+            }
+            else /*((fdLength_A >= 0.0) && (dLength_B >= 0.0))*/
+            {
+                // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
+                if (MathF.d_equal(dLength_A, 0.0))
+                    return 1.5 * Math.PI;
+                else if (MathF.d_equal(dLength_B, 0.0))
+                    return 2.0 * Math.PI;
+                else if (!MathF.d_equal(dLength_A, 0.0))
+                    return (2.0 * Math.PI) - Math.Atan((dLength_B) / (dLength_A)); // Atan vrati kladny uhol
+                else
+                    return (2.0 * Math.PI) - Math.Acos(dLength_B / dLength_C);
+            }
+        }
+
 
 
     }

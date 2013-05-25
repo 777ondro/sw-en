@@ -1426,7 +1426,7 @@ namespace sw_en_GUI
       */
 
       dAlphaX = Geom2D.GetAlpha2D_CW(dDeltaY, dDeltaZ);
-      dBetaY = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaZ); // !!! mozno by mal byt pre pootocenie okolo Y pouzity system counter-clockwise
+      dBetaY = Geom2D.GetAlpha2D_CW_2(dDeltaX, dDeltaZ); // !!! Pre pootocenie okolo Y su pouyite ine kvadranty !!!
       dGammaZ = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaY);
 
       // Temporary console output
