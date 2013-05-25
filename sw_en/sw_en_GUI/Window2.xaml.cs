@@ -1001,6 +1001,7 @@ namespace sw_en_GUI
       SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
 
       EGCS eGCS = EGCS.eGCSLeftHanded;
+      //EGCS eGCS = EGCS.eGCSRightHanded;
 
       // Check that real model exists and create model geometry
       if (cmodel != null)
