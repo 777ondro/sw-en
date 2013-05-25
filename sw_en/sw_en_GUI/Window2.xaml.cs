@@ -1000,6 +1000,8 @@ namespace sw_en_GUI
       //gr.Children.Add(new AmbientLight());
       SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
 
+      EGCS eGCS = EGCS.eGCSLeftHanded;
+
       // Check that real model exists and create model geometry
       if (cmodel != null)
       {
@@ -1019,7 +1021,7 @@ namespace sw_en_GUI
               System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
 
               // Create Member model
-              GeometryModel3D membermodel = getGeometryModel3D(brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB);
+              GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB);
 
               // Add current member model to the model group
               gr.Children.Add(membermodel);
@@ -1053,11 +1055,11 @@ namespace sw_en_GUI
 
     }
 
-    private GeometryModel3D getGeometryModel3D(SolidColorBrush brush, CCrSc obj_CrSc, Point3D mpA, Point3D mpB)
+    private GeometryModel3D getGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrSc, Point3D mpA, Point3D mpB)
     {
       GeometryModel3D model = new GeometryModel3D();
 
-      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(obj_CrSc, mpA, mpB); // Mesh one member
+      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(eGCS, obj_CrSc, mpA, mpB); // Mesh one member
 
       model.Geometry = mesh;
 
@@ -1067,7 +1069,7 @@ namespace sw_en_GUI
     }
 
 
-    private MeshGeometry3D getMeshGeometry3DFromCrSc(CCrSc obj_CrSc, Point3D mpA, Point3D mpB)
+    private MeshGeometry3D getMeshGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrSc, Point3D mpA, Point3D mpB)
     {
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions = new Point3DCollection();
@@ -1211,7 +1213,7 @@ namespace sw_en_GUI
 
 
       // Transform coordinates
-      TransformMember_LCStoGCS(m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, mesh.Positions);
+      TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, mesh.Positions);
 
       // Mesh Triangles - various cross-sections shapes defined
       mesh.TriangleIndices = obj_CrSc.TriangleIndices;
@@ -1243,20 +1245,23 @@ namespace sw_en_GUI
       // Change mesh triangle indices
       // Change orientation of normals
 
-      int iSecond = 1;
-      int iThird = 2;
-
-      int iTIcount = mesh.TriangleIndices.Count;
-      for (int i = 0; i < iTIcount / 3 ; i++)
+      if (eGCS == EGCS.eGCSLeftHanded)
       {
-          int iTI_2 = mesh.TriangleIndices[iSecond];
-         int iTI_3 = mesh.TriangleIndices[iThird];
+          int iSecond = 1;
+          int iThird = 2;
 
-         mesh.TriangleIndices[iThird] = iTI_2;
-         mesh.TriangleIndices[iSecond] = iTI_3;
+          int iTIcount = mesh.TriangleIndices.Count;
+          for (int i = 0; i < iTIcount / 3; i++)
+          {
+              int iTI_2 = mesh.TriangleIndices[iSecond];
+              int iTI_3 = mesh.TriangleIndices[iThird];
 
-         iSecond += 3;
-         iThird += 3;
+              mesh.TriangleIndices[iThird] = iTI_2;
+              mesh.TriangleIndices[iSecond] = iTI_3;
+
+              iSecond += 3;
+              iThird += 3;
+          }
       }
 
 
@@ -1287,7 +1292,7 @@ namespace sw_en_GUI
        new DiffuseMaterial(brush));
     }
 
-    public Point3DCollection TransformMember_LCStoGCS(Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, Point3DCollection pointsCollection)
+    public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, Point3DCollection pointsCollection)
     {
       // Returns transformed coordinates of member nodes
 
@@ -1423,18 +1428,27 @@ namespace sw_en_GUI
       dBetaY = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaZ); // !!! mozno by mal byt pre pootocenie okolo Y pouzity system counter-clockwise
       dGammaZ = Geom2D.GetAlpha2D_CW(dDeltaX, dDeltaY);
 
+      // Temporary console output
+      System.Console.Write("\n" + "Rotation angles:\n");
+      System.Console.Write("Rotation about global X-axis:\t" + dAlphaX.ToString("0.000") + "rad\t " + (dAlphaX * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about X-axis
+      System.Console.Write("Rotation about global Y-axis:\t" +  dBetaY.ToString("0.000") + "rad\t " + ( dBetaY * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about Y-axis
+      System.Console.Write("Rotation about global Z-axis:\t" + dGammaZ.ToString("0.000") + "rad\t " + (dGammaZ * 180.0f / MathF.fPI).ToString("0.0") + "deg \n\n"); // Write rotation about Z-axis
+
       for (int i = 0; i < pointsCollection.Count; i++)
       {
-        pointsCollection[i] = RotatePoint(pA, pointsCollection[i], dAlphaX, dBetaY, dGammaZ);
+        pointsCollection[i] = RotatePoint(eGCS, pA, pointsCollection[i], dAlphaX, dBetaY, dGammaZ);
       }
 
       return pointsCollection;
     }
 
 
-    protected Point3D RotatePoint(Point3D pA, Point3D p, double alphaX, double betaY, double gamaZ)
+    protected Point3D RotatePoint(EGCS eGCS, Point3D pA, Point3D p, double alphaX, double betaY, double gamaZ)
     {
       Point3D p3Drotated = new Point3D();
+
+      /* Commented 25.5.2013
+      // Left Handed
 
       p3Drotated.X = pA.X + p.X;
       p3Drotated.Y = pA.Y + (p.Y * Math.Cos(alphaX) - p.Z * Math.Sin(alphaX));
@@ -1447,6 +1461,103 @@ namespace sw_en_GUI
       p3Drotated.X = pA.X + (p.X * Math.Cos(gamaZ) - p.Y * Math.Sin(gamaZ));
       p3Drotated.Y = pA.Y + (p.X * Math.Sin(gamaZ) + p.Y * Math.Cos(gamaZ));
       p3Drotated.Z = pA.Z + p.Z;
+      */
+
+      // Left Handed
+      // * Where (alphaX) represents the rotation about the X axis, (betaY) represents the rotation about the Y axis, and (gamaZ) represents the rotation about the Z axis
+      /*
+      X Rotation *
+
+      1     0                0                  0
+      0     cos (alphaX)    -sin (alphaX)       0
+      0     sin (alphaX)     cos (alphaX)       0
+      0     0                0                  1
+      */
+
+      /*
+      Y Rotation *
+
+      cos (betaY)    0     sin (betaY)    0
+      0              1     0              0
+      -sin (betaY)   0     cos (betaY)    0
+      0              0     0              1
+      */
+
+      /*
+      Z Rotation *
+
+      cos (gamaZ)     -sin (gamaZ)     0      0
+      sin (gamaZ)     cos (gamaZ)      0      0
+      0                 0              1      0
+      0                 0              0      1
+      */
+
+      ////////////////////////////////////////////////////////////////////////////////////////////
+      // Right Handed
+
+      /*
+      X Rotation *
+
+      1           0             0               0
+      0     cos (alphaX)     sin (alphaX)       0
+      0     -sin (alphaX)    cos (alphaX)       0
+      0           0             0               1
+      */
+
+      /*
+      Y Rotation *
+
+      cos (betaY)    0     -sin (betaY)   0
+      0              1     0              0
+      sin (betaY)    0     cos (betaY)    0
+      0              0     0              1
+      */
+
+      /*
+      Z Rotation *
+
+      cos (gamaZ)     sin (gamaZ)      0      0
+      -sin (gamaZ)    cos (gamaZ)      0      0
+      0                 0              1      0
+      0                 0              0      1
+      */
+
+      Point3D pTemp1 = new Point3D();
+      Point3D pTemp2 = new Point3D();
+
+      if (eGCS == EGCS.eGCSLeftHanded)
+      {
+          // Left handed
+
+          pTemp1.X = p.X;
+          pTemp1.Y = (Math.Cos(alphaX) * p.Y - Math.Sin(alphaX) * p.Z);
+          pTemp1.Z = (Math.Sin(alphaX) * p.Y + Math.Cos(alphaX) * p.Z);
+
+          pTemp2.X = Math.Cos(betaY) * pTemp1.X + Math.Sin(betaY) * pTemp1.Z;
+          pTemp2.Y = pTemp1.Y;
+          pTemp2.Z = -Math.Sin(betaY) * pTemp1.Y + Math.Cos(betaY) * pTemp1.Z;
+
+          p3Drotated.X = pA.X + Math.Cos(gamaZ) * pTemp2.X - Math.Sin(gamaZ) * pTemp2.Y;
+          p3Drotated.Y = pA.Y + Math.Sin(gamaZ) * pTemp2.X + Math.Cos(gamaZ) * pTemp2.Y;
+          p3Drotated.Z = pA.Z + pTemp2.Z;
+      }
+      else
+      {
+          // Right handed
+
+          pTemp1.X = p.X;
+          pTemp1.Y = (Math.Cos(alphaX) * p.Y + Math.Sin(alphaX) * p.Z);
+          pTemp1.Z = (-Math.Sin(alphaX) * p.Y + Math.Cos(alphaX) * p.Z);
+
+          pTemp2.X = Math.Cos(betaY) * pTemp1.X - Math.Sin(betaY) * pTemp1.Z;
+          pTemp2.Y = pTemp1.Y;
+          pTemp2.Z = Math.Sin(betaY) * pTemp1.Y + Math.Cos(betaY) * pTemp1.Z;
+
+          p3Drotated.X = pA.X + (Math.Cos(gamaZ) * pTemp2.X + Math.Sin(gamaZ) * pTemp2.Y);
+          p3Drotated.Y = pA.Y + (-Math.Sin(gamaZ) * pTemp2.X + Math.Cos(gamaZ) * pTemp2.Y);
+          p3Drotated.Z = pA.Z + pTemp2.Z;
+      }
+
 
       return p3Drotated;
     }
