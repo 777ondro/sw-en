@@ -1570,9 +1570,9 @@ namespace sw_en_GUI
 
 
       if (dDeltaX < 0 && MathF.d_equal(dDeltaY, 0.0) && MathF.d_equal(dDeltaZ, 0.0))      // Parallel to X-axis with negative orientation
-          betaY = 0; // Do not rotate about Z-axis
+          betaY = 0; // Do not rotate about Y-axis
       else if (MathF.d_equal(dDeltaX, 0.0) && dDeltaY < 0 && MathF.d_equal(dDeltaZ, 0.0)) // Parallel to Y-axis with negative orientation
-          alphaX = 0; // Do not rotate about Z-axis
+          alphaX = 0; // Do not rotate about X-axis
       else if (MathF.d_equal(dDeltaX, 0.0) && MathF.d_equal(dDeltaY, 0.0) && dDeltaZ < 0) // Parallel to Z-axis with negative orientation
           betaY = 0; // Do not rotate about Y-axis
       else
