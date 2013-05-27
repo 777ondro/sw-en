@@ -1397,6 +1397,11 @@ namespace sw_en_GUI
       if (!MathF.d_equal(dDeltaX, 0.0) || !MathF.d_equal(dDeltaZ, 0.0))
         dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
+      // Temporary console output
+      System.Console.Write("\n" + "Lengths - projection of element into global coordinate system:\n");
+      System.Console.Write("Length - global X-axis:\t" + dDeltaX.ToString("0.000") + "\n"); // Write length in X-axis
+      System.Console.Write("Length - global Y-axis:\t" + dDeltaY.ToString("0.000") + "\n"); // Write length in Y-axis
+      System.Console.Write("Length - global Z-axis:\t" + dDeltaZ.ToString("0.000") + "\n\n"); // Write length in Z-axis
 
       // Uhly pootocenia LCS okolo osi GCS
       // !!!!!!!!!!!!!!!!!!! Nefunguju spravne 19.2.2013, je nutne zohladnit kvadrant -> znamienka a posun o PI/2
