@@ -530,9 +530,9 @@ namespace MATH
                 else if (MathF.d_equal(dLength_B, 0.0))
                     return 0.0;
                 else if (!MathF.d_equal(dLength_A, 0.0))
-                    return Math.PI + Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
+                    return - Math.Atan((dLength_B) / (dLength_A)); // Atan vrati zaporny uhol
                 else
-                    return Math.PI + Math.Acos(dLength_B / dLength_C);
+                    return - Math.Acos(dLength_B / dLength_C);
             }
             else if ((dLength_A <= 0.0) && (dLength_B <= 0.0))
             {
