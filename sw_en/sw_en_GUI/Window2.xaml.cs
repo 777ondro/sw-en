@@ -1571,9 +1571,6 @@ namespace sw_en_GUI
       // Cumulative 3D rotation and translation
       // http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
 
-      // Rotate around x, y, z
-
-
       if (dDeltaX < 0 && MathF.d_equal(dDeltaY, 0.0) && MathF.d_equal(dDeltaZ, 0.0))      // Parallel to X-axis with negative orientation
           betaY = 0; // Do not rotate about Y-axis
       else if (MathF.d_equal(dDeltaX, 0.0) && dDeltaY < 0 && MathF.d_equal(dDeltaZ, 0.0)) // Parallel to Y-axis with negative orientation
@@ -1585,17 +1582,22 @@ namespace sw_en_GUI
           // No action - General position of member in space 
       }
 
-      p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Cos(gamaZ) * Math.Sin(alphaX) * Math.Sin(betaY) - Math.Cos(alphaX) * Math.Sin(gamaZ)) * p.Y + (Math.Cos(alphaX) * Math.Cos(gamaZ) * Math.Sin(betaY) + Math.Sin(alphaX) * Math.Sin(gamaZ)) * p.Z);
-      p3Drotated.Y = pA.Y + ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + (Math.Cos(alphaX) * Math.Cos(gamaZ) + Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Cos(gamaZ) * Math.Sin(alphaX) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Z);
+      // Rotate around x, y, z
+
+      p3Drotated.X = ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + ((Math.Cos(gamaZ) * Math.Sin(alphaX) * Math.Sin(betaY)) - (Math.Cos(alphaX) * Math.Sin(gamaZ))) * p.Y + ((Math.Cos(alphaX) * Math.Cos(gamaZ) * Math.Sin(betaY)) + (Math.Sin(alphaX) * Math.Sin(gamaZ))) * p.Z);
+      p3Drotated.Y = ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + ((Math.Cos(alphaX) * Math.Cos(gamaZ)) + (Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ))) * p.Y + ((-Math.Cos(gamaZ) * Math.Sin(alphaX)) + (Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ))) * p.Z);
+      p3Drotated.Z = ((-Math.Sin(betaY)) * p.X + (Math.Cos(betaY) * Math.Sin(alphaX)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
+
+      p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + ((Math.Cos(gamaZ) * Math.Sin(alphaX) * Math.Sin(betaY)) - (Math.Cos(alphaX) * Math.Sin(gamaZ))) * p.Y + ((Math.Cos(alphaX) * Math.Cos(gamaZ) * Math.Sin(betaY)) + (Math.Sin(alphaX) * Math.Sin(gamaZ))) * p.Z);
+      p3Drotated.Y = pA.Y + ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + ((Math.Cos(alphaX) * Math.Cos(gamaZ)) + (Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ))) * p.Y + ((-Math.Cos(gamaZ) * Math.Sin(alphaX)) + (Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ))) * p.Z);
       p3Drotated.Z = pA.Z + ((-Math.Sin(betaY)) * p.X + (Math.Cos(betaY) * Math.Sin(alphaX)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
 
       // Rotate around z, y, x
       /*
       p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (-Math.Cos(betaY) * Math.Sin(gamaZ)) * p.Y + (Math.Sin(betaY)) * p.Z);
-      p3Drotated.Y = pA.Y + ((Math.Cos(alphaX) * Math.Sin(gamaZ) + Math.Sin(alphaX)*Math.Sin(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Cos(alphaX) * Math.Cos(gamaZ) - Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Sin(alphaX) * Math.Cos(betaY)) * p.Z);
-      p3Drotated.Z = pA.Z + ((Math.Sin(alphaX) * Math.Sin(gamaZ) - Math.Cos(alphaX) * Math.Sin(betaY) * Math.Cos(gamaZ)) * p.X + (Math.Sin(alphaX) * Math.Cos(gamaZ) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin (gamaZ)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
+      p3Drotated.Y = pA.Y + (((Math.Cos(alphaX) * Math.Sin(gamaZ)) + (Math.Sin(alphaX)*Math.Sin(betaY) * Math.Cos(gamaZ))) * p.X + ((Math.Cos(alphaX) * Math.Cos(gamaZ)) - (Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ))) * p.Y + (-Math.Sin(alphaX) * Math.Cos(betaY)) * p.Z);
+      p3Drotated.Z = pA.Z + (((Math.Sin(alphaX) * Math.Sin(gamaZ)) - (Math.Cos(alphaX) * Math.Sin(betaY) * Math.Cos(gamaZ))) * p.X + ((Math.Sin(alphaX) * Math.Cos(gamaZ)) + (Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin (gamaZ))) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
       */
-
 
       return p3Drotated;
     }
