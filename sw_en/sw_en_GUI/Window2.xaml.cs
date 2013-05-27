@@ -1589,7 +1589,6 @@ namespace sw_en_GUI
       p3Drotated.Y = pA.Y + ((Math.Cos(betaY) * Math.Sin(gamaZ)) * p.X + (Math.Cos(alphaX) * Math.Cos(gamaZ) + Math.Sin(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Y + (-Math.Cos(gamaZ) * Math.Sin(alphaX) + Math.Cos(alphaX) * Math.Sin(betaY) * Math.Sin(gamaZ)) * p.Z);
       p3Drotated.Z = pA.Z + ((-Math.Sin(betaY)) * p.X + (Math.Cos(betaY) * Math.Sin(alphaX)) * p.Y + (Math.Cos(alphaX) * Math.Cos(betaY)) * p.Z);
 
-
       // Rotate around z, y, x
       /*
       p3Drotated.X = pA.X + ((Math.Cos(betaY) * Math.Cos(gamaZ)) * p.X + (-Math.Cos(betaY) * Math.Sin(gamaZ)) * p.Y + (Math.Sin(betaY)) * p.Z);
