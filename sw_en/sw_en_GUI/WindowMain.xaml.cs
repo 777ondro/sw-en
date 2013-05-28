@@ -167,6 +167,11 @@ namespace sw_en_GUI
 				try
 				{
 					DataSet ds = CImportFromExcel.ImportFromExcel(ofd.FileName);
+                    if (ds == null) 
+                    {
+                        MessageBox.Show(string.Format("Error occurs. File {0} can not be read", ofd.FileName));
+                        return;
+                    }
 					dataGridNodes.ItemsSource = ds.Tables[0].DefaultView;
 					dataGridNodes.DataContext = ds;
 					dataGridMaterials.ItemsSource = ds.Tables[1].DefaultView;

@@ -47,7 +47,7 @@ namespace SharedLibraries.EXPIMP
 			}
 			catch (Exception ex)
 			{
-				if (!EventLog.SourceExists("sw_en"))
+                if (!EventLog.SourceExists("sw_en"))
 				{
 					EventLog.CreateEventSource("sw_en", "Application");
 				}
