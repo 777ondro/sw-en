@@ -63,6 +63,14 @@ namespace BaseClasses
           set { m_fLength = value; }
         }
 
+        public double m_dTheta_x;
+
+        public double DTheta_x
+        {
+            get { return m_dTheta_x; }
+            set { m_dTheta_x = value; }
+        }
+
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -130,7 +138,7 @@ namespace BaseClasses
             m_fTime = fTime;
 
             Fill_Basic();
-                }
+        }
 
 
         //Fill basic data
