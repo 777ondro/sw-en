@@ -572,7 +572,55 @@ namespace MATH
             }
         }
 
+        public static double GetAlpha2D_CW_3(double dLength_A, double dLength_B, double dLength_C)
+        {
+            // Clockwise rotation in 2D environment
+            // Left-handed system
+            // For rotation about Y-axis - graphics
 
+            ///////////////////////////////////////////////////////////////////
+            // len rozpracovane , nutne skontrolovat znamienka a vylepsit 
+            ///////////////////////////////////////////////////////////////////
 
+            // A - x axis
+            // B - z axis           - opposite side of triangle
+            // C - length of member - hypotenuse
+
+            if (MathF.d_equal(dLength_A, 0.0) && MathF.d_equal(dLength_B, 0.0))
+                return 0.0f;
+
+            if ((dLength_A >= 0.0) && (dLength_B <= 0.0))
+            {
+                // 1st Quadrant (0-90 degrees / resp. 0 - 0.5PI)
+                if (MathF.d_equal(dLength_B, 0.0))
+                    return 0.0;
+                else
+                    return (-Math.Asin(dLength_B / dLength_C)); // Asin vrati zaporny uhol
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B <= 0.0))
+            {
+                // 2nd Quadrant (90-180 degrees / resp. 0.5PI - PI)
+                if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else
+                    return Math.PI + Math.Asin(dLength_B / dLength_C); // Asin vrati zaporny uhol
+            }
+            else if ((dLength_A <= 0.0) && (dLength_B >= 0.0))
+            {
+                // 3rd Quadrant (180-270 degrees / resp. PI - 1.5PI)
+                if (MathF.d_equal(dLength_B, 0.0))
+                    return Math.PI;
+                else
+                    return Math.PI + Math.Asin(dLength_B / dLength_C); // Asin vrati kladny uhol
+            }
+            else /*((fdLength_A >= 0.0) && (dLength_B >= 0.0))*/
+            {
+                // 4th Quadrant (270-360 degrees / resp. 1.5PI - 2PI)
+                if (MathF.d_equal(dLength_B, 0.0))
+                    return 2.0 * Math.PI;
+                else
+                    return (2.0 * Math.PI) - Math.Asin(dLength_B / dLength_C);  // Asin vrati kladny uhol
+            }
+        }
     }
 }
