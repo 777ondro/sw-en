@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
+using System.Configuration;
 using CENEX;
 using _3DTools;
 using MATH;
@@ -24,6 +25,8 @@ namespace sw_en_GUI
   /// </summary>
   public partial class Window2 : Window
   {
+      private bool Debugging;
+
     ///////////////////////////////////////////////////////////////
     // Create switch command for various sections, split code into separate objects / function of 3D drawing for each type
     /////////////////////////////////////////////////
@@ -880,6 +883,7 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     public Window2()
     {
+        Debugging = Convert.ToBoolean(ConfigurationManager.AppSettings["Debugging"]);
         
       InitializeComponent();
       
@@ -1018,12 +1022,14 @@ namespace sw_en_GUI
               // Angle of rotation about local x-axis
               cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
 
-              System.Console.Write("\n" + "Member ID:" +(i+1).ToString() +"\n"); // Write Member ID in console window
-              System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
-              System.Console.Write( mpA.X.ToString() + "\t"+ mpA.Y.ToString() +"\t"+ mpA.Z.ToString()+ "\n");
-              System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
-              System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
-
+              if (Debugging)
+              {
+                  System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
+                  System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+                  System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
+                  System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+                  System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+              }
               // Create Member model
               GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
 
@@ -1216,7 +1222,8 @@ namespace sw_en_GUI
           sOutput += "\n"; // New row
       }
 
-      System.Console.Write(sOutput); // Write in console window
+        if(Debugging)
+            System.Console.Write(sOutput); // Write in console window
 
 
       // Transform coordinates
@@ -1247,7 +1254,8 @@ namespace sw_en_GUI
           sOutput += "\n"; // New row
       }
 
-      System.Console.Write(sOutput); // Write in console window
+        if(Debugging)
+            System.Console.Write(sOutput); // Write in console window
 
       // Change mesh triangle indices
       // Change orientation of normals
@@ -1320,12 +1328,14 @@ namespace sw_en_GUI
       if (!MathF.d_equal(dDeltaX, 0.0) || !MathF.d_equal(dDeltaZ, 0.0))
         dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
-      // Temporary console output
-      System.Console.Write("\n" + "Lengths - projection of element into global coordinate system:\n");
-      System.Console.Write("Length - global X-axis:\t" + dDeltaX.ToString("0.000") + "\n"); // Write length in X-axis
-      System.Console.Write("Length - global Y-axis:\t" + dDeltaY.ToString("0.000") + "\n"); // Write length in Y-axis
-      System.Console.Write("Length - global Z-axis:\t" + dDeltaZ.ToString("0.000") + "\n\n"); // Write length in Z-axis
-
+      if (Debugging)
+      {
+          // Temporary console output
+          System.Console.Write("\n" + "Lengths - projection of element into global coordinate system:\n");
+          System.Console.Write("Length - global X-axis:\t" + dDeltaX.ToString("0.000") + "\n"); // Write length in X-axis
+          System.Console.Write("Length - global Y-axis:\t" + dDeltaY.ToString("0.000") + "\n"); // Write length in Y-axis
+          System.Console.Write("Length - global Z-axis:\t" + dDeltaZ.ToString("0.000") + "\n\n"); // Write length in Z-axis
+      }
       // Uhly pootocenia LCS okolo osi GCS
       // Angles
       dAlphaX = Geom2D.GetAlpha2D_CW(dDeltaY, dDeltaZ);
@@ -1343,15 +1353,17 @@ namespace sw_en_GUI
             dGammaZ_aux = dGammaZ - Math.PI;
         }
 
-      // Temporary console output
-      System.Console.Write("\n" + "Rotation angles:\n");
-      System.Console.Write("Rotation about global X-axis:\t" + dAlphaX.ToString("0.000") + "rad\t " + (dAlphaX * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about X-axis
-      System.Console.Write("Rotation about global Y-axis:\t" + dBetaY.ToString("0.000") + "rad\t " + ( dBetaY * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about Y-axis
-      System.Console.Write("Rotation about global Z-axis:\t" + dGammaZ.ToString("0.000") + "rad\t " + (dGammaZ * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about Z-axis
-      System.Console.Write("\n" + "Auxiliary rotation angles - graphics:\n");
-      System.Console.Write("Rotation about global Y-axis:\t" + dBetaY_aux.ToString("0.000") + "rad\t " + (dBetaY_aux * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write auxiliary rotation about Y-axis
-      System.Console.Write("Rotation about global Z-axis:\t" + dGammaZ_aux.ToString("0.000") + "rad\t " + (dGammaZ_aux * 180.0f / MathF.fPI).ToString("0.0") + "deg \n\n"); // Write auxiliary rotation about Z-axis
-
+        if (Debugging)
+        {
+            // Temporary console output
+            System.Console.Write("\n" + "Rotation angles:\n");
+            System.Console.Write("Rotation about global X-axis:\t" + dAlphaX.ToString("0.000") + "rad\t " + (dAlphaX * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about X-axis
+            System.Console.Write("Rotation about global Y-axis:\t" + dBetaY.ToString("0.000") + "rad\t " + (dBetaY * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about Y-axis
+            System.Console.Write("Rotation about global Z-axis:\t" + dGammaZ.ToString("0.000") + "rad\t " + (dGammaZ * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write rotation about Z-axis
+            System.Console.Write("\n" + "Auxiliary rotation angles - graphics:\n");
+            System.Console.Write("Rotation about global Y-axis:\t" + dBetaY_aux.ToString("0.000") + "rad\t " + (dBetaY_aux * 180.0f / MathF.fPI).ToString("0.0") + "deg \n"); // Write auxiliary rotation about Y-axis
+            System.Console.Write("Rotation about global Z-axis:\t" + dGammaZ_aux.ToString("0.000") + "rad\t " + (dGammaZ_aux * 180.0f / MathF.fPI).ToString("0.0") + "deg \n\n"); // Write auxiliary rotation about Z-axis
+        }
 
       for (int i = 0; i < pointsCollection.Count; i++)
       {
