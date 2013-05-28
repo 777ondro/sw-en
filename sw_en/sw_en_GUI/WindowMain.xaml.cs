@@ -220,7 +220,7 @@ namespace sw_en_GUI
                 // Temp - nacitava sa z tabulky alebo z databazy, dopracovat
                 // Parametre pre IPN 300
                 //model.m_arrMembers[i].CrSc = new CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f); // Example - FEM calculation 3D
-                model.m_arrMembers[i].CrSc = new CCrSc_0_05(0.4f, 0.2f); // Temp
+                model.m_arrMembers[i].CrSc = new CCrSc_0_05(0.1f, 0.05f); // Temp
                 model.m_arrMembers[i].CrSc.FI_t  = 5.69e-07f;
                 model.m_arrMembers[i].CrSc.FI_y  = 9.79e-05f;
                 model.m_arrMembers[i].CrSc.FI_z  = 4.49e-06f;
@@ -351,7 +351,7 @@ namespace sw_en_GUI
 				{
 
                     //crsc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
-                    crsc = new CCrSc_0_05(0.2f, 0.1f);
+                    crsc = new CCrSc_0_05(0.1f, 0.05f);
 
 					int.TryParse(row["MaterialID"].ToString(), out CrSc_ID);
 					crsc.ICrSc_ID = CrSc_ID;

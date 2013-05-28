@@ -998,7 +998,7 @@ namespace sw_en_GUI
 
       Model3DGroup gr = new Model3DGroup();
       //gr.Children.Add(new AmbientLight());
-      SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
+      SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
       EGCS eGCS = EGCS.eGCSLeftHanded;
       //EGCS eGCS = EGCS.eGCSRightHanded;
