@@ -10,7 +10,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Border Background="AliceBlue" Grid.Row="0" Grid.Column="0">
+        <Border Background="Black" Grid.Row="0" Grid.Column="0">
+            <!-- Default background is black -->
             <Tools3D:Trackport3D x:Name="_trackport" />
         </Border>
     </Grid>
