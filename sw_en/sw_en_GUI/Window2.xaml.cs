@@ -883,7 +883,7 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     public Window2()
     {
-        Debugging = Convert.ToBoolean(ConfigurationManager.AppSettings["Debugging"]);
+        Debugging = Convert.ToBoolean(ConfigurationManager.AppSettings["debugging"]);
         
       InitializeComponent();
       
