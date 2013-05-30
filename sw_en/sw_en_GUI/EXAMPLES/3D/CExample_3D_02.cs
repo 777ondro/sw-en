@@ -26,6 +26,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrMat = new CMat_00[1];
             m_TopoModel.m_arrCrSc = new CRSC.CCrSc[1];
             m_TopoModel.m_arrNSupports = new BaseClasses.CNSupport[2];
+            //m_TopoModel.m_arrNLoads = new BaseClasses.CNLoad[5];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
