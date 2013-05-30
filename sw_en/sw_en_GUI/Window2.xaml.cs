@@ -1040,7 +1040,7 @@ namespace sw_en_GUI
 
 
 
-      Point3D cameraPosition = new Point3D(0, 0, 200);
+      Point3D cameraPosition = new Point3D(100, 300, 100);
 
       //SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
       //GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, new Point3D(10, 10, 10), new Point3D(500, 300, 200));
@@ -1059,6 +1059,7 @@ namespace sw_en_GUI
 
       _trackport.PerspectiveCamera.Position = cameraPosition;
       //_trackport.PerspectiveCamera.LookDirection = new Vector3D(cameraPosition.X, cameraPosition.Y, cameraPosition.Z - 100);
+      _trackport.PerspectiveCamera.LookDirection = new Vector3D(0, -1, -0.3);
 
       _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
       _trackport.SetupScene();
