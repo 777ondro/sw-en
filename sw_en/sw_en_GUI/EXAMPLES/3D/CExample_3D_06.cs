@@ -113,10 +113,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Setridit pole podle ID
             Array.Sort(m_TopoModel.m_arrNodes, new CCompare_NodeID());
 
-            // Lines Automatic Generation
-            // Lines List - Lines Array
+            // Members Automatic Generation
+            // Members List - Members Array
 
-            // Lines
+            // Members
             m_TopoModel.m_arrMembers[0] = new CMember(1, m_TopoModel.m_arrNodes[1], m_TopoModel.m_arrNodes[0], m_TopoModel.m_arrCrSc[0], 0);
             m_TopoModel.m_arrMembers[1] = new CMember(2, m_TopoModel.m_arrNodes[2], m_TopoModel.m_arrNodes[1], m_TopoModel.m_arrCrSc[0], 0);
             m_TopoModel.m_arrMembers[2] = new CMember(3, m_TopoModel.m_arrNodes[3], m_TopoModel.m_arrNodes[0], m_TopoModel.m_arrCrSc[0], 0);

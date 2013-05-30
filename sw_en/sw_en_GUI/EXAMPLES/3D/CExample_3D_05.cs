@@ -34,7 +34,7 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            m_TopoModel.m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.1f, 0.05f);
+            m_TopoModel.m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.6f, 0.4f);
 
             // Nodes Automatic Generation
             // Nodes List - Nodes Array

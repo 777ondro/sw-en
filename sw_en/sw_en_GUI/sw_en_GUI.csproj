@@ -107,6 +107,8 @@
     <Compile Include="EXAMPLES\3D\CExample_3D_02.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_05.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_06.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_07.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_08.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_09.cs" />
     <Compile Include="EXAMPLES\CExample.cs" />
     <Compile Include="Viewer3D.xaml.cs">

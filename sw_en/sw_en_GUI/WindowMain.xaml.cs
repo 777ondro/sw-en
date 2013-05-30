@@ -529,11 +529,17 @@ namespace sw_en_GUI
             //sw_en_GUI.EXAMPLES._3D.CExample_3D_02 ex2 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_02();
             //Window2 win = new Window2(ex2.m_TopoModel);
 
-            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
-            Window2 win = new Window2(ex5.m_TopoModel);
+            //sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
+            //Window2 win = new Window2(ex5.m_TopoModel);
 
             //sw_en_GUI.EXAMPLES._3D.CExample_3D_06 ex6 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_06();
             //Window2 win = new Window2(ex6.m_TopoModel);
+
+            //sw_en_GUI.EXAMPLES._3D.CExample_3D_07 ex7 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_07();
+            //Window2 win = new Window2(ex7.m_TopoModel);
+
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_08 ex8 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_08();
+            Window2 win = new Window2(ex8.m_TopoModel);
 
             //sw_en_GUI.EXAMPLES._3D.CExample_3D_09 ex9 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_09();
             //Window2 win = new Window2(ex9.m_TopoModel);
