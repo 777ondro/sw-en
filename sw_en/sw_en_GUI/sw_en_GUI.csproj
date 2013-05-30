@@ -103,6 +103,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CUIHelper.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_01.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_02.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_06.cs" />
+    <Compile Include="EXAMPLES\CExample.cs" />
     <Compile Include="Viewer3D.xaml.cs">
       <DependentUpon>Viewer3D.xaml</DependentUpon>
     </Compile>
@@ -237,6 +241,10 @@
     <ProjectReference Include="..\FEM\FEM_CALC_1Din3D\FEM_CALC_1Din3D.csproj">
       <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
       <Name>FEM_CALC_1Din3D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
+      <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
+      <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
@@ -418,6 +426,9 @@
     <Resource Include="Resources\Images\5_TIM_F\5_61.png" />
     <Resource Include="Resources\Images\SW\0_MASS.png" />
     <Resource Include="Resources\Images\SW\0_THIN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EXAMPLES\2D\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

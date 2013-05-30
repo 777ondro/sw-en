@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BaseClasses;
+using MATERIAL;
 using CRSC;
 
-namespace CENEX
+namespace BaseClasses
 {
     // Main model class
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CENEX
+namespace MATERIAL
 {
     // Default aluminium material class
     public class CMat_09_00:CMat_00
