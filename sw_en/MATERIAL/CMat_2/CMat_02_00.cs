@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.OleDb;
 using DATABASE;
 
-namespace CENEX
+namespace MATERIAL
 {
     // Default concrete material class
     public class CMat_02_00:CMat_00

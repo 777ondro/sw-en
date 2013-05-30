@@ -521,7 +521,17 @@ namespace sw_en_GUI
 
 		private void menuItemViewShowModel_Click(object sender, RoutedEventArgs e)
 		{
-			Window2 win = new Window2(model);
+			//Window2 win = new Window2(model);
+
+            //sw_en_GUI.EXAMPLES._3D.CExample_3D_01 ex1 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_01();
+            //Window2 win = new Window2(ex1.m_TopoModel);
+
+            //sw_en_GUI.EXAMPLES._3D.CExample_3D_02 ex2 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_02();
+            //Window2 win = new Window2(ex2.m_TopoModel);
+
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_06 ex6 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_06();
+            Window2 win = new Window2(ex6.m_TopoModel);
+
 			list_trackports.Add(win._trackport);
 
 			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });

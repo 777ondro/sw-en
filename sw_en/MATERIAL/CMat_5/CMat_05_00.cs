@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CENEX
+namespace MATERIAL
 {
     // Default timber material class
     public class CMat_05_00:CMat_00

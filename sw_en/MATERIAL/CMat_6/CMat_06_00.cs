@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CENEX
+namespace MATERIAL
 {
     public class CMat_06_00 : CMat_00
     {
