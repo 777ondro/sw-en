@@ -521,7 +521,7 @@ namespace sw_en_GUI
 
 		private void menuItemViewShowModel_Click(object sender, RoutedEventArgs e)
 		{
-			Window2 win = new Window2(model);
+			 Window2 win = new Window2(model);
 
             //sw_en_GUI.EXAMPLES._3D.CExample_3D_01 ex1 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_01();
             //Window2 win = new Window2(ex1.m_TopoModel);
