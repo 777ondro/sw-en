@@ -27,7 +27,7 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            m_TopoModel.m_arrCrSc[0] = new CRSC.CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section
+            m_TopoModel.m_arrCrSc[0] = new CRSC.CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f); // I 300 section
             m_TopoModel.m_arrCrSc[0].FI_t = 5.69e-07f;
             m_TopoModel.m_arrCrSc[0].FI_y = 9.79e-05f;
             m_TopoModel.m_arrCrSc[0].FI_z = 4.49e-06f;
