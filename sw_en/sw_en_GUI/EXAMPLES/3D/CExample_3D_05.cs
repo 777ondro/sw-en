@@ -24,7 +24,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrNodes = new BaseClasses.CNode[135];
             m_TopoModel.m_arrMembers = new CMember[237];
             m_TopoModel.m_arrMat = new CMat_00[1];
-            m_TopoModel.m_arrCrSc = new CRSC.CCrSc[1];
+            m_TopoModel.m_arrCrSc = new CRSC.CCrSc[2];
             m_TopoModel.m_arrNSupports = new BaseClasses.CNSupport[2];
             //m_TopoModel.m_arrNLoads = new BaseClasses.CNLoad[35];
 
@@ -35,6 +35,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             m_TopoModel.m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.6f, 0.4f);
+            m_TopoModel.m_arrCrSc[1] = new CRSC.CCrSc_3_00(0, 8, 0.900f, 0.500f, 0.080f, 0.050f, 0.050f, 0.030f, 0.640f);
 
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
@@ -393,41 +394,41 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrMembers[199] = new CMember(200, m_TopoModel.m_arrNodes[132], m_TopoModel.m_arrNodes[133], m_TopoModel.m_arrCrSc[0], 0);
             m_TopoModel.m_arrMembers[200] = new CMember(201, m_TopoModel.m_arrNodes[133], m_TopoModel.m_arrNodes[134], m_TopoModel.m_arrCrSc[0], 0);
             m_TopoModel.m_arrMembers[201] = new CMember(202, m_TopoModel.m_arrNodes[132], m_TopoModel.m_arrNodes[134], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[202] = new CMember(203, m_TopoModel.m_arrNodes[00], m_TopoModel.m_arrNodes[068], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[203] = new CMember(204, m_TopoModel.m_arrNodes[02], m_TopoModel.m_arrNodes[070], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[204] = new CMember(205, m_TopoModel.m_arrNodes[04], m_TopoModel.m_arrNodes[072], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[205] = new CMember(206, m_TopoModel.m_arrNodes[07], m_TopoModel.m_arrNodes[075], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[206] = new CMember(207, m_TopoModel.m_arrNodes[09], m_TopoModel.m_arrNodes[077], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[207] = new CMember(208, m_TopoModel.m_arrNodes[11], m_TopoModel.m_arrNodes[079], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[208] = new CMember(209, m_TopoModel.m_arrNodes[13], m_TopoModel.m_arrNodes[081], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[209] = new CMember(210, m_TopoModel.m_arrNodes[15], m_TopoModel.m_arrNodes[083], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[210] = new CMember(211, m_TopoModel.m_arrNodes[17], m_TopoModel.m_arrNodes[085], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[211] = new CMember(212, m_TopoModel.m_arrNodes[19], m_TopoModel.m_arrNodes[087], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[212] = new CMember(213, m_TopoModel.m_arrNodes[21], m_TopoModel.m_arrNodes[089], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[213] = new CMember(214, m_TopoModel.m_arrNodes[22], m_TopoModel.m_arrNodes[090], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[214] = new CMember(215, m_TopoModel.m_arrNodes[24], m_TopoModel.m_arrNodes[092], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[215] = new CMember(216, m_TopoModel.m_arrNodes[26], m_TopoModel.m_arrNodes[094], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[216] = new CMember(217, m_TopoModel.m_arrNodes[28], m_TopoModel.m_arrNodes[096], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[217] = new CMember(218, m_TopoModel.m_arrNodes[30], m_TopoModel.m_arrNodes[098], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[218] = new CMember(219, m_TopoModel.m_arrNodes[32], m_TopoModel.m_arrNodes[100], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[219] = new CMember(220, m_TopoModel.m_arrNodes[34], m_TopoModel.m_arrNodes[101], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[220] = new CMember(221, m_TopoModel.m_arrNodes[35], m_TopoModel.m_arrNodes[102], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[221] = new CMember(222, m_TopoModel.m_arrNodes[37], m_TopoModel.m_arrNodes[104], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[222] = new CMember(223, m_TopoModel.m_arrNodes[39], m_TopoModel.m_arrNodes[106], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[223] = new CMember(224, m_TopoModel.m_arrNodes[41], m_TopoModel.m_arrNodes[108], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[224] = new CMember(225, m_TopoModel.m_arrNodes[43], m_TopoModel.m_arrNodes[110], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[225] = new CMember(226, m_TopoModel.m_arrNodes[45], m_TopoModel.m_arrNodes[112], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[226] = new CMember(227, m_TopoModel.m_arrNodes[46], m_TopoModel.m_arrNodes[113], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[227] = new CMember(228, m_TopoModel.m_arrNodes[48], m_TopoModel.m_arrNodes[115], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[228] = new CMember(229, m_TopoModel.m_arrNodes[50], m_TopoModel.m_arrNodes[117], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[229] = new CMember(230, m_TopoModel.m_arrNodes[52], m_TopoModel.m_arrNodes[119], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[230] = new CMember(231, m_TopoModel.m_arrNodes[54], m_TopoModel.m_arrNodes[121], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[231] = new CMember(232, m_TopoModel.m_arrNodes[56], m_TopoModel.m_arrNodes[123], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[232] = new CMember(233, m_TopoModel.m_arrNodes[58], m_TopoModel.m_arrNodes[125], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[233] = new CMember(234, m_TopoModel.m_arrNodes[60], m_TopoModel.m_arrNodes[127], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[234] = new CMember(235, m_TopoModel.m_arrNodes[63], m_TopoModel.m_arrNodes[130], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[235] = new CMember(236, m_TopoModel.m_arrNodes[65], m_TopoModel.m_arrNodes[132], m_TopoModel.m_arrCrSc[0], 0);
-            m_TopoModel.m_arrMembers[236] = new CMember(237, m_TopoModel.m_arrNodes[67], m_TopoModel.m_arrNodes[134], m_TopoModel.m_arrCrSc[0], 0);
+            m_TopoModel.m_arrMembers[202] = new CMember(203, m_TopoModel.m_arrNodes[00], m_TopoModel.m_arrNodes[068], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[203] = new CMember(204, m_TopoModel.m_arrNodes[02], m_TopoModel.m_arrNodes[070], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[204] = new CMember(205, m_TopoModel.m_arrNodes[04], m_TopoModel.m_arrNodes[072], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[205] = new CMember(206, m_TopoModel.m_arrNodes[07], m_TopoModel.m_arrNodes[075], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[206] = new CMember(207, m_TopoModel.m_arrNodes[09], m_TopoModel.m_arrNodes[077], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[207] = new CMember(208, m_TopoModel.m_arrNodes[11], m_TopoModel.m_arrNodes[079], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[208] = new CMember(209, m_TopoModel.m_arrNodes[13], m_TopoModel.m_arrNodes[081], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[209] = new CMember(210, m_TopoModel.m_arrNodes[15], m_TopoModel.m_arrNodes[083], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[210] = new CMember(211, m_TopoModel.m_arrNodes[17], m_TopoModel.m_arrNodes[085], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[211] = new CMember(212, m_TopoModel.m_arrNodes[19], m_TopoModel.m_arrNodes[087], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[212] = new CMember(213, m_TopoModel.m_arrNodes[21], m_TopoModel.m_arrNodes[089], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[213] = new CMember(214, m_TopoModel.m_arrNodes[22], m_TopoModel.m_arrNodes[090], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[214] = new CMember(215, m_TopoModel.m_arrNodes[24], m_TopoModel.m_arrNodes[092], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[215] = new CMember(216, m_TopoModel.m_arrNodes[26], m_TopoModel.m_arrNodes[094], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[216] = new CMember(217, m_TopoModel.m_arrNodes[28], m_TopoModel.m_arrNodes[096], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[217] = new CMember(218, m_TopoModel.m_arrNodes[30], m_TopoModel.m_arrNodes[098], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[218] = new CMember(219, m_TopoModel.m_arrNodes[32], m_TopoModel.m_arrNodes[100], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[219] = new CMember(220, m_TopoModel.m_arrNodes[34], m_TopoModel.m_arrNodes[101], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[220] = new CMember(221, m_TopoModel.m_arrNodes[35], m_TopoModel.m_arrNodes[102], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[221] = new CMember(222, m_TopoModel.m_arrNodes[37], m_TopoModel.m_arrNodes[104], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[222] = new CMember(223, m_TopoModel.m_arrNodes[39], m_TopoModel.m_arrNodes[106], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[223] = new CMember(224, m_TopoModel.m_arrNodes[41], m_TopoModel.m_arrNodes[108], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[224] = new CMember(225, m_TopoModel.m_arrNodes[43], m_TopoModel.m_arrNodes[110], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[225] = new CMember(226, m_TopoModel.m_arrNodes[45], m_TopoModel.m_arrNodes[112], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[226] = new CMember(227, m_TopoModel.m_arrNodes[46], m_TopoModel.m_arrNodes[113], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[227] = new CMember(228, m_TopoModel.m_arrNodes[48], m_TopoModel.m_arrNodes[115], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[228] = new CMember(229, m_TopoModel.m_arrNodes[50], m_TopoModel.m_arrNodes[117], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[229] = new CMember(230, m_TopoModel.m_arrNodes[52], m_TopoModel.m_arrNodes[119], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[230] = new CMember(231, m_TopoModel.m_arrNodes[54], m_TopoModel.m_arrNodes[121], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[231] = new CMember(232, m_TopoModel.m_arrNodes[56], m_TopoModel.m_arrNodes[123], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[232] = new CMember(233, m_TopoModel.m_arrNodes[58], m_TopoModel.m_arrNodes[125], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[233] = new CMember(234, m_TopoModel.m_arrNodes[60], m_TopoModel.m_arrNodes[127], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[234] = new CMember(235, m_TopoModel.m_arrNodes[63], m_TopoModel.m_arrNodes[130], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[235] = new CMember(236, m_TopoModel.m_arrNodes[65], m_TopoModel.m_arrNodes[132], m_TopoModel.m_arrCrSc[1], 0);
+            m_TopoModel.m_arrMembers[236] = new CMember(237, m_TopoModel.m_arrNodes[67], m_TopoModel.m_arrNodes[134], m_TopoModel.m_arrCrSc[1], 0);
 
             // Setridit pole podle ID
             //Array.Sort(m_TopoModel.m_arrMembers, new CCompare_LineID());

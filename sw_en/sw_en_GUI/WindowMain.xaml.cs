@@ -585,7 +585,13 @@ namespace sw_en_GUI
             MessageBox.Show(sMessageCalc, "Solver Message",MessageBoxButton.OK);
         }
 
-
+        private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
+        {
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
+            Window2 win = new Window2(ex5.m_TopoModel);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 05" + " - Window " + (Container.Children.Count + 1) });
+        }
 
 
 
