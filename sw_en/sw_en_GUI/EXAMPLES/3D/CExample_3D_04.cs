@@ -8,7 +8,7 @@ using CRSC;
 
 namespace sw_en_GUI.EXAMPLES._3D
 {
-    class CExample_3D_04
+    class CExample_3D_04:CExample
     {
         public BaseClasses.CModel m_TopoModel = new BaseClasses.CModel();
         /*
