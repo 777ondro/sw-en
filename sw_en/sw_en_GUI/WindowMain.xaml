@@ -106,15 +106,15 @@
                 <MenuItem x:Name="menuItemExample" Header="Examples">
                     <MenuItem x:Name="menuItemExample2D" Header="Examples 2D"></MenuItem>
                     <MenuItem x:Name="menuItemExample3D" Header="Examples 3D">
-                        <MenuItem x:Name="menuItemExample3D_01" Header="Example 01"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_02" Header="Example 02"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_03" Header="Example 03"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_04" Header="Example 04"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_01" Header="Example 01" Click="menuItemExample3D_01_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_02" Header="Example 02" Click="menuItemExample3D_02_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_03" Header="Example 03" Click="menuItemExample3D_03_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_04" Header="Example 04" Click="menuItemExample3D_04_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_05" Header="Example 05" Click="menuItemExample3D_05_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_06" Header="Example 06" Click="menuItemExample3D_06_Click"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_07" Header="Example 07"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_08" Header="Example 08"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_09" Header="Example 09"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_07" Header="Example 07" Click="menuItemExample3D_07_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_08" Header="Example 08" Click="menuItemExample3D_08_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_09" Header="Example 09" Click="menuItemExample3D_09_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_10" Header="Example 10" Click="menuItemExample3D_10_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
