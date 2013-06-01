@@ -564,36 +564,36 @@ namespace sw_en_GUI
             MessageBox.Show(sMessageCalc, "Solver Message",MessageBoxButton.OK);
         }
 
-        private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
+        private void menuItemExample3D_01_Click(object sender, RoutedEventArgs e)
         {
-            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
-            Window2 win = new Window2(ex5.m_TopoModel);
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_01 ex1 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_01();
+            Window2 win = new Window2(ex1.m_TopoModel);
             list_trackports.Add(win._trackport);
-            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 05" + " - Window " + (Container.Children.Count + 1) });
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 01" + " - Window " + (Container.Children.Count + 1) });
         }
 
-        private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
+        private void menuItemExample3D_02_Click(object sender, RoutedEventArgs e)
         {
-            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
-            Window2 win = new Window2(ex5.m_TopoModel);
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_02 ex2 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_02();
+            Window2 win = new Window2(ex2.m_TopoModel);
             list_trackports.Add(win._trackport);
-            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 05" + " - Window " + (Container.Children.Count + 1) });
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 02" + " - Window " + (Container.Children.Count + 1) });
         }
 
-        private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
+        private void menuItemExample3D_03_Click(object sender, RoutedEventArgs e)
         {
-            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
-            Window2 win = new Window2(ex5.m_TopoModel);
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_03 ex3 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_03();
+            Window2 win = new Window2(ex3.m_TopoModel);
             list_trackports.Add(win._trackport);
-            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 05" + " - Window " + (Container.Children.Count + 1) });
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 03" + " - Window " + (Container.Children.Count + 1) });
         }
 
-        private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
+        private void menuItemExample3D_04_Click(object sender, RoutedEventArgs e)
         {
-            sw_en_GUI.EXAMPLES._3D.CExample_3D_05 ex5 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_05();
-            Window2 win = new Window2(ex5.m_TopoModel);
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_04 ex4 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_04();
+            Window2 win = new Window2(ex4.m_TopoModel);
             list_trackports.Add(win._trackport);
-            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 05" + " - Window " + (Container.Children.Count + 1) });
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 04" + " - Window " + (Container.Children.Count + 1) });
         }
 
         private void menuItemExample3D_05_Click(object sender, RoutedEventArgs e)
