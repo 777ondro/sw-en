@@ -1000,70 +1000,112 @@ namespace sw_en_GUI
     {
       InitializeComponent();
 
-      Model3DGroup gr = new Model3DGroup();
-      //gr.Children.Add(new AmbientLight());
-      SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-
-      EGCS eGCS = EGCS.eGCSLeftHanded;
-      //EGCS eGCS = EGCS.eGCSRightHanded;
-
-      // Check that real model exists and create model geometry
       if (cmodel != null)
       {
-          // Model Group of Members
-          // Prepare member model
-          for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
+          Model3DGroup gr = new Model3DGroup();
+          //gr.Children.Add(new AmbientLight());
+          SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+          EGCS eGCS = EGCS.eGCSLeftHanded;
+          //EGCS eGCS = EGCS.eGCSRightHanded;
+
+          // Check that real model exists and create model geometry
+          if (cmodel != null)
           {
-              // Start Node of Member
-              Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
-              // End node of Member
-              Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
-
-              // Angle of rotation about local x-axis
-              cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
-
-              if (Debugging)
+              // Model Group of Members
+              // Prepare member model
+              for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
               {
-                  System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
-                  System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
-                  System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
-                  System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
-                  System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+                  // Start Node of Member
+                  Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
+                  // End node of Member
+                  Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
+
+                  // Angle of rotation about local x-axis
+                  cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
+
+                  if (Debugging)
+                  {
+                      System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
+                      System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+                      System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
+                      System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+                      System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+                  }
+                  // Create Member model
+                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+
+                  // Add current member model to the model group
+                  gr.Children.Add(membermodel);
               }
-              // Create Member model
-              GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
-
-              // Add current member model to the model group
-              gr.Children.Add(membermodel);
           }
+
+          // Get model centre
+          float fTempMax_X = float.MinValue;
+          float fTempMin_X = float.MaxValue;
+          float fTempMax_Y = float.MinValue;
+          float fTempMin_Y = float.MaxValue;
+          float fTempMax_Z = float.MinValue;
+          float fTempMin_Z = float.MaxValue;
+
+          for (int i = 0; i < cmodel.m_arrNodes.Length; i++)
+          {
+              // Maximum X - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_X > fTempMax_X)
+                  fTempMax_X = cmodel.m_arrNodes[i].FCoord_X;
+
+              // Minimum X - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_X < fTempMin_X)
+                  fTempMin_X = cmodel.m_arrNodes[i].FCoord_X;
+
+              // Maximum Y - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_Y > fTempMax_Y)
+                  fTempMax_Y = cmodel.m_arrNodes[i].FCoord_Y;
+
+              // Minimum Y - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_Y < fTempMin_Y)
+                  fTempMin_Y = cmodel.m_arrNodes[i].FCoord_Y;
+
+              // Maximum Z - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_Z > fTempMax_Z)
+                  fTempMax_Z = cmodel.m_arrNodes[i].FCoord_Z;
+
+              // Minimum Z - coordinate
+              if (cmodel.m_arrNodes[i].FCoord_Z < fTempMin_Z)
+                  fTempMin_Z = cmodel.m_arrNodes[i].FCoord_Z;
+          }
+
+          float fModel_Length_X = fTempMax_X - fTempMin_X;
+          float fModel_Length_Y = fTempMax_Y - fTempMin_Y;
+          float fModel_Length_Z = fTempMax_Z - fTempMin_Z;
+
+          Point3D pModelGeomCentre = new Point3D(fModel_Length_X / 2.0f, fModel_Length_Y / 2.0f, fModel_Length_Z / 2.0f);
+
+          Point3D cameraPosition = new Point3D(pModelGeomCentre.X, pModelGeomCentre.Y + 500, pModelGeomCentre.Z + 100);
+
+          //SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
+          //GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, new Point3D(10, 10, 10), new Point3D(500, 300, 200));
+          //gr.Children.Add(model);
+
+          ////Point3D cameraPosition = ((MeshGeometry3D)model.Geometry).Positions[0];
+          ////cameraPosition.Z -= 1000;
+
+          //brush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+          //model = getGeometryModel3D(brush, obj_CrSc, new Point3D(110, 110, 10), new Point3D(600, 400, 200));
+          //gr.Children.Add(model);
+
+          //IMPORTANT: this is the best way to do it, but we can't use it because of trackball
+          //because camera is set by trackball Taransform this.Camera.Transform = _trackball.Transform;
+          //and headlite too:  this.Headlight.Transform = _trackball.Transform;
+
+          _trackport.PerspectiveCamera.Position = cameraPosition;
+          //_trackport.PerspectiveCamera.LookDirection = new Vector3D(cameraPosition.X, cameraPosition.Y, cameraPosition.Z - 100);
+
+          _trackport.PerspectiveCamera.LookDirection = new Vector3D(0, -1, -0.2);
+
+          _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
+          _trackport.SetupScene();
       }
-
-
-
-      Point3D cameraPosition = new Point3D(0, 500, 100);
-
-      //SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
-      //GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, new Point3D(10, 10, 10), new Point3D(500, 300, 200));
-      //gr.Children.Add(model);
-
-      ////Point3D cameraPosition = ((MeshGeometry3D)model.Geometry).Positions[0];
-      ////cameraPosition.Z -= 1000;
-
-      //brush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-      //model = getGeometryModel3D(brush, obj_CrSc, new Point3D(110, 110, 10), new Point3D(600, 400, 200));
-      //gr.Children.Add(model);
-
-      //IMPORTANT: this is the best way to do it, but we can't use it because of trackball
-      //because camera is set by trackball Taransform this.Camera.Transform = _trackball.Transform;
-      //and headlite too:  this.Headlight.Transform = _trackball.Transform;
-
-      _trackport.PerspectiveCamera.Position = cameraPosition;
-      //_trackport.PerspectiveCamera.LookDirection = new Vector3D(cameraPosition.X, cameraPosition.Y, cameraPosition.Z - 100);
-      _trackport.PerspectiveCamera.LookDirection = new Vector3D(0, -1, -0.1);
-
-      _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
-      _trackport.SetupScene();
-
     }
 
     private GeometryModel3D getGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrSc, Point3D mpA, Point3D mpB, double dTheta_x)
