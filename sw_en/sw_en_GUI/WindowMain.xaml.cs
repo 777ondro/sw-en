@@ -595,6 +595,14 @@ namespace sw_en_GUI
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 06" + " - Window " + (Container.Children.Count + 1) });
         }
 
+        private void menuItemExample3D_10_Click(object sender, RoutedEventArgs e)
+        {
+            sw_en_GUI.EXAMPLES._3D.CExample_3D_10 ex10 = new sw_en_GUI.EXAMPLES._3D.CExample_3D_10();
+            Window2 win = new Window2(ex10.m_TopoModel);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 10" + " - Window " + (Container.Children.Count + 1) });
+        }
+
 
 	}
 }
