@@ -111,7 +111,7 @@
                         <MenuItem x:Name="menuItemExample3D_03" Header="Example 03"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_04" Header="Example 04"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_05" Header="Example 05" Click="menuItemExample3D_05_Click"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_06" Header="Example 06"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_06" Header="Example 06" Click="menuItemExample3D_06_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_07" Header="Example 07"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_08" Header="Example 08"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_09" Header="Example 09"></MenuItem>
