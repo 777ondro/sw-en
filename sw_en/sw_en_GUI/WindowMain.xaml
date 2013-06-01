@@ -116,6 +116,7 @@
                         <MenuItem x:Name="menuItemExample3D_08" Header="Example 08" Click="menuItemExample3D_08_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_09" Header="Example 09" Click="menuItemExample3D_09_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_10" Header="Example 10" Click="menuItemExample3D_10_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_11" Header="Example 11" Click="menuItemExample3D_11_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
