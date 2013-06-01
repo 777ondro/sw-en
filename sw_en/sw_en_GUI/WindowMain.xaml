@@ -102,7 +102,23 @@
 			<MenuItem Header="Settings"></MenuItem>
 			<MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private"></MenuItem>
 			<MenuItem Header="Help"></MenuItem>
-			<MenuItem Header="Support"></MenuItem>
+			<MenuItem Header="Support">
+                <MenuItem x:Name="menuItemExample" Header="Examples">
+                    <MenuItem x:Name="menuItemExample2D" Header="Examples 2D"></MenuItem>
+                    <MenuItem x:Name="menuItemExample3D" Header="Examples 3D">
+                        <MenuItem x:Name="menuItemExample3D_01" Header="Example 01"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_02" Header="Example 02"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_03" Header="Example 03"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_04" Header="Example 04"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_05" Header="Example 05" Click="menuItemExample3D_05_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_06" Header="Example 06"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_07" Header="Example 07"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_08" Header="Example 08"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_09" Header="Example 09"></MenuItem>
+                        <MenuItem x:Name="menuItemExample3D_10" Header="Example 10"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
 		</Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
 
