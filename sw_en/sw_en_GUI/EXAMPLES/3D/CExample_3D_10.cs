@@ -4816,6 +4816,14 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             #endregion
 
+            // Convert coordinates to meters
+            foreach (CNode node in m_TopoModel.m_arrNodes)
+            {
+                node.FCoord_X /= 1000;
+                node.FCoord_Y /= 1000;
+                node.FCoord_Z /= 1000;
+            }
+
             // Setridit pole podle ID
             Array.Sort(m_TopoModel.m_arrNodes, new CCompare_NodeID());
 
