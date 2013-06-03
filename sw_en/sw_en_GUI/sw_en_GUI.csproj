@@ -136,6 +136,9 @@
     <Compile Include="WindowPaint.xaml.cs">
       <DependentUpon>WindowPaint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowStart.xaml.cs">
+      <DependentUpon>WindowStart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WireFrame.xaml.cs">
       <DependentUpon>WireFrame.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowPaint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowStart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -437,6 +444,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EXAMPLES\2D\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\xyz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\files.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
