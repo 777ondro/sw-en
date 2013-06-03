@@ -154,6 +154,7 @@
 	<ImageSource x:Key="TIM_F_60">Images/5_TIM_F/5_60.png</ImageSource>
 	<ImageSource x:Key="TIM_F_61">Images/5_TIM_F/5_61.png</ImageSource>
 
-
+    <ImageSource x:Key="XYZ">Images/xyz.png</ImageSource>
+    <ImageSource x:Key="files">Images/files.png</ImageSource>
 
 </ResourceDictionary>

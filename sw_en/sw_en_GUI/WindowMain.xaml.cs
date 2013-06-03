@@ -37,6 +37,9 @@ namespace sw_en_GUI
 		List<Trackport3D> list_trackports;
 		public WindowMain()
 		{
+            WindowStart st = new WindowStart();
+            st.Show();
+
 			InitializeComponent();
 			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
 			Window2 win = new Window2();
