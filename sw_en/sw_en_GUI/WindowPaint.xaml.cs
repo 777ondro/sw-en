@@ -410,7 +410,7 @@ namespace sw_en_GUI
 				zoomOut2D();
 				Console.WriteLine("zoomOut");
 			}
-			else MessageBox.Show("else");
+			//else MessageBox.Show("else");
 		}
 
 		private void zoomIn2D() 

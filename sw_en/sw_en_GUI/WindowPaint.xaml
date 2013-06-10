@@ -31,18 +31,20 @@
 		</Menu>
 		<Canvas x:Name="canvasForImage" Grid.Column="0" Grid.Row="1">
 		</Canvas>
-		<Canvas Height="300" Width="300" Grid.Column="0" Grid.Row="2" >
+		
+		 
+		 <!--<Canvas Height="300" Width="300" Grid.Column="0" Grid.Row="2" >-->
 
 			<!-- Draws a diagonal line from (10,10) to (50,50). -->
-			<Line
+			<!--<Line
     X1="10" Y1="10"
     X2="50" Y2="50"
     Stroke="Black"
-    StrokeThickness="4" />
+    StrokeThickness="6" />-->
 
 			<!-- Draws a diagonal line from (10,10) to (50,50)
        and moves it 100 pixels to the right. -->
-			<Line
+			<!--<Line
     X1="10" Y1="10"
     X2="50" Y2="50"
     StrokeThickness="4"
@@ -55,16 +57,16 @@
 						</RadialGradientBrush.GradientStops>
 					</RadialGradientBrush>
 				</Line.Stroke>
-			</Line>
+			</Line>-->
 
 			<!-- Draws a horizontal line from (10,60) to (150,60). -->
-			<Line
+			<!--<Line
      X1="10" Y1="60"
      X2="150" Y2="60"
      Stroke="Black"
      StrokeThickness="4"/>
 
-		</Canvas>
+		</Canvas>-->
 		<!--<Image Grid.Row="1" Grid.Column="0">
 			<Image.Source>
 				<DrawingImage>
