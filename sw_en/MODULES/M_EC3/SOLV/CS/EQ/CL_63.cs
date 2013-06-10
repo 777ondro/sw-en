@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MATH;
 
 namespace M_EC3
 {
@@ -264,6 +265,16 @@ namespace M_EC3
             else
                 return 0f;
         }
+
+        // Maria Kralova EN 1993-3-1
+        float Eq_B21c___(float fH, float fV_H, float fD_o, float fm_o, float fR)
+        {
+            return (1.0f / 30.0f) * (float)MathF.Pow_1_3((fH * fV_H) / fD_o) * (float)Math.Sqrt(fm_o / (fH * fR));
+        }
+
+        
+        
+        
 
 
     }
