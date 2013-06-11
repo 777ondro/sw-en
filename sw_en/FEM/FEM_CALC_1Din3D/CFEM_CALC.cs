@@ -284,9 +284,9 @@ namespace FEM_CALC_1Din3D
             // kij_0 - local stiffeness matrix       6 x  6
             m_ELemArray[0].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            m_ELemArray[0].m_fAMatr3D.Print2DMatrixFormated();
+            m_ELemArray[0].m_fATRMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            m_ELemArray[0].m_fBMatr3D.Print2DMatrixFormated();
+            m_ELemArray[0].m_fBTTMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
             m_ELemArray[0].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
@@ -364,9 +364,9 @@ namespace FEM_CALC_1Din3D
             // kij_0 - local stiffeness matrix       6 x  6
            m_ELemArray[1].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            m_ELemArray[1].m_fAMatr3D.Print2DMatrixFormated();
+            m_ELemArray[1].m_fATRMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            m_ELemArray[1].m_fBMatr3D.Print2DMatrixFormated();
+            m_ELemArray[1].m_fBTTMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
             m_ELemArray[1].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
@@ -390,9 +390,9 @@ namespace FEM_CALC_1Din3D
             // kij_0 - local stiffeness matrix       6 x  6
             m_ELemArray[2].m_fkLocMatr.Print2DMatrixFormated();
             // A  Tranformation Rotation Matrixes    6 x  6
-            m_ELemArray[2].m_fAMatr3D.Print2DMatrixFormated();
+            m_ELemArray[2].m_fATRMatr3D.Print2DMatrixFormated();
             // B  Transfer Matrixes                  6 x  6
-            m_ELemArray[2].m_fBMatr3D.Print2DMatrixFormated();
+            m_ELemArray[2].m_fBTTMatr3D.Print2DMatrixFormated();
             // Kij - global matrix of member        12 x 12
             m_ELemArray[2].m_fKGlobM.Print2DMatrixFormated();
             // Element Load Vector                   2 x  6
@@ -536,22 +536,22 @@ namespace FEM_CALC_1Din3D
                 {
                     m_ELemArray[i].GetArrElemEF_GCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
-                    m_ELemArray[i].m_ArrElemEF_GCS_StNode.Print1DVector();
+                    m_ELemArray[i].m_VElemEF_GCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_GCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
-                    m_ELemArray[i].m_ArrElemEF_GCS_EnNode.Print1DVector();
+                    m_ELemArray[i].m_VElemEF_GCS_EnNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
-                    m_ELemArray[i].m_ArrElemEF_LCS_StNode.Print1DVector();
+                    m_ELemArray[i].m_VElemEF_LCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemEF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
-                    m_ELemArray[i].m_ArrElemEF_LCS_EnNode.Print1DVector();
+                    m_ELemArray[i].m_VElemEF_LCS_EnNode.Print1DVector();
                     m_ELemArray[i].GetArrElemIF_LCS_StNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
-                    m_ELemArray[i].m_ArrElemIF_LCS_StNode.Print1DVector();
+                    m_ELemArray[i].m_VElemIF_LCS_StNode.Print1DVector();
                     m_ELemArray[i].GetArrElemIF_LCS_EnNode();
                     Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + m_ELemArray[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
-                    m_ELemArray[i].m_ArrElemIF_LCS_EnNode.Print1DVector();
+                    m_ELemArray[i].m_VElemIF_LCS_EnNode.Print1DVector();
                 }
         } // End of Constructor
 
@@ -730,7 +730,7 @@ namespace FEM_CALC_1Din3D
                         {
                             // Temporary transposed transformation matrix of element rotation multiplied by load vector
                             /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_StNode);*/
-                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_StNode.FVectorItems;
+                            float[] fTempNodeVector = El_Temp.m_VElemPEF_GCS_StNode.FVectorItems;
                             // Add Value
                             tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
                         }
@@ -738,7 +738,7 @@ namespace FEM_CALC_1Din3D
                         {
                             // Temporary transposed transformation matrix of element rotation multiplied by load vector
                             /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_EnNode);*/
-                            float[] fTempNodeVector = El_Temp.m_ArrElemPEF_GCS_EnNode.FVectorItems;
+                            float[] fTempNodeVector = El_Temp.m_VElemPEF_GCS_EnNode.FVectorItems;
                             // Add Value
                             tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
                         }

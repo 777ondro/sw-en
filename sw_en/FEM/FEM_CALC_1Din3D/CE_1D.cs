@@ -49,66 +49,64 @@ namespace FEM_CALC_1Din3D
         public float m_flength_XY, m_flength_YZ, m_flength_XZ;
 
         public float[] m_fC_GCS_Coord = new float[3]; // Relative oordinate AC of auxiliary point C which define local member z-Axis orientation in global coordinate system of model
-        
-        public CMatrix m_fkLocMatr;
 
         static int iNodeDOFNo = 6; // int ot static int !!!!
 
         // Vector of member displacement
-        public CVector m_ArrDisp = new CVector(2*Constants.iNodeDOFNo);
+        public CVector m_ArrDisp = new CVector(2*Constants.i3D_DOFNo);
         // Array of global codes numbers of element desgress of freedom (Start node 0-5, and node 6-11)
-        public int[] m_ArrCodeNo = new int[2 * Constants.iNodeDOFNo]; 
+        public int[] m_ArrCodeNo = new int[2 * Constants.i3D_DOFNo]; 
         
         
         // Primary End Forces Vectors
         // Vector of member nodes (ends) primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public CVector m_ArrElemPEF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
-        public CVector m_ArrElemPEF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
+        public CVector m_VElemPEF_LCS_StNode = new CVector(Constants.i3D_DOFNo);  // Start Node
+        public CVector m_VElemPEF_LCS_EnNode = new CVector(Constants.i3D_DOFNo);  // End Node
 
         // Vector of member ends primary forces in Local Coordinate System (LCS) due to the transverse member load
-        public CMatrix m_ArrElemPEF_LCS = new CMatrix(2, Constants.iNodeDOFNo);
+        public CMatrix m_ArrElemPEF_LCS = new CMatrix(2, Constants.i3D_DOFNo);
 
         // Vector of member nodes (ends) primary forces in global Coordinate System due to the transverse member load
-        public CVector m_ArrElemPEF_GCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
-        public CVector m_ArrElemPEF_GCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
+        public CVector m_VElemPEF_GCS_StNode = new CVector(Constants.i3D_DOFNo);  // Start Node
+        public CVector m_VElemPEF_GCS_EnNode = new CVector(Constants.i3D_DOFNo);  // End Node
 
         // Vector of member ends primary forces in Global Coordinate System (GCS) due to the transverse member load
-        public CMatrix m_ArrElemPEF_GCS = new CMatrix(2, Constants.iNodeDOFNo);
+        public CMatrix m_ArrElemPEF_GCS = new CMatrix(2, Constants.i3D_DOFNo);
 
         // Results End Forces Vectors
         // Vector of member nodes (ends) forces in GCS
-        public CVector m_ArrElemEF_GCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
-        public CVector m_ArrElemEF_GCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
+        public CVector m_VElemEF_GCS_StNode = new CVector(Constants.i3D_DOFNo);  // Start Node
+        public CVector m_VElemEF_GCS_EnNode = new CVector(Constants.i3D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) forces in LCS
-        public CVector m_ArrElemEF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
-        public CVector m_ArrElemEF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
+        public CVector m_VElemEF_LCS_StNode = new CVector(Constants.i3D_DOFNo);  // Start Node
+        public CVector m_VElemEF_LCS_EnNode = new CVector(Constants.i3D_DOFNo);  // End Node
 
         // Vector of member nodes (ends) internal forces in LCS
-        public CVector m_ArrElemIF_LCS_StNode = new CVector(Constants.iNodeDOFNo);  // Start Node
-        public CVector m_ArrElemIF_LCS_EnNode = new CVector(Constants.iNodeDOFNo);  // End Node
+        public CVector m_VElemIF_LCS_StNode = new CVector(Constants.i3D_DOFNo);  // Start Node
+        public CVector m_VElemIF_LCS_EnNode = new CVector(Constants.i3D_DOFNo);  // End Node
 
-        // 3D
-        public CMatrix m_fAMatr3D = new CMatrix(Constants.iNodeDOFNo);
-        public CMatrix m_fBMatr3D = new CMatrix(Constants.iNodeDOFNo);
-
+        // 3D Matrices
+        public CMatrix m_fkLocMatr = new CMatrix(Constants.i3D_DOFNo);  // 6x6
+        public CMatrix m_fATRMatr3D = new CMatrix(Constants.i3D_DOFNo);   // 6x6
+        public CMatrix m_fBTTMatr3D = new CMatrix(Constants.i3D_DOFNo);   // 6x6
         public CMatrix m_fKGlobM;  // (2x6)*(2x6)
 
-        public CLoad m_ELoad;
-
-        public CMaterial m_Mat = new CMaterial();
+        public CMaterial m_Mat = new CMaterial(); // Delete
         public CCrSc m_CrSc /*= new CCrSc()*/; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public CMLoad m_ELoad;
+        public FEM_CALC_BASE.Enums.EElemSuppType[] m_eSuppType;
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
         float m_GCS_Z = 0f;
 
-        float m_fAlpha;
+        float m_fAlpha = 0f;
         float m_fSinAlpha, m_fCosAlpha;
 
         // Constructor
 
-        public CE_1D() 
+        public CE_1D()
         {
             // Create and fill elements base data
 
@@ -215,11 +213,11 @@ namespace FEM_CALC_1Din3D
             // 3D
 
             // Transformation Matrix of Element Rotation (12x12) - 3D
-            m_fAMatr3D = Get_AMatr3D1();
+            m_fATRMatr3D = Get_AMatr3D1();
 
             // Transformation Transfer Matrix - 3D
 
-            m_fBMatr3D = Get_BMatr3D1();
+            m_fBTTMatr3D = Get_BMatr3D1();
 
 
 
@@ -258,10 +256,34 @@ namespace FEM_CALC_1Din3D
 
             // 3D
             m_fKGlobM = fGetGlobM(
-            GetPartM_k11(m_fkLocMatr, m_fAMatr3D),
-            GetPartM_k12(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D),
-            GetPartM_k21(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D),
-            GetPartM_k22(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D)
+            GetPartM_k11(m_fkLocMatr, m_fATRMatr3D),
+            GetPartM_k12(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D),
+            GetPartM_k21(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D),
+            GetPartM_k22(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D)
+            );
+        }
+
+        public void FillBasic3_StiffMatrices()
+        {
+            // Get Element support type
+            // Depends on nodal support and element releases
+            m_eSuppType = Get_iElemSuppType();
+
+            // Get local matrix acc. to end support/restraint of element
+            GetLocMatrix_3D();
+
+            // Check of partial matrices members
+
+            // Partial matrices of global matrix of member 6 x 6
+            //Console.WriteLine(m_fkLocMatr.Print3DMatrix());
+
+            // Return partial matrixes and global matrix of FEM element 12 x 12 (2*6x2*6) 3D
+
+            m_fKGlobM = new CMatrix(
+            GetPartM_k11(m_fkLocMatr, m_fATRMatr3D),
+            GetPartM_k12(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D),
+            GetPartM_k21(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D),
+            GetPartM_k22(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D)
             );
         }
 
@@ -715,7 +737,25 @@ namespace FEM_CALC_1Din3D
         }
 
 
+        private FEM_CALC_BASE.Enums.EElemSuppType[] Get_iElemSuppType()
+        {
+            FEM_CALC_BASE.Enums.EElemSuppType[] eArrSuppType = new FEM_CALC_BASE.Enums.EElemSuppType[3];
 
+            // Is DOF rigid?
+            // true - 1 - yes, it is
+            // false - 0 - no, it isnt
+            // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
+
+
+
+            // DOKONCIT
+
+
+
+
+
+            return eArrSuppType;
+        }
 
 
 
@@ -941,7 +981,34 @@ namespace FEM_CALC_1Din3D
         }
         #endregion
 
+        #region Local stiffeness matrix of member in 3D
+        private void GetLocMatrix_3D()
+        {
 
+            // DOKONCIT
+
+            /*
+            switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
+            {
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_00_00();
+                    break;
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_00_0_();
+                    break;
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_0__00();
+                    break;
+                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_0__0_();
+                    break;
+                default:
+                    // Error or unsupported element - exception
+                    m_fkLocMatr.m_fArrMembers = null;
+                    break;
+            }*/
+        }
+        #endregion
 
 
 
@@ -1030,7 +1097,19 @@ namespace FEM_CALC_1Din3D
             return new CMatrix(fMk11, fMk12,fMk21, fMk22);
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Transformation of element primary end forces in LCS to GCS
+        // Set vector of ends  primary forces in global coordinate system
+        public void SetGetPEF_GCS()
+        {
+            // Start Node
+            // [PEF_GCS i] = [A0T] * [PEF_LCS i]
+            m_VElemPEF_GCS_StNode = VectorF.fMultiplyMatrVectr(MatrixF.GetTransMatrix(m_fATRMatr3D), m_VElemPEF_LCS_StNode);
 
+            // End Node
+            // [PEF_GCS j] = [A0T] * [PEF_LCS j]
+            m_VElemPEF_GCS_EnNode = VectorF.fMultiplyMatrVectr(MatrixF.GetTransMatrix(m_fATRMatr3D), m_VElemPEF_LCS_EnNode);
+        }
 
 
 
@@ -1050,12 +1129,12 @@ namespace FEM_CALC_1Din3D
         // [EF_GCS i] = [ELoad i LCS] + [Kii] * [delta i] + [Kij] * [delta j]
         public void GetArrElemEF_GCS_StNode()
         {
-            m_ArrElemEF_GCS_StNode =
+            m_VElemEF_GCS_StNode =
                 VectorF.fGetSum(
-                m_ArrElemPEF_GCS_StNode,
+                m_VElemPEF_GCS_StNode,
                 VectorF.fGetSum(
-                VectorF.fMultiplyMatrVectr(GetPartM_k11(m_fkLocMatr, m_fAMatr3D), NodeStart.m_VDisp),
-                VectorF.fMultiplyMatrVectr(GetPartM_k12(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), NodeEnd.m_VDisp)
+                VectorF.fMultiplyMatrVectr(GetPartM_k11(m_fkLocMatr, m_fATRMatr3D), NodeStart.m_VDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k12(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D), NodeEnd.m_VDisp)
                 )
                 );
         }
@@ -1064,12 +1143,12 @@ namespace FEM_CALC_1Din3D
         // [EF_GCS j] = [ELoad j LCS] + [Kji] * [delta i] + [Kjj] * [delta j]
         public void GetArrElemEF_GCS_EnNode()
         {
-            m_ArrElemEF_GCS_EnNode =
+            m_VElemEF_GCS_EnNode =
                 VectorF.fGetSum(
-                m_ArrElemPEF_GCS_EnNode,
+                m_VElemPEF_GCS_EnNode,
                 VectorF.fGetSum(
-                VectorF.fMultiplyMatrVectr(GetPartM_k21(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), NodeStart.m_VDisp),
-                VectorF.fMultiplyMatrVectr(GetPartM_k22(m_fkLocMatr, m_fAMatr3D, m_fBMatr3D), NodeEnd.m_VDisp)
+                VectorF.fMultiplyMatrVectr(GetPartM_k21(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D), NodeStart.m_VDisp),
+                VectorF.fMultiplyMatrVectr(GetPartM_k22(m_fkLocMatr, m_fATRMatr3D, m_fBTTMatr3D), NodeEnd.m_VDisp)
                 )
                 );
         }
@@ -1082,14 +1161,14 @@ namespace FEM_CALC_1Din3D
         //  [EF_LCS i] = [A0] * [EF_GCS i]
         public void GetArrElemEF_LCS_StNode()
         {
-            m_ArrElemEF_LCS_StNode = VectorF.fMultiplyMatrVectr(m_fAMatr3D, m_ArrElemEF_GCS_StNode);
+            m_VElemEF_LCS_StNode = VectorF.fMultiplyMatrVectr(m_fATRMatr3D, m_VElemEF_GCS_StNode);
         }
 
         // End Node Vector - 1 x 6
         // [EF_LCS j] = [A0] * [EF_GCS j]
         public void GetArrElemEF_LCS_EnNode()
         {
-            m_ArrElemEF_LCS_EnNode = VectorF.fMultiplyMatrVectr(m_fAMatr3D, m_ArrElemEF_GCS_EnNode);
+            m_VElemEF_LCS_EnNode = VectorF.fMultiplyMatrVectr(m_fATRMatr3D, m_VElemEF_GCS_EnNode);
         }
 
 
@@ -1102,7 +1181,7 @@ namespace FEM_CALC_1Din3D
         public void GetArrElemIF_LCS_StNode()
         {
             CVector fTempSignTransf = new CVector(6, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f );
-            m_ArrElemIF_LCS_StNode = VectorF.fMultiplyVectors(fTempSignTransf, m_ArrElemEF_LCS_StNode);
+            m_VElemIF_LCS_StNode = VectorF.fMultiplyVectors(fTempSignTransf, m_VElemEF_LCS_StNode);
         }
 
         // End Node Vector - 1 x 6
@@ -1110,7 +1189,7 @@ namespace FEM_CALC_1Din3D
         public void GetArrElemIF_LCS_EnNode()
         {
             CVector fTempSignTransf = new CVector(6, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, -1.0f);
-            m_ArrElemIF_LCS_EnNode = VectorF.fMultiplyVectors(fTempSignTransf, m_ArrElemEF_LCS_EnNode);
+            m_VElemIF_LCS_EnNode = VectorF.fMultiplyVectors(fTempSignTransf, m_VElemEF_LCS_EnNode);
         }
 
 

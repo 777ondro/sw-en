@@ -18,8 +18,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrMembers = new CMember[3];
             m_TopoModel.m_arrMat = new CMat_00[1];
             m_TopoModel.m_arrCrSc = new CRSC.CCrSc[1];
-            m_TopoModel.m_arrNSupports = new BaseClasses.CNSupport[3];
-            //m_TopoModel.m_arrNLoads = new BaseClasses.CNLoad[3];
+            m_TopoModel.m_arrNSupports = new BaseClasses.CNSupport[2];
+            m_TopoModel.m_arrMLoads = new BaseClasses.CMLoad[3];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -60,15 +60,23 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Nodal Supports - fill values
 
+            // Restraints - list of node degreess of freedom
+            // UX, UY, UZ, RX, RY, RZ
+            // false - 0 - free DOF
+            // true - 1 - restrained (rigid)
+
             // Set values
-            bool[] bSupport1 = { true, false, true, false, false, false };
-            bool[] bSupport2 = { false, false, true, false, false, false };
+            bool[] bSupport1 = { true, true, true, true, true, true};
+            bool[] bSupport2 = { true, true, true, false, false, false };
 
             // Create Support Objects
             m_TopoModel.m_arrNSupports[0] = new CNSupport(6, 1, m_TopoModel.m_arrNodes[1], bSupport1, 0);
-            m_TopoModel.m_arrNSupports[1] = new CNSupport(6, 2, m_TopoModel.m_arrNodes[2], bSupport1, 0);
-            m_TopoModel.m_arrNSupports[2] = new CNSupport(6, 3, m_TopoModel.m_arrNodes[3], bSupport1, 0);
+            m_TopoModel.m_arrNSupports[1] = new CNSupport(6, 2, m_TopoModel.m_arrNodes[2], bSupport2, 0);
 
+            // Loads
+            m_TopoModel.m_arrMLoads[0] = new CMLoad_21(5000f);  // q - whole member
+            m_TopoModel.m_arrMLoads[1] = new CMLoad_12(17000f); // F - in the middle of member
+            m_TopoModel.m_arrMLoads[2] = new CMLoad_12(20000f); // M - in the middle of member
 
 
 
