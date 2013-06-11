@@ -214,34 +214,37 @@ namespace sw_en_GUI
 
 		private void menuItemTest2_Click(object sender, RoutedEventArgs e)
 		{
-			CTest2 objCTest2 = new CTest2();
-			canvasForImage.Children.Clear();
+            //CTest2 objCTest2 = new CTest2();
+            //canvasForImage.Children.Clear();
 			
-			foreach (CMember l in objCTest2.arrLines)
-			{
-				// Add a Line Element
-				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
-			}
-			foreach (CNode n in objCTest2.arrNodes)
-			{
-				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
-			}
+            //foreach (CMember l in objCTest2.arrLines)
+            //{
+            //    // Add a Line Element
+            //    DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+            //}
+            //foreach (CNode n in objCTest2.arrNodes)
+            //{
+            //    DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
+            //}
 		}
 
 		private void menuItemTest3_Click(object sender, RoutedEventArgs e)
 		{
-			CTest3 objCTest3 = new CTest3();
-			canvasForImage.Children.Clear();
+            
+            canvasForImage.Children.Clear();
 			
-			foreach (CMember l in objCTest3.arrLines)
-			{
-				// Add a Line Element
-				DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
-			}
-			foreach (CNode n in objCTest3.arrNodes)
-			{
-				DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
-			}
+            //CTest3 objCTest3 = new CTest3();
+            //canvasForImage.Children.Clear();
+			
+            //foreach (CMember l in objCTest3.arrLines)
+            //{
+            //    // Add a Line Element
+            //    DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+            //}
+            //foreach (CNode n in objCTest3.arrNodes)
+            //{
+            //    DrawNode(n, Brushes.Red, Brushes.Red, 4, canvasForImage);
+            //}
 		}
 
 		private void menuItemTest4_Click(object sender, RoutedEventArgs e)

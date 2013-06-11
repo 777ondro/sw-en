@@ -34,6 +34,9 @@ namespace sw_en_GUI
 			imageButton20.Source = (ImageSource)TryFindResource("GEN_F_06");
 			imageButton21.Source = (ImageSource)TryFindResource("GEN_F_07");
 			imageButton22.Source = (ImageSource)TryFindResource("GEN_F_08");
+
+
+            
 			
 		}
 
