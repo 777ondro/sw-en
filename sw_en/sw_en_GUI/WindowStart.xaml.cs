@@ -24,5 +24,10 @@ namespace sw_en_GUI
             image1.Source = (ImageSource)TryFindResource("XYZ");
             imgFiles.Source = (ImageSource)TryFindResource("files");
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

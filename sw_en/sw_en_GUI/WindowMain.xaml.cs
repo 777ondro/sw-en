@@ -39,8 +39,16 @@ namespace sw_en_GUI
 		{
             WindowStart st = new WindowStart();
             st.Show();
-
+            
 			InitializeComponent();
+
+            ImageIzometric.Source = (ImageSource)TryFindResource("Izometric");
+            ImagePerspective.Source = (ImageSource)TryFindResource("Perspective");
+            ImageViewX.Source = (ImageSource)TryFindResource("ViewX");
+            ImageViewY.Source = (ImageSource)TryFindResource("ViewY");
+            ImageViewZ.Source = (ImageSource)TryFindResource("ViewZ");
+
+
 			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
 			Window2 win = new Window2();
 			list_trackports = new List<Trackport3D>();
@@ -492,7 +500,7 @@ namespace sw_en_GUI
 
 		private void menuItemView2Dview_Click(object sender, RoutedEventArgs e)
 		{
-			WindowPaint p = new WindowPaint();
+            WindowPaint p = new WindowPaint();
 			p.ShowDialog();
 		}
 

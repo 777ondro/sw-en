@@ -54,7 +54,7 @@
                     </GroupBox>
                     <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="btnOK" Width="60px" Height="25px" Margin="6px">OK</Button>
-                        <Button x:Name="btnCancel" Width="60px" Height="25px" Margin="6px">Cancel</Button>
+                        <Button x:Name="btnCancel" Width="60px" Height="25px" Margin="6px" Click="btnCancel_Click">Cancel</Button>
                     </StackPanel>
                 </Grid>
 

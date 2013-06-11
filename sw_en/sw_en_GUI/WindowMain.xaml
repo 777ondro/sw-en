@@ -54,6 +54,7 @@
 				</Trigger>
 			</ControlTemplate.Triggers>
 		</ControlTemplate>
+		
 	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -61,7 +62,7 @@
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20px"></RowDefinition>
-			<RowDefinition Height="20px"></RowDefinition>
+			<RowDefinition Height="25px"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Menu Grid.Column="0" Grid.Row="0">
@@ -122,6 +123,22 @@
             </MenuItem>
 		</Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
+			<Button x:Name="tbrIzometric" ToolTip="Isometric" VerticalAlignment="Center">
+				<Image Width="25px" Height="25px"  x:Name="ImageIzometric"></Image>
+			</Button>
+			<Button x:Name="tbrPerspective" ToolTip="Perspective" VerticalAlignment="Center" VerticalContentAlignment="Center">
+				<Image Width="25px" Height="25px" x:Name="ImagePerspective"></Image>
+			</Button>
+			<Button x:Name="tbrViewX" ToolTip="view X" VerticalAlignment="Center">
+				<Image Width="25px" Height="25px" x:Name="ImageViewX"></Image>
+			</Button>
+			<Button x:Name="tbrViewY" ToolTip="view Y" VerticalAlignment="Center" VerticalContentAlignment="Center">
+				<Image Width="25px" Height="25px" x:Name="ImageViewY"></Image>
+			</Button>
+			<Button x:Name="tbrViewZ" ToolTip="view Z" VerticalAlignment="Center">
+				<Image Width="25px" Height="25px" x:Name="ImageViewZ"></Image>
+			</Button>
+			
 
 		</ToolBar>
 
