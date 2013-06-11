@@ -73,6 +73,15 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrNSupports[0] = new CNSupport(6, 1, m_TopoModel.m_arrNodes[1], bSupport1, 0);
             m_TopoModel.m_arrNSupports[1] = new CNSupport(6, 2, m_TopoModel.m_arrNodes[2], bSupport2, 0);
 
+            // Fill list of supported nodes
+            m_TopoModel.m_arrNSupports[0].m_iNodeCollection = new int[2];
+            m_TopoModel.m_arrNSupports[1].m_iNodeCollection = new int[1];
+
+            m_TopoModel.m_arrNSupports[0].m_iNodeCollection[0] = 1; // Node ID 2
+            m_TopoModel.m_arrNSupports[0].m_iNodeCollection[1] = 2; // Node ID 3
+
+            m_TopoModel.m_arrNSupports[1].m_iNodeCollection[0] = 3; // Node ID 4
+
             // Loads
             m_TopoModel.m_arrMLoads[0] = new CMLoad_21(5000f);  // q - whole member
             m_TopoModel.m_arrMLoads[1] = new CMLoad_12(17000f); // F - in the middle of member

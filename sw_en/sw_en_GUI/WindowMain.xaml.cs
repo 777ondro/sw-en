@@ -653,6 +653,8 @@ namespace sw_en_GUI
             Window2 win = new Window2(ex11.m_TopoModel);
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 11" + " - Window " + (Container.Children.Count + 1) });
+
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC(ex11.m_TopoModel); // Nove vypoctove jadro
         }
 
     }

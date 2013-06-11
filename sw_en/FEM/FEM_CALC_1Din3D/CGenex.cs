@@ -124,24 +124,27 @@ namespace FEM_CALC_1Din3D
             // Nodal loads
             // Fill vector of external load for each node in list
             // Node could be included in all lists only once, more than one nodal load in one node is not allowed
-            for (int i = 0; i < TopoModel.m_arrNLoads.Length; i++) // Each load
+            if (!object.ReferenceEquals(null, TopoModel.m_arrNLoads))
             {
-                if (TopoModel.m_arrNLoads[i].INodeCollection != null) // Check if some nodes are in list
+                for (int i = 0; i < TopoModel.m_arrNLoads.Length; i++) // Each load
                 {
-                    for (int j = 0; j < TopoModel.m_arrNLoads[i].INodeCollection.Length; j++) // Each node in collection
+                    if (TopoModel.m_arrNLoads[i].INodeCollection != null) // Check if some nodes are in list
                     {
-                        // Set load vector values
-                        for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky uzly kedze pozname konkretne ID zatazenych
+                        for (int j = 0; j < TopoModel.m_arrNLoads[i].INodeCollection.Length; j++) // Each node in collection
                         {
-                            if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
+                            // Set load vector values
+                            for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky uzly kedze pozname konkretne ID zatazenych
                             {
+                                if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
+                                {
 
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFZ] = TopoModel.m_arrNLoads[i].Value_FZ;
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMX] = TopoModel.m_arrNLoads[i].Value_MX;
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMY] = TopoModel.m_arrNLoads[i].Value_MY;
-                                m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eFZ] = TopoModel.m_arrNLoads[i].Value_FZ;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMX] = TopoModel.m_arrNLoads[i].Value_MX;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMY] = TopoModel.m_arrNLoads[i].Value_MY;
+                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e3D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                                }
                             }
                         }
                     }
@@ -154,42 +157,45 @@ namespace FEM_CALC_1Din3D
             // Summation of loads applied on one member 
             // There can by more loads on one member, member could be in various loads lists (but only once in one list)
 
-            for (int i = 0; i < TopoModel.m_arrMLoads.Length; i++) // Each load
+            if (!object.ReferenceEquals(null, TopoModel.m_arrMLoads))
             {
-                if (TopoModel.m_arrMLoads[i].IMemberCollection != null) // Check if some members are in list
+                for (int i = 0; i < TopoModel.m_arrMLoads.Length; i++) // Each load
                 {
-                    for (int j = 0; j < TopoModel.m_arrMLoads[i].IMemberCollection.Length; j++) // Each node in collection
+                    if (TopoModel.m_arrMLoads[i].IMemberCollection != null) // Check if some members are in list
                     {
-                        // Set end forces due to member load
-                        for (int k = 0; k < m_arrFemMembers.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
+                        for (int j = 0; j < TopoModel.m_arrMLoads[i].IMemberCollection.Length; j++) // Each node in collection
                         {
-                            // Temporary value of end forces due to particular external force
-                            float fTemp_A_UXRX = 0f, fTemp_B_UXRX = 0f;
-                            float fTemp_A_UYRZ = 0f, fTemp_B_UYRZ = 0f, fTemp_Ma_UYRZ = 0f, fTemp_Mb_UYRZ = 0f;
+                            // Set end forces due to member load
+                            for (int k = 0; k < m_arrFemMembers.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
+                            {
+                                // Temporary value of end forces due to particular external force
+                                float fTemp_A_UXRX = 0f, fTemp_B_UXRX = 0f;
+                                float fTemp_A_UYRZ = 0f, fTemp_B_UYRZ = 0f, fTemp_Ma_UYRZ = 0f, fTemp_Mb_UYRZ = 0f;
 
 
-                            // Fill end forces due to external forces vectors for member particular load index i and member index k
-                            // Depends on load dirrection and member support type
-                            // Use member LOCAL / PRINCIPAL coordinate system
-                            CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
-                                out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
-                                out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
-                            );
+                                // Fill end forces due to external forces vectors for member particular load index i and member index k
+                                // Depends on load dirrection and member support type
+                                // Use member LOCAL / PRINCIPAL coordinate system
+                                CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
+                                    out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
+                                    out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
+                                );
 
-                            // Add values of temperary end forces due to particular load to the end forces items of vector
-                            // Primary end forces due member loading in local coordinate system LCS
+                                // Add values of temperary end forces due to particular load to the end forces items of vector
+                                // Primary end forces due member loading in local coordinate system LCS
 
-                            // Start Node
-                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_A_UXRX;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
-                            m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Ma_UYRZ;
+                                // Start Node
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_A_UXRX;
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Ma_UYRZ;
 
-                            // End Node
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_B_UXRX;
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFY] += -fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
-                            m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Mb_UYRZ;
+                                // End Node
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_B_UXRX;
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFY] += -fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Mb_UYRZ;
 
 
+                            }
                         }
                     }
                 }
