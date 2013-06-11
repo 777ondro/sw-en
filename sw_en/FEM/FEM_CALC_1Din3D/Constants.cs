@@ -8,7 +8,8 @@ namespace FEM_CALC_1Din3D
     public class Constants
     {
         // Number of Node Degress of freedom in 3D (DOF)
-        public const int iNodeDOFNo = 6;
+        // Basic size of vectors 6x1 and matrices 6x6
+        public const int i3D_DOFNo = 6;
 
         //  DOF Array Constants
 

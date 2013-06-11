@@ -21,7 +21,7 @@ namespace FEM_CALC_1Din2D
             int iMLoadIndex,
             int kMemberIndex,
             out float fTemp_A_UXRX,
-            out float fTemp_A_UYRZ, 
+            out float fTemp_A_UYRZ,
             out float fTemp_Ma_UYRZ,
             out float fTemp_B_UXRX,
             out float fTemp_B_UYRZ,

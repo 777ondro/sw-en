@@ -239,7 +239,7 @@ namespace FEM_CALC_1Din2D
                                 out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
                                 out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
                             );
-                                                        
+
                             // Add values of temperary end forces due to particular load to the end forces items of vector
                             // Primary end forces due member loading in local coordinate system LCS
 

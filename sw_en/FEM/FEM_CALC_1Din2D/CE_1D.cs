@@ -56,7 +56,7 @@ namespace FEM_CALC_1Din2D
 
         // Constructor
 
-        public CE_1D() 
+        public CE_1D()
         {
             // Fill Arrays / Initialize
             Fill_EEndsLoad_Init();
@@ -380,7 +380,7 @@ namespace FEM_CALC_1Din2D
                 eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_; // Displacement in y-axis and rotation about z-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
-                return eArrSuppType;        
+                return eArrSuppType;
             }
             else if
                 (
@@ -396,7 +396,7 @@ namespace FEM_CALC_1Din2D
                 eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in x-axis and rotation about x-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00; // Displacement in y-axis and rotation about z-axis in PCS
                 eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00; // Displacement in z-axis and rotation about y-axis in PCS
-                return eArrSuppType; 
+                return eArrSuppType;
             }
             else if
                 (
@@ -584,7 +584,7 @@ namespace FEM_CALC_1Din2D
         }
         #endregion
 
-        #region Local stiffeness matrix of member in 2D 
+        #region Local stiffeness matrix of member in 2D
         private void GetLocMatrix_2D()
         {
             switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
