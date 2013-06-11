@@ -92,9 +92,10 @@ namespace FEM_CALC_1Din3D
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Consructor
+        // Constructor
         public CFEM_CALC(CModel model)
         {
+            TopoModelFile = new CModel();
             TopoModelFile = model;
 
             // Generate FEM model data from Topological model
