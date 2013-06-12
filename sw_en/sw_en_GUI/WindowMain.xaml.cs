@@ -37,9 +37,6 @@ namespace sw_en_GUI
 		List<Trackport3D> list_trackports;
 		public WindowMain()
 		{
-            WindowStart st = new WindowStart();
-            st.Show();
-            
 			InitializeComponent();
 
             ImageIzometric.Source = (ImageSource)TryFindResource("Izometric");
@@ -48,14 +45,19 @@ namespace sw_en_GUI
             ImageViewY.Source = (ImageSource)TryFindResource("ViewY");
             ImageViewZ.Source = (ImageSource)TryFindResource("ViewZ");
 
+            // 12.6.2013
+            Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
+            // Create list of model windows
+            list_trackports = new List<Trackport3D>();
 
+            /*
 			Container.Children.CollectionChanged += (o, e) => Menu_RefreshWindows();
 			Window2 win = new Window2();
 			list_trackports = new List<Trackport3D>();
 			list_trackports.Add(win._trackport);
 
 			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
-
+            */
 			
 		}
 
@@ -89,6 +91,11 @@ namespace sw_en_GUI
 
 		private void menuItemNew_Click(object sender, RoutedEventArgs e)
 		{
+            // Start Window
+            WindowStart st = new WindowStart();
+            st.Show();
+
+            // Model Window
 			Window2 win = new Window2();
 			list_trackports.Add(win._trackport);
 
