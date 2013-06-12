@@ -120,10 +120,12 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Load Cases
             // Load Case 1
+            m_TopoModel.m_arrLoadCases[0] = new BaseClasses.CLoadCase();
             m_TopoModel.m_arrLoadCases[0].ID = 1;
 
             // Load Combinations
             // Load Combination 1
+            m_TopoModel.m_arrLoadCombs[0] = new BaseClasses.CLoadCombination();
             m_TopoModel.m_arrLoadCombs[0].ID = 1;
         }
     }
