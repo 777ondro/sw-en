@@ -10,17 +10,11 @@ namespace BaseClasses
 	public class CMLoad : CEntity
 	{
 		//----------------------------------------------------------------------------
-		private int m_iMLoad_ID;
 		private int[] m_iMemberCollection; // List / Collection of members where load is defined
 		private EMLoadTypeDistr m_mLoadTypeDistr; // Type of external force distribution
 		private EMLoadType m_mLoadType; // Type of external force
 		private EMLoadDirPCC1 m_eDirPPC; // External Force Direction in Principal Coordinate System of Member
 		//----------------------------------------------------------------------------
-		public int IMLoad_ID
-		{
-			get { return m_iMLoad_ID; }
-			set { m_iMLoad_ID = value; }
-		}
 		public int[] IMemberCollection
 		{
 			get { return m_iMemberCollection; }

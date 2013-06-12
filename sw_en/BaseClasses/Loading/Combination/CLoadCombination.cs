@@ -9,12 +9,12 @@ namespace BaseClasses
 	public class CLoadCombination
 	{
 		//----------------------------------------------------------------------------
-		private int m_iLoadComb_ID;
+		private int m_ID;
 
-		public int ILoadComb_ID
+		public int ID
 		{
-			get { return m_iLoadComb_ID; }
-			set { m_iLoadComb_ID = value; }
+			get { return m_ID; }
+			set { m_ID = value; }
 		}
 		//----------------------------------------------------------------------------
 		//----------------------------------------------------------------------------

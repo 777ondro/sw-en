@@ -37,7 +37,7 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test2", 3, 1, 3, 5, 4, 1, 0, 0, 1, 1, 1);
+            TopoModel = new CModel("Test2", ESLN.e2DD_1D, 3, EGCS.eGCSLeftHanded, 1, 3, 5, 4, 1, 0, 0, 1, 1, 1);
 
             // Materials
             CMat_00 Mat0 = new CMat_00();
@@ -168,7 +168,7 @@ namespace FEM_CALC_1Din2D
 
             // Load 1 - MemberIDs: 3
             CMLoad_21 MLoad_q = new CMLoad_21(fq);
-            MLoad_q.IMLoad_ID = 1;
+            MLoad_q.ID = 1;
             MLoad_q.MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
             MLoad_q.MLoadType = EMLoadType.eMLT_F;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
@@ -180,14 +180,14 @@ namespace FEM_CALC_1Din2D
             // Load Cases
             // Load Case 1
             CLoadCase LoadCase0 = new CLoadCase();
-            LoadCase0.ILoadCase_ID = 1;
+            LoadCase0.ID = 1;
 
             TopoModel.m_arrLoadCases[0] = LoadCase0;
 
             // Load Combinations
             // Load Combination 1
             CLoadCombination LoadComb0 = new CLoadCombination();
-            LoadComb0.ILoadComb_ID = 1;
+            LoadComb0.ID = 1;
 
             TopoModel.m_arrLoadCombs[0] = LoadComb0;
         }

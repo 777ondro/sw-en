@@ -6,9 +6,9 @@ using BaseClasses;
 using MATERIAL;
 using CRSC;
 
-namespace sw_en_GUI.EXAMPLES._3D
+namespace sw_en_GUI.EXAMPLES._2D
 {
-    class CExample_3D_04:CExample
+    class CExample_2D_04:CExample
     {
         public BaseClasses.CModel m_TopoModel = new BaseClasses.CModel();
         /*
@@ -19,10 +19,10 @@ namespace sw_en_GUI.EXAMPLES._3D
         int eNDOF = (int)ENDOF.e3DEnv;
         */
 
-        public CExample_3D_04()
+        public CExample_2D_04()
         {
-            m_TopoModel.m_eSLN = ESLN.e3DD_1D; // 1D members in 3D model
-            m_TopoModel.m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
+            m_TopoModel.m_eSLN = ESLN.e2DD_1D; // 1D members in 2D model
+            m_TopoModel.m_eNDOF = (int)ENDOF.e2DEnv; // DOF in 2D
             m_TopoModel.m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
             m_TopoModel.m_arrNodes = new BaseClasses.CNode[22];
@@ -44,29 +44,29 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Nodes List - Nodes Array
 
             // 1-bottom chord
-            m_TopoModel.m_arrNodes[00] = new CNode(01, 00000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[01] = new CNode(02, 08000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[02] = new CNode(03, 16000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[03] = new CNode(04, 24000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[04] = new CNode(05, 32000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[05] = new CNode(06, 40000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[06] = new CNode(07, 48000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[07] = new CNode(08, 56000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[08] = new CNode(09, 64000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[09] = new CNode(10, 72000, 0, 12000, 0);
-            m_TopoModel.m_arrNodes[10] = new CNode(11, 80000, 0, 12000, 0);
+            m_TopoModel.m_arrNodes[00] = new CNode(01, 00000, 12000, 0);
+            m_TopoModel.m_arrNodes[01] = new CNode(02, 08000, 12000, 0);
+            m_TopoModel.m_arrNodes[02] = new CNode(03, 16000, 12000, 0);
+            m_TopoModel.m_arrNodes[03] = new CNode(04, 24000, 12000, 0);
+            m_TopoModel.m_arrNodes[04] = new CNode(05, 32000, 12000, 0);
+            m_TopoModel.m_arrNodes[05] = new CNode(06, 40000, 12000, 0);
+            m_TopoModel.m_arrNodes[06] = new CNode(07, 48000, 12000, 0);
+            m_TopoModel.m_arrNodes[07] = new CNode(08, 56000, 12000, 0);
+            m_TopoModel.m_arrNodes[08] = new CNode(09, 64000, 12000, 0);
+            m_TopoModel.m_arrNodes[09] = new CNode(10, 72000, 12000, 0);
+            m_TopoModel.m_arrNodes[10] = new CNode(11, 80000, 12000, 0);
             // 2-upper chord
-            m_TopoModel.m_arrNodes[11] = new CNode(12, 00000, 0, 08000, 0);
-            m_TopoModel.m_arrNodes[12] = new CNode(13, 08000, 0, 05900, 0);
-            m_TopoModel.m_arrNodes[13] = new CNode(14, 16000, 0, 04000, 0);
-            m_TopoModel.m_arrNodes[14] = new CNode(15, 24000, 0, 03000, 0);
-            m_TopoModel.m_arrNodes[15] = new CNode(16, 32000, 0, 02300, 0);
-            m_TopoModel.m_arrNodes[16] = new CNode(17, 40000, 0, 02000, 0);
-            m_TopoModel.m_arrNodes[17] = new CNode(18, 48000, 0, 02300, 0);
-            m_TopoModel.m_arrNodes[18] = new CNode(19, 56000, 0, 03000, 0);
-            m_TopoModel.m_arrNodes[19] = new CNode(20, 64000, 0, 04000, 0);
-            m_TopoModel.m_arrNodes[20] = new CNode(21, 72000, 0, 05900, 0);
-            m_TopoModel.m_arrNodes[21] = new CNode(22, 80000, 0, 08000, 0);
+            m_TopoModel.m_arrNodes[11] = new CNode(12, 00000, 08000, 0);
+            m_TopoModel.m_arrNodes[12] = new CNode(13, 08000, 05900, 0);
+            m_TopoModel.m_arrNodes[13] = new CNode(14, 16000, 04000, 0);
+            m_TopoModel.m_arrNodes[14] = new CNode(15, 24000, 03000, 0);
+            m_TopoModel.m_arrNodes[15] = new CNode(16, 32000, 02300, 0);
+            m_TopoModel.m_arrNodes[16] = new CNode(17, 40000, 02000, 0);
+            m_TopoModel.m_arrNodes[17] = new CNode(18, 48000, 02300, 0);
+            m_TopoModel.m_arrNodes[18] = new CNode(19, 56000, 03000, 0);
+            m_TopoModel.m_arrNodes[19] = new CNode(20, 64000, 04000, 0);
+            m_TopoModel.m_arrNodes[20] = new CNode(21, 72000, 05900, 0);
+            m_TopoModel.m_arrNodes[21] = new CNode(22, 80000, 08000, 0);
 
             // Convert coordinates to meters
             foreach (CNode node in m_TopoModel.m_arrNodes)
@@ -134,12 +134,12 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Nodal Supports - fill values
 
             // Set values
-            bool[] bSupport1 = { true, false, true, false, false, false };
-            bool[] bSupport2 = { false, false, true, false, false, false };
+            bool[] bSupport1 = { true, true, false };
+            bool[] bSupport2 = { false, true, false };
 
             // Create Support Objects
-            m_TopoModel.m_arrNSupports[0] = new CNSupport(6, 1, m_TopoModel.m_arrNodes[00], bSupport1, 0);
-            m_TopoModel.m_arrNSupports[1] = new CNSupport(6, 2, m_TopoModel.m_arrNodes[10], bSupport2, 0);
+            m_TopoModel.m_arrNSupports[0] = new CNSupport(m_TopoModel.m_eNDOF, 1, m_TopoModel.m_arrNodes[00], bSupport1, 0);
+            m_TopoModel.m_arrNSupports[1] = new CNSupport(m_TopoModel.m_eNDOF, 2, m_TopoModel.m_arrNodes[10], bSupport2, 0);
 
             // Setridit pole podle ID
             Array.Sort(m_TopoModel.m_arrNSupports, new CCompare_NSupportID());
@@ -147,7 +147,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Member Releases / hinges - fill values
 
             // Set values
-            bool?[] bMembRelase1 = { false, false, false, false, true, false };
+            bool?[] bMembRelase1 = { false, false, true };
 
             // Create Release / Hinge Objects
             m_TopoModel.m_arrMembers[31].CnRelease1 = new CNRelease(0, bMembRelase1, 0);
