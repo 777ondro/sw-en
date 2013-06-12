@@ -9,12 +9,12 @@ namespace BaseClasses
 	public class CLoadCase
 	{
 		//----------------------------------------------------------------------------
-		private int m_iLoadCase_ID;
+		private int m_ID;
 
-		public int ILoadCase_ID
+		public int ID
 		{
-			get { return m_iLoadCase_ID; }
-			set { m_iLoadCase_ID = value; }
+			get { return m_ID; }
+			set { m_ID = value; }
 		}
 		//----------------------------------------------------------------------------
 		//----------------------------------------------------------------------------

@@ -36,7 +36,7 @@ namespace FEM_CALC_1Din2D
             // MODEL
 
             // Create topological model and allocate memory
-            TopoModel = new CModel("Test1", 3, 1, 1, 5, 4, 3, 1, 1, 4, 1, 1);
+            TopoModel = new CModel("Test1", ESLN.e2DD_1D, 3, EGCS.eGCSLeftHanded, 1, 1, 5, 4, 3, 1, 1, 4, 1, 1);
 
             // Materials
             CMat_00 Mat0 = new CMat_00();
@@ -212,7 +212,7 @@ namespace FEM_CALC_1Din2D
             float fF1y = fF1 * (float)Math.Sin(fAlpha_1);              // Force in local coordinate system of member + negative orientation in y-axis
 
             CMLoad_11 MLoad_F1x = new CMLoad_11(fF1x, 0.5f * TopoModel.m_arrMembers[0].FLength);
-            MLoad_F1x.IMLoad_ID = 1;
+            MLoad_F1x.ID = 1;
             MLoad_F1x.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             MLoad_F1x.MLoadType = EMLoadType.eMLT_F;
             MLoad_F1x.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FXX_MXX;
@@ -222,7 +222,7 @@ namespace FEM_CALC_1Din2D
             TopoModel.m_arrMLoads[0] = MLoad_F1x;
 
             CMLoad_11 MLoad_F1y = new CMLoad_11(fF1y, 0.5f * TopoModel.m_arrMembers[0].FLength);
-            MLoad_F1y.IMLoad_ID = 2;
+            MLoad_F1y.ID = 2;
             MLoad_F1y.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             MLoad_F1y.MLoadType = EMLoadType.eMLT_F;
             MLoad_F1y.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
@@ -233,7 +233,7 @@ namespace FEM_CALC_1Din2D
 
             // Load 3 - MemberIDs: 3
             CMLoad_21 MLoad_q = new CMLoad_21(fq);
-            MLoad_q.IMLoad_ID = 3;
+            MLoad_q.ID = 3;
             MLoad_q.MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
             MLoad_q.MLoadType = EMLoadType.eMLT_F;
             MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
@@ -244,7 +244,7 @@ namespace FEM_CALC_1Din2D
 
             // Load 4 - MemberIDs: 4
             CMLoad_11 MLoad_M = new CMLoad_11(-fM, 0.5f * TopoModel.m_arrMembers[3].FLength);
-            MLoad_M.IMLoad_ID = 4;
+            MLoad_M.ID = 4;
             MLoad_M.MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             MLoad_M.MLoadType = EMLoadType.eMLT_M;
             MLoad_M.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
@@ -256,14 +256,14 @@ namespace FEM_CALC_1Din2D
             // Load Cases
             // Load Case 1
             CLoadCase LoadCase0 = new CLoadCase();
-            LoadCase0.ILoadCase_ID = 1;
+            LoadCase0.ID = 1;
 
             TopoModel.m_arrLoadCases[0] = LoadCase0;
 
             // Load Combinations
             // Load Combination 1
             CLoadCombination LoadComb0 = new CLoadCombination();
-            LoadComb0.ILoadComb_ID = 1;
+            LoadComb0.ID = 1;
 
             TopoModel.m_arrLoadCombs[0] = LoadComb0;
         }

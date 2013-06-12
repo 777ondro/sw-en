@@ -105,7 +105,12 @@
 			<MenuItem Header="Help"></MenuItem>
 			<MenuItem Header="Support">
                 <MenuItem x:Name="menuItemExample" Header="Examples">
-                    <MenuItem x:Name="menuItemExample2D" Header="Examples 2D"></MenuItem>
+                    <MenuItem x:Name="menuItemExample2D" Header="Examples 2D">
+                        <MenuItem x:Name="menuItemExample2D_01" Header="Example 01" Click="menuItemExample2D_01_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample2D_02" Header="Example 02" Click="menuItemExample2D_02_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample2D_03" Header="Example 03" Click="menuItemExample2D_03_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample2D_04" Header="Example 04" Click="menuItemExample2D_04_Click"></MenuItem>
+                    </MenuItem>
                     <MenuItem x:Name="menuItemExample3D" Header="Examples 3D">
                         <MenuItem x:Name="menuItemExample3D_01" Header="Example 01" Click="menuItemExample3D_01_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_02" Header="Example 02" Click="menuItemExample3D_02_Click"></MenuItem>

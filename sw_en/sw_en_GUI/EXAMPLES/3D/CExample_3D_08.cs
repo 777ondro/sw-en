@@ -20,6 +20,10 @@ namespace sw_en_GUI.EXAMPLES._3D
         */
         public CExample_3D_08()
         {
+            m_TopoModel.m_eSLN = ESLN.e3DD_1D; // 1D members in 3D model
+            m_TopoModel.m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
+            m_TopoModel.m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
+
             m_TopoModel.m_arrNodes = new BaseClasses.CNode[752];
             m_TopoModel.m_arrMembers = new CMember[2136];
             m_TopoModel.m_arrMat = new CMat_00[1];

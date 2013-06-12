@@ -14,12 +14,18 @@ namespace sw_en_GUI.EXAMPLES._3D
 
         public CExample_3D_11()
         {
+            m_TopoModel.m_eSLN = ESLN.e3DD_1D; // 1D members in 3D model
+            m_TopoModel.m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
+            m_TopoModel.m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
+
             m_TopoModel.m_arrNodes = new BaseClasses.CNode[4];
             m_TopoModel.m_arrMembers = new CMember[3];
             m_TopoModel.m_arrMat = new CMat_00[1];
             m_TopoModel.m_arrCrSc = new CRSC.CCrSc[1];
             m_TopoModel.m_arrNSupports = new BaseClasses.CNSupport[2];
             m_TopoModel.m_arrMLoads = new BaseClasses.CMLoad[3];
+            m_TopoModel.m_arrLoadCases = new BaseClasses.CLoadCase[1];
+            m_TopoModel.m_arrLoadCombs = new BaseClasses.CLoadCombination[1];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -73,7 +79,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_TopoModel.m_arrNSupports[0] = new CNSupport(6, 1, m_TopoModel.m_arrNodes[1], bSupport1, 0);
             m_TopoModel.m_arrNSupports[1] = new CNSupport(6, 2, m_TopoModel.m_arrNodes[2], bSupport2, 0);
 
-            // Fill list of supported nodes
+            // Fill list/collection of supported nodes
             m_TopoModel.m_arrNSupports[0].m_iNodeCollection = new int[2];
             m_TopoModel.m_arrNSupports[1].m_iNodeCollection = new int[1];
 
@@ -82,14 +88,43 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             m_TopoModel.m_arrNSupports[1].m_iNodeCollection[0] = 3; // Node ID 4
 
-            // Loads
+            // Create load objects
             m_TopoModel.m_arrMLoads[0] = new CMLoad_21(5000f);  // q - whole member
             m_TopoModel.m_arrMLoads[1] = new CMLoad_12(17000f); // F - in the middle of member
             m_TopoModel.m_arrMLoads[2] = new CMLoad_12(20000f); // M - in the middle of member
 
+            // Fill list/collection of loaded members
+            m_TopoModel.m_arrMLoads[0].ID = 1;
+            m_TopoModel.m_arrMLoads[1].ID = 2;
+            m_TopoModel.m_arrMLoads[2].ID = 3;
 
+            m_TopoModel.m_arrMLoads[0].MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
+            m_TopoModel.m_arrMLoads[0].MLoadType = EMLoadType.eMLT_F;
+            m_TopoModel.m_arrMLoads[0].EDirPPC = EMLoadDirPCC1.eMLD_PCC_FZV_MYU;
 
-        
+            m_TopoModel.m_arrMLoads[1].MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
+            m_TopoModel.m_arrMLoads[1].MLoadType = EMLoadType.eMLT_F;
+            m_TopoModel.m_arrMLoads[1].EDirPPC = EMLoadDirPCC1.eMLD_PCC_FZV_MYU;
+
+            m_TopoModel.m_arrMLoads[2].MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
+            m_TopoModel.m_arrMLoads[2].MLoadType = EMLoadType.eMLT_M;
+            m_TopoModel.m_arrMLoads[2].EDirPPC = EMLoadDirPCC1.eMLD_PCC_FZV_MYU;
+
+            m_TopoModel.m_arrMLoads[0].IMemberCollection = new int[1];
+            m_TopoModel.m_arrMLoads[1].IMemberCollection = new int[1];
+            m_TopoModel.m_arrMLoads[2].IMemberCollection = new int[1];
+
+            m_TopoModel.m_arrMLoads[0].IMemberCollection[0] = 0;  // Member ID 1 (1-2)
+            m_TopoModel.m_arrMLoads[1].IMemberCollection[0] = 1;  // Member ID 2 (1-3)
+            m_TopoModel.m_arrMLoads[2].IMemberCollection[0] = 2;  // Member ID 3 (1-4)
+
+            // Load Cases
+            // Load Case 1
+            m_TopoModel.m_arrLoadCases[0].ID = 1;
+
+            // Load Combinations
+            // Load Combination 1
+            m_TopoModel.m_arrLoadCombs[0].ID = 1;
         }
     }
 }

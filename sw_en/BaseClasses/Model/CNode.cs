@@ -52,7 +52,21 @@ namespace BaseClasses
         {
 
         }
-        // Konstruktor2 CNode
+        // Konstruktor2 CNode (2D)
+        public CNode(
+            int iNode_ID,
+            float fCoord_X,
+            float fCoord_Y,
+            int fTime
+            )
+        {
+            m_iNode_ID = iNode_ID;
+            m_fCoord_X = fCoord_X;
+            m_fCoord_Y = fCoord_Y;
+            m_fTime = fTime;
+        }
+
+        // Konstruktor3 CNode (3D)
         public CNode(
             int iNode_ID,
             float fCoord_X,

@@ -19,7 +19,10 @@ namespace BaseClasses
         public string m_sProjectName;
         public string m_sConstObjectName;
         public string m_sFileName;
-        public int m_eNDOF;
+
+        public ESLN m_eSLN; // Model/solution Type
+        public int m_eNDOF; // DOF (3 in 2D, 6 in 3D)
+        public EGCS m_eGCS; // Global coordinate system (Left-handed or Right-handed)
 
         // Physical Model / Structural data
         // Collection of references to objects
@@ -61,12 +64,14 @@ namespace BaseClasses
             m_sFileName = sFileName;
         }
         // Alokuje velkost poli zoznamov, malo by to byt dymamicke
-        public CModel(string sFileName, int eNDOF,
+        public CModel(string sFileName, ESLN eSLN, int eNDOF, EGCS eGCS,
             int iMatNum, int iCrScNum, int iNodeNum,
             int iMemNum, int iNSupNum, int iNRelNum, int iNLoadNum,
             int iMLoadNum, int iLoadCaseNum, int iLoadComNum)
         {
+            m_eSLN = eSLN;
             m_eNDOF = eNDOF;
+            m_eGCS = eGCS;
             m_arrMat = new CMat_00[iMatNum];
             m_arrCrSc = new CCrSc[iCrScNum];
             m_arrNodes = new CNode[iNodeNum];

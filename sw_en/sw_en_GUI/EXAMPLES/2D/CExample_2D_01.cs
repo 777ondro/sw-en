@@ -6,9 +6,9 @@ using BaseClasses;
 using MATERIAL;
 using CRSC;
 
-namespace sw_en_GUI.EXAMPLES._3D
+namespace sw_en_GUI.EXAMPLES._2D
 {
-    class CExample_3D_01 : CExample
+    class CExample_2D_01 : CExample
     {
         public BaseClasses.CModel m_TopoModel = new BaseClasses.CModel();
         /*
@@ -20,10 +20,10 @@ namespace sw_en_GUI.EXAMPLES._3D
         public BaseClasses.CNLoad[] arrNLoads = new BaseClasses.CNLoad[3];
         */
 
-        public CExample_3D_01()
+        public CExample_2D_01()
         {
-            m_TopoModel.m_eSLN = ESLN.e3DD_1D; // 1D members in 3D model
-            m_TopoModel.m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
+            m_TopoModel.m_eSLN = ESLN.e2DD_1D; // 1D members in 2D model
+            m_TopoModel.m_eNDOF = (int)ENDOF.e2DEnv; // DOF in 2D
             m_TopoModel.m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
             m_TopoModel.m_arrNodes = new BaseClasses.CNode[6];
