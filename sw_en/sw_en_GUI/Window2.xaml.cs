@@ -886,7 +886,7 @@ namespace sw_en_GUI
         Debugging = false; //Convert.ToBoolean(ConfigurationManager.AppSettings.Get("debugging"));
         
       InitializeComponent();
-      
+
       // Temp
       // Half Circle Bar
       // Quater Circle Bar
@@ -1008,6 +1008,34 @@ namespace sw_en_GUI
 
           EGCS eGCS = EGCS.eGCSLeftHanded;
           //EGCS eGCS = EGCS.eGCSRightHanded;
+
+          // Global coordinate system - axis
+          ScreenSpaceLines3D sAxisX_3D = new ScreenSpaceLines3D();
+          ScreenSpaceLines3D sAxisY_3D = new ScreenSpaceLines3D();
+          ScreenSpaceLines3D sAxisZ_3D = new ScreenSpaceLines3D();
+          Point3D pGCS_centre = new Point3D(0,0,0);
+          Point3D pAxisX = new Point3D(1, 0, 0);
+          Point3D pAxisY = new Point3D(0, 1, 0);
+          Point3D pAxisZ = new Point3D(0, 0, 1);
+
+          sAxisX_3D.Points[0] = pGCS_centre;
+          sAxisX_3D.Points[1] = pAxisX;
+          sAxisX_3D.Color = Colors.Red;
+          sAxisX_3D.Thickness = 2;
+
+          sAxisY_3D.Points[0] = pGCS_centre;
+          sAxisY_3D.Points[1] = pAxisY;
+          sAxisY_3D.Color = Colors.Green;
+          sAxisY_3D.Thickness = 2;
+
+          sAxisZ_3D.Points[0] = pGCS_centre;
+          sAxisZ_3D.Points[1] = pAxisZ;
+          sAxisZ_3D.Color = Colors.Blue;
+          sAxisZ_3D.Thickness = 2;
+
+          //Viewport.Children.Add(sAxisX_3D);
+          //Viewport.Children.Add(sAxisY_3D);
+          //Viewport.Children.Add(sAxisZ_3D);
 
           // Check that real model exists and create model geometry
           if (cmodel != null)
