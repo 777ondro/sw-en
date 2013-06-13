@@ -1018,25 +1018,27 @@ namespace sw_en_GUI
           Point3D pAxisY = new Point3D(0, 1, 0);
           Point3D pAxisZ = new Point3D(0, 0, 1);
 
-          sAxisX_3D.Points[0] = pGCS_centre;
-          sAxisX_3D.Points[1] = pAxisX;
+          sAxisX_3D.Points.Add(pGCS_centre);
+          sAxisX_3D.Points.Add(pAxisX);
           sAxisX_3D.Color = Colors.Red;
           sAxisX_3D.Thickness = 2;
 
-          sAxisY_3D.Points[0] = pGCS_centre;
-          sAxisY_3D.Points[1] = pAxisY;
+          sAxisY_3D.Points.Add(pGCS_centre);
+          sAxisY_3D.Points.Add(pAxisY);
           sAxisY_3D.Color = Colors.Green;
           sAxisY_3D.Thickness = 2;
 
-          sAxisZ_3D.Points[0] = pGCS_centre;
-          sAxisZ_3D.Points[1] = pAxisZ;
+          sAxisZ_3D.Points.Add(pGCS_centre);
+          sAxisZ_3D.Points.Add(pAxisZ);
           sAxisZ_3D.Color = Colors.Blue;
           sAxisZ_3D.Thickness = 2;
 
-          //Viewport.Children.Add(sAxisX_3D);
-          //Viewport.Children.Add(sAxisY_3D);
-          //Viewport.Children.Add(sAxisZ_3D);
-
+          //I made ViewPort public property to Access ViewPort object inside TrackPort3D
+          //to ViewPort add 3 children (3 axis)
+          _trackport.ViewPort.Children.Add(sAxisX_3D);
+          _trackport.ViewPort.Children.Add(sAxisY_3D);
+          _trackport.ViewPort.Children.Add(sAxisZ_3D);
+          
           // Check that real model exists and create model geometry
           if (cmodel != null)
           {
