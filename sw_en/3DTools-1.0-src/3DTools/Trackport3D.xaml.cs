@@ -39,6 +39,12 @@ namespace _3DTools
     /// </summary>
     public partial class Trackport3D : UserControl
     {
+        public Viewport3D ViewPort
+        {
+            get { return Viewport; }
+            set { Viewport = value; }
+        }
+
         private Trackball _trackball = new Trackball();
         
         public Trackball Trackball
