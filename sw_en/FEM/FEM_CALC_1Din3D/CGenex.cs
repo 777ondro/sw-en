@@ -169,16 +169,16 @@ namespace FEM_CALC_1Din3D
                             for (int k = 0; k < m_arrFemMembers.Length; k++) // Neefektivne prechadzat zbytocne vsetky pruty kedze pozname konkretne ID zatazenych
                             {
                                 // Temporary value of end forces due to particular external force
-                                float fTemp_A_UXRX = 0f, fTemp_B_UXRX = 0f;
+                                float fTemp_A_UXRX = 0f, fTemp_B_UXRX = 0f, fTemp_Ma_UXRX = 0f, fTemp_Mb_UXRX = 0f;
                                 float fTemp_A_UYRZ = 0f, fTemp_B_UYRZ = 0f, fTemp_Ma_UYRZ = 0f, fTemp_Mb_UYRZ = 0f;
-
+                                float fTemp_A_UZRY = 0f, fTemp_B_UZRY = 0f, fTemp_Ma_UZRY = 0f, fTemp_Mb_UZRY = 0f;
 
                                 // Fill end forces due to external forces vectors for member particular load index i and member index k
                                 // Depends on load dirrection and member support type
-                                // Use member LOCAL / PRINCIPAL coordinate system
+                                // Use member PRINCIPAL coordinate system
                                 CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
-                                    out fTemp_A_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ,
-                                    out fTemp_B_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ
+                                    out fTemp_A_UXRX, out fTemp_Ma_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ, out fTemp_A_UZRY, out fTemp_Ma_UZRY,
+                                    out fTemp_B_UXRX, out fTemp_Ma_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ,out fTemp_B_UZRY, out fTemp_Mb_UZRY
                                 );
 
                                 // Add values of temperary end forces due to particular load to the end forces items of vector
@@ -186,15 +186,23 @@ namespace FEM_CALC_1Din3D
 
                                 // Start Node
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_A_UXRX;
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMX] += fTemp_Ma_UXRX;
+
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Ma_UYRZ;
 
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFZ] += fTemp_A_UZRY; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMY] += fTemp_Ma_UZRY;
+
                                 // End Node
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_B_UXRX;
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMX] += fTemp_Ma_UXRX;
+
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFY] += -fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Mb_UYRZ;
 
-
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFZ] += -fTemp_B_UZRY;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMY] += fTemp_Mb_UZRY;
                             }
                         }
                     }
