@@ -38,7 +38,8 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.1f, 0.05f);
+            //m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.1f, 0.05f); // solid square section
+            m_arrCrSc[0] = new CCrSc_0_22(0.2f, 0.05f, 12); // tube section
 
             // Nodes
             // Nodes List - Nodes Array

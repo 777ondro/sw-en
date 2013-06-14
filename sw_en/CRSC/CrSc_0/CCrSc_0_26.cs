@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -20,9 +21,6 @@ namespace CRSC
         private float m_fd2_out;   // Inscribed Circle Diameter / Circle circumscribed Outside Polygon / Priemer vpisanej kruznice vonkajsieho polygonu
         private float m_fd2_in;    // Inscribed Circle Diameter / Circle circumscribed Inside Polygon / Priemer vpisanej kruznice vnutorneho polygonu 
         private float m_ft;       // Thickness/ Hrubka
-        private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
-        public  float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
-        public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fa_out
@@ -67,12 +65,6 @@ namespace CRSC
             set { m_ft = value; }
         }
 
-        public short INoPoints
-        {
-            get { return m_iNoPoints; }
-            set { m_iNoPoints = value; }
-        }
-
         float m_fr1_out;
         float m_fr1_in;
         float m_fr2_out;
@@ -84,14 +76,14 @@ namespace CRSC
         public CCrSc_0_26()  {   }
         public CCrSc_0_26(float fa, float ft)
         {
-            m_iNoPoints = 5; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = 5; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fa_out = fa;
             m_ft = ft;
 
             // Calculate Diameter of Circumscribed Circle of Outside Polygon
-            m_fd1_out = 2 * Geom2D.GetRadiusfromSideLength(m_fa_out, m_iNoPoints);
+            m_fd1_out = 2 * Geom2D.GetRadiusfromSideLength(m_fa_out, INoPointsOut);
             // Calculate Diameter of Inscribed Circle of Outside Polygon
-            m_fd2_out = 2 * Geom2D.GetIntRadiusfromSideLength(m_fa_out, m_iNoPoints);
+            m_fd2_out = 2 * Geom2D.GetIntRadiusfromSideLength(m_fa_out, INoPointsOut);
 
             m_fr1_out = m_fd1_out / 2f;
             m_fr2_out = m_fd2_out / 2f;
@@ -99,7 +91,7 @@ namespace CRSC
             // Calculate Side Length of Inside Polygon
             m_fa_in = Geom2D.GetRegularPolygonInternalSideLength(m_fa_out, m_fd2_out / 2, m_fd2_out / 2 - m_ft);
             // Calculate Diameter of Circumscribed Circle of Inside Polygon
-            m_fd1_in = 2 * Geom2D.GetRadiusfromSideLength(m_fa_in, m_iNoPoints);
+            m_fd1_in = 2 * Geom2D.GetRadiusfromSideLength(m_fa_in, INoPointsOut);
             // Calculate Diameter of Inscribed Circle of Inside Polygon
             m_fd2_in = m_fd2_out - 2 *  m_ft;
 
@@ -110,11 +102,14 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn  = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -123,16 +118,65 @@ namespace CRSC
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPointOut = Geom2D.GetPentagonPointCoord(m_fa_out);
+            CrScPointsOut = Geom2D.GetPentagonPointCoord(m_fa_out);
 
             // Inside Points
-            m_CrScPointIn = Geom2D.GetPentagonPointCoord(m_fa_in);
+            CrScPointsIn = Geom2D.GetPentagonPointCoord(m_fa_in);
         }
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
+        protected override void loadCrScIndices()
+        {
+            loadCrScIndices_26_28(INoPointsOut);
+        }
+
+        // Auxiliary, used for also other cross-sections
+        public void loadCrScIndices_26_28(int iNoPoints)
+        {
+            // iAux - number of auxiliary points in inside/outside collection of points
+            // iNoPoints - numer of real points in inside/outside collection of points
+            // iAux + iNoPoints - total number of points in inside/outside collection of section
+
+            int iAux = 0;
+
+            TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+
+            for (int i = 0; i < iNoPoints; i++)
+            {
+                if (i < iNoPoints - 1)
+                    AddRectangleIndices_CW_1234(TriangleIndices, iAux + i, iAux + i + 1, iAux + i + (iAux + iNoPoints) + 1, iAux + i + (iAux + iNoPoints));
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, iAux + i, iAux + 0, iAux + i + iAux + 1, iAux + i + (iAux + iNoPoints)); // Last Element
+            }
+
+            // Back Side
+            for (int i = 0; i < iNoPoints; i++)
+            {
+                if (i < iNoPoints - 1)
+                    AddRectangleIndices_CW_1234(TriangleIndices, 2 * (iAux + iNoPoints) + iAux + i, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints + 1, 2 * (iAux + iNoPoints) + iAux + i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, 2 * (iAux + iNoPoints) + iAux + i, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints, 2 * (iAux + iNoPoints) + i + 2 * iAux + 1, 2 * (iAux + iNoPoints) + iAux + 0); // Last Element
+            }
+
+            // Shell Surface OutSide
+            for (int i = 0; i < iNoPoints; i++)
+            {
+                if (i < iNoPoints - 1)
+                    AddRectangleIndices_CW_1234(TriangleIndices, iAux + i, 2 * (iAux + iNoPoints) + iAux + i, 2 * (iAux + iNoPoints) + iAux + i + 1, iAux + i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, iAux + i, 2 * (iAux + iNoPoints) + iAux + i, 2 * (iAux + iNoPoints) + iAux, iAux + 0); // Last Element
+            }
+
+            // Shell Surface Inside
+            for (int i = 0; i < iNoPoints; i++)
+            {
+                if (i < iNoPoints - 1)
+                    AddRectangleIndices_CW_1234(TriangleIndices, iAux + iNoPoints + iAux + i, iAux + iNoPoints + iAux + i + 1, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints + 1, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, 2 * (iAux + iNoPoints) + 2 * iAux + i + 1, 2 * (iAux + iNoPoints) + i + 2 * iAux + iNoPoints, iAux + iNoPoints + iAux + i, 2 * iAux + iNoPoints); // Last Element
+            }
+        }
 	}
 }
 
