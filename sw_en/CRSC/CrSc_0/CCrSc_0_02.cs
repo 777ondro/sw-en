@@ -187,51 +187,49 @@ namespace CRSC
 
         protected override void loadCrScIndices()
         {
-
-            const int secNum = 73;  // Number of points in section (2D) includes centroid
             TriangleIndices = new Int32Collection();
 
             // Front Side / Forehead
-            for (int i = 0; i < secNum - 1; i++)
+            for (int i = 0; i < ITotNoPoints - 1; i++)
             {
-                if (i < secNum - 2)
+                if (i < ITotNoPoints - 2)
                 {
                     TriangleIndices.Add(i);
-                    TriangleIndices.Add(secNum - 1);
+                    TriangleIndices.Add(ITotNoPoints - 1);
                     TriangleIndices.Add(i + 1);
                 }
                 else // Last Element
                 {
                     TriangleIndices.Add(i);
-                    TriangleIndices.Add(secNum - 1);
+                    TriangleIndices.Add(ITotNoPoints - 1);
                     TriangleIndices.Add(0);
                 }
             }
 
             // Back Side
-            for (int i = 0; i < secNum - 1; i++)
+            for (int i = 0; i < ITotNoPoints - 1; i++)
             {
-                if (i < secNum - 2)
+                if (i < ITotNoPoints - 2)
                 {
-                    TriangleIndices.Add(secNum + i);
-                    TriangleIndices.Add(secNum + i + 1);
-                    TriangleIndices.Add(secNum + secNum - 1);
+                    TriangleIndices.Add(ITotNoPoints + i);
+                    TriangleIndices.Add(ITotNoPoints + i + 1);
+                    TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
                 }
                 else // Last Element
                 {
-                    TriangleIndices.Add(secNum + i);
-                    TriangleIndices.Add(secNum);
-                    TriangleIndices.Add(secNum + secNum - 1);
+                    TriangleIndices.Add(ITotNoPoints + i);
+                    TriangleIndices.Add(ITotNoPoints);
+                    TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
                 }
             }
 
             // Shell Surface OutSide
-            for (int i = 0; i < secNum - 1; i++)
+            for (int i = 0; i < ITotNoPoints - 1; i++)
             {
-                if (i < secNum - 2)
-                    AddRectangleIndices_CW_1234(TriangleIndices, i, secNum + i, secNum + i + 1, i + 1);
+                if (i < ITotNoPoints - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
                 else
-                    AddRectangleIndices_CW_1234(TriangleIndices, i, secNum + i, secNum, 0); // Last Element
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
 
             }
         }
