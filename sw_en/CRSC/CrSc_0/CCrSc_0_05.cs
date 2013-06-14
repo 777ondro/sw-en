@@ -14,10 +14,10 @@ namespace CRSC
         // Rectangular/ Square - Flat bar
 
         //----------------------------------------------------------------------------
-        private float m_fh;   // Height/ Depth/ Vyska
-        private float m_fb;   // Width  / Sirka
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
-        public float[,] m_CrScPoint; // Array of Points and values in 2D
+        //private float Fh;   // Height/ Depth/ Vyska
+        //private float Fb;   // Width  / Sirka
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        //public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         //----------------------------------------------------------------------------
@@ -63,34 +63,34 @@ namespace CRSC
         // Perimeter of section
         void Calc_U()
         {
-            m_fU = 2 * (m_fh + m_fb);
+            m_fU = 2 * (Fh + Fb);
         }
         // Section area
         void Calc_A()
         {
-            m_fA = m_fb * m_fh;
+            m_fA = Fb * Fh;
         }
 
 
         // First moment o area
         void Calc_S_y()
         {
-            m_fS_y = m_fb * MathF.Pow2(m_fh) / 8f;
+            m_fS_y = Fb * MathF.Pow2(Fh) / 8f;
         }
         // Second moment of area
         void Calc_I_y()
         {
-            m_fI_y = m_fb * MathF.Pow3(m_fh) / 12f;
+            m_fI_y = Fb * MathF.Pow3(Fh) / 12f;
         }
         // Section modulus - elastic
         void Calc_W_y_el()
         {
-            m_fW_y_el = m_fb * MathF.Pow3(m_fh) / 6f;
+            m_fW_y_el = Fb * MathF.Pow3(Fh) / 6f;
         }
         // Section modulus - plastic
         void Calc_W_y_pl()
         {
-            m_fW_y_pl = m_fb * MathF.Pow2(m_fh) / 4f;
+            m_fW_y_pl = Fb * MathF.Pow2(Fh) / 4f;
         }
         // Shape factor - plastic/elastic
         void Calc_f_y_plel()
@@ -102,22 +102,22 @@ namespace CRSC
         // First moment o area
         void Calc_S_z()
         {
-            m_fS_z = m_fh * MathF.Pow2(m_fb) / 8f;
+            m_fS_z = Fh * MathF.Pow2(Fb) / 8f;
         }
         // Second moment of area
         void Calc_I_z()
         {
-            m_fI_z = m_fh * MathF.Pow3(m_fb) / 12f;
+            m_fI_z = Fh * MathF.Pow3(Fb) / 12f;
         }
         // Section modulus - elastic
         void Calc_W_z_el()
         {
-            m_fW_z_el = m_fh * MathF.Pow3(m_fb) / 6f;
+            m_fW_z_el = Fh * MathF.Pow3(Fb) / 6f;
         }
         // Section modulus - plastic
         void Calc_W_z_pl()
         {
-            m_fW_z_pl = m_fh * MathF.Pow2(m_fb) / 4f;
+            m_fW_z_pl = Fh * MathF.Pow2(Fb) / 4f;
         }
         // Shape factor - plastic/elastic
         void Calc_f_z_plel()
@@ -130,16 +130,16 @@ namespace CRSC
         void Calc_I_t()
         {
             // http://www.xcalcs.com
-            if (m_fh >= m_fb)
-                m_fI_t = m_fh * MathF.Pow3(m_fb) * ((1 - 192 * m_fb / MathF.Pow5(MathF.fPI) * m_fh * ((float)Math.Tanh(Math.PI * m_fh / (2 * m_fb))) + (float)Math.Tanh(3 * Math.PI * m_fh / (2 * m_fb)) / 243f)) / 3f;
+            if (Fh >= Fb)
+                m_fI_t = Fh * MathF.Pow3(Fb) * ((1 - 192 * Fb / MathF.Pow5(MathF.fPI) * Fh * ((float)Math.Tanh(Math.PI * Fh / (2 * Fb))) + (float)Math.Tanh(3 * Math.PI * Fh / (2 * Fb)) / 243f)) / 3f;
             else
-                m_fI_t = m_fb * MathF.Pow3(m_fh) * ((1 - 192 * m_fh / MathF.Pow5(MathF.fPI) * m_fb * ((float)Math.Tanh(Math.PI * m_fb / (2 * m_fh))) + (float)Math.Tanh(3 * Math.PI * m_fb / (2 * m_fh)) / 243f)) / 3f;
+                m_fI_t = Fb * MathF.Pow3(Fh) * ((1 - 192 * Fh / MathF.Pow5(MathF.fPI) * Fb * ((float)Math.Tanh(Math.PI * Fb / (2 * Fh))) + (float)Math.Tanh(3 * Math.PI * Fb / (2 * Fh)) / 243f)) / 3f;
 
             // Alternative  - EN 1999-1-1, eq. (J.2)
-            if (m_fh >= m_fb)
-                m_fI_t = (m_fh * MathF.Pow3(m_fb) / 3.0f) * (1.0f - 0.63f * m_fb / m_fh + 0.052f * MathF.Pow5(m_fb) / MathF.Pow5(m_fh));
+            if (Fh >= Fb)
+                m_fI_t = (Fh * MathF.Pow3(Fb) / 3.0f) * (1.0f - 0.63f * Fb / Fh + 0.052f * MathF.Pow5(Fb) / MathF.Pow5(Fh));
             else
-                m_fI_t = (m_fb * MathF.Pow3(m_fh) / 3.0f) * (1.0f - 0.63f * m_fh / m_fb + 0.052f * MathF.Pow5(m_fh) / MathF.Pow5(m_fb));
+                m_fI_t = (Fb * MathF.Pow3(Fh) / 3.0f) * (1.0f - 0.63f * Fh / Fb + 0.052f * MathF.Pow5(Fh) / MathF.Pow5(Fb));
         }
         // Torsional radius of gyration
         void Calc_i_t()
@@ -149,18 +149,18 @@ namespace CRSC
         // Torsional section modulus - elastic
         void Calc_W_t_el()
         {
-            if (m_fh >= m_fb)
-                m_fW_t_el = m_fI_t / m_fb * (1 - 8 * (1 / (float)Math.Cosh(Math.PI * m_fh / (2 * m_fb)) + 1 / 9f * (float)Math.Cosh(3 * Math.PI * m_fh / (2 * m_fb))) / MathF.Pow2(MathF.fPI));
+            if (Fh >= Fb)
+                m_fW_t_el = m_fI_t / Fb * (1 - 8 * (1 / (float)Math.Cosh(Math.PI * Fh / (2 * Fb)) + 1 / 9f * (float)Math.Cosh(3 * Math.PI * Fh / (2 * Fb))) / MathF.Pow2(MathF.fPI));
             else
-                m_fW_t_el = m_fI_t / m_fh * (1 - 8 * (1 / (float)Math.Cosh(Math.PI * m_fb / (2 * m_fh)) + 1 / 9f * (float)Math.Cosh(3 * Math.PI * m_fb / (2 * m_fh))) / MathF.Pow2(MathF.fPI));
+                m_fW_t_el = m_fI_t / Fh * (1 - 8 * (1 / (float)Math.Cosh(Math.PI * Fb / (2 * Fh)) + 1 / 9f * (float)Math.Cosh(3 * Math.PI * Fb / (2 * Fh))) / MathF.Pow2(MathF.fPI));
         }
         // Torsional section modulus - plastic
         void Calc_W_t_pl()
         {
-            if (m_fh >= m_fb)
-                m_fW_t_pl = MathF.Pow2(m_fb) * (3 * m_fh - m_fb) / 6f;
+            if (Fh >= Fb)
+                m_fW_t_pl = MathF.Pow2(Fb) * (3 * Fh - Fb) / 6f;
             else
-                m_fW_t_pl = MathF.Pow2(m_fh) * (3 * m_fb - m_fh) / 6f;
+                m_fW_t_pl = MathF.Pow2(Fh) * (3 * Fb - Fh) / 6f;
         }
         // Torsional shape factor plastic/elastic
         void Calc_f_t_plel()
@@ -170,10 +170,10 @@ namespace CRSC
         // Section warping constant
         void Calc_I_w()
         {
-            if (m_fh >= m_fb)
-                m_fI_w = (MathF.Pow3(m_fh) * MathF.Pow3(m_fb) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(m_fb) / MathF.Pow2(m_fh) + 4.97f * MathF.Pow3(m_fb) / MathF.Pow3(m_fh) - 1.067f * MathF.Pow5(m_fb) / MathF.Pow5(m_fh)); // EN 1999-1-1, eq. (J.4)
+            if (Fh >= Fb)
+                m_fI_w = (MathF.Pow3(Fh) * MathF.Pow3(Fb) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(Fb) / MathF.Pow2(Fh) + 4.97f * MathF.Pow3(Fb) / MathF.Pow3(Fh) - 1.067f * MathF.Pow5(Fb) / MathF.Pow5(Fh)); // EN 1999-1-1, eq. (J.4)
             else
-                m_fI_w = (MathF.Pow3(m_fb) * MathF.Pow3(m_fh) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(m_fh) / MathF.Pow2(m_fb) + 4.97f * MathF.Pow3(m_fh) / MathF.Pow3(m_fb) - 1.067f * MathF.Pow5(m_fh) / MathF.Pow5(m_fb)); // EN 1999-1-1, eq. (J.4)
+                m_fI_w = (MathF.Pow3(Fb) * MathF.Pow3(Fh) / 144.0f) * (1.0f - 4.884f * MathF.Pow2(Fh) / MathF.Pow2(Fb) + 4.97f * MathF.Pow3(Fh) / MathF.Pow3(Fb) - 1.067f * MathF.Pow5(Fh) / MathF.Pow5(Fb)); // EN 1999-1-1, eq. (J.4)
         }
 
 

@@ -10,6 +10,7 @@ namespace CRSC
     {
         // Solid round bar
 
+        /*
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
         private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
@@ -29,6 +30,7 @@ namespace CRSC
         }
 
         float m_fr_out; // Radius
+        */
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -36,36 +38,42 @@ namespace CRSC
         public CCrSc_3_09(float fd, short iTotNoPoints)
         {
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
-            m_fd = fd;
-            m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
+            Fd = fd;
+            ITotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
-            m_fr_out = m_fd / 2f;
+            Fr_out = Fd / 2f;
 
-            if (iTotNoPoints < 2 || m_fr_out <= 0f)
+            if (iTotNoPoints < 2 || Fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         public CCrSc_3_09(float fd)
         {
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
-            m_fd = fd;
-            m_iTotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
+            Fd = fd;
+            ITotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
 
-            m_fr_out = m_fd / 2f;
+            Fr_out = Fd / 2f;
 
-            if (m_fr_out <= 0f)
+            if (Fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
     }
 }

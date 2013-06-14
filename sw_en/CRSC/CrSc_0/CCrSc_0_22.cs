@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -15,9 +16,7 @@ namespace CRSC
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
         private float m_ft;   // Thickness/ Hrubka
-        private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
-        public  float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
-        public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
+        //private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
         //----------------------------------------------------------------------------
 
         public float Fd
@@ -32,11 +31,13 @@ namespace CRSC
             set { m_ft = value; }
         }
 
+        /*
         public short INoPoints
         {
             get { return m_iNoPoints; }
             set { m_iNoPoints = value; }
         }
+        */
 
         // Auxiliary variables
 
@@ -66,9 +67,10 @@ namespace CRSC
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public CCrSc_0_22()  {   }
+
         public CCrSc_0_22(float fd, float ft, short iNoPoints)
         {
-            m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fd = fd;
             m_ft = ft;
 
@@ -82,15 +84,18 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_22(float fd, float ft)
         {
-            m_iNoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fd = fd;
             m_ft = ft;
 
@@ -104,11 +109,14 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -117,10 +125,10 @@ namespace CRSC
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPointOut = Geom2D.GetCirclePointCoord(m_fr_out, INoPoints);
+            CrScPointsOut = Geom2D.GetCirclePointCoord(m_fr_out, INoPointsOut);
 
             // Inside Points
-            m_CrScPointIn = Geom2D.GetCirclePointCoord(m_fr_in, INoPoints);
+            CrScPointsIn = Geom2D.GetCirclePointCoord(m_fr_in, INoPointsIn);
         }
 
                 
@@ -211,11 +219,15 @@ namespace CRSC
             m_fA_v_pl = m_ff_v_plel * m_fA_v_el;
         }
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
-	}
+        protected override void loadCrScIndices()
+        {
+            // Triangle Indices CRSC No 26 and 28
+            CCrSc_0_26 oTemp = new CCrSc_0_26();
+            oTemp.loadCrScIndices_26_28(INoPointsOut);
+            TriangleIndices = new Int32Collection();
+            TriangleIndices = oTemp.TriangleIndices;
+        }
+    }
 }
 
 

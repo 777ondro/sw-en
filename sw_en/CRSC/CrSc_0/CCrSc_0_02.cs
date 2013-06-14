@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -14,8 +15,8 @@ namespace CRSC
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
-        public  float[,] m_CrScPoint; // Array of Points and values in 2D
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
+        //public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fd
@@ -24,11 +25,11 @@ namespace CRSC
             set { m_fd = value; }
         }
 
-        public short ITotNoPoints
-        {
-            get { return m_iTotNoPoints; }
-            set { m_iTotNoPoints = value; }
-        }
+        /* public short ITotNoPoints
+         {
+             get { return m_iTotNoPoints; }
+             set { m_iTotNoPoints = value; }
+         }*/
 
         float m_fr_out; // Radius
 
@@ -41,38 +42,47 @@ namespace CRSC
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public CCrSc_0_02()  {   }
+        public CCrSc_0_02() { }
         public CCrSc_0_02(float fd, short iTotNoPoints)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
-            m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
-            m_fr_out = m_fd / 2f;
+            Fr_out = m_fd / 2f;
 
             if (iTotNoPoints < 2 || m_fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float [m_iTotNoPoints,2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_02(float fd)
         {
+            IsShapeSolid = true;
+
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
-            m_iTotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
 
-            m_fr_out = m_fd / 2f;
+            Fr_out = m_fd / 2f;
 
             if (m_fr_out <= 0f)
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -81,11 +91,11 @@ namespace CRSC
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPoint = Geom2D.GetCirclePointCoord(m_fr_out, ITotNoPoints);
+            CrScPointsOut = Geom2D.GetCirclePointCoord(m_fr_out, ITotNoPoints);
 
             // Centroid
-            m_CrScPoint[ITotNoPoints-1, 0] = 0f;
-            m_CrScPoint[ITotNoPoints-1, 1] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 0] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 1] = 0f;
         }
 
         //----------------------------------------------------------------------------
@@ -160,8 +170,8 @@ namespace CRSC
         // Shear effective area - elastic
         void Calc_A_v_el()
         {
-            float fNu= 0.3f; // Poisson factor
-            m_fA_v_el = 2 *(1+fNu) * m_fA / (3+2*fNu);
+            float fNu = 0.3f; // Poisson factor
+            m_fA_v_el = 2 * (1 + fNu) * m_fA / (3 + 2 * fNu);
         }
         // Shape factor for shear - plastic/elastic
         void Calc_f_v_plel()
@@ -175,9 +185,55 @@ namespace CRSC
             m_fA_v_pl = m_ff_v_plel * m_fA_v_el;
         }
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
-	}
+        protected override void loadCrScIndices()
+        {
+
+            const int secNum = 73;  // Number of points in section (2D) includes centroid
+            TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            for (int i = 0; i < secNum - 1; i++)
+            {
+                if (i < secNum - 2)
+                {
+                    TriangleIndices.Add(i);
+                    TriangleIndices.Add(secNum - 1);
+                    TriangleIndices.Add(i + 1);
+                }
+                else // Last Element
+                {
+                    TriangleIndices.Add(i);
+                    TriangleIndices.Add(secNum - 1);
+                    TriangleIndices.Add(0);
+                }
+            }
+
+            // Back Side
+            for (int i = 0; i < secNum - 1; i++)
+            {
+                if (i < secNum - 2)
+                {
+                    TriangleIndices.Add(secNum + i);
+                    TriangleIndices.Add(secNum + i + 1);
+                    TriangleIndices.Add(secNum + secNum - 1);
+                }
+                else // Last Element
+                {
+                    TriangleIndices.Add(secNum + i);
+                    TriangleIndices.Add(secNum);
+                    TriangleIndices.Add(secNum + secNum - 1);
+                }
+            }
+
+            // Shell Surface OutSide
+            for (int i = 0; i < secNum - 1; i++)
+            {
+                if (i < secNum - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, secNum + i, secNum + i + 1, i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, secNum + i, secNum, 0); // Last Element
+
+            }
+        }
+    }
 }

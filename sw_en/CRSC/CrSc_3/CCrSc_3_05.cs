@@ -11,7 +11,8 @@ namespace CRSC
       // Tube
       public CCrSc_3_05(float fd, float ft)
       {
-          INoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+          INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+
           Fd = fd;
           Ft = ft;
 
@@ -25,11 +26,14 @@ namespace CRSC
               return;
 
           // Create Array - allocate memory
-          m_CrScPointOut = new float[INoPoints, 2];
-          m_CrScPointIn = new float[INoPoints, 2];
+          CrScPointsOut = new float[INoPointsOut, 2];
+          CrScPointsIn = new float[INoPointsIn, 2];
 
           // Fill Array Data
           CalcCrSc_Coord();
+
+          // Fill list of indices for drawing of surface - triangles edges
+          loadCrScIndices();
       }
     }
 }

@@ -21,7 +21,7 @@ namespace CRSC
               return;
 
           // Create Array - allocate memory
-          m_CrScPoint = new float[ITotNoPoints, 2];
+          CrScPointsOut = new float[ITotNoPoints, 2];
           // Fill Array Data
           CalcCrSc_Coord();
       }

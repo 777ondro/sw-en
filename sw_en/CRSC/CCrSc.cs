@@ -40,15 +40,6 @@ namespace CRSC
 			set { m_iTotNoPoints = value; }
 		}
 
-        // Number of points per outside surface of section in 2D - hollow sections
-        private short m_iNoPointsOut;
-
-        public short INoPointsOut
-        {
-            get { return m_iNoPointsOut; }
-            set { m_iNoPointsOut = value; }
-        }
-
         // Number of points per inside surface of section in 2D - hollow sections
         private short m_iNoPointsIn;
 
@@ -58,23 +49,32 @@ namespace CRSC
             set { m_iNoPointsIn = value; }
         }
 
+        // Number of points per outside surface of section in 2D - hollow sections
+        private short m_iNoPointsOut;
+
+        public short INoPointsOut
+        {
+            get { return m_iNoPointsOut; }
+            set { m_iNoPointsOut = value; }
+        }
+
+        // Use for Inside surface of hollow sections
+        private float[,] m_CrScPointsIn;
+
+        public float[,] CrScPointsIn
+        {
+            get { return m_CrScPointsIn; }
+            set { m_CrScPointsIn = value; }
+        }
+
         // Use for Outside surface of hollow sections and surface of solid sections
-		private float[,] m_CrScPointOut;
+        private float[,] m_CrScPointsOut;
 
         public float[,] CrScPointsOut
-		{
-			get { return m_CrScPointOut; }
-			set { m_CrScPointOut = value; }
-		}
-
-        // Use for Inside surface of hollow sections and null for solid sections
-		private float[,] m_CrScPointsIn;
-
-		public float[,] CrScPointsIn
-		{
-			get { return m_CrScPointsIn; }
-			set { m_CrScPointsIn = value; }
-		}
+        {
+            get { return m_CrScPointsOut; }
+            set { m_CrScPointsOut = value; }
+        }
 
         private int m_iCrSc_ID;
 
