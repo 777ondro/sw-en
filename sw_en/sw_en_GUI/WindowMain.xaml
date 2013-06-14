@@ -75,7 +75,9 @@
 				<Separator/>
 				<MenuItem Header="Print"></MenuItem>
 				<MenuItem Header="Print preview"></MenuItem>
-				<Separator/>
+                <MenuItem Header="Import" Click="ButtonImport_Click"></MenuItem>
+                <MenuItem Header="Export" Click="ButtonExport_Click"></MenuItem>
+                <Separator/>
 				<MenuItem Header="Exit"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="Edit">
@@ -89,22 +91,67 @@
 				<MenuItem Header="Select All"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="View">
+                <MenuItem x:Name="menuItemToolbars" Header="Toolbars"></MenuItem>
 				<MenuItem x:Name="menuItemView3Dview" Header="3D view" Click="menuItemView3Dview_Click"></MenuItem>
 				<MenuItem x:Name="menuItemView2Dview" Header="2D Paint" Click="menuItemView2Dview_Click"></MenuItem>
 				<MenuItem x:Name="menuItemViewShowModel" Header="Show model" Click="menuItemViewShowModel_Click" ></MenuItem>
 			</MenuItem>
-			<MenuItem Header="Modeling"></MenuItem>
-			<MenuItem Header="Loading"></MenuItem>
-			<MenuItem Header="Database"></MenuItem>
+			<MenuItem Header="Model">
+                <MenuItem x:Name="menuItemStructure" Header="Structure">
+                    <MenuItem x:Name="menuItemNode" Header="Node"></MenuItem>
+                    <MenuItem x:Name="menuItemMember" Header="Member"></MenuItem>
+                    <MenuItem x:Name="menuItemRelease" Header="Hinge / Release"></MenuItem>
+                    <MenuItem x:Name="menuItemNSupport" Header="Nodal Support"></MenuItem>
+                    <!--<MenuItem x:Name="menuItemWall" Header="Wall"></MenuItem>
+                    <MenuItem x:Name="menuItemSlab" Header="Slab"></MenuItem>
+                    <MenuItem x:Name="menuItemShell" Header="Shell"></MenuItem>
+                    <MenuItem x:Name="menuItemSolid" Header="Solid"></MenuItem> -->
+                </MenuItem>
+                <MenuItem x:Name="menuItemObject" Header="Object">
+                    <MenuItem x:Name="menuItemPoint" Header="Point"></MenuItem>
+                    <MenuItem x:Name="menuItemLine" Header="Line"></MenuItem>
+                    <MenuItem x:Name="menuItemArea" Header="Area"></MenuItem>
+                    <MenuItem x:Name="menuItemVolume" Header="Volume"></MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="menuItemGroup" Header="Group">
+                    
+                </MenuItem>
+            </MenuItem>
+			<MenuItem Header="Loading">
+                <MenuItem x:Name="menuItemLoad" Header="Load">
+                    <MenuItem x:Name="menuItemNLoadonNode" Header="Nodal Load - on node"></MenuItem>
+                    <MenuItem x:Name="menuItemNLoadonMember" Header="Nodal Load - on node"></MenuItem>
+                    <MenuItem x:Name="menuItemLLoadUniform" Header="Line Load - uniform"></MenuItem>
+                    <MenuItem x:Name="menuItemLLoadTriangular" Header="Line Load - triangular"></MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="menuItemLoadCase" Header="Load Case"></MenuItem>
+                <MenuItem x:Name="menuItemLoadGroup" Header="Load Case Group"></MenuItem>   <!-- groups of load case similar properties -->
+                    <MenuItem x:Name="menuItemLoadCombination" Header="Load Combination"></MenuItem>
+            </MenuItem>
+			<MenuItem Header="Database">
+                <MenuItem x:Name="menuItemDatabaseMaterials" Header="Materials"></MenuItem>
+                <MenuItem x:Name="menuItemDatabaseCrossSections" Header="Cross-sections"></MenuItem>
+                <MenuItem x:Name="menuItemDatabaseLoads" Header="Load Tables"></MenuItem> <!-- Tables of loads (dead load, permanent load - layers, live loads -->
+            </MenuItem>
 			<MenuItem Header="Modules"></MenuItem>
 			<MenuItem Header="Calculation">
                 <MenuItem x:Name="menuItemCalculate" Header="Calculate" Click="menuItemCalculate_Click"></MenuItem>
             </MenuItem>
-			<MenuItem Header="Settings"></MenuItem>
+			<MenuItem Header="Settings">
+                <MenuItem x:Name="menuItemDisplay" Header="Display"></MenuItem>
+                <MenuItem x:Name="menuItemUnits" Header="Units and decimal places"></MenuItem>
+                <MenuItem x:Name="menuItemProgram" Header="Program"></MenuItem>
+            </MenuItem>
 			<MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private"></MenuItem>
-			<MenuItem Header="Help"></MenuItem>
+			<MenuItem Header="Help">
+                <MenuItem x:Name="menuItemViewwHelp" Header="View Help"></MenuItem>
+                <MenuItem x:Name="menuItemManageHelp" Header="Manage Help Settings"></MenuItem>
+            </MenuItem>
 			<MenuItem Header="Support">
-                <MenuItem x:Name="menuItemExample" Header="Examples">
+                <MenuItem x:Name="menuItemSystem" Header="System Properties"></MenuItem>
+                <MenuItem x:Name="menuItemForum" Header="Forum"></MenuItem>
+                <MenuItem x:Name="menuItemOnline" Header="Online"></MenuItem>
+                <MenuItem x:Name="menuItemSampleFiles" Header="Sample Files">
                     <MenuItem x:Name="menuItemExample2D" Header="Examples 2D">
                         <MenuItem x:Name="menuItemExample2D_01" Header="Example 01" Click="menuItemExample2D_01_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample2D_02" Header="Example 02" Click="menuItemExample2D_02_Click"></MenuItem>
@@ -125,6 +172,8 @@
                         <MenuItem x:Name="menuItemExample3D_11" Header="Example 11" Click="menuItemExample3D_11_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem x:Name="menuItemCheckUpdate" Header="Check for Updates"></MenuItem>
+                <MenuItem x:Name="menuItemAbout" Header="About"></MenuItem>
             </MenuItem>
 		</Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
@@ -154,7 +203,7 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="Auto"></ColumnDefinition>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="4*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
@@ -168,17 +217,48 @@
                   Height="5" Background="#FFBCBCBC"/>
 
 			<TreeView Grid.RowSpan="3" Grid.Column="0">
-				<TreeViewItem Header="Lesenie">
-					<TreeViewItem Header="StructuralData">
+				<TreeViewItem Header="Model Name">
+                    <TreeViewItem Header="Basic Data">
+                        <TreeViewItem Header="General"></TreeViewItem>
+                        <TreeViewItem Header="Activities"></TreeViewItem>
+                        <TreeViewItem Header="History"></TreeViewItem>
+                        <TreeViewItem Header="Project"></TreeViewItem>
+                        <TreeViewItem Header="Solver"></TreeViewItem>
+                        <TreeViewItem Header="Codes"></TreeViewItem>
+                        <TreeViewItem Header="Printout Report"></TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Structure Data">
 						<TreeViewItem Header="Nodes"></TreeViewItem>
 						<TreeViewItem Header="Materials"></TreeViewItem>
-					</TreeViewItem>
-
-					<TreeViewItem Header="Loads">
+                        <TreeViewItem Header="Cross-sections"></TreeViewItem>
+                        <TreeViewItem Header="Member Releases"></TreeViewItem>
+                        <TreeViewItem Header="Members"></TreeViewItem>
+                        <TreeViewItem Header="Nodal Supports"></TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Groups">
+                        <TreeViewItem Header="General"></TreeViewItem>
+                        <TreeViewItem Header="Nodes"></TreeViewItem>
+                        <TreeViewItem Header="Members"></TreeViewItem>
+                        <TreeViewItem Header="Nodal Supports"></TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Loads">
+                        
+                        
 					</TreeViewItem>
 					<TreeViewItem Header="Results">
+                        
+                        
 					</TreeViewItem>
-				</TreeViewItem>
+                    <TreeViewItem Header="Printout Reports">
+
+
+                    </TreeViewItem>
+                    <TreeViewItem Header="Database">
+                        <TreeViewItem Header="Materials"></TreeViewItem>
+                        <TreeViewItem Header="Cross-sections"></TreeViewItem>
+                        <TreeViewItem Header="Loads"></TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
 			</TreeView>
 
 			<!--This is MDI CONTAINER-->
