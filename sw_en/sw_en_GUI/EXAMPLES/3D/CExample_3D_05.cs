@@ -27,7 +27,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes = new BaseClasses.CNode[135];
             m_arrMembers = new CMember[237];
             m_arrMat = new CMat_00[1];
-            m_arrCrSc = new CRSC.CCrSc[3];
+            m_arrCrSc = new CRSC.CCrSc[4];
             m_arrNSupports = new BaseClasses.CNSupport[2];
             //m_arrNLoads = new BaseClasses.CNLoad[35];
 
@@ -41,6 +41,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrCrSc[1] = new CCrSc_3_00(0, 8, 0.900f, 0.500f, 0.080f, 0.050f, 0.050f, 0.030f, 0.640f);
             m_arrCrSc[2] = new CCrSc_0_02(0.3f, 13); // Tie, cable, tendon - solid round section
             //m_arrCrSc[2] = new CCrSc_0_22(0.3f, 0.03f, 36); // Tube
+            //m_arrCrSc[3] = new CCrSc_3_07(0, 0.900f, 0.500f, 0.08f);
+            m_arrCrSc[2] = new CCrSc_0_05(2.4f, 1.0f);
 
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
@@ -197,15 +199,15 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Members List - Members Array
 
             // Members
-            m_arrMembers[000] = new CMember(001, m_arrNodes[00], m_arrNodes[01], m_arrCrSc[0], 0);
+            m_arrMembers[000] = new CMember(001, m_arrNodes[00], m_arrNodes[01], m_arrCrSc[3], 0);
             m_arrMembers[001] = new CMember(002, m_arrNodes[00], m_arrNodes[02], m_arrCrSc[0], 0);
             m_arrMembers[002] = new CMember(003, m_arrNodes[02], m_arrNodes[01], m_arrCrSc[2], 0);
-            m_arrMembers[003] = new CMember(004, m_arrNodes[01], m_arrNodes[03], m_arrCrSc[0], 0);
+            m_arrMembers[003] = new CMember(004, m_arrNodes[01], m_arrNodes[03], m_arrCrSc[3], 0);
             m_arrMembers[004] = new CMember(005, m_arrNodes[02], m_arrNodes[04], m_arrCrSc[0], 0);
             m_arrMembers[005] = new CMember(006, m_arrNodes[04], m_arrNodes[03], m_arrCrSc[2], 0);
-            m_arrMembers[006] = new CMember(007, m_arrNodes[03], m_arrNodes[05], m_arrCrSc[0], 0);
+            m_arrMembers[006] = new CMember(007, m_arrNodes[03], m_arrNodes[05], m_arrCrSc[3], 0);
             m_arrMembers[007] = new CMember(008, m_arrNodes[04], m_arrNodes[07], m_arrCrSc[0], 0);
-            m_arrMembers[008] = new CMember(009, m_arrNodes[05], m_arrNodes[06], m_arrCrSc[0], 0);
+            m_arrMembers[008] = new CMember(009, m_arrNodes[05], m_arrNodes[06], m_arrCrSc[3], 0);
             m_arrMembers[009] = new CMember(010, m_arrNodes[07], m_arrNodes[05], m_arrCrSc[2], 0);
             m_arrMembers[010] = new CMember(011, m_arrNodes[06], m_arrNodes[08], m_arrCrSc[0], 0);
             m_arrMembers[011] = new CMember(012, m_arrNodes[06], m_arrNodes[09], m_arrCrSc[2], 0);
