@@ -47,12 +47,12 @@ namespace BaseClasses
           set { m_cnRelease2 = value; }
         }
 
-        private CCrSc m_CrSc;
+        private CCrSc m_CrScStart;
 
-        public CCrSc CrSc
+        public CCrSc CrScStart
         {
-            get { return m_CrSc; }
-            set { m_CrSc = value; }
+            get { return m_CrScStart; }
+            set { m_CrScStart = value; }
         }
 
         private float m_fLength;
@@ -134,7 +134,7 @@ namespace BaseClasses
             m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
-            m_CrSc = objCrSc;
+            m_CrScStart = objCrSc;
             m_fTime = fTime;
 
             Fill_Basic();

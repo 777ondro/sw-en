@@ -156,7 +156,7 @@ namespace FEM_CALC_1Din3D
             }
 
             // Cross-section
-            m_CrSc = TopoMember.CrSc;
+            m_CrSc = TopoMember.CrScStart;
 
             //FillBasic2_GeomMatrices();
             FillBasic2();
