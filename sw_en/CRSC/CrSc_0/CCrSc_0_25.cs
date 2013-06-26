@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -382,9 +383,38 @@ namespace CRSC
          * 
          */
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
+        protected override void loadCrScIndices()
+        {
+            loadCrScIndices_25();
+        }
+        public void loadCrScIndices_25()
+        {
+            // const int secNum = 8;  // Number of points in section (2D)
+            TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 1, 5, 4);
+            AddRectangleIndices_CW_1234(TriangleIndices, 1, 2, 6, 5);
+            AddRectangleIndices_CW_1234(TriangleIndices, 7, 6, 2, 3);
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 4, 7, 3);
+
+            // Back Side 
+            AddRectangleIndices_CW_1234(TriangleIndices, 9, 8, 12, 13);
+            AddRectangleIndices_CW_1234(TriangleIndices, 9, 13, 14, 10);
+            AddRectangleIndices_CW_1234(TriangleIndices, 14, 15, 11, 10);
+            AddRectangleIndices_CW_1234(TriangleIndices, 8, 11, 15, 12);
+
+            // Shell Surface
+            // Outside
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 8, 9, 1);
+            AddRectangleIndices_CW_1234(TriangleIndices, 1, 9, 10, 2);
+            AddRectangleIndices_CW_1234(TriangleIndices, 2, 10, 11, 3);
+            AddRectangleIndices_CW_1234(TriangleIndices, 8, 0, 3, 11);
+            // Inside
+            AddRectangleIndices_CW_1234(TriangleIndices, 13, 5, 6, 14);
+            AddRectangleIndices_CW_1234(TriangleIndices, 7, 15, 14, 6);
+            AddRectangleIndices_CW_1234(TriangleIndices, 4, 12, 15, 7);
+            AddRectangleIndices_CW_1234(TriangleIndices, 12, 4, 5, 13);
+        }
 	}
 }

@@ -126,17 +126,16 @@ namespace CRSC
 
         protected override void loadCrScIndices()
         {
-            loadCrScIndices_26_28(INoPointsOut);
+            int iAux = 0;
+            loadCrScIndices_26_28(INoPointsOut, iAux);
         }
 
         // Auxiliary, used for also other cross-sections
-        public void loadCrScIndices_26_28(int iNoPoints)
+        public void loadCrScIndices_26_28(int iNoPoints, int iAux)
         {
             // iAux - number of auxiliary points in inside/outside collection of points
             // iNoPoints - numer of real points in inside/outside collection of points
             // iAux + iNoPoints - total number of points in inside/outside collection of section
-
-            int iAux = 0;
 
             TriangleIndices = new Int32Collection();
 

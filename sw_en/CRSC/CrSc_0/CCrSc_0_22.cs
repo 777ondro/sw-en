@@ -223,12 +223,9 @@ namespace CRSC
         {
             // Triangle Indices CRSC No 26 and 28
             CCrSc_0_26 oTemp = new CCrSc_0_26();
-            oTemp.loadCrScIndices_26_28(INoPointsOut);
+            oTemp.loadCrScIndices_26_28(INoPointsOut,0);
             TriangleIndices = new Int32Collection();
             TriangleIndices = oTemp.TriangleIndices;
         }
     }
 }
-
-
-
