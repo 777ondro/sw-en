@@ -55,6 +55,14 @@ namespace BaseClasses
             set { m_CrScStart = value; }
         }
 
+        private CCrSc m_CrScEnd;
+
+        public CCrSc CrScEnd
+        {
+            get { return m_CrScEnd; }
+            set { m_CrScEnd = value; }
+        }
+
         private float m_fLength;
 
         public float FLength
@@ -125,7 +133,7 @@ namespace BaseClasses
             int iLine_ID,
             CNode iNode1,
             CNode iNode2,
-            CCrSc objCrSc,
+            CCrSc objCrSc1,
             int fTime
             )
         {
@@ -134,7 +142,29 @@ namespace BaseClasses
             m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
-            m_CrScStart = objCrSc;
+            m_CrScStart = objCrSc1;
+            m_fTime = fTime;
+
+            Fill_Basic();
+        }
+
+        // Constructor 5
+        public CMember(
+            int iLine_ID,
+            CNode iNode1,
+            CNode iNode2,
+            CCrSc objCrSc1,
+            CCrSc objCrSc2,
+            int fTime
+            )
+        {
+            m_iMember_ID = iLine_ID;
+            m_NodeStart = iNode1;
+            m_NodeEnd = iNode2;
+            m_cnRelease1 = null;
+            m_cnRelease2 = null;
+            m_CrScStart = objCrSc1;
+            m_CrScEnd = objCrSc2;
             m_fTime = fTime;
 
             Fill_Basic();
