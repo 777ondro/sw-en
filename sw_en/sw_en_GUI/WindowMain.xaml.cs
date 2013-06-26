@@ -238,18 +238,18 @@ namespace sw_en_GUI
                 model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.INode_ID-1];
 
                 // Set Cross-section
-                model.m_arrMembers[i].CrSc = model.m_arrCrSc[model.m_arrMembers[i].CrSc.ICrSc_ID-1];
+                model.m_arrMembers[i].CrScStart = model.m_arrCrSc[model.m_arrMembers[i].CrScStart.ICrSc_ID-1];
 
                 // Temp - nacitava sa z tabulky alebo z databazy, dopracovat
                 // Parametre pre IPN 300
                 //model.m_arrMembers[i].CrSc = new CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f); // Example - FEM calculation 3D
-                model.m_arrMembers[i].CrSc = new CCrSc_0_05(0.1f, 0.05f); // Temp
-                model.m_arrMembers[i].CrSc.FI_t  = 5.69e-07f;
-                model.m_arrMembers[i].CrSc.FI_y  = 9.79e-05f;
-                model.m_arrMembers[i].CrSc.FI_z  = 4.49e-06f;
-                model.m_arrMembers[i].CrSc.FA_g  = 6.90e-03f;
-                model.m_arrMembers[i].CrSc.FA_vy = 4.01e-03f;
-                model.m_arrMembers[i].CrSc.FA_vz = 2.89e-03f;
+                model.m_arrMembers[i].CrScStart = new CCrSc_0_05(0.1f, 0.05f); // Temp
+                model.m_arrMembers[i].CrScStart.FI_t  = 5.69e-07f;
+                model.m_arrMembers[i].CrScStart.FI_y  = 9.79e-05f;
+                model.m_arrMembers[i].CrScStart.FI_z  = 4.49e-06f;
+                model.m_arrMembers[i].CrScStart.FA_g  = 6.90e-03f;
+                model.m_arrMembers[i].CrScStart.FA_vy = 4.01e-03f;
+                model.m_arrMembers[i].CrScStart.FA_vz = 2.89e-03f;
             }
 
 			model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);

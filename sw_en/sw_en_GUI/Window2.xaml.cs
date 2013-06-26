@@ -1063,7 +1063,7 @@ namespace sw_en_GUI
                       System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
                   }
                   // Create Member model
-                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrSc, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
 
                   // Add current member model to the model group
                   gr.Children.Add(membermodel);
