@@ -1063,7 +1063,7 @@ namespace sw_en_GUI
                       System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
                   }
                   // Create Member model
-                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
 
                   // Add current member model to the model group
                   gr.Children.Add(membermodel);
@@ -1138,11 +1138,11 @@ namespace sw_en_GUI
       }
     }
 
-    private GeometryModel3D getGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrSc, Point3D mpA, Point3D mpB, double dTheta_x)
+    private GeometryModel3D getGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
     {
       GeometryModel3D model = new GeometryModel3D();
 
-      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(eGCS, obj_CrSc, mpA, mpB, dTheta_x); // Mesh one member
+      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(eGCS, obj_CrScA, obj_CrScB, mpA, mpB, dTheta_x); // Mesh one member
 
       model.Geometry = mesh;
 
@@ -1152,7 +1152,7 @@ namespace sw_en_GUI
     }
 
 
-    private MeshGeometry3D getMeshGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrSc, Point3D mpA, Point3D mpB, double dTheta_x)
+    private MeshGeometry3D getMeshGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
     {
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions = new Point3DCollection();
@@ -1177,27 +1177,25 @@ namespace sw_en_GUI
       // Number of Points per section
       short iNoCrScPoints2D;
       // Points 2D Coordinate Array
-      if (obj_CrSc.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
+      if (obj_CrScA.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
       {
-        iNoCrScPoints2D = obj_CrSc.ITotNoPoints; // Depends on Section Type 
-
-        // Solid section
-        float[,] res = obj_CrSc.CrScPointsOut; // I,U,Z,HL,L, ..............
-
+          iNoCrScPoints2D = obj_CrScA.ITotNoPoints; // Depends on Section Type
         // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
 
-        // I,U,Z,HL, L, ....
-        if (res != null) // Check that data are available
+        if (obj_CrScA.CrScPointsOut != null) // Check that data are available
         {
           for (int j = 0; j < iNoCrScPoints2D; j++)
           {
               // X - start, Y, Z
-            mesh.Positions.Add(new Point3D(0, res[j, 0], res[j, 1]));
+            mesh.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
           }
           for (int j = 0; j < iNoCrScPoints2D; j++)
           {
               // X - end, Y, Z
-              mesh.Positions.Add(new Point3D(m_dLength, res[j, 0], res[j, 1]));
+              if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
+                mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+              else
+                mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
           }
         }
         else
@@ -1208,22 +1206,19 @@ namespace sw_en_GUI
       else
       {
         // Tubes , Polygonal Hollow Sections
-        iNoCrScPoints2D = (short)(2 * obj_CrSc.INoPointsOut); // Twice number of one surface
-        //iNoCrScPoints2D = (short)(obj_CrSc.INoPointsOut + obj_CrSc.INoPointsIn);
-        float[,] res1 = obj_CrSc.CrScPointsOut; // TU
-        float[,] res2 = obj_CrSc.CrScPointsIn; // TU
+        iNoCrScPoints2D = (short)(2 * obj_CrScA.INoPointsOut); // Twice number of one surface
 
         // Tube, regular hollow sections
         // TU
 
         // Start
-        if (res1 != null) // Check that data are available
+        if (obj_CrScA.CrScPointsOut != null) // Check that data are available
         {
           // OutSide Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
+          for (int j = 0; j < obj_CrScA.INoPointsOut; j++)
           {
             // X - start, Y, Z
-            mesh.Positions.Add(new Point3D(0, res1[j, 0], res1[j, 1]));
+            mesh.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
           }
         }
         else
@@ -1231,13 +1226,13 @@ namespace sw_en_GUI
           // Exception
         }
 
-        if (res2 != null) // Check that data are available
+        if (obj_CrScA.CrScPointsIn != null) // Check that data are available
         {
           // Inside Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
+          for (int j = 0; j < obj_CrScA.INoPointsIn; j++)
           {
             // X - start, Y, Z
-            mesh.Positions.Add(new Point3D(0,res2[j, 0], res2[j, 1]));
+            mesh.Positions.Add(new Point3D(0,obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
           }
         }
         else
@@ -1246,13 +1241,16 @@ namespace sw_en_GUI
         }
 
         // End
-        if (res1 != null) // Check that data are available
+        if (obj_CrScA.CrScPointsOut != null) // Check that data are available
         {
           // OutSide Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsOut; j++)
+          for (int j = 0; j < obj_CrScA.INoPointsOut; j++)
           {
-            // X - end, Y, Z
-            mesh.Positions.Add(new Point3D(m_dLength, res1[j, 0], res1[j, 1]));
+              // X - end, Y, Z
+              if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
+                  mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+              else
+                  mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
           }
         }
         else
@@ -1260,13 +1258,16 @@ namespace sw_en_GUI
           // Exception
         }
 
-        if (res2 != null) // Check that data are available
+        if (obj_CrScA.CrScPointsIn != null) // Check that data are available
         {
           // Inside Radius Points
-          for (int j = 0; j < obj_CrSc.INoPointsIn; j++)
+          for (int j = 0; j < obj_CrScA.INoPointsIn; j++)
           {
-           // X - end, Y, Z
-           mesh.Positions.Add(new Point3D(m_dLength,res2[j, 0], res2[j, 1]));
+              // X - end, Y, Z
+              if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
+                  mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1])); // Constant size member
+              else
+                  mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsIn[j, 0], obj_CrScB.CrScPointsIn[j, 1])); // Tapered member
           }
         }
         else
@@ -1303,7 +1304,7 @@ namespace sw_en_GUI
       TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, mesh.Positions);
 
       // Mesh Triangles - various cross-sections shapes defined
-      mesh.TriangleIndices = obj_CrSc.TriangleIndices;
+      mesh.TriangleIndices = obj_CrScA.TriangleIndices;
 
 
      // Dislay data in the output window
@@ -1311,7 +1312,7 @@ namespace sw_en_GUI
       sOutput = null;
       sOutput = "After transformation \n\n"; // create temporary string
 
-      for (int i = 0; i < 2*iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
+      for (int i = 0; i < 2 * iNoCrScPoints2D; i++) // for all mesh positions (start and end of member, number of edge points of whole member = 2 * number in one section)
       {
           Point3D p3D = mesh.Positions[i]; // Get mesh element/item (returns Point3D)
 
