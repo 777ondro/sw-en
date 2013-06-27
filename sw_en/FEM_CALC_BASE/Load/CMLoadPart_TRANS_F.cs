@@ -19,7 +19,7 @@ namespace FEM_CALC_BASE
         { }
 
 
-        public CMLoadPart_TRANS_F(CMLoad Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        public CMLoadPart_TRANS_F(CMLoad Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             // Type objType = Load.GetType(); // typeof(Load)
 
@@ -92,36 +92,36 @@ namespace FEM_CALC_BASE
         
 
 
-        void GetMLoadPart_11(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_11(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_11_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -135,36 +135,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_12_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -178,36 +178,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_21_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -221,36 +221,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_22(CMLoad_22 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_22(CMLoad_22 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_22_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -264,36 +264,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_23(CMLoad_23 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_23(CMLoad_23 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_23_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -307,36 +307,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_24(CMLoad_24 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_24(CMLoad_24 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_24_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -350,36 +350,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_31(CMLoad_31 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_31(CMLoad_31 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__31_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -393,36 +393,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_32(CMLoad_32 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_32(CMLoad_32 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__32_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -436,36 +436,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_33(CMLoad_33 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_33(CMLoad_33 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__33_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -479,36 +479,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_34(CMLoad_34 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_34(CMLoad_34 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__34_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -522,36 +522,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_35(CMLoad_35 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_35(CMLoad_35 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__35_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -565,36 +565,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_36(CMLoad_36 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_36(CMLoad_36 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__36_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -608,36 +608,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_41(CMLoad_41 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_41(CMLoad_41 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__41_UV(Load, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -651,36 +651,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_51z(CMLoad_51z Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_51z(CMLoad_51z Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_00____51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF____00_51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
@@ -694,36 +694,36 @@ namespace FEM_CALC_BASE
             }
         }
 
-        void GetMLoadPart_51y(CMLoad_51y Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_51y(CMLoad_51y Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
-                case Enums.EElemSuppType.eEl_00_00: // Both Side restrained
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained
                     {
                         GetEIF_00_00_51_UV(Load,  Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00_0_:
                     {
                         GetEIF_00_0__51_UV(Load,  Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl_0__00:
                     {
                         GetEIF_0__00_51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_0__0_:
+                case Enums.EElemSuppType2D.eEl_0__0_:
                     {
                         GetEIF_0__0__51_UV(Load,  Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl_00___:
+                case Enums.EElemSuppType2D.eEl_00___:
                     {
                         GetEIF_0__00_51_UV(Load,  Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;
                     }
-                case Enums.EElemSuppType.eEl____00:
+                case Enums.EElemSuppType2D.eEl____00:
                     {
                         GetEIF_0__0__51_UV(Load, Member.CrSc, Member.FLength, out fA, out fB, out fMa, out fMb);
                         return;

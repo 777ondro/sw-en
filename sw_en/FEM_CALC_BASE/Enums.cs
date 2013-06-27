@@ -7,8 +7,8 @@ namespace FEM_CALC_BASE
 {
     public class Enums
     {
-        // Element SupportType
-        public enum EElemSuppType
+        // Element SupportType in 2D - used in 2D and also in 3D solutions
+        public enum EElemSuppType2D
         {
             eEl_00_00 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
             eEl_00_0_ = 1, // Start Node - restrained DOF,                                                    End Node - free rotation DOF
@@ -17,7 +17,7 @@ namespace FEM_CALC_BASE
             eEl_00___ = 4, // Start Node - restrained DOF,                                                    End Node - restrained DOF
             eEl____00 = 5, // Start Node - free DOF,                                                          End Node - free DOF
 
-            // We dont have special stiffeness matrix for this DOF arrangement
+            // We dont have special stiffeness matrix for this DOF arrangement in 2D solutions
 
             //eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
             //eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
