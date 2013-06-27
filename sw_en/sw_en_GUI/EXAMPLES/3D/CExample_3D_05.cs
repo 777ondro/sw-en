@@ -37,7 +37,8 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            m_arrCrSc[0] = new CCrSc_0_05(2.8f, 1.2f);
+            //m_arrCrSc[0] = new CCrSc_0_05(2.8f, 1.2f);
+            m_arrCrSc[0] = new CCrSc_3_07(0,2.8f, 1.2f, 0.08f);
             m_arrCrSc[1] = new CCrSc_3_00(0, 8, 0.900f, 0.500f, 0.080f, 0.050f, 0.050f, 0.030f, 0.640f);
             m_arrCrSc[2] = new CCrSc_0_02(0.3f, 13); // Tie, cable, tendon - solid round section
             //m_arrCrSc[2] = new CCrSc_0_22(0.3f, 0.03f, 36); // Tube
