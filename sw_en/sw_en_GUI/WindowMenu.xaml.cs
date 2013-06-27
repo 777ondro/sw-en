@@ -21,6 +21,8 @@ namespace sw_en_GUI
 	/// </summary>
 	public partial class WindowMenu : Window
 	{
+        private bool m_bDebugging = false; // Console Output
+
 		public WindowMenu()
 		{
 			InitializeComponent();
@@ -34,10 +36,6 @@ namespace sw_en_GUI
 			imageButton20.Source = (ImageSource)TryFindResource("GEN_F_06");
 			imageButton21.Source = (ImageSource)TryFindResource("GEN_F_07");
 			imageButton22.Source = (ImageSource)TryFindResource("GEN_F_08");
-
-
-            
-			
 		}
 
 		private void Button00_Click(object sender, RoutedEventArgs e)
@@ -48,7 +46,7 @@ namespace sw_en_GUI
 
 		private void Button01_Click(object sender, RoutedEventArgs e)
 		{
-            Window2 view = new Window2();
+            Window2 view = new Window2(m_bDebugging);
             view.Show();
 		}
 

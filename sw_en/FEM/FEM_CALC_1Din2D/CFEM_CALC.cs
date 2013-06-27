@@ -27,7 +27,7 @@ namespace FEM_CALC_1Din2D
         public CVector m_V_Load;
         public CVector m_V_Displ;
 
-        public CFEM_CALC()
+        public CFEM_CALC(bool bDebugging)
         {
             // Load Topological model
             // TopoModelFile = new CTest_1(); // Temporary
@@ -42,31 +42,34 @@ namespace FEM_CALC_1Din2D
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Temp - display matrices
 
-            for(int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+            if (bDebugging)
             {
-            // Member ID
-            Console.WriteLine("Member ID: " + FEMModel.m_arrFemMembers[i].ID + "\n");
-            // kij_0 - local stiffeness matrix       3 x  3
-            Console.WriteLine("Local stiffeness matrix k" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 3 x 3 \n");
-            FEMModel.m_arrFemMembers[i].m_fkLocMatr.Print2DMatrixFormated();
-            // A  Tranformation Rotation Matrixes    3 x  3
-            Console.WriteLine("Tranformation rotation matrix A - Dimensions: 3 x 3 \n");
-            FEMModel.m_arrFemMembers[i].m_fATRMatr2D.Print2DMatrixFormated();
-            // B  Transfer Matrixes                  3 x  3
-            Console.WriteLine("Transfer matrix B - Dimensions: 3 x 3 \n");
-            FEMModel.m_arrFemMembers[i].m_fBTTMatr2D.Print2DMatrixFormated();
-            // Kij - global matrix of member         6 x 6
-            Console.WriteLine("Global stiffeness matrix K" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 6 x 6 \n");
-            FEMModel.m_arrFemMembers[i].m_fKGlobM.Print2DMatrixFormated_ABxCD(FEMModel.m_arrFemMembers[i].m_fKGlobM.m_fArrMembersABxCD);
-            // Element Load Vectors                  2 x 3
-            Console.WriteLine("Member load vector - primary end forces in LCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
-            FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_StNode.Print1DVector();
-            Console.WriteLine("Member load vector - primary end forces in LCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
-            FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_EnNode.Print1DVector();
-            Console.WriteLine("Member load vector - primary end forces in GCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
-            FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_StNode.Print1DVector();
-            Console.WriteLine("Member load vector - primary end forces in GCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
-            FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_EnNode.Print1DVector();
+                for (int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+                {
+                    // Member ID
+                    Console.WriteLine("Member ID: " + FEMModel.m_arrFemMembers[i].ID + "\n");
+                    // kij_0 - local stiffeness matrix       3 x  3
+                    Console.WriteLine("Local stiffeness matrix k" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 3 x 3 \n");
+                    FEMModel.m_arrFemMembers[i].m_fkLocMatr.Print2DMatrixFormated();
+                    // A  Tranformation Rotation Matrixes    3 x  3
+                    Console.WriteLine("Tranformation rotation matrix A - Dimensions: 3 x 3 \n");
+                    FEMModel.m_arrFemMembers[i].m_fATRMatr2D.Print2DMatrixFormated();
+                    // B  Transfer Matrixes                  3 x  3
+                    Console.WriteLine("Transfer matrix B - Dimensions: 3 x 3 \n");
+                    FEMModel.m_arrFemMembers[i].m_fBTTMatr2D.Print2DMatrixFormated();
+                    // Kij - global matrix of member         6 x 6
+                    Console.WriteLine("Global stiffeness matrix K" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 6 x 6 \n");
+                    FEMModel.m_arrFemMembers[i].m_fKGlobM.Print2DMatrixFormated_ABxCD(FEMModel.m_arrFemMembers[i].m_fKGlobM.m_fArrMembersABxCD);
+                    // Element Load Vectors                  2 x 3
+                    Console.WriteLine("Member load vector - primary end forces in LCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_StNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in LCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_EnNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in GCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 3 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_StNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in GCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 3 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_EnNode.Print1DVector();
+                }
             }
 
 

@@ -11,6 +11,8 @@ namespace FEM_CALC_1Din2D
 {
     public partial class CalcForm : Form
     {
+        private bool m_bDebugging = false; // Console Output
+
         public CalcForm()
         {
             InitializeComponent();
@@ -18,7 +20,7 @@ namespace FEM_CALC_1Din2D
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CFEM_CALC obj_Calc = new CFEM_CALC();
+            CFEM_CALC obj_Calc = new CFEM_CALC(m_bDebugging);
 
            // MessageBox.Show("Calculation was successful!", "Solver Message" /*, MessageBoxButtons.OK, MessageBoxIcon.Exclamation*/);
 

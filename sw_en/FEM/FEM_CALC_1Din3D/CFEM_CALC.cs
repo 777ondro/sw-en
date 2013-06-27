@@ -93,7 +93,7 @@ namespace FEM_CALC_1Din3D
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Constructor
-        public CFEM_CALC(CModel model)
+        public CFEM_CALC(CModel model, bool bDebugging)
         {
             TopoModelFile = new CModel();
             TopoModelFile = model;
@@ -104,7 +104,38 @@ namespace FEM_CALC_1Din3D
 
             FEMModel = new CGenex(TopoModelFile);
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Temp - display matrices
 
+            if (bDebugging)
+            {
+                for (int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+                {
+                    // Member ID
+                    Console.WriteLine("Member ID: " + FEMModel.m_arrFemMembers[i].ID + "\n");
+                    // kij_0 - local stiffeness matrix       6 x  6
+                    Console.WriteLine("Local stiffeness matrix k" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 6 x 6 \n");
+                    FEMModel.m_arrFemMembers[i].m_fkLocMatr.Print2DMatrixFormated();
+                    // A  Tranformation Rotation Matrixes    6 x  6
+                    Console.WriteLine("Tranformation rotation matrix A - Dimensions: 6 x 6 \n");
+                    FEMModel.m_arrFemMembers[i].m_fATRMatr3D.Print2DMatrixFormated();
+                    // B  Transfer Matrixes                  6 x  6
+                    Console.WriteLine("Transfer matrix B - Dimensions: 6 x 6 \n");
+                    FEMModel.m_arrFemMembers[i].m_fBTTMatr3D.Print2DMatrixFormated();
+                    // Kij - global matrix of member         12 x 12
+                    Console.WriteLine("Global stiffeness matrix K" + FEMModel.m_arrFemMembers[i].NodeStart.ID + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "0 - Dimensions: 12 x 12 \n");
+                    FEMModel.m_arrFemMembers[i].m_fKGlobM.Print2DMatrixFormated_ABxCD(FEMModel.m_arrFemMembers[i].m_fKGlobM.m_fArrMembersABxCD);
+                    // Element Load Vectors                  2 x 6
+                    Console.WriteLine("Member load vector - primary end forces in LCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 6 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_StNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in LCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 6 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_LCS_EnNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in GCS at start node ID: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + " - Dimensions: 6 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_StNode.Print1DVector();
+                    Console.WriteLine("Member load vector - primary end forces in GCS at end node ID: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + " - Dimensions: 6 x 1 \n");
+                    FEMModel.m_arrFemMembers[i].m_VElemPEF_GCS_EnNode.Print1DVector();
+                }
+            }
 
 
 
@@ -272,7 +303,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[0].NodeStart = m_NodeArray[0];
             m_ELemArray[0].NodeEnd = m_NodeArray[1];
             // Element  Type
-            m_ELemArray[0].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000000;
+            m_ELemArray[0].m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000000;
             // Element Material
             m_ELemArray[0].m_Mat = m_Mat;
             // Element Corss-section
@@ -352,7 +383,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[1].NodeStart = m_NodeArray[0];
             m_ELemArray[1].NodeEnd = m_NodeArray[2];
             // Element  Type
-            m_ELemArray[1].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000000;
+            m_ELemArray[1].m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000000;
             // Element Material
             m_ELemArray[1].m_Mat = m_Mat;
             // Element Corss-section
@@ -378,7 +409,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[2].NodeStart = m_NodeArray[0];
             m_ELemArray[2].NodeEnd = m_NodeArray[3];
             // Element  Type
-            m_ELemArray[2].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000___;
+            m_ELemArray[2].m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000___;
             // Element Material
             m_ELemArray[2].m_Mat = m_Mat;
             // Element Corss-section

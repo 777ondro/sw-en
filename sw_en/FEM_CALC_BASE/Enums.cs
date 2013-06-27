@@ -18,13 +18,17 @@ namespace FEM_CALC_BASE
             eEl____00 = 5, // Start Node - free DOF,                                                          End Node - free DOF
 
             // We dont have special stiffeness matrix for this DOF arrangement in 2D solutions
+            // Could be used in particular definition of 3D solution
 
-            //eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
-            //eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
-            //eEl__0__0 = 8, // Start Node - free displacement DOF,                                             End Node - free displacement DOF
+            eEl_00__0 = 6, // Start Node - restrained DOF,                                                    End Node - free displacement DOF
+            eEl__0_00 = 7, // Start Node - free displacement DOF,                                             End Node - restrained DOF
+            eEl__0__0 = 8, // Start Node - free displacement DOF,                                             End Node - free displacement DOF
 
-            //eEl_0____ = 9, // Start Node - free rotation DOF,                                                 End Node - free DOF
-            //eEl____0_ = 10, // Start Node - free DOF,                                                         End Node - free rotation DOF
+            eEl_0____ = 9, // Start Node - free rotation DOF,                                                 End Node - free DOF
+            eEl____0_ = 10, // Start Node - free DOF,                                                         End Node - free rotation DOF
+
+            eEl__0___ = 11, // Start Node - free displacement DOF,                                            End Node - free DOF
+            eEl_____0 = 12, // Start Node - free DOF,                                                         End Node - free displacement DOF
 
             eEl______ = 99  // Start Node - free DOF,                                                         End Node - free DOF
         }    }

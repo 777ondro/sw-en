@@ -25,7 +25,7 @@ namespace sw_en_GUI
   /// </summary>
   public partial class Window2 : Window
   {
-      private bool Debugging;
+      private bool bDebugging;
 
     ///////////////////////////////////////////////////////////////
     // Create switch command for various sections, split code into separate objects / function of 3D drawing for each type
@@ -881,10 +881,8 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
-    public Window2()
+      public Window2(bool bDebugging)
     {
-        Debugging = false; //Convert.ToBoolean(ConfigurationManager.AppSettings.Get("debugging"));
-        
       InitializeComponent();
 
       // Temp
@@ -996,7 +994,7 @@ namespace sw_en_GUI
 
 
 
-    public Window2(CModel cmodel)
+    public Window2(CModel cmodel, bool bDebugging)
     {
       InitializeComponent();
 
@@ -1054,7 +1052,7 @@ namespace sw_en_GUI
                   // Angle of rotation about local x-axis
                   cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
 
-                  if (Debugging)
+                  if (bDebugging)
                   {
                       System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
                       System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
@@ -1296,7 +1294,7 @@ namespace sw_en_GUI
           sOutput += "\n"; // New row
       }
 
-        if(Debugging)
+        if(bDebugging)
             System.Console.Write(sOutput); // Write in console window
 
 
@@ -1328,7 +1326,7 @@ namespace sw_en_GUI
           sOutput += "\n"; // New row
       }
 
-        if(Debugging)
+        if(bDebugging)
             System.Console.Write(sOutput); // Write in console window
 
       // Change mesh triangle indices
@@ -1402,7 +1400,7 @@ namespace sw_en_GUI
       if (!MathF.d_equal(dDeltaX, 0.0) || !MathF.d_equal(dDeltaZ, 0.0))
         dLength_XZ = Math.Sqrt(Math.Pow(dDeltaX, 2) + Math.Pow(dDeltaZ, 2));
 
-      if (Debugging)
+      if (bDebugging)
       {
           // Temporary console output
           System.Console.Write("\n" + "Lengths - projection of element into global coordinate system:\n");
@@ -1427,7 +1425,7 @@ namespace sw_en_GUI
             dGammaZ_aux = dGammaZ - Math.PI;
         }
 
-        if (Debugging)
+        if (bDebugging)
         {
             // Temporary console output
             System.Console.Write("\n" + "Rotation angles:\n");

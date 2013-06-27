@@ -162,6 +162,7 @@ namespace FEM_CALC_1Din2D
             // Check of partial matrices members
 
             // Partial matrices of global matrix of member 3 x 3
+            //if(bDebug)
             //Console.WriteLine(m_fkLocMatr.Print2DMatrix());
 
             // Return partial matrixes and global matrix of FEM element 6 x 6 (2*3x2*3) 2D
@@ -588,7 +589,7 @@ namespace FEM_CALC_1Din2D
         #region Local stiffeness matrix of member in 2D
         private void GetLocMatrix_2D()
         {
-            switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
+            switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ]) // !!!!
             {
                 case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00:
                     m_fkLocMatr.m_fArrMembers = GetLocMatrix_2D_00_00();
