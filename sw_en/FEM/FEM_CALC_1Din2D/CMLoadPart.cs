@@ -57,10 +57,10 @@ namespace FEM_CALC_1Din2D
                                 // Type of supports is already defined  but I check it once more in body of function !!!
 
                                 // XX - direction both sides supported displacement
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_:
                                     {
                                         // Type ObjLoadType = typeof(TopoModel.m_arrMLoads[i]);
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
@@ -95,7 +95,7 @@ namespace FEM_CALC_1Din2D
                                     }
                                 // XX - direction start supported, end free displacement
                                 //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00__0:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___:
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0____:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
@@ -130,7 +130,7 @@ namespace FEM_CALC_1Din2D
                                     }
                                 // XX - direction start free displacement, end supported
                                 //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0_00:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00:
                                     //case FEM_CALC_BASE.Enums.EElemSuppType.eEl____0_:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
@@ -165,7 +165,7 @@ namespace FEM_CALC_1Din2D
                                     }
                                 // XX - direction start free displacement, end free displacement
                                 //case FEM_CALC_BASE.Enums.EElemSuppType.eEl__0__0:
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl______:
                                 default:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
@@ -208,7 +208,7 @@ namespace FEM_CALC_1Din2D
                                 // Type of supports is already defined  but I check it once more in body of function !!!
 
                                 // UZRY - direction both sides supported displacement
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -245,7 +245,7 @@ namespace FEM_CALC_1Din2D
 
                                         break;
                                     }
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -282,7 +282,7 @@ namespace FEM_CALC_1Din2D
 
                                         break;
                                     }
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -319,7 +319,7 @@ namespace FEM_CALC_1Din2D
 
                                         break;
                                     }
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -357,7 +357,7 @@ namespace FEM_CALC_1Din2D
                                         break;
                                     }
                                 // UZRY - direction start supported, end free displacement
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00___:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -395,7 +395,7 @@ namespace FEM_CALC_1Din2D
                                         break;
                                     }
                                 // UZRY - direction start free displacement, end supported
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl____00:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)
                                         {
@@ -433,7 +433,7 @@ namespace FEM_CALC_1Din2D
                                         break;
                                     }
                                 // UZRY - direction start free displacement, end free displacement
-                                case FEM_CALC_BASE.Enums.EElemSuppType.eEl______:
+                                case FEM_CALC_BASE.Enums.EElemSuppType2D.eEl______:
                                 default:
                                     {
                                         switch (TopoModel.m_arrMLoads[iMLoadIndex].MLoadType)

@@ -272,7 +272,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[0].NodeStart = m_NodeArray[0];
             m_ELemArray[0].NodeEnd = m_NodeArray[1];
             // Element  Type
-            m_ELemArray[0].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000000;
+            m_ELemArray[0].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000000;
             // Element Material
             m_ELemArray[0].m_Mat = m_Mat;
             // Element Corss-section
@@ -352,7 +352,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[1].NodeStart = m_NodeArray[0];
             m_ELemArray[1].NodeEnd = m_NodeArray[2];
             // Element  Type
-            m_ELemArray[1].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000000;
+            m_ELemArray[1].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000000;
             // Element Material
             m_ELemArray[1].m_Mat = m_Mat;
             // Element Corss-section
@@ -378,7 +378,7 @@ namespace FEM_CALC_1Din3D
             m_ELemArray[2].NodeStart = m_NodeArray[0];
             m_ELemArray[2].NodeEnd = m_NodeArray[3];
             // Element  Type
-            m_ELemArray[2].m_iSuppType = (int)EElemSuppType.e3DEl_000000_000___;
+            m_ELemArray[2].m_iSuppType = (int)EElemSuppType3D.e3DEl_000000_000___;
             // Element Material
             m_ELemArray[2].m_Mat = m_Mat;
             // Element Corss-section

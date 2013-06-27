@@ -95,7 +95,11 @@ namespace FEM_CALC_1Din3D
         public CMaterial m_Mat = new CMaterial(); // Delete
         public CCrSc m_CrSc /*= new CCrSc()*/; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public CMLoad m_ELoad;
-        public FEM_CALC_BASE.Enums.EElemSuppType[] m_eSuppType;
+
+        // 2D support Types - 3-dimensional array for UXRX, UYRZ, UZRY
+        public FEM_CALC_BASE.Enums.EElemSuppType2D[] m_eSuppType2D; // 3-dimensional array of support types in 2D for each direction UXRX, UYRZ, UZRY
+        // 3D support Type
+        public EElemSuppType3D m_eSuppType3D;
 
         float m_GCS_X = 0f;
         float m_GCS_Y = 0f;
@@ -226,19 +230,19 @@ namespace FEM_CALC_1Din3D
             // 3D
             switch (m_iSuppType)
             {
-                case (int)EElemSuppType.e3DEl_000000_000000:
+                case (int)EElemSuppType3D.e3DEl_000000_000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_000000();
                     break;
-                case (int)EElemSuppType.e3DEl_000000_000___:
-                case (int)EElemSuppType.e3DEl_000____000000:
+                case (int)EElemSuppType3D.e3DEl_000000_000___:
+                case (int)EElemSuppType3D.e3DEl_000____000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_000___a(); // !!!!
                     break;
-                case (int)EElemSuppType.e3DEl_000000_0_00_0:
-                case (int)EElemSuppType.e3DEl_0_00_0_000000:
+                case (int)EElemSuppType3D.e3DEl_000000_0_00_0:
+                case (int)EElemSuppType3D.e3DEl_0_00_0_000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_0_00_0();
                     break;
-                case (int)EElemSuppType.e3DEl_000000_______:
-                case (int)EElemSuppType.e3DEl________000000:
+                case (int)EElemSuppType3D.e3DEl_000000_______:
+                case (int)EElemSuppType3D.e3DEl________000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_______(); // !!!!
                     break;
 
@@ -267,7 +271,7 @@ namespace FEM_CALC_1Din3D
         {
             // Get Element support type
             // Depends on nodal support and element releases
-            m_eSuppType = Get_iElemSuppType();
+            m_eSuppType2D = Get_iElemSuppType2D(); // Array
 
             // Get local matrix acc. to end support/restraint of element
             GetLocMatrix_3D();
@@ -736,10 +740,18 @@ namespace FEM_CALC_1Din3D
             }
         }
 
-
-        private FEM_CALC_BASE.Enums.EElemSuppType[] Get_iElemSuppType()
+        // Get
+        private void Get_iElemSuppType3D()
         {
-            FEM_CALC_BASE.Enums.EElemSuppType[] eArrSuppType = new FEM_CALC_BASE.Enums.EElemSuppType[3];
+            // Temporary, dokoncit
+            m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000000;
+
+
+        }
+
+        private FEM_CALC_BASE.Enums.EElemSuppType2D[] Get_iElemSuppType2D()
+        {
+            FEM_CALC_BASE.Enums.EElemSuppType2D[] eArrSuppType = new FEM_CALC_BASE.Enums.EElemSuppType2D[3];
 
             // Is DOF rigid?
             // true - 1 - yes, it is

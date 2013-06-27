@@ -43,7 +43,7 @@ namespace FEM_CALC_1Din3D
     }
 
     // Element SupportType
-    public enum EElemSuppType
+    public enum EElemSuppType3D
     {
         e3DEl_000000_000000 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
         e3DEl_000000_______ = 1, // Start Node - restrained DOF,                                                    End Node - free DOF
