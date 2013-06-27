@@ -45,6 +45,8 @@ namespace FEM_CALC_1Din3D
     // Element SupportType
     public enum EElemSuppType3D
     {
+        // UX, UY, UZ, RX, RY, RZ - see e3D_DOF
+
         e3DEl_000000_000000 = 0, // Start Node - restrained DOF,                                                    End Node - restrained DOF
         e3DEl_000000_______ = 1, // Start Node - restrained DOF,                                                    End Node - free DOF
         e3DEl________000000 = 2, // Start Node - free DOF,                                                          End Node - restrained DOF
@@ -52,6 +54,15 @@ namespace FEM_CALC_1Din3D
         e3DEl_000____000000 = 4, // Start Node - rotation hinge,                                                    End Node - restrained DOF
         e3DEl_000000_0_00_0 = 5, // Start Node - restrained DOF,                                                    End Node - free displacement in y-Axis nad rotation about y-Axis
         e3DEl_0_00_0_000000 = 6, // Start Node - free displacement in y-Axis nad rotation about y-Axis,             End Node - restrained DOF
-        e3DEl_000____000___ = 7  // Start Node - rotation hinge,                                                    End Node - rotation hinge
+        e3DEl_000____000___ = 7, // Start Node - rotation hinge,                                                    End Node - rotation hinge
+        e3DEl______________ = 99 // not supported member
+    }
+
+    //  DOF Vector Enum
+    public enum e2D_DOF
+    {
+        eUX = 0,
+        eUY = 1,
+        eRZ = 2
     }
 }

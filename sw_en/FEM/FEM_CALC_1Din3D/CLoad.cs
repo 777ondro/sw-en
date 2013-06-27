@@ -52,11 +52,11 @@ namespace FEM_CALC_1Din3D
         // Member 1-2 - Loaded by uniform load
         public void GetEndLoad_g(CE_1D Element, float fg_z)
         {
-            switch (Element.m_iSuppType)
+            switch (Element.m_eSuppType3D)
             {
-                case (int)EElemSuppType3D.e3DEl_000000_000000:
-                case (int)EElemSuppType3D.e3DEl_000000_0_00_0:
-                case (int)EElemSuppType3D.e3DEl_0_00_0_000000:
+                case EElemSuppType3D.e3DEl_000000_000000:
+                case EElemSuppType3D.e3DEl_000000_0_00_0:
+                case EElemSuppType3D.e3DEl_0_00_0_000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -76,7 +76,7 @@ namespace FEM_CALC_1Din3D
                        
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000____000000:
+                case EElemSuppType3D.e3DEl_000____000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -96,7 +96,7 @@ namespace FEM_CALC_1Din3D
 
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000000_000___:
+                case EElemSuppType3D.e3DEl_000000_000___:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -145,11 +145,11 @@ namespace FEM_CALC_1Din3D
         // Member 1-3
         public void GetEndLoad_F(CE_1D Element, float fFx, float fFy, float fFz)
         {
-            switch (Element.m_iSuppType)
+            switch (Element.m_eSuppType3D)
             {
-                case (int)EElemSuppType3D.e3DEl_000000_000000:
-                case (int)EElemSuppType3D.e3DEl_000000_0_00_0:
-                case (int)EElemSuppType3D.e3DEl_0_00_0_000000:
+                case EElemSuppType3D.e3DEl_000000_000000:
+                case EElemSuppType3D.e3DEl_000000_0_00_0:
+                case EElemSuppType3D.e3DEl_0_00_0_000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = fFx / 2f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -168,7 +168,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_VElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000____000000:
+                case EElemSuppType3D.e3DEl_000____000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = fFx / 2f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -187,7 +187,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_VElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000000_000___:
+                case EElemSuppType3D.e3DEl_000000_000___:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = fFx / 2f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -231,11 +231,11 @@ namespace FEM_CALC_1Din3D
         // Member 1-4
         public void GetEndLoad_M(CE_1D Element, float fMx, float fMy, float fMz)
         {
-            switch (Element.m_iSuppType)
+            switch (Element.m_eSuppType3D)
             {
-                case (int)EElemSuppType3D.e3DEl_000000_000000:
-                case (int)EElemSuppType3D.e3DEl_000000_0_00_0:
-                case (int)EElemSuppType3D.e3DEl_0_00_0_000000:
+                case EElemSuppType3D.e3DEl_000000_000000:
+                case EElemSuppType3D.e3DEl_000000_0_00_0:
+                case EElemSuppType3D.e3DEl_0_00_0_000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 9f * fMz / (8f * Element.FLength);
@@ -255,7 +255,7 @@ namespace FEM_CALC_1Din3D
 
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000____000000:
+                case EElemSuppType3D.e3DEl_000____000000:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;
@@ -274,7 +274,7 @@ namespace FEM_CALC_1Din3D
                         Element.m_VElemPEF_LCS_EnNode.FVectorItems[5] = 0f;
                         break;
                     }
-                case (int)EElemSuppType3D.e3DEl_000000_000___:
+                case EElemSuppType3D.e3DEl_000000_000___:
                     {
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[0] = 0f;
                         Element.m_VElemPEF_LCS_StNode.FVectorItems[1] = 0f;

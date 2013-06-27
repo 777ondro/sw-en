@@ -6,6 +6,7 @@ using BaseClasses;
 using FEM_CALC_BASE;
 using MATH;
 using CRSC;
+using System.Collections;
 
 namespace FEM_CALC_1Din3D
 {
@@ -43,7 +44,6 @@ namespace FEM_CALC_1Din3D
 
     public class CE_1D:CE_1D_BASE // :CE_1D_BASE
     {
-        public int m_iSuppType;
         // Geometrical properties of Element
         public float m_flength_X, m_flength_Y, m_flength_Z, m_frotation_angle = 0f;
         public float m_flength_XY, m_flength_YZ, m_flength_XZ;
@@ -118,7 +118,7 @@ namespace FEM_CALC_1Din3D
             Fill_EDisp_Init();
             Fill_EEndsLoad_Init();
         }
-        public CE_1D(CFemNode NStart, CFemNode NEnd, int iSuppType, CCrSc ECrSc)
+        public CE_1D(CFemNode NStart, CFemNode NEnd, EElemSuppType3D eSuppType, CCrSc ECrSc)
         {
             // Create and fill elements base data
 
@@ -126,7 +126,7 @@ namespace FEM_CALC_1Din3D
             NodeStart = NStart;
             NodeEnd   = NEnd;
             // Support type
-            m_iSuppType = iSuppType;
+            m_eSuppType3D = eSuppType;
 
             // Cross-section
             m_CrSc = ECrSc;
@@ -228,21 +228,21 @@ namespace FEM_CALC_1Din3D
             // Get local matrix acc. to end support/restraint of element
 
             // 3D
-            switch (m_iSuppType)
+            switch (m_eSuppType3D)
             {
-                case (int)EElemSuppType3D.e3DEl_000000_000000:
+                case EElemSuppType3D.e3DEl_000000_000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_000000();
                     break;
-                case (int)EElemSuppType3D.e3DEl_000000_000___:
-                case (int)EElemSuppType3D.e3DEl_000____000000:
+                case EElemSuppType3D.e3DEl_000000_000___:
+                case EElemSuppType3D.e3DEl_000____000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_000___a(); // !!!!
                     break;
-                case (int)EElemSuppType3D.e3DEl_000000_0_00_0:
-                case (int)EElemSuppType3D.e3DEl_0_00_0_000000:
+                case EElemSuppType3D.e3DEl_000000_0_00_0:
+                case EElemSuppType3D.e3DEl_0_00_0_000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_0_00_0();
                     break;
-                case (int)EElemSuppType3D.e3DEl_000000_______:
-                case (int)EElemSuppType3D.e3DEl________000000:
+                case EElemSuppType3D.e3DEl_000000_______:
+                case EElemSuppType3D.e3DEl________000000:
                     m_fkLocMatr = GetLocMatrix_3D_000000_______(); // !!!!
                     break;
 
@@ -271,7 +271,9 @@ namespace FEM_CALC_1Din3D
         {
             // Get Element support type
             // Depends on nodal support and element releases
-            m_eSuppType2D = Get_iElemSuppType2D(); // Array
+            m_eSuppType2D = Get_iElemSuppType2D(); // Return 3 - dimensional array - support types for UXRX, UYRZ, UZRY
+
+            Get_iElemSuppType3D(m_eSuppType2D); // Set m_eSuppType3D
 
             // Get local matrix acc. to end support/restraint of element
             GetLocMatrix_3D();
@@ -279,6 +281,7 @@ namespace FEM_CALC_1Din3D
             // Check of partial matrices members
 
             // Partial matrices of global matrix of member 6 x 6
+            //if(bDebug)
             //Console.WriteLine(m_fkLocMatr.Print3DMatrix());
 
             // Return partial matrixes and global matrix of FEM element 12 x 12 (2*6x2*6) 3D
@@ -729,7 +732,7 @@ namespace FEM_CALC_1Din3D
                 {
                     m_fC_GCS_Coord[0] = -1f;
                     m_fC_GCS_Coord[1] = 0f;
-                    m_fC_GCS_Coord[2] = 0f; 
+                    m_fC_GCS_Coord[2] = 0f;
                 }
                 else   // local x axis - downwards
                 {
@@ -740,13 +743,167 @@ namespace FEM_CALC_1Din3D
             }
         }
 
-        // Get
-        private void Get_iElemSuppType3D()
+        private bool IsMemberDOFRigid(bool[] bNodeDOF, ArrayList iMemberCollection, CNRelease NRelease, e3D_DOF eDOF)
         {
-            // Temporary, dokoncit
-            m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000000;
+            if (NRelease == null) // No release at point - support restraints are governing
+                if (iMemberCollection == null || iMemberCollection.Count == 1) // None or just one FEM Member is connected, means free end - support DOF are governing
+                    return bNodeDOF[(int)eDOF];
+                else // Node is connected to two or more members, releases are necessary to define DOF
+                    return true; // Two members connection is rigid as default if no release exists
+            else
+            {
+                // Some release exists
+                if (iMemberCollection == null || iMemberCollection.Count == 1) // None or just one FEM Member is connected, means free end
+                {
+                    // default Node DOF are false, therefore it is always false if no support exist in node
+                    if (bNodeDOF[(int)eDOF] == true && NRelease.m_bRestrain[(int)eDOF] == true)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    // More members is connected, do not take into account nodal support, just member releases
+                    if (NRelease.m_bRestrain[(int)eDOF] == true) // Release DOF rigid restraint exist and is ridig 
+                        return true;
+                    else
+                        return false;
+                }
+            }
+        }
 
+        private FEM_CALC_BASE.Enums.EElemSuppType2D Get_iElemSuppType2D_Part_UR(e3D_DOF eDOF_U, e3D_DOF eDOF_R)
+        {
+            // Is DOF rigid?
+            // true - 1 - yes, it is
+            // false - 0 - no, it isnt
+            // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
 
+            if (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 00_00
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 00___
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___;
+            }
+            else if
+            (
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // ___00
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 00_0_
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 0__00
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 0__0_
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_;
+            }
+            else if
+            (
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // _0__0
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0__0;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 0____
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0____;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // ___0_
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____0_;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // _0___
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0___;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // ____0
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_____0;
+            }
+            else
+            {
+                // _______  // Not supported member !!!  or other not implemented restraint conditions
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl______;
+            }
         }
 
         private FEM_CALC_BASE.Enums.EElemSuppType2D[] Get_iElemSuppType2D()
@@ -758,20 +915,85 @@ namespace FEM_CALC_1Din3D
             // false - 0 - no, it isnt
             // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
 
-
-
-            // DOKONCIT
-
-
-
-
+            eArrSuppType[(int)EM_PCS_DIR1.eUXRX] = Get_iElemSuppType2D_Part_UR(e3D_DOF.eUX, e3D_DOF.eRX); // Displacement in x-axis and rotation about x-axis in PCS
+            eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] = Get_iElemSuppType2D_Part_UR(e3D_DOF.eUY, e3D_DOF.eRZ); // Displacement in y-axis and rotation about z-axis in PCS
+            eArrSuppType[(int)EM_PCS_DIR1.eUZRY] = Get_iElemSuppType2D_Part_UR(e3D_DOF.eUZ, e3D_DOF.eRY); // Displacement in z-axis and rotation about y-axis in PCS
 
             return eArrSuppType;
         }
 
+        private void Get_iElemSuppType3D(FEM_CALC_BASE.Enums.EElemSuppType2D[] eArrSuppType)
+        {
+            // Is DOF rigid?
+            // true - 1 - yes, it is
+            // false - 0 - no, it isnt
+            // true - 1 restraint (infinity rigidity) / false - 0 - free (zero rigidity)
 
+            // Note: We can use 2D particular types or direct determination 3D (6 + 6 conditions of IsMemberDOFRigid)
 
+            if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00
+            )
+            m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000000;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_000000_______;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl________000000;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_
+            )
+            m_eSuppType3D = EElemSuppType3D.e3DEl_000000_000___;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_000____000000;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00__0 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_000000_0_00_0;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_0_00_0_000000;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_000____000___;
+            else
+            {
+                // Not defined stiffeness matrix
+                m_eSuppType3D = EElemSuppType3D.e3DEl______________;
+            }
 
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Definition of local stiffeness matrixes depending on loading and restraints
@@ -997,28 +1219,28 @@ namespace FEM_CALC_1Din3D
         private void GetLocMatrix_3D()
         {
 
-            // DOKONCIT
-
-            /*
-            switch (m_eSuppType[(int)EM_PCS_DIR1.eUYRZ])
+            switch (m_eSuppType3D)
             {
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_00:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_00_00();
+                case EElemSuppType3D.e3DEl_000000_000000:
+                    m_fkLocMatr = GetLocMatrix_3D_000000_000000();
                     break;
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_00_0_:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_00_0_();
+                case EElemSuppType3D.e3DEl_000000_000___:
+                case EElemSuppType3D.e3DEl_000____000000:
+                    m_fkLocMatr = GetLocMatrix_3D_000000_000___a(); // !!!!
                     break;
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__00:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_0__00();
+                case EElemSuppType3D.e3DEl_000000_0_00_0:
+                case EElemSuppType3D.e3DEl_0_00_0_000000:
+                    m_fkLocMatr = GetLocMatrix_3D_000000_0_00_0();
                     break;
-                case FEM_CALC_BASE.Enums.EElemSuppType.eEl_0__0_:
-                    m_fkLocMatr.m_fArrMembers = GetLocMatrix_3D_0__0_();
+                case EElemSuppType3D.e3DEl_000000_______:
+                case EElemSuppType3D.e3DEl________000000:
+                    m_fkLocMatr = GetLocMatrix_3D_000000_______(); // !!!!
                     break;
                 default:
                     // Error or unsupported element - exception
                     m_fkLocMatr.m_fArrMembers = null;
                     break;
-            }*/
+            }
         }
         #endregion
 
