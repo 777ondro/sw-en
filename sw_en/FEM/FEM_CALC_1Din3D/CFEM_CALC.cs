@@ -137,20 +137,178 @@ namespace FEM_CALC_1Din3D
                 }
             }
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Set Global Code Numbers
+
+            int m_iCodeNo = 0; // Number of unrestrained degrees of freedom - finally gives size of structure global matrix
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
+            // Save indexes of nodes and DOF which are free and represent vector of uknown variables in solution
+            SetNodesGlobCodeNo(); // Nastavi DOF v uzloch a ich globalne kodove cisla
+
+            // Fill members of structure global vector of displacement
+            // Now we know number of not restrained DOF, so we can allocate array size
+            m_fDisp_Vector_CN = new int[m_iCodeNo, 3]; // 1st - global DOF code number, 2nd - Node index, 3rd - local code number of DOF in NODE
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Save it as array of arrays n x 2 (1st value is index - node index (0 - n-1) , 2nd value is DOF index (0-5)
+            // n - total number of nodes in model
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            FillGlobalDisplCodeNo();
 
 
 
-            // dopracovat
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Right side of Equation System
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
+            m_M_K_Structure = new CMatrix(m_iCodeNo);
+
+            // Fill Global Stiffeness Matrix
+            FillGlobalMatrix();
+
+            // Global Stiffeness Matrix    m_iCodeNo x  m_iCodeNo
+            if (bDebugging)
+            {
+                Console.WriteLine("Global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                m_M_K_Structure.Print2DMatrixFormated();
+            }
 
 
 
 
 
+            // Auxiliary temporary transformation from 2D to 1D array / from float do double 
+            // Pomocne prevody medzi jednorozmernym, dvojrozmernym polom a triedou Matrix, 
+            // bude nutne zladit a urcit jeden format v akom budeme pracovat s datami a potom zmazat 
+
+
+
+            CArray objArray = new CArray();
+            // Convert Size
+            float[] m_M_K_fTemp1D = objArray.ArrTranf2Dto1D(m_M_K_Structure.m_fArrMembers);
+            // Convert Type
+            double[] m_M_K_dTemp1D = objArray.ArrConverFloatToDouble1D(m_M_K_fTemp1D);
+
+
+
+            MatrixF64 objMatrix = new MatrixF64(m_iCodeNo, m_iCodeNo, m_M_K_dTemp1D);
+            // Print Created Matrix of MatrixF64 Class
+            if (bDebugging)
+            {
+                Console.WriteLine("Global stiffeness matrix in F64 Class - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                objMatrix.WriteLine();
+            }
+            // Get Inverse Global Stiffeness Matrix
+            MatrixF64 objMatrixInv = objMatrix.Inverse();
+            // Print Inverse Matrix
+            if (bDebugging)
+            {
+                Console.WriteLine("Inverse global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                objMatrixInv.WriteLine();
+            }
+            // Convert Type
+            float[] m_M_K_Inv_fTemp1D = objArray.ArrConverMatrixF64ToFloat1D(objMatrixInv);
+            // Inverse Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
+            CMatrix m_M_K_Structure_Inv = new CMatrix(m_iCodeNo);
+            m_M_K_Structure_Inv.m_fArrMembers = objArray.ArrTranf1Dto2D(m_M_K_Inv_fTemp1D);
+
+
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Left side of Equation System
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Global Load Vector - Allocate Memory (Vector Size)
+            m_V_Load = new CVector(m_iCodeNo);
+
+            // Fill Global Load Vector
+            FillGlobalLoadVector();
+
+            // Display Global Load Vector
+            if (bDebugging)
+            {
+                Console.WriteLine("Global load vector - Dimensions: " + m_iCodeNo + " x 1 \n");
+                m_V_Load.Print1DVector();
+            }
 
 
 
 
-        }
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Solution - calculation of unknown displacement of nodes in GCS - system of linear equations
+            // Start Solver
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Global Displacement Vector - Allocate Memory (Vector Size)
+            m_V_Displ = new CVector(m_iCodeNo);
+
+            // Fill Global Displacement Vector
+            m_V_Displ = VectorF.fMultiplyMatrVectr(m_M_K_Structure_Inv, m_V_Load);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // End Solver
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Display Global Displacement Vector - solution result
+            if (bDebugging)
+            {
+                Console.WriteLine("Global displacement vector - Dimensions: " + m_iCodeNo + " x 1 \n");
+                m_V_Displ.Print1DVector();
+            }
+
+            // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
+            for (int i = 0; i < m_iCodeNo; i++)
+            {
+                // Check if DOF is default (free - ) or has some initial value (settlement; soil consolidation etc.)
+                // See default values - float.PositiveInfinity
+                if (FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] == float.PositiveInfinity)
+                    FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] = m_V_Displ.FVectorItems[i]; // set calculated
+                else // some real initial value exists
+                    FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
+            }
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Get final end forces at element in global coordinate system GCS
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (bDebugging)
+            {
+                for (int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+                {
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_EnNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_EnNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_EnNode.Print1DVector();
+                }
+            }
+        } // End of Constructor
+
+
+
+
+        /// <summary>
+        ///  Functions and Methods
+        /// </summary>
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TEMPORARY EXAMPLE DATA
