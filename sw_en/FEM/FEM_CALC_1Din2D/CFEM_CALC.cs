@@ -108,9 +108,11 @@ namespace FEM_CALC_1Din2D
             FillGlobalMatrix();
 
             // Global Stiffeness Matrix    m_iCodeNo x  m_iCodeNo
-            Console.WriteLine("Global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
-            m_M_K_Structure.Print2DMatrixFormated();
-
+            if (bDebugging)
+            {
+                Console.WriteLine("Global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                m_M_K_Structure.Print2DMatrixFormated();
+            }
 
 
 
@@ -132,19 +134,24 @@ namespace FEM_CALC_1Din2D
 
             MatrixF64 objMatrix = new MatrixF64(m_iCodeNo, m_iCodeNo, m_M_K_dTemp1D);
             // Print Created Matrix of MatrixF64 Class
-            Console.WriteLine("Global stiffeness matrix in F64 Class - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
-            objMatrix.WriteLine();
+            if (bDebugging)
+            {
+                Console.WriteLine("Global stiffeness matrix in F64 Class - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                objMatrix.WriteLine();
+            }
             // Get Inverse Global Stiffeness Matrix
             MatrixF64 objMatrixInv = objMatrix.Inverse();
             // Print Inverse Matrix
-            Console.WriteLine("Inverse global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
-            objMatrixInv.WriteLine();
+            if (bDebugging)
+            {
+                Console.WriteLine("Inverse global stiffeness matrix - Dimensions: " + m_iCodeNo + " x " + m_iCodeNo + "\n");
+                objMatrixInv.WriteLine();
+            }
             // Convert Type
             float[] m_M_K_Inv_fTemp1D = objArray.ArrConverMatrixF64ToFloat1D(objMatrixInv);
             // Inverse Global Stiffeness Matrix of Structure - Allocate Memory (Matrix Size)
             CMatrix m_M_K_Structure_Inv = new CMatrix(m_iCodeNo);
             m_M_K_Structure_Inv.m_fArrMembers = objArray.ArrTranf1Dto2D(m_M_K_Inv_fTemp1D);
-
 
 
 
@@ -159,8 +166,11 @@ namespace FEM_CALC_1Din2D
             FillGlobalLoadVector();
 
             // Display Global Load Vector
-            Console.WriteLine("Global load vector - Dimensions: " + m_iCodeNo + " x 1 \n");
-            m_V_Load.Print1DVector();
+            if (bDebugging)
+            {
+                Console.WriteLine("Global load vector - Dimensions: " + m_iCodeNo + " x 1 \n");
+                m_V_Load.Print1DVector();
+            }
 
 
 
@@ -182,8 +192,11 @@ namespace FEM_CALC_1Din2D
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // Display Global Displacement Vector - solution result
-            Console.WriteLine("Global displacement vector - Dimensions: " + m_iCodeNo + " x 1 \n");
-            m_V_Displ.Print1DVector();
+            if (bDebugging)
+            {
+                Console.WriteLine("Global displacement vector - Dimensions: " + m_iCodeNo + " x 1 \n");
+                m_V_Displ.Print1DVector();
+            }
 
             // Set displacements and rotations of DOF in GCS to appropriate node DOF acc. to global code numbers
             for (int i = 0; i < m_iCodeNo; i++)
@@ -196,31 +209,32 @@ namespace FEM_CALC_1Din2D
                     FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
             }
 
-
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Get final end forces at element in global coordinate system GCS
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            for (int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+            if (bDebugging)
             {
-                FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_StNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
-                FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_StNode.Print1DVector();
-                FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_EnNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
-                FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_EnNode.Print1DVector();
-                FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_StNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
-                FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_StNode.Print1DVector();
-                FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_EnNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
-                FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_EnNode.Print1DVector();
-                FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_StNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
-                FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_StNode.Print1DVector();
-                FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_EnNode();
-                Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
-                FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_EnNode.Print1DVector();
+                for (int i = 0; i < FEMModel.m_arrFemMembers.Length; i++)
+                {
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in GCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_GCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in GCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_GCS_EnNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node End Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemEF_LCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node End Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemEF_LCS_EnNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_StNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeStart.ID + "; " + "Start Node Internal Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_StNode.Print1DVector();
+                    FEMModel.m_arrFemMembers[i].GetArrElemIF_LCS_EnNode();
+                    Console.WriteLine("Element Index No.: " + i + "; " + "Node No.: " + FEMModel.m_arrFemMembers[i].NodeEnd.ID + "; " + "End Node Internal Forces in LCS");
+                    FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_EnNode.Print1DVector();
+                }
             }
         } // End of Constructor
 
