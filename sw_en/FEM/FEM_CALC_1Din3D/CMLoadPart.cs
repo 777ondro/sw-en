@@ -61,7 +61,7 @@ namespace FEM_CALC_1Din3D
 
                     case EMLoadDirPCC1.eMLD_PCC_FXX_MXX: // Axial force or torsional moment
                         {
-                            // DOF RX can't be released - always rigid
+                            // DOF RX can be released at one end only - one side is always supported
                             switch (arrFemMembers[kMemberIndex].m_eSuppType2D[(int)EM_PCS_DIR1.eUXRX])
                             {
                                 // Type of supports is already defined  but I check it once more in body of function !!!
