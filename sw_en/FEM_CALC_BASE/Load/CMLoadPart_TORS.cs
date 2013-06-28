@@ -210,15 +210,13 @@ namespace FEM_CALC_BASE
 
         void GetEIF_00_00_11_XX(CMLoad_11 Load, float fL, out float fMa, out float fMb)
         {
-            // Temporary
-            fMa = 0.0f;
-            fMb = 0.0f;
+            fMa = Load.FF / 2.0f;
+            fMb = fMa;
         }
         void GetEIF_00_00_12_XX(CMLoad_12 Load, float fL, out float fMa, out float fMb)
         {
-            // Temporary
-            fMa = 0.0f;
-            fMb = 0.0f;
+            fMa = Load.FF / 2.0f;
+            fMb = fMa;
         }
 
 

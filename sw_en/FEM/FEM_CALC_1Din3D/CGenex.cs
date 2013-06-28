@@ -243,7 +243,7 @@ namespace FEM_CALC_1Din3D
                                 // Use member PRINCIPAL coordinate system
                                 CMLoadPart objAux = new CMLoadPart(TopoModel, m_arrFemMembers, i, k,
                                     out fTemp_A_UXRX, out fTemp_Ma_UXRX, out fTemp_A_UYRZ, out fTemp_Ma_UYRZ, out fTemp_A_UZRY, out fTemp_Ma_UZRY,
-                                    out fTemp_B_UXRX, out fTemp_Ma_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ,out fTemp_B_UZRY, out fTemp_Mb_UZRY
+                                    out fTemp_B_UXRX, out fTemp_Mb_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ, out fTemp_B_UZRY, out fTemp_Mb_UZRY
                                 );
 
                                 // Add values of temporary end forces due to particular load to the end forces items of vector
