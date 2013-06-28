@@ -81,14 +81,14 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNSupports[0].m_iNodeCollection = new int[2];
             m_arrNSupports[1].m_iNodeCollection = new int[1];
 
-            m_arrNSupports[0].m_iNodeCollection[0] = 1; // Node ID 2
-            m_arrNSupports[0].m_iNodeCollection[1] = 2; // Node ID 3
+            m_arrNSupports[0].m_iNodeCollection[0] = 2; // Node ID 2
+            m_arrNSupports[0].m_iNodeCollection[1] = 3; // Node ID 3
 
-            m_arrNSupports[1].m_iNodeCollection[0] = 3; // Node ID 4
+            m_arrNSupports[1].m_iNodeCollection[0] = 4; // Node ID 4
 
             // Create load objects
             m_arrMLoads[0] = new CMLoad_21(5000f);  // q - whole member
-            m_arrMLoads[1] = new CMLoad_12(17000f); // F - in the middle of member
+            m_arrMLoads[1] = new CMLoad_12(-17000f); // F - in the middle of member
             m_arrMLoads[2] = new CMLoad_12(20000f); // M - in the middle of member
 
             // Fill list/collection of loaded members
@@ -106,15 +106,15 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             m_arrMLoads[2].MLoadTypeDistr = EMLoadTypeDistr.eMLT_FS_H_12;
             m_arrMLoads[2].MLoadType = EMLoadType.eMLT_M;
-            m_arrMLoads[2].EDirPPC = EMLoadDirPCC1.eMLD_PCC_FZV_MYU;
+            m_arrMLoads[2].EDirPPC = EMLoadDirPCC1.eMLD_PCC_FXX_MXX;
 
             m_arrMLoads[0].IMemberCollection = new int[1];
             m_arrMLoads[1].IMemberCollection = new int[1];
             m_arrMLoads[2].IMemberCollection = new int[1];
 
-            m_arrMLoads[0].IMemberCollection[0] = 0;  // Member ID 1 (1-2)
-            m_arrMLoads[1].IMemberCollection[0] = 1;  // Member ID 2 (1-3)
-            m_arrMLoads[2].IMemberCollection[0] = 2;  // Member ID 3 (1-4)
+            m_arrMLoads[0].IMemberCollection[0] = 1;  // Member ID 1 (1-2)
+            m_arrMLoads[1].IMemberCollection[0] = 2;  // Member ID 2 (1-3)
+            m_arrMLoads[2].IMemberCollection[0] = 3;  // Member ID 3 (1-4)
 
             // Load Cases
             // Load Case 1

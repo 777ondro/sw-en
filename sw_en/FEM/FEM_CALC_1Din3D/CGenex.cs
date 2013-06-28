@@ -106,8 +106,73 @@ namespace FEM_CALC_1Din3D
             }
 
 
-            // Releases !!!! - see 2D solution
+            // Releases !!!! - copied from 2D solution, check implementation in 3D !!!
 
+            //  If only two members are connected in one node and if release exists at that node, copy this release from one member to the another
+            for (int i = 0; i < m_arrFemNodes.Length; i++)
+            {
+                if (m_arrFemNodes[i].m_iMemberCollection != null && m_arrFemNodes[i].m_iMemberCollection.Count == 2) // Node is connected to two members
+                {
+                    // We know member ID, so we can get index of members in list
+                    int iMember1_index = -1;
+                    int iMember2_index = -1;
+
+                    for (int j = 0; j < m_arrFemMembers.Length; j++)
+                    {
+                        // 1st member index
+                        if (iMember1_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[j].ID)) // if Member ID is in the list
+                        {
+                            iMember1_index = j; // Set 1st
+                        }
+
+                        if (iMember1_index > -1) // Index was defined, we can break cycle
+                            break;
+                    }
+
+                    // 2nd member index
+                    for (int k = iMember1_index + 1; k < m_arrFemMembers.Length; k++) // Search for second only in interval between first founded member and last member
+                    {
+                        if (iMember2_index < 0 && m_arrFemNodes[i].m_iMemberCollection.Contains(m_arrFemMembers[k].ID)) // if Member ID is in the list interval
+                        {
+                            iMember2_index = k;
+                        }
+
+                        if (iMember2_index > -1) // Index was defined, we can break cycle
+                            break;
+                    }
+
+
+                    // If relases exist, they are neccesary to define DOF of both members, therefore copy release of one member to the another one
+                    if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 != null)
+                    {
+                        if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                            m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
+                        else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                            m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain;
+                    }
+                    else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 != null)
+                    {
+                        if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 == null)
+                            m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
+                        else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 == null)
+                            m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain;
+                    }
+                    else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeStart.ID && m_arrFemMembers[iMember2_index].CnRelease1 != null)
+                    {
+                        if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                            m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
+                        else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                            m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease1.m_bRestrain;
+                    }
+                    else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember2_index].NodeEnd.ID && m_arrFemMembers[iMember2_index].CnRelease2 != null)
+                    {
+                        if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeStart.ID && m_arrFemMembers[iMember1_index].CnRelease1 == null)
+                            m_arrFemMembers[iMember1_index].CnRelease1.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
+                        else if (m_arrFemNodes[i].ID == m_arrFemMembers[iMember1_index].NodeEnd.ID && m_arrFemMembers[iMember1_index].CnRelease2 == null)
+                            m_arrFemMembers[iMember1_index].CnRelease2.m_bRestrain = m_arrFemMembers[iMember2_index].CnRelease2.m_bRestrain;
+                    }
+                }
+            }
 
             // Additional data of members
             // Fill Members stifeness matrices
@@ -181,27 +246,27 @@ namespace FEM_CALC_1Din3D
                                     out fTemp_B_UXRX, out fTemp_Ma_UXRX, out fTemp_B_UYRZ, out fTemp_Mb_UYRZ,out fTemp_B_UZRY, out fTemp_Mb_UZRY
                                 );
 
-                                // Add values of temperary end forces due to particular load to the end forces items of vector
+                                // Add values of temporary end forces due to particular load to the end forces items of vector
                                 // Primary end forces due member loading in local coordinate system LCS
 
                                 // Start Node
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_A_UXRX;
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMX] += fTemp_Ma_UXRX;
 
-                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_A_UYRZ; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnych osi a orientacie zatazenia
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Ma_UYRZ;
 
-                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFZ] += fTemp_A_UZRY; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnzch osi a orientacie zatazenia
+                                m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eFZ] += fTemp_A_UZRY; // !!! Signs - nutne skontrolovat znamienka podla smeru lokalnych osi a orientacie zatazenia
                                 m_arrFemMembers[k].m_VElemPEF_LCS_StNode.FVectorItems[(int)e3D_E_F.eMY] += fTemp_Ma_UZRY;
 
                                 // End Node
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFX] += fTemp_B_UXRX;
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMX] += fTemp_Mb_UXRX;
 
-                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFY] += -fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFY] += fTemp_B_UYRZ; //-fTemp_B_UYRZ;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie, toto su vsak reakcie
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMZ] += fTemp_Mb_UYRZ;
 
-                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFZ] += -fTemp_B_UZRY;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie
+                                m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eFZ] += fTemp_B_UZRY; //-fTemp_B_UZRY;  // Zmena znamienka pre silu Vb na konci pruta, znamienko je opacne nez u reakcie, toto su vsak reakcie
                                 m_arrFemMembers[k].m_VElemPEF_LCS_EnNode.FVectorItems[(int)e3D_E_F.eMY] += fTemp_Mb_UZRY;
                             }
                         }

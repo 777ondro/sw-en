@@ -106,8 +106,33 @@ namespace FEM_CALC_BASE
 
         void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fMa, out float fMb)
         {
-            // Temporary
-            fMa = fMb = 0.0f;
+            // Load in the middle
+            switch (eMType)
+            {
+                case Enums.EElemSuppType2D.eEl_00_00: // Both Side restrained against axial direction displacement
+                    {
+                        GetEIF_00_00_12_XX(Load, Member.FLength, out fMa, out fMb);
+                        return;
+                    }
+                case Enums.EElemSuppType2D.eEl_00_0_:
+                case Enums.EElemSuppType2D.eEl_00___:
+                    {
+                        GetEIF_00____12_XX(Load, Member.FLength, out fMa, out fMb);
+                        return;
+                    }
+                case Enums.EElemSuppType2D.eEl_0__00:
+                case Enums.EElemSuppType2D.eEl____00:
+                    {
+                        GetEIF____00_12_XX(Load, Member.FLength, out fMa, out fMb);
+                        return;
+                    }
+                default:
+                    {
+                        // Exception
+                        fMa = fMb = 0.0f;
+                        return;
+                    }
+            }
         }
 
         void GetMLoadPart_21(CMLoad_21 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fMa, out float fMb)
@@ -207,14 +232,12 @@ namespace FEM_CALC_BASE
 
         void GetEIF_00____11_XX(CMLoad_11 Load, float fL, out float fMa, out float fMb)
         {
-            // Temporary
-            fMa = 0.0f;
+            fMa = Load.FF;
             fMb = 0.0f;
         }
         void GetEIF_00____12_XX(CMLoad_12 Load, float fL, out float fMa, out float fMb)
         {
-            // Temporary
-            fMa = 0.0f;
+            fMa = Load.FF;
             fMb = 0.0f;
         }
 
@@ -230,15 +253,14 @@ namespace FEM_CALC_BASE
 
         void GetEIF____00_11_XX(CMLoad_11 Load, float fL, out float fMa, out float fMb)
         {
-            // Temporary
             fMa = 0.0f;
-            fMb = 0.0f;
+            fMb = Load.FF; // Sign ??
         }
         void GetEIF____00_12_XX(CMLoad_12 Load, float fL, out float fMa, out float fMb)
         {
             // Temporary
             fMa = 0.0f;
-            fMb = 0.0f;
+            fMb = Load.FF; // Sign ??
         }
 
 

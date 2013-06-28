@@ -13,7 +13,7 @@ namespace BaseClasses
         //----------------------------------------------------------------------------
         private int m_iNLoad_ID;
         private CNode m_Node;
-        private int[] m_iNodeCollection; // List / Collection of nodes where load is defined
+        private int[] m_iNodeCollection; // List / Collection of nodes IDs where load is defined
         private float m_Value;
         private ENLoadType m_nLoadType;
         public int m_fTime;
