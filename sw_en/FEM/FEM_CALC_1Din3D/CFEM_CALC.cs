@@ -275,7 +275,7 @@ namespace FEM_CALC_1Din3D
                 for (int j = 0; j < FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems.Length; j++) // Check each DOF of all nodes
                 {
                     if (FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[j] == float.PositiveInfinity) // Check that default infinity value wasn't changed
-                        FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[i] = 0; // Set zero
+                        FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[j] = 0; // Set zero
                 }
             }
 
