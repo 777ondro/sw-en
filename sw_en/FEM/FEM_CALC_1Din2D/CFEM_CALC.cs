@@ -8,10 +8,11 @@ using BaseClasses;
 using MATH;
 using MATERIAL;
 using CRSC;
+using FEM_CALC_BASE;
 
 namespace FEM_CALC_1Din2D
 {
-    public class CFEM_CALC
+    public class CFEM_CALC : FEM_CALC_BASE.CFEM_CALC
     {
         // Settings
         static int iNodeDOFNo = (int)ENDOF.e2DEnv; // 3 DOF in 2D

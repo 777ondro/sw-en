@@ -22,6 +22,7 @@ using System.Threading;
 using System.Collections;
 using BaseClasses;
 using CRSC;
+using FEM_CALC_BASE;
 using FEM_CALC_1Din2D;
 using FEM_CALC_1Din3D;
 using _3DTools;
@@ -550,14 +551,31 @@ namespace sw_en_GUI
 
         private void menuItemCalculate_Click(object sender, RoutedEventArgs e)
         {
+            /*
             // Create calculation object and run calculation
-            // FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC(model); // Nove vypoctove jadro
+            FEM_CALC_BASE.CFEM_CALC obj_Calc = new FEM_CALC_BASE.CFEM_CALC(); // Nove vypoctove jadro
+
+            if (model.m_eSLN == ESLN.e2DD_1D)
+            {
+                FEM_CALC_1Din2D.CFEM_CALC obj_Calc_2D = new FEM_CALC_1Din2D.CFEM_CALC(model, m_bDebugging);
+                obj_Calc = (FEM_CALC_BASE.CFEM_CALC)(obj_Calc_2D); // Change to basic type
+            }
+            else if (model.m_eSLN == ESLN.e3DD_1D)
+            {
+                FEM_CALC_1Din3D.CFEM_CALC obj_Calc_3D = new FEM_CALC_1Din3D.CFEM_CALC(model, m_bDebugging);
+                obj_Calc = (FEM_CALC_BASE.CFEM_CALC)(obj_Calc_3D); // Change to basic type
+            }
+            else
+            {
+                // Not implemented
+            }
+
+            */
+
+
+
+
             FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC();         // Povodny priklad - zadanie c 4
-
-
-
-
-
 
             // Auxialiary string - result data
 
@@ -582,6 +600,7 @@ namespace sw_en_GUI
 
             // Display Message
             MessageBox.Show(sMessageCalc, "Solver Message",MessageBoxButton.OK);
+
         }
 
 
