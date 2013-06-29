@@ -304,14 +304,6 @@ namespace FEM_CALC_1Din3D
             }
         } // End of Constructor
 
-
-
-
-        /// <summary>
-        ///  Functions and Methods
-        /// </summary>
-
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TEMPORARY EXAMPLE DATA
 
@@ -432,7 +424,7 @@ namespace FEM_CALC_1Din3D
             // Now we know number of not restrained DOF, so we can allocate array size
             m_fDisp_Vector_CN = new int[m_iCodeNo,3]; // 1st - global DOF code number, 2nd - Node index, 3rd - local code number of DOF in NODE
 
-            FillGlobalDisplCodeNo();
+            FillGlobalDisplCodeNoOld();
 
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -608,7 +600,7 @@ namespace FEM_CALC_1Din3D
             // Save it as array of arrays n x 2 (1st value is index - node index (0 - n-1) , 2nd value is DOF index (0-5)
             // n - total number of nodes in model
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            SetNodesGlobCodeNo(); // Nastavi DOF v uzlov globalne kodove cisla ???
+            SetNodesGlobCodeNoOld(); // Nastavi DOF v uzlov globalne kodove cisla ???
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Right side of Equation System
@@ -746,21 +738,67 @@ namespace FEM_CALC_1Din3D
                     m_ELemArray[i].m_VElemIF_LCS_EnNode.Print1DVector();
                 }
         } // End of Constructor
-
-
-
-
-
-
-
-
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         ///  Functions and Methods
         /// </summary>
-        
 
         void SetNodesGlobCodeNo()
+        {
+            // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
+
+            for (int j = 0; j < FEMModel.m_arrFemNodes.Length; j++)
+            {
+                // Set DOF from supports
+                for (int k = 0; k < TopoModelFile.m_arrNSupports.Length; k++)
+                {
+                    if (TopoModelFile.m_arrNSupports[k].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Some support exists in node
+                    {
+                        // Set all DOF of nodal support to the node
+                        for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
+                        {
+                            FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = TopoModelFile.m_arrNSupports[k].m_bRestrain[l];
+                        }
+                    }
+                }
+
+                for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
+                {
+                    bool bIsDOFReleased = false;
+                    // Set DOF from releases
+                    for (int nr = 0; nr < TopoModelFile.m_arrNReleases.Length; nr++)
+                    {
+                        // If only less than two elements are conected to the node and current node is release collection of nodes
+                        if (FEMModel.m_arrFemNodes[j].m_iMemberCollection.Count <= 2 &&
+                            TopoModelFile.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
+                        {
+                            if (FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] == true &&
+                                TopoModelFile.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
+                            {
+                                FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = false; // DOF of release is free, therefore set it to the node
+                                // DOF release exist therefore do not add DOF to the global code numbers
+                                bIsDOFReleased = true;
+                            }
+                        }
+                    }
+
+                    // Set global code number
+                    if (!FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] && !bIsDOFReleased)  // Perform for not restrained DOF which are not released by member hinge
+                    {
+                        FEMModel.m_arrFemNodes[j].m_ArrNCodeNo[l] = m_iCodeNo; // Set global code number of degree of freedom (DOF), start with zero
+
+                        m_iCodeNo++;
+                    }
+                    else // Set zero
+                    {
+                        FEMModel.m_arrFemNodes[j].m_ArrNCodeNo[l] = -1;
+                    }
+                }
+            }
+        }
+
+        void SetNodesGlobCodeNoOld()
         {
             // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
 
@@ -823,6 +861,29 @@ namespace FEM_CALC_1Din3D
         {
             m_iCodeNo = 0;
 
+            for (int h = 0; h < FEMModel.m_arrFemNodes.Length; h++) // Each Node
+            {
+                for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
+                {
+                    if (FEMModel.m_arrFemNodes[h].m_ArrNCodeNo[i] >= 0)       // Perform for not restrained DOF (global code number exist)
+                    {
+                        m_fDisp_Vector_CN[m_iCodeNo, 0] = m_iCodeNo;                 // Add global code number index of degree of freedom (DOF)
+                        m_fDisp_Vector_CN[m_iCodeNo, 1] = h;                         // Add Node index in colletion !!! It is not same as Node ID !!!
+                        m_fDisp_Vector_CN[m_iCodeNo, 2] = i;                         // Add local code number of degree of freedom (DOF) 0-2
+
+                        m_iCodeNo++;
+
+                        if (m_iCodeNo >= m_fDisp_Vector_CN.Length / 3)
+                            continue;
+                    }
+                }
+            }
+        }
+
+        void FillGlobalDisplCodeNoOld()
+        {
+            m_iCodeNo = 0;
+
             foreach (CFemNode i_CNode in m_NodeArray) // Each Node
             {
                 for (int i = 0; i < iNodeDOFNo; i++)     // Each DOF
@@ -844,11 +905,13 @@ namespace FEM_CALC_1Din3D
             }
         }
 
-        // Returns square stiffeness matrix of free DOF which are uknown in solution
-        // Create matrix of code numbers or nodes (n - number of nodes) indexes and DOF indexes ((n-1) * 2) should be advantageous way for high-speed calculation
-
         void FillGlobalMatrix()
         {
+
+            // Returns square stiffeness matrix of free DOF which are uknown in solution
+            // Create matrix of code numbers or nodes (n - number of nodes) indexes and DOF indexes ((n-1) * 2) should be advantageous way for high-speed calculation
+
+
             // i - Counter of global code number (which code number is actually filled)
 
             for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
@@ -894,10 +957,6 @@ namespace FEM_CALC_1Din3D
                 }
             }
         }
-
-
-
-
 
         void FillGlobalLoadVector()
         {
@@ -951,35 +1010,5 @@ namespace FEM_CALC_1Din3D
 
             }
         }
-
-
-
-
-
-        void GetFinalElemEndIF(CE_1D element, CFemNode node)
-        {
-        
-          //node.m_sDisp = 
-        
-        
-        }
-
-        
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
     }
-
 }
