@@ -238,13 +238,9 @@ namespace FEM_CALC_1Din2D
             }
         } // End of Constructor
 
-
-
-
         /// <summary>
         ///  Functions and Methods
         /// </summary>
-
 
         void SetNodesGlobCodeNo()
         {
@@ -299,7 +295,7 @@ namespace FEM_CALC_1Din2D
                 }
             }
         }
-        
+
         void FillGlobalDisplCodeNo()
         {
             m_iCodeNo = 0;
@@ -323,11 +319,12 @@ namespace FEM_CALC_1Din2D
             }
         }
 
-        // Returns square stiffeness matrix of free DOF which are uknown in solution
-        // Create matrix of code numbers or nodes (n - number of nodes) indexes and DOF indexes ((n-1) * 2) should be advantageous way for high-speed calculation
-
         void FillGlobalMatrix()
         {
+            // Returns square stiffeness matrix of free DOF which are uknown in solution
+            // Create matrix of code numbers or nodes (n - number of nodes) indexes and DOF indexes ((n-1) * 2) should be advantageous way for high-speed calculation
+
+
             // i - Counter of global code number (which code number is actually filled)
 
             for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
@@ -378,10 +375,6 @@ namespace FEM_CALC_1Din2D
                 }
             }
         }
-
-
-
-
 
         void FillGlobalLoadVector()
         {
@@ -436,30 +429,5 @@ namespace FEM_CALC_1Din2D
 
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
