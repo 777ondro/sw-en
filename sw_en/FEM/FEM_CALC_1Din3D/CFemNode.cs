@@ -61,7 +61,22 @@ namespace FEM_CALC_1Din3D
         }
 
         // Array of int values
-        public ArrayList GetFoundedMembers_Index(CFemNode Node, CE_1D[] ElemArray, int iElemNo)
+        public ArrayList GetFoundedMembers_Index(CFemNode Node, CE_1D[] ElemArray)
+        {
+            ArrayList IndexList = new ArrayList();
+
+            for (int i = 0; i < ElemArray.Length; i++) // Check for each member in array
+            {
+                if ((ElemArray[i].NodeStart == Node) || (ElemArray[i].NodeEnd == Node))
+                {
+                    IndexList.Add(i); // Add Element to Element Index Array
+                }
+            }
+
+            return IndexList;
+        }
+
+        public ArrayList GetFoundedMembers_IndexOld(CFemNode Node, CE_1D[] ElemArray, int iElemNo)
         {
             int j = 0;
             ArrayList IndexList = new ArrayList();
@@ -77,8 +92,6 @@ namespace FEM_CALC_1Din3D
 
             return IndexList;
         }
-
-
 
 
 

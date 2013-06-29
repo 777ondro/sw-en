@@ -202,6 +202,16 @@ namespace FEM_CALC_1Din2D
                     FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
             }
 
+            // Set default zero displacements or rotations in GCS to fixed DOF
+            for (int i = 0; i < FEMModel.m_arrFemNodes.Length; i++)
+            {
+                for (int j = 0; j < FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems.Length; j++) // Check each DOF of all nodes
+                {
+                    if (FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[j] == float.PositiveInfinity) // Check that default infinity value wasn't changed
+                        FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[i] = 0; // Set zero
+                }
+            }
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Get final end forces at element in global coordinate system GCS
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

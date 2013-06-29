@@ -269,6 +269,16 @@ namespace FEM_CALC_1Din3D
                     FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDisp.FVectorItems[m_fDisp_Vector_CN[i, 2]] += m_V_Displ.FVectorItems[i]; // add calculated (to sum)
             }
 
+            // Set default zero displacements or rotations in GCS to fixed DOF
+            for (int i = 0; i < FEMModel.m_arrFemNodes.Length; i++)
+            {
+                for (int j = 0; j < FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems.Length; j++) // Check each DOF of all nodes
+                {
+                    if (FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[j] == float.PositiveInfinity) // Check that default infinity value wasn't changed
+                        FEMModel.m_arrFemNodes[i].m_VDisp.FVectorItems[i] = 0; // Set zero
+                }
+            }
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Get final end forces at element in global coordinate system GCS
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -604,7 +614,7 @@ namespace FEM_CALC_1Din3D
             m_M_K_Structure = new CMatrix(m_iCodeNo);
 
             // Fill Global Stiffeness Matrix
-            FillGlobalMatrix();
+            FillGlobalMatrixOld();
 
             // Global Stiffeness Matrix    m_iCodeNo x  m_iCodeNo
             m_M_K_Structure.Print2DMatrix();
@@ -664,7 +674,7 @@ namespace FEM_CALC_1Din3D
             m_V_Load = new CVector(m_iCodeNo);
                          
             // Fill Global Load Vector
-            FillGlobalLoadVector();
+            FillGlobalLoadVectorOld();
 
             // Display Global Load Vector
             m_V_Load.Print1DVector();
@@ -908,7 +918,7 @@ namespace FEM_CALC_1Din3D
             }
         }
 
-        void FillGlobalMatrix()
+        void FillGlobalMatrixOld()
         {
 
             // Returns square stiffeness matrix of free DOF which are uknown in solution
@@ -920,7 +930,7 @@ namespace FEM_CALC_1Din3D
             for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
             {
                 // Create temporary Arraylist of FEM elements which include node
-                ArrayList iElemTemp_Index = m_NodeArray[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(m_NodeArray[m_fDisp_Vector_CN[i, 1]], m_ELemArray, iElemNoTot);
+                ArrayList iElemTemp_Index = m_NodeArray[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_IndexOld(m_NodeArray[m_fDisp_Vector_CN[i, 1]], m_ELemArray, iElemNoTot);
 
                 for (int j = 0; j < m_iCodeNo; j++) // Fill each row of current DOF // number of column of global structure matrix into which we insert value
                 {
@@ -961,7 +971,64 @@ namespace FEM_CALC_1Din3D
             }
         }
 
-        void FillGlobalLoadVector()
+        void FillGlobalMatrix()
+        {
+            // Returns square stiffeness matrix of free DOF which are uknown in solution
+            // Create matrix of code numbers or nodes (n - number of nodes) indexes and DOF indexes ((n-1) * 2) should be advantageous way for high-speed calculation
+
+
+            // i - Counter of global code number (which code number is actually filled)
+
+            for (int i = 0; i < m_iCodeNo; i++) // For not restrained DOF of node (code number which is not empty) // number of row of global structure matrix into which we insert value
+            {
+                // Create temporary Arraylist of FEM elements which include node
+                // List of members indexes in array (not IDs !!!)
+                ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]], FEMModel.m_arrFemMembers);
+
+                for (int j = 0; j < m_iCodeNo; j++) // Fill each row of current DOF // number of column of global structure matrix into which we insert value
+                {
+                    // This source code block get item of global stiffeness matrix of structure kij = "temp" 
+                    // Could be used for optimalization to get particular item of global matrix
+
+
+                    float temp = 0f; // Temporary for sum of matrix values from all elements which are connected to the node for current DOF
+
+                    for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given degree of freedom of node
+                    {
+                        // Assign existing element from list to the temp element to get its global stifeness matrix (6x6)
+                        CE_1D El_Temp = FEMModel.m_arrFemMembers[(int)iElemTemp_Index[l]];
+
+                        if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // Current DOF-row is on Start Node
+                        {
+                            if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [0,0] - partial stiffeness matrix k_11 / k_aa 
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                            else  // [0,1] - partial stiffeness matrix k_12 / k_ab
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[0, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                        }
+                        else                                                     // Current DOF is on End Node
+                        {
+                            if (m_fDisp_Vector_CN[i, 1] == m_fDisp_Vector_CN[j, 1]) // Current DOF-row is in member of same Node as filled columns DOF - [1,1] - partial stiffeness matrix k_22 / k_bb 
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 1].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                            else  // [1,0] - partial stiffeness matrix k_21 / k_ba
+                            {
+                                temp += El_Temp.m_fKGlobM.m_fArrMembersABxCD[1, 0].m_fArrMembers[m_fDisp_Vector_CN[i, 2], m_fDisp_Vector_CN[j, 2]];
+                            }
+                        }
+                    }
+
+                    // Fill member of Global Stiffeness Matrix of Structure
+                    m_M_K_Structure.m_fArrMembers[i, j] = temp;
+                }
+            }
+        }
+
+        void FillGlobalLoadVectorOld()
         {
             for (int i = 0; i < m_iCodeNo; i++)
             {
@@ -971,7 +1038,7 @@ namespace FEM_CALC_1Din3D
                 // Node DOF load due to elements loads - sum of for array of elements
 
                 // Create temporary Arraylist of FEM elements which include node
-                ArrayList iElemTemp_Index = m_NodeArray[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(m_NodeArray[m_fDisp_Vector_CN[i, 1]], m_ELemArray, iElemNoTot);
+                ArrayList iElemTemp_Index = m_NodeArray[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_IndexOld(m_NodeArray[m_fDisp_Vector_CN[i, 1]], m_ELemArray, iElemNoTot);
 
                 float tempEl = 0f; // Temporary for sum of values from all elements which transfer connected to the node for current DOF
 
@@ -1010,6 +1077,60 @@ namespace FEM_CALC_1Din3D
                     // Sum loads
 
                     m_V_Load.FVectorItems[i] = tempNode - tempEl;
+
+            }
+        }
+
+        void FillGlobalLoadVector()
+        {
+            for (int i = 0; i < m_iCodeNo; i++)
+            {
+                m_V_Load.FVectorItems[i] = 0f; // Set default value of variable
+
+                // Fill Member of Global Load Vector of Structure
+                // Node DOF load due to elements loads - sum of for array of elements
+
+                // Create temporary Arraylist of FEM elements which include node
+                // List of members indexes in array (not IDs !!!)
+                ArrayList iElemTemp_Index = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].GetFoundedMembers_Index(FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]], FEMModel.m_arrFemMembers);
+
+                float tempEl = 0f; // Temporary for sum of values from all elements which transfer load and are connected to the node for current DOF
+
+                for (int l = 0; l < iElemTemp_Index.Count; l++)  //  Sum all FEM Element Matrix members for given deggree of freedom of node
+                {
+                    // Assign existing element from list to the temp element  
+                    CE_1D El_Temp = FEMModel.m_arrFemMembers[(int)iElemTemp_Index[l]];
+
+                    if (m_fDisp_Vector_CN[i, 1] == El_Temp.NodeStart.ID - 1) // If DOF is on Start Node of Element
+                    {
+                        // Temporary transposed transformation matrix of element rotation multiplied by load vector
+                        /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_StNode);*/
+                        float[] fTempNodeVector = El_Temp.m_VElemPEF_GCS_StNode.FVectorItems;
+                        // Add Value
+                        tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
+                    }
+                    else                                                     // If DOF is on End Node of Element
+                    {
+                        // Temporary transposed transformation matrix of element rotation multiplied by load vector
+                        /*float[] fTempNodeVector = El_Temp.CM.fMultiplyMatr(El_Temp.CM.GetTransMatrix(El_Temp.m_fAMatr3D), El_Temp.m_ArrElemPEF_GCS_EnNode);*/
+                        float[] fTempNodeVector = El_Temp.m_VElemPEF_GCS_EnNode.FVectorItems;
+                        // Add Value
+                        tempEl += fTempNodeVector[m_fDisp_Vector_CN[i, 2]];
+                    }
+
+                }
+
+
+
+
+                // Node DOF Load due to direct node loading
+
+                float tempNode = FEMModel.m_arrFemNodes[m_fDisp_Vector_CN[i, 1]].m_VDirNodeLoad.FVectorItems[m_fDisp_Vector_CN[i, 2]];
+
+
+                // Sum loads
+
+                m_V_Load.FVectorItems[i] = tempNode - tempEl;
 
             }
         }
