@@ -35,7 +35,7 @@ namespace FEM_CALC_1Din2D
             fTemp_Ma_UYRZ = 0.0f;
             fTemp_Mb_UYRZ = 0.0f;
 
-            if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].IMember_ID)) // If member ID is same as collection item
+            if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].ID)) // If member ID is same as collection item
             {
 
                 float fTemp_Ma_UXRX = 0.0f, fTemp_Mb_UXRX = 0.0f; // Temporary for output of Mx which is not used in 2D in-plane solution

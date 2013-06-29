@@ -63,35 +63,35 @@ namespace sw_en_GUI.EXAMPLES._2D
             // Nodes
             // Node 1
             m_arrNodes[0] = new CNode();
-            m_arrNodes[0].INode_ID = 1;
+            m_arrNodes[0].ID = 1;
             m_arrNodes[0].FCoord_X = fa + fb;
             m_arrNodes[0].FCoord_Y = fc;
             m_arrNodes[0].FCoord_Z = 0f;
 
             // Node 2
             m_arrNodes[1] = new CNode();
-            m_arrNodes[1].INode_ID = 2;
+            m_arrNodes[1].ID = 2;
             m_arrNodes[1].FCoord_X = fb;
             m_arrNodes[1].FCoord_Y = 0f;
             m_arrNodes[1].FCoord_Z = 0f;
 
             // Node 3
             m_arrNodes[2] = new CNode();
-            m_arrNodes[2].INode_ID = 3;
+            m_arrNodes[2].ID = 3;
             m_arrNodes[2].FCoord_X = 0f;
             m_arrNodes[2].FCoord_Y = 0f;
             m_arrNodes[2].FCoord_Z = 0f;
 
             // Node 4
             m_arrNodes[3] = new CNode();
-            m_arrNodes[3].INode_ID = 4;
+            m_arrNodes[3].ID = 4;
             m_arrNodes[3].FCoord_X = 0f;
             m_arrNodes[3].FCoord_Y = -fa;
             m_arrNodes[3].FCoord_Z = 0f;
 
             // Node 5
             m_arrNodes[4] = new CNode();
-            m_arrNodes[4].INode_ID = 5;
+            m_arrNodes[4].ID = 5;
             m_arrNodes[4].FCoord_X = 0f;
             m_arrNodes[4].FCoord_Y = fc;
             m_arrNodes[4].FCoord_Z = 0f;
@@ -104,28 +104,28 @@ namespace sw_en_GUI.EXAMPLES._2D
 
             // Member 1 - 1-2
             m_arrMembers[0] = new CMember();
-            m_arrMembers[0].IMember_ID = 1;
+            m_arrMembers[0].ID = 1;
             m_arrMembers[0].NodeStart = m_arrNodes[0];
             m_arrMembers[0].NodeEnd = m_arrNodes[1];
             m_arrMembers[0].CrScStart = m_arrCrSc[0];
 
             // Member 2 - 2-3
             m_arrMembers[1] = new CMember();
-            m_arrMembers[1].IMember_ID = 2;
+            m_arrMembers[1].ID = 2;
             m_arrMembers[1].NodeStart = m_arrNodes[1];
             m_arrMembers[1].NodeEnd = m_arrNodes[2];
             m_arrMembers[1].CrScStart = m_arrCrSc[0];
 
             // Member 3 - 3-4
             m_arrMembers[2] = new CMember();
-            m_arrMembers[2].IMember_ID = 3;
+            m_arrMembers[2].ID = 3;
             m_arrMembers[2].NodeStart = m_arrNodes[2];
             m_arrMembers[2].NodeEnd = m_arrNodes[3];
             m_arrMembers[2].CrScStart = m_arrCrSc[0];
 
             // Member 4 - 3-5
             m_arrMembers[3] = new CMember();
-            m_arrMembers[3].IMember_ID = 4;
+            m_arrMembers[3].ID = 4;
             m_arrMembers[3].NodeStart = m_arrNodes[2];
             m_arrMembers[3].NodeEnd = m_arrNodes[4];
             m_arrMembers[3].CrScStart = m_arrCrSc[0];
@@ -136,7 +136,7 @@ namespace sw_en_GUI.EXAMPLES._2D
             // Nodal Supports - fill values
             // Support 1 - NodeIDs: 1,4
             m_arrNSupports[0] = new CNSupport(m_eNDOF);
-            m_arrNSupports[0].ISupport_ID = 1;
+            m_arrNSupports[0].ID = 1;
             m_arrNSupports[0].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
             m_arrNSupports[0].m_bRestrain[1] = true;
             m_arrNSupports[0].m_bRestrain[2] = true;
@@ -146,7 +146,7 @@ namespace sw_en_GUI.EXAMPLES._2D
 
             // Support 2 - NodeIDs: 3
             m_arrNSupports[1] = new CNSupport(m_eNDOF);
-            m_arrNSupports[1].ISupport_ID = 2;
+            m_arrNSupports[1].ID = 2;
             m_arrNSupports[1].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X-axis
             m_arrNSupports[1].m_bRestrain[1] = false;
             m_arrNSupports[1].m_bRestrain[2] = false;
@@ -155,7 +155,7 @@ namespace sw_en_GUI.EXAMPLES._2D
 
             // Support 3 - NodeIDs: 5
             m_arrNSupports[2] = new CNSupport(m_eNDOF);
-            m_arrNSupports[2].ISupport_ID = 3;
+            m_arrNSupports[2].ID = 3;
             m_arrNSupports[2].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity) - support in GCS X and Y-axis
             m_arrNSupports[2].m_bRestrain[1] = true;
             m_arrNSupports[2].m_bRestrain[2] = false;

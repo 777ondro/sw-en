@@ -140,7 +140,7 @@ namespace FEM_CALC_1Din3D
         {
             // Main member or segment
             Member = TopoMember;
-            ID = TopoMember.IMember_ID; // Temporary - TopoMember ID is same as FemMember
+            ID = TopoMember.ID; // Temporary - TopoMember ID is same as FemMember
             // Nodes
             //m_NodeStart.CopyTopoNodetoFemNode(m_Member.INode1);
             //m_NodeEnd.CopyTopoNodetoFemNode(m_Member.INode2);
@@ -149,13 +149,13 @@ namespace FEM_CALC_1Din3D
             // Search FEM nodes
             for (int i = 0; i < arrFemNodes.Length; i++)
             {
-                if (Member.NodeStart.INode_ID == arrFemNodes[i].ID)
+                if (Member.NodeStart.ID == arrFemNodes[i].ID)
                     NodeStart = arrFemNodes[i];
             }
 
             for (int i = 0; i < arrFemNodes.Length; i++)
             {
-                if (Member.NodeEnd.INode_ID == arrFemNodes[i].ID)
+                if (Member.NodeEnd.ID == arrFemNodes[i].ID)
                     NodeEnd = arrFemNodes[i];
             }
 

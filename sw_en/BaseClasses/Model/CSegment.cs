@@ -14,14 +14,6 @@ namespace BaseClasses
     [Serializable]
     public class CSegment : CMember
     {
-        private int m_iSegm_ID;
-
-        public int ISegm_ID
-        {
-            get { return m_iSegm_ID; }
-            set { m_iSegm_ID = value; }
-        }
-
         public CSegment()
         { 
         

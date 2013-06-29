@@ -10,19 +10,10 @@ namespace BaseClasses
     [Serializable]
     public class CNode : CEntity
     {
-        private int m_iNode_ID;
         private float m_fCoord_X;
         private float m_fCoord_Y;
         private float m_fCoord_Z;
-        private int m_fTime;
 
-
-        public int INode_ID
-        {
-            get { return m_iNode_ID; }
-            set { m_iNode_ID = value; }
-        }
-        
         public float FCoord_X
         {
             get { return m_fCoord_X; }
@@ -40,12 +31,6 @@ namespace BaseClasses
             get { return m_fCoord_Z; }
             set { m_fCoord_Z = value; }
         }
-        
-        public int FTime
-        {
-            get { return m_fTime; }
-            set { m_fTime = value; }
-        }
 
         // Konstruktor1 CNode
         public CNode()
@@ -60,10 +45,10 @@ namespace BaseClasses
             int fTime
             )
         {
-            m_iNode_ID = iNode_ID;
+            ID = iNode_ID;
             m_fCoord_X = fCoord_X;
             m_fCoord_Y = fCoord_Y;
-            m_fTime = fTime;
+            FTime = fTime;
         }
 
         // Konstruktor3 CNode (3D)
@@ -75,11 +60,11 @@ namespace BaseClasses
             int fTime
             )
         {
-            m_iNode_ID = iNode_ID;
+            ID = iNode_ID;
             m_fCoord_X = fCoord_X;
             m_fCoord_Y = fCoord_Y;
             m_fCoord_Z = fCoord_Z;
-            m_fTime = fTime;
+            FTime = fTime;
         }
 
 
@@ -87,7 +72,7 @@ namespace BaseClasses
 
         public int Compare(object x, object y)
         {
-            return ((CNode)x).INode_ID - ((CNode)y).INode_ID;
+            return ((CNode)x).ID - ((CNode)y).ID;
         }
 
         #endregion
@@ -96,7 +81,7 @@ namespace BaseClasses
 
         public int CompareTo(object obj)
         {
-            return this.m_iNode_ID - ((CNode)obj).m_iNode_ID;
+            return this.ID - ((CNode)obj).ID;
         }
 
         #endregion
@@ -106,7 +91,7 @@ namespace BaseClasses
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
         public int Compare(object x, object y)
         {
-            return ((CNode)x).INode_ID - ((CNode)y).INode_ID;
+            return ((CNode)x).ID - ((CNode)y).ID;
         }
     }
 }

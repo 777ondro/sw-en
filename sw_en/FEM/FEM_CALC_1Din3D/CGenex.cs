@@ -200,7 +200,7 @@ namespace FEM_CALC_1Din3D
                             // Set load vector values
                             for (int k = 0; k < m_arrFemNodes.Length; k++) // Neefektivne prechadzat zbytocne vsetky uzly kedze pozname konkretne ID zatazenych
                             {
-                                if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
+                                if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].ID)) // If node ID is same as collection item
                                 {
                                     // Check object class
                                     if (TopoModel.m_arrNLoads[i] is BaseClasses.CNLoadAll)

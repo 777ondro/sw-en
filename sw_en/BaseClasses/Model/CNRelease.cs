@@ -16,7 +16,6 @@ namespace BaseClasses
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
         public int m_eNDOF;
         public bool?[] m_bRestrain; // DOF is rigid - 1, DOF is free - 0
-        public int m_fTime;
 
         //---------------------------------------------------------------------------------
         public CNode Node
@@ -48,7 +47,7 @@ namespace BaseClasses
         {
             m_eNDOF = eNDOF;
             m_bRestrain = bRestrain;
-            m_fTime = fTime;
+            FTime = fTime;
         }
 
         public CNRelease(int eNDOF, CNode Node, bool?[] bRestrain, int fTime)
@@ -56,7 +55,7 @@ namespace BaseClasses
             m_eNDOF = eNDOF;
             m_Node = Node;
             m_bRestrain = bRestrain;
-            m_fTime = fTime;
+            FTime = fTime;
         }
 
         public CNRelease(int eNDOF, CNode Node, CMember Member, bool?[] bRestrain, int fTime)
@@ -65,7 +64,7 @@ namespace BaseClasses
             m_Node = Node;
             m_Member = Member;
             m_bRestrain = bRestrain;
-            m_fTime = fTime;
+            FTime = fTime;
         }
 
         //---------------------------------------------------------------------------------

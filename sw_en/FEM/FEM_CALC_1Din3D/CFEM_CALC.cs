@@ -64,7 +64,7 @@ namespace FEM_CALC_1Din3D
         CModel TopoModelFile; // Create topological model file
         CGenex FEMModel;  // Create FEM model
 
-        int m_iCodeNo; // Size of structure global matrix / without zero rows
+        int m_iCodeNo = 0; // Size of structure global matrix / without zero rows // Number of unrestrained degrees of freedom - finally gives size of structure global matrix
         public int[,] m_fDisp_Vector_CN;
 
         CMatrix m_M_K_Structure;
@@ -139,16 +139,10 @@ namespace FEM_CALC_1Din3D
                 }
             }
 
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            // Set Global Code Numbers
-
-            int m_iCodeNo = 0; // Number of unrestrained degrees of freedom - finally gives size of structure global matrix
-
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
             // Save indexes of nodes and DOF which are free and represent vector of uknown variables in solution
-            SetNodesGlobCodeNo(); // Nastavi DOF v uzloch a ich globalne kodove cisla
+            SetNodesGlobCodeNo(); // Nastavi DOF v uzloch a ich globalne kodove cisla, konecne CodeNo urci velkost matice konstrukcie
 
             // Fill members of structure global vector of displacement
             // Now we know number of not restrained DOF, so we can allocate array size
@@ -746,10 +740,14 @@ namespace FEM_CALC_1Din3D
 
         void SetNodesGlobCodeNo()
         {
+            // Degree of indeterminacy in structural analysis
+            //int iD_Inderminacy = iNodeDOFNo * FEMModel.m_arrFemNodes.Length - XXXXXXXXXXXXXXXXXXXXXX
+
             // Set Global Code Number of Nodes / Nastavit globalne kodove cisla uzlov
 
             for (int j = 0; j < FEMModel.m_arrFemNodes.Length; j++)
             {
+                /* Already implemented in GENEX
                 // Set DOF from supports
                 for (int k = 0; k < TopoModelFile.m_arrNSupports.Length; k++)
                 {
@@ -762,23 +760,28 @@ namespace FEM_CALC_1Din3D
                         }
                     }
                 }
+                */
 
                 for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
                 {
                     bool bIsDOFReleased = false;
+
                     // Set DOF from releases
-                    for (int nr = 0; nr < TopoModelFile.m_arrNReleases.Length; nr++)
+                    if (TopoModelFile.m_arrNReleases != null)
                     {
-                        // If only less than two elements are conected to the node and current node is release collection of nodes
-                        if (FEMModel.m_arrFemNodes[j].m_iMemberCollection.Count <= 2 &&
-                            TopoModelFile.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
+                        for (int nr = 0; nr < TopoModelFile.m_arrNReleases.Length; nr++)
                         {
-                            if (FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] == true &&
-                                TopoModelFile.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
+                            // If only less than two elements are conected to the node and current node is release collection of nodes
+                            if (FEMModel.m_arrFemNodes[j].m_iMemberCollection.Count <= 2 &&
+                                TopoModelFile.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
                             {
-                                FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = false; // DOF of release is free, therefore set it to the node
-                                // DOF release exist therefore do not add DOF to the global code numbers
-                                bIsDOFReleased = true;
+                                if (FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] == true &&
+                                    TopoModelFile.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
+                                {
+                                    FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = false; // DOF of release is free, therefore set it to the node
+                                    // DOF release exist therefore do not add DOF to the global code numbers
+                                    bIsDOFReleased = true;
+                                }
                             }
                         }
                     }
@@ -859,7 +862,7 @@ namespace FEM_CALC_1Din3D
 
         void FillGlobalDisplCodeNo()
         {
-            m_iCodeNo = 0;
+            m_iCodeNo = 0; // CodeNo was already calculated but we set it to zero and use to fill vector
 
             for (int h = 0; h < FEMModel.m_arrFemNodes.Length; h++) // Each Node
             {

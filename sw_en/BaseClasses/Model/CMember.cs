@@ -10,13 +10,6 @@ namespace BaseClasses
     [Serializable]
     public class CMember:CEntity
     {
-        private int      m_iMember_ID, m_fTime;
-
-        public int IMember_ID
-        {
-          get { return m_iMember_ID; }
-          set { m_iMember_ID = value; }
-        }
         private CNode    m_NodeStart;
 
         public CNode NodeStart
@@ -98,12 +91,12 @@ namespace BaseClasses
             CNode iNode2,
             int fTime)
         {
-            m_iMember_ID = iLine_ID;
+            ID = iLine_ID;
             m_NodeStart = iNode1;
             m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
-            m_fTime = fTime;
+            FTime = fTime;
 
             Fill_Basic();
         }
@@ -117,14 +110,14 @@ namespace BaseClasses
             bool haveRelease2,
             int fTime)
         {
-            m_iMember_ID = iLine_ID;
+            ID = iLine_ID;
             m_NodeStart = iNode1;
             m_NodeEnd = iNode2;
             if (haveRelease1)
                 m_cnRelease1 = new CNRelease(iNode1);
             if (haveRelease2)
                 m_cnRelease2 = new CNRelease(iNode2);
-            m_fTime = fTime;
+            FTime = fTime;
 
             Fill_Basic();
         }
@@ -137,13 +130,13 @@ namespace BaseClasses
             int fTime
             )
         {
-            m_iMember_ID = iLine_ID;
+            ID = iLine_ID;
             m_NodeStart = iNode1;
             m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
             m_CrScStart = objCrSc1;
-            m_fTime = fTime;
+            FTime = fTime;
 
             Fill_Basic();
         }
@@ -158,14 +151,14 @@ namespace BaseClasses
             int fTime
             )
         {
-            m_iMember_ID = iLine_ID;
+            ID = iLine_ID;
             m_NodeStart = iNode1;
             m_NodeEnd = iNode2;
             m_cnRelease1 = null;
             m_cnRelease2 = null;
             m_CrScStart = objCrSc1;
             m_CrScEnd = objCrSc2;
-            m_fTime = fTime;
+            FTime = fTime;
 
             Fill_Basic();
         }
@@ -187,7 +180,7 @@ namespace BaseClasses
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
         public int Compare(object x, object y)
         {
-            return ((CMember)x).IMember_ID - ((CMember)y).IMember_ID;
+            return ((CMember)x).ID - ((CMember)y).ID;
         }
     }
 }
