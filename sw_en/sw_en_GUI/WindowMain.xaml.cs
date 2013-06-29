@@ -237,8 +237,8 @@ namespace sw_en_GUI
             for(int i = 0; i < model.m_arrMembers.Length; i++)
             {
                 // Nodes
-                model.m_arrMembers[i].NodeStart = model.m_arrNodes[model.m_arrMembers[i].NodeStart.INode_ID-1];
-                model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.INode_ID-1];
+                model.m_arrMembers[i].NodeStart = model.m_arrNodes[model.m_arrMembers[i].NodeStart.ID-1];
+                model.m_arrMembers[i].NodeEnd   = model.m_arrNodes[model.m_arrMembers[i].NodeEnd.ID-1];
 
                 // Set Cross-section
                 model.m_arrMembers[i].CrScStart = model.m_arrCrSc[model.m_arrMembers[i].CrScStart.ICrSc_ID-1];
@@ -290,7 +290,7 @@ namespace sw_en_GUI
 			//foreach (CNode n in nodes) 
 			//{
 			//    Console.WriteLine(string.Format("{0},{1},{2},{3},{4}", 
-			//        n.INode_ID, n.FCoord_X, n.FCoord_Y, n.FCoord_Z, n.FTime));
+			//        n.ID, n.FCoord_X, n.FCoord_Y, n.FCoord_Z, n.FTime));
 			//}
 			return nodes.ToArray();
 		}
@@ -325,11 +325,11 @@ namespace sw_en_GUI
 
 					Node1 = new CNode();
 					int.TryParse(row["NodeStartID"].ToString(), out node1ID);
-					Node1.INode_ID = node1ID;
+					Node1.ID = node1ID;
 
 					Node2 = new CNode();
 					int.TryParse(row["NodeEndID"].ToString(), out node2ID);
-					Node2.INode_ID = node2ID;
+					Node2.ID = node2ID;
 
                     //Cross-sections
                     CrSc1 = new CRSC.CCrSc_3_00();
@@ -356,8 +356,8 @@ namespace sw_en_GUI
 
 			foreach (CMember m in members)
 			{
-				Console.WriteLine(string.Format("IMember_ID: {0},NodeStart.INode_ID: {1},NodeEnd.INode_ID: {2},m.FLength: {3}",
-					m.IMember_ID, m.NodeStart.INode_ID, m.NodeEnd.INode_ID, m.FLength));
+				Console.WriteLine(string.Format("IMember_ID: {0},NodeStart.ID: {1},NodeEnd.ID: {2},m.FLength: {3}",
+					m.ID, m.NodeStart.ID, m.NodeEnd.ID, m.FLength));
 			}
 			return members.ToArray();
 		}
@@ -430,7 +430,7 @@ namespace sw_en_GUI
 					nodeCollection = new List<int>();
 					nsupport = new CNSupport(eNDOF);
 					int.TryParse(row["NSupportID"].ToString(), out iSupport_ID);
-					nsupport.ISupport_ID = iSupport_ID;
+					nsupport.ID = iSupport_ID;
 					foreach( string s in row["NodesIDCollection"].ToString().Split(','))
 					{
 						nodeCollection.Add(int.Parse(s));
@@ -455,7 +455,7 @@ namespace sw_en_GUI
 					bool.TryParse(row["brz"].ToString(), out brz);
 					bRestrain[5] = brz;
 					nsupport.m_bRestrain = bRestrain;
-					nsupport.m_fTime = fTime;
+					nsupport.FTime = fTime;
 
 					nsupports.Add(nsupport);
 				}

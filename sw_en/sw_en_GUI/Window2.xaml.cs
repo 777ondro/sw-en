@@ -1055,9 +1055,9 @@ namespace sw_en_GUI
                   if (bDebugging)
                   {
                       System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
-                      System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.INode_ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+                      System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
                       System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
-                      System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+                      System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
                       System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
                   }
 

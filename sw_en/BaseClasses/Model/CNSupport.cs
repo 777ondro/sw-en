@@ -10,7 +10,6 @@ namespace BaseClasses
     public class CNSupport : CEntity
     {
         //----------------------------------------------------------------------------
-        private int m_iSupport_ID;
         public int[] m_iNodeCollection; // List / Collection of nodes IDs where support is defined [First member index is 0]
         private CNode m_Node;
         private ENSupportType m_NSupportType;
@@ -21,14 +20,8 @@ namespace BaseClasses
 
         public int m_eNDOF;
         public bool[] m_bRestrain; // Array of boolean values, UX, UY, UZ, RX, RY, RZ
-        public int m_fTime;
 
         //----------------------------------------------------------------------------
-        public int ISupport_ID
-        {
-            get { return m_iSupport_ID; }
-            set { m_iSupport_ID = value; }
-        }
         public CNode Node
         {
             get { return m_Node; }
@@ -52,10 +45,10 @@ namespace BaseClasses
         {
             m_eNDOF = eNDOF;
             m_bRestrain = new bool[(int)eNDOF];
-            m_iSupport_ID = iSupport_ID;
+            ID = iSupport_ID;
             m_Node = Node;
             m_bRestrain = bRestrain;
-            m_fTime = fTime;
+            FTime = fTime;
         }
     } // End of CNSupport class
 
@@ -64,7 +57,7 @@ namespace BaseClasses
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
         public int Compare(object x, object y)
         {
-            return ((CNSupport)x).ISupport_ID - ((CNSupport)y).ISupport_ID;
+            return ((CNSupport)x).ID - ((CNSupport)y).ID;
         }
     }
 }

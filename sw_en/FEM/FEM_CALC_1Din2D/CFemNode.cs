@@ -34,7 +34,7 @@ namespace FEM_CALC_1Din2D
         // Constructor 4 - FEM node is copy of topological node
         public CFemNode(CNode TopoNode)
         {
-            ID = TopoNode.INode_ID;
+            ID = TopoNode.ID;
             m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
             m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
             FTime = TopoNode.FTime;
@@ -48,7 +48,7 @@ namespace FEM_CALC_1Din2D
         public void CopyTopoNodetoFemNode(CNode TopoNode)
         { 
         // 2D Environment
-        ID = TopoNode.INode_ID;
+        ID = TopoNode.ID;
         m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUX] = TopoNode.FCoord_X;
         m_fVNodeCoordinates.FVectorItems[(int)e2D_DOF.eUY] = TopoNode.FCoord_Y;
 

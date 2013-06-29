@@ -33,7 +33,7 @@ namespace FEM_CALC_1Din3D
         // Constructor 4 - FEM node is copy of topological node
         public CFemNode(CNode TopoNode)
         {
-            ID = TopoNode.INode_ID;
+            ID = TopoNode.ID;
             m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX] = TopoNode.FCoord_X;
             m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY] = TopoNode.FCoord_Y;
             m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ] = TopoNode.FCoord_Z;

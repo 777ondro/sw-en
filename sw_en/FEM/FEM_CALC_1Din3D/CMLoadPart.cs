@@ -48,7 +48,7 @@ namespace FEM_CALC_1Din3D
             fTemp_Ma_UZRY = 0.0f;
             fTemp_Mb_UZRY = 0.0f;
 
-            if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].IMember_ID)) // If member ID is same as collection item
+            if (TopoModel.m_arrMLoads[iMLoadIndex].IMemberCollection.Contains(TopoModel.m_arrMembers[kMemberIndex].ID)) // If member ID is same as collection item
             {
                 // Fill external forces temp values 
 
