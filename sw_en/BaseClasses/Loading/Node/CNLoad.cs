@@ -14,9 +14,7 @@ namespace BaseClasses
         private int m_iNLoad_ID;
         private CNode m_Node;
         private int[] m_iNodeCollection; // List / Collection of nodes IDs where load is defined
-        private float m_Value;
-        private ENLoadType m_nLoadType;
-        public int m_fTime;
+        private int m_fTime;
 
         //----------------------------------------------------------------------------
         public int INLoad_ID
@@ -24,6 +22,7 @@ namespace BaseClasses
             get { return m_iNLoad_ID; }
             set { m_iNLoad_ID = value; }
         }
+
         public CNode Node
         {
             get { return m_Node; }
@@ -34,15 +33,10 @@ namespace BaseClasses
             get { return m_iNodeCollection; }
             set { m_iNodeCollection = value; }
         }
-        public float Value
+        public int FTime
         {
-            get { return m_Value; }
-            set { m_Value = value; }
-        }
-        public ENLoadType NLoadType
-        {
-            get { return m_nLoadType; }
-            set { m_nLoadType = value; }
+            get { return m_fTime; }
+            set { m_fTime = value; }
         }
 
         //----------------------------------------------------------------------------
@@ -52,15 +46,11 @@ namespace BaseClasses
         {
 
         }
-        public CNLoad(CNode Node,
-              ENLoadType nLoadType,
-              float fValue,
+        public CNLoad(CNode nNode,
               int fTime)
         {
-            m_Node = Node;
-            m_nLoadType = nLoadType;
-            m_Value = fValue;
-            m_fTime = fTime;
+            Node = nNode;
+            FTime = fTime;
         }
 
     }

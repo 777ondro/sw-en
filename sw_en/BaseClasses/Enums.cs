@@ -22,7 +22,7 @@ namespace BaseClasses
     public enum ENDOF
     {
         e2DEnv = 3, // 3 for 2D environment
-        e3DEnv = 6  // 6 for 3D environment
+        e3DEnv = 6  // 6 for 3D environment - no warping effect (bimoment) // DOF in 3D
     }
 
     // Cartesian coordinate system, point in n-dimensional Euclidean space

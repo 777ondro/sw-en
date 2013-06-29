@@ -198,16 +198,33 @@ namespace FEM_CALC_1Din2D
                             {
                                 if (TopoModel.m_arrNLoads[i].INodeCollection.Contains(TopoModel.m_arrNodes[k].INode_ID)) // If node ID is same as collection item
                                 {
+                                    // Check object class
+                                    if (TopoModel.m_arrNLoads[i] is BaseClasses.CNLoadAll)
+                                    {
+                                        CNLoadAll oTemp = new CNLoadAll(); // Create new object of necessary type
 
-                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FX;
-                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
-                                    m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                                        oTemp = (CNLoadAll)(TopoModel.m_arrNLoads[i]); // Change object type
 
-                                    //for (int l = 0; l < m_arrFemNodes[k].m_ArrDirNodeLoad.Length; l++) // For all items in vector array
-                                    //{
-                                    //    m_arrFemNodes[k].m_ArrDirNodeLoad[l] = TopoModel.m_arrNLoads[i].Value_FX; // General !!!
-                                    //}
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFX] = oTemp.Value_FX;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = oTemp.Value_FY;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = oTemp.Value_MZ;
 
+                                        /*
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFX] = TopoModel.m_arrNLoads[i].Value_FX;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = TopoModel.m_arrNLoads[i].Value_FY;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = TopoModel.m_arrNLoads[i].Value_MZ;
+                                        */
+                                    }
+                                    else
+                                    {
+                                        CNLoadSingle oTemp = new CNLoadSingle(); // Create new object of necessary type
+
+                                        oTemp = (CNLoadSingle)(TopoModel.m_arrNLoads[i]); // Change object type
+
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFX] = oTemp.NLoadType == ENLoadType.eNLT_Fx ? oTemp.Value : 0.0f;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eFY] = oTemp.NLoadType == ENLoadType.eNLT_Fy ? oTemp.Value : 0.0f;
+                                        m_arrFemNodes[k].m_VDirNodeLoad.FVectorItems[(int)e2D_E_F.eMZ] = oTemp.NLoadType == ENLoadType.eNLT_Mz ? oTemp.Value : 0.0f;
+                                    }
                                 }
                             }
                         }

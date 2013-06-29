@@ -58,22 +58,12 @@ namespace FEM_CALC_1Din3D
     public class CFEM_CALC
     {
         // Settings
-        static int iNodeDOFNo = 6; // No warping effect (bimoment) // DOF in 3D
-
-        EGCS eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
-        ESLN eSLN = ESLN.e3DD_1D;        // Solution type - define n-dimesional space and members
-
-        static int iNNoTot = 4;
-        static int iElemNoTot = 3;
-        int m_iCodeNo; // Size of structure global matrix / without zero rows
+        static int iNodeDOFNo = (int)ENDOF.e3DEnv; // No warping effect (bimoment) // 6 DOF in 3D
 
         CModel TopoModelFile; // Create topological model file
         CGenex FEMModel;  // Create FEM model
 
-        CFemNode[] m_NodeArray = new CFemNode[iNNoTot];
-        CE_1D[] m_ELemArray = new CE_1D[iElemNoTot];
-        CLoad[] m_ELoadArray = new CLoad[iElemNoTot];
-
+        int m_iCodeNo; // Size of structure global matrix / without zero rows
         public int[,] m_fDisp_Vector_CN;
 
         CMatrix m_M_K_Structure;
@@ -81,7 +71,17 @@ namespace FEM_CALC_1Din3D
         public CVector  m_V_Displ;
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // TEMPORARY EXAMPLE DATA
+        // TEMPORARY EXAMPLE DATA - deleted after new core implementation
+
+        EGCS eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
+        ESLN eSLN = ESLN.e3DD_1D;        // Solution type - define n-dimesional space and members
+
+        static int iNNoTot = 4;
+        static int iElemNoTot = 3;
+
+        CFemNode[] m_NodeArray = new CFemNode[iNNoTot];
+        CE_1D[] m_ELemArray = new CE_1D[iElemNoTot];
+        CLoad[] m_ELoadArray = new CLoad[iElemNoTot];
 
         // Use basic SI units
 
@@ -95,6 +95,7 @@ namespace FEM_CALC_1Din3D
         // Constructor
         public CFEM_CALC(CModel model, bool bDebugging)
         {
+            // Load Topological model
             TopoModelFile = new CModel();
             TopoModelFile = model;
 

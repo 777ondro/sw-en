@@ -6,31 +6,17 @@ using System.Text;
 namespace BaseClasses
 {
         [Serializable]
-    public class CNLoadAll:CNLoad
+    public class CNLoadAll : CNLoad
     {
         //----------------------------------------------------------------------------
-        private int m_iNLoad_ID;
-        private CNode m_Node;
-        public int[] m_iNodeCollection; // List / Collection of nodes IDs where support is defined
         private float m_Value_FX;
         private float m_Value_FY;
         private float m_Value_FZ;
         private float m_Value_MX;
         private float m_Value_MY;
         private float m_Value_MZ;
-        public int m_fTime;
 
         //----------------------------------------------------------------------------
-        public int INLoad_ID
-        {
-            get { return m_iNLoad_ID; }
-            set { m_iNLoad_ID = value; }
-        }
-        public CNode Node
-        {
-            get { return m_Node; }
-            set { m_Node = value; }
-        }
         public float Value_FX
         {
             get { return m_Value_FX; }
@@ -69,7 +55,7 @@ namespace BaseClasses
         {
 
         }
-        public CNLoadAll(CNode Node,
+        public CNLoadAll(CNode nNode,
               float fValue_FX,
               float fValue_FY,
               float fValue_FZ,
@@ -79,14 +65,14 @@ namespace BaseClasses
               int fTime
             )
         {
-            m_Node = Node;
-            m_Value_FX = fValue_FX;
-            m_Value_FY = fValue_FY;
-            m_Value_FZ = fValue_FZ;
-            m_Value_MX = fValue_MX;
-            m_Value_MY = fValue_MY;
-            m_Value_MZ = fValue_MZ;
-            m_fTime = fTime;
+            Node = nNode;
+            Value_FX = fValue_FX;
+            Value_FY = fValue_FY;
+            Value_FZ = fValue_FZ;
+            Value_MX = fValue_MX;
+            Value_MY = fValue_MY;
+            Value_MZ = fValue_MZ;
+            FTime = fTime;
         }
     }
 }

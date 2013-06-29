@@ -22,6 +22,7 @@ using System.Threading;
 using System.Collections;
 using BaseClasses;
 using CRSC;
+using FEM_CALC_1Din2D;
 using FEM_CALC_1Din3D;
 using _3DTools;
 
@@ -551,7 +552,7 @@ namespace sw_en_GUI
         {
             // Create calculation object and run calculation
             // FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC(model); // Nove vypoctove jadro
-            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC();         // Povodny priklad - zadanie c 4
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC();         // Povodny priklad - zadanie c 4
 
 
 
@@ -616,6 +617,29 @@ namespace sw_en_GUI
             Window2 win = new Window2(model, m_bDebugging);
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 2D 04" + " - Window " + (Container.Children.Count + 1) });
+        }
+
+        // Doplnit nejake priklady 5 -10
+
+
+        private void menuItemExample2D_11_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._2D.CExample_2D_11();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 2D 11" + " - Window " + (Container.Children.Count + 1) });
+
+            FEM_CALC_1Din2D.CFEM_CALC obj_Calc = new FEM_CALC_1Din2D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
+        }
+
+        private void menuItemExample2D_12_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._2D.CExample_2D_12();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 2D 12" + " - Window " + (Container.Children.Count + 1) });
+
+            FEM_CALC_1Din2D.CFEM_CALC obj_Calc = new FEM_CALC_1Din2D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
         }
 
         // 3D Examples
@@ -707,7 +731,7 @@ namespace sw_en_GUI
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 11" + " - Window " + (Container.Children.Count + 1) });
 
-            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
         }
 
     }

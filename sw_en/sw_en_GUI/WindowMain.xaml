@@ -157,6 +157,8 @@
                         <MenuItem x:Name="menuItemExample2D_02" Header="Example 02" Click="menuItemExample2D_02_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample2D_03" Header="Example 03" Click="menuItemExample2D_03_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample2D_04" Header="Example 04" Click="menuItemExample2D_04_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample2D_11" Header="Example 11" Click="menuItemExample2D_11_Click"></MenuItem>
+                        <MenuItem x:Name="menuItemExample2D_12" Header="Example 12" Click="menuItemExample2D_12_Click"></MenuItem>
                     </MenuItem>
                     <MenuItem x:Name="menuItemExample3D" Header="Examples 3D">
                         <MenuItem x:Name="menuItemExample3D_01" Header="Example 01" Click="menuItemExample3D_01_Click"></MenuItem>
