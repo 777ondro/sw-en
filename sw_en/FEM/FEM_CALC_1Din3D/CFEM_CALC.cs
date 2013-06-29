@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CENEX;
 using BaseClasses;
 using MATH;
 using CRSC;
-using CENEX;
+using FEM_CALC_BASE;
 
 /*
  Todo
@@ -55,7 +56,7 @@ using CENEX;
 
 namespace FEM_CALC_1Din3D
 {
-    public class CFEM_CALC
+    public class CFEM_CALC : FEM_CALC_BASE.CFEM_CALC
     {
         // Settings
         static int iNodeDOFNo = (int)ENDOF.e3DEnv; // No warping effect (bimoment) // 6 DOF in 3D
