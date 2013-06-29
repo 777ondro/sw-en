@@ -60,7 +60,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="CTest_2.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="CTest_1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CalcForm.resx">

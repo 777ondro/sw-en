@@ -95,6 +95,7 @@
     <Compile Include="Loading\Member\CMLoad_51z.cs" />
     <Compile Include="Loading\Member\CMLoad_51y.cs" />
     <Compile Include="Loading\Node\CNLoadAll.cs" />
+    <Compile Include="Loading\Node\CNLoadSingle.cs" />
     <Compile Include="Model\CMember.cs" />
     <Compile Include="Loading\Member\CMLoad.cs" />
     <Compile Include="Loading\Node\CNLoad.cs" />

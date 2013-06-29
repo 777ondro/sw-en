@@ -20,7 +20,8 @@ namespace FEM_CALC_1Din2D
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CFEM_CALC obj_Calc = new CFEM_CALC(m_bDebugging);
+            // Commented - this will be deleted or modified after implementing new core (choose GUI - WPF or WINFORMs)
+            //CFEM_CALC obj_Calc = new CFEM_CALC(m_bDebugging);
 
            // MessageBox.Show("Calculation was successful!", "Solver Message" /*, MessageBoxButtons.OK, MessageBoxIcon.Exclamation*/);
 

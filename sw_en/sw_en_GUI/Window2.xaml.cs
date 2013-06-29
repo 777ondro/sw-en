@@ -1060,11 +1060,15 @@ namespace sw_en_GUI
                       System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.INode_ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
                       System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
                   }
-                  // Create Member model
-                  GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
 
-                  // Add current member model to the model group
-                  gr.Children.Add(membermodel);
+                  if(!(cmodel.m_arrMembers[i].CrScStart is CCrSc)) // CCrSc is general ancestor of other cross-section object, it is abstract without geometrical properties (dimensions), only centroid line could be displayed
+                  {
+                      // Create Member model
+                      GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+
+                      // Add current member model to the model group
+                      gr.Children.Add(membermodel);
+                  }
               }
           }
 

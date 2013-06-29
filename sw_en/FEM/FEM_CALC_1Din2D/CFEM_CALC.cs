@@ -14,10 +14,9 @@ namespace FEM_CALC_1Din2D
     public class CFEM_CALC
     {
         // Settings
-        static int iNodeDOFNo = 3; // No warping effect (bimoment)
+        static int iNodeDOFNo = (int)ENDOF.e2DEnv; // 3 DOF in 2D
 
-        //CTest_1 TopoModelFile; // Create topological model file
-        CTest_2 TopoModelFile; // Create topological model file
+        CModel TopoModelFile; // Create topological model file
         CGenex FEMModel;  // Create FEM model
 
         int m_iCodeNo; // Size of structure global matrix / without zero rows 
@@ -27,17 +26,17 @@ namespace FEM_CALC_1Din2D
         public CVector m_V_Load;
         public CVector m_V_Displ;
 
-        public CFEM_CALC(bool bDebugging)
+        public CFEM_CALC(CModel model, bool bDebugging)
         {
             // Load Topological model
-            // TopoModelFile = new CTest_1(); // Temporary
-            TopoModelFile = new CTest_2(); // Temporary
+            TopoModelFile = new CModel();
+            TopoModelFile = model;
             
             // Generate FEM model data from Topological model
             // Prepare solver data
             // Fill local and global matrices of FEM elements
 
-            FEMModel = new CGenex(TopoModelFile.TopoModel);
+            FEMModel = new CGenex(TopoModelFile);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Temp - display matrices
@@ -253,14 +252,14 @@ namespace FEM_CALC_1Din2D
             for (int j = 0; j < FEMModel.m_arrFemNodes.Length; j++)
             {
                 // Set DOF from supports
-                for (int k = 0; k < TopoModelFile.TopoModel.m_arrNSupports.Length; k++)
+                for (int k = 0; k < TopoModelFile.m_arrNSupports.Length; k++)
                 {
-                    if (TopoModelFile.TopoModel.m_arrNSupports[k].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Some support exists in node
+                    if (TopoModelFile.m_arrNSupports[k].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Some support exists in node
                     {
                         // Set all DOF of nodal support to the node
                         for (int l = 0; l < iNodeDOFNo; l++) // Each DOF
                         {
-                            FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = TopoModelFile.TopoModel.m_arrNSupports[k].m_bRestrain[l];
+                            FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = TopoModelFile.m_arrNSupports[k].m_bRestrain[l];
                         }
                     }
                 }
@@ -269,14 +268,14 @@ namespace FEM_CALC_1Din2D
                 {
                     bool bIsDOFReleased = false;
                     // Set DOF from releases
-                    for (int nr = 0; nr < TopoModelFile.TopoModel.m_arrNReleases.Length; nr++)
+                    for (int nr = 0; nr < TopoModelFile.m_arrNReleases.Length; nr++)
                     {
                         // If only less than two elements are conected to the node and current node is release collection of nodes
                         if (FEMModel.m_arrFemNodes[j].m_iMemberCollection.Count <= 2 &&
-                            TopoModelFile.TopoModel.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
+                            TopoModelFile.m_arrNReleases[nr].m_iNodeCollection.Contains(FEMModel.m_arrFemNodes[j].ID)) // Release exists at node
                         {
                             if (FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] == true &&
-                                TopoModelFile.TopoModel.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
+                                TopoModelFile.m_arrNReleases[nr].m_bRestrain[l] == false) // If DOF is restrained by support restraint we can set it to free if release DOF is free
                             {
                                 FEMModel.m_arrFemNodes[j].m_ArrNodeDOF[l] = false; // DOF of release is free, therefore set it to the node
                                 // DOF release exist therefore do not add DOF to the global code numbers

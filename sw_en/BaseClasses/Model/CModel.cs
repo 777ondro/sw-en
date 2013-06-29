@@ -46,7 +46,7 @@ namespace BaseClasses
 
         // Loading
         // Nodal Loads
-        public CNLoadAll[] m_arrNLoads;
+        public CNLoad[] m_arrNLoads;
         // Member Loads
         public CMLoad[] m_arrMLoads;
         // Load Cases

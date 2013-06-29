@@ -340,7 +340,6 @@ namespace CRSC
 			}
 		}
 
-
-		 protected abstract void loadCrScIndices();
+        protected abstract void loadCrScIndices();
     }
 }

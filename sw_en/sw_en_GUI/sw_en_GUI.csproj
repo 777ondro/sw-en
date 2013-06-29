@@ -107,6 +107,8 @@
     <Compile Include="EXAMPLES\2D\CExample_2D_02.cs" />
     <Compile Include="EXAMPLES\2D\CExample_2D_03.cs" />
     <Compile Include="EXAMPLES\2D\CExample_2D_04.cs" />
+    <Compile Include="EXAMPLES\2D\CExample_2D_11.cs" />
+    <Compile Include="EXAMPLES\2D\CExample_2D_12.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_01.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_02.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_03.cs" />
@@ -256,6 +258,10 @@
     <ProjectReference Include="..\CRSC\CRSC.csproj">
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
       <Name>CRSC %28CRSC\CRSC%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FEM\FEM_CALC_1Din2D\FEM_CALC_1Din2D.csproj">
+      <Project>{602C8862-99F4-4595-A033-84194DDFE00A}</Project>
+      <Name>FEM_CALC_1Din2D</Name>
     </ProjectReference>
     <ProjectReference Include="..\FEM\FEM_CALC_1Din3D\FEM_CALC_1Din3D.csproj">
       <Project>{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7}</Project>
