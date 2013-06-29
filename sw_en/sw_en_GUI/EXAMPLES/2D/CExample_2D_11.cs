@@ -108,7 +108,6 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrMembers[0].NodeStart = m_arrNodes[0];
             m_arrMembers[0].NodeEnd = m_arrNodes[1];
             m_arrMembers[0].CrScStart = m_arrCrSc[0];
-            m_arrMembers[0].Fill_Basic();
 
             // Member 2 - 2-3
             m_arrMembers[1] = new CMember();
@@ -116,7 +115,6 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrMembers[1].NodeStart = m_arrNodes[1];
             m_arrMembers[1].NodeEnd = m_arrNodes[2];
             m_arrMembers[1].CrScStart = m_arrCrSc[0];
-            m_arrMembers[1].Fill_Basic();
 
             // Member 3 - 3-4
             m_arrMembers[2] = new CMember();
@@ -124,7 +122,6 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrMembers[2].NodeStart = m_arrNodes[2];
             m_arrMembers[2].NodeEnd = m_arrNodes[3];
             m_arrMembers[2].CrScStart = m_arrCrSc[0];
-            m_arrMembers[2].Fill_Basic();
 
             // Member 4 - 3-5
             m_arrMembers[3] = new CMember();
@@ -132,8 +129,6 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrMembers[3].NodeStart = m_arrNodes[2];
             m_arrMembers[3].NodeEnd = m_arrNodes[4];
             m_arrMembers[3].CrScStart = m_arrCrSc[0];
-            m_arrMembers[3].Fill_Basic();
-
 
             //Sort by ID
             Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
@@ -248,17 +243,13 @@ namespace sw_en_GUI.EXAMPLES._2D
 
             // Load Cases
             // Load Case 1
-            CLoadCase LoadCase0 = new CLoadCase();
-            LoadCase0.ID = 1;
-
-            m_arrLoadCases[0] = LoadCase0;
+            m_arrLoadCases[0] = new CLoadCase();
+            m_arrLoadCases[0].ID = 1;
 
             // Load Combinations
             // Load Combination 1
-            CLoadCombination LoadComb0 = new CLoadCombination();
-            LoadComb0.ID = 1;
-
-            m_arrLoadCombs[0] = LoadComb0;
+            m_arrLoadCombs[0] = new CLoadCombination();
+            m_arrLoadCombs[0].ID = 1;
         }
     }
 }

@@ -10,45 +10,99 @@ namespace sw_en_GUI.EXAMPLES._2D
 {
     class CExample_2D_12 : CExample
     {
-        /*
-        public BaseClasses.CNode[] m_arrNodes = new BaseClasses.CNode[6];
-        public CMember[] arrMembers = new CMember[9];
-        public CMat_00[] arrMat = new CMat_00[5];
-        public CRSC.CCrSc[] m_arrCrSc = new CRSC.CCrSc[3];
-        public BaseClasses.CNSupport[] arrNSupports = new BaseClasses.CNSupport[3];
-        public BaseClasses.CNLoad[] arrNLoads = new BaseClasses.CNLoad[3];
-        */
-
         public CExample_2D_12()
         {
             m_eSLN = ESLN.e2DD_1D; // 1D members in 2D model
             m_eNDOF = (int)ENDOF.e2DEnv; // DOF in 2D
             m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
-            m_arrNodes = new BaseClasses.CNode[6];
-            m_arrMembers = new CMember[9];
+            m_arrNodes = new BaseClasses.CNode[5];
+            m_arrMembers = new CMember[4];
             m_arrMat = new CMat_00[1];
-            m_arrCrSc = new CRSC.CCrSc[1];
-            m_arrNSupports = new BaseClasses.CNSupport[3];
-            //m_arrNLoads = new BaseClasses.CNLoad[3];
+            m_arrCrSc = new CRSC.CCrSc[3];
+            m_arrNSupports = new BaseClasses.CNSupport[1];
+            m_arrMLoads = new BaseClasses.CMLoad[1];
+            m_arrLoadCases = new BaseClasses.CLoadCase[1];
+            m_arrLoadCombs = new BaseClasses.CLoadCombination[1];
+
+            // Auxiliary
+            // Use basic SI units
+            // Sobota, J. > Statika stavebnych konstrukcii 2
+
+            // Load
+            float fq = 20f;   // Unit [N/m]
+
+            // Geometry
+            float fa = 3.0f,
+                  fb = 4.0f,
+                  fc = 1.0f,
+                  fd = 2.0f,
+                  fe = 2.5f;// Unit [m]
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
-            m_arrMat[0] = new CMat_03_00();
+            m_arrMat[0] = new CMat_00();
+
+            // Auxiliary, dopocitat 
+            m_arrMat[0].m_fE = 10000000f;          // Unit [Pa]
+            m_arrMat[0].m_fNu = 0.3f;              // Unit [-]
+            m_arrMat[0].m_fG = 4000000;            // Unit [Pa]
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.1f, 0.05f);
+            // Cross-section
+            m_arrCrSc[0] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_arrCrSc[0].FA_g = 1.18095238095E-02f; // Unit [m^2]
+            m_arrCrSc[0].FI_y = 9.52380952381E-05f; // Unit [m^4]
+            m_arrCrSc[0].m_Mat = m_arrMat[0]; // Set CrSc Material
+
+            m_arrCrSc[1] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_arrCrSc[1].FA_g = 1.48571428571E-02f; // Unit [m^2]
+            m_arrCrSc[1].FI_y = 1.90476190476E-04f; // Unit [m^4]
+            m_arrCrSc[1].m_Mat = m_arrMat[0]; // Set CrSc Material
+
+            m_arrCrSc[2] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            m_arrCrSc[2].FA_g = 1.35238095238E-02f; // Unit [m^2]
+            m_arrCrSc[2].FI_y = 1.42857142857E-07f; // Unit [m^4]
+            m_arrCrSc[2].m_Mat = m_arrMat[0]; // Set CrSc Material
 
             // Nodes
             // Nodes List - Nodes Array
 
-            m_arrNodes[0] = new BaseClasses.CNode(1, 0.500f, 0, 2.500f, 0);
-            m_arrNodes[1] = new BaseClasses.CNode(2, 2.500f, 0, 2.500f, 0);
-            m_arrNodes[2] = new BaseClasses.CNode(3, 5.500f, 0, 2.500f, 0);
-            m_arrNodes[3] = new BaseClasses.CNode(4, 0.500f, 0, 0.500f, 0);
-            m_arrNodes[4] = new BaseClasses.CNode(5, 2.500f, 0, 0.500f, 0);
-            m_arrNodes[5] = new BaseClasses.CNode(6, 5.500f, 0, 0.500f, 0);
+            // Node 1
+            m_arrNodes[0] = new CNode();
+            m_arrNodes[0].INode_ID = 1;
+            m_arrNodes[0].FCoord_X = 0f;
+            m_arrNodes[0].FCoord_Y = 0f;
+            m_arrNodes[0].FCoord_Z = 0f;
+
+            // Node 2
+            m_arrNodes[1] = new CNode();
+            m_arrNodes[1].INode_ID = 2;
+            m_arrNodes[1].FCoord_X = 0f;
+            m_arrNodes[1].FCoord_Y = -fc - fd;
+            m_arrNodes[1].FCoord_Z = 0f;
+
+            // Node 3
+            m_arrNodes[2] = new CNode();
+            m_arrNodes[2].INode_ID = 3;
+            m_arrNodes[2].FCoord_X = fa;
+            m_arrNodes[2].FCoord_Y = -fc - fd - fe;
+            m_arrNodes[2].FCoord_Z = 0f;
+
+            // Node 4
+            m_arrNodes[3] = new CNode();
+            m_arrNodes[3].INode_ID = 4;
+            m_arrNodes[3].FCoord_X = fa + fb;
+            m_arrNodes[3].FCoord_Y = -fc - fd - fe;
+            m_arrNodes[3].FCoord_Z = 0f;
+
+            // Node 5
+            m_arrNodes[4] = new CNode();
+            m_arrNodes[4].INode_ID = 5;
+            m_arrNodes[4].FCoord_X = fa + fb;
+            m_arrNodes[4].FCoord_Y = fc;
+            m_arrNodes[4].FCoord_Z = 0f;
 
             // Sort by ID
             Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
@@ -56,34 +110,76 @@ namespace sw_en_GUI.EXAMPLES._2D
             // Members
             // Members List - Members Array
 
-            m_arrMembers[0] = new BaseClasses.CMember(1, m_arrNodes[0], m_arrNodes[1], m_arrCrSc[0], 0);
-            m_arrMembers[1] = new BaseClasses.CMember(2, m_arrNodes[1], m_arrNodes[2], m_arrCrSc[0], 0);
-            m_arrMembers[2] = new BaseClasses.CMember(3, m_arrNodes[0], m_arrNodes[3], m_arrCrSc[0], 0);
-            m_arrMembers[3] = new BaseClasses.CMember(4, m_arrNodes[1], m_arrNodes[4], m_arrCrSc[0], 0);
-            m_arrMembers[4] = new BaseClasses.CMember(5, m_arrNodes[2], m_arrNodes[5], m_arrCrSc[0], 0);
-            m_arrMembers[5] = new BaseClasses.CMember(6, m_arrNodes[3], m_arrNodes[4], m_arrCrSc[0], 0);
-            m_arrMembers[6] = new BaseClasses.CMember(7, m_arrNodes[4], m_arrNodes[5], m_arrCrSc[0], 0);
-            m_arrMembers[7] = new BaseClasses.CMember(8, m_arrNodes[1], m_arrNodes[3], m_arrCrSc[0], 0);
-            m_arrMembers[8] = new BaseClasses.CMember(9, m_arrNodes[1], m_arrNodes[5], m_arrCrSc[0], 0);
+            // Member 1 - 1-2
+            m_arrMembers[0] = new CMember();
+            m_arrMembers[0].IMember_ID = 1;
+            m_arrMembers[0].NodeStart = m_arrNodes[0];
+            m_arrMembers[0].NodeEnd = m_arrNodes[1];
+            m_arrMembers[0].CrScStart = m_arrCrSc[0];
+
+            // Member 2 - 2-3
+            m_arrMembers[1] = new CMember();
+            m_arrMembers[1].IMember_ID = 2;
+            m_arrMembers[1].NodeStart = m_arrNodes[1];
+            m_arrMembers[1].NodeEnd = m_arrNodes[2];
+            m_arrMembers[1].CrScStart = m_arrCrSc[1];
+
+            // Member 3 - 3-4
+            m_arrMembers[2] = new CMember();
+            m_arrMembers[2].IMember_ID = 3;
+            m_arrMembers[2].NodeStart = m_arrNodes[2];
+            m_arrMembers[2].NodeEnd = m_arrNodes[3];
+            m_arrMembers[2].CrScStart = m_arrCrSc[1];
+
+            // Member 4 - 4-5
+            m_arrMembers[3] = new CMember();
+            m_arrMembers[3].IMember_ID = 4;
+            m_arrMembers[3].NodeStart = m_arrNodes[3];
+            m_arrMembers[3].NodeEnd = m_arrNodes[4];
+            m_arrMembers[3].CrScStart = m_arrCrSc[2];
 
             //Sort by ID
             Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
-            // Set values
-            bool[] bSupport1 = { true, false, true, false, true, false };
-            bool[] bSupport2 = { false, false, true, false, true, false };
-            bool[] bSupport3 = { true, false, false, false, false, false };
-
-            // Create Support Objects
-            // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovana tato podpora
-            // objekt podpory bude len jeden a dotknute uzly budu vediet ze na ich podpora existuje a ake je konkretne ID jej nastaveni
-            m_arrNSupports[0] = new BaseClasses.CNSupport(6, 1, m_arrNodes[0], bSupport1, 0);
-            m_arrNSupports[1] = new BaseClasses.CNSupport(6, 2, m_arrNodes[2], bSupport2, 0);
-            m_arrNSupports[2] = new BaseClasses.CNSupport(6, 3, m_arrNodes[5], bSupport3, 0);
+            // Support 1 - NodeIDs: 1,5
+            m_arrNSupports[0] = new CNSupport(m_eNDOF);
+            m_arrNSupports[0].ISupport_ID = 1;
+            m_arrNSupports[0].m_bRestrain[0] = true; // true - 1 restraint (infinity) / false - 0 - free (zero rigidity)
+            m_arrNSupports[0].m_bRestrain[1] = true;
+            m_arrNSupports[0].m_bRestrain[2] = true;
+            m_arrNSupports[0].m_iNodeCollection = new int[2];
+            m_arrNSupports[0].m_iNodeCollection[0] = 1;
+            m_arrNSupports[0].m_iNodeCollection[1] = 5;
 
             // Sort by ID
             Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
+
+            // Member loads
+            // Load 1 - MemberIDs: 3
+            CMLoad_21 MLoad_q = new CMLoad_21(fq);
+            MLoad_q.ID = 1;
+            MLoad_q.MLoadTypeDistr = EMLoadTypeDistr.eMLT_QUF_W_21;
+            MLoad_q.MLoadType = EMLoadType.eMLT_F;
+            MLoad_q.EDirPPC = EMLoadDirPCC1.eMLD_PCC_FYU_MZV;
+            MLoad_q.IMemberCollection = new int[1];
+            MLoad_q.IMemberCollection[0] = 3;
+
+            m_arrMLoads[0] = MLoad_q;
+
+            // Load Cases
+            // Load Case 1
+            CLoadCase LoadCase0 = new CLoadCase();
+            LoadCase0.ID = 1;
+
+            m_arrLoadCases[0] = LoadCase0;
+
+            // Load Combinations
+            // Load Combination 1
+            CLoadCombination LoadComb0 = new CLoadCombination();
+            LoadComb0.ID = 1;
+
+            m_arrLoadCombs[0] = LoadComb0;
         }
     }
 }
