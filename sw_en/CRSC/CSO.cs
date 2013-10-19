@@ -483,9 +483,18 @@ namespace CRSC
                 d_I_t += dAi_method(i) * Math.Pow(t_hodnoty[i], 2) / 3;
             }
 
-            if (MathF.Min(t_hodnoty) != 0)
-                d_W_t = d_I_t / MathF.Min(t_hodnoty);
-            else MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
+            if (MathF.Min(t_hodnoty) != 0) // Existuje minimum rozne od nuly
+                d_W_t = d_I_t / MathF.Min(t_hodnoty); // Pre nenulovu hrubku
+            else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
+            {
+                int min_more_than_zero;
+                min_more_than_zero = t_hodnoty[0]; // Set first item
+
+                foreach (int num in t_hodnoty)
+                    if (num != 0 && num < min_more_than_zero) min_more_than_zero = num; // Set non zero minimum
+            }
+            else
+              MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
 
         }
         //J.23 method   ????? nerozumiem vzorcu...je potrebne upresnit
