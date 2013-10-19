@@ -139,6 +139,9 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CRSC_Form.resx">
+      <DependentUpon>CRSC_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CSOForm.resx">
       <DependentUpon>CSOForm.cs</DependentUpon>
       <SubType>Designer</SubType>

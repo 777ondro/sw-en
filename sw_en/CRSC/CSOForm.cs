@@ -30,6 +30,9 @@ namespace CRSC
             tHodnoty = new List<int>(5);
             idHodnoty = new List<int>(5);
 
+            // Fill example data - default
+            //this.FillDatagrid_EX_01();
+
         }
         public void button1_Click(object sender, EventArgs e)
         {
@@ -100,6 +103,31 @@ namespace CRSC
 
 
 
+        }
+
+        private void FillDatagrid_EX_01()
+        {
+            // Fill example data
+
+            float [,] arrtemp = new float[9,3] {
+            {-8.0f,  17.0f,  0.0f},
+            {-6.0f,  20.0f,  1.0f},
+            { 6.0f,  20.0f,  1.0f},
+            { 8.0f,  17.0f,  1.0f},
+            { 6.0f,  20.0f,  0.0f},
+            { 0.0f,  20.0f,  0.0f},
+            { 0.0f,   0.0f,  0.8f},
+            { 6.0f,   0.0f,  0.0f},
+            {-6.0f,   0.0f,  1.0f}
+            };
+
+            for (int i = 0; i < 9; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = i+1;
+                dataGridView1.Rows[i].Cells[1].Value = arrtemp[i, 0];
+                dataGridView1.Rows[i].Cells[2].Value = arrtemp[i, 1];
+                dataGridView1.Rows[i].Cells[3].Value = arrtemp[i, 2];
+            }
         }
 
         private void getListsFromDatagrid()
@@ -231,7 +259,7 @@ namespace CRSC
             int zmax = this.findMax(zSuradnice);
             int zmin = this.findMin(zSuradnice);
             float pomer;
-            
+
             pomer = this.countZoomForPicture(ymax, ymin, zmax, zmin);  //vypocet pomeru 
             this.countPositionsForLists(); //nastavenie hodnot na pociatocny bod
 
@@ -256,7 +284,7 @@ namespace CRSC
                     g.DrawString(idHodnoty[i+1].ToString(), font, brush, y2-5, z2+4 );
                     g.DrawString("[" + (int)ySuradniceDatagrid[i+1] + "," + (int)zSuradniceDatagrid[i+1] + "]",
                                 font2, brush, y2 - 30, z2 - 20);
-                    
+
                 }
             }
             else
@@ -268,7 +296,7 @@ namespace CRSC
                 g.DrawString(idHodnoty[0].ToString(), font, brush, y1-5, z1+4);
                 g.DrawString("[" + (int)ySuradniceDatagrid[0] + "," + (int)zSuradniceDatagrid[0] + "]",
                                 font2, brush, y1 - 20, z1 - 20);
-                
+
             }
 
             p.Dispose();
