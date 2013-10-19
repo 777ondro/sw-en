@@ -15,7 +15,8 @@ namespace CRSC
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CRSC_Form());
+            //Application.Run(new CRSC_Form());
+            Application.Run(new CSOForm()); // Run main window / form
         }
     }
 }
