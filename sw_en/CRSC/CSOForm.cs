@@ -31,7 +31,18 @@ namespace CRSC
             idHodnoty = new List<int>(5);
 
             // Fill example data - default
-            //this.FillDatagrid_EX_01();
+            this.FillDatagrid_EX_01();
+
+            /*
+            DataSet ds = new DataSet();
+            DataTable table = new DataTable();
+            DataRow row = table.NewRow();
+            row[0] = "stlpec0";
+            row[1] = "stlpec1";
+            row[2] = "stlpec2";
+            table.Rows.Add(row);
+            ds.Tables.Add(table);
+            */
 
         }
         public void button1_Click(object sender, EventArgs e)
@@ -116,13 +127,14 @@ namespace CRSC
             { 8.0f,  17.0f,  1.0f},
             { 6.0f,  20.0f,  0.0f},
             { 0.0f,  20.0f,  0.0f},
-            { 0.0f,   0.0f,  0.8f},
+            { 0.0f,   0.0f,  1.0f/*0.8f*/},
             { 6.0f,   0.0f,  0.0f},
             {-6.0f,   0.0f,  1.0f}
             };
 
             for (int i = 0; i < 9; i++)
             {
+                dataGridView1.Rows.Add(new DataGridViewRow());
                 dataGridView1.Rows[i].Cells[0].Value = i+1;
                 dataGridView1.Rows[i].Cells[1].Value = arrtemp[i, 0];
                 dataGridView1.Rows[i].Cells[2].Value = arrtemp[i, 1];
