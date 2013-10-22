@@ -136,6 +136,9 @@
     <Compile Include="WindowMain.xaml.cs">
       <DependentUpon>WindowMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowMaterialDB.xaml.cs">
+      <DependentUpon>WindowMaterialDB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowMenu.xaml.cs">
       <DependentUpon>WindowMenu.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMaterialDB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

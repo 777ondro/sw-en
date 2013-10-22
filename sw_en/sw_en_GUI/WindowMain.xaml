@@ -129,8 +129,8 @@
                     <MenuItem x:Name="menuItemLoadCombination" Header="Load Combination"></MenuItem>
             </MenuItem>
 			<MenuItem Header="Database">
-                <MenuItem x:Name="menuItemDatabaseMaterials" Header="Materials"></MenuItem>
-                <MenuItem x:Name="menuItemDatabaseCrossSections" Header="Cross-sections"></MenuItem>
+                <MenuItem x:Name="menuItemDatabaseMaterials" Header="Materials" Click="menuItemDB_Materials_Click"></MenuItem>
+                <MenuItem x:Name="menuItemDatabaseCrossSections" Header="Cross-sections" Click="menuItemDB_CrossSections_Click"></MenuItem>
                 <MenuItem x:Name="menuItemDatabaseLoads" Header="Load Tables"></MenuItem> <!-- Tables of loads (dead load, permanent load - layers, live loads -->
             </MenuItem>
 			<MenuItem Header="Modules"></MenuItem>
