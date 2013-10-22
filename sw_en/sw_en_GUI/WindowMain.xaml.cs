@@ -549,6 +549,18 @@ namespace sw_en_GUI
 			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
+        private void menuItemDB_Materials_Click(object sender, RoutedEventArgs e)
+        {
+            WindowMaterialDB win = new WindowMaterialDB();
+            win.ShowDialog();
+        }
+
+        private void menuItemDB_CrossSections_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCrossSectionDB win = new WindowCrossSectionDB();
+            win.ShowDialog();
+        }
+
         private void menuItemCalculate_Click(object sender, RoutedEventArgs e)
         {
             /*
