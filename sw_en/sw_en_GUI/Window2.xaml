@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Border Background="Black" Grid.Row="0" Grid.Column="0">
             <!-- Default background is black -->
-            <Tools3D:Trackport3D x:Name="_trackport" />
+            <Tools3D:Trackport3D x:Name="_trackport" Background="Black" />
         </Border>
     </Grid>
 </Window>

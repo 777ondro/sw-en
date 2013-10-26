@@ -1061,7 +1061,7 @@ namespace sw_en_GUI
                       System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
                   }
 
-                  if(!(cmodel.m_arrMembers[i].CrScStart is CCrSc)) // CCrSc is general ancestor of other cross-section object, it is abstract without geometrical properties (dimensions), only centroid line could be displayed
+                  if(cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
                   {
                       // Create Member model
                       GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
