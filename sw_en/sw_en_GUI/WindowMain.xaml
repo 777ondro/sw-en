@@ -136,7 +136,7 @@
 			<MenuItem Header="Modules">
                 <MenuItem x:Name="menuItemLoadGenerators" Header="Load Generators"></MenuItem>
                 <MenuItem x:Name="menuItemModuleConcrete" Header="Concrete"></MenuItem>
-                <MenuItem x:Name="menuItemModulSteel" Header="Steel"></MenuItem>
+                <MenuItem x:Name="menuItemModulSteel" Header="Steel" Click="menuItemModuleSteel_Click"></MenuItem>
                 <MenuItem x:Name="menuItemModulComposite" Header="Composite"></MenuItem>
                 <MenuItem x:Name="menuItemModulTimber" Header="Timber"></MenuItem>
                 <MenuItem x:Name="menuItemModulMansonry" Header="Mansonry"></MenuItem>

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//using System.Windows.Forms;
 using Microsoft.Win32;
 using CENEX;
 using System.IO;
@@ -90,7 +91,6 @@ namespace sw_en_GUI
 			WindowsMenu.Items.Add(mi = new MenuItem { Header = "Close all" });
 			mi.Click += (o, e) => Container.Children.Clear();
 		}
-
 
 		private void menuItemNew_Click(object sender, RoutedEventArgs e)
 		{
@@ -362,7 +362,6 @@ namespace sw_en_GUI
 			return members.ToArray();
 		}
 
-
 		private CRSC.CCrSc[] getCrossSections(DataTable dt)
 		{
             List<CRSC.CCrSc> list_crsc = new List<CRSC.CCrSc>();
@@ -409,7 +408,6 @@ namespace sw_en_GUI
 			}
 			return list_crsc.ToArray();
 		}
-
 
 		private CNSupport[] getNSupports(DataTable dt)
 		{
@@ -549,6 +547,7 @@ namespace sw_en_GUI
 			Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Window " + (Container.Children.Count + 1) });
 		}
 
+        // Database
         private void menuItemDB_Materials_Click(object sender, RoutedEventArgs e)
         {
             WindowMaterialDB win = new WindowMaterialDB();
@@ -561,6 +560,7 @@ namespace sw_en_GUI
             win.ShowDialog();
         }
 
+        // Calculation
         private void menuItemCalculate_Click(object sender, RoutedEventArgs e)
         {
             /*
@@ -612,6 +612,15 @@ namespace sw_en_GUI
 
             // Display Message
             MessageBox.Show(sMessageCalc, "Solver Message",MessageBoxButton.OK);
+
+        }
+
+        // Modules
+        private void menuItemModuleSteel_Click(object sender, RoutedEventArgs e)
+        {
+            //CENEX.EN1993_1_1 objEC3 = new EN1993_1_1();
+            //objEC3.
+
 
         }
 
@@ -764,6 +773,5 @@ namespace sw_en_GUI
 
             FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
         }
-
     }
 }
