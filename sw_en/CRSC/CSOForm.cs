@@ -45,6 +45,7 @@ namespace CRSC
             */
 
         }
+
         public void button1_Click(object sender, EventArgs e)
         {
             CSO CSOprop = new CSO();
@@ -57,8 +58,6 @@ namespace CRSC
             // Calculation of cross section attributes
             this.getListsFromDatagrid();
             CSO cso = new CSO(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
-
-
 
             // Round numerical values
             int dec_place_num1 = 1;
@@ -95,7 +94,6 @@ namespace CRSC
             double d_I_t = Math.Round(cso.D_I_t, dec_place_num2);
             double d_W_t = Math.Round(cso.D_W_t, dec_place_num2);
 
-            
             //vymazanie datagridview2
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
@@ -111,9 +109,6 @@ namespace CRSC
             dataGridView2.Rows.Add("yj =", d_y_j, "mm", "zj =", d_z_j, "mm", " ", " ", " ");
             dataGridView2.Rows.Add("Iw =", d_I_w, "mm6", "Ww =", d_W_w, "mm3", " ", " ", " ");
             dataGridView2.Rows.Add("It =", d_I_t, "mm4", "Wt =", d_W_t, "mm3", " ", " ", " ");
-
-
-
         }
 
         private void FillDatagrid_EX_01()
@@ -175,6 +170,7 @@ namespace CRSC
             }
             return max;
         }
+
         //funkcia na najdenie minima v zozname int hodnot
         private int findMin(List<int> zoznam)
         {
@@ -185,6 +181,7 @@ namespace CRSC
             }
             return min;
         }
+
         private float countZoomForPicture(int xmax,int xmin,int ymax,int ymin) 
         {
             float pomer;
@@ -202,6 +199,7 @@ namespace CRSC
                 
             return pomer;
         }
+
         private void countPositionsForLists() 
         {
             int minx = this.findMin(ySuradnice);
@@ -315,6 +313,7 @@ namespace CRSC
             g.Dispose();
             pictureBox1.Image = myBitmap;
         }
+
         private void buttonDraw_Click(object sender, EventArgs e)
         {
             try
@@ -324,8 +323,6 @@ namespace CRSC
             }
             catch (ArgumentOutOfRangeException) { MessageBox.Show("Set values to y,z,t in the table."); }
         }
-
-
 
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -350,16 +347,5 @@ namespace CRSC
                 dataGridView1.Rows[i-1].Cells[0].Value = i;
             
         }
-
-        
-
-
-
-
-
     }
 }
-
-
-
-
