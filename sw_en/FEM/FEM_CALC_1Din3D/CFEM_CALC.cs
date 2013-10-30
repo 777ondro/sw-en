@@ -306,6 +306,29 @@ namespace FEM_CALC_1Din3D
                     FEMModel.m_arrFemMembers[i].m_VElemIF_LCS_EnNode.Print1DVector();
                 }
             }
+
+            // Calculate IF in x-places
+
+            int inum_cut = 11;
+            int inum_segm = 10;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         } // End of Constructor
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

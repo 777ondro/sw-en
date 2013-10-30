@@ -75,7 +75,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-         void GetMLoadPart_11(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_11(CMLoad_11 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
         {
             switch (eMType)
             {
@@ -118,7 +118,7 @@ namespace FEM_CALC_BASE
             }
         }
 
-         void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
+        void GetMLoadPart_12(CMLoad_12 Load, CE_1D_BASE Member, FEM_CALC_BASE.Enums.EElemSuppType2D eMType, out float fA, out float fB, out float fMa, out float fMb)
          {
              switch (eMType)
              {
@@ -238,13 +238,7 @@ namespace FEM_CALC_BASE
             fMa = fMb = 0.0f;
         }
 
-
-
-
-
-
         #region End Moments and Reactions of Both Sides Restrained member / Koncove momenty a reakcie obojstranne votknuteho nosnika
-
         void GetEIF_00_00_11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = -6 * Load.FF / (float)Math.Pow(fL, 3) * Load.Fa * (fL - Load.Fa);
@@ -258,12 +252,6 @@ namespace FEM_CALC_BASE
             fB = -fA;
             fMa = fMb = - 0.25f * Load.FF / MathF.Pow2(fL);
         }
-
-
-
-
-
-
         #endregion
 
         #region End Moments and Reactions of One Side Restrained and Other Side Simply Supported Member / Koncove momenty a reakcie nosnika na jednej strane votknuteho a na opacnej strane jednoducho podporeteho
@@ -282,12 +270,9 @@ namespace FEM_CALC_BASE
             fMa = -Load.FF / 8f;
             fMb = 0.0f;
         }
-
-
         #endregion
 
         #region End Moments and Reactions of One Side Simply Supported and Other Side  Restrained Member / Koncove momenty a reakcie nosnnika na jednej strane jednoducho podporeteho a na opacnej strane votknuteho
-        
         void GetEIF_0__00_11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = -3f / 2f * ((MathF.Pow2(fL) - MathF.Pow2(Load.Fa)) / MathF.Pow3(fL)) * Load.FF;
@@ -302,15 +287,9 @@ namespace FEM_CALC_BASE
             fMa = 0.0f;
             fMb = Load.FF / 8f; ;
         }
-
-
-
-
-
         #endregion
 
         #region End Moments and Reactions of Simply Supported Member / Koncove momenty a reakcie prosteho nosnika
-        
         void GetEIF_0__0__11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = -Load.FF / fL;
@@ -323,12 +302,9 @@ namespace FEM_CALC_BASE
             fB = -fA;
             fMa = fMb = 0f;
         }
-
-
         #endregion
 
         #region Reactions of One Side Restrained and Other Side Unsupported Member
-
         void GetEIF_00____11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = fB = 0.0f;
@@ -341,18 +317,9 @@ namespace FEM_CALC_BASE
             fMa = -Load.FF;
             fMb = 0.0f;
         }
-
-
-
-
-
-
-
         #endregion
 
-
         #region Reactions of One Side Unsupported and Other Side Restrained Member
-
         void GetEIF____00_11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
             fA = fB = 0.0f;
@@ -365,21 +332,6 @@ namespace FEM_CALC_BASE
             fMa = 0.0f;
             fMb = -Load.FF;
         }
-
-
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
