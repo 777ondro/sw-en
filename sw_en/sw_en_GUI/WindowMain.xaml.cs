@@ -624,7 +624,6 @@ namespace sw_en_GUI
 
         }
 
-
         // 2D Examples
 
         private void menuItemExample2D_01_Click(object sender, RoutedEventArgs e)
@@ -660,7 +659,6 @@ namespace sw_en_GUI
         }
 
         // Doplnit nejake priklady 5 -10
-
 
         private void menuItemExample2D_11_Click(object sender, RoutedEventArgs e)
         {
