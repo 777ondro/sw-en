@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CRSC;
 
 namespace sw_en_GUI
 {
@@ -291,5 +292,28 @@ namespace sw_en_GUI
 			gridTimber.Visibility = Visibility.Hidden;
 			gridAluminium.Visibility = Visibility.Hidden;
 		}
+
+        private void btnGeneral_CS0_Click(object sender, RoutedEventArgs e)
+        {
+            CSOForm cso_form = new CSOForm();
+            cso_form.Show();
+        }
+
+        private void btnSteel_CSO_Click(object sender, RoutedEventArgs e)
+        {
+            CSOForm cso_form = new CSOForm();
+            cso_form.Show();
+        }
+
+        private void btnAluminium_CSO_Click(object sender, RoutedEventArgs e)
+        {
+            CSOForm cso_form = new CSOForm();
+            cso_form.Show();
+        }
+
+
+        
+
+       
 	}
 }
