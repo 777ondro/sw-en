@@ -149,7 +149,7 @@
 				<Button Grid.Row="6" Grid.Column="7" Width="1cm" Height="1cm">
 					<Image x:Name="imageButton67"></Image>
 				</Button>
-				<Button Grid.Row="6" Grid.Column="8" Width="1cm" Height="1cm">
+				<Button Name="btnGeneral_CS0" Grid.Row="6" Grid.Column="8" Width="1cm" Height="1cm" Click="btnGeneral_CS0_Click">
 					<Image x:Name="imageButton68"></Image>
 				</Button>
 			</Grid>
@@ -603,7 +603,7 @@
 					<Button Grid.Row="4" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnSteelParamThin44"></Image>
 					</Button>
-					<Button Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm">
+					<Button x:Name="btnSteel_CSO" Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm" Click="btnSteel_CSO_Click">
 						<Image x:Name="imgBtnSteelParamThin45"></Image>
 					</Button>
 				</Grid>
@@ -967,7 +967,7 @@
 					<Button Grid.Row="4" Grid.Column="4" Width="1cm" Height="1cm">
 						<Image x:Name="imgBtnAluminiumParam44" ></Image>
 					</Button>
-					<Button Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm">
+					<Button x:Name="btnAluminium_CSO" Grid.Row="4" Grid.Column="5" Width="1cm" Height="1cm" Click="btnAluminium_CSO_Click">
 						<Image x:Name="imgBtnAluminiumParam45" ></Image>
 					</Button>
 				</Grid>
