@@ -18,9 +18,9 @@ namespace CRSC
         // VARIABLES
         // EN 1999-1-1:2007 Annex J - J.4, page 183
 
-        List<int> y_suradnice;
-        List<int> z_suradnice;
-        List<int> t_hodnoty;
+        List<double> y_suradnice;
+        List<double> z_suradnice;
+        List<double> t_hodnoty;
         double _A;                   // Cross-section area (J.6)
         double dA;                   // Area off segment (J.5)
         double _d_A_vy;              // Cross-section shear area
@@ -274,7 +274,7 @@ namespace CRSC
         //KONSTRUCTOR
 
         public CSO () {}
-        public CSO(List<int> y_suradnice,List<int>z_suradnice,List<int> t_hodnoty) 
+        public CSO(List<double> y_suradnice,List<double> z_suradnice,List<double> t_hodnoty) 
         {
             int count = y_suradnice.Count;
 
@@ -303,7 +303,7 @@ namespace CRSC
         }
 
         //method for calculations...
-        public void calcutale(List<int> y_suradnice, List<int> z_suradnice, List<int> t_hodnoty) 
+        public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty) 
         {
             int count = y_suradnice.Count;
 
@@ -487,7 +487,7 @@ namespace CRSC
                 d_W_t = d_I_t / MathF.Min(t_hodnoty); // Pre nenulovu hrubku
             else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
             {
-                int min_more_than_zero;
+                double min_more_than_zero;
                 min_more_than_zero = t_hodnoty[0]; // Set first item
 
                 foreach (int num in t_hodnoty)
