@@ -68,6 +68,22 @@ namespace MATH
                 if (num > max) max = num;
             return max;
         }
+        public static double Min(List<double> data)
+        {
+            double min;
+            min = data[0];
+            foreach (double num in data)
+                if (num < min) min = num;
+            return min;
+        }
+        public static double Max(List<double> data)
+        {
+            double max;
+            max = data[0];
+            foreach (double num in data)
+                if (num > max) max = num;
+            return max;
+        }
                #endregion
         //----------------------------------------------------------------------------------------------------------------------------
         // Equality of real numbers / Rovnost realnych cisel (float a double)
