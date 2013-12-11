@@ -1137,6 +1137,8 @@ namespace FEM_CALC_BASE
         // Objostranne jednoducho podoprety prut
         //----------------------------------------------------------------------------------------------------------------------------
 
+        // http://www.enggpedia.com/civil-engineering-encyclopedia/articles/1592-simply-supported-udl-beam-formulas
+
         #region Reactions of Both Sides Simply Supported Member
         // Singular Load
         void GetEIF_0__0__11_UV(CMLoad_11 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
@@ -1155,9 +1157,22 @@ namespace FEM_CALC_BASE
         // Uniform Load
         void GetEIF_0__0__21_UV(CMLoad_21 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
+            // Whole Member
             fA = 0.5f * Load.Fq * fL;
             fB = fA;
             fMa = fMb = 0f;
+
+            // IF distribution formulas
+            float fx = 0; // Temp
+            float fx_M_max = fL / 2.0f;
+            float fM_max = Load.Fq * MathF.Pow2(fL);
+            float fM_x = Load.Fq * fx / 2.0f * (fL - fx);
+
+            // Deflection formulas
+            float fE = 0.0f, fI = 0.0f;
+            float fx_Delta_max = fL / 2.0f;
+            float fDelta_max = 5.0f * Load.Fq * MathF.Pow4(fL) / (384.0f * fE * fI);
+
         }
         void GetEIF_0__0__22_UV(CMLoad_22 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
@@ -1175,10 +1190,28 @@ namespace FEM_CALC_BASE
         }
         void GetEIF_0__0__24_UV(CMLoad_24 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
         {
+            // Partly in general position on member
+            // Fa - distance from start
+            // Fs - length of uniform load
+
             float fb = fL - Load.Fa;
             fA = (Load.Fq * Load.Fs / (8f * MathF.Pow3(fL))) * (4f * MathF.Pow2(fb) * (2f * fL + Load.Fa) + Load.Fa * MathF.Pow2(Load.Fs));
             fB = (Load.Fq * Load.Fs * Load.Fa / (8f * MathF.Pow3(fL))) * (8f * MathF.Pow2(fL) + 4f * fb * (fL + Load.Fa) - MathF.Pow2(Load.Fs));
             fMa = fMb = 0f;
+
+            float fx = 0.0f, fV_x;
+
+            if (fx < Load.Fa)
+                fV_x = fA;
+            else if (fx < (Load.Fa + Load.Fs))
+                fV_x = fA - Load.Fq * (fx - Load.Fa);
+            else
+                fV_x = -fB;
+
+            //float 
+
+
+
         }
         // Triangular Load
         void GetEIF_0__0__31_UV(CMLoad_31 Load, float fL, out float fA, out float fB, out float fMa, out float fMb)
