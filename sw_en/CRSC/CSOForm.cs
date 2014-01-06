@@ -150,9 +150,9 @@ namespace CRSC
             idHodnoty.Clear();
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
-                y = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value.ToString().Replace(",", "."), new CultureInfo("en"));
-                z = Convert.ToDouble(dataGridView1.Rows[i].Cells[2].Value.ToString().Replace(",", "."), new CultureInfo("en"));
-                t = Convert.ToDouble(dataGridView1.Rows[i].Cells[3].Value.ToString().Replace(",", "."), new CultureInfo("en"));
+                y = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value.ToString().Replace(",", "."), new CultureInfo("en-us"));
+                z = Convert.ToDouble(dataGridView1.Rows[i].Cells[2].Value.ToString().Replace(",", "."), new CultureInfo("en-us"));
+                t = Convert.ToDouble(dataGridView1.Rows[i].Cells[3].Value.ToString().Replace(",", "."), new CultureInfo("en-us"));
                 id = Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value.ToString());
                 ySuradnice.Add(y);
                 zSuradnice.Add(z);
