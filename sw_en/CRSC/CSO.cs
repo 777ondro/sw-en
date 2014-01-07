@@ -330,8 +330,8 @@ namespace CRSC
         //(J.5) method
         private double dAi_method(int i)
         {
-            double dAi = t_hodnoty[i] * Math.Sqrt(Math.Pow(Math.Abs(y_suradnice[i] - y_suradnice[i - 1]), 2)
-                            + Math.Pow(Math.Abs(z_suradnice[i] - z_suradnice[i - 1]), 2));
+            double dAi = t_hodnoty[i] * Math.Sqrt(Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 2)
+                            + Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 2));
             return dAi;
         }
         //(J.6) method
@@ -377,8 +377,8 @@ namespace CRSC
             for (int i = 1; i < count; i++)
             {
                 dAi = dAi_method(i) / 2;
-                _Sy0 += Math.Abs(z_suradnice[i] + z_suradnice[i - 1]) * (dAi);
-                _Sz0 += Math.Abs(y_suradnice[i] + y_suradnice[i - 1]) * (dAi);
+                _Sy0 += (z_suradnice[i] + z_suradnice[i - 1]) * dAi;
+                _Sz0 += (y_suradnice[i] + y_suradnice[i - 1]) * dAi;
             }
 
             this.d_z_gc = _Sy0 / A;
