@@ -488,15 +488,20 @@ namespace CRSC
                 d_W_t = d_I_t / MathF.Min(t_hodnoty); // Pre nenulovu hrubku
             else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
             {
-                double min_more_than_zero;
-                min_more_than_zero = t_hodnoty[0]; // Set first item
+                double min_more_than_zero, max;
 
-                foreach (int num in t_hodnoty)
+                max = t_hodnoty[0]; // Set first item
+                foreach (double num in t_hodnoty)
+                    if (num > max) max = num; // Set new maximum
+
+                min_more_than_zero = max; // Set minimum to maximum
+                foreach (double num in t_hodnoty)
                     if (num != 0 && num < min_more_than_zero) min_more_than_zero = num; // Set non zero minimum
+
+                d_W_t = d_I_t / min_more_than_zero;
             }
             else
               MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
-
         }
         //J.23 method   ????? nerozumiem vzorcu...je potrebne upresnit
         private void J_23_method(int count)
