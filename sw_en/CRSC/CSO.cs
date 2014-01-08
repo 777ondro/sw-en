@@ -302,7 +302,7 @@ namespace CRSC
 
         }
 
-        //method for calculations...
+        // Methods for calculations...
         public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty) 
         {
             int count = y_suradnice.Count;
@@ -345,7 +345,7 @@ namespace CRSC
             return sum;
         }
         // Shear Area Y
-        //(sum of all parts paralel to y-Axis and) 
+        //(sum of all parts paralel to y-Axis and)
         private double A_vy_method(int count)
         {
             double sum = 0;
@@ -403,8 +403,8 @@ namespace CRSC
                         + y_suradnice[i - 1] * z_suradnice[i] + y_suradnice[i] * z_suradnice[i - 1])*dAi/6;
             }
             
-            this._Iy = _Iy0 + A * Math.Pow(d_z_gc, 2);
-            this._Iz = _Iz0 + A * Math.Pow(d_y_gc, 2);
+            this._Iy = _Iy0 - A * Math.Pow(d_z_gc, 2);
+            this._Iz = _Iz0 - A * Math.Pow(d_y_gc, 2);
             this._Iyz = _Iyz0 - (_Sy0 * _Sz0 / A);
             
         }
@@ -415,8 +415,8 @@ namespace CRSC
                 alfa = Math.Atan(2 * _Iyz / (_Iz - _Iy)) / 2;
             else alfa = 0;
             double temp = Math.Sqrt(Math.Pow(_Iz - _Iy, 2) + 4 * Math.Pow(_Iyz, 2));
-            _Iepsilon = 1 / 2 * (_Iy + _Iz + temp);
-            _Imikro = 1 / 2 * (_Iy + _Iz - temp);
+            this._Iepsilon = 0.5 * (_Iy + _Iz + temp);
+            this._Imikro = 0.5 * (_Iy + _Iz - temp);
         }
         //J.15 method
         private void J_15_method(int count) 
@@ -426,10 +426,9 @@ namespace CRSC
             for (int i = 1; i < count; i++) 
             {
                 omega0i[i] = y_suradnice[i - 1] * z_suradnice[i] - y_suradnice[i] * z_suradnice[i - 1];
-                omega[i] = omega[i - 1] * omega0i[i]; 
+                omega[i] = omega[i - 1] + omega0i[i]; 
             }
         }
-
         //J.16 method
         private void J_16_method(int count) 
         {
@@ -440,7 +439,6 @@ namespace CRSC
             }
             _omega_mean = _Iomega / A;
         }
-
         //J.17,J18,J19 method 
         private void J_17_18_19_method(int count) 
         {
@@ -451,17 +449,20 @@ namespace CRSC
             for (int i = 1; i < count; i++)
             {
                 double dAi = dAi_method(i);
-                _Iy_omega0 += (2 * y_suradnice[i - 1] * omega[i - 1] + 2 * y_suradnice[i] * omega[i] + y_suradnice[i - 1] * omega[i] +
-                                y_suradnice[i] * omega[i - 1]) * dAi / 6;
-                _Iz_omega0 += (2 * omega[i - 1] * z_suradnice[i - 1] + 2 * omega[i] * z_suradnice[i] * omega[i - 1] * z_suradnice[i] +
-                                omega[i] * z_suradnice[i - 1]) * dAi / 6;
+                _Iy_omega0 += (2 * y_suradnice[i - 1] * omega[i - 1] +
+                               2 * y_suradnice[i] * omega[i] +
+                               y_suradnice[i - 1] * omega[i] +
+                               y_suradnice[i] * omega[i - 1]) * dAi / 6;
+                _Iz_omega0 += (2 * omega[i - 1] * z_suradnice[i - 1] +
+                               2 * omega[i] * z_suradnice[i] +
+                               omega[i - 1] * z_suradnice[i] +
+                               omega[i]     * z_suradnice[i - 1]) * dAi / 6;
                 _Iomega_omega0 += (Math.Pow(omega[i], 2) + Math.Pow(omega[i - 1], 2) + omega[i] * omega[i - 1]) * dAi / 3;
             }
             _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / _A);
             _Iz_omega = _Iz_omega0 - (_Sy0 * _Iomega / _A);
             _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / _A);
         }
-
         //J.20 and J.21 method
         private void J_20_21_method() 
         {
@@ -511,7 +512,7 @@ namespace CRSC
         {
             omega_max = MathF.Max(d_omega_s);
             d_W_w = d_I_w / omega_max;
-            d_y_s = d_y_sc - d_z_gc;
+            d_y_s = d_y_sc - d_y_gc;
             d_z_s = d_z_sc - d_z_gc;
             _Ip = _Iy + _Iz + A * (Math.Pow(d_y_s, 2) + Math.Pow(d_z_s, 2));
 
@@ -522,7 +523,6 @@ namespace CRSC
             d_y_ci = (y_suradnice[num] + y_suradnice[num - 1]) / 2 - d_y_gc;
             d_z_ci = (z_suradnice[num] + z_suradnice[num - 1]) / 2 - d_z_gc;
         }
-
         //J.27,J.28 method
         //This method uses J.29 method to count actual d_y_ci and d_z_ci numbers
         private void J_27_J_28_method(int count) 
