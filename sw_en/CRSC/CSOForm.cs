@@ -99,17 +99,17 @@ namespace CRSC
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
             //Potrebne popridavat vsetky premenne,ktore chceme zobrazit
-            dataGridView2.Rows.Add("Ag ="    , d_A    , "mm2", "Avy ="  , d_A_vy,  "mm2",  "Avz =", d_A_vz, "mm2");
-            dataGridView2.Rows.Add("ygc ="   , d_y_gc, "mm" , "SyO ="  , d_S_y0,  "mm3",  "IyO =", d_I_y, "mm4");
-            dataGridView2.Rows.Add("zgc ="   , d_z_gc, "mm", "SzO =", d_S_z0, "mm3", "Iz =",d_I_z, "mm4");
-            dataGridView2.Rows.Add("alpha =" , d_Alpha , "rad", " " , " ", " ",  "Iyz =", d_I_yz, "mm4");
-            dataGridView2.Rows.Add("Ieps ="  , d_I_eps, "mm4", "Ieta =", d_I_eta, "mm4", " " ," " , " ");
-            dataGridView2.Rows.Add("Iomega =", d_I_ome, "mm6", "omega mean =", d_ome_mean, "mm2", d_ome_max, "mm2");
-            dataGridView2.Rows.Add("Iyomega =", d_I_y_ome, "mm6", "Izomega =", d_I_z_ome, "mm6", "Iomega_omega =", d_I_ome_ome, "mm6");
-            dataGridView2.Rows.Add("ys =", d_y_s, "mm", "zs =", d_z_s, "mm", "Ip =", d_I_p, "mm4");
-            dataGridView2.Rows.Add("yj =", d_y_j, "mm", "zj =", d_z_j, "mm", " ", " ", " ");
-            dataGridView2.Rows.Add("Iw =", d_I_w, "mm6", "Ww =", d_W_w, "mm3", " ", " ", " ");
-            dataGridView2.Rows.Add("It =", d_I_t, "mm4", "Wt =", d_W_t, "mm3", " ", " ", " ");
+            dataGridView2.Rows.Add("Ag ="     , d_A   ,    "mm2", "Avy ="       , d_A_vy,     "mm2",  "Avz ="         , d_A_vz     , "mm2");
+            dataGridView2.Rows.Add("ygc ="    , d_y_gc,    "mm" , "SyO ="       , d_S_y0,     "mm3",  "Iy ="          , d_I_y      , "mm4");
+            dataGridView2.Rows.Add("zgc ="    , d_z_gc,    "mm" , "SzO ="       , d_S_z0,     "mm3",  "Iz ="          , d_I_z      , "mm4");
+            dataGridView2.Rows.Add("alpha ="  , d_Alpha,   "rad", " "           , " "   ,     " "  ,  "Iyz ="         , d_I_yz     , "mm4");
+            dataGridView2.Rows.Add("Ieps ="   , d_I_eps,   "mm4", "Ieta ="      , d_I_eta,    "mm4",  " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Iomega =" , d_I_ome,   "mm6", "omega mean =", d_ome_mean, "mm2",  "omega max ="   , d_ome_max  , "mm2");
+            dataGridView2.Rows.Add("Iyomega =", d_I_y_ome, "mm6", "Izomega ="   , d_I_z_ome,  "mm6",  "Iomega_omega =", d_I_ome_ome, "mm6");
+            dataGridView2.Rows.Add("ys ="     , d_y_s,      "mm", "zs ="        , d_z_s,       "mm",  "Ip ="          , d_I_p      , "mm4");
+            dataGridView2.Rows.Add("yj ="     , d_y_j,      "mm", "zj ="        , d_z_j,       "mm", " ", " ", " ");
+            dataGridView2.Rows.Add("Iw ="     , d_I_w,     "mm6", "Ww ="        , d_W_w,      "mm3", " ", " ", " ");
+            dataGridView2.Rows.Add("It ="     , d_I_t,     "mm4", "Wt ="        , d_W_t,      "mm3", " ", " ", " ");
         }
 
         private void FillDatagrid_EX_01()
