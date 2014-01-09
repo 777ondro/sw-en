@@ -21,6 +21,8 @@ namespace CRSC
         List<double> y_suradnice;
         List<double> z_suradnice;
         List<double> t_hodnoty;
+        double _h;
+        double _b;
         double _A;                   // Cross-section area (J.6)
         double dA;                   // Area off segment (J.5)
         double _d_A_vy;              // Cross-section shear area
@@ -65,14 +67,21 @@ namespace CRSC
              , d_z_j                 // Factors of asymetry (J.27) and (J.28)  // according Annex I
              , d_y_j                 // (J.28)
              , d_y_ci                // Partial coordinates of centre of cross-section segments // (J.29)
-             , d_z_ci;               // Partial coordinates of centre of cross-section segments
-
-        double _Sw;                  // Sectorial product of area  Staticky vysecovy moment // missing formula
-        double _Wy_el;               // Elastic cross-section modulus y-y and z-z
-        double _Wz_el;               // Elastic cross-section modulus y-y and z-z
-        double _Wy_pl;               // Plastic cross-section modulus y-y and z-z
-        double _Wz_pl;    
+             , d_z_ci                // Partial coordinates of centre of cross-section segments
+             , _Sw                   // Sectorial product of area  Staticky vysecovy moment // missing formula
+             , _Wy_el_1              // Elastic cross-section modulus y-y and z-z
+             , _Wy_el_2              // Elastic cross-section modulus y-y and z-z
+             , _Wz_el_1              // Elastic cross-section modulus y-y and z-z
+             , _Wz_el_2              // Elastic cross-section modulus y-y and z-z
+             , _Wy_pl                // Plastic cross-section modulus y-y and z-z
+             , _Wz_pl;               // Plastic cross-section modulus y-y and z-z
         double[] d_omega_s;          // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
+
+        double y_min
+               ,y_max
+               ,z_min
+               ,z_max;
+
         #endregion
 
         #region Properties
@@ -255,16 +264,28 @@ namespace CRSC
             set { _Wz_pl = value; }
         }
 
-        public double Wy_el
+        public double Wy_el_1
         {
-            get { return _Wy_el; }
-            set { _Wy_el = value; }
+            get { return _Wy_el_1; }
+            set { _Wy_el_1 = value; }
         }
 
-        public double Wz_el
+        public double Wz_el_1
         {
-            get { return _Wz_el; }
-            set { _Wz_el = value; }
+            get { return _Wz_el_1; }
+            set { _Wz_el_1 = value; }
+        }
+
+        public double Wy_el_2
+        {
+            get { return _Wy_el_2; }
+            set { _Wy_el_2 = value; }
+        }
+
+        public double Wz_el_2
+        {
+            get { return _Wz_el_2; }
+            set { _Wz_el_2 = value; }
         }
 
         // end of cross-section variables definition
@@ -282,13 +303,15 @@ namespace CRSC
             this.z_suradnice = z_suradnice;
             this.t_hodnoty = t_hodnoty;
             
+            this.J_Calc_Dimensions();
+
             A = this.A_method(count);
             this.A_vy_method(count);
             this.A_vz_method(count);
             this.Sy0_Sz0_method(count);
             this.Iy0_Iz0_method(count);
-            this.omega0i = new double[count];
-            this.omega = new double[count];
+            this.omega0i   = new double[count];
+            this.omega     = new double[count];
             this.d_omega_s = new double[count];
             this.J_12_13_14_method();
             this.J_15_method(count);
@@ -299,6 +322,7 @@ namespace CRSC
             this.J_23_method(count);
             this.J_24_25_26_method();
             this.J_27_J_28_method(count);
+            this.J_W_el();
 
         }
 
@@ -547,8 +571,38 @@ namespace CRSC
             d_z_j = d_z_s - (0.5 / _Iy) * zj_temp;
             d_y_j = d_y_s - (0.5 / _Iz) * yj_temp;
         }
+        // Calculate dimensions
+        private void J_Calc_Dimensions()
+        {
+            y_min = y_suradnice[0];
+            y_max = y_suradnice[0];
+            z_min = z_suradnice[0];
+            z_max = z_suradnice[0];
 
+            foreach (double num in y_suradnice)
+            {
+                if (num > y_max) y_max = num; // Set new maximum
+                if (num < y_min) y_min = num; // Set new minimum
+            }
 
+            foreach (double num in z_suradnice)
+            {
+                if (num > z_max) z_max = num; // Set new maximum
+                if (num < z_min) z_min = num; // Set new minimum
+            }
 
-}
+            _b = Math.Abs(y_max - y_min);
+            _h = Math.Abs(z_max - z_min);
+
+        }
+        // Calculate elastic cross-section moduli
+        private void J_W_el()
+        {
+            this._Wy_el_1 = _Iy / (z_max - d_z_gc);
+            this._Wy_el_2 = _Iy / (z_min - d_z_gc);
+
+            this._Wz_el_1 = _Iz / (y_max - d_y_gc);
+            this._Wy_el_1 = _Iz / (y_min - d_y_gc);
+        }
+    }
 }

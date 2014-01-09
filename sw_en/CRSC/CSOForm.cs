@@ -73,6 +73,10 @@ namespace CRSC
             double d_S_z0 = Math.Round(cso.Sz0, dec_place_num2);
             double d_I_y = Math.Round(cso.Iy, dec_place_num2);
             double d_I_z = Math.Round(cso.Iz, dec_place_num2);
+            double d_Wy_el_1 = Math.Round(cso.Wy_el_1, dec_place_num2);
+            double d_Wz_el_1 = Math.Round(cso.Wz_el_1, dec_place_num2);
+            double d_Wy_el_2 = Math.Round(cso.Wy_el_2, dec_place_num2);
+            double d_Wz_el_2 = Math.Round(cso.Wz_el_2, dec_place_num2);
 
             double d_Alpha = Math.Round(cso.Alfa, dec_place_num2);
             double d_I_yz = Math.Round(cso.Iyz, dec_place_num2);
@@ -102,7 +106,9 @@ namespace CRSC
             dataGridView2.Rows.Add("Ag ="     , d_A   ,    "mm2", "Avy ="       , d_A_vy,     "mm2",  "Avz ="         , d_A_vz     , "mm2");
             dataGridView2.Rows.Add("ygc ="    , d_y_gc,    "mm" , "SyO ="       , d_S_y0,     "mm3",  "Iy ="          , d_I_y      , "mm4");
             dataGridView2.Rows.Add("zgc ="    , d_z_gc,    "mm" , "SzO ="       , d_S_z0,     "mm3",  "Iz ="          , d_I_z      , "mm4");
-            dataGridView2.Rows.Add("alpha ="  , d_Alpha,   "rad", " "           , " "   ,     " "  ,  "Iyz ="         , d_I_yz     , "mm4");
+            dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, "mm" , "Wzel1 ="     , d_Wz_el_1,  "mm3",               " ", " "        , " "  );
+            dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, "mm" , "Wzel2 ="     , d_Wz_el_2,  "mm3",               " ", " "        , " "  );
+            dataGridView2.Rows.Add("alpha ="  , d_Alpha,   "rad", " "           , " " ,         " ",  "Iyz ="         , d_I_yz     , "mm4");
             dataGridView2.Rows.Add("Ieps ="   , d_I_eps,   "mm4", "Ieta ="      , d_I_eta,    "mm4",  " "             , " "        , " "  );
             dataGridView2.Rows.Add("Iomega =" , d_I_ome,   "mm6", "omega mean =", d_ome_mean, "mm2",  "omega max ="   , d_ome_max  , "mm2");
             dataGridView2.Rows.Add("Iyomega =", d_I_y_ome, "mm6", "Izomega ="   , d_I_z_ome,  "mm6",  "Iomega_omega =", d_I_ome_ome, "mm6");
