@@ -599,10 +599,10 @@ namespace CRSC
         private void J_W_el()
         {
             this._Wy_el_1 = _Iy / (z_max - d_z_gc);
-            this._Wy_el_2 = _Iy / (z_min - d_z_gc);
+            this._Wy_el_2 = _Iy / (d_z_gc - z_min);
 
             this._Wz_el_1 = _Iz / (y_max - d_y_gc);
-            this._Wy_el_1 = _Iz / (y_min - d_y_gc);
+            this._Wz_el_2 = _Iz / (d_y_gc - y_min);
         }
     }
 }
