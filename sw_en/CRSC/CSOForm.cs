@@ -103,7 +103,7 @@ namespace CRSC
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
             //Potrebne popridavat vsetky premenne,ktore chceme zobrazit
-            dataGridView2.Rows.Add("O₂ Ag =", d_A, "mm²", "Avy =", d_A_vy, "mm\xB2", "Avz =", d_A_vz, "mm\xB2");
+            dataGridView2.Rows.Add("x\u207D x⁽ ⁴⁻²⁾ O₂ Ag =", d_A, "mm²", "Avy =", d_A_vy, "mm\xB2", "Avz =", d_A_vz, "mm\xB2");
             dataGridView2.Rows.Add("ygc =", d_y_gc, "mm", "SyO =", d_S_y0, "mm\xB3", "Iy =", d_I_y, "mm4");
             dataGridView2.Rows.Add("zgc ="    , d_z_gc,    "mm" , "SzO ="       , d_S_z0,     "mm3",  "Iz ="          , d_I_z      , "mm4");
             dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, "mm" , "Wzel1 ="     , d_Wz_el_1,  "mm3",               " ", " "        , " "  );
