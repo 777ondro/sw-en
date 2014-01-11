@@ -108,14 +108,14 @@ namespace CRSC
             dataGridView2.Rows.Add("zgc ="    , d_z_gc,    "mm" , "SzO ="       , d_S_z0,     "mm3",  "Iz ="          , d_I_z      , "mm4");
             dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, "mm" , "Wzel1 ="     , d_Wz_el_1,  "mm3",               " ", " "        , " "  );
             dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, "mm" , "Wzel2 ="     , d_Wz_el_2,  "mm3",               " ", " "        , " "  );
-            dataGridView2.Rows.Add("α =", d_Alpha, "rad", " ", " ", " ", "Iyz =", d_I_yz, "mm4");
-            dataGridView2.Rows.Add("Iξ =", d_I_eps, "mm4", "Iη =", d_I_eta, "mm4", " ", " ", " ");
-            dataGridView2.Rows.Add("Iω =", d_I_ome, "mm6", "ω mean =", d_ome_mean, "mm2", "ω max =", d_ome_max, "mm2");
-            dataGridView2.Rows.Add("Iyω =", d_I_y_ome, "mm6", "Izω =", d_I_z_ome, "mm6", "Iωω =", d_I_ome_ome, "mm6");
+            dataGridView2.Rows.Add("α ="      , d_Alpha,   "rad", " "           , " "              ,  "Iyz ="         , d_I_yz     , "mm4");
+            dataGridView2.Rows.Add("Iξ ="     , d_I_eps,   "mm4", "Iη ="        , d_I_eta,    "mm4",  " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Iω ="     , d_I_ome,   "mm6", "ω mean ="    , d_ome_mean, "mm2",  "ω max ="       , d_ome_max  , "mm2");
+            dataGridView2.Rows.Add("Iyω ="    , d_I_y_ome, "mm6", "Izω ="       , d_I_z_ome,  "mm6",  "Iωω ="         , d_I_ome_ome, "mm6");
             dataGridView2.Rows.Add("ys ="     , d_y_s,      "mm", "zs ="        , d_z_s,       "mm",  "Ip ="          , d_I_p      , "mm4");
-            dataGridView2.Rows.Add("yj ="     , d_y_j,      "mm", "zj ="        , d_z_j,       "mm", " ", " ", " ");
-            dataGridView2.Rows.Add("Iw ="     , d_I_w,     "mm6", "Ww ="        , d_W_w,      "mm3", " ", " ", " ");
-            dataGridView2.Rows.Add("It ="     , d_I_t,     "mm4", "Wt ="        , d_W_t,      "mm3", " ", " ", " ");
+            dataGridView2.Rows.Add("yj ="     , d_y_j,      "mm", "zj ="        , d_z_j,       "mm",  " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Iw ="     , d_I_w,     "mm6", "Ww ="        , d_W_w,      "mm3",  " "             , " "        , " "  );
+            dataGridView2.Rows.Add("It ="     , d_I_t,     "mm4", "Wt ="        , d_W_t,      "mm3",  " "             , " "        , " "  );
         }
 
         private void FillDatagrid_EX_01()
