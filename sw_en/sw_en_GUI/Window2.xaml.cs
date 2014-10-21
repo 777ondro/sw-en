@@ -1068,6 +1068,50 @@ namespace sw_en_GUI
                       byte B = (byte)(i / 2 == 0 ? 233 : 230);
 
                       SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R,G,B)); // Material color
+
+                      if (i <= 10)
+                          br.Color = Colors.White;
+                      else if (i <= 20)
+                          br.Color = Colors.Red;
+                      else if (i <= 30)
+                          br.Color = Colors.LightGreen;
+                      else if (i <= 40)
+                          br.Color = Colors.White;
+                      else if (i <= 50)
+                          br.Color = Colors.Red;
+                      else if (i <= 60)
+                          br.Color = Colors.Green;
+                      else if (i <= 70)
+                          br.Color = Colors.LightSalmon;
+                      else if (i <= 80)
+                          br.Color = Colors.Red;
+                      else if (i <= 90)
+                          br.Color = Colors.Green;
+                      else if (i <= 100)
+                          br.Color = Colors.Red;
+                      else if (i <= 110)
+                          br.Color = Colors.GreenYellow;
+                      else if (i <= 12)
+                          br.Color = Colors.White;
+                      else if (i <= 130)
+                          br.Color = Colors.LightBlue;
+                      else if (i <= 140)
+                          br.Color = Colors.Green;
+                      else if (i <= 150)
+                          br.Color = Colors.Orange;
+                      else if (i <= 160)
+                          br.Color = Colors.Red;
+                      else if (i <= 170)
+                          br.Color = Colors.LightCyan;
+                      else if (i <= 180)
+                          br.Color = Colors.White;
+                      else if (i <= 190)
+                          br.Color = Colors.Yellow;
+                      else if (i <= 200)
+                          br.Color = Colors.LightCyan;
+                      else
+                          br.Color = Colors.Gold;
+
                       br.Opacity = 0.6; // Doesnt work :-/
 
                       // Create Member model
