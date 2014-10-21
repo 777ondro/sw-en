@@ -25,11 +25,11 @@ namespace CRSC
             set { m_fd = value; }
         }
 
-        public short ITotNoPoints
+        /*public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
-        }
+        }*/
 
         float m_fr_out; // Radius
 
