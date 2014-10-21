@@ -881,7 +881,7 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
-      public Window2(bool bDebugging)
+    public Window2(bool bDebugging)
     {
       InitializeComponent();
 
@@ -965,7 +965,7 @@ namespace sw_en_GUI
       Model3DGroup gr = new Model3DGroup();
       //gr.Children.Add(new AmbientLight());
 
-      GeometryModel3D model = new GeometryModel3D();
+      GeometryModel3D memberModel3D = new GeometryModel3D();
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions = new Point3DCollection();
 
@@ -978,21 +978,18 @@ namespace sw_en_GUI
       //view.Children.Add(line);
 
       //gr.Children.Add(new AmbientLight());
-      model.Geometry = mesh;
+      memberModel3D.Geometry = mesh;
       SolidColorBrush br = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-      model.Material = new DiffuseMaterial(br);
-      gr.Children.Add(model);
+      memberModel3D.Material = new DiffuseMaterial(br);
+
+      gr.Children.Add(memberModel3D); // Add member to model group
+
       _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
 
       _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
 
       _trackport.SetupScene();
     }
-
-
-
-
-
 
     public Window2(CModel cmodel, bool bDebugging)
     {
@@ -1002,7 +999,9 @@ namespace sw_en_GUI
       {
           Model3DGroup gr = new Model3DGroup();
           //gr.Children.Add(new AmbientLight());
-          SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+          // Default color
+          SolidColorBrush brushDefault = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
           EGCS eGCS = EGCS.eGCSLeftHanded;
           //EGCS eGCS = EGCS.eGCSRightHanded;
@@ -1063,8 +1062,16 @@ namespace sw_en_GUI
 
                   if(cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
                   {
+                      // Member material color
+                      byte R = (byte)(i / 2 == 0 ? 255 : 252);
+                      byte G = (byte)(i / 2 == 0 ? 234 : 241);
+                      byte B = (byte)(i / 2 == 0 ? 233 : 230);
+
+                      SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R,G,B)); // Material color
+                      br.Opacity = 0.6; // Doesnt work :-/
+
                       // Create Member model
-                      GeometryModel3D membermodel = getGeometryModel3D(eGCS, brush, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+                      GeometryModel3D membermodel = getMemberGeometryModel3D(eGCS, br, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
 
                       // Add current member model to the model group
                       gr.Children.Add(membermodel);
@@ -1140,21 +1147,20 @@ namespace sw_en_GUI
       }
     }
 
-    private GeometryModel3D getGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
+    private GeometryModel3D getMemberGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
     {
       GeometryModel3D model = new GeometryModel3D();
 
-      MeshGeometry3D mesh = getMeshGeometry3DFromCrSc(eGCS, obj_CrScA, obj_CrScB, mpA, mpB, dTheta_x); // Mesh one member
+      MeshGeometry3D mesh = getMeshMemberGeometry3DFromCrSc(eGCS, obj_CrScA, obj_CrScB, mpA, mpB, dTheta_x); // Mesh one member
 
       model.Geometry = mesh;
 
-      model.Material = new DiffuseMaterial(brush);
+      model.Material = new DiffuseMaterial(brush);  // Set MemberModel Material
 
       return model;
     }
 
-
-    private MeshGeometry3D getMeshGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
+    private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
     {
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions = new Point3DCollection();
@@ -1359,11 +1365,7 @@ namespace sw_en_GUI
       return mesh;
     }
 
-
-    public GeometryModel3D CreateRectangle(
-       Point3D point1, Point3D point2,
-       Point3D point3, Point3D point4,
-       Brush brush)
+    public GeometryModel3D CreateRectangle(Point3D point1, Point3D point2, Point3D point3, Point3D point4, Brush brush)
     {
       MeshGeometry3D mesh = new MeshGeometry3D();
       mesh.Positions.Add(point1);
@@ -1807,9 +1809,5 @@ namespace sw_en_GUI
         // Mozno by som mal zapracovat toto
         //http://mathworld.wolfram.com/EulerAngles.html
     }
-
-
-
-
   }
 }
