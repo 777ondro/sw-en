@@ -95,6 +95,8 @@ namespace CRSC
         public CCrSc_0_25()  {   }
         public CCrSc_0_25(float fh, float fb, float ft_f, float ft_w)
         {
+            IsShapeSolid = false;
+
             m_iTotNoPoints = 8;
             m_fh = fh;
             m_fb = fb;
