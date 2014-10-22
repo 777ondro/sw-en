@@ -141,27 +141,6 @@ namespace sw_en_GUI
    }
   }
 
-  private void load_0_04_TriangelsIndices()
-  {
-   // const int secNum = 3;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   M_TriangelsIndices.Add(0);
-   M_TriangelsIndices.Add(2);
-   M_TriangelsIndices.Add(1);
-
-   // Back Side 
-   M_TriangelsIndices.Add(3);
-   M_TriangelsIndices.Add(4);
-   M_TriangelsIndices.Add(5);
-
-   // Shell Surface
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 3, 4, 1);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 4, 5, 2);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 5, 3, 0);
-  }
-
   private void load_0_20_TriangelIndices()
   {
    const int secNum = 37;  // Number of points in section (2D) 36+1 -centroid
@@ -235,36 +214,6 @@ namespace sw_en_GUI
    AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 9, 11, 5);
   }
 
-  private void load_0_25_TriangelIndices()
-  {
-   // const int secNum = 8;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 5, 4);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 2, 6, 5);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 7, 6, 2, 3);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 4, 7, 3);
-
-   // Back Side 
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 9, 8, 12, 13);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 9, 13, 14, 10);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 14, 15, 11, 10);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 8, 11, 15, 12);
-
-   // Shell Surface
-   // Outside
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 8, 9, 1);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, 9, 10, 2);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 10, 11, 3);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 8, 0, 3, 11);
-   // Inside
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 13, 5, 6, 14);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 7, 15, 14, 6);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 12, 15, 7);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 12, 4, 5, 13);
-  }
-
   private void load_0_26_28_TriangelIndices(int iAux, int secNum)
   {
    // iAux - number of auxiliary points in inside/outside collection of points
@@ -309,44 +258,6 @@ namespace sw_en_GUI
     else
      AddRectangleIndices_CW_1234(M_TriangelsIndices, 2 * (iAux + secNum) + 2 * iAux + i + 1, 2 * (iAux + secNum) + i + 2 * iAux + secNum, iAux + secNum + iAux + i, 2 * iAux + secNum); // Last Element
    }
-  }
-
-  private void load_0_50_TriangelIndices()
-  {
-   // const int secNum = 12;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 11);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 10, 3, 4, 9);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 8, 5, 6, 7);
-
-   // Back Side 
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 13, 12, 23, 14);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 15, 22, 21, 16);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 17, 20, 19, 18);
-
-   // Shell Surface 
-   DrawCaraLaterals(12, M_TriangelsIndices);
-  }
-
-  private void load_0_52_TriangelIndices()
-  {
-   // const int secNum = 8;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 3);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 3, 4, 7);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 4, 5, 6, 7);
-
-   // Back Side 
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 9, 8, 11, 10);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 11, 8, 15, 12);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 13, 12, 15, 14);
-
-   // Shell Surface 
-   DrawCaraLaterals(8, M_TriangelsIndices);
   }
 
   private void load_0_54_TriangelIndices()
@@ -891,7 +802,7 @@ namespace sw_en_GUI
       // load_0_00_01_TriangelsIndices();
       // Round or Ellipse Bar
       // load_0_02_03_TriangelIndices();
-      // Triangular Prism 
+      // Triangular Prism
       // load_0_04_TriangelsIndices();
       // Flat Bar
       // load_0_05_TriangelIndices();

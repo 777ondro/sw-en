@@ -41,7 +41,11 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.1f, 0.05f); // solid square section
             //m_arrCrSc[0] = new CCrSc_0_22(0.2f, 0.05f, 12); // tube section
             //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
-            m_arrCrSc[0] = new CCrSc_0_00(0.2f, 20); // Solid Half Circle
+            //m_arrCrSc[0] = new CCrSc_0_00(0.2f, 20); // Solid Half Circle
+            //m_arrCrSc[0] = new CCrSc_0_04(0.2f); // Triangular Prism / Equilateral
+            //m_arrCrSc[0] = new CCrSc_0_24(0.2f, 0.05f); // Triangular Prism / Equilateral with Opening - nefunguje, rozdelit na vnutorne a vonkajsie pole bodov
+            //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f,0.015f,0.006f); // Doubly symmetric I section
+            m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
 
             // Nodes
             // Nodes List - Nodes Array
