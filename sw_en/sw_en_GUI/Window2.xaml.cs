@@ -41,46 +41,7 @@ namespace sw_en_GUI
 
     #region zakomentovat
 
-    //private void load_3_03_04_TriangelIndices(int iAux, int iRadiusSegment)
-    //{
-    //    // const int secNum = iAux + iRadiusPoints * 3 + 1;  // Number of points in section (2D)
-    //    int iRadiusPoints = iRadiusSegment + 1;
 
-    //    M_TriangelsIndices = new Int32Collection();
-
-    //    // Front Side / Forehead
-    //    // Points order 1,2,3,4
-
-    //    AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, iAux + iRadiusSegment, 1, iAux + 3 * iRadiusPoints);
-    //    AddRectangleIndices_CW_1234(M_TriangelsIndices, 1, iAux + 2 * iRadiusPoints, 2, iAux + 3 * iRadiusPoints);
-
-    //    // Arc sectors
-    //    // 1st SolidCircleSector
-    //    AddSolidCircleSectorIndices(0, iAux, iRadiusSegment, M_TriangelsIndices, false);
-    //    // 2nd SolidCircleSector
-    //    AddSolidCircleSectorIndices(1, iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-    //    // 3rd SolidCircleSector
-    //    AddSolidCircleSectorIndices(2, iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, false);
-
-    //    // Back Side
-    //    // Points order 1,4,3,2
-
-    //    int iPointNumbersOffset = iAux + 1 + 3 * iRadiusPoints; // Number of nodes per section - Nodes offset
-
-    //    AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusSegment);
-    //    AddRectangleIndices_CW_1234(M_TriangelsIndices, iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 3 * iRadiusPoints, iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints);
-
-    //    // Arc sectors
-    //    // 1st SolidCircleSector
-    //    AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux, iRadiusSegment, M_TriangelsIndices, true);
-    //    // 2nd SolidCircleSector
-    //    AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-    //    // 3rd SolidCircleSector
-    //    AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 * iRadiusPoints, iRadiusSegment, M_TriangelsIndices, true);
-
-    //    // Shell
-    //    DrawCaraLaterals(iAux, 1 + 3 * iRadiusPoints, M_TriangelsIndices);
-    //}
 
     //private void load_3_07_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
     //{
