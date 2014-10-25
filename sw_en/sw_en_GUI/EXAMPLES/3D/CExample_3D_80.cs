@@ -21,7 +21,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOPoints = new BaseClasses.GraphObj.CPoint[12];
             m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[0];
-            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[1];
+            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[2];
 
             m_arrMat = new CMat_00[1];
             //m_arrCrSc = new CRSC.CCrSc[1];
@@ -51,43 +51,132 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOPoints[11] = new CPoint(12, 5, 0, 4, 0);
 
             // Setridit pole podle ID
-            Array.Sort(m_arrNodes, new CCompare_NodeID());
+            Array.Sort(m_arrGOPoints, new CCompare_PointID());
 
             // Lines Automatic Generation
             // Lines List - Lines Array
 
-            // Upper Chord Lines
-            m_arrMembers[00] = new CMember(01, m_arrNodes[0], m_arrNodes[1], m_arrCrSc[0], 0);
-            m_arrMembers[01] = new CMember(02, m_arrNodes[1], m_arrNodes[2], m_arrCrSc[0], 0);
-            m_arrMembers[02] = new CMember(03, m_arrNodes[2], m_arrNodes[3], m_arrCrSc[0], 0);
-            m_arrMembers[03] = new CMember(04, m_arrNodes[3], m_arrNodes[4], m_arrCrSc[0], 0);
-            m_arrMembers[04] = new CMember(05, m_arrNodes[4], m_arrNodes[5], m_arrCrSc[0], 0);
-            m_arrMembers[05] = new CMember(06, m_arrNodes[5], m_arrNodes[6], m_arrCrSc[0], 0);
-            // Bottom Chord Lines
-            m_arrMembers[06] = new CMember(07, m_arrNodes[00], m_arrNodes[07], m_arrCrSc[0], 0);
-            m_arrMembers[07] = new CMember(08, m_arrNodes[07], m_arrNodes[08], m_arrCrSc[0], 0);
-            m_arrMembers[08] = new CMember(09, m_arrNodes[08], m_arrNodes[09], m_arrCrSc[0], 0);
-            m_arrMembers[09] = new CMember(10, m_arrNodes[09], m_arrNodes[10], m_arrCrSc[0], 0);
-            m_arrMembers[10] = new CMember(11, m_arrNodes[10], m_arrNodes[11], m_arrCrSc[0], 0);
-            m_arrMembers[11] = new CMember(12, m_arrNodes[11], m_arrNodes[06], m_arrCrSc[0], 0);
-            // Diagonal Lines
-            m_arrMembers[12] = new CMember(13, m_arrNodes[01], m_arrNodes[07], m_arrCrSc[0], 0);
-            m_arrMembers[13] = new CMember(14, m_arrNodes[01], m_arrNodes[08], m_arrCrSc[0], 0);
-            m_arrMembers[14] = new CMember(15, m_arrNodes[02], m_arrNodes[08], m_arrCrSc[0], 0);
-            m_arrMembers[15] = new CMember(16, m_arrNodes[02], m_arrNodes[09], m_arrCrSc[0], 0);
-            m_arrMembers[16] = new CMember(17, m_arrNodes[03], m_arrNodes[09], m_arrCrSc[0], 0);
-            m_arrMembers[17] = new CMember(18, m_arrNodes[04], m_arrNodes[09], m_arrCrSc[0], 0);
-            m_arrMembers[18] = new CMember(19, m_arrNodes[04], m_arrNodes[10], m_arrCrSc[0], 0);
-            m_arrMembers[19] = new CMember(20, m_arrNodes[05], m_arrNodes[10], m_arrCrSc[0], 0);
-            m_arrMembers[20] = new CMember(21, m_arrNodes[05], m_arrNodes[11], m_arrCrSc[0], 0);
+            int[] iLinesArray_000 = new int[2];
+            int[] iLinesArray_001 = new int[2];
+            int[] iLinesArray_002 = new int[2];
+            int[] iLinesArray_003 = new int[2];
+            int[] iLinesArray_004 = new int[2];
+            int[] iLinesArray_005 = new int[2];
+            int[] iLinesArray_006 = new int[2];
+            int[] iLinesArray_007 = new int[2];
+            int[] iLinesArray_008 = new int[2];
+            int[] iLinesArray_009 = new int[2];
+            int[] iLinesArray_010 = new int[2];
+            int[] iLinesArray_011 = new int[2];
+            int[] iLinesArray_012 = new int[2];
+            int[] iLinesArray_013 = new int[2];
+            int[] iLinesArray_014 = new int[2];
+            int[] iLinesArray_015 = new int[2];
+            int[] iLinesArray_016 = new int[2];
+            int[] iLinesArray_017 = new int[2];
+            int[] iLinesArray_018 = new int[2];
+            int[] iLinesArray_019 = new int[2];
+            int[] iLinesArray_020 = new int[2];
+
+
+            iLinesArray_000[0] = 0;
+            iLinesArray_001[0] = 1;
+            iLinesArray_002[0] = 2;
+            iLinesArray_003[0] = 3;
+            iLinesArray_004[0] = 4;
+            iLinesArray_005[0] = 5;
+            iLinesArray_006[0] = 00;
+            iLinesArray_007[0] = 07;
+            iLinesArray_008[0] = 08;
+            iLinesArray_009[0] = 09;
+            iLinesArray_010[0] = 10;
+            iLinesArray_011[0] = 11;
+            iLinesArray_012[0] = 01;
+            iLinesArray_013[0] = 01;
+            iLinesArray_014[0] = 02;
+            iLinesArray_015[0] = 02;
+            iLinesArray_016[0] = 03;
+            iLinesArray_017[0] = 04;
+            iLinesArray_018[0] = 04;
+            iLinesArray_019[0] = 05;
+            iLinesArray_020[0] = 05;
+
+            iLinesArray_000[1] = 1;
+            iLinesArray_001[1] = 2;
+            iLinesArray_002[1] = 3;
+            iLinesArray_003[1] = 4;
+            iLinesArray_004[1] = 5;
+            iLinesArray_005[1] = 6;
+            iLinesArray_006[1] = 07;
+            iLinesArray_007[1] = 08;
+            iLinesArray_008[1] = 09;
+            iLinesArray_009[1] = 10;
+            iLinesArray_010[1] = 11;
+            iLinesArray_011[1] = 06;
+            iLinesArray_012[1] = 07;
+            iLinesArray_013[1] = 08;
+            iLinesArray_014[1] = 08;
+            iLinesArray_015[1] = 09;
+            iLinesArray_016[1] = 09;
+            iLinesArray_017[1] = 09;
+            iLinesArray_018[1] = 10;
+            iLinesArray_019[1] = 10;
+            iLinesArray_020[1] = 11;
+
+            m_arrGOLines[00] = new CLine(01, iLinesArray_000, 0);
+            m_arrGOLines[01] = new CLine(02, iLinesArray_001, 0);
+            m_arrGOLines[02] = new CLine(03, iLinesArray_002, 0);
+            m_arrGOLines[03] = new CLine(04, iLinesArray_003, 0);
+            m_arrGOLines[04] = new CLine(05, iLinesArray_004, 0);
+            m_arrGOLines[05] = new CLine(06, iLinesArray_005, 0);
+            m_arrGOLines[06] = new CLine(07, iLinesArray_006, 0);
+            m_arrGOLines[07] = new CLine(08, iLinesArray_007, 0);
+            m_arrGOLines[08] = new CLine(09, iLinesArray_008, 0);
+            m_arrGOLines[09] = new CLine(10, iLinesArray_009, 0);
+            m_arrGOLines[10] = new CLine(11, iLinesArray_010, 0);
+            m_arrGOLines[11] = new CLine(12, iLinesArray_011, 0);
+            m_arrGOLines[12] = new CLine(13, iLinesArray_012, 0);
+            m_arrGOLines[13] = new CLine(14, iLinesArray_013, 0);
+            m_arrGOLines[14] = new CLine(15, iLinesArray_014, 0);
+            m_arrGOLines[15] = new CLine(16, iLinesArray_015, 0);
+            m_arrGOLines[16] = new CLine(17, iLinesArray_016, 0);
+            m_arrGOLines[17] = new CLine(18, iLinesArray_017, 0);
+            m_arrGOLines[18] = new CLine(19, iLinesArray_018, 0);
+            m_arrGOLines[19] = new CLine(20, iLinesArray_019, 0);
+            m_arrGOLines[20] = new CLine(21, iLinesArray_020, 0);
 
             // Setridit pole podle ID
-            //Array.Sort(m_arrMembers, new CCompare_LineID());
+            //Array.Sort(m_arrLines, new CCompare_LineID());
 
-            int [] iVolumePointsArray_000 = new int[8];
+            int[] iVolumePointsArray_000 = new int[8];
             int[] iVolumePointsArray_001 = new int[8];
 
+            iVolumePointsArray_000[0] = 0;
+            iVolumePointsArray_001[0] = 1;
+
+            iVolumePointsArray_000[1] = 1;
+            iVolumePointsArray_001[1] = 2;
+
+            iVolumePointsArray_000[2] = 3;
+            iVolumePointsArray_001[2] = 4;
+
+            iVolumePointsArray_000[3] = 5;
+            iVolumePointsArray_001[3] = 6;
+
+            iVolumePointsArray_000[4] = 6;
+            iVolumePointsArray_001[4] = 7;
+
+            iVolumePointsArray_000[5] = 0;
+            iVolumePointsArray_001[5] = 1;
+
+            iVolumePointsArray_000[6] = 0;
+            iVolumePointsArray_001[6] = 1;
+
+            iVolumePointsArray_000[7] = 0;
+            iVolumePointsArray_001[7] = 1;
+
             m_arrGOVolumes[0] = new CVolume(1, iVolumePointsArray_000, 0);
+            m_arrGOVolumes[0] = new CVolume(2, iVolumePointsArray_001, 0);
 
         }
     }

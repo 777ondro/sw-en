@@ -123,90 +123,95 @@ namespace sw_en_GUI
           // Check that real model exists and create model geometry
           if (cmodel != null)
           {
-              // Model Group of Members
-              // Prepare member model
-              for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
+              if (cmodel.m_arrMembers != null) // Some members exist
               {
-                  // Start Node of Member
-                  Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
-                  // End node of Member
-                  Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
-
-                  // Angle of rotation about local x-axis
-                  cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
-
-                  if (bDebugging)
+                  // Model Group of Members
+                  // Prepare member model
+                  for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
                   {
-                      System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
-                      System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
-                      System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
-                      System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
-                      System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
-                  }
+                      // Start Node of Member
+                      Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
+                      // End node of Member
+                      Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
 
-                  if(cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
-                  {
-                      // Member material color
-                      byte R = (byte)(i / 2 == 0 ? 255 : 252);
-                      byte G = (byte)(i / 2 == 0 ? 234 : 241);
-                      byte B = (byte)(i / 2 == 0 ? 233 : 230);
+                      // Angle of rotation about local x-axis
+                      cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
 
-                      SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R,G,B)); // Material color
+                      if (bDebugging)
+                      {
+                          System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
+                          System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+                          System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
+                          System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+                          System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+                      }
 
-                      if (i <= 10)
-                          br.Color = Colors.White;
-                      else if (i <= 20)
-                          br.Color = Colors.Red;
-                      else if (i <= 30)
-                          br.Color = Colors.LightGreen;
-                      else if (i <= 40)
-                          br.Color = Colors.White;
-                      else if (i <= 50)
-                          br.Color = Colors.Red;
-                      else if (i <= 60)
-                          br.Color = Colors.Green;
-                      else if (i <= 70)
-                          br.Color = Colors.LightSalmon;
-                      else if (i <= 80)
-                          br.Color = Colors.Red;
-                      else if (i <= 90)
-                          br.Color = Colors.Green;
-                      else if (i <= 100)
-                          br.Color = Colors.Red;
-                      else if (i <= 110)
-                          br.Color = Colors.GreenYellow;
-                      else if (i <= 12)
-                          br.Color = Colors.White;
-                      else if (i <= 130)
-                          br.Color = Colors.LightBlue;
-                      else if (i <= 140)
-                          br.Color = Colors.Green;
-                      else if (i <= 150)
-                          br.Color = Colors.Orange;
-                      else if (i <= 160)
-                          br.Color = Colors.Red;
-                      else if (i <= 170)
-                          br.Color = Colors.LightCyan;
-                      else if (i <= 180)
-                          br.Color = Colors.White;
-                      else if (i <= 190)
-                          br.Color = Colors.Yellow;
-                      else if (i <= 200)
-                          br.Color = Colors.LightCyan;
-                      else
-                          br.Color = Colors.Gold;
+                      if (cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
+                      {
+                          // Member material color
+                          byte R = (byte)(i / 2 == 0 ? 255 : 252);
+                          byte G = (byte)(i / 2 == 0 ? 234 : 241);
+                          byte B = (byte)(i / 2 == 0 ? 233 : 230);
 
-                      br.Opacity = 0.6; // Doesnt work :-/
+                          SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R, G, B)); // Material color
 
-                      // Create Member model
-                      GeometryModel3D memberModel3D = getMemberGeometryModel3D(eGCS, br, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+                          if (i <= 10)
+                              br.Color = Colors.White;
+                          else if (i <= 20)
+                              br.Color = Colors.Red;
+                          else if (i <= 30)
+                              br.Color = Colors.LightGreen;
+                          else if (i <= 40)
+                              br.Color = Colors.White;
+                          else if (i <= 50)
+                              br.Color = Colors.Red;
+                          else if (i <= 60)
+                              br.Color = Colors.Green;
+                          else if (i <= 70)
+                              br.Color = Colors.LightSalmon;
+                          else if (i <= 80)
+                              br.Color = Colors.Red;
+                          else if (i <= 90)
+                              br.Color = Colors.Green;
+                          else if (i <= 100)
+                              br.Color = Colors.Red;
+                          else if (i <= 110)
+                              br.Color = Colors.GreenYellow;
+                          else if (i <= 12)
+                              br.Color = Colors.White;
+                          else if (i <= 130)
+                              br.Color = Colors.LightBlue;
+                          else if (i <= 140)
+                              br.Color = Colors.Green;
+                          else if (i <= 150)
+                              br.Color = Colors.Orange;
+                          else if (i <= 160)
+                              br.Color = Colors.Red;
+                          else if (i <= 170)
+                              br.Color = Colors.LightCyan;
+                          else if (i <= 180)
+                              br.Color = Colors.White;
+                          else if (i <= 190)
+                              br.Color = Colors.Yellow;
+                          else if (i <= 200)
+                              br.Color = Colors.LightCyan;
+                          else
+                              br.Color = Colors.Gold;
 
-                      // Add current member model to the model group
-                      gr.Children.Add(memberModel3D);
+                          br.Opacity = 0.6; // Doesnt work :-/
+
+                          // Create Member model
+                          GeometryModel3D memberModel3D = getMemberGeometryModel3D(eGCS, br, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+
+                          // Add current member model to the model group
+                          gr.Children.Add(memberModel3D);
+                      }
                   }
               }
 
-              // Model Group of Areas
+              if (cmodel.m_arrGOAreas != null) // Some areas exist
+              {
+                  // Model Group of Areas
 
 
 
@@ -214,13 +219,7 @@ namespace sw_en_GUI
 
 
 
-
-
-              // Model Group of Solids
-
-              GeometryModel3D solidModel3D = new GeometryModel3D();
-              //MeshGeometry3D solidModel3Dmesh = new MeshGeometry3D();
-              //solidModel3Dmesh.Positions = new Point3DCollection();
+              }
 
               Point3D solidCenter = new Point3D(-5, 0, 0);
 
@@ -235,167 +234,155 @@ namespace sw_en_GUI
               Point3D p6 = new Point3D(fa, fa, fa);
               Point3D p7 = new Point3D(-fa, fa, fa);
 
-              Point3D [] arrayPoint3D = new Point3D[8];
-
-              arrayPoint3D[0] = p0;
-              arrayPoint3D[1] = p1;
-              arrayPoint3D[2] = p2;
-              arrayPoint3D[3] = p3;
-              arrayPoint3D[4] = p4;
-              arrayPoint3D[5] = p5;
-              arrayPoint3D[6] = p6;
-              arrayPoint3D[7] = p7;
-
-              for (int i = 0; i < arrayPoint3D.Length; i++)
+              if (cmodel.m_arrGOVolumes != null) // Some volumes exist
               {
-                  arrayPoint3D[i].X += solidCenter.X;
-                  arrayPoint3D[i].Y += solidCenter.Y;
-                  arrayPoint3D[i].Z += solidCenter.Z;
+                  // Model Group of Solids
+
+                  GeometryModel3D solidModel3D = new GeometryModel3D();
+                  //MeshGeometry3D solidModel3Dmesh = new MeshGeometry3D();
+                  //solidModel3Dmesh.Positions = new Point3DCollection();
+
+
+
+                  Point3D[] arrayPoint3D = new Point3D[8];
+
+                  arrayPoint3D[0] = p0;
+                  arrayPoint3D[1] = p1;
+                  arrayPoint3D[2] = p2;
+                  arrayPoint3D[3] = p3;
+                  arrayPoint3D[4] = p4;
+                  arrayPoint3D[5] = p5;
+                  arrayPoint3D[6] = p6;
+                  arrayPoint3D[7] = p7;
+
+                  for (int i = 0; i < arrayPoint3D.Length; i++)
+                  {
+                      arrayPoint3D[i].X += solidCenter.X;
+                      arrayPoint3D[i].Y += solidCenter.Y;
+                      arrayPoint3D[i].Z += solidCenter.Z;
+                  }
+
+                  SolidColorBrush brushSolid = new SolidColorBrush(Color.FromRgb(255, 255, 250));
+                  brushSolid.Opacity = 0.5;
+                  solidModel3D.Material = new DiffuseMaterial(brushSolid);
+
+                  solidModel3D = getSolidGeometryModel3D(eGCS, brushSolid, p0, p1, p2, p3, p4, p5, p6, p7);
+
+                  gr.Children.Add(solidModel3D); // Add solid to model group
+
+                  GeometryModel3D sphereModel3D = new GeometryModel3D();
+
+                  Point3D sphereCenter = new Point3D(5, 0, 0);
+                  SphereMeshGenerator objSphere = new SphereMeshGenerator(sphereCenter);
+
+                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(200, 200, 200));
+                  brushSolid2.Opacity = 0.2;
+
+                  sphereModel3D.Material = new DiffuseMaterial(brushSolid2);
+
+                  sphereModel3D.Geometry = objSphere.Geometry;
+
+                  gr.Children.Add(sphereModel3D);
+
               }
 
-              SolidColorBrush brushSolid = new SolidColorBrush(Color.FromRgb(240, 0, 0));
-              solidModel3D.Material = new DiffuseMaterial(brushSolid);
+              // Set Ambient Light
+              //gr.Children.Add(new AmbientLight());
 
-              solidModel3D = getSolidGeometryModel3D(eGCS, brushSolid, p0, p1, p2, p3, p4, p5, p6, p7);
+              if (cmodel.m_arrGOLines != null) // Some lines exist
+              {
+                  // Lines
 
-              gr.Children.Add(solidModel3D); // Add solid to model group
+                  ScreenSpaceLines3D line1 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line2 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line3 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line4 = new ScreenSpaceLines3D();
 
-              GeometryModel3D sphereModel3D = new GeometryModel3D();
+                  Color lineColor = Color.FromRgb(250, 30, 30);
+                  line1.Color = lineColor;
+                  line1.Points.Add(p0);
+                  line1.Points.Add(p1);
 
-              Point3D sphereCenter = new Point3D(5, 0, 0);
-              SphereMeshGenerator objSphere = new SphereMeshGenerator(sphereCenter);
+                  line2.Color = lineColor;
+                  line2.Points.Add(p1);
+                  line2.Points.Add(p2);
 
-              SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(200, 240, 100));
-              sphereModel3D.Material = new DiffuseMaterial(brushSolid2);
+                  line3.Color = lineColor;
+                  line3.Points.Add(p2);
+                  line3.Points.Add(p3);
 
-              sphereModel3D.Geometry = objSphere.Geometry;
+                  line4.Color = lineColor;
+                  line4.Points.Add(p3);
+                  line4.Points.Add(p0);
 
-              gr.Children.Add(sphereModel3D);
+                  _trackport.ViewPort.Children.Add(line1);
+                  _trackport.ViewPort.Children.Add(line2);
+                  _trackport.ViewPort.Children.Add(line3);
+                  _trackport.ViewPort.Children.Add(line4);
 
+                  ScreenSpaceLines3D line5 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line6 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line7 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line8 = new ScreenSpaceLines3D();
 
+                  line5.Color = lineColor;
+                  line5.Points.Add(p4);
+                  line5.Points.Add(p5);
 
+                  line6.Color = lineColor;
+                  line6.Points.Add(p5);
+                  line6.Points.Add(p6);
 
+                  line7.Color = lineColor;
+                  line7.Points.Add(p6);
+                  line7.Points.Add(p7);
 
+                  line8.Color = lineColor;
+                  line8.Points.Add(p7);
+                  line8.Points.Add(p4);
 
+                  _trackport.ViewPort.Children.Add(line5);
+                  _trackport.ViewPort.Children.Add(line6);
+                  _trackport.ViewPort.Children.Add(line7);
+                  _trackport.ViewPort.Children.Add(line8);
 
+                  ScreenSpaceLines3D line09 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line10 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line11 = new ScreenSpaceLines3D();
+                  ScreenSpaceLines3D line12 = new ScreenSpaceLines3D();
 
-              // Lines
+                  line09.Color = lineColor;
+                  line09.Points.Add(p0);
+                  line09.Points.Add(p4);
 
-              ScreenSpaceLines3D line1 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line2 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line3 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line4 = new ScreenSpaceLines3D();
+                  line10.Color = lineColor;
+                  line10.Points.Add(p1);
+                  line10.Points.Add(p5);
 
-              Color lineColor = Color.FromRgb(0, 235, 0);
-              line1.Color = lineColor;
-              line1.Points.Add(p0);
-              line1.Points.Add(p1);
+                  line11.Color = lineColor;
+                  line11.Points.Add(p2);
+                  line11.Points.Add(p6);
 
-              line2.Color = lineColor;
-              line2.Points.Add(p1);
-              line2.Points.Add(p2);
+                  line12.Color = lineColor;
+                  line12.Points.Add(p3);
+                  line12.Points.Add(p7);
 
-              line3.Color = lineColor;
-              line3.Points.Add(p2);
-              line3.Points.Add(p3);
-
-              line4.Color = lineColor;
-              line4.Points.Add(p3);
-              line4.Points.Add(p0);
-
-              _trackport.ViewPort.Children.Add(line1);
-              _trackport.ViewPort.Children.Add(line2);
-              _trackport.ViewPort.Children.Add(line3);
-              _trackport.ViewPort.Children.Add(line4);
-
-              ScreenSpaceLines3D line5 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line6 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line7 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line8 = new ScreenSpaceLines3D();
-
-              line5.Color = lineColor;
-              line5.Points.Add(p4);
-              line5.Points.Add(p5);
-
-              line6.Color = lineColor;
-              line6.Points.Add(p5);
-              line6.Points.Add(p6);
-
-              line7.Color = lineColor;
-              line7.Points.Add(p6);
-              line7.Points.Add(p7);
-
-              line8.Color = lineColor;
-              line8.Points.Add(p7);
-              line8.Points.Add(p4);
-
-              _trackport.ViewPort.Children.Add(line5);
-              _trackport.ViewPort.Children.Add(line6);
-              _trackport.ViewPort.Children.Add(line7);
-              _trackport.ViewPort.Children.Add(line8);
-
-              ScreenSpaceLines3D line09 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line10 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line11 = new ScreenSpaceLines3D();
-              ScreenSpaceLines3D line12 = new ScreenSpaceLines3D();
-
-              line09.Color = lineColor;
-              line09.Points.Add(p0);
-              line09.Points.Add(p4);
-
-              line10.Color = lineColor;
-              line10.Points.Add(p1);
-              line10.Points.Add(p5);
-
-              line11.Color = lineColor;
-              line11.Points.Add(p2);
-              line11.Points.Add(p6);
-
-              line12.Color = lineColor;
-              line12.Points.Add(p3);
-              line12.Points.Add(p7);
-
-              _trackport.ViewPort.Children.Add(line09);
-              _trackport.ViewPort.Children.Add(line10);
-              _trackport.ViewPort.Children.Add(line11);
-              _trackport.ViewPort.Children.Add(line12);
-
+                  _trackport.ViewPort.Children.Add(line09);
+                  _trackport.ViewPort.Children.Add(line10);
+                  _trackport.ViewPort.Children.Add(line11);
+                  _trackport.ViewPort.Children.Add(line12);
+              }
           }
 
           // Get model centre
-          float fTempMax_X = float.MinValue;
-          float fTempMin_X = float.MaxValue;
-          float fTempMax_Y = float.MinValue;
-          float fTempMin_Y = float.MaxValue;
-          float fTempMax_Z = float.MinValue;
-          float fTempMin_Z = float.MaxValue;
+          float fTempMax_X;
+          float fTempMin_X;
+          float fTempMax_Y;
+          float fTempMin_Y;
+          float fTempMax_Z;
+          float fTempMin_Z;
 
-          for (int i = 0; i < cmodel.m_arrNodes.Length; i++)
-          {
-              // Maximum X - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_X > fTempMax_X)
-                  fTempMax_X = cmodel.m_arrNodes[i].FCoord_X;
-
-              // Minimum X - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_X < fTempMin_X)
-                  fTempMin_X = cmodel.m_arrNodes[i].FCoord_X;
-
-              // Maximum Y - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_Y > fTempMax_Y)
-                  fTempMax_Y = cmodel.m_arrNodes[i].FCoord_Y;
-
-              // Minimum Y - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_Y < fTempMin_Y)
-                  fTempMin_Y = cmodel.m_arrNodes[i].FCoord_Y;
-
-              // Maximum Z - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_Z > fTempMax_Z)
-                  fTempMax_Z = cmodel.m_arrNodes[i].FCoord_Z;
-
-              // Minimum Z - coordinate
-              if (cmodel.m_arrNodes[i].FCoord_Z < fTempMin_Z)
-                  fTempMin_Z = cmodel.m_arrNodes[i].FCoord_Z;
-          }
+          CalculateModelLimits(cmodel, out fTempMax_X, out fTempMin_X, out fTempMax_Y, out fTempMin_Y, out fTempMax_Z, out fTempMin_Z);
 
           float fModel_Length_X = fTempMax_X - fTempMin_X;
           float fModel_Length_Y = fTempMax_Y - fTempMin_Y;
@@ -403,7 +390,7 @@ namespace sw_en_GUI
 
           Point3D pModelGeomCentre = new Point3D(fModel_Length_X / 2.0f, fModel_Length_Y / 2.0f, fModel_Length_Z / 2.0f);
 
-          Point3D cameraPosition = new Point3D(pModelGeomCentre.X, pModelGeomCentre.Y + 500, pModelGeomCentre.Z + 100);
+          Point3D cameraPosition = new Point3D(pModelGeomCentre.X, pModelGeomCentre.Y + 300, pModelGeomCentre.Z + 100);
 
           //SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
           //GeometryModel3D model = getGeometryModel3D(brush, obj_CrSc, new Point3D(10, 10, 10), new Point3D(500, 300, 200));
@@ -425,9 +412,90 @@ namespace sw_en_GUI
 
           _trackport.PerspectiveCamera.LookDirection = new Vector3D(0, -1, -0.2);
 
-          _trackport.Model = (Model3D)gr; //CreateRectangle(p3, p2, p6, p7, Brushes.Red);
+          _trackport.Model = (Model3D)gr;
+
           _trackport.SetupScene();
       }
+    }
+
+    private void CalculateModelLimits(CModel cmodel,
+        out float fTempMax_X,
+        out float fTempMin_X,
+        out float fTempMax_Y,
+        out float fTempMin_Y,
+        out float fTempMax_Z,
+        out float fTempMin_Z
+        )
+    {
+        fTempMax_X = float.MinValue;
+        fTempMin_X = float.MaxValue;
+        fTempMax_Y = float.MinValue;
+        fTempMin_Y = float.MaxValue;
+        fTempMax_Z = float.MinValue;
+        fTempMin_Z = float.MaxValue;
+
+        if (cmodel.m_arrNodes != null) // Some nodes exist
+        {
+            for (int i = 0; i < cmodel.m_arrNodes.Length; i++)
+            {
+                // Maximum X - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_X > fTempMax_X)
+                    fTempMax_X = cmodel.m_arrNodes[i].FCoord_X;
+
+                // Minimum X - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_X < fTempMin_X)
+                    fTempMin_X = cmodel.m_arrNodes[i].FCoord_X;
+
+                // Maximum Y - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_Y > fTempMax_Y)
+                    fTempMax_Y = cmodel.m_arrNodes[i].FCoord_Y;
+
+                // Minimum Y - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_Y < fTempMin_Y)
+                    fTempMin_Y = cmodel.m_arrNodes[i].FCoord_Y;
+
+                // Maximum Z - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_Z > fTempMax_Z)
+                    fTempMax_Z = cmodel.m_arrNodes[i].FCoord_Z;
+
+                // Minimum Z - coordinate
+                if (cmodel.m_arrNodes[i].FCoord_Z < fTempMin_Z)
+                    fTempMin_Z = cmodel.m_arrNodes[i].FCoord_Z;
+            }
+        }
+        else if (cmodel.m_arrGOPoints != null) // Some points exist
+        {
+            for (int i = 0; i < cmodel.m_arrGOPoints.Length; i++)
+            {
+                // Maximum X - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_X > fTempMax_X)
+                    fTempMax_X = cmodel.m_arrGOPoints[i].FCoord_X;
+
+                // Minimum X - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_X < fTempMin_X)
+                    fTempMin_X = cmodel.m_arrGOPoints[i].FCoord_X;
+
+                // Maximum Y - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_Y > fTempMax_Y)
+                    fTempMax_Y = cmodel.m_arrGOPoints[i].FCoord_Y;
+
+                // Minimum Y - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_Y < fTempMin_Y)
+                    fTempMin_Y = cmodel.m_arrGOPoints[i].FCoord_Y;
+
+                // Maximum Z - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_Z > fTempMax_Z)
+                    fTempMax_Z = cmodel.m_arrGOPoints[i].FCoord_Z;
+
+                // Minimum Z - coordinate
+                if (cmodel.m_arrGOPoints[i].FCoord_Z < fTempMin_Z)
+                    fTempMin_Z = cmodel.m_arrGOPoints[i].FCoord_Z;
+            }
+        }
+        else
+        {
+            // Exception - no definition nodes or points
+        }
     }
 
     private GeometryModel3D getMemberGeometryModel3D(EGCS eGCS, SolidColorBrush brush, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
