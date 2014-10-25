@@ -13,5 +13,13 @@ namespace BaseClasses.GraphObj
         {
         
         }
+
+        // Constructor 2
+        public CLine(int iLine_ID, int[] iPCollection, int fTime)
+        {
+            ID = iLine_ID;
+            m_iPointsCollection = iPCollection;
+            FTime = fTime;
+        }
     }
 }
