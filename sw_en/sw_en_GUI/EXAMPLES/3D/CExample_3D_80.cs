@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseClasses;
+using BaseClasses.GraphObj;
 using MATERIAL;
 using CRSC;
+using System.Windows.Media;
 
 namespace sw_en_GUI.EXAMPLES._3D
 {
@@ -19,7 +21,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOPoints = new BaseClasses.GraphObj.CPoint[12];
             m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[0];
-            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[0];
+            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[1];
 
             m_arrMat = new CMat_00[1];
             //m_arrCrSc = new CRSC.CCrSc[1];
@@ -35,21 +37,18 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
 
-            // Upper Chord Nodes
-            m_arrNodes[00] = new CNode(01, 0, 0, 0, 0);
-            m_arrNodes[01] = new CNode(02, 1, 0, 0, 0);
-            m_arrNodes[02] = new CNode(03, 2, 0, 0, 0);
-            m_arrNodes[03] = new CNode(04, 3, 0, 0, 0);
-            m_arrNodes[04] = new CNode(05, 4, 0, 0, 0);
-            m_arrNodes[05] = new CNode(06, 5, 0, 0, 0);
-            m_arrNodes[06] = new CNode(07, 6, 0, 0, 0);
-
-            // Bottom Chord Nodes
-            m_arrNodes[07] = new CNode(08, 1, 0, 4, 0);
-            m_arrNodes[08] = new CNode(09, 2, 0, 6, 0);
-            m_arrNodes[09] = new CNode(10, 3, 0, 7, 0);
-            m_arrNodes[10] = new CNode(11, 4, 0, 6, 0);
-            m_arrNodes[11] = new CNode(12, 5, 0, 4, 0);
+            m_arrGOPoints[00] = new CPoint(01, 0, 0, 0, 0);
+            m_arrGOPoints[01] = new CPoint(02, 1, 0, 0, 0);
+            m_arrGOPoints[02] = new CPoint(03, 2, 0, 0, 0);
+            m_arrGOPoints[03] = new CPoint(04, 3, 0, 0, 0);
+            m_arrGOPoints[04] = new CPoint(05, 4, 0, 0, 0);
+            m_arrGOPoints[05] = new CPoint(06, 5, 0, 0, 0);
+            m_arrGOPoints[06] = new CPoint(07, 6, 0, 0, 0);
+            m_arrGOPoints[07] = new CPoint(08, 1, 0, 4, 0);
+            m_arrGOPoints[08] = new CPoint(09, 2, 0, 6, 0);
+            m_arrGOPoints[09] = new CPoint(10, 3, 0, 7, 0);
+            m_arrGOPoints[10] = new CPoint(11, 4, 0, 6, 0);
+            m_arrGOPoints[11] = new CPoint(12, 5, 0, 4, 0);
 
             // Setridit pole podle ID
             Array.Sort(m_arrNodes, new CCompare_NodeID());
@@ -84,6 +83,11 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Setridit pole podle ID
             //Array.Sort(m_arrMembers, new CCompare_LineID());
+
+            int [] iVolumePointsArray_000 = new int[8];
+            int[] iVolumePointsArray_001 = new int[8];
+
+            m_arrGOVolumes[0] = new CVolume(1, iVolumePointsArray_000, 0);
 
         }
     }

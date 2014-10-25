@@ -33,5 +33,14 @@ namespace BaseClasses.GraphObj
         {
         
         }
+
+        public CPoint(int iPoint_ID, float X, float Y, float Z, int fTime)
+        {
+            ID = iPoint_ID;
+            FCoord_X = X;
+            FCoord_Y = Y;
+            FCoord_Z = Z;
+            FTime = fTime;
+        }
     }
 }
