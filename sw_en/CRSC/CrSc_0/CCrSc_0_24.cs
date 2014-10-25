@@ -46,24 +46,26 @@ namespace CRSC
         {
            IsShapeSolid = false;
 
-           ITotNoPoints = 6;
-            m_fa = fa;
-            m_ft = ft;
+           INoPointsIn = INoPointsOut = 3;
+           m_fa = fa;
+           m_ft = ft;
 
-            // Create Array - allocate memory
-            //nefunguje, rozdelit na vnutorne a vonkajsie pole bodov
-            CrScPointsOut = new float [ITotNoPoints,2];
-            // Fill Array Data
-            CalcCrSc_Coord_EqLat();
+           // Create Array - allocate memory
+           CrScPointsOut = new float[INoPointsOut, 2];
+           CrScPointsIn = new float[INoPointsIn, 2];
+           // Fill Array Data
+           CalcCrSc_Coord_EqLat();
 
-            // Fill list of indices for drawing of surface - triangles edges
-            loadCrScIndices();
+           // Fill list of indices for drawing of surface - triangles edges
+           loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
         void CalcCrSc_Coord_EqLat()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            // Outside
 
             // Point No. 1
             CrScPointsOut[0, 0] = 0f;                                     // y
@@ -77,25 +79,24 @@ namespace CRSC
             CrScPointsOut[2, 0] = -CrScPointsOut[1, 0];                     // y
             CrScPointsOut[2, 1] = CrScPointsOut[1, 1];                      // z
 
+            // Inside
+
             // Point No. 4
-            CrScPointsOut[3, 0] = 0f;                                                // y
-            CrScPointsOut[3, 1] = 2f / 3f * (m_fa / 2f) * MathF.fSqrt3 - 2 * m_ft;   // z
+            CrScPointsIn[0, 0] = 0f;                                                // y
+            CrScPointsIn[0, 1] = 2f / 3f * (m_fa / 2f) * MathF.fSqrt3 - 2 * m_ft;   // z
 
             // Point No. 5
-            CrScPointsOut[4, 0] = (m_fa / 2f) - (m_ft / (float)Math.Tan(0.523598775598299f)); // y // tan 0.5, resp. tan 30
-            CrScPointsOut[4, 1] = -1f / 3f * (m_fa / 2f) * MathF.fSqrt3 + m_ft;               // z
+            CrScPointsIn[1, 0] = (m_fa / 2f) - (m_ft / (float)Math.Tan(0.523598775598299f)); // y // tan 0.5, resp. tan 30
+            CrScPointsIn[1, 1] = -1f / 3f * (m_fa / 2f) * MathF.fSqrt3 + m_ft;               // z
 
             // Point No. 6
-            CrScPointsOut[5, 0] = -CrScPointsOut[1, 0];                     // y
-            CrScPointsOut[5, 1] = CrScPointsOut[1, 1];                      // z
-
-            // Fill list of indices for drawing of surface - triangles edges
-            loadCrScIndices();
+            CrScPointsIn[2, 0] = -CrScPointsIn[1, 0];                     // y
+            CrScPointsIn[2, 1] = CrScPointsIn[1, 1];                      // z
         }
 
 		protected override void loadCrScIndices()
         {
-            // const int secNum = 6;  // Number of points in section (2D)
+            // const int secNum = 3+3;  // Number of points in section (2D)
             TriangleIndices = new Int32Collection();
 
             // Front Side / Forehead
