@@ -15,10 +15,10 @@ namespace CRSC
         // Welded Angle section
 
         /*
-         
-        
-         
-         
+
+
+
+
         1  _  2              ____|/
           | |                   /|
           | |                    |
@@ -34,15 +34,15 @@ namespace CRSC
                   b
           |/____________|/
          /|            /|
-      
+
          y_c - from left
          z_c - from bottom
-        
+
          Centroid [0,0]
-         
-        z 
+
+        z
         /|\
-         | 
+         |
          |
          |_____________\  y
                        /
