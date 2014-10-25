@@ -38,6 +38,7 @@ namespace sw_en_GUI
     // Shape Type
     // Auxiliary identification of shape
 
+
     #region zakomentovat
 
     //private void load_3_02_TriangelIndices(short sShape, int iAux, int iRadiusSegment)
@@ -837,7 +838,7 @@ namespace sw_en_GUI
           // Exception
         }
       }
-      else
+      else if (obj_CrScA.INoPointsOut == obj_CrScA.INoPointsIn) // Closed cross-section with same number out ouside and insdide definiton points
       {
         // Tubes , Polygonal Hollow Sections
         iNoCrScPoints2D = (short)(2 * obj_CrScA.INoPointsOut); // Twice number of one surface
@@ -908,6 +909,13 @@ namespace sw_en_GUI
         {
           // Exception
         }
+      }
+      else
+      {
+         // Exception
+         // Closed cross-section with different number out ouside and insdide definiton points
+
+          iNoCrScPoints2D = 0; // Temp
       }
 
       // Dislay data in the output window

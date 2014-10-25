@@ -227,7 +227,7 @@ namespace CRSC
                 CrScPointsIn = null; // No Inside surface points (auxialiary points of outside surface - centre of radii are identical to inside points)
 
                 CCrSc_0_25 objTemp = new CCrSc_0_25(Fh, Fb, m_ft, m_ft);
-                CrScPointsOut = objTemp.m_CrScPoint; 
+                CrScPointsOut = objTemp.CrScPointsOut;
             }
 
             // Fill list of indices for drawing of surface - triangles edges
