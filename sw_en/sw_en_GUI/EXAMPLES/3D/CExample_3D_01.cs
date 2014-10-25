@@ -39,7 +39,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             //m_arrCrSc[0] = new CRSC.CCrSc_0_00(0.1f, 20); // Solid Half Circle / Semicircle shape
-            m_arrCrSc[0] = new CRSC.CCrSc_0_01(0.1f, 6); // Solid Quater Circle - chyba nezobrazuje sa jedna strana
+            //m_arrCrSc[0] = new CRSC.CCrSc_0_01(0.1f, 6); // Solid Quater Circle - chyba nezobrazuje sa jedna strana
             //m_arrCrSc[0] = new CRSC.CCrSc_0_02(0.1f, 20); // Rolled round bar
             //m_arrCrSc[0] = new CRSC.CCrSc_0_03(0.2f, 0.1f, 21); // Solid Ellipse
             //m_arrCrSc[0] = new CRSC.CCrSc_0_04(0.3f, 0.5f); // Triangular Prism / Equilateral
@@ -63,6 +63,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_0_58(0.2f, 0.1f, 0.015f, 0.010f); // Welded centrally symmetric Z section
             //m_arrCrSc[0] = new CCrSc_0_60(0.2f, 0.1f, 0.015f); // Doubly symmetric Cruciform
             //m_arrCrSc[0] = new CCrSc_0_61(0.2f, 0.010f); // Y-section
+            //m_arrCrSc[0] = new CCrSc_3_00(1, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.0045f, 0.1699f); - nefunguje
+            //m_arrCrSc[0] = new CCrSc_3_01
+            //m_arrCrSc[0] = new CCrSc_3_02(0, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.010f, 0.160f, 0.05f);
+            m_arrCrSc[0] = new CCrSc_3_02(2, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.160f, 0.05f);
 
             //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
 
