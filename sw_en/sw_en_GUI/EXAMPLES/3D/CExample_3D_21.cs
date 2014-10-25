@@ -63,6 +63,35 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Y-section / Y section
             // load_0_61_TriangelIndices();
 
+            // OPRAVIT I a BOX !!!!!!!! NIECO SA POKAZILO :)!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // Temp
+
+            // Rolled I doubly symmetric profile, Tapered or parallel flanges
+            // CCrSc obj_CrSc = new CCrSc_3_00(0, 8, 200, 90, 11.3f, 7.5f, 7.5f, 4.5f, 159.1f);
+            // load_3_00_TriangelIndices(0, 12,8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
+
+            // Rolled I monosymmetric profile, Tapered or parallel flanges
+            // load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
+
+            // Rolled U profile, Tapered or parallel flanges, channel section
+            // load_3_02_TriangelIndices(0,6, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_02_TriangelIndices(2,2, 8); // Shape ID,number of auxiliary points , number of segments of arc
+            // Rolled L profile, angle section
+            // load_3_03_04_TriangelIndices(3, 8); // Number of auxiliary points, number of segments of arc
+            // Rectanglular Hollow Cross-section
+            // load_3_07_TriangelIndices(0, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            // load_3_07_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            // load_3_07_TriangelIndices(3, 4, 4); // Shape ID, number of auxiliary points per section, number of segments of one arc (iAux = 4)
+            // load_3_07_TriangelIndices(5, 0, 0); // Shape ID, number of auxiliary points per section, number of segments of one arc
+            // Rolled T profile, Tapered flanges
+            // load_3_08_TriangelIndices(1,6,4); // Shape ID, number of auxiliary points, number of segments of arc
+            // load_3_08_TriangelIndices(2,4,4); // Shape ID, number of auxiliary points, number of segments of arc
+            // load_3_08_TriangelIndices(3, 2, 4); // Shape ID, number of auxiliary points, number of segments of arc
+
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             m_arrCrSc[00] = new CCrSc_0_00(0.1f, 20); // Solid Half Circle / Semicircle shape

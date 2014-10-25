@@ -7,5 +7,11 @@ namespace BaseClasses.GraphObj
 {
     class CVolume : CEntity
     {
+
+        // Constructor 1
+        public CVolume()
+        {
+        }
+
     }
 }
