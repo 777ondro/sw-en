@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -10,7 +11,7 @@ namespace CRSC
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_03 : CCrSc
     {
-        // Ellipse
+        // Solid Ellipse
 
         //----------------------------------------------------------------------------
         private float m_fa;           // Major Axis Dimension (2x Length of Semimajor Axis)
@@ -20,8 +21,8 @@ namespace CRSC
         private float m_fr_1;         // Radius max
         private float m_fr_2;         // Radius min
         private float m_fAngle;       // Angle of Rotation
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
-        public float[,] m_CrScPoint;  // Array of Points and values in 2D
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
+        //public float[,] m_CrScPoint;  // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fa
@@ -36,11 +37,11 @@ namespace CRSC
             set { m_fb = value; }
         }
 
-        public short ITotNoPoints
+        /*public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
-        }
+        }*/
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -48,6 +49,7 @@ namespace CRSC
         public CCrSc_0_03()  {   }
         public CCrSc_0_03(float fa, float fb, short iTotNoPoints)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fa = fa;
             m_fb = fb;
@@ -55,7 +57,7 @@ namespace CRSC
             m_fa_semi = 0.5f * m_fa;
             m_fb_semi = 0.5f * m_fb;
 
-            m_iTotNoPoints = iTotNoPoints; // auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = iTotNoPoints; // auxialiary node in centroid / stredovy bod v tazisku
 
             m_fAngle = 0;
 
@@ -63,16 +65,20 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_03(float fa, float fb)
         {
-            // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
+            IsShapeSolid = true;
+            // ITotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fa = fa;
             m_fb = fb;
-            m_iTotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
 
             m_fAngle = 0;
 
@@ -80,9 +86,12 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -90,19 +99,19 @@ namespace CRSC
         {
             // Basic Ellipse Function
             // Zbytocne vytvaram nove pole !!!!
-            float [,] arrtemp = new float [m_iTotNoPoints - 1,2];
+            float [,] arrtemp = new float [ITotNoPoints - 1,2];
             arrtemp = Geom2D.GetEllipsePointCoord(0.5f * m_fa, 0.5f * m_fb, m_fAngle, (short)((int)ITotNoPoints - 1));
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
             // Outside Points Coordinates
             for (int i = 0; i < ITotNoPoints-1; i++)
             {
-                m_CrScPoint[i, 0] = arrtemp[i, 0];  // y
-                m_CrScPoint[i, 1] = arrtemp[i, 1];  // z
+                CrScPointsOut[i, 0] = arrtemp[i, 0];  // y
+                CrScPointsOut[i, 1] = arrtemp[i, 1];  // z
             }
 
             // Centroid
-            m_CrScPoint[ITotNoPoints-1, 0] = 0f;
-            m_CrScPoint[ITotNoPoints-1, 1] = 0f;
+            CrScPointsOut[ITotNoPoints-1, 0] = 0f;
+            CrScPointsOut[ITotNoPoints-1, 1] = 0f;
         }
 
 
@@ -269,8 +278,11 @@ namespace CRSC
         }
 
 		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
+        {
+            CCrSc_0_02 oTemp = new CCrSc_0_02();
+            oTemp.loadCrScIndices_02_03(ITotNoPoints);
+            TriangleIndices = new Int32Collection();
+            TriangleIndices = oTemp.TriangleIndices;
+        }
 	}
 }

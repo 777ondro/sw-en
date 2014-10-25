@@ -92,51 +92,57 @@ namespace CRSC
             CrScPointsOut[ITotNoPoints - 1, 1] = 0f;
         }
 
-		protected override void loadCrScIndices()
+        protected override void loadCrScIndices()
+        {
+            loadCrScIndices_00_01(ITotNoPoints);
+        }
+
+        // Auxiliary, used for also other cross-sections
+        public void loadCrScIndices_00_01(int iTotNoPoints)
 		{
            TriangleIndices = new Int32Collection();
 
            // Front Side / Forehead
-           for (int i = 0; i < ITotNoPoints - 1; i++)
+           for (int i = 0; i < iTotNoPoints - 1; i++)
            {
-               if (i < ITotNoPoints - 2)
+               if (i < iTotNoPoints - 2)
             {
              TriangleIndices.Add(i);
-             TriangleIndices.Add(ITotNoPoints - 1);
+             TriangleIndices.Add(iTotNoPoints - 1);
              TriangleIndices.Add(i + 1);
             }
             else // Last Element
             {
              TriangleIndices.Add(i);
-             TriangleIndices.Add(ITotNoPoints - 1);
+             TriangleIndices.Add(iTotNoPoints - 1);
              TriangleIndices.Add(0);
             }
            }
 
            // Back Side
-           for (int i = 0; i < ITotNoPoints - 1; i++)
+           for (int i = 0; i < iTotNoPoints - 1; i++)
            {
-            if (i < ITotNoPoints - 2)
+            if (i < iTotNoPoints - 2)
             {
-             TriangleIndices.Add(ITotNoPoints + i);
-             TriangleIndices.Add(ITotNoPoints + i + 1);
-             TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
+             TriangleIndices.Add(iTotNoPoints + i);
+             TriangleIndices.Add(iTotNoPoints + i + 1);
+             TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
             }
             else // Last Element
             {
-             TriangleIndices.Add(ITotNoPoints + i);
-             TriangleIndices.Add(ITotNoPoints);
-             TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
+             TriangleIndices.Add(iTotNoPoints + i);
+             TriangleIndices.Add(iTotNoPoints);
+             TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
             }
            }
 
            // Shell Surface Arc
-           for (int i = 0; i < ITotNoPoints - 2; i++)
-            AddRectangleIndices_CW_1234(TriangleIndices, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+           for (int i = 0; i < iTotNoPoints - 2; i++)
+            AddRectangleIndices_CW_1234(TriangleIndices, i, iTotNoPoints + i, iTotNoPoints + i + 1, i + 1);
 
            // Flat Sides - !!! Clock-wise points of arc generation
-           AddRectangleIndices_CW_1234(TriangleIndices, 0, ITotNoPoints - 1, 2 * ITotNoPoints - 1, ITotNoPoints);
-           AddRectangleIndices_CW_1234(TriangleIndices, ITotNoPoints - 1, ITotNoPoints - 2, 2 * ITotNoPoints - 2, 2 * ITotNoPoints - 1);
+           AddRectangleIndices_CW_1234(TriangleIndices, 0, iTotNoPoints - 1, 2 * iTotNoPoints - 1, iTotNoPoints);
+           AddRectangleIndices_CW_1234(TriangleIndices, iTotNoPoints - 1, ITotNoPoints - 2, 2 * ITotNoPoints - 2, 2 * ITotNoPoints - 1);
 		}
 	}
 }

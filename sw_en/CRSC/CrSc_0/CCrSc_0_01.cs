@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -15,8 +16,8 @@ namespace CRSC
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
-        public float[,] m_CrScPoint; // Array of Points and values in 2D
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
+        //public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fd
@@ -39,9 +40,10 @@ namespace CRSC
         public CCrSc_0_01()  {   }
         public CCrSc_0_01(float fd, short iTotNoPoints)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
-            m_iTotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
             m_fr_out = m_fd / 2f;
 
@@ -49,15 +51,19 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_01(float fd)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 19+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             m_fd = fd;
-            m_iTotNoPoints = 20; // + 1 auxialiary node in centroid / stredovy bod v tazisku
+            ITotNoPoints = 20; // + 1 auxialiary node in centroid / stredovy bod v tazisku
 
             m_fr_out = m_fd / 2f;
 
@@ -65,9 +71,12 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -76,16 +85,19 @@ namespace CRSC
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPoint = Geom2D.GetArcPointCoord(m_fr_out, 180, 270, ITotNoPoints);
+            CrScPointsOut = Geom2D.GetArcPointCoord(m_fr_out, 180, 270, ITotNoPoints);
 
             // Centroid
-            m_CrScPoint[ITotNoPoints-1, 0] = 0f;
-            m_CrScPoint[ITotNoPoints-1, 1] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 0] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 1] = 0f;
         }
 
 		protected override void loadCrScIndices()
 		{
-			throw new NotImplementedException();
+            CCrSc_0_00 oTemp = new CCrSc_0_00();
+            oTemp.loadCrScIndices_00_01(ITotNoPoints);
+            TriangleIndices = new Int32Collection();
+            TriangleIndices = oTemp.TriangleIndices;
 		}
 	}
 }

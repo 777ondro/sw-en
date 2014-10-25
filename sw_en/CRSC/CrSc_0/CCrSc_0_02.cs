@@ -187,49 +187,55 @@ namespace CRSC
 
         protected override void loadCrScIndices()
         {
+            loadCrScIndices_02_03(ITotNoPoints);
+        }
+
+        // Auxiliary, used for also other cross-sections
+        public void loadCrScIndices_02_03(int iTotNoPoints)
+        {
             TriangleIndices = new Int32Collection();
 
             // Front Side / Forehead
-            for (int i = 0; i < ITotNoPoints - 1; i++)
+            for (int i = 0; i < iTotNoPoints - 1; i++)
             {
-                if (i < ITotNoPoints - 2)
+                if (i < iTotNoPoints - 2)
                 {
                     TriangleIndices.Add(i);
-                    TriangleIndices.Add(ITotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints - 1);
                     TriangleIndices.Add(i + 1);
                 }
                 else // Last Element
                 {
                     TriangleIndices.Add(i);
-                    TriangleIndices.Add(ITotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints - 1);
                     TriangleIndices.Add(0);
                 }
             }
 
             // Back Side
-            for (int i = 0; i < ITotNoPoints - 1; i++)
+            for (int i = 0; i < iTotNoPoints - 1; i++)
             {
-                if (i < ITotNoPoints - 2)
+                if (i < iTotNoPoints - 2)
                 {
-                    TriangleIndices.Add(ITotNoPoints + i);
-                    TriangleIndices.Add(ITotNoPoints + i + 1);
-                    TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints + i);
+                    TriangleIndices.Add(iTotNoPoints + i + 1);
+                    TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
                 }
                 else // Last Element
                 {
-                    TriangleIndices.Add(ITotNoPoints + i);
-                    TriangleIndices.Add(ITotNoPoints);
-                    TriangleIndices.Add(ITotNoPoints + ITotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints + i);
+                    TriangleIndices.Add(iTotNoPoints);
+                    TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
                 }
             }
 
             // Shell Surface OutSide
-            for (int i = 0; i < ITotNoPoints - 1; i++)
+            for (int i = 0; i < iTotNoPoints - 1; i++)
             {
-                if (i < ITotNoPoints - 2)
-                    AddRectangleIndices_CW_1234(TriangleIndices, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                if (i < iTotNoPoints - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, iTotNoPoints + i, iTotNoPoints + i + 1, i + 1);
                 else
-                    AddRectangleIndices_CW_1234(TriangleIndices, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, iTotNoPoints + i, iTotNoPoints, 0); // Last Element
 
             }
         }
