@@ -142,7 +142,7 @@ namespace CRSC
 
            // Flat Sides - !!! Clock-wise points of arc generation
            AddRectangleIndices_CW_1234(TriangleIndices, 0, iTotNoPoints - 1, 2 * iTotNoPoints - 1, iTotNoPoints);
-           AddRectangleIndices_CW_1234(TriangleIndices, iTotNoPoints - 1, ITotNoPoints - 2, 2 * ITotNoPoints - 2, 2 * ITotNoPoints - 1);
+           AddRectangleIndices_CW_1234(TriangleIndices, iTotNoPoints - 1, iTotNoPoints - 2, 2 * iTotNoPoints - 2, 2 * iTotNoPoints - 1);
 		}
 	}
 }
