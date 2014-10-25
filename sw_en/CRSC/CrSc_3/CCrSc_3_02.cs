@@ -31,7 +31,7 @@ namespace CRSC
         private float m_fSlopeTaper;        // Slope of Taper
         private short m_iNumOfArcSegment;   // Number of Arc Segments
         private short m_iNumOfArcPoints;    // Number of Arc Points
-        private short m_iNumOfAuxPoints;     // Number of Auxialiary Points
+        private short m_iNumOfAuxPoints;    // Number of Auxialiary Points
         //private short m_iTotNoPoints;       // Total Number of Cross-section Points for Drawing
         //public float[,] CrScPointsOut;        // Array of Points and values in 2D
         //----------------------------------------------------------------------------

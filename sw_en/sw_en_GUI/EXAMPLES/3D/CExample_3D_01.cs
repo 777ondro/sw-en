@@ -66,8 +66,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_3_00(1, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.0045f, 0.1699f); - nefunguje
             //m_arrCrSc[0] = new CCrSc_3_01
             //m_arrCrSc[0] = new CCrSc_3_02(0, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.010f, 0.160f, 0.05f);
-            m_arrCrSc[0] = new CCrSc_3_02(2, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.160f, 0.05f);
-
+            //m_arrCrSc[0] = new CCrSc_3_02(2, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.160f, 0.05f);
+            //m_arrCrSc[0] = new CCrSc_3_03(0.2f, 0.010f, 0.010f, 0.010f, 0.050f);
+            m_arrCrSc[0] = new CCrSc_3_04(0.2f, 0.1f, 0.010f, 0.010f, 0.010f, 0.080f,0.030f);
             //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
 
             // Nodes
