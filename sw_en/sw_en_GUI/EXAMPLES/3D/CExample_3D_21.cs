@@ -16,16 +16,52 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
             m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
-            m_arrNodes = new BaseClasses.CNode[50];
-            m_arrMembers = new CMember[25];
+            m_arrNodes = new BaseClasses.CNode[62];
+            m_arrMembers = new CMember[31];
             m_arrMat = new CMat_00[1];
-            m_arrCrSc = new CRSC.CCrSc[25];
+            m_arrCrSc = new CRSC.CCrSc[31];
             m_arrNSupports = new BaseClasses.CNSupport[3];
             //m_arrNLoads = new BaseClasses.CNLoad[3];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
             m_arrMat[0] = new CMat_03_00();
+
+            // TEMP CROSS-SECTIONS TEST
+
+            // Half Circle Bar
+            // Quater Circle Bar
+            // load_0_00_01_TriangelsIndices();
+            // Round or Ellipse Bar
+            // load_0_02_03_TriangelIndices();
+            // Triangular Prism
+            // load_0_04_TriangelsIndices();
+            // Flat Bar
+            // load_0_05_TriangelIndices();
+            // Half Circle
+            // load_0_20_TriangelIndices();
+            // TUBE / PIPE Circle or Ellipse Shape
+            // load_0_22_23_TriangelIndices();
+            // Triangular Prism with Opening
+            // load_0_24_TriangelsIndices();
+            // HL-section / Rectanglular Hollow Cross-section
+            // load_0_25_TriangelIndices();
+            // Polygonal Hollow Section
+            // load_0_26_28_TriangelIndices(0,test1.objCrScHollow.INoPoints);
+            // I - section
+            // load_0_50_TriangelIndices();
+            // U-section
+            // load_0_52_TriangelIndices();
+            // L-section / Angle section
+            // load_0_54_TriangelIndices();
+            // T-section / T section
+            // load_0_56_TriangelIndices();
+            // Z-section / Z section
+            // load_0_58_TriangelIndices();
+            // Cruciform Bar
+            // load_0_60_TriangelIndices(test1.objCrScSolid.ITotNoPoints);
+            // Y-section / Y section
+            // load_0_61_TriangelIndices();
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
@@ -54,6 +90,25 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrCrSc[22] = new CCrSc_0_58(0.2f, 0.1f, 0.015f, 0.010f); // Welded centrally symmetric Z section
             m_arrCrSc[23] = new CCrSc_0_60(0.2f, 0.1f, 0.015f); // Doubly symmetric Cruciform
             m_arrCrSc[24] = new CCrSc_0_61(0.2f, 0.010f); // Y-section
+
+            // Rolled I doubly symmetric profile, Tapered or parallel flanges
+            m_arrCrSc[25] = new CCrSc_3_00(0, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.0045f, 0.1654f);
+            m_arrCrSc[26] = new CCrSc_3_00(1, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.1699f);
+            m_arrCrSc[27] = new CCrSc_3_00(2, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.1699f);
+
+            // load_3_00_TriangelIndices(0, 12,8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(2, 4, 8); // Shape ID, number of auxiliary points , number of segments of arc
+
+            // Rolled I monosymmetric profile, Tapered or parallel flanges
+            m_arrCrSc[28] = new CCrSc_3_01(0, 8, 0.200f, 0.190f, 0.150f, 0.0113f, 0.0075f, 0.0075f, 0.0045f, 0.1654f);
+            m_arrCrSc[29] = new CCrSc_3_01(1, 8, 0.200f, 0.150f, 0.100f, 0.0113f, 0.0075f, 0.0075f, 0.1699f);
+            m_arrCrSc[30] = new CCrSc_3_01(2, 8, 0.200f, 0.090f, 0.150f, 0.0113f, 0.0075f, 0.0075f, 0.1699f);
+
+            // load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
+
 
             //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
 
@@ -110,6 +165,18 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes[47] = new BaseClasses.CNode(48, 5.0f, 23.0f, 0.0f, 0);
             m_arrNodes[48] = new BaseClasses.CNode(49, 0.0f, 24.0f, 0.0f, 0);
             m_arrNodes[49] = new BaseClasses.CNode(50, 5.0f, 24.0f, 0.0f, 0);
+            m_arrNodes[50] = new BaseClasses.CNode(51, 0.0f, 25.0f, 0.0f, 0);
+            m_arrNodes[51] = new BaseClasses.CNode(52, 5.0f, 25.0f, 0.0f, 0);
+            m_arrNodes[52] = new BaseClasses.CNode(53, 0.0f, 26.0f, 0.0f, 0);
+            m_arrNodes[53] = new BaseClasses.CNode(54, 5.0f, 26.0f, 0.0f, 0);
+            m_arrNodes[54] = new BaseClasses.CNode(55, 0.0f, 27.0f, 0.0f, 0);
+            m_arrNodes[55] = new BaseClasses.CNode(56, 5.0f, 27.0f, 0.0f, 0);
+            m_arrNodes[56] = new BaseClasses.CNode(57, 0.0f, 28.0f, 0.0f, 0);
+            m_arrNodes[57] = new BaseClasses.CNode(58, 5.0f, 28.0f, 0.0f, 0);
+            m_arrNodes[58] = new BaseClasses.CNode(59, 0.0f, 29.0f, 0.0f, 0);
+            m_arrNodes[59] = new BaseClasses.CNode(60, 5.0f, 29.0f, 0.0f, 0);
+            m_arrNodes[60] = new BaseClasses.CNode(61, 0.0f, 30.0f, 0.0f, 0);
+            m_arrNodes[61] = new BaseClasses.CNode(62, 5.0f, 30.0f, 0.0f, 0);
 
             // Sort by ID
             Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
@@ -142,6 +209,13 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMembers[22] = new BaseClasses.CMember(23, m_arrNodes[44], m_arrNodes[45], m_arrCrSc[22], 0);
             m_arrMembers[23] = new BaseClasses.CMember(24, m_arrNodes[46], m_arrNodes[47], m_arrCrSc[23], 0);
             m_arrMembers[24] = new BaseClasses.CMember(25, m_arrNodes[48], m_arrNodes[49], m_arrCrSc[24], 0);
+            m_arrMembers[25] = new BaseClasses.CMember(26, m_arrNodes[50], m_arrNodes[51], m_arrCrSc[25], 0);
+            m_arrMembers[26] = new BaseClasses.CMember(27, m_arrNodes[52], m_arrNodes[53], m_arrCrSc[26], 0);
+            m_arrMembers[27] = new BaseClasses.CMember(28, m_arrNodes[54], m_arrNodes[55], m_arrCrSc[27], 0);
+            m_arrMembers[28] = new BaseClasses.CMember(29, m_arrNodes[56], m_arrNodes[57], m_arrCrSc[28], 0);
+            m_arrMembers[29] = new BaseClasses.CMember(30, m_arrNodes[58], m_arrNodes[59], m_arrCrSc[29], 0);
+            m_arrMembers[30] = new BaseClasses.CMember(31, m_arrNodes[60], m_arrNodes[61], m_arrCrSc[30], 0);
+
 
             //Sort by ID
             Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
