@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -15,8 +16,8 @@ namespace CRSC
         //----------------------------------------------------------------------------
         private float m_fa;   // Side
         private float m_fd;   // Circumscribed Circle Diameter / Polygon is Inscribed in Circle
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
-        public  float[,] m_CrScPoint; // Array of Points and values in 2D
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        //public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fa
@@ -31,11 +32,11 @@ namespace CRSC
             set { m_fd = value; }
         }
 
-        public short ITotNoPoints
+        /*public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
-        }
+        }*/
         /*
         public float[,] CrScPoint
         {
@@ -50,33 +51,41 @@ namespace CRSC
         public CCrSc_0_06()  {   }
         public CCrSc_0_06(float fa)
         {
-            m_iTotNoPoints = 5+1; // Total Number of Points in Section (1 point for Centroid)
+            IsShapeSolid = true;
+            ITotNoPoints = 5+1; // Total Number of Points in Section (1 point for Centroid)
             m_fa = fa;
-  
+
             // Calculate Diameter of Circumscribed Circle
             m_fd = Geom2D.GetRadiusfromSideLength(m_fa, 5);
 
             // Create Array - allocate memory
-            m_CrScPoint = new float[m_iTotNoPoints, 2];
+            CrScPointsOut = new float[ITotNoPoints, 2];
             
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
         void CalcCrSc_Coord()
         {
             // Fill Edge Points Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-            m_CrScPoint = Geom2D.GetPentagonPointCoord(m_fa);
+
+            CrScPointsOut = Geom2D.AddCentroidPosition_Zero(Geom2D.GetPentagonPointCoord(m_fa));
 
             // Centroid
-            m_CrScPoint[ITotNoPoints - 1, 0] = 0f;
-            m_CrScPoint[ITotNoPoints - 1, 1] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 0] = 0f;
+            CrScPointsOut[ITotNoPoints - 1, 1] = 0f;
         }
 
-		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
+        protected override void loadCrScIndices()
+        {
+            CCrSc_0_02 oTemp = new CCrSc_0_02();
+            oTemp.loadCrScIndices_02_03(ITotNoPoints);
+            TriangleIndices = new Int32Collection();
+            TriangleIndices = oTemp.TriangleIndices;
+        }
 	}
 }
