@@ -44,8 +44,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_0_00(0.2f, 20); // Solid Half Circle
             //m_arrCrSc[0] = new CCrSc_0_04(0.2f); // Triangular Prism / Equilateral
             //m_arrCrSc[0] = new CCrSc_0_24(0.2f, 0.05f); // Triangular Prism / Equilateral with Opening - nefunguje, rozdelit na vnutorne a vonkajsie pole bodov
-            //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f,0.015f,0.006f); // Doubly symmetric I section
-            m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
+            //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f, 0.015f, 0.006f); // Doubly symmetric I section
+            //m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
+            //m_arrCrSc[0] = new CCrSc_0_54(0.2f, 0.1f, 0.015f, 0.010f, 0.050f, 0.010f); // Welded Angle section
+            m_arrCrSc[0] = new CCrSc_0_56(0.2f, 0.1f, 0.015f, 0.010f, 0.15f); // Welded monosymmetric T section
 
             // Nodes
             // Nodes List - Nodes Array
