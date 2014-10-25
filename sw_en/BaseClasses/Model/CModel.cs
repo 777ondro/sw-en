@@ -54,6 +54,16 @@ namespace BaseClasses
         // Load Combinations
         public CLoadCombination[] m_arrLoadCombs;
 
+        // Geometrical graphical model objects
+        // Points
+        public BaseClasses.GraphObj.CPoint[] m_arrGOPoints;
+        // Lines
+        public BaseClasses.GraphObj.CLine[] m_arrGOLines;
+        // Areas
+        public BaseClasses.GraphObj.CArea[] m_arrGOAreas;
+        // Volumes
+        public BaseClasses.GraphObj.CVolume[] m_arrGOVolumes;
+
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -88,6 +98,22 @@ namespace BaseClasses
             m_sProjectName = sProjectName;
             m_sConstObjectName = sConstObjectName;
             m_sFileName = sFileName;
+        }
+
+        // Geometrical model
+        public CModel(string sFileName, ESLN eSLN, int eNDOF, EGCS eGCS,
+            int iMatNum, /*int iCrScNum,*/ int iPointNum,
+            /*int iMemNum,*/ int iLineNum, int iAreaNum, int iVolumeNum)
+        {
+            m_eSLN = eSLN;
+            m_eNDOF = eNDOF;
+            m_eGCS = eGCS;
+            m_arrMat = new CMat_00[iMatNum];
+            //m_arrCrSc = new CCrSc[iCrScNum];
+            m_arrGOPoints = new BaseClasses.GraphObj.CPoint[iPointNum];
+            //m_arrMembers = new CMember[iMemNum];
+            m_arrGOAreas = new BaseClasses.GraphObj.CArea[iAreaNum];
+            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[iVolumeNum];
         }
 
     }

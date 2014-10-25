@@ -13,7 +13,9 @@ namespace BaseClasses
         e1D_1D,  // 1D members - simple member - colum or beam / continuous beam
         e2DD_1D, // 1D members - 2D truss, 2D frame
         e3DD_1D, // 1D members - 2D truss, 2D frame
-        e4DD_1D  // 1D members - 3D + time
+        e4DD_1D,  // 1D members - 3D + time
+
+        e4DD_3D  // 3D members - 3D + time (only graphical model)
     }
 
     //----------------------------------------------------------------------------
