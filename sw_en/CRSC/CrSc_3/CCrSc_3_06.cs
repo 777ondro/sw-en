@@ -8,10 +8,10 @@ namespace CRSC
 {
     public class CCrSc_3_06 : CCrSc_0_23
     {
-      // Eliptical tube
+        // Elliptical Hollow Section / Tube
       public CCrSc_3_06(float fa, float fb, float ft)
       {
-          INoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+          INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n
           Fa = fa;
           Fb = fb;
           Ft = ft;
@@ -29,11 +29,14 @@ namespace CRSC
               return;
 
           // Create Array - allocate memory
-          m_CrScPointOut = new float[INoPoints, 2];
-          m_CrScPointIn = new float[INoPoints, 2];
+          CrScPointsOut = new float[INoPointsOut, 2];
+          CrScPointsIn = new float[INoPointsIn, 2];
 
           // Fill Array Data
           CalcCrSc_Coord();
+
+          // Fill list of indices for drawing of surface - triangles edges
+          loadCrScIndices();
       }
     }
 }
