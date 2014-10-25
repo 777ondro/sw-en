@@ -12,7 +12,7 @@ namespace CRSC
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_01:CCrSc
     {
-        // Solid Quater Cirlce / Stvrtkruh
+        // Solid Quater Circle / Stvrtkruh
 
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer

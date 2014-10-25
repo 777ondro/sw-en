@@ -39,7 +39,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             //m_arrCrSc[0] = new CRSC.CCrSc_0_00(0.1f, 20); // Solid Half Circle / Semicircle shape
-            //m_arrCrSc[0] = new CRSC.CCrSc_0_01(0.1f, 20); // Solid Quater Cirlce - chyba nezobrazuje sa jedna strana
+            m_arrCrSc[0] = new CRSC.CCrSc_0_01(0.1f, 6); // Solid Quater Circle - chyba nezobrazuje sa jedna strana
             //m_arrCrSc[0] = new CRSC.CCrSc_0_02(0.1f, 20); // Rolled round bar
             //m_arrCrSc[0] = new CRSC.CCrSc_0_03(0.2f, 0.1f, 21); // Solid Ellipse
             //m_arrCrSc[0] = new CRSC.CCrSc_0_04(0.3f, 0.5f); // Triangular Prism / Equilateral
@@ -55,7 +55,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_0_25(0.2f, 0.15f, 0.01f, 0.008f); // Welded hollow section - doubly symmetrical
             //m_arrCrSc[0] = new CCrSc_0_26(0.2f, 0.05f); // Empty (Hollow) Penthagon
             //m_arrCrSc[0] = new CCrSc_0_27(0.2f, 0.05f); // Empty (Hollow) Hexagon
-            m_arrCrSc[0] = new CCrSc_0_28(0.2f, 0.05f); // Empty (Hollow) Octagon
+            //m_arrCrSc[0] = new CCrSc_0_28(0.2f, 0.05f); // Empty (Hollow) Octagon
             //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f, 0.015f, 0.006f); // Doubly symmetric I section
             //m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
             //m_arrCrSc[0] = new CCrSc_0_54(0.2f, 0.1f, 0.015f, 0.010f, 0.050f, 0.010f); // Welded Angle section
