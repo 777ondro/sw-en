@@ -771,5 +771,13 @@ namespace sw_en_GUI
 
             FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
         }
+
+        private void menuItemExample3D_21_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_21();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 21" + " - Window " + (Container.Children.Count + 1) });
+        }
     }
 }

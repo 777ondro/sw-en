@@ -20,6 +20,9 @@ namespace CRSC
           CrScPointsOut = new float[ITotNoPoints, 2];
           // Fill Array Data
           CalcCrSc_Coord();
+
+          // Fill list of indices for drawing of surface - triangles edges
+          loadCrScIndices();
       }
     }
 }
