@@ -224,14 +224,16 @@ namespace sw_en_GUI
 
               Point3D solidCenter = new Point3D(-5, 0, 0);
 
-              Point3D p0 = new Point3D(-1, -1, -1);
-              Point3D p1 = new Point3D(1, -1, -1);
-              Point3D p2 = new Point3D(1, 1, -1);
-              Point3D p3 = new Point3D(-1, 1, -1);
-              Point3D p4 = new Point3D(-1, -1, 1);
-              Point3D p5 = new Point3D(1, -1, 1);
-              Point3D p6 = new Point3D(1, 1, 1);
-              Point3D p7 = new Point3D(-1, 1, 1);
+              float fa = 0.5f;
+
+              Point3D p0 = new Point3D(-fa, -fa, -fa);
+              Point3D p1 = new Point3D(fa, -fa, -fa);
+              Point3D p2 = new Point3D(fa, fa, -fa);
+              Point3D p3 = new Point3D(-fa, fa, -fa);
+              Point3D p4 = new Point3D(-fa, -fa, fa);
+              Point3D p5 = new Point3D(fa, -fa, fa);
+              Point3D p6 = new Point3D(fa, fa, fa);
+              Point3D p7 = new Point3D(-fa, fa, fa);
 
               Point3D [] arrayPoint3D = new Point3D[8];
 

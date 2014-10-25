@@ -5,7 +5,13 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    class CArea : CEntity
+    public class CArea : CEntity
     {
+        public int[] m_iPointsCollection; // List / Collection of points IDs
+
+        public CArea()
+        {
+        
+        }
     }
 }

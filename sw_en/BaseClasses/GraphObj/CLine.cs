@@ -5,7 +5,13 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    class CLine : CEntity
+    public class CLine : CEntity
     {
+        public int[] m_iPointsCollection; // List / Collection of points IDs
+
+        public CLine()
+        {
+        
+        }
     }
 }

@@ -5,8 +5,9 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    class CVolume : CEntity
+    public class CVolume : CEntity
     {
+        public int[] m_iPointsCollection; // List / Collection of points IDs
 
         // Constructor 1
         public CVolume()
