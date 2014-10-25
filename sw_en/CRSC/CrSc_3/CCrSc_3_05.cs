@@ -8,7 +8,7 @@ namespace CRSC
 {
     public class CCrSc_3_05 : CCrSc_0_22
     {
-      // Tube
+      // Circular Hollow Section / Tube / Pipe
       public CCrSc_3_05(float fd, float ft)
       {
           INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n

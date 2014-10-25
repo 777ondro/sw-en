@@ -65,11 +65,17 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_0_61(0.2f, 0.010f); // Y-section
             //m_arrCrSc[0] = new CCrSc_3_00(1, 8, 0.200f, 0.090f, 0.0113f, 0.0075f, 0.0075f, 0.0045f, 0.1699f); - nefunguje
             //m_arrCrSc[0] = new CCrSc_3_01
-            //m_arrCrSc[0] = new CCrSc_3_02(0, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.010f, 0.160f, 0.05f);
-            //m_arrCrSc[0] = new CCrSc_3_02(2, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.160f, 0.05f);
-            //m_arrCrSc[0] = new CCrSc_3_03(0.2f, 0.010f, 0.010f, 0.010f, 0.050f);
-            m_arrCrSc[0] = new CCrSc_3_04(0.2f, 0.1f, 0.010f, 0.010f, 0.010f, 0.080f,0.030f);
-            //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
+            //m_arrCrSc[0] = new CCrSc_3_02(0, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.010f, 0.160f, 0.05f); // Rolled monosymmetric U section (channel) - tapered or paralel flanges
+            //m_arrCrSc[0] = new CCrSc_3_02(2, 0.2f, 0.1f, 0.010f, 0.005f, 0.010f, 0.160f, 0.05f); // Rolled monosymmetric U section (channel) - tapered or paralel flanges
+            //m_arrCrSc[0] = new CCrSc_3_03(0.2f, 0.010f, 0.010f, 0.010f, 0.050f); // Rolled monosymmetric L section (angle with equal legs)
+            //m_arrCrSc[0] = new CCrSc_3_04(0.2f, 0.1f, 0.010f, 0.010f, 0.010f, 0.080f,0.030f); // Rolled L section (angle with unequal legs)
+            //m_arrCrSc[0] = new CCrSc_3_05(0.2f, 0.010f); // Circular Hollow Section
+            //m_arrCrSc[0] = new CCrSc_3_06(0.2f, 0.1f, 0.010f); // Elliptical Hollow Section
+            //m_arrCrSc[0] = new CCrSc_3_07(0, 0.2f, 0.05f, 0.005f, 0.08f); // Rectangular Hollow Section - nefunguje
+            //m_arrCrSc[0] = new CCrSc_3_08(0, 0.2f, 0.1f, 0.005f, 0.005f, 0.015f, 0.005f, 0.005f, 0.0025f, 0.1875f);
+            //m_arrCrSc[0] = new CCrSc_3_08(1, 0.2f, 0.1f, 0.005f, 0.005f, 0.015f, 0.005f, 0.005f, 0.0025f, 0.1875f);
+            //m_arrCrSc[0] = new CCrSc_3_08(2, 0.2f, 0.1f, 0.010f, 0.010f, 0.015f, 0.010f, 0.005f, 0.175f);
+            m_arrCrSc[0] = new CCrSc_3_08(3, 0.2f, 0.1f, 0.010f, 0.010f, 0.015f, 0.010f, 0.005f, 0.175f);
 
             // Nodes
             // Nodes List - Nodes Array

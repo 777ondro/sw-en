@@ -8,7 +8,7 @@ namespace CRSC
 {
     public class CCrSc_3_06 : CCrSc_0_23
     {
-        // Elliptical Hollow Section / Tube
+      // Elliptical Hollow Section / Tube
       public CCrSc_3_06(float fa, float fb, float ft)
       {
           INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n
