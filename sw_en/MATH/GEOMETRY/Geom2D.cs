@@ -396,6 +396,11 @@ namespace MATH
                 fArrayEdgePointsAndCentroid[i, 0] = fArrayEdgePoints[i, 0];
                 fArrayEdgePointsAndCentroid[i, 1] = fArrayEdgePoints[i, 1];
             }
+
+            // Centroid
+            fArrayEdgePointsAndCentroid[fArrayEdgePoints.Length / 2, 0] = 0f;
+            fArrayEdgePointsAndCentroid[fArrayEdgePoints.Length / 2, 1] = 0f;
+
             return fArrayEdgePointsAndCentroid;
         }
         #endregion

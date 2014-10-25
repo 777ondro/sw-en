@@ -74,10 +74,6 @@ namespace CRSC
             // Fill Edge Points Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             CrScPointsOut = Geom2D.AddCentroidPosition_Zero(Geom2D.GetPentagonPointCoord(m_fa));
-
-            // Centroid
-            CrScPointsOut[ITotNoPoints - 1, 0] = 0f;
-            CrScPointsOut[ITotNoPoints - 1, 1] = 0f;
         }
 
         protected override void loadCrScIndices()
