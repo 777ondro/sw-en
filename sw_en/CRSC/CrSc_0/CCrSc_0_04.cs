@@ -67,6 +67,7 @@ namespace CRSC
 
         public CCrSc_0_04(float fh, float fb)
         {
+            IsShapeSolid = true;
             ITotNoPoints = 3;
             m_fh = fh;
             m_fb = fb;
@@ -86,6 +87,7 @@ namespace CRSC
 
         public CCrSc_0_04(float fN0y, float fN0z, float fN1y, float fN1z, float fN2y, float fN2z)
         {
+            IsShapeSolid = true;
             ITotNoPoints = 3;
 
             // Create Array - allocate memory

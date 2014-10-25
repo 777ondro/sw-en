@@ -386,6 +386,19 @@ namespace MATH
         }
         #endregion
 
+        #region AddCentroidPosition_Zero
+        public static float[,] AddCentroidPosition_Zero(float[,] fArrayEdgePoints)
+        {
+            float[,] fArrayEdgePointsAndCentroid = new float[fArrayEdgePoints.Length / 2 + 1, 2];
+
+            for (int i = 0; i < fArrayEdgePoints.Length / 2; i++)
+            {
+                fArrayEdgePointsAndCentroid[i, 0] = fArrayEdgePoints[i, 0];
+                fArrayEdgePointsAndCentroid[i, 1] = fArrayEdgePoints[i, 1];
+            }
+            return fArrayEdgePointsAndCentroid;
+        }
+        #endregion
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Get rotation angle (degree) in 2D environment
