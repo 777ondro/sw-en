@@ -15,10 +15,10 @@ namespace CRSC
         // Welded hollow section - doubly symmetrical
 
         /*
-         
-        
-         
-         
+
+
+
+
         1  ________________  2     ____|/
           |  ____________  |  t_f     /|
           | | 5        6 | |           |
@@ -34,13 +34,13 @@ namespace CRSC
                   b
           |/_______________|/
          /|               /|
-      
-        
+
+
          Centroid [0,0]
-         
-        z 
+
+        z
         /|\
-         | 
+         |
          |
          |_____________\  y
                        /
@@ -52,8 +52,8 @@ namespace CRSC
         private float m_fb;   // Width  / Sirka
         private float m_ft_f; // Flange Thickness / Hrubka pasnice
         private float m_ft_w; // Web Thickness  / Hrubka steny/stojiny
-        private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
-        public  float[,] m_CrScPoint; // Array of Points and values in 2D
+        //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing
+        //public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fh
@@ -76,11 +76,11 @@ namespace CRSC
             get { return m_ft_w; }
             set { m_ft_w = value; }
         }
-        public short ITotNoPoints
+        /*public short ITotNoPoints
         {
             get { return m_iTotNoPoints; }
             set { m_iTotNoPoints = value; }
-        }
+        }*/
         /*
         public float[,] CrScPoint
         {
@@ -97,16 +97,21 @@ namespace CRSC
         {
             IsShapeSolid = false;
 
-            m_iTotNoPoints = 8;
+            INoPointsIn = INoPointsOut = 4; // 4+4
             m_fh = fh;
             m_fb = fb;
             m_ft_f = ft_f;
             m_ft_w = ft_w;
 
             // Create Array - allocate memory
-            m_CrScPoint = new float [m_iTotNoPoints,2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
+
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -114,37 +119,41 @@ namespace CRSC
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
+            // Outside
+
             // Point No. 1
-            m_CrScPoint[0,0] = -m_fb / 2f;    // y
-            m_CrScPoint[0,1] = m_fh / 2f;     // z
+            CrScPointsOut[0,0] = -m_fb / 2f;    // y
+            CrScPointsOut[0,1] = m_fh / 2f;     // z
 
             // Point No. 2
-            m_CrScPoint[1,0] = -m_CrScPoint[0,0];    // y
-            m_CrScPoint[1,1] = m_CrScPoint[0,1];     // z
+            CrScPointsOut[1,0] = -CrScPointsOut[0,0];    // y
+            CrScPointsOut[1,1] = CrScPointsOut[0,1];     // z
 
             // Point No. 3
-            m_CrScPoint[2,0] = -m_CrScPoint[0,0];    // y
-            m_CrScPoint[2,1] = -m_CrScPoint[1,1];    // z
+            CrScPointsOut[2,0] = -CrScPointsOut[0,0];    // y
+            CrScPointsOut[2,1] = -CrScPointsOut[1,1];    // z
 
             // Point No. 4
-            m_CrScPoint[3,0] = m_CrScPoint[0,0];     // y
-            m_CrScPoint[3,1] = m_CrScPoint[2,1];     // z
+            CrScPointsOut[3,0] = CrScPointsOut[0,0];     // y
+            CrScPointsOut[3,1] = CrScPointsOut[2,1];     // z
+
+            // Inside
 
             // Point No. 5
-            m_CrScPoint[4,0] = m_CrScPoint[0,0] + m_ft_w;  // y
-            m_CrScPoint[4,1] = m_CrScPoint[0, 1] - m_ft_f; // z
+            CrScPointsIn[0,0] = CrScPointsOut[0,0] + m_ft_w;  // y
+            CrScPointsIn[0,1] = CrScPointsOut[0, 1] - m_ft_f; // z
 
             // Point No. 6
-            m_CrScPoint[5,0] = -m_CrScPoint[4,0];    // y
-            m_CrScPoint[5,1] = m_CrScPoint[4,1];     // z
+            CrScPointsIn[1,0] = -CrScPointsIn[0,0];    // y
+            CrScPointsIn[1,1] = CrScPointsIn[0,1];     // z
 
             // Point No. 7
-            m_CrScPoint[6,0] = m_CrScPoint[5,0];     // y
-            m_CrScPoint[6,1] = -m_CrScPoint[5,1];    // z
+            CrScPointsIn[2,0] = CrScPointsIn[1,0];     // y
+            CrScPointsIn[2,1] = -CrScPointsIn[1,1];    // z
 
             // Point No. 8
-            m_CrScPoint[7,0] = m_CrScPoint[4,0];     // y
-            m_CrScPoint[7,1] = -m_CrScPoint[4,1];     // z
+            CrScPointsIn[3,0] = CrScPointsIn[0,0];     // y
+            CrScPointsIn[3,1] = -CrScPointsIn[0,1];     // z
         }
 
 
@@ -400,7 +409,7 @@ namespace CRSC
             AddRectangleIndices_CW_1234(TriangleIndices, 7, 6, 2, 3);
             AddRectangleIndices_CW_1234(TriangleIndices, 0, 4, 7, 3);
 
-            // Back Side 
+            // Back Side
             AddRectangleIndices_CW_1234(TriangleIndices, 9, 8, 12, 13);
             AddRectangleIndices_CW_1234(TriangleIndices, 9, 13, 14, 10);
             AddRectangleIndices_CW_1234(TriangleIndices, 14, 15, 11, 10);
