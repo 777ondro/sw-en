@@ -260,40 +260,6 @@ namespace sw_en_GUI
    }
   }
 
-  private void load_0_54_TriangelIndices()
-  {
-   // const int secNum = 6;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 5);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 2, 3, 4, 5);
-
-   // Back Side 
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 7, 6, 11, 8);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 9, 8, 11, 10);
-
-   // Shell Surface
-   DrawCaraLaterals(6, M_TriangelsIndices);
-  }
-
-  private void load_0_56_TriangelIndices()
-  {
-   // const int secNum = 8;  // Number of points in section (2D)
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, 1, 2, 7);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 6, 3, 4, 5);
-
-   // Back Side 
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 9, 8, 15, 10);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 11, 14, 13, 12);
-
-   // Shell Surface
-   DrawCaraLaterals(8, M_TriangelsIndices);
-  }
-
   private void load_0_58_TriangelIndices()
   {
    // const int secNum = 8;  // Number of points in section (2D)
