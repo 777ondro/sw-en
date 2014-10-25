@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -10,16 +11,16 @@ namespace CRSC
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_0_23 : CCrSc
     {
-        // Ellipse / Elipsa
+        // Elliptical Hollow Section / Elipsa
 
         //----------------------------------------------------------------------------
         private float m_fa;   // Major Axis Dimension (2x Length of Semimajor Axis)
         private float m_fb;   // Minor Axis Dimension (2x Length of Semiminor Axis)
         private float m_ft;   // Thickness
         private float m_fAngle; // Angle of Rotation
-        private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Ellipse (36)
-        public float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
-        public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
+        //private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Ellipse (36)
+        //public float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
+        //public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fa
@@ -46,11 +47,11 @@ namespace CRSC
             set { m_fAngle = value; }
         }
 
-        public short INoPoints
+        /*public short INoPoints
         {
             get { return m_iNoPoints; }
             set { m_iNoPoints = value; }
-        }
+        }*/
         
         // Auxiliary variables
         float m_fr_out_major;
@@ -88,7 +89,7 @@ namespace CRSC
         public CCrSc_0_23() { }
         public CCrSc_0_23(float fa, float fb, float ft, short iNoPoints)
         {
-            m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fa = fa;
             m_fb = fb;
             m_ft = ft;
@@ -107,15 +108,18 @@ namespace CRSC
 
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_23(float fa, float fb, float ft)
         {
-            m_iNoPoints = 72; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = 72; // vykreslujeme ako n-uholnik, pocet bodov n
             m_fa = fa;
             m_fb = fb;
             m_ft = ft;
@@ -133,11 +137,14 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -147,10 +154,10 @@ namespace CRSC
             // INoPoints = 72; // vykreslujeme ako n-uholnik
 
             // Outside Points Coordinates
-            m_CrScPointOut = Geom2D.GetEllipsePointCoord(m_fr_out_major, m_fr_out_minor, m_fAngle, INoPoints);
+            CrScPointsOut = Geom2D.GetEllipsePointCoord(m_fr_out_major, m_fr_out_minor, m_fAngle, INoPointsOut);
 
             // Inside Points
-            m_CrScPointIn = Geom2D.GetEllipsePointCoord(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPoints);
+            CrScPointsIn = Geom2D.GetEllipsePointCoord(m_fr_in_major, m_fr_in_minor, m_fAngle, INoPointsIn);
        }
 
 
@@ -308,7 +315,10 @@ namespace CRSC
 
 		protected override void loadCrScIndices()
 		{
-			throw new NotImplementedException();
+            CCrSc_0_26 oTemp = new CCrSc_0_26();
+            oTemp.loadCrScIndices_26_28(INoPointsOut, 0);
+            TriangleIndices = new Int32Collection();
+            TriangleIndices = oTemp.TriangleIndices;
 		}
 	}
 }

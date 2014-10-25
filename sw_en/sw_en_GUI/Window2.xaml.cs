@@ -42,53 +42,6 @@ namespace sw_en_GUI
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     #region zakomentovat
     /*
-  private void load_0_20_TriangelIndices()
-  {
-   const int secNum = 37;  // Number of points in section (2D) 36+1 -centroid
-   M_TriangelsIndices = new Int32Collection();
-
-   // Front Side / Forehead
-
-   for (int i = 0; i < secNum - 1; i++)
-   {
-    if (i < secNum - 2)
-     AddRectangleIndices_CW_1234(M_TriangelsIndices, i, i + 1, i + secNum + 1, i + secNum);
-    else
-     AddRectangleIndices_CW_1234(M_TriangelsIndices, i, 0, i + 1, i + secNum); // Last Element
-   }
-
-   // Back Side
-   for (int i = 0; i < secNum - 1; i++)
-   {
-    if (i < secNum - 2)
-     AddRectangleIndices_CW_1234(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
-    else
-     AddRectangleIndices_CW_1234(M_TriangelsIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
-   }
-
-   //// Shell Surface OutSide
-   for (int i = 0; i < secNum - 2; i++)
-   {
-    AddRectangleIndices_CW_1234(M_TriangelsIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
-   }
-   // Shell Surface Inside
-   for (int i = 0; i < secNum - 2; i++)
-   {
-    AddRectangleIndices_CW_1234(M_TriangelsIndices, secNum + i, secNum + i + 1, 2 * secNum + i + secNum + 1, 2 * secNum + i + secNum);
-   }
-
-   // Base
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, 0, secNum, 3 * secNum, 2 * secNum);
-   AddRectangleIndices_CW_1234(M_TriangelsIndices, secNum - 2, 3 * secNum - 2, 4 * secNum - 2, secNum + (secNum - 2));
-  }
-
-  private void load_0_22_23_TriangelIndices()
-  {
-   // const int secNum = 2*36;  // Number of points in section (2D)
-   const int secNum = 72; // Number of points in one circle of section (2D) /Number of points is equal to Number of cells par section
-
-   load_0_26_28_TriangelIndices(0, secNum);
-  }
 
   private void load_0_24_TriangelsIndices()
   {

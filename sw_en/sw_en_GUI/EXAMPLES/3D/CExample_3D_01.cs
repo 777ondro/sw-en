@@ -47,9 +47,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CRSC.CCrSc_0_06(0.1f); // Solid Penthagon
             //m_arrCrSc[0] = new CRSC.CCrSc_0_07(0.1f); // Solid Hexagon
             //m_arrCrSc[0] = new CRSC.CCrSc_0_08(0.1f); // Solid Octagon
-            m_arrCrSc[0] = new CRSC.CCrSc_0_09(0.1f); // Solid Dodecagon
-            //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
-            //m_arrCrSc[0] = new CCrSc_0_22(0.2f, 0.05f, 12); // tube section
+            //m_arrCrSc[0] = new CRSC.CCrSc_0_09(0.1f); // Solid Dodecagon
+            //m_arrCrSc[0] = new CRSC.CCrSc_0_20(0.2f, 0.010f, 25); // Semicircle Curve
+            //m_arrCrSc[0] = new CCrSc_0_22(0.2f, 0.05f, 12); // Circular Hollow Section (Tube, Pipe)
+            m_arrCrSc[0] = new CCrSc_0_23(0.2f, 0.1f, 0.020f, 24);
             //m_arrCrSc[0] = new CCrSc_0_24(0.2f, 0.05f); // Triangular Prism / Equilateral with Opening - nefunguje, rozdelit na vnutorne a vonkajsie pole bodov
             //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f, 0.015f, 0.006f); // Doubly symmetric I section
             //m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
@@ -58,6 +59,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CCrSc_0_58(0.2f, 0.1f, 0.015f, 0.010f); // Welded centrally symmetric Z section
             //m_arrCrSc[0] = new CCrSc_0_60(0.2f, 0.1f, 0.015f); // Doubly symmetric Cruciform
             //m_arrCrSc[0] = new CCrSc_0_61(0.2f, 0.010f); // Y-section
+
+            //m_arrCrSc[0] = new CCrSc_3_07(1,0.2f, 0.05f, 0.005f, 0.005f, 0.003f); // rectangular hollow section
 
             // Nodes
             // Nodes List - Nodes Array

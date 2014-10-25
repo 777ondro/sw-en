@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 
 namespace CRSC
 {
@@ -15,9 +16,9 @@ namespace CRSC
         //----------------------------------------------------------------------------
         private float m_fd;   // Diameter/ Priemer
         private float m_ft;   // Thickness/ Hrubka
-        private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
-        public  float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
-        public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
+        //private short m_iNoPoints; // Number of Cross-section Points for Drawing in One Circle
+        //public  float[,] m_CrScPointOut; // Array of Outside Points and values in 2D
+        //public float[,] m_CrScPointIn; // Array of Inside Points and values in 2D
         //----------------------------------------------------------------------------
 
         public float Fd
@@ -32,11 +33,11 @@ namespace CRSC
             set { m_ft = value; }
         }
 
-        public short INoPoints
+        /*public short INoPoints
         {
             get { return m_iNoPoints; }
             set { m_iNoPoints = value; }
-        }
+        }*/
 
         float m_fr_out;
         float m_fr_in;
@@ -47,7 +48,7 @@ namespace CRSC
         public CCrSc_0_20()  {   }
         public CCrSc_0_20(float fd, float ft, short iNoPoints)
         {
-            m_iNoPoints = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid
+            INoPointsIn = INoPointsOut = iNoPoints; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid
             m_fd = fd;
             m_ft = ft;
 
@@ -61,15 +62,18 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
         public CCrSc_0_20(float fd, float ft)
         {
-            m_iNoPoints = 37; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid 
+            INoPointsIn = INoPointsOut = 37; // vykreslujeme ako n-uholnik, pocet bodov n, + 1 centroid 
             m_fd = fd;
             m_ft = ft;
 
@@ -83,11 +87,14 @@ namespace CRSC
                 return;
 
             // Create Array - allocate memory
-            m_CrScPointOut = new float[m_iNoPoints, 2];
-            m_CrScPointIn = new float[m_iNoPoints, 2];
+            CrScPointsOut = new float[INoPointsOut, 2];
+            CrScPointsIn = new float[INoPointsIn, 2];
 
             // Fill Array Data
             CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
         }
 
         //----------------------------------------------------------------------------
@@ -96,19 +103,52 @@ namespace CRSC
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
 
             // Outside Points Coordinates
-            m_CrScPointOut = Geom2D.GetArcPointCoord(m_fr_out, 180, 360, INoPoints);
+            CrScPointsOut = Geom2D.GetArcPointCoord(m_fr_out, 180, 360, INoPointsOut);
 
             // Inside Points
-            m_CrScPointIn = Geom2D.GetArcPointCoord(m_fr_in, 180, 360, INoPoints);
+            CrScPointsIn = Geom2D.GetArcPointCoord(m_fr_in, 180, 360, INoPointsIn);
         }
 
 		protected override void loadCrScIndices()
-		{
-			throw new NotImplementedException();
-		}
+        {
+            //const int secNum = 37;  // Number of points in section (2D) 36+1 -centroid
+            int secNum = INoPointsOut;
+
+            TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+
+            for (int i = 0; i < secNum - 1; i++)
+            {
+                if (i < secNum - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, i + 1, i + secNum + 1, i + secNum);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, i, 0, i + 1, i + secNum); // Last Element
+            }
+
+            // Back Side
+            for (int i = 0; i < secNum - 1; i++)
+            {
+                if (i < secNum - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + secNum + 1, 2 * secNum + i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndices, 2 * secNum + i, 2 * secNum + i + secNum, 2 * secNum + i + 1, 2 * secNum + 0); // Last Element
+            }
+
+            //// Shell Surface OutSide
+            for (int i = 0; i < secNum - 2; i++)
+            {
+                AddRectangleIndices_CW_1234(TriangleIndices, i, 2 * secNum + i, 2 * secNum + i + 1, i + 1);
+            }
+            // Shell Surface Inside
+            for (int i = 0; i < secNum - 2; i++)
+            {
+                AddRectangleIndices_CW_1234(TriangleIndices, secNum + i, secNum + i + 1, 2 * secNum + i + secNum + 1, 2 * secNum + i + secNum);
+            }
+
+            // Base
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, secNum, 3 * secNum, 2 * secNum);
+            AddRectangleIndices_CW_1234(TriangleIndices, secNum - 2, 3 * secNum - 2, 4 * secNum - 2, secNum + (secNum - 2));
+        }
 	}
 }
-
-
-
-
