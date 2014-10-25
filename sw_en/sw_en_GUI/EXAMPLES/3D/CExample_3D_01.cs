@@ -50,8 +50,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             //m_arrCrSc[0] = new CRSC.CCrSc_0_09(0.1f); // Solid Dodecagon
             //m_arrCrSc[0] = new CRSC.CCrSc_0_20(0.2f, 0.010f, 25); // Semicircle Curve
             //m_arrCrSc[0] = new CCrSc_0_22(0.2f, 0.05f, 12); // Circular Hollow Section (Tube, Pipe)
-            m_arrCrSc[0] = new CCrSc_0_23(0.2f, 0.1f, 0.020f, 24);
-            //m_arrCrSc[0] = new CCrSc_0_24(0.2f, 0.05f); // Triangular Prism / Equilateral with Opening - nefunguje, rozdelit na vnutorne a vonkajsie pole bodov
+            //m_arrCrSc[0] = new CCrSc_0_23(0.2f, 0.1f, 0.020f, 24); // Elliptical Hollow Section
+            m_arrCrSc[0] = new CCrSc_0_24(0.2f, 0.05f); // Triangular Prism / Equilateral with Opening
             //m_arrCrSc[0] = new CCrSc_0_50(0.2f, 0.1f, 0.015f, 0.006f); // Doubly symmetric I section
             //m_arrCrSc[0] = new CCrSc_0_52(0.2f, 0.1f, 0.015f, 0.006f, -0.05f); // Monosymmetric U/C section
             //m_arrCrSc[0] = new CCrSc_0_54(0.2f, 0.1f, 0.015f, 0.010f, 0.050f, 0.010f); // Welded Angle section
