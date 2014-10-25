@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace BaseClasses.GraphObj
 {
@@ -41,6 +42,15 @@ namespace BaseClasses.GraphObj
             FCoord_Y = Y;
             FCoord_Z = Z;
             FTime = fTime;
+        }
+    }
+
+    public class CCompare_PointID : IComparer
+    {
+        // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
+        public int Compare(object x, object y)
+        {
+            return ((CPoint)x).ID - ((CPoint)y).ID;
         }
     }
 }

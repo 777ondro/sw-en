@@ -106,7 +106,6 @@ Global
 		{8D8A9215-1A12-4970-9CAB-09762D182642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D8A9215-1A12-4970-9CAB-09762D182642}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D8A9215-1A12-4970-9CAB-09762D182642}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8D8A9215-1A12-4970-9CAB-09762D182642}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8D8A9215-1A12-4970-9CAB-09762D182642}.Release|x86.ActiveCfg = Release|Any CPU
 		{AD3E14F4-72C6-476E-B67F-93CC194E0E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD3E14F4-72C6-476E-B67F-93CC194E0E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
