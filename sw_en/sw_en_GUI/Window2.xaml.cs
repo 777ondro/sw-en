@@ -299,11 +299,28 @@ namespace sw_en_GUI
 
                   Point3D p9_W = new Point3D(7, 5, 3);
                   gr.Children.Add(CreateGM_3D_Window(p9_W, 2, 2.5f, 0.1f, 0));
+                  Point3D p10_W = new Point3D(13, 5, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p10_W, 2, 1.5f, 0.1f, 0));
+
+                  Point3D p11_W = new Point3D(5.5f, 8, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p11_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  Point3D p12_W = new Point3D(5.5f, 12, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p12_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+
+                  Point3D p13_W = new Point3D(7, 16.5, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p13_W, 2, 1.5f, 0.1f, 0));
+                  Point3D p14_W = new Point3D(13, 16.5, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p14_W, 2, 1.5f, 0.1f, 0));
+
+                  Point3D p15_W = new Point3D(17, 8, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p15_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  Point3D p16_W = new Point3D(17, 12, 4);
+                  gr.Children.Add(CreateGM_3D_Window(p16_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
 
               }
 
               //Set Ambient Light
-              gr.Children.Add(new AmbientLight());
+              //gr.Children.Add(new AmbientLight());
 
               if (cmodel.m_arrGOLines != null) // Some lines exist
               {
