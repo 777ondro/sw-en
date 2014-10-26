@@ -278,46 +278,63 @@ namespace sw_en_GUI
                   // Window
 
                   Point3D p1_W = new Point3D(2,0,1);
-                  gr.Children.Add(CreateGM_3D_Window(p1_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p1_W, 2, 1.5f, 0.1f, 0));
                   Point3D p2_W = new Point3D(8, 0, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p2_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p2_W, 2, 1.5f, 0.1f, 0));
 
                   Point3D p3_W = new Point3D(12, 3, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p3_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
-                  //Point3D p4_W = new Point3D(12, 8, 1);
-                  //gr.Children.Add(CreateGM_3D_Window(p4_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p3_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+
+                  // Doors
+                  Point3D p4_W = new Point3D(12, 8, 0);
+                  gr.Children.Add(CreateGM_3D_Window(1,p4_W, 1, 2.5f, 0.1f, (float)Math.PI / 2));
 
                   Point3D p5_W = new Point3D(2, 11.5, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p5_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p5_W, 2, 1.5f, 0.1f, 0));
                   Point3D p6_W = new Point3D(8, 11.5, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p6_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p6_W, 2, 1.5f, 0.1f, 0));
 
                   Point3D p7_W = new Point3D(0.5f, 3, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p7_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p7_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
                   Point3D p8_W = new Point3D(0.5f, 7, 1);
-                  gr.Children.Add(CreateGM_3D_Window(p8_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p8_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
 
+                  //French window
                   Point3D p9_W = new Point3D(7, 5, 3);
-                  gr.Children.Add(CreateGM_3D_Window(p9_W, 2, 2.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(3, p9_W, 2, 2.5f, 0.1f, 0));
+
                   Point3D p10_W = new Point3D(13, 5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p10_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p10_W, 2, 1.5f, 0.1f, 0));
 
                   Point3D p11_W = new Point3D(5.5f, 8, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p11_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p11_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
                   Point3D p12_W = new Point3D(5.5f, 12, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p12_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p12_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
 
                   Point3D p13_W = new Point3D(7, 16.5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p13_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p13_W, 2, 1.5f, 0.1f, 0));
                   Point3D p14_W = new Point3D(13, 16.5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p14_W, 2, 1.5f, 0.1f, 0));
+                  gr.Children.Add(CreateGM_3D_Window(2, p14_W, 2, 1.5f, 0.1f, 0));
 
                   Point3D p15_W = new Point3D(17, 8, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p15_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p15_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
                   Point3D p16_W = new Point3D(17, 12, 4);
-                  gr.Children.Add(CreateGM_3D_Window(p16_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateGM_3D_Window(2, p16_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
 
               }
+
+              /*
+                The following lights derive from the base class Light:
+                AmbientLight : Provides ambient lighting that illuminates all objects uniformly regardless of their location or orientation.
+                DirectionalLight : Illuminates like a distant light source. Directional lights have a Direction specified as a Vector3D, but no specified location.
+                PointLight : Illuminates like a nearby light source. PointLights have a position and cast light from that position. Objects in the scene are illuminated depending on their position and distance with respect to the light. PointLightBase exposes a Range property, which determines a distance beyond which models will not be illuminated by the light. PointLight also exposes attenuation properties which determine how the light's intensity diminishes over distance. You can specify constant, linear, or quadratic interpolations for the light's attenuation.
+                SpotLight : Inherits from PointLight. Spotlights illuminate like PointLight and have both position and direction. They project light in a cone-shaped area set by InnerConeAngle and OuterConeAngle properties, specified in degrees.
+              */
+
+              DirectionalLight DirLight = new DirectionalLight();
+              DirLight.Color = Colors.White;
+              DirLight.Direction = new Vector3D(0, 0, -1);
+              gr.Children.Add(DirLight);
 
               //Set Ambient Light
               //gr.Children.Add(new AmbientLight());
@@ -1294,7 +1311,7 @@ namespace sw_en_GUI
 
     // Temporary auxiliary function - glass window (3D HOUSE)
 
-    public Model3DGroup CreateGM_3D_Window(Point3D pControlPoint, float fL_X, float fH_Z, float fT_Y, float fRotationZRadians)
+    public Model3DGroup CreateGM_3D_Window(int iSegmentNum, Point3D pControlPoint, float fL_X, float fH_Z, float fT_Y, float fRotationZRadians)
     {
         Model3DGroup gr = new Model3DGroup();
 
@@ -1377,14 +1394,23 @@ namespace sw_en_GUI
             mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, cGlassColor, fGlassOpacity);
         }
 
+
         gr.Children.Add(mFrame_01_HB);
         gr.Children.Add(mFrame_02_HU);
         gr.Children.Add(mFrame_03_V);
-        gr.Children.Add(mFrame_04_V);
+        if (iSegmentNum == 2)
+        {
+          gr.Children.Add(mFrame_04_V);
+        }
+
         gr.Children.Add(mFrame_05_V);
 
         gr.Children.Add(mGlassTable_01);
-        gr.Children.Add(mGlassTable_02);
+
+        if (iSegmentNum == 2)
+        {
+            gr.Children.Add(mGlassTable_02);
+        }
         return gr;
     }
   }
