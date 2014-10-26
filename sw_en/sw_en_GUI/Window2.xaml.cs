@@ -130,82 +130,88 @@ namespace sw_en_GUI
                   // Prepare member model
                   for (int i = 0; i < cmodel.m_arrMembers.Length; i++) // !!! BUG pocet prvkov sa nacitava z xls aj z prazdnych riadkov pokial su nejako formatovane / nie default
                   {
-                      // Start Node of Member
-                      Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
-                      // End node of Member
-                      Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
-
-                      // Angle of rotation about local x-axis
-                      cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
-
-                      if (bDebugging)
+                      if (cmodel.m_arrMembers[i] != null &&
+                          cmodel.m_arrMembers[i].NodeStart != null &&
+                          cmodel.m_arrMembers[i].NodeEnd != null &&
+                          cmodel.m_arrMembers[i].CrScStart != null) // Member object is valid (not empty)
                       {
-                          System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
-                          System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
-                          System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
-                          System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
-                          System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
-                      }
+                          // Start Node of Member
+                          Point3D mpA = new Point3D(cmodel.m_arrMembers[i].NodeStart.FCoord_X, cmodel.m_arrMembers[i].NodeStart.FCoord_Y, cmodel.m_arrMembers[i].NodeStart.FCoord_Z);
+                          // End node of Member
+                          Point3D mpB = new Point3D(cmodel.m_arrMembers[i].NodeEnd.FCoord_X, cmodel.m_arrMembers[i].NodeEnd.FCoord_Y, cmodel.m_arrMembers[i].NodeEnd.FCoord_Z);
 
-                      if (cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
-                      {
-                          // Member material color
-                          byte R = (byte)(i / 2 == 0 ? 255 : 252);
-                          byte G = (byte)(i / 2 == 0 ? 234 : 241);
-                          byte B = (byte)(i / 2 == 0 ? 233 : 230);
+                          // Angle of rotation about local x-axis
+                          cmodel.m_arrMembers[i].DTheta_x = 0; // Temporary
 
-                          SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R, G, B)); // Material color
+                          if (bDebugging)
+                          {
+                              System.Console.Write("\n" + "Member ID:" + (i + 1).ToString() + "\n"); // Write Member ID in console window
+                              System.Console.Write("Start Node ID:" + cmodel.m_arrMembers[i].NodeStart.ID.ToString() + "\n"); // Write Start Node ID and coordinates in console window
+                              System.Console.Write(mpA.X.ToString() + "\t" + mpA.Y.ToString() + "\t" + mpA.Z.ToString() + "\n");
+                              System.Console.Write("End Node ID:" + cmodel.m_arrMembers[i].NodeEnd.ID.ToString() + "\n");     // Write   End Node ID and coordinates in console window
+                              System.Console.Write(mpB.X.ToString() + "\t" + mpB.Y.ToString() + "\t" + mpB.Z.ToString() + "\n\n");
+                          }
 
-                          if (i <= 10)
-                              br.Color = Colors.White;
-                          else if (i <= 20)
-                              br.Color = Colors.Red;
-                          else if (i <= 30)
-                              br.Color = Colors.LightGreen;
-                          else if (i <= 40)
-                              br.Color = Colors.White;
-                          else if (i <= 50)
-                              br.Color = Colors.Red;
-                          else if (i <= 60)
-                              br.Color = Colors.Green;
-                          else if (i <= 70)
-                              br.Color = Colors.LightSalmon;
-                          else if (i <= 80)
-                              br.Color = Colors.Red;
-                          else if (i <= 90)
-                              br.Color = Colors.Green;
-                          else if (i <= 100)
-                              br.Color = Colors.Red;
-                          else if (i <= 110)
-                              br.Color = Colors.GreenYellow;
-                          else if (i <= 12)
-                              br.Color = Colors.White;
-                          else if (i <= 130)
-                              br.Color = Colors.LightBlue;
-                          else if (i <= 140)
-                              br.Color = Colors.Green;
-                          else if (i <= 150)
-                              br.Color = Colors.Orange;
-                          else if (i <= 160)
-                              br.Color = Colors.Red;
-                          else if (i <= 170)
-                              br.Color = Colors.LightCyan;
-                          else if (i <= 180)
-                              br.Color = Colors.White;
-                          else if (i <= 190)
-                              br.Color = Colors.Yellow;
-                          else if (i <= 200)
-                              br.Color = Colors.LightCyan;
-                          else
-                              br.Color = Colors.Gold;
+                          if (cmodel.m_arrMembers[i].CrScStart.CrScPointsOut != null) // CCrSc is is abstract without geometrical properties (dimensions), only centroid line could be displayed
+                          {
+                              // Member material color
+                              byte R = (byte)(i / 2 == 0 ? 255 : 252);
+                              byte G = (byte)(i / 2 == 0 ? 234 : 241);
+                              byte B = (byte)(i / 2 == 0 ? 233 : 230);
 
-                          br.Opacity = 0.6; // Doesnt work :-/
+                              SolidColorBrush br = new SolidColorBrush(Color.FromRgb(R, G, B)); // Material color
 
-                          // Create Member model
-                          GeometryModel3D memberModel3D = getMemberGeometryModel3D(eGCS, br, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+                              if (i <= 10)
+                                  br.Color = Colors.White;
+                              else if (i <= 20)
+                                  br.Color = Colors.Red;
+                              else if (i <= 30)
+                                  br.Color = Colors.LightGreen;
+                              else if (i <= 40)
+                                  br.Color = Colors.White;
+                              else if (i <= 50)
+                                  br.Color = Colors.Red;
+                              else if (i <= 60)
+                                  br.Color = Colors.Green;
+                              else if (i <= 70)
+                                  br.Color = Colors.LightSalmon;
+                              else if (i <= 80)
+                                  br.Color = Colors.Red;
+                              else if (i <= 90)
+                                  br.Color = Colors.Green;
+                              else if (i <= 100)
+                                  br.Color = Colors.Red;
+                              else if (i <= 110)
+                                  br.Color = Colors.GreenYellow;
+                              else if (i <= 12)
+                                  br.Color = Colors.White;
+                              else if (i <= 130)
+                                  br.Color = Colors.LightBlue;
+                              else if (i <= 140)
+                                  br.Color = Colors.Green;
+                              else if (i <= 150)
+                                  br.Color = Colors.Orange;
+                              else if (i <= 160)
+                                  br.Color = Colors.Red;
+                              else if (i <= 170)
+                                  br.Color = Colors.LightCyan;
+                              else if (i <= 180)
+                                  br.Color = Colors.White;
+                              else if (i <= 190)
+                                  br.Color = Colors.Yellow;
+                              else if (i <= 200)
+                                  br.Color = Colors.LightCyan;
+                              else
+                                  br.Color = Colors.Gold;
 
-                          // Add current member model to the model group
-                          gr.Children.Add(memberModel3D);
+                              br.Opacity = 0.6; // Doesnt work :-/
+
+                              // Create Member model
+                              GeometryModel3D memberModel3D = getMemberGeometryModel3D(eGCS, br, cmodel.m_arrMembers[i].CrScStart, cmodel.m_arrMembers[i].CrScEnd, mpA, mpB, cmodel.m_arrMembers[i].DTheta_x);
+
+                              // Add current member model to the model group
+                              gr.Children.Add(memberModel3D);
+                          }
                       }
                   }
               }
@@ -239,11 +245,15 @@ namespace sw_en_GUI
               {
                   for (int i = 0; i < cmodel.m_arrGOVolumes.Length; i++)
                   {
-                      if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
-                          gr.Children.Add(CreateGM_3D_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
-                      else
+                      if (cmodel.m_arrGOVolumes[i] != null &&
+                          cmodel.m_arrGOVolumes[i].m_pControlPoint != null) // Volume object is valid (not empty)
                       {
-                          //Exception - not implemented
+                          if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
+                              gr.Children.Add(CreateGM_3D_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
+                          else
+                          {
+                              //Exception - not implemented
+                          }
                       }
                   }
 
@@ -251,10 +261,10 @@ namespace sw_en_GUI
 
                   GeometryModel3D sphereModel3D = new GeometryModel3D();
 
-                  Point3D sphereCenter = new Point3D(5, 0, 0);
+                  Point3D sphereCenter = new Point3D(5, -5, 0.5f);
                   SphereMeshGenerator objSphere = new SphereMeshGenerator(sphereCenter);
 
-                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(255, 000, 000));
+                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(204, 000, 102));
                   brushSolid2.Opacity = 0.8f;
 
                   sphereModel3D.Material = new DiffuseMaterial(brushSolid2);
@@ -265,8 +275,8 @@ namespace sw_en_GUI
 
               }
 
-              // Set Ambient Light
-              //gr.Children.Add(new AmbientLight());
+              //Set Ambient Light
+              gr.Children.Add(new AmbientLight());
 
               if (cmodel.m_arrGOLines != null) // Some lines exist
               {
@@ -1227,7 +1237,7 @@ namespace sw_en_GUI
       private int _slices = 32;
       private int _stacks = 16;
       private Point3D _center = new Point3D();
-      private double _radius = 1;
+      private double _radius = 0.5f;
 
       public int Slices
       {
