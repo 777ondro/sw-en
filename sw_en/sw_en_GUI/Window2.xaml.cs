@@ -297,6 +297,9 @@ namespace sw_en_GUI
                   Point3D p8_W = new Point3D(0.5f, 7, 1);
                   gr.Children.Add(CreateGM_3D_Window(p8_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
 
+                  Point3D p9_W = new Point3D(7, 5, 3);
+                  gr.Children.Add(CreateGM_3D_Window(p9_W, 2, 2.5f, 0.1f, 0));
+
               }
 
               //Set Ambient Light
