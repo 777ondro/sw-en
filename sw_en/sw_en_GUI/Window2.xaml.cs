@@ -331,10 +331,28 @@ namespace sw_en_GUI
                 SpotLight : Inherits from PointLight. Spotlights illuminate like PointLight and have both position and direction. They project light in a cone-shaped area set by InnerConeAngle and OuterConeAngle properties, specified in degrees.
               */
 
-              DirectionalLight DirLight = new DirectionalLight();
-              DirLight.Color = Colors.White;
-              DirLight.Direction = new Vector3D(0, 0, -1);
-              gr.Children.Add(DirLight);
+              // Directional Light
+              DirectionalLight Dir_Light = new DirectionalLight();
+              Dir_Light.Color = Colors.White;
+              Dir_Light.Direction = new Vector3D(0, 0, -1);
+              gr.Children.Add(Dir_Light);
+
+              // Point light values
+              PointLight Point_Light = new PointLight();
+              Point_Light.Position = new Point3D(0, 0, 30);
+              Point_Light.Color = System.Windows.Media.Brushes.White.Color;
+              Point_Light.Range = 30.0;
+              Point_Light.ConstantAttenuation = 5.0;
+              gr.Children.Add(Point_Light);
+
+              SpotLight Spot_Light = new SpotLight();
+              Spot_Light.InnerConeAngle = 30;
+              Spot_Light.OuterConeAngle = 30;
+              Spot_Light.Color = System.Windows.Media.Brushes.White.Color;
+              Spot_Light.Direction = new Vector3D(0, 0, -1);
+              Spot_Light.Position = new Point3D(8.5, 8.5, 20);
+              Spot_Light.Range = 30;
+              gr.Children.Add(Spot_Light);
 
               //Set Ambient Light
               //gr.Children.Add(new AmbientLight());
