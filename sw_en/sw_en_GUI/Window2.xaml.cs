@@ -246,7 +246,8 @@ namespace sw_en_GUI
                   for (int i = 0; i < cmodel.m_arrGOVolumes.Length; i++)
                   {
                       if (cmodel.m_arrGOVolumes[i] != null &&
-                          cmodel.m_arrGOVolumes[i].m_pControlPoint != null) // Volume object is valid (not empty)
+                          cmodel.m_arrGOVolumes[i].m_pControlPoint != null &&
+                          cmodel.m_arrGOVolumes[i].BIsDisplayed == true) // Volume object is valid (not empty) and should be displayed
                       {
                           if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
                               gr.Children.Add(CreateGM_3D_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
