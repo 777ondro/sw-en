@@ -37,7 +37,7 @@ namespace BaseClasses.GraphObj
 
         // Constructor 3
         // Rectangular Prism 8 Edges
-        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlEdgePoint, float fX, float fY, float fZ, Color volColor, float fvolOpacity, int fTime)
+        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlEdgePoint, float fX, float fY, float fZ, Color volColor, float fvolOpacity, bool bIsDisplayed, float fTime)
         {
             ID = iVolume_ID;
             m_eShapeType = iShapeType;
@@ -47,17 +47,20 @@ namespace BaseClasses.GraphObj
             m_fDim3 = fZ;
             m_volColor = volColor;
             m_fvolOpacity = fvolOpacity;
+            BIsDisplayed = bIsDisplayed;
             FTime = fTime;
+
         }
 
         // Constructor 3
         // Sphere
-        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlCenterPoint, float fr, int fTime)
+        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlCenterPoint, float fr, bool bIsDisplayed, float fTime)
         {
             ID = iVolume_ID;
             m_eShapeType = iShapeType;
             m_pControlPoint = pControlCenterPoint;
             m_fDim1 = fr;
+            BIsDisplayed = bIsDisplayed;
             FTime = fTime;
         }
 
