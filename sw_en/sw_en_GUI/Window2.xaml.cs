@@ -17,6 +17,7 @@ using _3DTools;
 using MATH;
 using CRSC;
 using BaseClasses;
+using BaseClasses.GraphObj;
 
 namespace sw_en_GUI
 {
@@ -236,47 +237,25 @@ namespace sw_en_GUI
 
               if (cmodel.m_arrGOVolumes != null) // Some volumes exist
               {
-                  // Model Group of Solids
-
-                  GeometryModel3D solidModel3D = new GeometryModel3D();
-                  //MeshGeometry3D solidModel3Dmesh = new MeshGeometry3D();
-                  //solidModel3Dmesh.Positions = new Point3DCollection();
-
-
-
-                  Point3D[] arrayPoint3D = new Point3D[8];
-
-                  arrayPoint3D[0] = p0;
-                  arrayPoint3D[1] = p1;
-                  arrayPoint3D[2] = p2;
-                  arrayPoint3D[3] = p3;
-                  arrayPoint3D[4] = p4;
-                  arrayPoint3D[5] = p5;
-                  arrayPoint3D[6] = p6;
-                  arrayPoint3D[7] = p7;
-
-                  for (int i = 0; i < arrayPoint3D.Length; i++)
+                  for (int i = 0; i < cmodel.m_arrGOVolumes.Length; i++)
                   {
-                      arrayPoint3D[i].X += solidCenter.X;
-                      arrayPoint3D[i].Y += solidCenter.Y;
-                      arrayPoint3D[i].Z += solidCenter.Z;
+                      if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
+                          gr.Children.Add(CreateGM_3D_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
+                      else
+                      {
+                          //Exception - not implemented
+                      }
                   }
 
-                  SolidColorBrush brushSolid = new SolidColorBrush(Color.FromRgb(255, 255, 250));
-                  brushSolid.Opacity = 0.5;
-                  solidModel3D.Material = new DiffuseMaterial(brushSolid);
 
-                  solidModel3D = getSolidGeometryModel3D(eGCS, brushSolid, p0, p1, p2, p3, p4, p5, p6, p7);
-
-                  gr.Children.Add(solidModel3D); // Add solid to model group
 
                   GeometryModel3D sphereModel3D = new GeometryModel3D();
 
                   Point3D sphereCenter = new Point3D(5, 0, 0);
                   SphereMeshGenerator objSphere = new SphereMeshGenerator(sphereCenter);
 
-                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(200, 200, 200));
-                  brushSolid2.Opacity = 0.2;
+                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(255, 000, 000));
+                  brushSolid2.Opacity = 0.8f;
 
                   sphereModel3D.Material = new DiffuseMaterial(brushSolid2);
 
@@ -404,7 +383,7 @@ namespace sw_en_GUI
           //gr.Children.Add(model);
 
           //IMPORTANT: this is the best way to do it, but we can't use it because of trackball
-          //because camera is set by trackball Taransform this.Camera.Transform = _trackball.Transform;
+          //because camera is set by trackball Transform this.Camera.Transform = _trackball.Transform;
           //and headlite too:  this.Headlight.Transform = _trackball.Transform;
 
           _trackport.PerspectiveCamera.Position = cameraPosition;
@@ -509,92 +488,6 @@ namespace sw_en_GUI
       model.Material = new DiffuseMaterial(brush);  // Set MemberModel Material
 
       return model;
-    }
-
-    private GeometryModel3D getSolidGeometryModel3D(EGCS eGCS, SolidColorBrush brush, Point3D mp1, Point3D mp2, Point3D mp3, Point3D mp4, Point3D mp5, Point3D mp6, Point3D mp7, Point3D mp8)
-    {
-        GeometryModel3D model = new GeometryModel3D();
-
-        MeshGeometry3D mesh = getMeshSolidGeometry3DFromPoints(eGCS, mp1, mp2, mp3,  mp4, mp5, mp6, mp7, mp8); // Mesh one solid
-
-        model.Geometry = mesh;
-
-        model.Material = new DiffuseMaterial(brush);  // Set SolidModel Material
-
-        return model;
-    }
-
-    private MeshGeometry3D getMeshSolidGeometry3DFromPoints(EGCS eGCS, Point3D mp1, Point3D mp2, Point3D mp3, Point3D mp4, Point3D mp5, Point3D mp6, Point3D mp7, Point3D mp8)
-    {
-      MeshGeometry3D mesh = new MeshGeometry3D();
-      mesh.Positions = new Point3DCollection();
-
-      mesh.Positions.Add(mp1);
-      mesh.Positions.Add(mp2);
-      mesh.Positions.Add(mp3);
-      mesh.Positions.Add(mp4);
-      mesh.Positions.Add(mp5);
-      mesh.Positions.Add(mp6);
-      mesh.Positions.Add(mp7);
-      mesh.Positions.Add(mp8);
-
-      Int32Collection TriangleIndices = new Int32Collection();
-
-      //Bottom
-      TriangleIndices.Add(0);
-      TriangleIndices.Add(2);
-      TriangleIndices.Add(1);
-
-      TriangleIndices.Add(0);
-      TriangleIndices.Add(3);
-      TriangleIndices.Add(2);
-
-
-      // Top
-      TriangleIndices.Add(4);
-      TriangleIndices.Add(6);
-      TriangleIndices.Add(7);
-
-      TriangleIndices.Add(4);
-      TriangleIndices.Add(5);
-      TriangleIndices.Add(6);
-
-      // Side
-      TriangleIndices.Add(0);
-      TriangleIndices.Add(5);
-      TriangleIndices.Add(4);
-
-      TriangleIndices.Add(0);
-      TriangleIndices.Add(1);
-      TriangleIndices.Add(5);
-
-      TriangleIndices.Add(1);
-      TriangleIndices.Add(6);
-      TriangleIndices.Add(5);
-
-      TriangleIndices.Add(1);
-      TriangleIndices.Add(2);
-      TriangleIndices.Add(6);
-
-      TriangleIndices.Add(2);
-      TriangleIndices.Add(7);
-      TriangleIndices.Add(6);
-
-      TriangleIndices.Add(2);
-      TriangleIndices.Add(3);
-      TriangleIndices.Add(7);
-
-      TriangleIndices.Add(3);
-      TriangleIndices.Add(4);
-      TriangleIndices.Add(7);
-
-      TriangleIndices.Add(3);
-      TriangleIndices.Add(0);
-      TriangleIndices.Add(4);
-
-      mesh.TriangleIndices = TriangleIndices;
-
-      return mesh;
     }
 
     private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
@@ -807,26 +700,6 @@ namespace sw_en_GUI
 
 
       return mesh;
-    }
-
-    public GeometryModel3D CreateRectangle(Point3D point1, Point3D point2, Point3D point3, Point3D point4, Brush brush)
-    {
-      MeshGeometry3D mesh = new MeshGeometry3D();
-      mesh.Positions.Add(point1);
-      mesh.Positions.Add(point2);
-      mesh.Positions.Add(point3);
-      mesh.Positions.Add(point4);
-
-      mesh.TriangleIndices.Add(0);
-      mesh.TriangleIndices.Add(1);
-      mesh.TriangleIndices.Add(2);
-
-      mesh.TriangleIndices.Add(0);
-      mesh.TriangleIndices.Add(2);
-      mesh.TriangleIndices.Add(3);
-
-      return new GeometryModel3D(mesh,
-       new DiffuseMaterial(brush));
     }
 
     public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
@@ -1253,84 +1126,100 @@ namespace sw_en_GUI
         // Mozno by som mal zapracovat toto
         //http://mathworld.wolfram.com/EulerAngles.html
     }
-  }
 
-  public class CubeMeshGenerator
-  {
-      public Point3D _center;
+    public GeometryModel3D CreateGM_3D_Volume_8Edeges(CVolume volume)
+    {
+        Point3D solidControlEdge = new Point3D(volume.m_pControlPoint.FCoord_X, volume.m_pControlPoint.FCoord_Y, volume.m_pControlPoint.FCoord_Z);
 
-      public Point3D Center
-      {
-          get { return _center;}
-          set { _center = value; }
-      }
+        Point3D p0 = new Point3D(solidControlEdge.X               , solidControlEdge.Y               , solidControlEdge.Z);
+        Point3D p1 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y               , solidControlEdge.Z);
+        Point3D p2 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z);
+        Point3D p3 = new Point3D(solidControlEdge.X               , solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z);
+        Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + volume.m_fDim3);
+        Point3D p5 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y, solidControlEdge.Z + volume.m_fDim3);
+        Point3D p6 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
+        Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
 
-      private float fCubeSide;
+        MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
 
-      public float FCubeSide
-      {
-          get { return fCubeSide; }
-          set { fCubeSide = value; }
-      }
+        meshGeom3D.Positions = new Point3DCollection();
 
-      public CubeMeshGenerator(Point3D pCenter, float fSide)
-      {
-          Center = pCenter;
-          FCubeSide = fSide;
-      }
+        meshGeom3D.Positions.Add(p0);
+        meshGeom3D.Positions.Add(p1);
+        meshGeom3D.Positions.Add(p2);
+        meshGeom3D.Positions.Add(p3);
+        meshGeom3D.Positions.Add(p4);
+        meshGeom3D.Positions.Add(p5);
+        meshGeom3D.Positions.Add(p6);
+        meshGeom3D.Positions.Add(p7);
+
+        Int32Collection TriangleIndices = new Int32Collection();
+
+        //Bottom
+        TriangleIndices.Add(0);
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(1);
+
+        TriangleIndices.Add(0);
+        TriangleIndices.Add(3);
+        TriangleIndices.Add(2);
 
 
+        // Top
+        TriangleIndices.Add(4);
+        TriangleIndices.Add(6);
+        TriangleIndices.Add(7);
 
-      //--------------------------------------------------------------------------------------------
-      //--------------------------------------------------------------------------------------------
-      public Model3DGroup CreateCube(double x, double y, double z)
-      {
-          Model3DGroup models = new Model3DGroup();
+        TriangleIndices.Add(4);
+        TriangleIndices.Add(5);
+        TriangleIndices.Add(6);
 
-          float fa = 0.5f * FCubeSide;
+        // Side
+        TriangleIndices.Add(0);
+        TriangleIndices.Add(5);
+        TriangleIndices.Add(4);
 
-          Point3D p0 = new Point3D(Center.X - fa, Center.Y - fa, Center.Z - fa);
-          Point3D p1 = new Point3D(Center.X + fa, Center.Y - fa, Center.Z - fa);
-          Point3D p2 = new Point3D(Center.X + fa, Center.Y - fa, Center.Z + fa);
-          Point3D p3 = new Point3D(Center.X - fa, Center.Y - fa, Center.Z + fa);
-          Point3D p4 = new Point3D(Center.X - fa, Center.Y + fa, Center.Z - fa);
-          Point3D p5 = new Point3D(Center.X + fa, Center.Y + fa, Center.Z - fa);
-          Point3D p6 = new Point3D(Center.X + fa, Center.Y + fa, Center.Z + fa);
-          Point3D p7 = new Point3D(Center.X - fa, Center.Y + fa, Center.Z + fa);
+        TriangleIndices.Add(0);
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(5);
 
-          models.Children.Add(CreateRectangle(p3, p2, p6, p7, Brushes.Red));  // front
-          models.Children.Add(CreateRectangle(p2, p1, p5, p6, Brushes.Red));  // right
-          models.Children.Add(CreateRectangle(p1, p0, p4, p5, Brushes.Red));  // back
-          models.Children.Add(CreateRectangle(p0, p3, p7, p4, Brushes.Red));  // left
-          models.Children.Add(CreateRectangle(p7, p6, p5, p4, Brushes.Red));  // top
-          models.Children.Add(CreateRectangle(p2, p3, p0, p1, Brushes.Red));  // bottom
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(6);
+        TriangleIndices.Add(5);
 
-          return models;
-      }
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(6);
 
-      //--------------------------------------------------------------------------------------------
-      public GeometryModel3D CreateRectangle(
-            Point3D point1, Point3D point2,
-            Point3D point3, Point3D point4,
-            Brush brush)
-      {
-          MeshGeometry3D mesh = new MeshGeometry3D();
-          mesh.Positions.Add(point1);
-          mesh.Positions.Add(point2);
-          mesh.Positions.Add(point3);
-          mesh.Positions.Add(point4);
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(7);
+        TriangleIndices.Add(6);
 
-          mesh.TriangleIndices.Add(0);
-          mesh.TriangleIndices.Add(1);
-          mesh.TriangleIndices.Add(2);
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(3);
+        TriangleIndices.Add(7);
 
-          mesh.TriangleIndices.Add(0);
-          mesh.TriangleIndices.Add(2);
-          mesh.TriangleIndices.Add(3);
+        TriangleIndices.Add(3);
+        TriangleIndices.Add(4);
+        TriangleIndices.Add(7);
 
-          return new GeometryModel3D(mesh,
-              new DiffuseMaterial(brush));
-      }
+        TriangleIndices.Add(3);
+        TriangleIndices.Add(0);
+        TriangleIndices.Add(4);
+
+        meshGeom3D.TriangleIndices = TriangleIndices;
+
+        GeometryModel3D geomModel3D = new GeometryModel3D();
+
+        geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+        SolidColorBrush brushSolid = new SolidColorBrush(volume.m_volColor);
+        brushSolid.Opacity = volume.m_fvolOpacity;
+
+        geomModel3D.Material = new DiffuseMaterial(brushSolid);
+
+        return geomModel3D;
+    }
   }
 
   public class SphereMeshGenerator
@@ -1427,4 +1316,5 @@ namespace sw_en_GUI
           return mesh;
       }
   }
+
 }

@@ -19,9 +19,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
             m_arrGOPoints = new BaseClasses.GraphObj.CPoint[12];
-            m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
+            //m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[0];
-            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[2];
+            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[6];
 
             m_arrMat = new CMat_00[1];
             //m_arrCrSc = new CRSC.CCrSc[1];
@@ -44,11 +44,11 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOPoints[04] = new CPoint(05, 4, 0, 0, 0);
             m_arrGOPoints[05] = new CPoint(06, 5, 0, 0, 0);
             m_arrGOPoints[06] = new CPoint(07, 6, 0, 0, 0);
-            m_arrGOPoints[07] = new CPoint(08, 1, 0, 4, 0);
-            m_arrGOPoints[08] = new CPoint(09, 2, 0, 6, 0);
-            m_arrGOPoints[09] = new CPoint(10, 3, 0, 7, 0);
-            m_arrGOPoints[10] = new CPoint(11, 4, 0, 6, 0);
-            m_arrGOPoints[11] = new CPoint(12, 5, 0, 4, 0);
+            m_arrGOPoints[07] = new CPoint(08, 7, 0, 0, 0);
+            m_arrGOPoints[08] = new CPoint(09, 8, 0, 0, 0);
+            m_arrGOPoints[09] = new CPoint(10, 9, 0, 0, 0);
+            m_arrGOPoints[10] = new CPoint(11, 10, 0, 0, 0);
+            m_arrGOPoints[11] = new CPoint(12, 11, 0, 0, 0);
 
             // Setridit pole podle ID
             Array.Sort(m_arrGOPoints, new CCompare_PointID());
@@ -56,6 +56,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Lines Automatic Generation
             // Lines List - Lines Array
 
+            /*
             int[] iLinesArray_000 = new int[2];
             int[] iLinesArray_001 = new int[2];
             int[] iLinesArray_002 = new int[2];
@@ -147,37 +148,22 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Setridit pole podle ID
             //Array.Sort(m_arrLines, new CCompare_LineID());
+            */
 
+            /*
             int[] iVolumePointsArray_000 = new int[8];
             int[] iVolumePointsArray_001 = new int[8];
+            */
 
-            iVolumePointsArray_000[0] = 0;
-            iVolumePointsArray_001[0] = 1;
+            Color vColor = Color.FromRgb(255, 245, 235);
+            float fvOpacity = 0.8f;
 
-            iVolumePointsArray_000[1] = 1;
-            iVolumePointsArray_001[1] = 2;
-
-            iVolumePointsArray_000[2] = 3;
-            iVolumePointsArray_001[2] = 4;
-
-            iVolumePointsArray_000[3] = 5;
-            iVolumePointsArray_001[3] = 6;
-
-            iVolumePointsArray_000[4] = 6;
-            iVolumePointsArray_001[4] = 7;
-
-            iVolumePointsArray_000[5] = 0;
-            iVolumePointsArray_001[5] = 1;
-
-            iVolumePointsArray_000[6] = 0;
-            iVolumePointsArray_001[6] = 1;
-
-            iVolumePointsArray_000[7] = 0;
-            iVolumePointsArray_001[7] = 1;
-
-            m_arrGOVolumes[0] = new CVolume(1, iVolumePointsArray_000, 0);
-            m_arrGOVolumes[0] = new CVolume(2, iVolumePointsArray_001, 0);
-
+            m_arrGOVolumes[000] = new CVolume(001, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[000], 1, 0.5f, 1, vColor, fvOpacity, 0);
+            m_arrGOVolumes[001] = new CVolume(002, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[001], 1, 0.5f, 1, vColor, fvOpacity, 0);
+            m_arrGOVolumes[002] = new CVolume(003, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[002], 1, 0.5f, 1, vColor, fvOpacity, 0);
+            m_arrGOVolumes[003] = new CVolume(004, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[003], 1, 0.5f, 1, vColor, fvOpacity, 0);
+            m_arrGOVolumes[004] = new CVolume(005, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[004], 1, 0.5f, 1, vColor, fvOpacity, 0);
+            m_arrGOVolumes[005] = new CVolume(006, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[005], 1, 0.5f, 1, vColor, fvOpacity, 0);
         }
     }
 }

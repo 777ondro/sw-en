@@ -191,8 +191,34 @@ namespace BaseClasses
         eMLD_Temperature = 2 // Temperature
     }
 
-
-
+    //----------------------------------------------------------------------------
+    // Define volume shape type (3D)
+    //----------------------------------------------------------------------------
+    public enum EVolumeShapeType
+    {
+        eShape3DPrism_8Edges = 0, // Rectangular Prism
+        eShape3DCube = 1,         // Cube
+        eShape3D_OctagonalPrism,
+        eShape3D_TriangularPrism,
+        eShape3D_PentagonalPrism,
+        eShape3D_Hexagonalprism,
+        eShape3D_TriangularPyramid,
+        eShape3D_RectangularPyramid,
+        eShape3D_SquarePyramid,
+        eShape3D_HexagonalPzramid,
+        eShape3D_NPyramid,
+        eShape3D_Cylinder,
+        eShape3D_Frustum,
+        eShape3D_Cone,
+        eShape3D_Sphere,
+        eShape3D_Ellipsoid,
+        eShape3D_Torus,
+        eShape3D_Tetrahedron,
+        eShape3D_Pentahedron,
+        eShape3D_Octahedron,
+        eShape3D_Docecahedron,
+        eShape3D_Icosahedron
+    }
 
 
 
