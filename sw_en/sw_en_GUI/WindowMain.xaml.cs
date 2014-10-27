@@ -780,6 +780,14 @@ namespace sw_en_GUI
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 21" + " - Window " + (Container.Children.Count + 1) });
         }
 
+        private void menuItemExample3D_50_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_50();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 50" + " - Window " + (Container.Children.Count + 1) });
+        }
+
         private void menuItemExample3D_80_Click(object sender, RoutedEventArgs e)
         {
             model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_80();

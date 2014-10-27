@@ -123,6 +123,7 @@
     <Compile Include="EXAMPLES\3D\CExample_3D_11.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_21.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_80.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_50.cs" />
     <Compile Include="EXAMPLES\CExample.cs" />
     <Compile Include="Viewer3D.xaml.cs">
       <DependentUpon>Viewer3D.xaml</DependentUpon>
