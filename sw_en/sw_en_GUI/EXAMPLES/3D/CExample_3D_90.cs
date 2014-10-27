@@ -38,12 +38,12 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             m_arrGOPoints[00] = new CPoint(1, x , y , z, 0);
 
-            BitmapImage grassjpg = new BitmapImage();
-            grassjpg.BeginInit();
-            grassjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
-            grassjpg.EndInit();
+            BitmapImage brickjpg = new BitmapImage();
+            brickjpg.BeginInit();
+            brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
+            brickjpg.EndInit();
 
-            DiffuseMaterial DiffMat1 = new DiffuseMaterial(new ImageBrush(grassjpg));
+            DiffuseMaterial DiffMat1 = new DiffuseMaterial(new ImageBrush(brickjpg));
 
             // Ground
             // Level 0 [-1.000]

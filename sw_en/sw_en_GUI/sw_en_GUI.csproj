@@ -129,6 +129,9 @@
     <Compile Include="Viewer3D.xaml.cs">
       <DependentUpon>Viewer3D.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window3.xaml.cs">
+      <DependentUpon>Window3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowCrScFromDB.xaml.cs">
       <DependentUpon>WindowCrScFromDB.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
       <DependentUpon>Window1.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Window3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowCrScFromDB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

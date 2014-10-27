@@ -65,7 +65,7 @@
 			<RowDefinition Height="25px"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
-		<Menu Grid.Column="0" Grid.Row="0">
+		<Menu Height="20" VerticalAlignment="Top">
 			<MenuItem Header="File">
 				<MenuItem x:Name="menuItemNew" Header="New" Icon="" Click="menuItemNew_Click"></MenuItem>
 				<MenuItem x:Name="menuItemOpen" Header="Open" Click="menuItemOpen_Click"></MenuItem>
@@ -208,7 +208,10 @@
                 <MenuItem x:Name="menuItemAbout" Header="About"></MenuItem>
                 <MenuItem x:Name="menuItemLicense" Header="License"></MenuItem>
             </MenuItem>
-		</Menu>
+            <MenuItem x:Name="menuItemDevelopment" Header="Development">
+                <MenuItem x:Name="menuItemTestWindow_3" Header="Test Window" Click="menuItemTestWindow_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
 			<Button x:Name="tbrIzometric" ToolTip="Isometric" VerticalAlignment="Center">
 				<Image Width="25px" Height="25px"  x:Name="ImageIzometric"></Image>
