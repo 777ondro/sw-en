@@ -805,5 +805,12 @@ namespace sw_en_GUI
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 90" + " - Window " + (Container.Children.Count + 1) });
         }
+
+        private void menuItemTestWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Window3 win = new Window3();
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Test" + " - Window " + (Container.Children.Count + 1) });
+        }
     }
 }
