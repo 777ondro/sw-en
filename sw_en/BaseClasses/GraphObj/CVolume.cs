@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
+using System.Windows.Media.Imaging;
 
 namespace BaseClasses.GraphObj
 {
@@ -17,6 +21,8 @@ namespace BaseClasses.GraphObj
 
         public float m_fvolOpacity;
         public Color m_volColor = new Color(); // Default
+
+        public DiffuseMaterial m_Material = new DiffuseMaterial();
 
         public float m_fDim1;
         public float m_fDim2;
@@ -49,10 +55,26 @@ namespace BaseClasses.GraphObj
             m_fvolOpacity = fvolOpacity;
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
-
         }
 
-        // Constructor 3
+        // Constructor 4
+        // Rectangular Prism 8 Edges
+        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlEdgePoint, float fX, float fY, float fZ, DiffuseMaterial volMat, bool bIsDisplayed, float fTime)
+        {
+            ID = iVolume_ID;
+            m_eShapeType = iShapeType;
+            m_pControlPoint = pControlEdgePoint;
+            m_fDim1 = fX;
+            m_fDim2 = fY;
+            m_fDim3 = fZ;
+            m_Material = volMat;
+            m_volColor = volMat.Color;
+            m_fvolOpacity = 1.0f;
+            BIsDisplayed = bIsDisplayed;
+            FTime = fTime;
+        }
+
+        // Constructor 5
         // Sphere
         public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlCenterPoint, float fr, bool bIsDisplayed, float fTime)
         {

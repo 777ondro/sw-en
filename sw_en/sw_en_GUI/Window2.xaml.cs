@@ -1232,10 +1232,10 @@ namespace sw_en_GUI
         Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
         */
 
-        return CreateGM_3D_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_volColor, volume.m_fvolOpacity);
+        return CreateGM_3D_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material);
 
     }
-    public GeometryModel3D CreateGM_3D_Volume_8Edeges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, Color volColor, float fvolOpacity)
+    public GeometryModel3D CreateGM_3D_Volume_8Edeges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
     {
         Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
         Point3D p1 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z);
@@ -1262,67 +1262,82 @@ namespace sw_en_GUI
         Int32Collection TriangleIndices = new Int32Collection();
 
         //Bottom
-        TriangleIndices.Add(0);
+        TriangleIndices.Add(3);
         TriangleIndices.Add(2);
         TriangleIndices.Add(1);
 
-        TriangleIndices.Add(0);
         TriangleIndices.Add(3);
-        TriangleIndices.Add(2);
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(0);
 
 
         // Top
         TriangleIndices.Add(4);
-        TriangleIndices.Add(6);
-        TriangleIndices.Add(7);
-
-        TriangleIndices.Add(4);
         TriangleIndices.Add(5);
         TriangleIndices.Add(6);
+
+        TriangleIndices.Add(4);
+        TriangleIndices.Add(6);
+        TriangleIndices.Add(7);
 
         // Side
         TriangleIndices.Add(0);
+        TriangleIndices.Add(1);
         TriangleIndices.Add(5);
-        TriangleIndices.Add(4);
 
         TriangleIndices.Add(0);
-        TriangleIndices.Add(1);
         TriangleIndices.Add(5);
-
-        TriangleIndices.Add(1);
-        TriangleIndices.Add(6);
-        TriangleIndices.Add(5);
-
-        TriangleIndices.Add(1);
-        TriangleIndices.Add(2);
-        TriangleIndices.Add(6);
-
-        TriangleIndices.Add(2);
-        TriangleIndices.Add(7);
-        TriangleIndices.Add(6);
-
-        TriangleIndices.Add(2);
-        TriangleIndices.Add(3);
-        TriangleIndices.Add(7);
-
-        TriangleIndices.Add(3);
         TriangleIndices.Add(4);
+
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(6);
+
+        TriangleIndices.Add(1);
+        TriangleIndices.Add(6);
+        TriangleIndices.Add(5);
+
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(3);
         TriangleIndices.Add(7);
+
+        TriangleIndices.Add(2);
+        TriangleIndices.Add(7);
+        TriangleIndices.Add(6);
 
         TriangleIndices.Add(3);
         TriangleIndices.Add(0);
         TriangleIndices.Add(4);
+
+        TriangleIndices.Add(3);
+        TriangleIndices.Add(4);
+        TriangleIndices.Add(7);
 
         meshGeom3D.TriangleIndices = TriangleIndices;
+
+        Point p2D_1 = new Point(0, 1);
+        Point p2D_2 = new Point(1, 1);
+        Point p2D_3 = new Point(1, 0);
+        Point p2D_4 = new Point(0, 0);
+
+        for (int i = 0; i < 6; i++) // Each side of solid
+        {
+            meshGeom3D.TextureCoordinates.Add(p2D_1);
+            meshGeom3D.TextureCoordinates.Add(p2D_2);
+            meshGeom3D.TextureCoordinates.Add(p2D_3);
+            meshGeom3D.TextureCoordinates.Add(p2D_4);
+        }
+
+        Vector3D n = new Vector3D(0, 0, 1);
+
+        for (int i = 0; i < 36; i++)
+            meshGeom3D.Normals.Add(n);
 
         GeometryModel3D geomModel3D = new GeometryModel3D();
 
         geomModel3D.Geometry = meshGeom3D; // Set mesh to model
 
-        SolidColorBrush brushSolid = new SolidColorBrush(volColor);
-        brushSolid.Opacity = fvolOpacity;
-
-        geomModel3D.Material = new DiffuseMaterial(brushSolid);
+        geomModel3D.Material = mat;
 
         return geomModel3D;
     }
@@ -1379,6 +1394,15 @@ namespace sw_en_GUI
         cGlassColor = Color.FromRgb(102, 255, 255);
         float fGlassOpacity = 0.5f;
 
+        SolidColorBrush bFrame = new SolidColorBrush(cFrameColor);
+        SolidColorBrush bGlass = new SolidColorBrush(cGlassColor);
+
+        bFrame.Opacity = fFrameOpacity;
+        bGlass.Opacity = fGlassOpacity;
+
+        DiffuseMaterial mat_Frame = new DiffuseMaterial(bFrame);
+        DiffuseMaterial mat_Glass = new DiffuseMaterial(bGlass);
+
         GeometryModel3D mFrame_01_HB = new GeometryModel3D(); // Horizontal bottom
         GeometryModel3D mFrame_02_HU = new GeometryModel3D(); // Horizontal upper
 
@@ -1391,25 +1415,25 @@ namespace sw_en_GUI
 
         if (fRotationZRadians == 0)
         {
-            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fL_X, fT_Y, fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fL_X, fT_Y, fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
+            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fL_X, fT_Y, fT_Y, mat_Frame);
+            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fL_X, fT_Y, fT_Y, mat_Frame);
+            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
+            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
+            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
 
-            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, cGlassColor, fGlassOpacity);
-            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, cGlassColor, fGlassOpacity);
+            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, mat_Glass);
+            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, mat_Glass);
         }
         else if (fRotationZRadians == (float)Math.PI / 2)
         {
-            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fT_Y, fL_X, fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fT_Y, fL_X, fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
-            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, cFrameColor, fFrameOpacity);
+            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fT_Y, fL_X, fT_Y, mat_Frame);
+            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fT_Y, fL_X, fT_Y, mat_Frame);
+            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
+            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
+            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
 
-            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, cGlassColor, fGlassOpacity);
-            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, cGlassColor, fGlassOpacity);
+            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, mat_Glass);
+            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, mat_Glass);
         }
 
 
