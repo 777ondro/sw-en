@@ -173,8 +173,10 @@ namespace sw_en_GUI
 
 		private void menuItemView3Dview_Click(object sender, RoutedEventArgs e)
 		{
-			Window2 win2 = new Window2(m_bDebugging);
-			win2.ShowDialog();
+            //Window2 win2 = new Window2(m_bDebugging);
+            //win2.ShowDialog();
+            Window1 win1 = new Window1();
+            win1.ShowDialog();
 		}
 
 		private void ButtonImport_Click(object sender, RoutedEventArgs e)
