@@ -1320,13 +1320,72 @@ namespace sw_en_GUI
         Point p2D_3 = new Point(1, 0);
         Point p2D_4 = new Point(0, 0);
 
-        for (int i = 0; i < 6; i++) // Each side of solid
+        // Top and bottom
+        /*for (int i = 0; i < 2; i++) // side of solid
         {
             meshGeom3D.TextureCoordinates.Add(p2D_1);
             meshGeom3D.TextureCoordinates.Add(p2D_2);
             meshGeom3D.TextureCoordinates.Add(p2D_3);
             meshGeom3D.TextureCoordinates.Add(p2D_4);
         }
+
+        // Sides
+        for (int i = 0; i < 4; i++) // side of solid
+        {
+            meshGeom3D.TextureCoordinates.Add(p2D_4);
+            meshGeom3D.TextureCoordinates.Add(p2D_1);
+            meshGeom3D.TextureCoordinates.Add(p2D_2);
+            meshGeom3D.TextureCoordinates.Add(p2D_3);
+        }*/
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f,0.25f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.25f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.0f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.25f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.0));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.0f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.5f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.5f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 1));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 1));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.75f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 1));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(1, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(1, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.5f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(1, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.75f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.25f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.5f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.25f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.66f, 0.75f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0f, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+
+        meshGeom3D.TextureCoordinates.Add(new Point(0, 0.5f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.75f));
+        meshGeom3D.TextureCoordinates.Add(new Point(0.33f, 0.5f));
+
 
         Vector3D n = new Vector3D(0, 0, 1);
 
