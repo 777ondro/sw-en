@@ -27,18 +27,20 @@ namespace sw_en_GUI
 
             //Window2 w2 = new Window2();
             //w2.Show();
-            //Model3DGroup models = CreateCube();
-            //ModelVisual3D visual = new ModelVisual3D();
+            Model3DGroup models = CreateCube();
+            ModelVisual3D visual = new ModelVisual3D();
             //visual.Content = models;
             //myViewport3D.Children.Add(visual);
 
-            //Model3DGroup models1 = CreateCube(3, 3, 3);
-            //ModelVisual3D visual1 = new ModelVisual3D();
-            //visual1.Content = models1;
-            //myViewport3D.Children.Add(visual1);
-            //models = CreateCube(2, 2, 2);
-            //visual.Content = models;
-            //myViewport3D.Children.Add(visual);
+            Model3DGroup models1 = CreateCube(3, 3, 3);
+            models1.Children.Add(models);
+
+            ModelVisual3D visual1 = new ModelVisual3D();
+            visual1.Content = models1;
+            myViewport3D.Children.Add(visual1);
+            models = CreateCube(2, 2, 2);
+            visual.Content = models;
+            myViewport3D.Children.Add(visual);
 
         }
 
