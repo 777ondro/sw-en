@@ -72,37 +72,37 @@ namespace sw_en_GUI.EXAMPLES._2D
             // Node 1
             m_arrNodes[0] = new CNode();
             m_arrNodes[0].ID = 1;
-            m_arrNodes[0].FCoord_X = 0f;
-            m_arrNodes[0].FCoord_Y = 0f;
-            m_arrNodes[0].FCoord_Z = 0f;
+            m_arrNodes[0].X = 0f;
+            m_arrNodes[0].Y = 0f;
+            m_arrNodes[0].Z = 0f;
 
             // Node 2
             m_arrNodes[1] = new CNode();
             m_arrNodes[1].ID = 2;
-            m_arrNodes[1].FCoord_X = 0f;
-            m_arrNodes[1].FCoord_Y = -fc - fd;
-            m_arrNodes[1].FCoord_Z = 0f;
+            m_arrNodes[1].X = 0f;
+            m_arrNodes[1].Y = -fc - fd;
+            m_arrNodes[1].Z = 0f;
 
             // Node 3
             m_arrNodes[2] = new CNode();
             m_arrNodes[2].ID = 3;
-            m_arrNodes[2].FCoord_X = fa;
-            m_arrNodes[2].FCoord_Y = -fc - fd - fe;
-            m_arrNodes[2].FCoord_Z = 0f;
+            m_arrNodes[2].X = fa;
+            m_arrNodes[2].Y = -fc - fd - fe;
+            m_arrNodes[2].Z = 0f;
 
             // Node 4
             m_arrNodes[3] = new CNode();
             m_arrNodes[3].ID = 4;
-            m_arrNodes[3].FCoord_X = fa + fb;
-            m_arrNodes[3].FCoord_Y = -fc - fd - fe;
-            m_arrNodes[3].FCoord_Z = 0f;
+            m_arrNodes[3].X = fa + fb;
+            m_arrNodes[3].Y = -fc - fd - fe;
+            m_arrNodes[3].Z = 0f;
 
             // Node 5
             m_arrNodes[4] = new CNode();
             m_arrNodes[4].ID = 5;
-            m_arrNodes[4].FCoord_X = fa + fb;
-            m_arrNodes[4].FCoord_Y = fc;
-            m_arrNodes[4].FCoord_Z = 0f;
+            m_arrNodes[4].X = fa + fb;
+            m_arrNodes[4].Y = fc;
+            m_arrNodes[4].Z = 0f;
 
             // Sort by ID
             Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());

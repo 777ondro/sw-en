@@ -10,27 +10,9 @@ namespace BaseClasses
     [Serializable]
     public class CNode : CEntity
     {
-        private float m_fCoord_X;
-        private float m_fCoord_Y;
-        private float m_fCoord_Z;
-
-        public float FCoord_X
-        {
-            get { return m_fCoord_X; }
-            set { m_fCoord_X = value; }
-        }
-
-        public float FCoord_Y
-        {
-            get { return m_fCoord_Y; }
-            set { m_fCoord_Y = value; }
-        }
-
-        public float FCoord_Z
-        {
-            get { return m_fCoord_Z; }
-            set { m_fCoord_Z = value; }
-        }
+        public float X;
+        public float Y;
+        public float Z;
 
         // Konstruktor1 CNode
         public CNode()
@@ -46,8 +28,8 @@ namespace BaseClasses
             )
         {
             ID = iNode_ID;
-            m_fCoord_X = fCoord_X;
-            m_fCoord_Y = fCoord_Y;
+            X = fCoord_X;
+            Y = fCoord_Y;
             FTime = fTime;
         }
 
@@ -61,9 +43,9 @@ namespace BaseClasses
             )
         {
             ID = iNode_ID;
-            m_fCoord_X = fCoord_X;
-            m_fCoord_Y = fCoord_Y;
-            m_fCoord_Z = fCoord_Z;
+            X = fCoord_X;
+            Y = fCoord_Y;
+            Z = fCoord_Z;
             FTime = fTime;
         }
 

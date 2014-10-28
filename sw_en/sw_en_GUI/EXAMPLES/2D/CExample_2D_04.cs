@@ -70,9 +70,9 @@ namespace sw_en_GUI.EXAMPLES._2D
             // Convert coordinates to meters
             foreach (CNode node in m_arrNodes)
             {
-                node.FCoord_X /= 1000;
-                node.FCoord_Y /= 1000;
-                node.FCoord_Z /= 1000;
+                node.X /= 1000;
+                node.Y /= 1000;
+                node.Z /= 1000;
             }
 
             // Setridit pole podle ID

@@ -34,6 +34,14 @@ namespace BaseClasses
             set { m_bIsDisplayed = value; }
         }
 
+        private bool m_bIsDebugging;
+
+        public bool BIsDebugging
+        {
+            get { return m_bIsDebugging; }
+            set { m_bIsDebugging = value; }
+        }
+
 
 
         //----------------------------------------------------------------------------------------------------------------

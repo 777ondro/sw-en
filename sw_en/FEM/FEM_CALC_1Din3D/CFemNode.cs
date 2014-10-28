@@ -72,9 +72,9 @@ namespace FEM_CALC_1Din3D
             Fill_Node_Init();
 
             ID = TopoNode.ID;
-            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX] = TopoNode.FCoord_X;
-            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY] = TopoNode.FCoord_Y;
-            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ] = TopoNode.FCoord_Z;
+            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUX] = TopoNode.X;
+            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUY] = TopoNode.Y;
+            m_fVNodeCoordinates.FVectorItems[(int)e3D_DOF.eUZ] = TopoNode.Z;
             FTime = TopoNode.FTime;
         }
 
