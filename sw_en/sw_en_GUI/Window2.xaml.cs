@@ -250,7 +250,7 @@ namespace sw_en_GUI
                           cmodel.m_arrGOVolumes[i].BIsDisplayed == true) // Volume object is valid (not empty) and should be displayed
                       {
                           if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
-                              gr.Children.Add(CreateGM_3D_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
+                              gr.Children.Add(CreateM_3D_G_Volume_8Edeges(cmodel.m_arrGOVolumes[i])); // Add solid to model group
                           else
                           {
                               //Exception - not implemented
@@ -1232,9 +1232,19 @@ namespace sw_en_GUI
         Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
         */
 
-        return CreateGM_3D_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material);
+        return CreateGM_3D_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1);
 
     }
+
+    public Model3DGroup CreateM_3D_G_Volume_8Edeges(CVolume volume)
+    {
+
+        Point3D solidControlEdge = new Point3D(volume.m_pControlPoint.FCoord_X, volume.m_pControlPoint.FCoord_Y, volume.m_pControlPoint.FCoord_Z);
+
+        return CreateM_3D_G_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1, volume.m_Material_2);
+    }
+
+    // Only one material of solid - NEFUNGUJE SPRAVNE TEXTURA
     public GeometryModel3D CreateGM_3D_Volume_8Edeges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
     {
         Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
@@ -1338,6 +1348,9 @@ namespace sw_en_GUI
             meshGeom3D.TextureCoordinates.Add(p2D_3);
         }*/
 
+
+        // NEFUNGUJE SPRAVNE TEXTURA
+
         meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
         meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
         meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
@@ -1403,7 +1416,68 @@ namespace sw_en_GUI
         return geomModel3D;
     }
 
-    // Temporary auxiliary function - glass window (3D HOUSE)
+    // Each side can be other material / color
+    public Model3DGroup CreateM_3D_G_Volume_8Edeges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat1, DiffuseMaterial mat2)
+    {
+        Model3DGroup models = new Model3DGroup();
+
+        Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
+        Point3D p1 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z);
+        Point3D p2 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+        Point3D p3 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+        Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+        Point3D p5 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+        Point3D p6 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+        Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+
+        /*
+        DiffuseMaterial DiffMat1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255,255,120)));
+
+        BitmapImage brickjpg = new BitmapImage();
+        brickjpg.BeginInit();
+        brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
+        brickjpg.EndInit();
+
+        DiffuseMaterial DiffMat2 = new DiffuseMaterial(new ImageBrush(brickjpg));
+        */
+
+        models.Children.Add(CreateRectangle(p3, p2, p1, p0, mat1)); // Bottom
+        models.Children.Add(CreateRectangle(p4, p5, p6, p7, mat1)); // Top
+        models.Children.Add(CreateRectangle(p0, p1, p5, p4, mat2)); // Sides
+        models.Children.Add(CreateRectangle(p1, p2, p6, p5, mat2));
+        models.Children.Add(CreateRectangle(p2, p3, p7, p6, mat2));
+        models.Children.Add(CreateRectangle(p3, p0, p4, p7, mat2));
+
+        return models;
+    }
+
+    //--------------------------------------------------------------------------------------------
+    // Create 2D rectangle as GeometryModel3D - only one material of rectangle can be defined
+    //--------------------------------------------------------------------------------------------
+    public GeometryModel3D CreateRectangle(Point3D point1, Point3D point2, Point3D point3, Point3D point4, DiffuseMaterial DiffMat)
+    {
+        MeshGeometry3D mesh = new MeshGeometry3D();
+        mesh.Positions.Add(point1);
+        mesh.Positions.Add(point2);
+        mesh.Positions.Add(point3);
+        mesh.Positions.Add(point4);
+
+        mesh.TriangleIndices.Add(0);
+        mesh.TriangleIndices.Add(1);
+        mesh.TriangleIndices.Add(2);
+
+        mesh.TriangleIndices.Add(0);
+        mesh.TriangleIndices.Add(2);
+        mesh.TriangleIndices.Add(3);
+
+        mesh.TextureCoordinates.Add(new Point(0, 1));
+        mesh.TextureCoordinates.Add(new Point(1, 1));
+        mesh.TextureCoordinates.Add(new Point(1, 0));
+
+        return new GeometryModel3D(mesh, DiffMat);
+    }
+
+      // Temporary auxiliary function - glass window (3D HOUSE)
 
     public Model3DGroup CreateGM_3D_Window(int iSegmentNum, Point3D pControlPoint, float fL_X, float fH_Z, float fT_Y, float fRotationZRadians)
     {
