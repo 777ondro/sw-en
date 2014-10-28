@@ -646,7 +646,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             //O.P.
             ImageBrush grassIB = new ImageBrush(new BitmapImage(new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute)));
             grassIB.TileMode = TileMode.Tile;
-            grassIB.Viewport = new Rect(0, 0, 0.05, 0.05);
+            grassIB.Viewport = new Rect(0, 0, 0.03, 0.03);
 
             DiffuseMaterial DiffMat1 = new DiffuseMaterial(grassIB);
 
@@ -1165,7 +1165,7 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             ImageBrush grassIB2 = new ImageBrush(new BitmapImage(new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute)));
             grassIB2.TileMode = TileMode.Tile;
-            grassIB2.Viewport = new Rect(0, 0, 0.2, 0.2);
+            grassIB2.Viewport = new Rect(0, 0, 0.3, 0.3);
 
             DiffuseMaterial matgrassIB = new DiffuseMaterial(grassIB2);
 
