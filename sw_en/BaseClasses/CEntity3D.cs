@@ -13,13 +13,13 @@ namespace BaseClasses
     abstract public class CEntity3D : CEntity
     {
 
-        Model3DGroup mObject3DModel = new Model3DGroup();
+        /*Model3DGroup mObject3DModel = new Model3DGroup();
 
         public Model3DGroup MObject3DModel
         {
             get { return mObject3DModel; }
             set { mObject3DModel = value; }
-        }
+        }*/
 
         public  CPoint m_pControlPoint = new CPoint();
 
@@ -29,10 +29,10 @@ namespace BaseClasses
         public CEntity3D() { }
 
 
-        public Model3DGroup Build3DModel()
+        /*public Model3DGroup Build3DModel()
         {
             return MObject3DModel;
-        }
+        }*/
 
 
     }
