@@ -277,49 +277,65 @@ namespace sw_en_GUI
 
                   // Window
 
-                  Point3D p1_W = new Point3D(2,0,1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p1_W, 2, 1.5f, 0.1f, 0));
-                  Point3D p2_W = new Point3D(8, 0, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p2_W, 2, 1.5f, 0.1f, 0));
+                  Color cFrameColor = new Color();
+                  cFrameColor = Color.FromRgb(51, 0, 0);
+                  float fFrameOpacity = 0.99f;
 
-                  Point3D p3_W = new Point3D(12, 3, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p3_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  Color cGlassColor = new Color();
+                  cGlassColor = Color.FromRgb(102, 255, 255);
+                  float fGlassOpacity = 0.5f;
 
+                  SolidColorBrush bFrame = new SolidColorBrush(cFrameColor);
+                  SolidColorBrush bGlass = new SolidColorBrush(cGlassColor);
+
+                  DiffuseMaterial mat_Frame = new DiffuseMaterial(bFrame);
+                  DiffuseMaterial mat_Glass = new DiffuseMaterial(bGlass);
+
+                  bFrame.Opacity = fFrameOpacity;
+                  bGlass.Opacity = fGlassOpacity;
+
+                  float fGlassThickness = 0.020f; // 2x4 mm (glass) + 16 mm (gas)
+                  Point3D p1_W = new Point3D(2, 0.2f,1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p1_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+                  Point3D p2_W = new Point3D(8, 0.2f, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p2_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+
+                  Point3D p3_W = new Point3D(11.8f, 3, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p3_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
                   // Doors
-                  Point3D p4_W = new Point3D(12, 8, 0);
-                  gr.Children.Add(CreateGM_3D_Window(1,p4_W, 1, 2.5f, 0.1f, (float)Math.PI / 2));
+                  Point3D p4_W = new Point3D(11.8f, 8, 0);
+                  gr.Children.Add(CreateM_3D_G_Window(1, p4_W, 1, 2.5f, 0.1f, mat_Frame, mat_Frame, 0.03f, 90));
 
-                  Point3D p5_W = new Point3D(2, 11.5, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p5_W, 2, 1.5f, 0.1f, 0));
-                  Point3D p6_W = new Point3D(8, 11.5, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p6_W, 2, 1.5f, 0.1f, 0));
+                  Point3D p5_W = new Point3D(2, 11.7, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p5_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+                  Point3D p6_W = new Point3D(8, 11.7, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p6_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
 
-                  Point3D p7_W = new Point3D(0.5f, 3, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p7_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
-                  Point3D p8_W = new Point3D(0.5f, 7, 1);
-                  gr.Children.Add(CreateGM_3D_Window(2, p8_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  Point3D p7_W = new Point3D(0.3f, 3.2, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p7_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
+                  Point3D p8_W = new Point3D(0.3f, 7, 1);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p8_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
 
                   //French window
-                  Point3D p9_W = new Point3D(7, 5, 3);
-                  gr.Children.Add(CreateGM_3D_Window(3, p9_W, 2, 2.5f, 0.1f, 0));
-
-                  Point3D p10_W = new Point3D(13, 5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p10_W, 2, 1.5f, 0.1f, 0));
+                  Point3D p9_W = new Point3D(7, 5.2f, 3);
+                  gr.Children.Add(CreateM_3D_G_Window(3, p9_W, 1, 2.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+                  Point3D p10_W = new Point3D(13, 5.2f, 4);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p10_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
 
                   Point3D p11_W = new Point3D(5.5f, 8, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p11_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateM_3D_G_Window(2, p11_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
                   Point3D p12_W = new Point3D(5.5f, 12, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p12_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  gr.Children.Add(CreateM_3D_G_Window(2, p12_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
 
-                  Point3D p13_W = new Point3D(7, 16.5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p13_W, 2, 1.5f, 0.1f, 0));
-                  Point3D p14_W = new Point3D(13, 16.5, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p14_W, 2, 1.5f, 0.1f, 0));
+                  Point3D p13_W = new Point3D(7, 16.7, 4);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p13_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+                  Point3D p14_W = new Point3D(13, 16.7, 4);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p14_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
 
-                  Point3D p15_W = new Point3D(17, 8, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p15_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
-                  Point3D p16_W = new Point3D(17, 12, 4);
-                  gr.Children.Add(CreateGM_3D_Window(2, p16_W, 2, 1.5f, 0.1f, (float)Math.PI / 2));
+                  Point3D p15_W = new Point3D(16.8, 8, 4);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p15_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
+                  Point3D p16_W = new Point3D(16.8, 12, 4);
+                  gr.Children.Add(CreateM_3D_G_Window(2, p16_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90));
 
               }
 
@@ -1452,7 +1468,7 @@ namespace sw_en_GUI
     }
 
     //--------------------------------------------------------------------------------------------
-    // Create 2D rectangle as GeometryModel3D - only one material of rectangle can be defined
+    // Create 2D rectangle as GeometryModel3D - one material of rectangle can be defined
     //--------------------------------------------------------------------------------------------
     public GeometryModel3D CreateRectangle(Point3D point1, Point3D point2, Point3D point3, Point3D point4, DiffuseMaterial DiffMat)
     {
@@ -1477,117 +1493,68 @@ namespace sw_en_GUI
         return new GeometryModel3D(mesh, DiffMat);
     }
 
-      // Temporary auxiliary function - glass window (3D HOUSE)
-
-    public Model3DGroup CreateGM_3D_Window(int iSegmentNum, Point3D pControlPoint, float fL_X, float fH_Z, float fT_Y, float fRotationZRadians)
+    // Temporary auxiliary function - glass window (3D HOUSE)
+    public Model3DGroup CreateM_3D_G_SegmWindow(int iSegm, float fL_X, float fH_Z, float fT_Y, DiffuseMaterial DiffMatF, DiffuseMaterial DiffMatG, float fGlassThickness)
     {
-        Model3DGroup gr = new Model3DGroup();
+        // Create Window Segment in LCS 0,0,0
+        Point3D p01_HB = new Point3D(0, 0, 0);
+        Point3D p02_HU = new Point3D(0, 0, fH_Z - fT_Y);
+        Point3D p03_V = new Point3D(0, 0, fT_Y);
+        Point3D p04_V = new Point3D(fL_X - fT_Y, 0, fT_Y);
+        Point3D p05_GlassTable = new Point3D(fT_Y, 0.5f * fT_Y - 0.5f * fGlassThickness, fT_Y);
 
-        float fGlassThickness = 0.016f;
-
-        Point3D p01_HB = new Point3D(0,0,0);
-        Point3D p02_HU = new Point3D(0,0, fH_Z - fT_Y);
-        Point3D p03_V = new Point3D(0,0,fT_Y);
-        Point3D p04_V = new Point3D(0.5 * fL_X - 0.5f * fT_Y, 0, fT_Y);
-        Point3D p05_V = new Point3D(fL_X - fT_Y, 0, fT_Y);
-
-        Point3D p06_GlassTable = new Point3D(fT_Y, 0.5f * fT_Y - 0.5f * fGlassThickness, fT_Y);
-        Point3D p07_GlassTable = new Point3D(0.5f * fL_X + 0.5f * fT_Y, 0.5f * fT_Y - 0.5f * fGlassThickness, fT_Y);
-
-        Point3D [] pArray = new Point3D[7];
+        // Fill array of control points
+        Point3D[] pArray = new Point3D[5];
 
         pArray[0] = p01_HB;
         pArray[1] = p02_HU;
         pArray[2] = p03_V;
         pArray[3] = p04_V;
-        pArray[4] = p05_V;
-        pArray[5] = p06_GlassTable;
-        pArray[6] = p07_GlassTable;
+        pArray[4] = p05_GlassTable;
 
+        // Move Segment to its position in LCS
         for (int i = 0; i < pArray.Length; i++)
-        {
-            // Rotate objects - 2D about vertical axis
+            pArray[i].X += iSegm * fL_X;
 
-            double dx = pArray[i].X;
-            double dy = pArray[i].Y + (0.5f * (0.5f - fT_Y));
+        Model3DGroup mFrame_01_HB = CreateM_3D_G_Volume_8Edeges(pArray[0], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF); // Horizontal bottom
+        Model3DGroup mFrame_02_HU = CreateM_3D_G_Volume_8Edeges(pArray[1], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF); // Horizontal upper
+        Model3DGroup mFrame_03_V = CreateM_3D_G_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF); // Vertical
+        Model3DGroup mFrame_04_V = CreateM_3D_G_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF); // Vertical
+        Model3DGroup mGlassTable = CreateM_3D_G_Volume_8Edeges(pArray[4], fL_X - 2 * fT_Y, fGlassThickness, fH_Z - 2 * fT_Y, DiffMatG, DiffMatG); // Glass No 1
 
-            pArray[i].X = dx * Math.Cos(fRotationZRadians) - dy * Math.Sin(fRotationZRadians);
-            pArray[i].Y = dx * Math.Sin(fRotationZRadians) + dy * Math.Cos(fRotationZRadians);
-
-            // Move objects
-
-            pArray[i].X += pControlPoint.X;
-            pArray[i].Y += pControlPoint.Y;
-            pArray[i].Z += pControlPoint.Z;
-        }
-
-        Color cFrameColor = new Color();
-        cFrameColor = Color.FromRgb(51, 0, 0);
-        float fFrameOpacity = 0.99f;
-
-        Color cGlassColor = new Color();
-        cGlassColor = Color.FromRgb(102, 255, 255);
-        float fGlassOpacity = 0.5f;
-
-        SolidColorBrush bFrame = new SolidColorBrush(cFrameColor);
-        SolidColorBrush bGlass = new SolidColorBrush(cGlassColor);
-
-        bFrame.Opacity = fFrameOpacity;
-        bGlass.Opacity = fGlassOpacity;
-
-        DiffuseMaterial mat_Frame = new DiffuseMaterial(bFrame);
-        DiffuseMaterial mat_Glass = new DiffuseMaterial(bGlass);
-
-        GeometryModel3D mFrame_01_HB = new GeometryModel3D(); // Horizontal bottom
-        GeometryModel3D mFrame_02_HU = new GeometryModel3D(); // Horizontal upper
-
-        GeometryModel3D mFrame_03_V = new GeometryModel3D(); // Vertical
-        GeometryModel3D mFrame_04_V = new GeometryModel3D(); // Vertical
-        GeometryModel3D mFrame_05_V = new GeometryModel3D(); // Vertical
-
-        GeometryModel3D mGlassTable_01 = new GeometryModel3D(); // Glass No 1
-        GeometryModel3D mGlassTable_02 = new GeometryModel3D(); // Glass No 2
-
-        if (fRotationZRadians == 0)
-        {
-            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fL_X, fT_Y, fT_Y, mat_Frame);
-            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fL_X, fT_Y, fT_Y, mat_Frame);
-            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-
-            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, mat_Glass);
-            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], 0.5f * (fL_X - 3 * fT_Y), fGlassThickness, fH_Z - 2 * fT_Y, mat_Glass);
-        }
-        else if (fRotationZRadians == (float)Math.PI / 2)
-        {
-            mFrame_01_HB = CreateGM_3D_Volume_8Edeges(pArray[0], fT_Y, fL_X, fT_Y, mat_Frame);
-            mFrame_02_HU = CreateGM_3D_Volume_8Edeges(pArray[1], fT_Y, fL_X, fT_Y, mat_Frame);
-            mFrame_03_V = CreateGM_3D_Volume_8Edeges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-            mFrame_04_V = CreateGM_3D_Volume_8Edeges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-            mFrame_05_V = CreateGM_3D_Volume_8Edeges(pArray[4], fT_Y, fT_Y, fH_Z - 2 * fT_Y, mat_Frame);
-
-            mGlassTable_01 = CreateGM_3D_Volume_8Edeges(pArray[5], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, mat_Glass);
-            mGlassTable_02 = CreateGM_3D_Volume_8Edeges(pArray[6], fGlassThickness, 0.5f * (fL_X - 3 * fT_Y), fH_Z - 2 * fT_Y, mat_Glass);
-        }
-
+        Model3DGroup gr = new Model3DGroup(); // Window Segment
 
         gr.Children.Add(mFrame_01_HB);
         gr.Children.Add(mFrame_02_HU);
         gr.Children.Add(mFrame_03_V);
-        if (iSegmentNum == 2)
+        gr.Children.Add(mFrame_04_V);
+        gr.Children.Add(mGlassTable);
+
+        return gr;
+    }
+    public Model3DGroup CreateM_3D_G_Window(int iSegmentNum, Point3D pControlPoint, float fL_X, float fH_Z, float fT_Y, DiffuseMaterial DiffMatF, DiffuseMaterial DiffMatG, float fGlassThickness, float fRotationZDegrees)
+    {
+        Model3DGroup gr = new Model3DGroup();
+
+        // Create Window in LCS
+        for (int i = 0; i < iSegmentNum; i++) // Add segments
         {
-          gr.Children.Add(mFrame_04_V);
+            gr.Children.Add(CreateM_3D_G_SegmWindow(i, fL_X, fH_Z, fT_Y, DiffMatF, DiffMatG, fGlassThickness));
         }
 
-        gr.Children.Add(mFrame_05_V);
+        // Move and rotate window
 
-        gr.Children.Add(mGlassTable_01);
+        Transform3DGroup transform3DGroup = new Transform3DGroup();
+        // Rotation about Y axis
+        RotateTransform3D rotateTransformation3D = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 0, 1), fRotationZDegrees));
+        // Translation - move to control point
+        TranslateTransform3D translateTransform3D = new TranslateTransform3D(pControlPoint.X, pControlPoint.Y, pControlPoint.Z);
+        // Adding transforms
+        transform3DGroup.Children.Add(rotateTransformation3D);
+        transform3DGroup.Children.Add(translateTransform3D);
+        // Set transformation to group
+        gr.Transform = transform3DGroup;
 
-        if (iSegmentNum == 2)
-        {
-            gr.Children.Add(mGlassTable_02);
-        }
         return gr;
     }
   }

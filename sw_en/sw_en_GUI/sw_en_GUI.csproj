@@ -475,7 +475,9 @@
     <Resource Include="Resources\Images\SW\0_MASS.png" />
     <Resource Include="Resources\Images\SW\0_THIN.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Images\Textures\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\xyz.png" />
   </ItemGroup>
