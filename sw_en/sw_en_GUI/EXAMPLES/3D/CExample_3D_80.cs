@@ -21,10 +21,11 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
             m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
-            m_arrGOPoints = new BaseClasses.GraphObj.CPoint[433];
+            m_arrGOPoints = new BaseClasses.GraphObj.CPoint[449];
             //m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[0];
             m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[433];
+            m_arrGOStrWindows = new BaseClasses.GraphObj.CStructure_Window[16];
 
             m_arrMat = new CMat_00[1];
             //m_arrCrSc = new CRSC.CCrSc[1];
@@ -523,8 +524,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Chimnney
             m_arrGOPoints[432] = new CPoint(433, 6, 9, 0, 0);
 
-            // Setridit pole podle ID
-            Array.Sort(m_arrGOPoints, new CCompare_PointID());
+
 
             // Lines Automatic Generation
             // Lines List - Lines Array
@@ -1171,6 +1171,81 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Chimnney
             m_arrGOVolumes[432] = new CVolume(433, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[432], 0.5f, 0.5f, 8, DiffMat2_Plaster, DiffMatText, true, 0);
 
+
+
+
+            // Windows
+
+            Color cFrameColor = new Color();
+            cFrameColor = Color.FromRgb(51, 0, 0);
+            float fFrameOpacity = 0.99f;
+
+            Color cGlassColor = new Color();
+            cGlassColor = Color.FromRgb(102, 255, 255);
+            float fGlassOpacity = 0.5f;
+
+            SolidColorBrush bFrame = new SolidColorBrush(cFrameColor);
+            SolidColorBrush bGlass = new SolidColorBrush(cGlassColor);
+
+            DiffuseMaterial mat_Frame = new DiffuseMaterial(bFrame);
+            DiffuseMaterial mat_Glass = new DiffuseMaterial(bGlass);
+
+            bFrame.Opacity = fFrameOpacity;
+            bGlass.Opacity = fGlassOpacity;
+
+            BitmapImage heartsjpg = new BitmapImage();
+            heartsjpg.BeginInit();
+            heartsjpg.UriSource = new Uri(@"hearts.jpg", UriKind.RelativeOrAbsolute);
+            heartsjpg.EndInit();
+            ImageBrush heartsIB = new ImageBrush(heartsjpg);
+            heartsIB.ViewportUnits = BrushMappingMode.Absolute;
+            DiffuseMaterial DiffMatHearts = new DiffuseMaterial(heartsIB);
+
+            float fGlassThickness = 0.020f; // 2x4 mm (glass) + 16 mm (gas)
+            m_arrGOPoints[433] = new CPoint(434, 2, 0.2f, 1, 0);
+            m_arrGOStrWindows[00] = new CStructure_Window(1, EWindowShapeType.eClassic, 2, m_arrGOPoints[433], 1, 1.5f, 0.1f, mat_Frame, DiffMatHearts, fGlassThickness, 0, true, 0);
+            m_arrGOPoints[434] = new CPoint(435, 8, 0.2f, 1, 0);
+            m_arrGOStrWindows[01] = new CStructure_Window(2, EWindowShapeType.eClassic, 2, m_arrGOPoints[434], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+
+            m_arrGOPoints[435] = new CPoint(436, 11.8f, 3, 1, 0);
+            m_arrGOStrWindows[02] = new CStructure_Window(3, EWindowShapeType.eClassic, 2, m_arrGOPoints[435], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+            // Doors
+            m_arrGOPoints[436] = new CPoint(437, 11.8f, 8, 0, 0);
+            m_arrGOStrWindows[03] = new CStructure_Window(4, EWindowShapeType.eClassic, 1, m_arrGOPoints[436], 1, 2.5f, 0.1f, mat_Frame, mat_Frame, 0.03f, 90, true, 0);
+
+            m_arrGOPoints[437] = new CPoint(438, 2, 11.7, 1, 0);
+            m_arrGOStrWindows[04] = new CStructure_Window(5, EWindowShapeType.eClassic, 2, m_arrGOPoints[437], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+            m_arrGOPoints[438] = new CPoint(439, 8, 11.7, 1, 0);
+            m_arrGOStrWindows[05] = new CStructure_Window(6, EWindowShapeType.eClassic, 2, m_arrGOPoints[438], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+
+            m_arrGOPoints[439] = new CPoint(440, 0.3f, 3.2, 1, 0);
+            m_arrGOStrWindows[06] = new CStructure_Window(7, EWindowShapeType.eClassic, 2, m_arrGOPoints[439], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+            m_arrGOPoints[440] = new CPoint(441, 0.3f, 7, 1, 0);
+            m_arrGOStrWindows[07] = new CStructure_Window(8, EWindowShapeType.eClassic, 2, m_arrGOPoints[440], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+
+            //French window
+            m_arrGOPoints[441] = new CPoint(442, 7, 5.2f, 3, 0);
+            m_arrGOStrWindows[08] = new CStructure_Window(9, EWindowShapeType.eClassic, 3, m_arrGOPoints[441], 1, 2.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+            m_arrGOPoints[442] = new CPoint(443, 13, 5.2f, 4, 0);
+            m_arrGOStrWindows[9] = new CStructure_Window(10, EWindowShapeType.eClassic, 2, m_arrGOPoints[442], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+
+            m_arrGOPoints[443] = new CPoint(444, 5.5f, 8, 4, 0);
+            m_arrGOStrWindows[10] = new CStructure_Window(11, EWindowShapeType.eClassic, 2, m_arrGOPoints[443], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+            m_arrGOPoints[444] = new CPoint(445, 5.5f, 12, 4, 0);
+            m_arrGOStrWindows[11] = new CStructure_Window(12, EWindowShapeType.eClassic, 2, m_arrGOPoints[444], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+
+            m_arrGOPoints[445] = new CPoint(446, 7, 16.7, 4, 0);
+            m_arrGOStrWindows[12] = new CStructure_Window(13, EWindowShapeType.eClassic, 2, m_arrGOPoints[445], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+            m_arrGOPoints[446] = new CPoint(447, 13, 16.7, 4, 0);
+            m_arrGOStrWindows[13] = new CStructure_Window(14, EWindowShapeType.eClassic, 2, m_arrGOPoints[446], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
+
+            m_arrGOPoints[447] = new CPoint(448, 16.8, 8, 4, 0);
+            m_arrGOStrWindows[14] = new CStructure_Window(15, EWindowShapeType.eClassic, 2, m_arrGOPoints[447], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+            m_arrGOPoints[448] = new CPoint(449, 16.8, 12, 4, 0);
+            m_arrGOStrWindows[15] = new CStructure_Window(16, EWindowShapeType.eClassic, 2, m_arrGOPoints[448], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
+
+            // Setridit pole podle ID
+            Array.Sort(m_arrGOPoints, new CCompare_PointID());
         }
     }
 }

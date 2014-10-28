@@ -8,7 +8,7 @@ using CRSC;
 namespace BaseClasses
 {
     [Serializable]
-    public class CMember:CEntity
+    public class CMember : CEntity3D
     {
         private CNode    m_NodeStart;
 

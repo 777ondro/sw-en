@@ -20,12 +20,17 @@ namespace BaseClasses
             set { mObject3DModel = value; }
         }
 
-        public CPoint m_pControlPoint = new CPoint();
+        public  CPoint m_pControlPoint = new CPoint();
 
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
         public CEntity3D() { }
+
+        public Model3DGroup Build3DModel()
+        {
+            return MObject3DModel;
+        }
 
 
     }
