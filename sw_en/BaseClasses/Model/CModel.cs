@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using MATERIAL;
 using CRSC;
 
@@ -56,6 +58,7 @@ namespace BaseClasses
 
         // Geometrical graphical model objects
         // Points
+        //public BaseClasses.GraphObj.CPoint[] m_arrGOPoints;
         public BaseClasses.GraphObj.CPoint[] m_arrGOPoints;
         // Lines
         public BaseClasses.GraphObj.CLine[] m_arrGOLines;
@@ -64,6 +67,8 @@ namespace BaseClasses
         // Volumes
         public BaseClasses.GraphObj.CVolume[] m_arrGOVolumes;
 
+        // 3D Objects
+        public BaseClasses.GraphObj.CStructure_Window[] m_arrGOStrWindows;
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -103,7 +108,7 @@ namespace BaseClasses
         // Geometrical model
         public CModel(string sFileName, ESLN eSLN, int eNDOF, EGCS eGCS,
             int iMatNum, /*int iCrScNum,*/ int iPointNum,
-            /*int iMemNum,*/ int iLineNum, int iAreaNum, int iVolumeNum)
+            /*int iMemNum,*/ int iLineNum, int iAreaNum, int iVolumeNum, int iWindNum)
         {
             m_eSLN = eSLN;
             m_eNDOF = eNDOF;
@@ -114,6 +119,7 @@ namespace BaseClasses
             //m_arrMembers = new CMember[iMemNum];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[iAreaNum];
             m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[iVolumeNum];
+            m_arrGOStrWindows = new BaseClasses.GraphObj.CStructure_Window[iWindNum];
         }
 
     }

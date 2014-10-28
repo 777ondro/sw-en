@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System.Windows.Media.Imaging;
 
 namespace BaseClasses.GraphObj
 {
@@ -32,6 +31,8 @@ namespace BaseClasses.GraphObj
         // Constructor 1
         public CVolume()
         {
+
+
         }
 
         // Constructor 2
@@ -75,6 +76,8 @@ namespace BaseClasses.GraphObj
             m_volColor_2 = volMat2.Color;
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
+
+            MObject3DModel = CreateM_3D_G_Volume_8Edeges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y, pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat2);
         }
 
         // Constructor 5
@@ -83,7 +86,9 @@ namespace BaseClasses.GraphObj
         {
             ID = iVolume_ID;
             m_eShapeType = iShapeType;
-            m_pControlPoint = pControlEdgePoint;
+            m_pControlPoint.X = pControlEdgePoint.X;
+            m_pControlPoint.Y = pControlEdgePoint.X;
+            m_pControlPoint.Z = pControlEdgePoint.X;
             m_fDim1 = fX;
             m_fDim2 = fY;
             m_fDim3 = fZ;
@@ -95,6 +100,8 @@ namespace BaseClasses.GraphObj
             m_volColor_2 = volMat1.Color;
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
+
+            MObject3DModel = CreateM_3D_G_Volume_8Edeges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y,pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat1);
         }
 
         // Constructor 6
@@ -108,6 +115,272 @@ namespace BaseClasses.GraphObj
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
         }
+
+        //--------------------------------------------------------------------------------------------
+        // Create 2D rectangle as GeometryModel3D - one material of rectangle can be defined
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateRectangle(Point3D point1, Point3D point2, Point3D point3, Point3D point4, DiffuseMaterial DiffMat)
+        {
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            mesh.Positions.Add(point1);
+            mesh.Positions.Add(point2);
+            mesh.Positions.Add(point3);
+            mesh.Positions.Add(point4);
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(1);
+            mesh.TriangleIndices.Add(2);
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(2);
+            mesh.TriangleIndices.Add(3);
+
+            mesh.TextureCoordinates.Add(new Point(0, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 0));
+
+            return new GeometryModel3D(mesh, DiffMat);
+        }
+
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry
+        // Only one material of solid - NEFUNGUJE SPRAVNE TEXTURA
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateGM_3D_Volume_8EdegesOld(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
+        {
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p2 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p3 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p5 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p6 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+            Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            meshGeom3D.Positions.Add(p0);
+            meshGeom3D.Positions.Add(p1);
+            meshGeom3D.Positions.Add(p2);
+            meshGeom3D.Positions.Add(p3);
+            meshGeom3D.Positions.Add(p4);
+            meshGeom3D.Positions.Add(p5);
+            meshGeom3D.Positions.Add(p6);
+            meshGeom3D.Positions.Add(p7);
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            //Bottom
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(1);
+
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(0);
+
+
+            // Top
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(5);
+            TriangleIndices.Add(6);
+
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(6);
+            TriangleIndices.Add(7);
+
+            // Side
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(5);
+
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(5);
+            TriangleIndices.Add(4);
+
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(6);
+
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(6);
+            TriangleIndices.Add(5);
+
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(7);
+
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(7);
+            TriangleIndices.Add(6);
+
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(4);
+
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(7);
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            Point p2D_1 = new Point(0, 1);
+            Point p2D_2 = new Point(1, 1);
+            Point p2D_3 = new Point(1, 0);
+            Point p2D_4 = new Point(0, 0);
+
+            // Top and bottom
+            /*for (int i = 0; i < 2; i++) // side of solid
+            {
+                meshGeom3D.TextureCoordinates.Add(p2D_1);
+                meshGeom3D.TextureCoordinates.Add(p2D_2);
+                meshGeom3D.TextureCoordinates.Add(p2D_3);
+                meshGeom3D.TextureCoordinates.Add(p2D_4);
+            }
+
+            // Sides
+            for (int i = 0; i < 4; i++) // side of solid
+            {
+                meshGeom3D.TextureCoordinates.Add(p2D_4);
+                meshGeom3D.TextureCoordinates.Add(p2D_1);
+                meshGeom3D.TextureCoordinates.Add(p2D_2);
+                meshGeom3D.TextureCoordinates.Add(p2D_3);
+            }*/
+
+
+            // NEFUNGUJE SPRAVNE TEXTURA
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+            // Side
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 1));
+            meshGeom3D.TextureCoordinates.Add(new Point(1, 0));
+            meshGeom3D.TextureCoordinates.Add(new Point(0, 0));
+
+
+            Vector3D n = new Vector3D(0, 0, 1);
+
+            for (int i = 0; i < 36; i++)
+                meshGeom3D.Normals.Add(n);
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
+        }
+        public GeometryModel3D CreateGM_3D_Volume_8Edges(CVolume volume)
+        {
+
+            Point3D solidControlEdge = new Point3D(volume.m_pControlPoint.X, volume.m_pControlPoint.Y, volume.m_pControlPoint.Z);
+
+            /*
+            Point3D p0 = new Point3D(solidControlEdge.X               , solidControlEdge.Y               , solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y               , solidControlEdge.Z);
+            Point3D p2 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z);
+            Point3D p3 = new Point3D(solidControlEdge.X               , solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z);
+            Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + volume.m_fDim3);
+            Point3D p5 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y, solidControlEdge.Z + volume.m_fDim3);
+            Point3D p6 = new Point3D(solidControlEdge.X + volume.m_fDim1, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
+            Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + volume.m_fDim2, solidControlEdge.Z + volume.m_fDim3);
+            */
+
+            return CreateGM_3D_Volume_8EdegesOld(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1);
+
+        }
+
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry
+        // Each side can be other material / color
+        //--------------------------------------------------------------------------------------------
+        public Model3DGroup CreateM_3D_G_Volume_8Edeges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat1, DiffuseMaterial mat2)
+        {
+            Model3DGroup models = new Model3DGroup();
+
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p2 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p3 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p5 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p6 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+            Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+
+            /*
+            DiffuseMaterial DiffMat1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255,255,120)));
+
+            BitmapImage brickjpg = new BitmapImage();
+            brickjpg.BeginInit();
+            brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
+            brickjpg.EndInit();
+
+            DiffuseMaterial DiffMat2 = new DiffuseMaterial(new ImageBrush(brickjpg));
+            */
+
+            models.Children.Add(CreateRectangle(p3, p2, p1, p0, mat1)); // Bottom
+            models.Children.Add(CreateRectangle(p4, p5, p6, p7, mat1)); // Top
+            models.Children.Add(CreateRectangle(p0, p1, p5, p4, mat2)); // Sides
+            models.Children.Add(CreateRectangle(p1, p2, p6, p5, mat2));
+            models.Children.Add(CreateRectangle(p2, p3, p7, p6, mat2));
+            models.Children.Add(CreateRectangle(p3, p0, p4, p7, mat2));
+
+            return models;
+        }
+        public Model3DGroup CreateM_3D_G_Volume_8Edges(CVolume volume)
+        {
+
+            Point3D solidControlEdge = new Point3D(volume.m_pControlPoint.X, volume.m_pControlPoint.Y, volume.m_pControlPoint.Z);
+
+            return CreateM_3D_G_Volume_8Edeges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1, volume.m_Material_2);
+        }
+
 
     }
 }

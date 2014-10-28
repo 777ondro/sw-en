@@ -9,41 +9,34 @@ namespace BaseClasses.GraphObj
     [Serializable]
     public class CPoint : CEntity
     {
-        private float m_fCoord_X;
-        private float m_fCoord_Y;
-        private float m_fCoord_Z;
-
-        public float FCoord_X
-        {
-            get { return m_fCoord_X; }
-            set { m_fCoord_X = value; }
-        }
-
-        public float FCoord_Y
-        {
-            get { return m_fCoord_Y; }
-            set { m_fCoord_Y = value; }
-        }
-
-        public float FCoord_Z
-        {
-            get { return m_fCoord_Z; }
-            set { m_fCoord_Z = value; }
-        }
+        public double X, Y, Z;
 
         public CPoint()
         {
-        
-        }
 
-        public CPoint(int iPoint_ID, float X, float Y, float Z, int fTime)
+        }
+        public CPoint(int iPoint_ID, double dX, double dY, double dZ, int fTime)
         {
             ID = iPoint_ID;
-            FCoord_X = X;
-            FCoord_Y = Y;
-            FCoord_Z = Z;
+            X = dX;
+            Y = dY;
+            Z = dZ;
             FTime = fTime;
         }
+
+        
+        //----------------------------------------------------------------------------------------------------------------
+        public void Create()
+        { }
+
+        public void Delete()
+        { }
+
+        public void Edit()
+        { }
+
+        public void Draw()
+        { }
     }
 
     public class CCompare_PointID : IComparer
