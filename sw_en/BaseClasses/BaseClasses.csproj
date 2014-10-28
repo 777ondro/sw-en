@@ -74,10 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CEntity.cs" />
+    <Compile Include="CEntity3D.cs" />
     <Compile Include="GraphObj\CLine.cs" />
     <Compile Include="GraphObj\CPoint.cs" />
     <Compile Include="GraphObj\CArea.cs" />
     <Compile Include="GraphObj\CVolume.cs" />
+    <Compile Include="GraphObj\Objects_3D\CStructure_Window.cs" />
     <Compile Include="Loading\Case\CLoadCase.cs" />
     <Compile Include="Loading\Combination\CLoadCombination_E.cs" />
     <Compile Include="Loading\Combination\CLoadCombination_L.cs" />
