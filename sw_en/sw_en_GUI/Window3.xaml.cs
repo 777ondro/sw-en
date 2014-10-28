@@ -18,21 +18,21 @@ namespace sw_en_GUI
     /// Interaction logic for Window3.xaml
     /// </summary>
     public partial class Window3 : Window
-        {
+    {
         //--------------------------------------------------------------------------------------------
         public Window3()
         {
             InitializeComponent();
 
-            Model3DGroup modelsgroup1 = CreateCube();
+            Model3DGroup model = CreateCube();
             //Model3DGroup modelsgroup2 = CreateCube(3, 3, 3);
 
-            Model3DGroup modelsgroup = new Model3DGroup();
+            //Model3DGroup modelsgroup = new Model3DGroup();
 
-            modelsgroup.Children.Add(modelsgroup1);
+            //modelsgroup.Children.Add(modelsgroup1);
             //modelsgroup.Children.Add(modelsgroup2);
 
-            _trackport.Model = (Model3D)modelsgroup;
+            _trackport.Model = (Model3D)model;
 
             _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
 
@@ -53,12 +53,15 @@ namespace sw_en_GUI
             Point3D p6 = new Point3D(1, 1, 1);
             Point3D p7 = new Point3D(0, 1, 1);
 
-            BitmapImage brickjpg = new BitmapImage();
-            brickjpg.BeginInit();
-            brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
-            brickjpg.EndInit();
+            var myBrush = new ImageBrush(new BitmapImage(new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute)));
 
-            DiffuseMaterial DiffMat = new DiffuseMaterial(new ImageBrush(brickjpg));
+            //BitmapImage brickjpg = new BitmapImage();
+            //brickjpg.BeginInit();
+            //brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
+            //brickjpg.EndInit();
+            //DiffuseMaterial DiffMat = new DiffuseMaterial(new ImageBrush(brickjpg));
+
+            DiffuseMaterial DiffMat = new DiffuseMaterial(myBrush);
 
             models.Children.Add(CreateRectangle(p3, p2, p1, p0, DiffMat));
             models.Children.Add(CreateRectangle(p4, p5, p6, p7, DiffMat));
