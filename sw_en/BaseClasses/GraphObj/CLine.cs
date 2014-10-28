@@ -5,6 +5,7 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
+    [Serializable]
     public class CLine : CEntity
     {
         public int[] m_iPointsCollection; // List / Collection of points IDs

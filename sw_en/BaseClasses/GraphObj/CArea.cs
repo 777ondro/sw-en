@@ -5,7 +5,8 @@ using System.Text;
 
 namespace BaseClasses.GraphObj
 {
-    public class CArea : CEntity
+    [Serializable]
+    public class CArea : CEntity3D
     {
         //public int m_iPointsCollection = new Int32Collection(); // List / Collection of points IDs
 

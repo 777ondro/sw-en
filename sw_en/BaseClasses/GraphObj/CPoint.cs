@@ -6,6 +6,7 @@ using System.Collections;
 
 namespace BaseClasses.GraphObj
 {
+    [Serializable]
     public class CPoint : CEntity
     {
         private float m_fCoord_X;

@@ -220,6 +220,15 @@ namespace BaseClasses
         eShape3D_Icosahedron
     }
 
+        //----------------------------------------------------------------------------
+    // Define window shape type (3D)
+    //----------------------------------------------------------------------------
+    public enum EWindowShapeType
+    {
+        eClassic = 0, // Rectangular Window - many segments
+        eRound = 1,   // Round
+    }
+
 
 
 
