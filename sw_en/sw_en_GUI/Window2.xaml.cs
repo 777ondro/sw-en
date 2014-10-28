@@ -160,7 +160,7 @@ namespace sw_en_GUI
                               br.Opacity = 0.8;
 
                               // Set different color for each member
-                              bool bDiffMemberColors = true;
+                              bool bDiffMemberColors = false;
 
                               if (bDiffMemberColors)
                               {
@@ -175,11 +175,22 @@ namespace sw_en_GUI
                                   }
                               }
 
-                              // Create Member model
-                              Model3DGroup memberModel3D = cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br);
+                              bool bFastRendering = true;
 
-                              // Add current member model to the model group
-                              gr.Children.Add(memberModel3D);
+                              if (bFastRendering) // Geometry model
+                              {
+                                  // Create Member model
+                                  // GeometryModel3D memberModel3D;
+                                  // Add current member model to the model group
+                                  gr.Children.Add((Model3D)cmodel.m_arrMembers[i].getG_M_3D_Member(eGCS, br));
+                              }
+                              else
+                              {
+                                  // Create Member model
+                                  // Model3DGroup memberModel3D;
+                                  // Add current member model to the model group
+                                  gr.Children.Add(cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br));
+                              }
                           }
                           else
                           {

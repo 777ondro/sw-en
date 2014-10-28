@@ -6,9 +6,9 @@ using System.Windows.Media;
 
 namespace BaseClasses
 {
-	[Serializable]
+	//[Serializable]
     // Base class of all topological model entities
-    public class CEntity
+    abstract public class CEntity
     {
         int m_ID; // Unique entity ID
 
