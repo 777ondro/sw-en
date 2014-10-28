@@ -179,15 +179,14 @@ namespace BaseClasses
 
         public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brush)
         {
-            MObject3DModel = new Model3DGroup(); // Whole member
-
+            Model3DGroup Object3DModel = new Model3DGroup(); // Whole member
             GeometryModel3D model = new GeometryModel3D();
 
             model = getG_M_3D_Member(eGCS, brush);
 
-            MObject3DModel.Children.Add((Model3D)model);
+            Object3DModel.Children.Add((Model3D)model);
 
-            return MObject3DModel;
+            return Object3DModel;
         }
 
         public GeometryModel3D getG_M_3D_Member(EGCS eGCS, SolidColorBrush brush)

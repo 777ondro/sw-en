@@ -22,6 +22,8 @@ namespace BaseClasses.GraphObj
             set { m_eShapeType = value; }
         }
 
+        public int m_iSegmentNum;
+
         public float m_fvolOpacity;
         public Color m_volColor_1 = new Color(); // Default
         public Color m_volColor_2 = new Color();
@@ -32,6 +34,9 @@ namespace BaseClasses.GraphObj
         public float m_fDim1;
         public float m_fDim2;
         public float m_fDim3;
+
+        float m_fGlassThickness;
+        float m_fRotationZDegrees;
 
         // Constructor 1
         public CStructure_Window()
@@ -69,6 +74,7 @@ namespace BaseClasses.GraphObj
         {
             ID = iW_ID;
             m_eShapeType = iShapeType;
+            m_iSegmentNum = iSegmentNum;
             m_pControlPoint = pControlEdgePoint;
             m_fDim1 = fL;
             m_fDim2 = fH;
@@ -79,10 +85,12 @@ namespace BaseClasses.GraphObj
             // Set same properties for both materials
             m_Material_2 = volMat1;
             m_volColor_2 = volMat1.Color;
+            m_fGlassThickness = fGlassThickness;
+            m_fRotationZDegrees = fRotationZDegrees;
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
 
-            MObject3DModel = CreateM_3D_G_Window(iSegmentNum, new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y, pControlEdgePoint.Z), fL, fH, ft, volMat1, volMat2, fGlassThickness, fRotationZDegrees);
+            //MObject3DModel = CreateM_3D_G_Window(iSegmentNum, new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y, pControlEdgePoint.Z), fL, fH, ft, volMat1, volMat2, fGlassThickness, fRotationZDegrees);
         }
 
         // Temporary auxiliary function - glass window (3D HOUSE)
@@ -108,25 +116,14 @@ namespace BaseClasses.GraphObj
             for (int i = 0; i < pArray.Length; i++)
                 pArray[i].X += iSegm * fL_X;
 
-            CVolume mFrame_01_HB = new CVolume();
-            CVolume mFrame_02_HU = new CVolume();
-            CVolume mFrame_03_V = new CVolume();
-            CVolume mFrame_04_V = new CVolume();
-            CVolume mGlassTable = new CVolume();
-
-            mFrame_01_HB.MObject3DModel = mFrame_01_HB.CreateM_3D_G_Volume_8Edges(pArray[0], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF); // Horizontal bottom
-            mFrame_02_HU.MObject3DModel = mFrame_02_HU.CreateM_3D_G_Volume_8Edges(pArray[1], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF); // Horizontal upper
-            mFrame_03_V.MObject3DModel = mFrame_03_V.CreateM_3D_G_Volume_8Edges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF); // Vertical
-            mFrame_04_V.MObject3DModel = mFrame_04_V.CreateM_3D_G_Volume_8Edges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF); // Vertical
-            mGlassTable.MObject3DModel = mGlassTable.CreateM_3D_G_Volume_8Edges(pArray[4], fL_X - 2 * fT_Y, fGlassThickness, fH_Z - 2 * fT_Y, DiffMatG, DiffMatG); // Glass No 1
-
+            CVolume m = new CVolume();
             Model3DGroup gr = new Model3DGroup(); // Window Segment
 
-            gr.Children.Add(mFrame_01_HB.MObject3DModel);
-            gr.Children.Add(mFrame_02_HU.MObject3DModel);
-            gr.Children.Add(mFrame_03_V.MObject3DModel);
-            gr.Children.Add(mFrame_04_V.MObject3DModel);
-            gr.Children.Add(mGlassTable.MObject3DModel);
+            gr.Children.Add(m.CreateM_3D_G_Volume_8Edges(pArray[0], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF));
+            gr.Children.Add(m.CreateM_3D_G_Volume_8Edges(pArray[1], fL_X, fT_Y, fT_Y, DiffMatF, DiffMatF));
+            gr.Children.Add(m.CreateM_3D_G_Volume_8Edges(pArray[2], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF));
+            gr.Children.Add(m.CreateM_3D_G_Volume_8Edges(pArray[3], fT_Y, fT_Y, fH_Z - 2 * fT_Y, DiffMatF, DiffMatF));
+            gr.Children.Add(m.CreateM_3D_G_Volume_8Edges(pArray[4], fL_X - 2 * fT_Y, fGlassThickness, fH_Z - 2 * fT_Y, DiffMatG, DiffMatG));
 
             return gr;
         }
@@ -155,5 +152,11 @@ namespace BaseClasses.GraphObj
 
             return gr;
         }
+
+        public Model3DGroup CreateM_3D_G_Window()
+        {
+            return CreateM_3D_G_Window(m_iSegmentNum, new Point3D(m_pControlPoint.X, m_pControlPoint.Y,m_pControlPoint.Z), m_fDim1, m_fDim2, m_fDim3, m_Material_1, m_Material_2, m_fGlassThickness, m_fRotationZDegrees);
+        }
+
     }
 }
