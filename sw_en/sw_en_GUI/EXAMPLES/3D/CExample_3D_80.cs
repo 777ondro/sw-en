@@ -646,7 +646,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             //O.P.
             ImageBrush grassIB = new ImageBrush(new BitmapImage(new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute)));
             grassIB.TileMode = TileMode.Tile;
-            grassIB.Viewport = new Rect(0, 0, 0.01, 0.01);
+            grassIB.Viewport = new Rect(0, 0, 0.05, 0.05);
 
             DiffuseMaterial DiffMat1 = new DiffuseMaterial(grassIB);
 
@@ -662,7 +662,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
             brickjpg.EndInit();
             ImageBrush brickIB = new ImageBrush(brickjpg);
-            brickIB.ViewportUnits = BrushMappingMode.Absolute;
+            //brickIB.ViewportUnits = BrushMappingMode.Absolute;
+            brickIB.TileMode = TileMode.Tile;
+            brickIB.Viewport = new Rect(0, 0, 1.2, 1);
             DiffuseMaterial DiffMatText = new DiffuseMaterial(brickIB);
 
             Color vColor2 = Color.FromRgb(90, 39, 41);
@@ -1147,7 +1149,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             floor_tilejpg.UriSource = new Uri(@"floor_tile.jpg", UriKind.RelativeOrAbsolute);
             floor_tilejpg.EndInit();
             ImageBrush floor_tileIB = new ImageBrush(floor_tilejpg);
-            floor_tileIB.ViewportUnits = BrushMappingMode.Absolute;
+            //floor_tileIB.ViewportUnits = BrushMappingMode.Absolute;
+
+            floor_tileIB.TileMode = TileMode.Tile;
+            floor_tileIB.Viewport = new Rect(0, 0, 0.5, 0.5);
             DiffuseMaterial DiffMatTextFloorTile = new DiffuseMaterial(floor_tileIB);
 
             m_arrGOVolumes[420] = new CVolume(421, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[420], 11, 11, 0.05f, DiffMatTextFloorTile, true, 0);
@@ -1157,8 +1162,15 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOVolumes[421] = new CVolume(422, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[421], 4.5f, 11, 0.15f, DiffMat3, true, 0);
             m_arrGOVolumes[422] = new CVolume(423, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[422], 6.5f, 4.5f, 0.15f, DiffMat3, true, 0);
 
-            m_arrGOVolumes[423] = new CVolume(424, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[423], 4.5f, 11, 0.05f, DiffMat1, true, 0);
-            m_arrGOVolumes[424] = new CVolume(425, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[424], 6.5f, 4.5f, 0.05f, DiffMat1, true, 0);
+
+            ImageBrush grassIB2 = new ImageBrush(new BitmapImage(new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute)));
+            grassIB2.TileMode = TileMode.Tile;
+            grassIB2.Viewport = new Rect(0, 0, 0.2, 0.2);
+
+            DiffuseMaterial matgrassIB = new DiffuseMaterial(grassIB2);
+
+            m_arrGOVolumes[423] = new CVolume(424, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[423], 4.5f, 11, 0.05f, matgrassIB, true, 0);
+            m_arrGOVolumes[424] = new CVolume(425, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[424], 6.5f, 4.5f, 0.05f, matgrassIB, true, 0);
 
             // Floor 2nd
             m_arrGOVolumes[425] = new CVolume(426, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[425], 6.5f, 4.5f, 0.15f, DiffMat3, true, 0);
@@ -1176,7 +1188,12 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOVolumes[431] = new CVolume(432, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[431], 0.5f, 0.5f, 2.5f, DiffMat2_Plaster, true, 0);
 
             // Chimnney
-            m_arrGOVolumes[432] = new CVolume(433, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[432], 0.5f, 0.5f, 8, DiffMat2_Plaster, DiffMatText, true, 0);
+            ImageBrush brickIB2 = new ImageBrush(brickjpg);
+            brickIB2.TileMode = TileMode.Tile;
+            brickIB2.Viewport = new Rect(0, 0, 1.5, 0.2);
+            DiffuseMaterial matBrick2 = new DiffuseMaterial(brickIB2);
+
+            m_arrGOVolumes[432] = new CVolume(433, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[432], 0.5f, 0.5f, 8, DiffMat2_Plaster, matBrick2, true, 0);
 
             // Ball - Sphere
 
