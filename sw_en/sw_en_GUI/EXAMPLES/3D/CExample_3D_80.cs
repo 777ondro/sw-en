@@ -21,10 +21,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_eNDOF = (int)ENDOF.e3DEnv; // DOF in 3D
             m_eGCS = EGCS.eGCSLeftHanded; // Global coordinate system
 
-            m_arrGOPoints = new BaseClasses.GraphObj.CPoint[449];
+            m_arrGOPoints = new BaseClasses.GraphObj.CPoint[450];
             //m_arrGOLines = new BaseClasses.GraphObj.CLine[21];
             m_arrGOAreas = new BaseClasses.GraphObj.CArea[0];
-            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[433];
+            m_arrGOVolumes = new BaseClasses.GraphObj.CVolume[434];
             m_arrGOStrWindows = new BaseClasses.GraphObj.CStructure_Window[16];
 
             m_arrMat = new CMat_00[1];
@@ -1171,6 +1171,17 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Chimnney
             m_arrGOVolumes[432] = new CVolume(433, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[432], 0.5f, 0.5f, 8, DiffMat2_Plaster, DiffMatText, true, 0);
 
+            // Ball - Sphere
+
+            SolidColorBrush brushSphere = new SolidColorBrush(Color.FromRgb(204, 000, 102));
+            brushSphere.Opacity = 0.8f;
+
+            DiffuseMaterial mat_Ball = new DiffuseMaterial(brushSphere);
+
+            m_arrGOPoints[449] = new CPoint(450, 4, 4, 3.7, 0);
+            m_arrGOVolumes[433] = new CVolume(434, EVolumeShapeType.eShape3D_Sphere, m_arrGOPoints[449], 0.5f, mat_Ball, true, 0);
+
+
 
 
 
@@ -1180,17 +1191,24 @@ namespace sw_en_GUI.EXAMPLES._3D
             cFrameColor = Color.FromRgb(51, 0, 0);
             float fFrameOpacity = 0.99f;
 
+            Color cDoorColor = new Color();
+            cDoorColor = Color.FromRgb(139,69,19);
+            float fDoorOpacity = 0.99f;
+
             Color cGlassColor = new Color();
-            cGlassColor = Color.FromRgb(102, 255, 255);
+            cGlassColor = Color.FromRgb(173,216,230);
             float fGlassOpacity = 0.5f;
 
             SolidColorBrush bFrame = new SolidColorBrush(cFrameColor);
+            SolidColorBrush bDoor = new SolidColorBrush(cDoorColor);
             SolidColorBrush bGlass = new SolidColorBrush(cGlassColor);
 
             DiffuseMaterial mat_Frame = new DiffuseMaterial(bFrame);
+            DiffuseMaterial mat_Door = new DiffuseMaterial(bDoor);
             DiffuseMaterial mat_Glass = new DiffuseMaterial(bGlass);
 
             bFrame.Opacity = fFrameOpacity;
+            bDoor.Opacity = fDoorOpacity;
             bGlass.Opacity = fGlassOpacity;
 
             BitmapImage heartsjpg = new BitmapImage();
@@ -1211,7 +1229,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrGOStrWindows[02] = new CStructure_Window(3, EWindowShapeType.eClassic, 2, m_arrGOPoints[435], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 90, true, 0);
             // Doors
             m_arrGOPoints[436] = new CPoint(437, 11.8f, 8, 0, 0);
-            m_arrGOStrWindows[03] = new CStructure_Window(4, EWindowShapeType.eClassic, 1, m_arrGOPoints[436], 1, 2.5f, 0.1f, mat_Frame, mat_Frame, 0.03f, 90, true, 0);
+            m_arrGOStrWindows[03] = new CStructure_Window(4, EWindowShapeType.eClassic, 1, m_arrGOPoints[436], 1, 2.5f, 0.1f, mat_Frame, mat_Door, 0.03f, 90, true, 0);
 
             m_arrGOPoints[437] = new CPoint(438, 2, 11.7, 1, 0);
             m_arrGOStrWindows[04] = new CStructure_Window(5, EWindowShapeType.eClassic, 2, m_arrGOPoints[437], 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0, true, 0);
