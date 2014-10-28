@@ -249,31 +249,10 @@ namespace sw_en_GUI
                           cmodel.m_arrGOVolumes[i].m_pControlPoint != null &&
                           cmodel.m_arrGOVolumes[i].BIsDisplayed == true) // Volume object is valid (not empty) and should be displayed
                       {
-                          if (cmodel.m_arrGOVolumes[i].m_eShapeType == EVolumeShapeType.eShape3DPrism_8Edges)
-                              gr.Children.Add(cmodel.m_arrGOVolumes[i].MObject3DModel); // Add solid to model group
-                          else
-                          {
-                              //Exception - not implemented
-                          }
+                          // Get shape - prism , sphere, ...
+                          gr.Children.Add(cmodel.m_arrGOVolumes[i].MObject3DModel); // Add solid to model group
                       }
                   }
-
-
-                  // Sphere
-
-                  GeometryModel3D sphereModel3D = new GeometryModel3D();
-
-                  Point3D sphereCenter = new Point3D(5, -5, 0.5f);
-                  SphereMeshGenerator objSphere = new SphereMeshGenerator(sphereCenter);
-
-                  SolidColorBrush brushSolid2 = new SolidColorBrush(Color.FromRgb(204, 000, 102));
-                  brushSolid2.Opacity = 0.8f;
-
-                  sphereModel3D.Material = new DiffuseMaterial(brushSolid2);
-
-                  sphereModel3D.Geometry = objSphere.Geometry;
-
-                  gr.Children.Add(sphereModel3D);
               }
 
               if (cmodel.m_arrGOStrWindows != null) // Some windows exist
@@ -1191,100 +1170,5 @@ namespace sw_en_GUI
         // Mozno by som mal zapracovat toto
         //http://mathworld.wolfram.com/EulerAngles.html
     }
-  }
-
-  public class SphereMeshGenerator
-  {
-      private int _slices = 32;
-      private int _stacks = 16;
-      private Point3D _center = new Point3D();
-      private double _radius = 0.5f;
-
-      public int Slices
-      {
-          get { return _slices; }
-          set { _slices = value; }
-      }
-
-      public int Stacks
-      {
-          get { return _stacks; }
-          set { _stacks = value; }
-      }
-
-      public Point3D Center
-      {
-          get { return _center; }
-          set { _center = value; }
-      }
-
-      public double Radius
-      {
-          get { return _radius; }
-          set { _radius = value; }
-      }
-
-      public MeshGeometry3D Geometry
-      {
-          get
-          {
-              return CalculateMesh();
-          }
-      }
-
-      public SphereMeshGenerator(Point3D c)
-      {
-          Center = c; // Set Center
-      }
-
-      private MeshGeometry3D CalculateMesh()
-      {
-          MeshGeometry3D mesh = new MeshGeometry3D();
-
-          for (int stack = 0; stack <= Stacks; stack++)
-          {
-              double phi = Math.PI / 2 - stack * Math.PI / Stacks; // kut koji zamisljeni pravac povucen iz sredista koordinatnog sustava zatvara sa XZ ravninom. 
-              double y = _radius * Math.Sin(phi); // Odredi poziciju Y koordinate. 
-              double scale = -_radius * Math.Cos(phi);
-
-              for (int slice = 0; slice <= Slices; slice++)
-              {
-                  double theta = slice * 2 * Math.PI / Slices; // Kada gledamo 2D koordinatni sustav osi X i Z... ovo je kut koji zatvara zamisljeni pravac povucen iz sredista koordinatnog sustava sa Z osi ( Z = Y ). 
-                  double x = scale * Math.Sin(theta); // Odredi poziciju X koordinate. Uoči da je scale = -_radius * Math.Cos(phi)
-                  double z = scale * Math.Cos(theta); // Odredi poziciju Z koordinate. Uoči da je scale = -_radius * Math.Cos(phi)
-
-                  Vector3D normal = new Vector3D(x, y, z); // Normala je vektor koji je okomit na površinu. U ovom slučaju normala je vektor okomit na trokut plohu trokuta. 
-                  mesh.Normals.Add(normal);
-                  mesh.Positions.Add(normal + Center);     // Positions dobiva vrhove trokuta. 
-                  mesh.TextureCoordinates.Add(new Point((double)slice / Slices, (double)stack / Stacks));
-                  // TextureCoordinates kaže gdje će se neka točka iz 2D-a preslikati u 3D svijet. 
-              }
-          }
-
-          for (int stack = 0; stack <= Stacks; stack++)
-          {
-              int top = (stack + 0) * (Slices + 1);
-              int bot = (stack + 1) * (Slices + 1);
-
-              for (int slice = 0; slice < Slices; slice++)
-              {
-                  if (stack != 0)
-                  {
-                      mesh.TriangleIndices.Add(top + slice);
-                      mesh.TriangleIndices.Add(bot + slice);
-                      mesh.TriangleIndices.Add(top + slice + 1);
-                  }
-
-                  if (stack != Stacks - 1)
-                  {
-                      mesh.TriangleIndices.Add(top + slice + 1);
-                      mesh.TriangleIndices.Add(bot + slice);
-                      mesh.TriangleIndices.Add(bot + slice + 1);
-                  }
-              }
-          }
-
-          return mesh;
-      }
   }
 }
