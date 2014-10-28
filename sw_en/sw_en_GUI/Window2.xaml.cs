@@ -222,8 +222,7 @@ namespace sw_en_GUI
                           cmodel.m_arrGOVolumes[i].BIsDisplayed == true) // Volume object is valid (not empty) and should be displayed
                       {
                           // Get shape - prism , sphere, ...
-                          gr.Children.Add(cmodel.m_arrGOVolumes[i].CreateM_3D_G_Volume()); // Add solid to model group
-
+                          gr.Children.Add(cmodel.m_arrGOVolumes[i].MObject3DModel); // Add solid to model group
                       }
                   }
               }
@@ -238,7 +237,7 @@ namespace sw_en_GUI
                           cmodel.m_arrGOStrWindows[i].BIsDisplayed == true) // Volume object is valid (not empty) and should be displayed
                       {
                           if (cmodel.m_arrGOStrWindows[i].EShapeType == EWindowShapeType.eClassic)
-                              gr.Children.Add(cmodel.m_arrGOStrWindows[i].CreateM_3D_G_Window()); // Add solid to model group
+                              gr.Children.Add(cmodel.m_arrGOStrWindows[i].MObject3DModel); // Add solid to model group
                           else
                           {
                               //Exception - not implemented
