@@ -294,9 +294,17 @@ namespace sw_en_GUI
                   bFrame.Opacity = fFrameOpacity;
                   bGlass.Opacity = fGlassOpacity;
 
+                  BitmapImage heartsjpg = new BitmapImage();
+                  heartsjpg.BeginInit();
+                  heartsjpg.UriSource = new Uri(@"hearts.jpg", UriKind.RelativeOrAbsolute);
+                  heartsjpg.EndInit();
+                  ImageBrush heartsIB = new ImageBrush(heartsjpg);
+                  heartsIB.ViewportUnits = BrushMappingMode.Absolute;
+                  DiffuseMaterial DiffMatHearts = new DiffuseMaterial(heartsIB);
+
                   float fGlassThickness = 0.020f; // 2x4 mm (glass) + 16 mm (gas)
                   Point3D p1_W = new Point3D(2, 0.2f,1);
-                  gr.Children.Add(CreateM_3D_G_Window(2, p1_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
+                  gr.Children.Add(CreateM_3D_G_Window(2, p1_W, 1, 1.5f, 0.1f, mat_Frame, DiffMatHearts, fGlassThickness, 0));
                   Point3D p2_W = new Point3D(8, 0.2f, 1);
                   gr.Children.Add(CreateM_3D_G_Window(2, p2_W, 1, 1.5f, 0.1f, mat_Frame, mat_Glass, fGlassThickness, 0));
 
@@ -358,6 +366,9 @@ namespace sw_en_GUI
               Point_Light.Position = new Point3D(0, 0, 30);
               Point_Light.Color = System.Windows.Media.Brushes.White.Color;
               Point_Light.Range = 30.0;
+              Point_Light.ConstantAttenuation=0;
+              Point_Light.LinearAttenuation=0;
+              Point_Light.QuadraticAttenuation = 0.2f;
               Point_Light.ConstantAttenuation = 5.0;
               gr.Children.Add(Point_Light);
 
@@ -371,7 +382,9 @@ namespace sw_en_GUI
               gr.Children.Add(Spot_Light);
 
               //Set Ambient Light
-              //gr.Children.Add(new AmbientLight());
+              AmbientLight Ambient_Light = new AmbientLight();
+              Ambient_Light.Color = Color.FromRgb(250, 250, 230);
+              gr.Children.Add(new AmbientLight());
 
               if (cmodel.m_arrGOLines != null) // Some lines exist
               {
