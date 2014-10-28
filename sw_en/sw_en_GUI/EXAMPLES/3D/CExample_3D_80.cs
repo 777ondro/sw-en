@@ -634,13 +634,19 @@ namespace sw_en_GUI.EXAMPLES._3D
             //SolidColorBrush b = new SolidColorBrush(vColor);
             //b.Opacity = fvOpacity;
 
-            BitmapImage grassjpg = new BitmapImage();
-            grassjpg.BeginInit();
-            grassjpg.UriSource = new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute);
-            grassjpg.EndInit();
-            ImageBrush grassIB = new ImageBrush(grassjpg);
-            grassIB.Viewport = new Rect(0, 0, 1, 1);
-            grassIB.ViewportUnits = BrushMappingMode.Absolute;
+            //M.C. code
+            //BitmapImage grassjpg = new BitmapImage();
+            //grassjpg.BeginInit();
+            //grassjpg.UriSource = new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute);
+            //grassjpg.EndInit();
+            //ImageBrush grassIB = new ImageBrush(grassjpg);
+            //grassIB.Viewport = new Rect(0, 0, 1, 1);
+            //grassIB.ViewportUnits = BrushMappingMode.Absolute;
+
+            //O.P.
+            ImageBrush grassIB = new ImageBrush(new BitmapImage(new Uri(@"grass.jpg", UriKind.RelativeOrAbsolute)));
+            grassIB.TileMode = TileMode.Tile;
+
             DiffuseMaterial DiffMat1 = new DiffuseMaterial(grassIB);
 
             // Ground
