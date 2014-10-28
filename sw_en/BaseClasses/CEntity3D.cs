@@ -8,10 +8,11 @@ using BaseClasses.GraphObj;
 
 namespace BaseClasses
 {
-	[Serializable]
+	//[Serializable]
     // Base class of all topological model entities
-    public class CEntity3D : CEntity
+    abstract public class CEntity3D : CEntity
     {
+
         Model3DGroup mObject3DModel = new Model3DGroup();
 
         public Model3DGroup MObject3DModel
@@ -26,6 +27,7 @@ namespace BaseClasses
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
         public CEntity3D() { }
+
 
         public Model3DGroup Build3DModel()
         {

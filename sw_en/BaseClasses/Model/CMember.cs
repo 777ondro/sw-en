@@ -179,23 +179,34 @@ namespace BaseClasses
 
         public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brush)
         {
+            MObject3DModel = new Model3DGroup(); // Whole member
+
+            GeometryModel3D model = new GeometryModel3D();
+
+            model = getG_M_3D_Member(eGCS, brush);
+
+            MObject3DModel.Children.Add((Model3D)model);
+
+            return MObject3DModel;
+        }
+
+        public GeometryModel3D getG_M_3D_Member(EGCS eGCS, SolidColorBrush brush)
+        {
             // We need to transform CNode to Point3D
             Point3D mpA = new Point3D(NodeStart.X, NodeStart.Y, NodeStart.Z); // Start point - class Point3D
             Point3D mpB = new Point3D(NodeEnd.X, NodeEnd.Y, NodeEnd.Z); // End point - class Point3D
             // Angle of rotation about local x-axis
             DTheta_x = 0; // Temporary
 
-            Model3DGroup modelGroup = new Model3DGroup(); // Whole member
-            GeometryModel3D model = new GeometryModel3D(); // Member parts (forehead, backhead, shell, surface
+            GeometryModel3D model = new GeometryModel3D();
+
             MeshGeometry3D mesh = getMeshMemberGeometry3DFromCrSc(eGCS, CrScStart, CrScEnd, mpA, mpB, DTheta_x); // Mesh one member
 
             model.Geometry = mesh;
 
             model.Material = new DiffuseMaterial(brush);  // Set MemberModel Material
 
-            modelGroup.Children.Add((Model3D)model);
-
-            return modelGroup;
+            return model;
         }
 
         private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
