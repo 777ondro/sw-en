@@ -182,7 +182,7 @@ namespace sw_en_GUI
             CNode[] nodes = test4.arrNodes;
             foreach (CNode c in nodes)
             {
-                Model3DGroup models = CreateCube(c.FCoord_X / 100 - 400, c.FCoord_Z / 100, c.FCoord_Y / 100 - 60);
+                Model3DGroup models = CreateCube(c.X / 100 - 400, c.Z / 100, c.Y / 100 - 60);
                 ModelVisual3D visual = new ModelVisual3D();
                 visual.Content = models;
                 myViewport3D.Children.Add(visual);
@@ -196,7 +196,7 @@ namespace sw_en_GUI
             CNode[] nodes = test5.arrNodes;
             foreach (CNode c in nodes)
             {
-                Model3DGroup models = CreateCube(c.FCoord_X / 250 - 1000, c.FCoord_Z / 250, c.FCoord_Y / 250 - 250);
+                Model3DGroup models = CreateCube(c.X / 250 - 1000, c.Z / 250, c.Y / 250 - 250);
                 ModelVisual3D visual = new ModelVisual3D();
                 visual.Content = models;
                 myViewport3D.Children.Add(visual);

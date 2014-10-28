@@ -361,7 +361,7 @@ namespace sw_en_GUI
 
 		public void DrawNode(CNode node, SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas)
 		{
-			DrawRectangle(strokeColor,fillColor, thickness, imageCanvas, new Point(node.FCoord_X, node.FCoord_Z), new Point(node.FCoord_X + 4, node.FCoord_Z + 4));
+			DrawRectangle(strokeColor,fillColor, thickness, imageCanvas, new Point(node.X, node.Z), new Point(node.X + 4, node.Z + 4));
 		}
 
 		public void DrawLine(CMember line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
@@ -369,17 +369,17 @@ namespace sw_en_GUI
 			Line myLine = new Line();
 			myLine.Stretch = Stretch.Fill;
 			myLine.Stroke = color;
-			myLine.X1 = line.NodeStart.FCoord_X;
-			myLine.X2 = line.NodeEnd.FCoord_X;
-			myLine.Y1 = line.NodeStart.FCoord_Z;
-			myLine.Y2 = line.NodeEnd.FCoord_Z;
+			myLine.X1 = line.NodeStart.X;
+			myLine.X2 = line.NodeEnd.X;
+			myLine.Y1 = line.NodeStart.Z;
+			myLine.Y2 = line.NodeEnd.Z;
 			myLine.StrokeThickness = thickness;
 			myLine.StrokeStartLineCap = startCap;
 			myLine.StrokeEndLineCap = endCap;
 			myLine.HorizontalAlignment = HorizontalAlignment.Left;
 			myLine.VerticalAlignment = VerticalAlignment.Center;
-			Canvas.SetTop(myLine, line.NodeStart.FCoord_Z);
-			Canvas.SetLeft(myLine, line.NodeStart.FCoord_X);
+			Canvas.SetTop(myLine, line.NodeStart.Z);
+			Canvas.SetLeft(myLine, line.NodeStart.X);
 			imageCanvas.Children.Add(myLine);
 		}
 
