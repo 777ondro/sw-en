@@ -53,7 +53,8 @@ namespace sw_en_GUI
             Point3D p6 = new Point3D(1, 1, 1);
             Point3D p7 = new Point3D(0, 1, 1);
 
-            var myBrush = new ImageBrush(new BitmapImage(new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute)));
+            ImageBrush myBrush = new ImageBrush(new BitmapImage(new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute)));
+            myBrush.TileMode = TileMode.Tile;
 
             //BitmapImage brickjpg = new BitmapImage();
             //brickjpg.BeginInit();
