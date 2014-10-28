@@ -38,16 +38,22 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             m_arrGOPoints[00] = new CPoint(1, x , y , z, 0);
 
+            DiffuseMaterial DiffMat1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255, 255, 120)));
+
             BitmapImage brickjpg = new BitmapImage();
             brickjpg.BeginInit();
             brickjpg.UriSource = new Uri(@"brick.jpg", UriKind.RelativeOrAbsolute);
             brickjpg.EndInit();
 
-            DiffuseMaterial DiffMat1 = new DiffuseMaterial(new ImageBrush(brickjpg));
+            ImageBrush brickIB = new ImageBrush(brickjpg);
+            brickIB.TileMode = TileMode.Tile; 
+            brickIB.Stretch = Stretch.None;
+
+            DiffuseMaterial DiffMat2 = new DiffuseMaterial(brickIB);
 
             // Ground
             // Level 0 [-1.000]
-            m_arrGOVolumes[000] = new CVolume(001, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[000], 1, 1, 1, DiffMat1, true, 0);
+            m_arrGOVolumes[000] = new CVolume(001, EVolumeShapeType.eShape3DPrism_8Edges, m_arrGOPoints[000], 1, 1, 1, DiffMat1, DiffMat2, true, 0);
 
         }
     }
