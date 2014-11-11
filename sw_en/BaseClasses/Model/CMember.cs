@@ -179,7 +179,7 @@ namespace BaseClasses
 
         public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brush)
         {
-            MObject3DModel = new Model3DGroup(); // Whole member
+            Model3DGroup MObject3DModel = new Model3DGroup(); // Whole member
 
             GeometryModel3D model = new GeometryModel3D();
 

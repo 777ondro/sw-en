@@ -68,6 +68,7 @@ namespace BaseClasses
 
         #endregion
     } // End of Class CNode
+
     public class CCompare_NodeID : IComparer
     {
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
@@ -76,4 +77,5 @@ namespace BaseClasses
             return ((CNode)x).ID - ((CNode)y).ID;
         }
     }
+
 }
