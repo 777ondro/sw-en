@@ -77,7 +77,7 @@ namespace BaseClasses.GraphObj
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
 
-            MObject3DModel = CreateM_3D_G_Volume_8Edges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y, pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat2);
+            /*MObject3DModel = */CreateM_3D_G_Volume_8Edges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y, pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat2);
         }
 
         // Constructor 5
@@ -86,9 +86,7 @@ namespace BaseClasses.GraphObj
         {
             ID = iVolume_ID;
             m_eShapeType = iShapeType;
-            m_pControlPoint.X = pControlEdgePoint.X;
-            m_pControlPoint.Y = pControlEdgePoint.X;
-            m_pControlPoint.Z = pControlEdgePoint.X;
+            m_pControlPoint = pControlEdgePoint;
             m_fDim1 = fX;
             m_fDim2 = fY;
             m_fDim3 = fZ;
@@ -101,7 +99,7 @@ namespace BaseClasses.GraphObj
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
 
-            MObject3DModel = CreateM_3D_G_Volume_8Edges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y,pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat1);
+            /*MObject3DModel =*/ CreateM_3D_G_Volume_8Edges(new Point3D(pControlEdgePoint.X, pControlEdgePoint.Y,pControlEdgePoint.Z), fX, fY, fZ, volMat1, volMat1);
         }
 
         // Constructor 6
@@ -121,7 +119,7 @@ namespace BaseClasses.GraphObj
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
 
-            MObject3DModel = CreateM_3D_G_Volume_Sphere(new Point3D(pControlCenterPoint.X, pControlCenterPoint.Y, pControlCenterPoint.Z), fr, volMat1);
+            /*MObject3DModel =*/ CreateM_3D_G_Volume_Sphere(new Point3D(pControlCenterPoint.X, pControlCenterPoint.Y, pControlCenterPoint.Z), fr, volMat1);
         }
 
         //--------------------------------------------------------------------------------------------
@@ -383,10 +381,23 @@ namespace BaseClasses.GraphObj
         }
         public Model3DGroup CreateM_3D_G_Volume_8Edges(CVolume volume)
         {
+            Model3DGroup m3Dg = new Model3DGroup();
 
             Point3D solidControlEdge = new Point3D(volume.m_pControlPoint.X, volume.m_pControlPoint.Y, volume.m_pControlPoint.Z);
 
-            return CreateM_3D_G_Volume_8Edges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1, volume.m_Material_2);
+            m3Dg.Children.Add(CreateM_3D_G_Volume_8Edges(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1, volume.m_Material_2));
+
+            return m3Dg;
+        }
+        public Model3DGroup CreateM_3D_G_Volume_8Edges()
+        {
+            Model3DGroup m3Dg = new Model3DGroup();
+
+            Point3D solidControlEdge = new Point3D(m_pControlPoint.X, m_pControlPoint.Y, m_pControlPoint.Z);
+
+            m3Dg.Children.Add(CreateM_3D_G_Volume_8Edges(solidControlEdge, m_fDim1, m_fDim2, m_fDim3, m_Material_1, m_Material_2));
+
+            return m3Dg;
         }
 
         //--------------------------------------------------------------------------------------------
