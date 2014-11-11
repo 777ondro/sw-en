@@ -846,7 +846,7 @@ namespace BaseClasses
 
     } // End of Class CMember
 
-
+    /*
     public class CCompare_MemberID : IComparer
     {
         // x<y - zaporne cislo; x=y - nula; x>y - kladne cislo
@@ -855,4 +855,5 @@ namespace BaseClasses
             return ((CMember)x).ID - ((CMember)y).ID;
         }
     }
+    */
 }

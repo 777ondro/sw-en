@@ -3716,7 +3716,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             }
 
             // Setridit pole podle ID
-            Array.Sort(m_arrNodes, new CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new CCompare_NodeID());
 
             // Lines Automatic Generation
             // Lines List - Lines Array

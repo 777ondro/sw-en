@@ -87,7 +87,7 @@ namespace CENEX
 
 
             // Setridit pole podle ID
-            Array.Sort(arrNodes, new CCompare_NodeID());
+            //Array.Sort(arrNodes, new CCompare_NodeID());
 
             // Lines Automatic Generation
             // Lines List - Lines Array

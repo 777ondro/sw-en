@@ -107,7 +107,7 @@ namespace CENEX
             arrNodes[5] = new BaseClasses.CNode(6, 5500, 0, 500, 0);
 
             // Sort by ID
-            Array.Sort(arrNodes, new BaseClasses.CCompare_NodeID());
+            //Array.Sort(arrNodes, new BaseClasses.CCompare_NodeID());
 
             // Members
             // Members List - Members Array
@@ -123,7 +123,7 @@ namespace CENEX
             arrMembers[8] = new BaseClasses.CMember(9, arrNodes[1], arrNodes[5], arrCrSc[1], 0);
 
             //Sort by ID
-            Array.Sort(arrMembers, new BaseClasses.CCompare_MemberID());
+            //Array.Sort(arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
 

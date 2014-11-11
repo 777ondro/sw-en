@@ -39,7 +39,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes[1] = new BaseClasses.CNode(2, 5, 0, 0, 0);
 
             // Sort by ID
-            Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
 
             // Members
             // Members List - Members Array
@@ -47,7 +47,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMembers[0] = new BaseClasses.CMember(1, m_arrNodes[0], m_arrNodes[1], m_arrCrSc[0], 0);
 
             //Sort by ID
-            Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
+            //Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
             // Set values

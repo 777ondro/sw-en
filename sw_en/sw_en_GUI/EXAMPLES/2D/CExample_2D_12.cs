@@ -105,7 +105,7 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrNodes[4].Z = 0f;
 
             // Sort by ID
-            Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
 
             // Members
             // Members List - Members Array
@@ -139,7 +139,7 @@ namespace sw_en_GUI.EXAMPLES._2D
             m_arrMembers[3].CrScStart = m_arrCrSc[2];
 
             //Sort by ID
-            Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
+            //Array.Sort(m_arrMembers, new BaseClasses.CCompare_MemberID());
 
             // Nodal Supports - fill values
             // Support 1 - NodeIDs: 1,5
