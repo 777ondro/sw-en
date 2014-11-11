@@ -53,7 +53,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes[3] = new BaseClasses.CNode(4, fGeom_a, -fGeom_b,        0, 0);
 
             // Sort by ID
-            Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
 
             // Members
             // Members List - Members Array

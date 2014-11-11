@@ -59,7 +59,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes[11] = new CNode(12, 5, 0, 4, 0);
 
             // Setridit pole podle ID
-            Array.Sort(m_arrNodes, new CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new CCompare_NodeID());
 
             // Lines Automatic Generation
             // Lines List - Lines Array

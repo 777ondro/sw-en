@@ -76,7 +76,7 @@ namespace sw_en_GUI.EXAMPLES._2D
             }
 
             // Setridit pole podle ID
-            Array.Sort(m_arrNodes, new CCompare_NodeID());
+            //Array.Sort(m_arrNodes, new CCompare_NodeID());
 
             // Members Automatic Generation
             // Members List - Members Array
