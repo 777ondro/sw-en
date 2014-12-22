@@ -175,7 +175,7 @@ namespace sw_en_GUI
                                   }
                               }
 
-                              bool bFastRendering = true;
+                              bool bFastRendering = false;
 
                               if (bFastRendering) // Geometry model
                               {
@@ -189,7 +189,12 @@ namespace sw_en_GUI
                                   // Create Member model
                                   // Model3DGroup memberModel3D;
                                   // Add current member model to the model group
-                                  gr.Children.Add(cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br));
+
+                                  SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(255, 64, 64)); // Material color - Front Side (red)
+                                  SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(141, 238, 238)); // Material color - Shell (red)
+                                  SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(238, 154, 73)); // Material color - Back Side (orange)
+                                  br1.Opacity = br2.Opacity = br3.Opacity = 0.8;
+                                  gr.Children.Add(cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br1, br2, br3));
                               }
                           }
                           else
