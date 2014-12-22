@@ -75,5 +75,17 @@ namespace CRSC
             // Fill list of indices for drawing of surface - triangles edges
             loadCrScIndices();
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
     }
 }

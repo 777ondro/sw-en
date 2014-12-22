@@ -632,5 +632,17 @@ namespace CRSC
                     //load_0_25_TriangelIndices();
                 }
 		}
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
 	}
 }

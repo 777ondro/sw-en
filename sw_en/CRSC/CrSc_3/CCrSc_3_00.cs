@@ -693,5 +693,17 @@ namespace CRSC
                 throw new NotSupportedException(string.Format("Shape not supported: [{0}]", sShapeID));
             }
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
     }
 }

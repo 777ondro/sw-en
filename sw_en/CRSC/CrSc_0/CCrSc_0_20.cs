@@ -150,5 +150,17 @@ namespace CRSC
             AddRectangleIndices_CW_1234(TriangleIndices, 0, secNum, 3 * secNum, 2 * secNum);
             AddRectangleIndices_CW_1234(TriangleIndices, secNum - 2, 3 * secNum - 2, 4 * secNum - 2, secNum + (secNum - 2));
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
 	}
 }

@@ -140,6 +140,18 @@ namespace CRSC
             TriangleIndices = new Int32Collection();
             TriangleIndices = oTemp.TriangleIndices;
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
 	}
 }
 
