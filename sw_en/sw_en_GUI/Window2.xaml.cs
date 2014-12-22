@@ -193,7 +193,8 @@ namespace sw_en_GUI
                                   SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(255, 64, 64)); // Material color - Front Side (red)
                                   SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(141, 238, 238)); // Material color - Shell (red)
                                   SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(238, 154, 73)); // Material color - Back Side (orange)
-                                  br1.Opacity = br2.Opacity = br3.Opacity = 0.8;
+                                  br1.Opacity = br3.Opacity = 0.8;
+                                  br2.Opacity = 0.4;
                                   gr.Children.Add(cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br1, br2, br3));
                               }
                           }
