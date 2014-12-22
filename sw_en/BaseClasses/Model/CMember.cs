@@ -431,25 +431,33 @@ namespace BaseClasses
 
             //if (eGCS == EGCS.eGCSLeftHanded)
             //{
-            int iSecond = 1;
-            int iThird = 2;
+            bool bIndicesCW = true; // Clockwise or counter-clockwise system
 
-            int iTIcount = mesh.TriangleIndices.Count;
-            for (int i = 0; i < iTIcount / 3; i++)
-            {
-                int iTI_2 = mesh.TriangleIndices[iSecond];
-                int iTI_3 = mesh.TriangleIndices[iThird];
-
-                mesh.TriangleIndices[iThird] = iTI_2;
-                mesh.TriangleIndices[iSecond] = iTI_3;
-
-                iSecond += 3;
-                iThird += 3;
-            }
+            if(bIndicesCW)
+              ChangeIndices(mesh.TriangleIndices);
             //}
 
 
             return mesh;
+        }
+
+        private void ChangeIndices(Int32Collection TriangleIndices)
+        {
+            int iSecond = 1;
+            int iThird = 2;
+
+            int iTIcount = TriangleIndices.Count;
+            for (int i = 0; i < iTIcount / 3; i++)
+            {
+                int iTI_2 = TriangleIndices[iSecond];
+                int iTI_3 = TriangleIndices[iThird];
+
+                TriangleIndices[iThird] = iTI_2;
+                TriangleIndices[iSecond] = iTI_3;
+
+                iSecond += 3;
+                iThird += 3;
+            }
         }
 
         private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x, out MeshGeometry3D meshFrontSide, out MeshGeometry3D meshShell, out MeshGeometry3D meshBackSide)
@@ -531,8 +539,15 @@ namespace BaseClasses
 
             // Change mesh triangle indices
             // Change orientation of normals
+            bool bIndicesCW = true; // Clockwise or counter-clockwise system
 
-            // Changes of coordinates is not implemented !!!!
+            if(bIndicesCW)
+            {
+                ChangeIndices(meshFrontSide.TriangleIndices);
+                ChangeIndices(meshShell.TriangleIndices);
+                ChangeIndices(meshBackSide.TriangleIndices);
+            }
+
         }
 
         public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)

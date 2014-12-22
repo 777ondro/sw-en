@@ -177,16 +177,20 @@ namespace sw_en_GUI
 
                               bool bFastRendering = false;
 
-                              if (bFastRendering) // Geometry model
+                              if (bFastRendering ||
+                                  (cmodel.m_arrMembers[i].CrScStart.TriangleIndicesFrontSide == null ||
+                                      cmodel.m_arrMembers[i].CrScStart.TriangleIndicesShell == null ||
+                                      cmodel.m_arrMembers[i].CrScStart.TriangleIndicesBackSide == null)
+                                   ) // Check if are particular surfaces defined
                               {
-                                  // Create Member model
+                                  // Create Member model - one geometry model
                                   // GeometryModel3D memberModel3D;
                                   // Add current member model to the model group
                                   gr.Children.Add((Model3D)cmodel.m_arrMembers[i].getG_M_3D_Member(eGCS, br));
                               }
                               else
                               {
-                                  // Create Member model
+                                  // Create Member model - consist of 3 geometry models (member is one model group)
                                   // Model3DGroup memberModel3D;
                                   // Add current member model to the model group
 

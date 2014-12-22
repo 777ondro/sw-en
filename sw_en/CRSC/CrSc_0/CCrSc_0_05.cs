@@ -20,6 +20,10 @@ namespace CRSC
         //public float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
+        // Temp
+
+        bool bIndicesCW = true; // Clockwise or counter-clockwise system
+
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -266,17 +270,30 @@ namespace CRSC
         {
            TriangleIndicesFrontSide = new Int32Collection();
             // Front Side / Forehead
-           AddRectangleIndices_CCW_1234(TriangleIndicesFrontSide, 0, 1, 2, 3);
+           if(bIndicesCW)
+             AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, 0, 1, 2, 3);
+           else
+             AddRectangleIndices_CCW_1234(TriangleIndicesFrontSide, 0, 1, 2, 3);
         }
 
         protected override void loadCrScIndicesShell()
         {
             TriangleIndicesShell = new Int32Collection();
             // Shell Surface
-            AddRectangleIndices_CCW_1234(TriangleIndicesShell, 0, 4, 5, 1);
-            AddRectangleIndices_CCW_1234(TriangleIndicesShell, 1, 5, 6, 2);
-            AddRectangleIndices_CCW_1234(TriangleIndicesShell, 2, 6, 7, 3);
-            AddRectangleIndices_CCW_1234(TriangleIndicesShell, 3, 7, 4, 0);
+            if (bIndicesCW)
+            {
+                AddRectangleIndices_CW_1234(TriangleIndicesShell, 0, 4, 5, 1);
+                AddRectangleIndices_CW_1234(TriangleIndicesShell, 1, 5, 6, 2);
+                AddRectangleIndices_CW_1234(TriangleIndicesShell, 2, 6, 7, 3);
+                AddRectangleIndices_CW_1234(TriangleIndicesShell, 3, 7, 4, 0);
+            }
+            else
+            {
+                AddRectangleIndices_CCW_1234(TriangleIndicesShell, 0, 4, 5, 1);
+                AddRectangleIndices_CCW_1234(TriangleIndicesShell, 1, 5, 6, 2);
+                AddRectangleIndices_CCW_1234(TriangleIndicesShell, 2, 6, 7, 3);
+                AddRectangleIndices_CCW_1234(TriangleIndicesShell, 3, 7, 4, 0);
+            }
 
         }
 
@@ -284,7 +301,10 @@ namespace CRSC
         {
             TriangleIndicesBackSide = new Int32Collection();
             // Back Side
-            AddRectangleIndices_CW_1234(TriangleIndicesBackSide, 0, 1, 2, 3);
+            if (bIndicesCW) // Back view
+              AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, 0, 1, 2, 3);
+            else
+              AddRectangleIndices_CW_1234(TriangleIndicesBackSide, 0, 1, 2, 3);
         }
 
     }
