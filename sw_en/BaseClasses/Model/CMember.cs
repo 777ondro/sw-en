@@ -177,15 +177,19 @@ namespace BaseClasses
 
         }
 
-        public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brush)
+        public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brushFrontSide, SolidColorBrush brushShell, SolidColorBrush brushBackSide)
         {
             Model3DGroup MObject3DModel = new Model3DGroup(); // Whole member
 
-            GeometryModel3D model = new GeometryModel3D();
+            GeometryModel3D modelFrontSide = new GeometryModel3D();
+            GeometryModel3D modelShell = new GeometryModel3D();
+            GeometryModel3D modelBackSide = new GeometryModel3D();
 
-            model = getG_M_3D_Member(eGCS, brush);
+            getG_M_3D_Member(eGCS, brushFrontSide, brushShell, brushBackSide, out modelFrontSide, out  modelShell, out modelBackSide);
 
-            MObject3DModel.Children.Add((Model3D)model);
+            MObject3DModel.Children.Add((Model3D)modelFrontSide);
+            MObject3DModel.Children.Add((Model3D)modelShell);
+            MObject3DModel.Children.Add((Model3D)modelBackSide);
 
             return MObject3DModel;
         }
@@ -207,6 +211,34 @@ namespace BaseClasses
             model.Material = new DiffuseMaterial(brush);  // Set MemberModel Material
 
             return model;
+        }
+
+        public void getG_M_3D_Member(EGCS eGCS, SolidColorBrush brushFrontSide, SolidColorBrush brushShell, SolidColorBrush brushBackSide, out GeometryModel3D modelFrontSide, out GeometryModel3D modelShell, out GeometryModel3D modelBackSide)
+        {
+            // We need to transform CNode to Point3D
+            Point3D mpA = new Point3D(NodeStart.X, NodeStart.Y, NodeStart.Z); // Start point - class Point3D
+            Point3D mpB = new Point3D(NodeEnd.X, NodeEnd.Y, NodeEnd.Z); // End point - class Point3D
+            // Angle of rotation about local x-axis
+            DTheta_x = 0; // Temporary
+
+            modelFrontSide = new GeometryModel3D();
+            modelShell = new GeometryModel3D();
+            modelBackSide = new GeometryModel3D();
+
+            MeshGeometry3D meshFrontSide = new MeshGeometry3D();
+            MeshGeometry3D meshShell= new MeshGeometry3D();
+            MeshGeometry3D meshBackSide = new MeshGeometry3D();
+
+            getMeshMemberGeometry3DFromCrSc_1(eGCS, CrScStart, CrScEnd, mpA, mpB, DTheta_x, out meshFrontSide, out meshShell, out meshBackSide);
+
+            modelFrontSide.Geometry = meshFrontSide;
+            modelShell.Geometry = meshShell;
+            modelBackSide.Geometry = meshBackSide;
+
+            // Set MemberModel parts Material
+            modelFrontSide.Material = new DiffuseMaterial(brushFrontSide);
+            modelShell.Material = new DiffuseMaterial(brushShell);
+            modelBackSide.Material = new DiffuseMaterial(brushBackSide);
         }
 
         private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
@@ -420,11 +452,11 @@ namespace BaseClasses
             return mesh;
         }
 
-        private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
+        private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x, out MeshGeometry3D meshFrontSide, out MeshGeometry3D meshShell, out MeshGeometry3D meshBackSide)
         {
-            MeshGeometry3D meshFrontSide = new MeshGeometry3D();
-            MeshGeometry3D meshShell = new MeshGeometry3D();
-            MeshGeometry3D meshBackSide = new MeshGeometry3D();
+            meshFrontSide = new MeshGeometry3D();
+            meshShell = new MeshGeometry3D();
+            meshBackSide = new MeshGeometry3D();
 
             meshFrontSide.Positions = new Point3DCollection();
             meshShell.Positions = new Point3DCollection();
@@ -496,6 +528,11 @@ namespace BaseClasses
             meshFrontSide.TriangleIndices = obj_CrScA.TriangleIndicesFrontSide;
             meshShell.TriangleIndices = obj_CrScA.TriangleIndicesShell;
             meshBackSide.TriangleIndices = obj_CrScA.TriangleIndicesBackSide;
+
+            // Change mesh triangle indices
+            // Change orientation of normals
+
+            // Changes of coordinates is not implemented !!!!
         }
 
         public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
