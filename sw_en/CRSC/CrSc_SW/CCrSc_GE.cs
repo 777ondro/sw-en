@@ -129,5 +129,17 @@ namespace CRSC
 		{
 			throw new NotImplementedException();
 		}
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
 	}
 }

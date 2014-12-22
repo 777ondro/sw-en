@@ -420,6 +420,84 @@ namespace BaseClasses
             return mesh;
         }
 
+        private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
+        {
+            MeshGeometry3D meshFrontSide = new MeshGeometry3D();
+            MeshGeometry3D meshShell = new MeshGeometry3D();
+            MeshGeometry3D meshBackSide = new MeshGeometry3D();
+
+            meshFrontSide.Positions = new Point3DCollection();
+            meshShell.Positions = new Point3DCollection();
+            meshBackSide.Positions = new Point3DCollection();
+
+            // Main Nodes of Member
+            Point3D m_pA = mpA;
+            Point3D m_pB = mpB;
+
+            // Angle of rotation about local x-axis
+            double m_dTheta_x = dTheta_x;
+
+            // Priemet do osi GCS - rozdiel suradnic v GCS
+            double m_dDelta_X = m_pB.X - m_pA.X;
+            double m_dDelta_Y = m_pB.Y - m_pA.Y;
+            double m_dDelta_Z = m_pB.Z - m_pA.Z;
+
+            // Realna dlzka prvku // Length of member - straigth segment of member
+            // Prečo je záporná ???
+            // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+
+            // Number of Points per section
+            short iNoCrScPoints2D;
+            // Points 2D Coordinate Array
+            if (obj_CrScA.IsShapeSolid) // Solid I,U,Z,HL,L, ..............
+            {
+                iNoCrScPoints2D = obj_CrScA.ITotNoPoints; // Depends on Section Type
+                // Fill Mesh Positions for Start and End Section of Element - Defines Edge Points of Element
+
+                if (obj_CrScA.CrScPointsOut != null) // Check that data are available
+                {
+                    for (int j = 0; j < iNoCrScPoints2D; j++)
+                    {
+                        // X - start, Y, Z
+                        meshFrontSide.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        meshShell.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                    }
+
+                    for (int j = 0; j < iNoCrScPoints2D; j++)
+                    {
+                        // X - end, Y, Z
+                        if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
+                        {
+                            meshBackSide.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+                            meshShell.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        }
+                        else
+                        {
+                            meshBackSide.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
+                            meshShell.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        }
+                    }
+                }
+                else
+                {
+                    // Exception
+                }
+            }
+
+
+            // Transform coordinates
+            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
+            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshShell.Positions);
+            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshBackSide.Positions);
+
+            // Mesh Triangles - various cross-sections shapes defined
+            //mesh.TriangleIndices = obj_CrScA.TriangleIndices;
+            meshFrontSide.TriangleIndices = obj_CrScA.TriangleIndicesFrontSide;
+            meshShell.TriangleIndices = obj_CrScA.TriangleIndicesShell;
+            meshBackSide.TriangleIndices = obj_CrScA.TriangleIndicesBackSide;
+        }
+
         public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
         {
             // Returns transformed coordinates of member nodes

@@ -24,6 +24,22 @@ namespace CRSC
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public CCrSc_0_05() { }
+        /*public CCrSc_0_05(float fh, float fb)
+        {
+            IsShapeSolid = true;
+            ITotNoPoints = 4;
+            Fh = fh;
+            Fb = fb;
+
+            // Create Array - allocate memory
+            CrScPointsOut = new float[ITotNoPoints, 2];
+            // Fill Array Data
+            CalcCrSc_Coord();
+
+            // Fill list of indices for drawing of surface - triangles edges
+            loadCrScIndices();
+        }*/
+
         public CCrSc_0_05(float fh, float fb)
         {
             IsShapeSolid = true;
@@ -37,6 +53,13 @@ namespace CRSC
             CalcCrSc_Coord();
 
             // Fill list of indices for drawing of surface - triangles edges
+            /*
+            // Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+            */
+
             loadCrScIndices();
         }
 
@@ -229,7 +252,7 @@ namespace CRSC
             // Front Side / Forehead
             AddRectangleIndices_CW_1234(TriangleIndices, 0, 1, 2, 3);
 
-            // Back Side 
+            // Back Side
             AddRectangleIndices_CW_1234(TriangleIndices, 4, 7, 6, 5);
 
             // Shell Surface
@@ -238,5 +261,31 @@ namespace CRSC
             AddRectangleIndices_CW_1234(TriangleIndices, 2, 6, 7, 3);
             AddRectangleIndices_CW_1234(TriangleIndices, 3, 7, 4, 0);
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+           TriangleIndicesFrontSide = new Int32Collection();
+            // Front Side / Forehead
+            AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, 0, 1, 2, 3);
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+            TriangleIndicesShell = new Int32Collection();
+            // Shell Surface
+            AddRectangleIndices_CW_1234(TriangleIndicesShell, 0, 4, 5, 1);
+            AddRectangleIndices_CW_1234(TriangleIndicesShell, 1, 5, 6, 2);
+            AddRectangleIndices_CW_1234(TriangleIndicesShell, 2, 6, 7, 3);
+            AddRectangleIndices_CW_1234(TriangleIndicesShell, 3, 7, 4, 0);
+
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+            TriangleIndicesBackSide = new Int32Collection();
+            // Back Side
+            AddRectangleIndices_CW_1234(TriangleIndicesBackSide, 4, 7, 6, 5);
+        }
+
     }
 }

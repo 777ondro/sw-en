@@ -14,31 +14,66 @@ namespace CRSC
         // Collection of indices for generation of member surface
         // Plati aj pre pruty s nabehom s rovnakym poctom bodov v reze - 2D
         // Use also for tapered members with same number of nodes (points) in section - 2D
-		private Int32Collection m_TriangleIndices;
+        private Int32Collection m_TriangleIndices;
 
-		public Int32Collection TriangleIndices
-		{
-			get { return m_TriangleIndices; }
-			set { m_TriangleIndices = value; }
-		}
+        public Int32Collection TriangleIndices
+        {
+            get { return m_TriangleIndices; }
+            set { m_TriangleIndices = value; }
+        }
+
+
+        // New
+
+        private Int32Collection m_TriangleIndicesFrontSide;
+
+        public Int32Collection TriangleIndicesFrontSide
+        {
+            get { return m_TriangleIndicesFrontSide; }
+            set { m_TriangleIndicesFrontSide = value; }
+        }
+
+        private Int32Collection m_TriangleIndicesShell;
+
+        public Int32Collection TriangleIndicesShell
+        {
+            get { return m_TriangleIndicesShell; }
+            set { m_TriangleIndicesShell = value; }
+        }
+
+        private Int32Collection m_TriangleIndicesBackSide;
+
+        public Int32Collection TriangleIndicesBackSide
+        {
+            get { return m_TriangleIndicesBackSide; }
+            set { m_TriangleIndicesBackSide = value; }
+        }
+
+
+
+
+
+
+
+
 
         // Type of cross-section
-		private bool m_bIsShapeSolid; // 0 (false) - Hollow section, 1 (true) - Solid section
+        private bool m_bIsShapeSolid; // 0 (false) - Hollow section, 1 (true) - Solid section
 
-		public bool IsShapeSolid
-		{
-			get { return m_bIsShapeSolid; }
-			set { m_bIsShapeSolid = value; }
-		}
+        public bool IsShapeSolid
+        {
+            get { return m_bIsShapeSolid; }
+            set { m_bIsShapeSolid = value; }
+        }
 
         // Total number of points per section in 2D
-		private short m_iTotNoPoints;
+        private short m_iTotNoPoints;
 
-		public short ITotNoPoints
-		{
-			get { return m_iTotNoPoints; }
-			set { m_iTotNoPoints = value; }
-		}
+        public short ITotNoPoints
+        {
+            get { return m_iTotNoPoints; }
+            set { m_iTotNoPoints = value; }
+        }
 
         // Number of points per inside surface of section in 2D - hollow sections
         private short m_iNoPointsIn;
@@ -341,5 +376,10 @@ namespace CRSC
 		}
 
         protected abstract void loadCrScIndices();
+
+        // New
+        protected abstract void loadCrScIndicesFrontSide();
+        protected abstract void loadCrScIndicesShell();
+        protected abstract void loadCrScIndicesBackSide();
     }
 }

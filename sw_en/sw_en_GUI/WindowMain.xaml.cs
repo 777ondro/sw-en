@@ -36,7 +36,7 @@ namespace sw_en_GUI
 	public partial class WindowMain : Window
 	{
 		private CModel model = null;
-        private bool m_bDebugging = true; // Console Output
+        private bool m_bDebugging = false; // Console Output
 
 		List<Trackport3D> list_trackports;
 		public WindowMain()

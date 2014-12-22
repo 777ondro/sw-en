@@ -166,5 +166,17 @@ namespace CRSC
             // Shell
             DrawCaraLaterals(9, TriangleIndices);
         }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+        }
 	}
 }
