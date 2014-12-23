@@ -59,6 +59,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HelixToolkit.Wpf, Version=2014.2.37.1, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -125,6 +129,7 @@
     <Compile Include="EXAMPLES\3D\CExample_3D_80.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_50.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_90.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_Ondro.cs" />
     <Compile Include="EXAMPLES\CExample.cs" />
     <Compile Include="Viewer3D.xaml.cs">
       <DependentUpon>Viewer3D.xaml</DependentUpon>
@@ -140,6 +145,9 @@
     </Compile>
     <Compile Include="WindowCrossSectionDB.xaml.cs">
       <DependentUpon>WindowCrossSectionDB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowHelixTrial.xaml.cs">
+      <DependentUpon>WindowHelixTrial.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowMain.xaml.cs">
       <DependentUpon>WindowMain.xaml</DependentUpon>
@@ -206,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowCrossSectionDB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowHelixTrial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

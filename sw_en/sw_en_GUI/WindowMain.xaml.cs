@@ -805,6 +805,15 @@ namespace sw_en_GUI
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 90" + " - Window " + (Container.Children.Count + 1) });
         }
+        private void menuItemExample3D_Ondro_Click(object sender, RoutedEventArgs e)
+        {
+            //model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_Ondro();
+            //Window2 win = new Window2(model, m_bDebugging);
+            //list_trackports.Add(win._trackport);
+            //Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 90" + " - Window " + (Container.Children.Count + 1) });
+            WindowHelixTrial w = new WindowHelixTrial();
+            w.ShowDialog();
+        }
 
         private void menuItemTestWindow_Click(object sender, RoutedEventArgs e)
         {
@@ -812,5 +821,8 @@ namespace sw_en_GUI
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Test" + " - Window " + (Container.Children.Count + 1) });
         }
+
+
+        
     }
 }
