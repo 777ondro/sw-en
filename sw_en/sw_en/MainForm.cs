@@ -232,6 +232,12 @@ namespace CENEX
             obj_Calc.ShowDialog();
         }
 
+        private void iMPORTDXFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DXFImportForm f = new DXFImportForm();
+            f.ShowDialog();
+        }
+
         
 
         
