@@ -18,6 +18,7 @@ using MATH;
 using CRSC;
 using BaseClasses;
 using BaseClasses.GraphObj;
+using HelixToolkit.Wpf;
 
 namespace sw_en_GUI
 {
