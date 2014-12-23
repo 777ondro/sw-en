@@ -257,6 +257,19 @@ namespace sw_en_GUI
                   }
               }
 
+
+              if (cmodel.m_arrNLoads != null) // Some nodal loads exists
+              {
+                  // Model Groups of Nodal Loads
+                  for (int i = 0; i < cmodel.m_arrNLoads.Length; i++)
+                  {
+                      if (cmodel.m_arrNLoads[i] != null && cmodel.m_arrNLoads[i].BIsDisplayed == true) // Load object is valid (not empty) and should be displayed
+                      {
+                          gr.Children.Add(cmodel.m_arrNLoads[i].CreateM_3D_G_NLoad()); // Add solid to model group
+                      }
+                  }
+              }
+
               /*
                 The following lights derive from the base class Light:
                 AmbientLight : Provides ambient lighting that illuminates all objects uniformly regardless of their location or orientation.
