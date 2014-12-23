@@ -21,7 +21,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMat = new CMat_00[1];
             m_arrCrSc = new CRSC.CCrSc[1];
             m_arrNSupports = new BaseClasses.CNSupport[2];
-            //m_arrNLoads = new BaseClasses.CNLoad[3];
+            m_arrNLoads = new BaseClasses.CNLoad[2];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -63,6 +63,10 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Sort by ID
             Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
+
+            // Nodal Loads
+            m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 2.5f, true, 0);
+            m_arrNLoads[1] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mx, 2f, true, 0);
         }
     }
 }

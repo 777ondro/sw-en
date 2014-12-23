@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using CENEX;
+using BaseClasses.GraphObj.Objects_3D;
 
 namespace BaseClasses
 {
     [Serializable]
-    public class CNLoad : CEntity
+    public abstract class CNLoad : CEntity
     {
         //----------------------------------------------------------------------------
         private int m_iNLoad_ID;
         private CNode m_Node;
         private int[] m_iNodeCollection; // List / Collection of nodes IDs where load is defined
-        private int m_fTime;
 
         //----------------------------------------------------------------------------
         public int INLoad_ID
@@ -33,11 +35,6 @@ namespace BaseClasses
             get { return m_iNodeCollection; }
             set { m_iNodeCollection = value; }
         }
-        public int FTime
-        {
-            get { return m_fTime; }
-            set { m_fTime = value; }
-        }
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -47,11 +44,18 @@ namespace BaseClasses
 
         }
         public CNLoad(CNode nNode,
-              int fTime)
+              bool bIsDisplayed, float fTime)
         {
             Node = nNode;
+            BIsDisplayed = bIsDisplayed;
             FTime = fTime;
         }
 
+        public virtual Model3DGroup CreateM_3D_G_NLoad()
+        {
+            Model3DGroup model_gr = new Model3DGroup();
+            // Not implemented
+            return model_gr;
+        }
     }
 }

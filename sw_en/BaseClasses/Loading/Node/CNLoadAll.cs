@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
+using CENEX;
+using BaseClasses.GraphObj.Objects_3D;
 
 namespace BaseClasses
 {
@@ -62,6 +66,7 @@ namespace BaseClasses
               float fValue_MX,
               float fValue_MY,
               float fValue_MZ,
+              bool bIsDisplayed,
               int fTime
             )
         {
@@ -72,7 +77,15 @@ namespace BaseClasses
             Value_MX = fValue_MX;
             Value_MY = fValue_MY;
             Value_MZ = fValue_MZ;
+            BIsDisplayed = bIsDisplayed;
             FTime = fTime;
+        }
+
+        public override Model3DGroup CreateM_3D_G_NLoad()
+        {
+            Model3DGroup model_gr = new Model3DGroup();
+            // Not implemented
+            return model_gr;
         }
     }
 }
