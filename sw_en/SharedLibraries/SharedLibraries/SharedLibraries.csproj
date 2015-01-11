@@ -59,6 +59,7 @@
     <Compile Include="EXPIMP\CImportFromTXT.cs" />
     <Compile Include="EXPIMP\CImportFromXML.cs" />
     <Compile Include="EXPIMP\CImportFromExcel.cs" />
+    <Compile Include="EXPIMP\CDXFImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
