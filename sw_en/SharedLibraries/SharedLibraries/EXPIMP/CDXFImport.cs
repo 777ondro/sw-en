@@ -4,9 +4,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Collections;
-//using System.Windows.Forms;
 
-namespace CENEX
+namespace SharedLibraries.EXPIMP
 {
     public class DXFConst
     {

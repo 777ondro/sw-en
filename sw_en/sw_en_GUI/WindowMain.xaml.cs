@@ -851,6 +851,12 @@ namespace sw_en_GUI
             //}
         }
 
+        private void menuItemTestDXFImport_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDXFImport w = new WindowDXFImport();
+            w.ShowDialog();
+        }
+
 
 
     }

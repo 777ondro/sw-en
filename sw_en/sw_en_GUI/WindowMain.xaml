@@ -211,7 +211,8 @@
             </MenuItem>
             <MenuItem x:Name="menuItemDevelopment" Header="Development">
                 <MenuItem x:Name="menuItemTestWindow_3" Header="Test Window" Click="menuItemTestWindow_Click"></MenuItem>
-            </MenuItem>
+					<MenuItem x:Name="menuItemTestDXFImport" Header="DXF Import" Click="menuItemTestDXFImport_Click"></MenuItem>
+			</MenuItem>
         </Menu>
 		<ToolBar Grid.Column="0" Grid.Row="1">
 			<Button x:Name="tbrIzometric" ToolTip="Isometric" VerticalAlignment="Center">
