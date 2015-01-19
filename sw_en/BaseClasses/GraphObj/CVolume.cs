@@ -486,12 +486,12 @@ namespace BaseClasses.GraphObj
         // Generate 3D volume geometry of sphere
         // Each side can be other material / color
         //--------------------------------------------------------------------------------------------
-        public Model3DGroup CreateM_3D_G_Volume_Sphere(Point3D solidControlPoint, float fDim1, DiffuseMaterial mat1)
+        public Model3DGroup CreateM_3D_G_Volume_Sphere(Point3D solidControlPoint, float fr, DiffuseMaterial mat1)
         {
             Model3DGroup models = new Model3DGroup();
 
-            SphereMeshGenerator objSphere = new SphereMeshGenerator(solidControlPoint);
-            GeometryModel3D sphereModel3D = new GeometryModel3D(objSphere.Geometry,mat1);
+            SphereMeshGenerator objSphere = new SphereMeshGenerator(solidControlPoint, fr);
+            GeometryModel3D sphereModel3D = new GeometryModel3D(objSphere.Geometry, mat1);
 
             models.Children.Add((Model3D)sphereModel3D);
 
@@ -505,7 +505,7 @@ namespace BaseClasses.GraphObj
         private int _slices = 32;
         private int _stacks = 16;
         private Point3D _center = new Point3D();
-        private double _radius = 0.5f;
+        private double _radius = 0.5;
 
         public int Slices
         {
@@ -539,9 +539,10 @@ namespace BaseClasses.GraphObj
             }
         }
 
-        public SphereMeshGenerator(Point3D c)
+        public SphereMeshGenerator(Point3D c, float fr)
         {
             Center = c; // Set Center
+            Radius = fr;
         }
 
         private MeshGeometry3D CalculateMesh()
