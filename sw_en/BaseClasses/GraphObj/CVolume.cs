@@ -122,6 +122,28 @@ namespace BaseClasses.GraphObj
             /*MObject3DModel =*/ CreateM_3D_G_Volume_Sphere(new Point3D(pControlCenterPoint.X, pControlCenterPoint.Y, pControlCenterPoint.Z), fr, volMat1);
         }
 
+        // Constructor 7
+        // SquarePyramid
+        public CVolume(int iVolume_ID, EVolumeShapeType iShapeType, CPoint pControlCenterPoint, float fa, float fh, DiffuseMaterial volMat1, bool bIsDisplayed, float fTime)
+        {
+            ID = iVolume_ID;
+            m_eShapeType = iShapeType;
+            m_pControlPoint = pControlCenterPoint;
+            m_fDim1 = fa;
+            m_fDim2 = fh;
+            m_Material_1 = volMat1;
+            m_volColor_2 = volMat1.Color;
+            m_fvolOpacity = 1.0f;
+            // Set same properties for both materials
+            m_Material_2 = volMat1;
+            m_volColor_2 = volMat1.Color;
+            BIsDisplayed = bIsDisplayed;
+            FTime = fTime;
+
+            CreateM_G_M_3D_Volume_5Edges(new Point3D(pControlCenterPoint.X, pControlCenterPoint.Y, pControlCenterPoint.Z), fa, fh, volMat1);
+        }
+
+
         //--------------------------------------------------------------------------------------------
         // Create 2D rectangle as GeometryModel3D - one material of rectangle can be defined
         //--------------------------------------------------------------------------------------------
@@ -340,6 +362,66 @@ namespace BaseClasses.GraphObj
 
             return CreateGM_3D_Volume_8EdgesOld(solidControlEdge, volume.m_fDim1, volume.m_fDim2, volume.m_fDim3, volume.m_Material_1);
 
+        }
+
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry of square pyramide
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateM_G_M_3D_Volume_5Edges(Point3D solidControlEdge, float fDim1_a, float fDim2_h, DiffuseMaterial mat)
+        {
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X - 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p2 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p3 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p4 = new Point3D(solidControlEdge.X - 0.5f * fDim1_a, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            meshGeom3D.Positions.Add(p0);
+            meshGeom3D.Positions.Add(p1);
+            meshGeom3D.Positions.Add(p2);
+            meshGeom3D.Positions.Add(p3);
+            meshGeom3D.Positions.Add(p4);
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            // Sides
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(2);
+
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(3);
+
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(3);
+            TriangleIndices.Add(4);
+
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(1);
+
+            // Bottom
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(2);
+
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(3);
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
         }
 
         //--------------------------------------------------------------------------------------------

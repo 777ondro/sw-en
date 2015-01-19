@@ -62,7 +62,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNSupports[1] = new BaseClasses.CNSupport(6, 2, m_arrNodes[1], bSupport2, 0);
 
             // Sort by ID
-            Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
+            //Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
 
             // Nodal Loads
             m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 2.5f, true, 0);
