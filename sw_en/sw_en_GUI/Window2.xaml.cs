@@ -257,8 +257,19 @@ namespace sw_en_GUI
                   }
               }
 
+              if (cmodel.m_arrNSupports != null) // Some nodal supports exist
+              {
+                  // Model Groups of Nodal Suports
+                  for (int i = 0; i < cmodel.m_arrNSupports.Length; i++)
+                  {
+                      if (cmodel.m_arrNSupports[i] != null && cmodel.m_arrNSupports[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
+                      {
+                          gr.Children.Add(cmodel.m_arrNSupports[i].CreateM_3D_G_NSupport()); // Add solid to model group
+                      }
+                  }
+              }
 
-              if (cmodel.m_arrNLoads != null) // Some nodal loads exists
+              if (cmodel.m_arrNLoads != null) // Some nodal loads exist
               {
                   // Model Groups of Nodal Loads
                   for (int i = 0; i < cmodel.m_arrNLoads.Length; i++)
