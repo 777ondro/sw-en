@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using MATH;
 
 namespace BaseClasses.GraphObj
 {
@@ -168,6 +169,54 @@ namespace BaseClasses.GraphObj
             mesh.TextureCoordinates.Add(new Point(1, 0));
 
             return new GeometryModel3D(mesh, DiffMat);
+        }
+
+        // Draw Rectangle / Add rectangle indices - clockwise CW numbering of input points 1,2,3,4 (see scheme)
+        // Add in order 1,2,3,4
+        protected void AddRectangleIndices_CW_1234(Int32Collection Indices,
+              int point1, int point2,
+              int point3, int point4)
+        {
+            // Main numbering is clockwise
+
+            // 1  _______  2
+            //   |_______| 
+            // 4           3
+
+            // Triangles Numbering is Counterclockwise
+            // Top Right
+            Indices.Add(point1);
+            Indices.Add(point3);
+            Indices.Add(point2);
+
+            // Bottom Left
+            Indices.Add(point1);
+            Indices.Add(point4);
+            Indices.Add(point3);
+        }
+
+        // Draw Rectangle / Add rectangle indices - countrer-clockwise CCW numbering of input points 1,2,3,4 (see scheme)
+        // Add in order 1,4,3,2
+        protected void AddRectangleIndices_CCW_1234(Int32Collection Indices,
+              int point1, int point2,
+              int point3, int point4)
+        {
+            // Main input numbering is clockwise, add indices counter-clockwise
+
+            // 1  _______  2
+            //   |_______| 
+            // 4           3
+
+            // Triangles Numbering is Clockwise
+            // Top Right
+            Indices.Add(point1);
+            Indices.Add(point2);
+            Indices.Add(point3);
+
+            // Bottom Left
+            Indices.Add(point1);
+            Indices.Add(point3);
+            Indices.Add(point4);
         }
 
         //--------------------------------------------------------------------------------------------
@@ -412,6 +461,200 @@ namespace BaseClasses.GraphObj
             TriangleIndices.Add(2);
             TriangleIndices.Add(4);
             TriangleIndices.Add(3);
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
+        }
+
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry of triangular prism - just for nodal supports
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateM_G_M_3D_Volume_6Edges_CN(Point3D solidControlEdge, float fDim1_a, float fDim2_h, DiffuseMaterial mat)
+        {
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z);
+            Point3D p2 = new Point3D(solidControlEdge.X - 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p3 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p4 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+            Point3D p5 = new Point3D(solidControlEdge.X - 0.5f * fDim1_a, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            meshGeom3D.Positions.Add(p0);
+            meshGeom3D.Positions.Add(p1);
+            meshGeom3D.Positions.Add(p2);
+            meshGeom3D.Positions.Add(p3);
+            meshGeom3D.Positions.Add(p4);
+            meshGeom3D.Positions.Add(p5);
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            // Sides
+            AddRectangleIndices_CCW_1234(TriangleIndices, 0, 1, 4, 3);
+            AddRectangleIndices_CCW_1234(TriangleIndices, 1, 0, 2, 5);
+
+            TriangleIndices.Add(0);
+            TriangleIndices.Add(2);
+            TriangleIndices.Add(3);
+
+            TriangleIndices.Add(1);
+            TriangleIndices.Add(4);
+            TriangleIndices.Add(5);
+
+            // Bottom
+            AddRectangleIndices_CCW_1234(TriangleIndices, 2, 3, 4, 5);
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
+        }
+
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry of cylinder
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateM_G_M_3D_Volume_Cylinder(Point3D solidControlEdge, float fDim1_r, float fDim2_h, DiffuseMaterial mat)
+        {
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            short iTotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod
+
+            if (fDim1_r <= 0f)
+            {
+                // Exception
+                //return;
+            }
+
+            // Create Array - allocate memory
+            float [,] PointsOut = new float[iTotNoPoints, 2];
+
+            // Outside Points Coordinates
+            PointsOut = Geom2D.GetCirclePointCoord(fDim1_r, iTotNoPoints);
+
+            // Centroid
+            PointsOut[iTotNoPoints - 1, 0] = 0f;
+            PointsOut[iTotNoPoints - 1, 1] = 0f;
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            // Bottom  h = 0
+            for (int i = 0; i < iTotNoPoints; i++)
+            {
+                Point3D p = new Point3D(solidControlEdge.X + PointsOut[i,0], solidControlEdge.Y + PointsOut[i,1], solidControlEdge.Z);
+                meshGeom3D.Positions.Add(p);
+            }
+
+            // Top h = xxx
+            for (int i = 0; i < iTotNoPoints; i++)
+            {
+                Point3D p = new Point3D(solidControlEdge.X + PointsOut[i,0], solidControlEdge.Y + PointsOut[i,1], solidControlEdge.Z + fDim2_h);
+                meshGeom3D.Positions.Add(p);
+            }
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            // Front Side / Forehead
+            for (int i = 0; i < iTotNoPoints - 1; i++)
+            {
+                if (i < iTotNoPoints - 2)
+                {
+                    TriangleIndices.Add(i + 1);
+                    TriangleIndices.Add(iTotNoPoints - 1);
+                    TriangleIndices.Add(i);
+                }
+                else // Last Element
+                {
+                    TriangleIndices.Add(0);
+                    TriangleIndices.Add(iTotNoPoints - 1);
+                    TriangleIndices.Add(i);
+                }
+            }
+
+            // Back Side
+            for (int i = 0; i < iTotNoPoints - 1; i++)
+            {
+                if (i < iTotNoPoints - 2)
+                {
+                    TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints + i + 1);
+                    TriangleIndices.Add(iTotNoPoints + i);
+                }
+                else // Last Element
+                {
+                    TriangleIndices.Add(iTotNoPoints + iTotNoPoints - 1);
+                    TriangleIndices.Add(iTotNoPoints);
+                    TriangleIndices.Add(iTotNoPoints + i);
+                }
+            }
+
+            // Shell Surface OutSide
+            for (int i = 0; i < iTotNoPoints - 1; i++)
+            {
+                if (i < iTotNoPoints - 2)
+                    AddRectangleIndices_CCW_1234(TriangleIndices, i, iTotNoPoints + i, iTotNoPoints + i + 1, i + 1);
+                else
+                    AddRectangleIndices_CCW_1234(TriangleIndices, i, iTotNoPoints + i, iTotNoPoints, 0); // Last Element
+
+            }
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
+        }
+
+        public GeometryModel3D CreateM_3D_G_Volume_8Edges(float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
+        {
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            Point3D p0 = new Point3D(0, 0, 0);
+            Point3D p1 = new Point3D(fDim1, 0, 0);
+            Point3D p2 = new Point3D(fDim1, fDim2, 0);
+            Point3D p3 = new Point3D(0, fDim2, 0);
+            Point3D p4 = new Point3D(0, 0, fDim3);
+            Point3D p5 = new Point3D(fDim1, 0, fDim3);
+            Point3D p6 = new Point3D(fDim1, fDim2, fDim3);
+            Point3D p7 = new Point3D(0, fDim2, fDim3);
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            meshGeom3D.Positions.Add(p0);
+            meshGeom3D.Positions.Add(p1);
+            meshGeom3D.Positions.Add(p2);
+            meshGeom3D.Positions.Add(p3);
+            meshGeom3D.Positions.Add(p4);
+            meshGeom3D.Positions.Add(p5);
+            meshGeom3D.Positions.Add(p6);
+            meshGeom3D.Positions.Add(p7);
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            // Sides
+            AddRectangleIndices_CCW_1234(TriangleIndices, 3, 2, 1, 0); // Bottom
+            AddRectangleIndices_CCW_1234(TriangleIndices, 4, 5, 6, 7); // Top
+            AddRectangleIndices_CCW_1234(TriangleIndices, 0, 1, 5, 4); // Sides
+            AddRectangleIndices_CCW_1234(TriangleIndices, 1, 2, 6, 5);
+            AddRectangleIndices_CCW_1234(TriangleIndices, 2, 3, 7, 6);
+            AddRectangleIndices_CCW_1234(TriangleIndices, 3, 0, 4, 7);
 
             meshGeom3D.TriangleIndices = TriangleIndices;
 

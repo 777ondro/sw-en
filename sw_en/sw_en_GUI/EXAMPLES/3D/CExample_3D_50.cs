@@ -51,8 +51,8 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Nodal Supports - fill values
             // Set values
-            bool[] bSupport1 = { true, false, true, false, true, false };
-            bool[] bSupport2 = { false, false, true, false, true, false };
+            bool[] bSupport1 = { true, true, true, false, false, false };
+            bool[] bSupport2 = { false, true, true, false, false, false };
 
 
             // Create Support Objects
