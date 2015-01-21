@@ -173,7 +173,7 @@ namespace BaseClasses
                     model_gr.Children.Add(GeomModel3Daux);
                 }
 
-                if (m_bRestrain[(int)ENSupportType.eNST_Rx] == false)
+                if (m_bRestrain[(int)ENSupportType.eNST_Rx] == false && m_bRestrain[(int)ENSupportType.eNST_Ry] == false)
                 {
                     model_gr.Children.Add(volaux.CreateM_G_M_3D_Volume_5Edges(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), fa, fh, new DiffuseMaterial(brush)));
                     model_gr.Children.Add(volaux.CreateM_3D_G_Volume_Sphere(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), 0.04f, new DiffuseMaterial(brush)));
@@ -183,19 +183,32 @@ namespace BaseClasses
                         model_gr.Children.Add(volaux.CreateM_G_M_3D_Volume_Cylinder(new Point3D(m_Node.X, m_Node.Y, m_Node.Z - 1.5f * fh), 0.25f * fa, 0.5f * fh, new DiffuseMaterial(brush)));
                     }
                 }
-                else if (m_bRestrain[(int)ENSupportType.eNST_Rx] == true)
+                else if (m_bRestrain[(int)ENSupportType.eNST_Rx] == true || m_bRestrain[(int)ENSupportType.eNST_Ry])
                 {
                     model_gr.Children.Add(volaux.CreateM_G_M_3D_Volume_6Edges_CN(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), fa, fh, new DiffuseMaterial(brush)));
 
-                    GeomModel3Daux = volaux.CreateM_G_M_3D_Volume_Cylinder(new Point3D(m_Node.X, m_Node.Y - 0.5f * fa, m_Node.Z), 0.25f * fa, fa, new DiffuseMaterial(brush));
+                    GeomModel3Daux = volaux.CreateM_G_M_3D_Volume_Cylinder(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), 0.20f * fa, fa, new DiffuseMaterial(brush));
                     RotateTrans3D = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90));
+                    Translate3D = new TranslateTransform3D(new Vector3D(0, 0.5f * fa, 0));
 
-                    //Transform3DGroup Trans3DGroup = new Transform3DGroup();
-                    //Trans3DGroup.Children.Add(RotateTrans);
-                    //n.Transform = Trans3DGroup;
-                    GeomModel3Daux.Transform = RotateTrans3D;
+                    Transform3DGroup Trans3DGroup = new Transform3DGroup();
+                    Trans3DGroup.Children.Add(RotateTrans3D);
+                    Trans3DGroup.Children.Add(Translate3D);
+                    GeomModel3Daux.Transform = Trans3DGroup;
 
                     model_gr.Children.Add(GeomModel3Daux);
+
+                    if (m_bRestrain[(int)ENSupportType.eNST_Ry])
+                    {
+                        RotateTrans3D = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90));
+                        //Translate3D = new TranslateTransform3D(new Vector3D(0, 0, 0));
+
+                        Transform3DGroup Trans3DGroup2 = new Transform3DGroup();
+                        Trans3DGroup2.Children.Add(RotateTrans3D);
+                        //Trans3DGroup2.Children.Add(Translate3D);
+
+                        model_gr.Transform = Trans3DGroup2;
+                    }
                 }
                 else
                 { }
