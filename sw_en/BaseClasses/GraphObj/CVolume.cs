@@ -622,6 +622,9 @@ namespace BaseClasses.GraphObj
             return geomModel3D;
         }
 
+        //--------------------------------------------------------------------------------------------
+        // Generate 3D volume geometry of rectangular prism
+        //--------------------------------------------------------------------------------------------
         public GeometryModel3D CreateM_3D_G_Volume_8Edges(float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
         {
             MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
@@ -634,6 +637,50 @@ namespace BaseClasses.GraphObj
             Point3D p5 = new Point3D(fDim1, 0, fDim3);
             Point3D p6 = new Point3D(fDim1, fDim2, fDim3);
             Point3D p7 = new Point3D(0, fDim2, fDim3);
+
+            meshGeom3D.Positions = new Point3DCollection();
+
+            meshGeom3D.Positions.Add(p0);
+            meshGeom3D.Positions.Add(p1);
+            meshGeom3D.Positions.Add(p2);
+            meshGeom3D.Positions.Add(p3);
+            meshGeom3D.Positions.Add(p4);
+            meshGeom3D.Positions.Add(p5);
+            meshGeom3D.Positions.Add(p6);
+            meshGeom3D.Positions.Add(p7);
+
+            Int32Collection TriangleIndices = new Int32Collection();
+
+            // Sides
+            AddRectangleIndices_CCW_1234(TriangleIndices, 3, 2, 1, 0); // Bottom
+            AddRectangleIndices_CCW_1234(TriangleIndices, 4, 5, 6, 7); // Top
+            AddRectangleIndices_CCW_1234(TriangleIndices, 0, 1, 5, 4); // Sides
+            AddRectangleIndices_CCW_1234(TriangleIndices, 1, 2, 6, 5);
+            AddRectangleIndices_CCW_1234(TriangleIndices, 2, 3, 7, 6);
+            AddRectangleIndices_CCW_1234(TriangleIndices, 3, 0, 4, 7);
+
+            meshGeom3D.TriangleIndices = TriangleIndices;
+
+            GeometryModel3D geomModel3D = new GeometryModel3D();
+
+            geomModel3D.Geometry = meshGeom3D; // Set mesh to model
+
+            geomModel3D.Material = mat;
+
+            return geomModel3D;
+        }
+        public GeometryModel3D CreateM_3D_G_Volume_8Edges(Point3D solidControlEdge, float fDim1, float fDim2, float fDim3, DiffuseMaterial mat)
+        {
+            MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
+
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z);
+            Point3D p2 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p3 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z);
+            Point3D p4 = new Point3D(solidControlEdge.X, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p5 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y, solidControlEdge.Z + fDim3);
+            Point3D p6 = new Point3D(solidControlEdge.X + fDim1, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
+            Point3D p7 = new Point3D(solidControlEdge.X, solidControlEdge.Y + fDim2, solidControlEdge.Z + fDim3);
 
             meshGeom3D.Positions = new Point3DCollection();
 
