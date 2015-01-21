@@ -88,7 +88,55 @@ namespace BaseClasses
             float fa = 0.2f; // Dimension in x / y
             float fh = 0.1f; // Dimension in z
 
-            if (m_bRestrain[(int)ENSupportType.eNST_Uz] == true)
+            if (m_bRestrain[(int)ENSupportType.eNST_Ux] == true &&
+                m_bRestrain[(int)ENSupportType.eNST_Uy] == true &&
+                m_bRestrain[(int)ENSupportType.eNST_Uz] == true &&
+                m_bRestrain[(int)ENSupportType.eNST_Rx] == true &&
+                m_bRestrain[(int)ENSupportType.eNST_Ry] == true &&
+                m_bRestrain[(int)ENSupportType.eNST_Rz] == true) // Total restraint
+            {
+                GeomModel3Daux = volaux.CreateM_3D_G_Volume_8Edges(new Point3D(m_Node.X - 0.5f * fa, m_Node.Y - 0.5f * fa, m_Node.Z - 0.5f * fa),fa, fa, fa, new DiffuseMaterial(brush));
+                model_gr.Children.Add(GeomModel3Daux);
+            }
+            else if (m_bRestrain[(int)ENSupportType.eNST_Ux] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Uy] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Uz] == false && (
+                m_bRestrain[(int)ENSupportType.eNST_Rx] == true ||
+                m_bRestrain[(int)ENSupportType.eNST_Ry] == true ||
+                m_bRestrain[(int)ENSupportType.eNST_Rz] == true)) // Only rotational restraints
+            {
+                GeometryModel3D GeomModel3_RX = new GeometryModel3D();
+                GeomModel3_RX = volaux.CreateM_3D_G_Volume_8Edges(new Point3D(m_Node.X - 0.5f * fa, m_Node.Y - 0.125f * fa, m_Node.Z - 0.125f * fa), fa, 0.25f * fa, 0.25f * fa, new DiffuseMaterial(brush));
+
+                if (m_bRestrain[(int)ENSupportType.eNST_Rx] == true) // Rotational restraint around x-axis
+                {
+                    // LCS and GCS of support are identical, we can add model to modelgroup
+                    model_gr.Children.Add(GeomModel3_RX);
+                }
+
+                if (m_bRestrain[(int)ENSupportType.eNST_Ry] == true) // Rotational restraint around y-axis
+                {
+                    GeometryModel3D GeomModel3_RY = new GeometryModel3D();
+                    GeomModel3_RY = GeomModel3_RX;
+
+                    // Rotate model around z-axis
+                    RotateTrans3D.Rotation = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90);
+                    GeomModel3_RY.Transform = RotateTrans3D;
+                    model_gr.Children.Add(GeomModel3_RY);
+                }
+
+                if (m_bRestrain[(int)ENSupportType.eNST_Rz] == true) // Rotational restraint around z-axis
+                {
+                    GeometryModel3D GeomModel3_RZ = new GeometryModel3D();
+                    GeomModel3_RZ = GeomModel3_RX;
+
+                    // Rotate model around y-axis
+                    RotateTrans3D.Rotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90);
+                    GeomModel3_RZ.Transform = RotateTrans3D;
+                    model_gr.Children.Add(GeomModel3_RZ);
+                }
+            }
+            else if (m_bRestrain[(int)ENSupportType.eNST_Uz] == true)
             {
                 if (m_bRestrain[(int)ENSupportType.eNST_Ux] == false)
                 {
