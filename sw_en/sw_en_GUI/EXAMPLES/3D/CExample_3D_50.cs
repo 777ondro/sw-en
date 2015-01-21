@@ -54,8 +54,11 @@ namespace sw_en_GUI.EXAMPLES._3D
             //bool[] bSupport1 = { true, true, true, false, false, false };
             //bool[] bSupport2 = { false, true, true, false, false, false };
 
-            bool[] bSupport1 = { false, false, false, true, true, true };
-            bool[] bSupport2 = { true, true, true, true, true,true };
+            //bool[] bSupport1 = { false, false, false, true, true, true };
+            //bool[] bSupport2 = { true, true, true, true, true,true };
+
+            bool[] bSupport1 = { true, true, true, true, false, true };
+            bool[] bSupport2 = { false, true, true, true, false, true };
 
             // Create Support Objects
             // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovana tato podpora

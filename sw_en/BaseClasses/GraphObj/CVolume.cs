@@ -480,8 +480,8 @@ namespace BaseClasses.GraphObj
         {
             MeshGeometry3D meshGeom3D = new MeshGeometry3D(); // Create geometry mesh
 
-            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z);
-            Point3D p1 = new Point3D(solidControlEdge.X, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z);
+            Point3D p0 = new Point3D(solidControlEdge.X, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z);
+            Point3D p1 = new Point3D(solidControlEdge.X, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z);
             Point3D p2 = new Point3D(solidControlEdge.X - 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
             Point3D p3 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y - 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
             Point3D p4 = new Point3D(solidControlEdge.X + 0.5f * fDim1_a, solidControlEdge.Y + 0.5f * fDim1_a, solidControlEdge.Z - fDim2_h);
@@ -499,8 +499,8 @@ namespace BaseClasses.GraphObj
             Int32Collection TriangleIndices = new Int32Collection();
 
             // Sides
-            AddRectangleIndices_CCW_1234(TriangleIndices, 0, 1, 4, 3);
-            AddRectangleIndices_CCW_1234(TriangleIndices, 1, 0, 2, 5);
+            AddRectangleIndices_CW_1234(TriangleIndices, 0, 1, 4, 3);
+            AddRectangleIndices_CW_1234(TriangleIndices, 1, 0, 2, 5);
 
             TriangleIndices.Add(0);
             TriangleIndices.Add(2);
@@ -511,7 +511,7 @@ namespace BaseClasses.GraphObj
             TriangleIndices.Add(5);
 
             // Bottom
-            AddRectangleIndices_CCW_1234(TriangleIndices, 2, 3, 4, 5);
+            AddRectangleIndices_CW_1234(TriangleIndices, 2, 3, 4, 5);
 
             meshGeom3D.TriangleIndices = TriangleIndices;
 
