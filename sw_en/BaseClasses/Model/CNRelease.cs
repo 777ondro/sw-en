@@ -188,6 +188,10 @@ namespace BaseClasses
                 // Translation release in local y-axis
                 if (m_bRestrain[(int)ENSupportType.eNST_Uy] == false)
                 {
+
+                    // NEFUNGUJE !!!
+
+                    /*
                     RotateTransform3D RotateTrans3D_AUX = new RotateTransform3D();
                     RotateTrans3D_AUX.Rotation = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90);
 
@@ -210,6 +214,23 @@ namespace BaseClasses
                     Trans3DGroup2.Children.Add(Translate3D_UY2);
                     GeomModel3_UY2.Transform = Trans3DGroup2;
                     model_gr.Children.Add(GeomModel3_UY2);
+                    */
+
+                    GeometryModel3D GeomModel3_UY1 = new GeometryModel3D();
+                    GeomModel3_UY1 = volaux.CreateM_3D_G_Volume_8Edges(0.02f, fa, 0.02f, new DiffuseMaterial(brushY));
+                    TranslateTransform3D Translate3D_UY1;
+                    Translate3D_UY1 = new TranslateTransform3D(-0.1f, -0.5f * fa, -0.01f);
+                    GeomModel3_UY1.Transform = Translate3D_UY1;
+                    model_gr.Children.Add(GeomModel3_UY1);
+
+                    GeometryModel3D GeomModel3_UY2 = new GeometryModel3D();
+                    GeomModel3_UY2 = volaux.CreateM_3D_G_Volume_8Edges(0.02f, fa, 0.02f, new DiffuseMaterial(brushY));
+                    TranslateTransform3D Translate3D_UY2;
+                    Translate3D_UY2 = new TranslateTransform3D(fa - 0.1f, -0.5f * fa, -0.01f);
+                    GeomModel3_UY2.Transform = Translate3D_UY2;
+                    model_gr.Children.Add(GeomModel3_UY2);
+
+
                 }
 
                 // Translation release in local z-axis
