@@ -21,6 +21,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMat = new CMat_00[1];
             m_arrCrSc = new CRSC.CCrSc[1];
             m_arrNSupports = new BaseClasses.CNSupport[2];
+            m_arrNReleases = new BaseClasses.CNRelease[2];
             m_arrNLoads = new BaseClasses.CNLoad[2];
 
             // Materials
@@ -30,7 +31,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
 
-            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.8f, 0.5f); // Solid square section
+            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.02f, 0.01f); // Solid square section
 
             // Nodes
             // Nodes List - Nodes Array
@@ -68,6 +69,13 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Sort by ID
             //Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
+
+            // Member Releases
+
+            bool?[] bRelease1 = { false, false, false, true, true, true };
+            bool?[] bRelease2 = { false, true, true, true, false, true };
+            m_arrNReleases[0] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeStart, m_arrMembers[0], bRelease1, 0);
+            m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
 
             // Nodal Loads
             m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 2.5f, true, 0);
