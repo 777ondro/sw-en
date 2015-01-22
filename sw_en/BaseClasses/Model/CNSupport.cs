@@ -88,6 +88,16 @@ namespace BaseClasses
             float fa = 0.2f; // Dimension in x / y
             float fh = 0.1f; // Dimension in z
 
+            if (m_bRestrain[(int)ENSupportType.eNST_Ux] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Uy] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Uz] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Rx] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Ry] == false &&
+                m_bRestrain[(int)ENSupportType.eNST_Rz] == false) // No restraint
+            {
+                return null;
+            }
+
             if (m_bRestrain[(int)ENSupportType.eNST_Ux] == true &&
                 m_bRestrain[(int)ENSupportType.eNST_Uy] == true &&
                 m_bRestrain[(int)ENSupportType.eNST_Uz] == true &&

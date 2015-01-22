@@ -265,6 +265,27 @@ namespace sw_en_GUI
                       if (cmodel.m_arrNSupports[i] != null && cmodel.m_arrNSupports[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
                       {
                           gr.Children.Add(cmodel.m_arrNSupports[i].CreateM_3D_G_NSupport()); // Add solid to model group
+
+                          // Set support for all assigned nodes
+
+
+                      }
+                  }
+              }
+
+              if (cmodel.m_arrNReleases != null) // Some nodal supports exist
+              {
+                  // Model Groups of Nodal Suports
+                  for (int i = 0; i < cmodel.m_arrNReleases.Length; i++)
+                  {
+                      if (cmodel.m_arrNReleases[i] != null && cmodel.m_arrNReleases[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
+                      {
+                          gr.Children.Add(cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease()); // Add solid to model group
+
+                          // Set release for all assigned members (member nodes)
+
+
+
                       }
                   }
               }
@@ -277,6 +298,8 @@ namespace sw_en_GUI
                       if (cmodel.m_arrNLoads[i] != null && cmodel.m_arrNLoads[i].BIsDisplayed == true) // Load object is valid (not empty) and should be displayed
                       {
                           gr.Children.Add(cmodel.m_arrNLoads[i].CreateM_3D_G_NLoad()); // Add solid to model group
+
+                          // Set load for all assigned nodes
                       }
                   }
               }
