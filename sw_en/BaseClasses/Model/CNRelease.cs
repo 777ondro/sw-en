@@ -194,7 +194,7 @@ namespace BaseClasses
                     GeometryModel3D GeomModel3_UY1 = new GeometryModel3D();
                     GeomModel3_UY1 = volaux.CreateM_3D_G_Volume_8Edges(fa, 0.02f, 0.02f, new DiffuseMaterial(brushY));
                     TranslateTransform3D Translate3D_UY1;
-                    Translate3D_UY1 = new TranslateTransform3D(-0.01f, -0.5f * fa, -0.01f);
+                    Translate3D_UY1 = new TranslateTransform3D(-0.5f * fa + 0.1f, - 0.5f * fa, -0.01f);
                     Transform3DGroup Trans3DGroup1 = new Transform3DGroup();
                     Trans3DGroup1.Children.Add(RotateTrans3D_AUX);
                     Trans3DGroup1.Children.Add(Translate3D_UY1);
@@ -204,7 +204,7 @@ namespace BaseClasses
                     GeometryModel3D GeomModel3_UY2 = new GeometryModel3D();
                     GeomModel3_UY2 = volaux.CreateM_3D_G_Volume_8Edges(fa, 0.02f, 0.02f, new DiffuseMaterial(brushY));
                     TranslateTransform3D Translate3D_UY2;
-                    Translate3D_UY2 = new TranslateTransform3D(- fa + 0.01f, -0.5f * fa, -0.01f);
+                    Translate3D_UY2 = new TranslateTransform3D(0.5f * fa - 0.1f, -0.5f * fa, -0.01f);
                     Transform3DGroup Trans3DGroup2 = new Transform3DGroup();
                     Trans3DGroup2.Children.Add(RotateTrans3D_AUX);
                     Trans3DGroup2.Children.Add(Translate3D_UY2);
