@@ -78,8 +78,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
 
             // Nodal Loads
-            m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 2.5f, true, 0);
-            m_arrNLoads[1] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mx, 2f, true, 0);
+            m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 1.0f, true, 0);
+            m_arrNLoads[1] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mx, 1.0f, true, 0);
         }
     }
 }

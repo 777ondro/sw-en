@@ -216,6 +216,7 @@ namespace BaseClasses
                     model_gr.Children.Add(GeomModel3_UY2);
                     */
 
+                    /*
                     GeometryModel3D GeomModel3_UY1 = new GeometryModel3D();
                     GeomModel3_UY1 = volaux.CreateM_3D_G_Volume_8Edges(0.02f, fa, 0.02f, new DiffuseMaterial(brushY));
                     TranslateTransform3D Translate3D_UY1;
@@ -229,8 +230,15 @@ namespace BaseClasses
                     Translate3D_UY2 = new TranslateTransform3D(fa - 0.1f, -0.5f * fa, -0.01f);
                     GeomModel3_UY2.Transform = Translate3D_UY2;
                     model_gr.Children.Add(GeomModel3_UY2);
+                    */
 
+                    GeometryModel3D GeomModel3_UY1 = new GeometryModel3D();
+                    GeomModel3_UY1 = volaux.CreateM_3D_G_Volume_8Edges(new Point3D(-0.5f * fa + 0.1f, -0.5f * fa, -0.01f), 0.02f, fa, 0.02f, new DiffuseMaterial(brushY));
+                    model_gr.Children.Add(GeomModel3_UY1);
 
+                    GeometryModel3D GeomModel3_UY2 = new GeometryModel3D();
+                    GeomModel3_UY2 = volaux.CreateM_3D_G_Volume_8Edges(new Point3D(0.5f * fa - 0.1f, -0.5f * fa, -0.01f), 0.02f, fa, 0.02f, new DiffuseMaterial(brushY));
+                    model_gr.Children.Add(GeomModel3_UY2);
                 }
 
                 // Translation release in local z-axis

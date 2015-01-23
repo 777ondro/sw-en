@@ -8,7 +8,7 @@ using System.Windows.Media.Media3D;
 
 namespace BaseClasses.GraphObj.Objects_3D
 {
-    public class StraightLineArrow3D
+    public class Arrow3DTip
     {
         public float fTip_X;
         public float fTip_Y;
@@ -25,20 +25,18 @@ namespace BaseClasses.GraphObj.Objects_3D
 
         const int number_of_segments = 72;
 
-        public StraightLineArrow3D()
+        public Arrow3DTip()
         { }
 
-        public StraightLineArrow3D(float tip_X, float tip_Y, float tip_Z, float totalHeight)
+        public Arrow3DTip(float tip_X, float tip_Y, float tip_Z, float coneHeight)
         {
             fTip_X = tip_X;
             fTip_Y = tip_Y;
             fTip_Z = tip_Z;
-            fTotalHeight = totalHeight;
 
-            fConeHeight = 0.2f * fTotalHeight;
-            fCylinderHeight = fTotalHeight - fConeHeight;
+            fConeHeight = coneHeight;
 
-            AnnulusPoints(tip_X, tip_Y, totalHeight * 0.005f, totalHeight * 0.05f);
+            AnnulusPoints(tip_X, tip_Y, fConeHeight * 0.025f, fConeHeight * 0.25f);
         }
 
         float[,] GetCircleCoordinates(float x0, float y0, float fr)
@@ -72,20 +70,13 @@ namespace BaseClasses.GraphObj.Objects_3D
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], fConeHeight));
+                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], 0));
             }
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], fConeHeight));
+                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], 0));
             }
-
-            for (int i = 0; i < number_of_segments; i++)
-            {
-                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], fTotalHeight));
-            }
-
-            cPointsCollection.Add(new Point3D(fTip_X, fTip_Y, fTotalHeight)); // Top middle point
 
             return cPointsCollection;
         }
@@ -120,38 +111,6 @@ namespace BaseClasses.GraphObj.Objects_3D
                 else // last
                 {
                     CreateRectangle_CCW(cArrowIndices, i + 1, 1, 1 + number_of_segments, i + 1 + number_of_segments);
-                }
-            }
-
-            // Rozna orientacia normal !!!
-            // shell
-            for (int i = 0; i < number_of_segments; i++)
-            {
-                if (i < number_of_segments - 1)
-                {
-                    CreateRectangle_CW(cArrowIndices, i + 1 + number_of_segments, i + 1 + 2 * number_of_segments, i + 2 + 2 * number_of_segments, i + 2 + number_of_segments);
-                }
-                else // last
-                {
-                    CreateRectangle_CW(cArrowIndices, 2 * number_of_segments, 3 * number_of_segments, i + 2 + number_of_segments, i + 2);
-                }
-            }
-
-            // Rozna orientacia normal !!!
-            // Top surface
-            for (int i = 0; i < number_of_segments; i++)
-            {
-                if (i < number_of_segments - 1)
-                {
-                    cArrowIndices.Add(3 * number_of_segments + 1);
-                    cArrowIndices.Add(i + 1 + 2 * number_of_segments);
-                    cArrowIndices.Add(i + 2 + 2 * number_of_segments);
-                }
-                else // last
-                {
-                    cArrowIndices.Add(3 * number_of_segments + 1);
-                    cArrowIndices.Add(3 * number_of_segments);
-                    cArrowIndices.Add(2 * number_of_segments + 1);
                 }
             }
 

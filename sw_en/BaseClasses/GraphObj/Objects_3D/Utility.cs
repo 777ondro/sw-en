@@ -67,7 +67,7 @@ namespace BaseClasses.GraphObj.Objects_3D
 
         public static void CreateRectangleFaceMartin(
     Point3D p0, Point3D p1, Point3D p2, Point3D p3,
-    Color surfaceColor, Model3DGroup gr)
+    Color surfaceColor, float fOpacity, Model3DGroup gr)
         {
             MeshGeometry3D mesh = new MeshGeometry3D();
             mesh.Positions.Add(p0);
@@ -82,6 +82,7 @@ namespace BaseClasses.GraphObj.Objects_3D
             mesh.TriangleIndices.Add(0);
             SolidColorBrush brush = new SolidColorBrush();
             brush.Color = surfaceColor;
+            brush.Opacity = fOpacity;
             Material material = new DiffuseMaterial(brush);
             GeometryModel3D geometry = new GeometryModel3D(mesh, material);
             gr.Children.Add(geometry);

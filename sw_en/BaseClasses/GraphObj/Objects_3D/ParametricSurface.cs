@@ -27,6 +27,7 @@ namespace BaseClasses.GraphObj.Objects_3D
         private double zmax = 1;
         private Color lineColor = Colors.Black;
         private Color surfaceColor = Colors.White;
+        private float fOpacity;
         private Point3D center = new Point3D();
         private bool isHiddenLine = false;
         private bool isWireframe = true;
@@ -61,6 +62,11 @@ namespace BaseClasses.GraphObj.Objects_3D
         {
             get { return surfaceColor; }
             set { surfaceColor = value; }
+        }
+        public float FOpacity
+        {
+            get { return fOpacity; }
+            set { fOpacity = value; }
         }
         public double Umin
         {
@@ -141,11 +147,13 @@ namespace BaseClasses.GraphObj.Objects_3D
             set { group3d = value; }
         }
 
-        public ParametricSurface(double mainradius, double radius, Color cSurfaceColor)
+        public ParametricSurface(double mainradius, double radius, Color cSurfaceColor, float fOpacity, Point3D pCenterPoint)
         {
             SurfaceColor = cSurfaceColor;
+            FOpacity = fOpacity;
             Mainradius = mainradius;
             Radius = radius;
+            Center = pCenterPoint;
         }
 
         public Point3D Torus(double u, double v, double mainradius, double radius)
@@ -197,7 +205,7 @@ namespace BaseClasses.GraphObj.Objects_3D
                     // Martin
                     Utility.CreateRectangleFaceMartin(
                         p[0], p[1], p[2], p[3],
-                        SurfaceColor, Group3D);
+                        SurfaceColor, FOpacity, Group3D);
 
                     // Create wireframe:
                     if (IsWireframe == true)

@@ -59,6 +59,7 @@ namespace BaseClasses
 
             if (NLoadType == ENLoadType.eNLT_Fx || NLoadType == ENLoadType.eNLT_Fy || NLoadType == ENLoadType.eNLT_Fz)
             {
+                // Tip (cone height id 20% from force value)
                 StraightLineArrow3D arrow = new StraightLineArrow3D(Node.X, Node.Y, Node.Z, Value);
                 GeometryModel3D model = new GeometryModel3D();
                 MeshGeometry3D mesh = new MeshGeometry3D();
@@ -67,17 +68,37 @@ namespace BaseClasses
                 mesh.TriangleIndices = arrow.GetArrowIndices();
                 model.Geometry = mesh;
 
-                m_Color = Color.FromRgb(0, 254, 0);
-                m_fOpacity = 0.8f;
+                m_Color = Color.FromRgb(200, 100, 0);
+                m_fOpacity = 0.9f;
                 m_Material.Brush = new SolidColorBrush(m_Color);
+                m_Material.Brush.Opacity = m_fOpacity;
                 model.Material = m_Material;
 
                 model_gr.Children.Add(model);  // Straight
             }
             else
             {
-                CurvedLineArrow3D carrow = new CurvedLineArrow3D(Node.X, Node.Y, Node.Z, Value, Color.FromRgb(10, 255, 10));
-                model_gr.Children.Add(carrow.GetTorus3DGroup());  // Curved
+                m_Color = Color.FromRgb(200, 100, 0);
+                m_fOpacity = 0.9f;
+                m_Material.Brush = new SolidColorBrush(m_Color);
+                m_Material.Brush.Opacity = m_fOpacity;
+
+                // Arc
+                CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(Node.X, Node.Y, Node.Z), Value, m_Color, m_fOpacity);
+                model_gr.Children.Add(cArrowArc.GetTorus3DGroup());  // Add curved segment (arc)
+
+                // Tip (cone height id 20% from moment value)
+                Arrow3DTip cArrowTip = new Arrow3DTip(Node.X + Value, Node.Y, Node.Z - 0.2f * Value, 0.2f * Value);
+
+                GeometryModel3D model = new GeometryModel3D();
+                MeshGeometry3D mesh = new MeshGeometry3D();
+
+                mesh.Positions = cArrowTip.GetArrowPoints();
+                mesh.TriangleIndices = cArrowTip.GetArrowIndices();
+                model.Geometry = mesh;
+                model.Material = m_Material;
+
+                model_gr.Children.Add(model); // Add tip
             }
 
             return model_gr;
