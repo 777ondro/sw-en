@@ -83,7 +83,7 @@ namespace BaseClasses
         }
     }*/
 
-    public class PointVisual3D:ModelVisual3D
+    public class PointVisual3D : ModelVisual3D
     {
         private readonly GeometryModel3D _model;
         private readonly MeshGeometry3D _mesh;
@@ -108,6 +108,8 @@ namespace BaseClasses
                 return;
             }
 
+
+            // spristupnit mainwindow !!!!!!!!!!
             /*
             if (UpdateTransforms() && MainWindow.mousedown == false)
             {
