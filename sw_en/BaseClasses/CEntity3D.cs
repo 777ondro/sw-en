@@ -29,12 +29,37 @@ namespace BaseClasses
         //----------------------------------------------------------------------------------------------------------------
         public CEntity3D() { }
 
-        /*
-        public Model3DGroup Build3DModel()
+        public void Transform3D_OnMemberEntity_fromLCStoGCS(Model3DGroup modelgroup, CMember member)
         {
-            return MObject3DModel;
-        }
-        */
+            Transform3DGroup Trans3DGroup = new Transform3DGroup();
+            RotateTransform3D RotateTrans3D_AUX_Y = new RotateTransform3D();
+            RotateTransform3D RotateTrans3D_AUX_Z = new RotateTransform3D();
 
+            double dAlphaX = 0;
+            double dBetaY = 0;
+            double dGammaZ = 0;
+            double dBetaY_aux = 0;
+            double dGammaZ_aux = 0;
+
+            member.GetRotationAngles(out dAlphaX, out dBetaY, out dGammaZ, out dBetaY_aux, out dGammaZ_aux);
+
+            RotateTrans3D_AUX_Y.Rotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), dBetaY_aux * 180 / Math.PI);
+            //RotateTrans3D_AUX_Y.CenterX = 0;
+            //RotateTrans3D_AUX_Y.CenterY = 0;
+            //RotateTrans3D_AUX_Y.CenterZ = 0;
+
+            RotateTrans3D_AUX_Z.Rotation = new AxisAngleRotation3D(new Vector3D(0, 0, 1), dGammaZ_aux * 180 / Math.PI);
+            //RotateTrans3D_AUX_Z.CenterX = 0;
+            //RotateTrans3D_AUX_Z.CenterY = 0;
+            //RotateTrans3D_AUX_Z.CenterZ = 0;
+
+            TranslateTransform3D Translate3D_AUX = new TranslateTransform3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
+
+            Trans3DGroup.Children.Add(RotateTrans3D_AUX_Y);
+            Trans3DGroup.Children.Add(RotateTrans3D_AUX_Z);
+            Trans3DGroup.Children.Add(Translate3D_AUX);
+
+            modelgroup.Transform = Trans3DGroup;
+        }
     }
 }

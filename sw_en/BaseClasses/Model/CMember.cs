@@ -247,21 +247,18 @@ namespace BaseClasses
             mesh.Positions = new Point3DCollection();
 
             // Main Nodes of Member
-            Point3D m_pA = mpA;
-            Point3D m_pB = mpB;
-
-            // Angle of rotation about local x-axis
-            double m_dTheta_x = dTheta_x;
+            Point3D pA = mpA;
+            Point3D pB = mpB;
 
             // Priemet do osi GCS - rozdiel suradnic v GCS
-            double m_dDelta_X = m_pB.X - m_pA.X;
-            double m_dDelta_Y = m_pB.Y - m_pA.Y;
-            double m_dDelta_Z = m_pB.Z - m_pA.Z;
+            double dDelta_X = pB.X - pA.X;
+            double dDelta_Y = pB.Y - pA.Y;
+            double dDelta_Z = pB.Z - pA.Z;
 
             // Realna dlzka prvku // Length of member - straigth segment of member
             // Prečo je záporná ???
             // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-            double m_dLength = Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;
@@ -396,7 +393,7 @@ namespace BaseClasses
                 System.Console.Write(sOutput); // Write in console window
 
             // Transform coordinates
-            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, mesh.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, mesh.Positions);
 
             // Mesh Triangles - various cross-sections shapes defined
             mesh.TriangleIndices = obj_CrScA.TriangleIndices;
@@ -471,21 +468,18 @@ namespace BaseClasses
             meshBackSide.Positions = new Point3DCollection();
 
             // Main Nodes of Member
-            Point3D m_pA = mpA;
-            Point3D m_pB = mpB;
-
-            // Angle of rotation about local x-axis
-            double m_dTheta_x = dTheta_x;
+            Point3D pA = mpA;
+            Point3D pB = mpB;
 
             // Priemet do osi GCS - rozdiel suradnic v GCS
-            double m_dDelta_X = m_pB.X - m_pA.X;
-            double m_dDelta_Y = m_pB.Y - m_pA.Y;
-            double m_dDelta_Z = m_pB.Z - m_pA.Z;
+            double dDelta_X = pB.X - pA.X;
+            double dDelta_Y = pB.Y - pA.Y;
+            double dDelta_Z = pB.Z - pA.Z;
 
             // Realna dlzka prvku // Length of member - straigth segment of member
             // Prečo je záporná ???
             // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-            double m_dLength = Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;
@@ -527,9 +521,9 @@ namespace BaseClasses
 
 
             // Transform coordinates
-            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
-            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshShell.Positions);
-            TransformMember_LCStoGCS(eGCS, m_pA, m_pB, m_dDelta_X, m_dDelta_Y, m_dDelta_Z, m_dTheta_x, meshBackSide.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshShell.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshBackSide.Positions);
 
             // Mesh Triangles - various cross-sections shapes defined
             //mesh.TriangleIndices = obj_CrScA.TriangleIndices;
@@ -579,6 +573,7 @@ namespace BaseClasses
                 System.Console.Write("Length - global Y-axis:\t" + dDeltaY.ToString("0.000") + "\n"); // Write length in Y-axis
                 System.Console.Write("Length - global Z-axis:\t" + dDeltaZ.ToString("0.000") + "\n\n"); // Write length in Z-axis
             }
+
             // Uhly pootocenia LCS okolo osi GCS
             // Angles
             dAlphaX = Geom2D.GetAlpha2D_CW(dDeltaY, dDeltaZ);
@@ -614,6 +609,39 @@ namespace BaseClasses
             }
 
             return pointsCollection;
+        }
+
+        public void GetRotationAngles(out double dAlphaX, out double dBetaY, out double dGammaZ, out double dBetaY_aux, out double dGammaZ_aux)
+        {
+            Point3D pA = new Point3D (NodeStart.X, NodeStart.Y, NodeStart.Z);
+            Point3D pB = new Point3D(NodeEnd.X, NodeEnd.Y, NodeEnd.Z);
+
+            double dDelta_X = pB.X - pA.X;
+            double dDelta_Y = pB.Y - pA.Y;
+            double dDelta_Z = pB.Z - pA.Z;
+
+            // Uhly pootocenia LCS okolo osi GCS
+            // Angles
+            dAlphaX = Geom2D.GetAlpha2D_CW(dDelta_Y, dDelta_Z);
+            dBetaY = Geom2D.GetAlpha2D_CW_2(dDelta_X, dDelta_Z); // !!! Pre pootocenie okolo Y su pouzite ine kvadranty !!!
+            dGammaZ = Geom2D.GetAlpha2D_CW(dDelta_X, dDelta_Y);
+
+            double dLength_XY = 0;
+
+            if (!MathF.d_equal(dDelta_X, 0.0) || !MathF.d_equal(dDelta_Y, 0.0))
+               dLength_XY = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2));
+
+            // Auxialiary angles for members graphics
+            dBetaY_aux = Geom2D.GetAlpha2D_CW_3(dDelta_X, dDelta_Z, Math.Sqrt(Math.Pow(dLength_XY, 2) + Math.Pow(dDelta_Z, 2)));
+            dGammaZ_aux = dGammaZ;
+
+            if (Math.PI / 2 < dBetaY && dBetaY < 1.5 * Math.PI)
+            {
+                if (dGammaZ < Math.PI)
+                    dGammaZ_aux = dGammaZ + Math.PI;
+                else
+                    dGammaZ_aux = dGammaZ - Math.PI;
+            }
         }
 
         protected Point3D RotatePoint(EGCS eGCS, Point3D pA, Point3D p, double betaY, double gamaZ, double theta_x, double dDeltaX, double dDeltaY, double dDeltaZ)
