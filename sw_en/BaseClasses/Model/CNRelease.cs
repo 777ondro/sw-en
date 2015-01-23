@@ -10,7 +10,7 @@ using BaseClasses.GraphObj;
 namespace BaseClasses
 {
     [Serializable]
-    public class CNRelease : CEntity
+    public class CNRelease : CEntity3D
     {
         //---------------------------------------------------------------------------------
         private CNode m_Node;
