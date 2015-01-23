@@ -79,6 +79,7 @@
     <Compile Include="GraphObj\CPoint.cs" />
     <Compile Include="GraphObj\CArea.cs" />
     <Compile Include="GraphObj\CVolume.cs" />
+    <Compile Include="GraphObj\Objects_3D\Arrow3DTip.cs" />
     <Compile Include="GraphObj\Objects_3D\CStructure_Window.cs" />
     <Compile Include="GraphObj\Objects_3D\CurvedLineArrow3D.cs" />
     <Compile Include="GraphObj\Objects_3D\ParametricSurface.cs" />
