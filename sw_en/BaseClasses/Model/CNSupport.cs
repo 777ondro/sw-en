@@ -195,9 +195,9 @@ namespace BaseClasses
                 }
                 else if (m_bRestrain[(int)ENSupportType.eNST_Rx] == true || m_bRestrain[(int)ENSupportType.eNST_Ry])
                 {
-                    model_gr.Children.Add(volaux.CreateM_G_M_3D_Volume_6Edges_CN(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), fa, fh, new DiffuseMaterial(brush)));
-
-                    GeomModel3Daux = volaux.CreateM_G_M_3D_Volume_Cylinder(new Point3D(m_Node.X, m_Node.Y, m_Node.Z), 0.20f * fa, fa, new DiffuseMaterial(brush));
+                    // Support in point 0,0,0
+                    model_gr.Children.Add(volaux.CreateM_G_M_3D_Volume_6Edges_CN(new Point3D(0, 0, 0), fa, fh, new DiffuseMaterial(brush)));
+                    GeomModel3Daux = volaux.CreateM_G_M_3D_Volume_Cylinder(new Point3D(0, 0, 0), 0.20f * fa, fa, new DiffuseMaterial(brush));
                     RotateTrans3D = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90));
                     Translate3D = new TranslateTransform3D(new Vector3D(0, 0.5f * fa, 0));
 
@@ -219,6 +219,10 @@ namespace BaseClasses
 
                         model_gr.Transform = Trans3DGroup2;
                     }
+
+                    // Translate support from 0,0,0 to supported point coordinates in GCS
+                    Translate3D = new TranslateTransform3D(new Vector3D(Node.X, Node.Y, Node.Z));
+                    model_gr.Transform = Translate3D;
                 }
                 else
                 { }

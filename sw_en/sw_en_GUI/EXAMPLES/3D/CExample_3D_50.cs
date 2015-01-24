@@ -58,8 +58,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             //bool[] bSupport1 = { false, false, false, true, true, true };
             //bool[] bSupport2 = { true, true, true, true, true,true };
 
-            bool[] bSupport1 = { true, false, true, true, true, true };
-            bool[] bSupport2 = { false, true, true, true, false, false };
+            bool[] bSupport1 = { true, false, false, false, false, false};
+            bool[] bSupport2 = { true, true, true, true, false, false };
 
             // Create Support Objects
             // Pozn. Jednym z parametrov by malo byt pole ID uzlov v ktorych je zadefinovana tato podpora
@@ -72,8 +72,8 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Member Releases
 
-            bool?[] bRelease1 = { false, false, false, true, true, true };
-            bool?[] bRelease2 = { false, false, false, false, false, false };
+            bool?[] bRelease1 = { true, true, true, false, false, false };
+            bool?[] bRelease2 = { true, true, true, false, false, false };
             m_arrNReleases[0] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeStart, m_arrMembers[0], bRelease1, 0);
             m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
 
