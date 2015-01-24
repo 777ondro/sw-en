@@ -282,6 +282,7 @@ namespace BaseClasses
                 Translate3D = new TranslateTransform3D(m_Member.FLength - fa, 0f, 0f);
             }
 
+            // Set release position in LCS of member
             model_gr.Transform = Translate3D;
 
             return model_gr;
