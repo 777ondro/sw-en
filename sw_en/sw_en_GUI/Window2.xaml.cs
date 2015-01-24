@@ -264,7 +264,6 @@ namespace sw_en_GUI
                   {
                       if (cmodel.m_arrNSupports[i] != null && cmodel.m_arrNSupports[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
                       {
-                          Model3DGroup m = cmodel.m_arrNSupports[i].CreateM_3D_G_NSupport();
                           gr.Children.Add(cmodel.m_arrNSupports[i].CreateM_3D_G_NSupport()); // Add solid to model group
 
                           // Set support for all assigned nodes
