@@ -87,18 +87,23 @@ namespace BaseClasses
                 CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(Node.X, Node.Y, Node.Z), Value, m_Color, m_fOpacity);
                 model_gr.Children.Add(cArrowArc.GetTorus3DGroup());  // Add curved segment (arc)
 
-                // Tip (cone height id 20% from moment value)
-                Arrow3DTip cArrowTip = new Arrow3DTip(Node.X + Value, Node.Y, Node.Z - 0.2f * Value, 0.2f * Value);
+                // Tip (cone height is 20% from moment value)
+                Arrow3DTip cArrowTip = new Arrow3DTip(0.2f * Value);
 
-                GeometryModel3D model = new GeometryModel3D();
-                MeshGeometry3D mesh = new MeshGeometry3D();
+                GeometryModel3D modelTip = new GeometryModel3D();
+                MeshGeometry3D meshTip = new MeshGeometry3D();
 
-                mesh.Positions = cArrowTip.GetArrowPoints();
-                mesh.TriangleIndices = cArrowTip.GetArrowIndices();
-                model.Geometry = mesh;
-                model.Material = m_Material;
+                meshTip.Positions = cArrowTip.GetArrowPoints();
+                meshTip.TriangleIndices = cArrowTip.GetArrowIndices();
+                modelTip.Geometry = meshTip;
+                modelTip.Material = m_Material;
 
-                model_gr.Children.Add(model); // Add tip
+                TranslateTransform3D TranslateArrowTip= new TranslateTransform3D(Node.X + Value, Node.Y, Node.Z);
+
+                // Translate model points from LCS of Arrow Tip to GCS for each point in Point3Dcollection
+                modelTip.Transform = TranslateArrowTip;
+
+                model_gr.Children.Add(modelTip); // Add tip model to arrow model group
             }
 
             return model_gr;
