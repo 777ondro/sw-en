@@ -44,14 +44,17 @@ namespace BaseClasses
             member.GetRotationAngles(out dAlphaX, out dBetaY, out dGammaZ, out dBetaY_aux, out dGammaZ_aux);
 
             RotateTrans3D_AUX_Y.Rotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), dBetaY_aux * 180 / Math.PI);
-            //RotateTrans3D_AUX_Y.CenterX = 0;
-            //RotateTrans3D_AUX_Y.CenterY = 0;
-            //RotateTrans3D_AUX_Y.CenterZ = 0;
+            RotateTrans3D_AUX_Y.CenterX = 0;
+            RotateTrans3D_AUX_Y.CenterY = 0;
+            RotateTrans3D_AUX_Y.CenterZ = 0;
 
             RotateTrans3D_AUX_Z.Rotation = new AxisAngleRotation3D(new Vector3D(0, 0, 1), dGammaZ_aux * 180 / Math.PI);
-            //RotateTrans3D_AUX_Z.CenterX = 0;
-            //RotateTrans3D_AUX_Z.CenterY = 0;
-            //RotateTrans3D_AUX_Z.CenterZ = 0;
+            RotateTrans3D_AUX_Z.CenterX = 0;
+            RotateTrans3D_AUX_Z.CenterY = 0;
+            RotateTrans3D_AUX_Z.CenterZ = 0;
+
+            // Klb na konci pruta - Otoci sa v podstate spravne, ale umiestni sa na zaciatku pruta ?!
+            // Oba klby na zaciatku aj na konci sa teda vykresluju na zaciatku
 
             TranslateTransform3D Translate3D_AUX = new TranslateTransform3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
 

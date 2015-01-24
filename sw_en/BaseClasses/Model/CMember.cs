@@ -605,7 +605,7 @@ namespace BaseClasses
 
             for (int i = 0; i < pointsCollection.Count; i++)
             {
-                pointsCollection[i] = RotatePoint(eGCS, pA, pointsCollection[i], dBetaY_aux, dGammaZ_aux, dTheta_x, dDeltaX, dDeltaY, dDeltaZ);
+                pointsCollection[i] = RotateTranslatePoint3D(eGCS, pA, pointsCollection[i], dBetaY_aux, dGammaZ_aux, dTheta_x, dDeltaX, dDeltaY, dDeltaZ);
             }
 
             return pointsCollection;
@@ -644,7 +644,7 @@ namespace BaseClasses
             }
         }
 
-        protected Point3D RotatePoint(EGCS eGCS, Point3D pA, Point3D p, double betaY, double gamaZ, double theta_x, double dDeltaX, double dDeltaY, double dDeltaZ)
+        public Point3D RotateTranslatePoint3D(EGCS eGCS, Point3D pA, Point3D p, double betaY, double gamaZ, double theta_x, double dDeltaX, double dDeltaY, double dDeltaZ)
         {
             Point3D p3Drotated = new Point3D();
 
