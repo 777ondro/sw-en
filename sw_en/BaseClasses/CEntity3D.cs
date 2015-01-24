@@ -62,6 +62,11 @@ namespace BaseClasses
             Trans3DGroup.Children.Add(RotateTrans3D_AUX_Z);
             Trans3DGroup.Children.Add(Translate3D_AUX);
 
+            // Uhly su nula, suradnice posunu su nula a predsa sa bounds v model3Dgroup zmenia ?!
+            Model3DGroup mg = new Model3DGroup();
+            mg = modelgroup;
+            mg.Transform = Trans3DGroup;
+
             modelgroup.Transform = Trans3DGroup;
         }
     }
