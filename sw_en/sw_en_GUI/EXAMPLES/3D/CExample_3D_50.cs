@@ -72,7 +72,7 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Member Releases
 
-            bool?[] bRelease1 = { true, true, true, false, false, false };
+            bool?[] bRelease1 = { true, false, false, false, false, false };
             bool?[] bRelease2 = { true, true, true, false, false, false };
             m_arrNReleases[0] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeStart, m_arrMembers[0], bRelease1, 0);
             m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
