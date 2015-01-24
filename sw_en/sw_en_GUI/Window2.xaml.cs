@@ -281,9 +281,12 @@ namespace sw_en_GUI
                       if (cmodel.m_arrNReleases[i] != null && cmodel.m_arrNReleases[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
                       {
                           // Transform modelgroup from LCS to GCS
-                          cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease(), cmodel.m_arrNReleases[i].Member);
 
-                          gr.Children.Add(cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease()); // Add solid to model group
+                          Model3DGroup model_gr = new Model3DGroup();
+                          model_gr = cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease();
+                          cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrNReleases[i].Member);
+
+                          gr.Children.Add(model_gr); // Add Release to model group
 
                           // Set release for all assigned members (member nodes)
 
