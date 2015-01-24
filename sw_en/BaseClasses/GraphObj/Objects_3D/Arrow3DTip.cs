@@ -10,10 +10,6 @@ namespace BaseClasses.GraphObj.Objects_3D
 {
     public class Arrow3DTip
     {
-        public float fTip_X;
-        public float fTip_Y;
-        public float fTip_Z;
-
         public float fConeHeight;
         public float fCylinderHeight;
         public float fTotalHeight;
@@ -28,54 +24,50 @@ namespace BaseClasses.GraphObj.Objects_3D
         public Arrow3DTip()
         { }
 
-        public Arrow3DTip(float tip_X, float tip_Y, float tip_Z, float coneHeight)
+        public Arrow3DTip(float coneHeight)
         {
-            fTip_X = tip_X;
-            fTip_Y = tip_Y;
-            fTip_Z = tip_Z;
-
             fConeHeight = coneHeight;
 
-            AnnulusPoints(tip_X, tip_Y, fConeHeight * 0.025f, fConeHeight * 0.25f);
+            AnnulusPoints(fConeHeight * 0.025f, fConeHeight * 0.25f);
         }
 
-        float[,] GetCircleCoordinates(float x0, float y0, float fr)
+        float[,] GetCircleCoordinates(float fr)
         {
             float[,] fCirclePoints = new float[number_of_segments, 2];
 
             for (int i = 0; i < number_of_segments; i++)
             {
                 float theta = 2.0f * (float)Math.PI * i / number_of_segments;
-                fCirclePoints[i, 0] = x0 + fr * (float)Math.Cos(theta);
-                fCirclePoints[i, 1] = y0 + fr * (float)Math.Sin(theta);
+                fCirclePoints[i, 0] = fr * (float)Math.Cos(theta);
+                fCirclePoints[i, 1] = fr * (float)Math.Sin(theta);
             }
 
             return fCirclePoints;
         }
 
-        void AnnulusPoints(float x0, float y0, float fr_in, float fr_out)
+        void AnnulusPoints(float fr_in, float fr_out)
         {
             fAnnulusOutPoints = new float[number_of_segments, 2];
             fAnnulusInPoints = new float[number_of_segments, 2];
 
-            fAnnulusOutPoints = GetCircleCoordinates(x0, y0, fr_out);
-            fAnnulusInPoints = GetCircleCoordinates(x0, y0, fr_in);
+            fAnnulusOutPoints = GetCircleCoordinates(fr_out);
+            fAnnulusInPoints = GetCircleCoordinates(fr_in);
         }
 
         public Point3DCollection GetArrowPoints()
         {
             Point3DCollection cPointsCollection = new Point3DCollection(1 + 3 * number_of_segments + 1);
 
-            cPointsCollection.Add(new Point3D(fTip_X, fTip_Y, fTip_Z)); // Tip
+            cPointsCollection.Add(new Point3D(0, 0, 0)); // Tip
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], 0));
+                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], fConeHeight));
             }
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], 0));
+                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], fConeHeight));
             }
 
             return cPointsCollection;
