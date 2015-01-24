@@ -284,7 +284,7 @@ namespace sw_en_GUI
 
                           Model3DGroup model_gr = new Model3DGroup();
                           model_gr = cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease();
-                          cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrNReleases[i].Member);
+                          model_gr = cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrNReleases[i].Member);
 
                           gr.Children.Add(model_gr); // Add Release to model group
 

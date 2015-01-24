@@ -29,12 +29,8 @@ namespace BaseClasses
         //----------------------------------------------------------------------------------------------------------------
         public CEntity3D() { }
 
-        public void Transform3D_OnMemberEntity_fromLCStoGCS(Model3DGroup modelgroup, CMember member)
+        public Model3DGroup Transform3D_OnMemberEntity_fromLCStoGCS(Model3DGroup modelgroup_original, CMember member)
         {
-            Transform3DGroup Trans3DGroup = new Transform3DGroup();
-            RotateTransform3D RotateTrans3D_AUX_Y = new RotateTransform3D();
-            RotateTransform3D RotateTrans3D_AUX_Z = new RotateTransform3D();
-
             double dAlphaX = 0;
             double dBetaY = 0;
             double dGammaZ = 0;
@@ -42,6 +38,9 @@ namespace BaseClasses
             double dGammaZ_aux = 0;
 
             member.GetRotationAngles(out dAlphaX, out dBetaY, out dGammaZ, out dBetaY_aux, out dGammaZ_aux);
+
+            RotateTransform3D RotateTrans3D_AUX_Y = new RotateTransform3D();
+            RotateTransform3D RotateTrans3D_AUX_Z = new RotateTransform3D();
 
             RotateTrans3D_AUX_Y.Rotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), dBetaY_aux * 180 / Math.PI);
             RotateTrans3D_AUX_Y.CenterX = 0;
@@ -53,21 +52,22 @@ namespace BaseClasses
             RotateTrans3D_AUX_Z.CenterY = 0;
             RotateTrans3D_AUX_Z.CenterZ = 0;
 
-            // Klb na konci pruta - Otoci sa v podstate spravne, ale umiestni sa na zaciatku pruta ?!
-            // Oba klby na zaciatku aj na konci sa teda vykresluju na zaciatku
-
             TranslateTransform3D Translate3D_AUX = new TranslateTransform3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
 
+            Transform3DGroup Trans3DGroup = new Transform3DGroup();
             Trans3DGroup.Children.Add(RotateTrans3D_AUX_Y);
             Trans3DGroup.Children.Add(RotateTrans3D_AUX_Z);
             Trans3DGroup.Children.Add(Translate3D_AUX);
 
-            // Uhly su nula, suradnice posunu su nula a predsa sa bounds v model3Dgroup zmenia a klb sa vykresli na zaciatku nie na konci ?!
-            Model3DGroup mg = new Model3DGroup();
-            mg = modelgroup;
-            mg.Transform = Trans3DGroup;
+            // Objekty na prute s x <> 0
+            // Modelgroup musime pridat ako child do novej modelgroup inak sa "Transform" definovane z 0,0,0 do LCS pruta prepise "Transform" z LCS do GCS
 
-            modelgroup.Transform = Trans3DGroup;
+            Model3DGroup modelgroup_out = new Model3DGroup();
+            modelgroup_out.Children.Add(modelgroup_original);
+            modelgroup_out.Transform = Trans3DGroup;
+
+            // Return transformed model group
+            return modelgroup_out;
         }
     }
 }
