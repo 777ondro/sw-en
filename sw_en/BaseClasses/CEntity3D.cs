@@ -53,11 +53,11 @@ namespace BaseClasses
             //RotateTrans3D_AUX_Z.CenterY = 0;
             //RotateTrans3D_AUX_Z.CenterZ = 0;
 
-            //TranslateTransform3D Translate3D_AUX = new TranslateTransform3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
+            TranslateTransform3D Translate3D_AUX = new TranslateTransform3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
 
-            //Trans3DGroup.Children.Add(RotateTrans3D_AUX_Y);
+            Trans3DGroup.Children.Add(RotateTrans3D_AUX_Y);
             Trans3DGroup.Children.Add(RotateTrans3D_AUX_Z);
-            //Trans3DGroup.Children.Add(Translate3D_AUX);
+            Trans3DGroup.Children.Add(Translate3D_AUX);
 
             modelgroup.Transform = Trans3DGroup;
         }
