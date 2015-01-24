@@ -60,7 +60,7 @@ namespace BaseClasses
             if (NLoadType == ENLoadType.eNLT_Fx || NLoadType == ENLoadType.eNLT_Fy || NLoadType == ENLoadType.eNLT_Fz)
             {
                 // Tip (cone height id 20% from force value)
-                StraightLineArrow3D arrow = new StraightLineArrow3D(Node.X, Node.Y, Node.Z, Value);
+                StraightLineArrow3D arrow = new StraightLineArrow3D(Value);
                 GeometryModel3D model = new GeometryModel3D();
                 MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -73,6 +73,11 @@ namespace BaseClasses
                 m_Material.Brush = new SolidColorBrush(m_Color);
                 m_Material.Brush.Opacity = m_fOpacity;
                 model.Material = m_Material;
+
+                TranslateTransform3D TranslateArrow = new TranslateTransform3D(Node.X, Node.Y, Node.Z);
+
+                // Translate model points from LCS of Arrow to GCS for each point in Point3Dcollection
+                model.Transform = TranslateArrow;
 
                 model_gr.Children.Add(model);  // Straight
             }
