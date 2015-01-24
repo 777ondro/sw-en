@@ -275,23 +275,28 @@ namespace sw_en_GUI
 
               if (cmodel.m_arrNReleases != null) // Some member release exist
               {
-                  // Model Groups of Nodal Suports
+                  // Model Groups of Member Releases
                   for (int i = 0; i < cmodel.m_arrNReleases.Length; i++)
                   {
                       if (cmodel.m_arrNReleases[i] != null && cmodel.m_arrNReleases[i].BIsDisplayed == true) // Support object is valid (not empty) and should be displayed
                       {
-                          // Transform modelgroup from LCS to GCS
+                          /*
+                          for (int j = 0; j < cmodel.m_arrNReleases[i].m_iMembCollection.Length; j++) // Set release for all assigned members (member nodes)
+                          {
+                              Model3DGroup model_gr = new Model3DGroup();
+                              model_gr = cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease();
+                              // Transform modelgroup from LCS to GCS
+                              model_gr = cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrMembers[cmodel.m_arrNReleases[i].m_iMembCollection[j]]);
+
+                              gr.Children.Add(model_gr); // Add Release to model group
+                          }*/
 
                           Model3DGroup model_gr = new Model3DGroup();
                           model_gr = cmodel.m_arrNReleases[i].CreateM_3D_G_MNRelease();
+                          // Transform modelgroup from LCS to GCS
                           model_gr = cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrNReleases[i].Member);
 
                           gr.Children.Add(model_gr); // Add Release to model group
-
-                          // Set release for all assigned members (member nodes)
-
-
-
                       }
                   }
               }

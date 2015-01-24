@@ -13,8 +13,8 @@ namespace BaseClasses
     public class CNRelease : CEntity3D
     {
         //---------------------------------------------------------------------------------
-        private CNode m_Node;
-        private CMember m_Member;
+        private CNode m_Node;  // Musi sa vymazat z tejto triedy a ostane len list of nodes
+        private CMember m_Member;  // Musi sa vymazat z tejto triedy a ostane len list of member
         public int [] m_iMembCollection; // List / Collection of members IDs where release is defined
         public int [] m_iNodeCollection; // List / Collection of nodes IDs where release is defined (need for local stiffeness matrix)
         public bool m_nRelease1;  // true - release in start point of member, false - release in end point
