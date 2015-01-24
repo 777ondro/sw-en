@@ -36,8 +36,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Nodes
             // Nodes List - Nodes Array
 
-            m_arrNodes[0] = new BaseClasses.CNode(1, 0, 0, 0, 0);
-            m_arrNodes[1] = new BaseClasses.CNode(2, 5, 3, 2, 0);
+            m_arrNodes[0] = new BaseClasses.CNode(1, 2, 4, 5, 0);
+            m_arrNodes[1] = new BaseClasses.CNode(2, -5, 3, -2, 0);
 
             // Sort by ID
             //Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
