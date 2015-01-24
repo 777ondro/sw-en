@@ -15,7 +15,8 @@ namespace BaseClasses
     {
         //----------------------------------------------------------------------------
         public int[] m_iNodeCollection; // List / Collection of nodes IDs where support is defined [First member index is 0]
-        private CNode m_Node;
+        private CNode m_Node; // Musi sa vymazat z tejto triedy a ostane len list of nodes
+
         private ENSupportType m_NSupportType;
 
         // Restraints - list of node degreess of freedom
