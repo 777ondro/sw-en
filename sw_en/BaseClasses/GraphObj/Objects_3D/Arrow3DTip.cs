@@ -58,16 +58,16 @@ namespace BaseClasses.GraphObj.Objects_3D
         {
             Point3DCollection cPointsCollection = new Point3DCollection(1 + 3 * number_of_segments + 1);
 
-            cPointsCollection.Add(new Point3D(0, 0, 0)); // Tip
+            cPointsCollection.Add(new Point3D(0, 0, -fConeHeight)); // Tip
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], fConeHeight));
+                cPointsCollection.Add(new Point3D(fAnnulusOutPoints[i, 0], fAnnulusOutPoints[i, 1], 0));
             }
 
             for (int i = 0; i < number_of_segments; i++)
             {
-                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], fConeHeight));
+                cPointsCollection.Add(new Point3D(fAnnulusInPoints[i, 0], fAnnulusInPoints[i, 1], 0));
             }
 
             return cPointsCollection;
