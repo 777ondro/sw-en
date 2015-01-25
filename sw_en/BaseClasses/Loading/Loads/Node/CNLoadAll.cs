@@ -81,7 +81,7 @@ namespace BaseClasses
             FTime = fTime;
         }
 
-        public override Model3DGroup CreateM_3D_G_NLoad()
+        public override Model3DGroup CreateM_3D_G_Load()
         {
             Model3DGroup model_gr = new Model3DGroup();
             // Not implemented

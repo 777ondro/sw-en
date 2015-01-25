@@ -23,6 +23,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNSupports = new BaseClasses.CNSupport[2];
             m_arrNReleases = new BaseClasses.CNRelease[2];
             m_arrNLoads = new BaseClasses.CNLoad[6];
+            m_arrMLoads = new BaseClasses.CMLoad[1];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -84,6 +85,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNLoads[3] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_My, 1.0f, true, 0);
             m_arrNLoads[4] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fz, 1.0f, true, 0);
             m_arrNLoads[5] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mz, 1.0f, true, 0);
+
+            // Member Loads
+            m_arrMLoads[0] = new BaseClasses.CMLoad_12(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12,EMLoadType.eMLT_F,EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
         }
     }
 }
