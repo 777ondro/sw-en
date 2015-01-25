@@ -57,7 +57,33 @@ namespace BaseClasses
         {
             Model3DGroup model_gr = new Model3DGroup();
 
-            if (NLoadType == ENLoadType.eNLT_Fx || NLoadType == ENLoadType.eNLT_Fy || NLoadType == ENLoadType.eNLT_Fz)
+            if (NLoadType == ENLoadType.eNLT_Fx || NLoadType == ENLoadType.eNLT_Mx)
+            {
+                m_Color = Color.FromRgb(240, 0, 0);
+
+                if (Value < 0.0f)
+                    m_Color = Color.FromRgb(200, 0, 0);
+            }
+            else if (NLoadType == ENLoadType.eNLT_Fy || NLoadType == ENLoadType.eNLT_My)
+            {
+                m_Color = Color.FromRgb(0, 240, 0);
+
+                if (Value < 0.0f)
+                    m_Color = Color.FromRgb(0, 200, 0);
+            }
+            else //if (NLoadType == ENLoadType.eNLT_Fz || NLoadType == ENLoadType.eNLT_Mz)
+            {
+                m_Color = Color.FromRgb(0, 0, 240);
+
+                if (Value < 0.0f)
+                    m_Color = Color.FromRgb(0, 0, 200);
+            }
+
+            m_fOpacity = 0.9f;
+            m_Material.Brush = new SolidColorBrush(m_Color);
+            m_Material.Brush.Opacity = m_fOpacity;
+
+            if (NLoadType == ENLoadType.eNLT_Fx || NLoadType == ENLoadType.eNLT_Fy || NLoadType == ENLoadType.eNLT_Fz) // Force
             {
                 // Tip (cone height id 20% from force value)
                 StraightLineArrow3D arrow = new StraightLineArrow3D(Value);
@@ -67,29 +93,13 @@ namespace BaseClasses
                 mesh.Positions = arrow.GetArrowPoints();
                 mesh.TriangleIndices = arrow.GetArrowIndices();
                 model.Geometry = mesh;
-
-                m_Color = Color.FromRgb(200, 100, 0);
-                m_fOpacity = 0.9f;
-                m_Material.Brush = new SolidColorBrush(m_Color);
-                m_Material.Brush.Opacity = m_fOpacity;
                 model.Material = m_Material;
-
-                TranslateTransform3D TranslateArrow = new TranslateTransform3D(Node.X, Node.Y, Node.Z);
-
-                // Translate model points from LCS of Arrow to GCS for each point in Point3Dcollection
-                model.Transform = TranslateArrow;
-
-                model_gr.Children.Add(model);  // Straight
+                model_gr.Children.Add(model);  // Add traight arrow
             }
-            else
+            else // Moment
             {
-                m_Color = Color.FromRgb(200, 100, 0);
-                m_fOpacity = 0.9f;
-                m_Material.Brush = new SolidColorBrush(m_Color);
-                m_Material.Brush.Opacity = m_fOpacity;
-
                 // Arc
-                CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(Node.X, Node.Y, Node.Z), Value, m_Color, m_fOpacity);
+                CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(0, 0, 0), Value, m_Color, m_fOpacity);
                 model_gr.Children.Add(cArrowArc.GetTorus3DGroup());  // Add curved segment (arc)
 
                 // Tip (cone height is 20% from moment value)
@@ -103,13 +113,106 @@ namespace BaseClasses
                 modelTip.Geometry = meshTip;
                 modelTip.Material = m_Material;
 
-                TranslateTransform3D TranslateArrowTip= new TranslateTransform3D(Node.X + Value, Node.Y, Node.Z);
+                TranslateTransform3D TranslateArrowTip= new TranslateTransform3D(Value, 0, 0);
 
-                // Translate model points from LCS of Arrow Tip to GCS for each point in Point3Dcollection
+                // Translate model points from LCS of Arrow Tip to LCS of load
                 modelTip.Transform = TranslateArrowTip;
-
                 model_gr.Children.Add(modelTip); // Add tip model to arrow model group
             }
+
+            // Transform (rotate and translate) load geometry model from LCS to GCS
+
+            RotateTransform3D RotateModel = new RotateTransform3D();
+
+            // Original force model is in z-axis
+            // Original moment model is about y-axis
+
+            Vector3D v = new Vector3D();
+            double dRotationAngle = 0; // In degrees
+
+            if(NLoadType == ENLoadType.eNLT_Fx)
+            {
+               v.Y = 1;
+               v.X = v.Z = 0;
+
+               dRotationAngle = -90;
+
+               if (Value < 0.0f) // If negative value change direction
+               {
+                   dRotationAngle = 90;
+               }
+            }
+            else if(NLoadType == ENLoadType.eNLT_Fy)
+            {
+                v.X = 1;
+                v.Y = v.Z = 0;
+
+                dRotationAngle = 90;
+
+                if (Value < 0.0f) // If negative value change direction
+                {
+                    dRotationAngle = -90;
+                }
+            }
+            else if (NLoadType == ENLoadType.eNLT_Fz)
+            {
+                v.X = 1;
+                v.Y = v.Z = 0;
+
+                dRotationAngle = 180;
+
+                if (Value < 0.0f) // If negative value change direction
+                {
+                  v.X = v.Y = v.Z = 0; // No Rotation
+                  dRotationAngle = 0;
+                }
+            }
+            else if(NLoadType == ENLoadType.eNLT_Mx)
+            {
+                v.Z = 1;
+                v.X = v.Y = 0;
+
+                dRotationAngle = 90;
+
+                if (Value < 0.0f) // If negative value change direction
+                {
+                    dRotationAngle = -90;
+                }
+            }
+            else if (NLoadType == ENLoadType.eNLT_My)
+            {
+                v.X = v.Y = v.Z = 0; // No Rotation
+
+                if (Value < 0.0f) // If negative value change direction
+                {
+                    v.Z = 1;
+                    v.X = v.Z = 0;
+
+                    dRotationAngle = 180;
+                }
+            }
+            else //if(NLoadType == ENLoadType.eNLT_Mz)
+            {
+                v.X = 1;
+                v.Y = v.Z = 0;
+
+                dRotationAngle = 90;
+
+                if (Value < 0.0f) // If negative value change direction
+                {
+                    dRotationAngle = -90;
+                }
+            }
+
+            RotateModel.Rotation = new AxisAngleRotation3D(v, dRotationAngle);
+            TranslateTransform3D TranslateModel = new TranslateTransform3D(Node.X, Node.Y, Node.Z);
+
+            Transform3DGroup Rottransgroup = new Transform3DGroup();
+            Rottransgroup.Children.Add(RotateModel);
+            Rottransgroup.Children.Add(TranslateModel);
+
+            // Translate model from LCS to GCS
+            model_gr.Transform = Rottransgroup;
 
             return model_gr;
         }

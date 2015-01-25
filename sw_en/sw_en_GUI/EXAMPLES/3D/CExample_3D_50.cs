@@ -22,7 +22,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrCrSc = new CRSC.CCrSc[1];
             m_arrNSupports = new BaseClasses.CNSupport[2];
             m_arrNReleases = new BaseClasses.CNRelease[2];
-            m_arrNLoads = new BaseClasses.CNLoad[2];
+            m_arrNLoads = new BaseClasses.CNLoad[6];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -80,6 +80,10 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Nodal Loads
             m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 1.0f, true, 0);
             m_arrNLoads[1] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mx, 1.0f, true, 0);
+            m_arrNLoads[2] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fy, 1.0f, true, 0);
+            m_arrNLoads[3] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_My, 1.0f, true, 0);
+            m_arrNLoads[4] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fz, 1.0f, true, 0);
+            m_arrNLoads[5] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mz, 1.0f, true, 0);
         }
     }
 }
