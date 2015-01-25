@@ -82,6 +82,7 @@
     <Compile Include="GraphObj\Objects_3D\Arrow3DTip.cs" />
     <Compile Include="GraphObj\Objects_3D\CStructure_Window.cs" />
     <Compile Include="GraphObj\Objects_3D\CurvedLineArrow3D.cs" />
+    <Compile Include="GraphObj\Objects_3D\Cylinder.cs" />
     <Compile Include="GraphObj\Objects_3D\ParametricSurface.cs" />
     <Compile Include="GraphObj\Objects_3D\StraightLineArrow.cs" />
     <Compile Include="GraphObj\Objects_3D\Utility.cs" />

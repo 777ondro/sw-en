@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MATH;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace BaseClasses
@@ -37,7 +38,10 @@ namespace BaseClasses
             set { m_eDirPPC = value; }
         }
 
-        public CMember Member = new CMember();
+        public CMember Member = new CMember(); // Temporary
+        public float m_fOpacity;
+        public Color m_Color = new Color(); // Default
+        public DiffuseMaterial m_Material = new DiffuseMaterial();
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -47,6 +51,48 @@ namespace BaseClasses
         public CMLoad()
         {
 
+        }
+
+        public ENLoadType TransformLoadTypefroMemberToPoint(EMLoadDirPCC1 eDirPPC, EMLoadType eMLoadType)
+        {
+            ENLoadType nLoadType = ENLoadType.eNLT_OTHER; // Auxliary
+
+            if (eMLoadType == EMLoadType.eMLT_F) // Force
+            {
+                if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FXX_MXX)
+                {
+                    nLoadType = ENLoadType.eNLT_Fx;
+                }
+                else if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FYU_MZV)
+                {
+                    nLoadType = ENLoadType.eNLT_Fy;
+                }
+                else if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FZV_MYU)
+                {
+                    nLoadType = ENLoadType.eNLT_Fz;
+                }
+            }
+            else if (eMLoadType == EMLoadType.eMLT_M) // Moment
+            {
+                if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FXX_MXX)
+                {
+                    nLoadType = ENLoadType.eNLT_Mx;
+                }
+                else if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FYU_MZV)
+                {
+                    nLoadType = ENLoadType.eNLT_Mz;
+                }
+                else if (eDirPPC == EMLoadDirPCC1.eMLD_PCC_FZV_MYU)
+                {
+                    nLoadType = ENLoadType.eNLT_My;
+                }
+            }
+            else
+            {
+                nLoadType = ENLoadType.eNLT_OTHER;
+            } //Temperature
+
+            return nLoadType;
         }
     }
 }
