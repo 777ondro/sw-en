@@ -19,10 +19,6 @@ namespace BaseClasses
             get { return m_fF; }
             set { m_fF = value; }
         }
-
-        public float m_fOpacity;
-        public Color m_Color = new Color(); // Default
-        public DiffuseMaterial m_Material = new DiffuseMaterial();
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -60,42 +56,7 @@ namespace BaseClasses
         {
             Model3DGroup model_gr = new Model3DGroup();
 
-            ENLoadType nLoadType = ENLoadType.eNLT_OTHER; // Auxliary
-
-            if (MLoadType == EMLoadType.eMLT_F) // Force
-            {
-                if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FXX_MXX)
-                {
-                    nLoadType = ENLoadType.eNLT_Fx;
-                }
-                else if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FYU_MZV)
-                {
-                    nLoadType = ENLoadType.eNLT_Fy;
-                }
-                else if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FZV_MYU)
-                {
-                    nLoadType = ENLoadType.eNLT_Fz;
-                }
-            }
-            else if (MLoadType == EMLoadType.eMLT_M) // Moment
-            {
-                if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FXX_MXX)
-                {
-                    nLoadType = ENLoadType.eNLT_Mx;
-                }
-                else if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FYU_MZV)
-                {
-                    nLoadType = ENLoadType.eNLT_Mz;
-                }
-                else if (EDirPPC == EMLoadDirPCC1.eMLD_PCC_FZV_MYU)
-                {
-                    nLoadType = ENLoadType.eNLT_My;
-                }
-            }
-            else
-            {
-                nLoadType = ENLoadType.eNLT_OTHER;
-            } //Temperature
+            ENLoadType nLoadType = TransformLoadTypefroMemberToPoint(EDirPPC, MLoadType);
 
             return model_gr = CreateM_3D_G_SimpleLoad(new Point3D(0.5f * Member.FLength, 0, 0), nLoadType, m_Color, FF, m_fOpacity, m_Material);
         }

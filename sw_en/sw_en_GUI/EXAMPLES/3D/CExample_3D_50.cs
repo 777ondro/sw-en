@@ -87,7 +87,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNLoads[5] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mz, 1.0f, true, 0);
 
             // Member Loads
-            m_arrMLoads[0] = new BaseClasses.CMLoad_12(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12,EMLoadType.eMLT_F,EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+            //m_arrMLoads[0] = new BaseClasses.CMLoad_12(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12,EMLoadType.eMLT_F,EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+
+            m_arrMLoads[0] = new BaseClasses.CMLoad_21(2.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
         }
     }
 }
