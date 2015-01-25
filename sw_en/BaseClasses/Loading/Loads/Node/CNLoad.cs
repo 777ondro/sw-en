@@ -11,7 +11,7 @@ using BaseClasses.GraphObj.Objects_3D;
 namespace BaseClasses
 {
     [Serializable]
-    public abstract class CNLoad : CEntity
+    public abstract class CNLoad : CLoad
     {
         //----------------------------------------------------------------------------
         private int m_iNLoad_ID;
@@ -49,13 +49,6 @@ namespace BaseClasses
             Node = nNode;
             BIsDisplayed = bIsDisplayed;
             FTime = fTime;
-        }
-
-        public virtual Model3DGroup CreateM_3D_G_NLoad()
-        {
-            Model3DGroup model_gr = new Model3DGroup();
-            // Not implemented
-            return model_gr;
         }
     }
 }

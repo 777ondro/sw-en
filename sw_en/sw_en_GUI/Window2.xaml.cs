@@ -297,6 +297,8 @@ namespace sw_en_GUI
                           model_gr = cmodel.m_arrNReleases[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrNReleases[i].Member);
 
                           gr.Children.Add(model_gr); // Add Release to model group
+
+
                       }
                   }
               }
@@ -308,9 +310,32 @@ namespace sw_en_GUI
                   {
                       if (cmodel.m_arrNLoads[i] != null && cmodel.m_arrNLoads[i].BIsDisplayed == true) // Load object is valid (not empty) and should be displayed
                       {
-                          gr.Children.Add(cmodel.m_arrNLoads[i].CreateM_3D_G_NLoad()); // Add solid to model group
+                          gr.Children.Add(cmodel.m_arrNLoads[i].CreateM_3D_G_Load()); // Add to model group
 
                           // Set load for all assigned nodes
+
+
+                      }
+                  }
+              }
+
+              if (cmodel.m_arrMLoads != null) // Some member loads exist
+              {
+                  // Model Groups of Member Loads
+                  for (int i = 0; i < cmodel.m_arrMLoads.Length; i++)
+                  {
+                      if (cmodel.m_arrMLoads[i] != null && cmodel.m_arrMLoads[i].BIsDisplayed == true) // Load object is valid (not empty) and should be displayed
+                      {
+                          Model3DGroup model_gr = new Model3DGroup();
+                          model_gr = cmodel.m_arrMLoads[i].CreateM_3D_G_Load();
+                          // Transform modelgroup from LCS to GCS
+                          model_gr = cmodel.m_arrMLoads[i].Transform3D_OnMemberEntity_fromLCStoGCS(model_gr, cmodel.m_arrMLoads[i].Member);
+
+                          gr.Children.Add(model_gr); // Add Release to model group
+
+                          // Set load for all assigned member
+
+
                       }
                   }
               }

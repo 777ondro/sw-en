@@ -76,7 +76,8 @@ namespace BaseClasses
         eNLT_Fz,
         eNLT_Mx,
         eNLT_My,
-        eNLT_Mz
+        eNLT_Mz,
+        eNLT_OTHER
     }
     //----------------------------------------------------------------------------
     public enum ENSupportType
