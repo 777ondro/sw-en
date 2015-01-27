@@ -23,7 +23,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNSupports = new BaseClasses.CNSupport[2];
             m_arrNReleases = new BaseClasses.CNRelease[2];
             m_arrNLoads = new BaseClasses.CNLoad[6];
-            m_arrMLoads = new BaseClasses.CMLoad[1];
+            m_arrMLoads = new BaseClasses.CMLoad[2];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -89,7 +89,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Member Loads
             //m_arrMLoads[0] = new BaseClasses.CMLoad_12(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12,EMLoadType.eMLT_F,EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
 
-            m_arrMLoads[0] = new BaseClasses.CMLoad_21(2.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+            //m_arrMLoads[0] = new BaseClasses.CMLoad_21(2.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FXX_MXX, true, 0);
+            m_arrMLoads[0] = new BaseClasses.CMLoad_21(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FYU_MZV, true, 0);
+            m_arrMLoads[1] = new BaseClasses.CMLoad_21(1.5f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
         }
     }
 }
