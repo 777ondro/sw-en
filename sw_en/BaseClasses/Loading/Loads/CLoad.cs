@@ -23,24 +23,24 @@ namespace BaseClasses
 
             if (eLoadType == ENLoadType.eNLT_Fx || eLoadType == ENLoadType.eNLT_Mx)
             {
-                cColor = Color.FromRgb(240, 0, 0);
+                cColor = Color.FromRgb(200, 0, 0);
 
                 if (fValue < 0.0f)
-                    cColor = Color.FromRgb(200, 0, 0);
+                    cColor = Color.FromRgb(150, 0, 0);
             }
             else if (eLoadType == ENLoadType.eNLT_Fy || eLoadType == ENLoadType.eNLT_My)
             {
-                cColor = Color.FromRgb(0, 240, 0);
+                cColor = Color.FromRgb(0, 200, 0);
 
                 if (fValue < 0.0f)
-                    cColor = Color.FromRgb(0, 200, 0);
+                    cColor = Color.FromRgb(0, 150, 0);
             }
             else //if (NLoadType == ENLoadType.eNLT_Fz || NLoadType == ENLoadType.eNLT_Mz)
             {
-                cColor = Color.FromRgb(0, 0, 240);
+                cColor = Color.FromRgb(0, 0, 200);
 
                 if (fValue < 0.0f)
-                    cColor = Color.FromRgb(0, 0, 200);
+                    cColor = Color.FromRgb(0, 0, 150);
             }
 
             fOpacity = 0.9f;
