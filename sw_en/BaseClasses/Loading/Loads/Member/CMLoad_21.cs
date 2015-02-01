@@ -49,11 +49,10 @@ namespace BaseClasses
             BIsDisplayed = bIsDislayed;
             FTime = fTime;
 
-            m_Color = Color.FromRgb(255, 0, 0);
-            m_fOpacity = 0.9f;
-
-            m_Material.Brush = new SolidColorBrush(m_Color); // Temporary
-            m_Material.Brush.Opacity = m_fOpacity; // Temporary
+            // Set Load Model "material" Color and Opacity - default
+            m_Color = Color.FromRgb(200, 20, 20);
+            m_Material.Brush = new SolidColorBrush(m_Color);
+            m_Material.Brush.Opacity = m_fOpacity = 0.9f;
         }
 
         public override Model3DGroup CreateM_3D_G_Load()
@@ -61,6 +60,11 @@ namespace BaseClasses
             Model3DGroup model_gr = new Model3DGroup();
 
             ENLoadType nLoadType = TransformLoadTypefroMemberToPoint(EDirPPC, MLoadType);
+
+            // Set Load Model "material" Color and Opacity - default
+            m_Color = Color.FromRgb(200, 20, 20);
+            m_Material.Brush = new SolidColorBrush(m_Color);
+            m_Material.Brush.Opacity = m_fOpacity = 0.9f;
 
             float floadarrowsgapcount = 10.0f; // Number of gap arrows (10 gaps, 11 arrows) per member length (not int because we use it to calculate double coordinates)
 

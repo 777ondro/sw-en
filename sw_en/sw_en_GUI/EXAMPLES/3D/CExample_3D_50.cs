@@ -24,6 +24,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNReleases = new BaseClasses.CNRelease[0];
             m_arrNLoads = new BaseClasses.CNLoad[0];
             m_arrMLoads = new BaseClasses.CMLoad[1];
+            m_arrLoadCases = new BaseClasses.CLoadCase[1];
+            m_arrLoadCombs = new BaseClasses.CLoadCombination[1];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -68,6 +70,12 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNSupports[0] = new BaseClasses.CNSupport(6, 1, m_arrNodes[0], bSupport1, 0);
             m_arrNSupports[1] = new BaseClasses.CNSupport(6, 2, m_arrNodes[1], bSupport2, 0);
 
+            m_arrNSupports[0].m_iNodeCollection = new int[1];
+            m_arrNSupports[1].m_iNodeCollection = new int[1];
+
+            m_arrNSupports[0].m_iNodeCollection[0] = m_arrNodes[0].ID;
+            m_arrNSupports[1].m_iNodeCollection[0] = m_arrNodes[1].ID;
+
             // Sort by ID
             //Array.Sort(m_arrNSupports, new BaseClasses.CCompare_NSupportID());
 
@@ -94,6 +102,19 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMLoads[0] = new BaseClasses.CMLoad_21(-0.8f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
             //m_arrMLoads[1] = new BaseClasses.CMLoad_21(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FYU_MZV, true, 0);
             //m_arrMLoads[2] = new BaseClasses.CMLoad_21(1.5f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+
+            m_arrMLoads[0].IMemberCollection = new int[1];
+            m_arrMLoads[0].IMemberCollection[0] = 1;  // Member ID 1 (1-2)
+
+            // Load Cases
+            // Load Case 1
+            m_arrLoadCases[0] = new BaseClasses.CLoadCase();
+            m_arrLoadCases[0].ID = 1;
+
+            // Load Combinations
+            // Load Combination 1
+            m_arrLoadCombs[0] = new BaseClasses.CLoadCombination();
+            m_arrLoadCombs[0].ID = 1;
         }
     }
 }

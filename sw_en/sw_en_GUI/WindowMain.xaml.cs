@@ -805,6 +805,8 @@ namespace sw_en_GUI
             Window2 win = new Window2(model, m_bDebugging);
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 50" + " - Window " + (Container.Children.Count + 1) });
+
+            FEM_CALC_1Din3D.CFEM_CALC obj_Calc = new FEM_CALC_1Din3D.CFEM_CALC(model, m_bDebugging); // Nove vypoctove jadro
             win.Close();
         }
 
