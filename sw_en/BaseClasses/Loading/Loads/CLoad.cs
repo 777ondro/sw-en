@@ -50,7 +50,7 @@ namespace BaseClasses
             if (eLoadType == ENLoadType.eNLT_Fx || eLoadType == ENLoadType.eNLT_Fy || eLoadType == ENLoadType.eNLT_Fz) // Force
             {
                 // Tip (cone height id 20% from force value)
-                StraightLineArrow3D arrow = new StraightLineArrow3D(fValue);
+                StraightLineArrow3D arrow = new StraightLineArrow3D(Math.Abs(fValue));
                 GeometryModel3D model = new GeometryModel3D();
                 MeshGeometry3D mesh = new MeshGeometry3D();
 
@@ -63,11 +63,11 @@ namespace BaseClasses
             else // Moment
             {
                 // Arc
-                CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(0, 0, 0), fValue, cColor, fOpacity);
+                CurvedLineArrow3D cArrowArc = new CurvedLineArrow3D(new Point3D(0, 0, 0), Math.Abs(fValue), cColor, fOpacity);
                 model_gr.Children.Add(cArrowArc.GetTorus3DGroup());  // Add curved segment (arc)
 
                 // Tip (cone height is 20% from moment value)
-                Arrow3DTip cArrowTip = new Arrow3DTip(0.2f * fValue);
+                Arrow3DTip cArrowTip = new Arrow3DTip(0.2f * Math.Abs(fValue));
 
                 GeometryModel3D modelTip = new GeometryModel3D();
                 MeshGeometry3D meshTip = new MeshGeometry3D();
@@ -77,7 +77,7 @@ namespace BaseClasses
                 modelTip.Geometry = meshTip;
                 modelTip.Material = material;
 
-                TranslateTransform3D TranslateArrowTip = new TranslateTransform3D(fValue, 0, 0);
+                TranslateTransform3D TranslateArrowTip = new TranslateTransform3D(Math.Abs(fValue), 0, 0);
 
                 // Translate model points from LCS of Arrow Tip to LCS of load
                 modelTip.Transform = TranslateArrowTip;

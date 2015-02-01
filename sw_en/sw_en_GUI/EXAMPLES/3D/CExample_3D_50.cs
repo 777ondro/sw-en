@@ -21,9 +21,9 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrMat = new CMat_00[1];
             m_arrCrSc = new CRSC.CCrSc[1];
             m_arrNSupports = new BaseClasses.CNSupport[2];
-            m_arrNReleases = new BaseClasses.CNRelease[2];
-            m_arrNLoads = new BaseClasses.CNLoad[6];
-            m_arrMLoads = new BaseClasses.CMLoad[3];
+            m_arrNReleases = new BaseClasses.CNRelease[0];
+            m_arrNLoads = new BaseClasses.CNLoad[0];
+            m_arrMLoads = new BaseClasses.CMLoad[1];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -32,13 +32,13 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
 
-            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.005f, 0.005f); // Solid square section
+            m_arrCrSc[0] = new CRSC.CCrSc_0_05(0.3f, 0.1f); // Solid square section
 
             // Nodes
             // Nodes List - Nodes Array
 
-            m_arrNodes[0] = new BaseClasses.CNode(1, 2, 4, 5, 0);
-            m_arrNodes[1] = new BaseClasses.CNode(2, -5, 3, -2, 0);
+            m_arrNodes[0] = new BaseClasses.CNode(1, 0, 0, 0, 0);
+            m_arrNodes[1] = new BaseClasses.CNode(2, 5, 0, 0, 0);
 
             // Sort by ID
             //Array.Sort(m_arrNodes, new BaseClasses.CCompare_NodeID());
@@ -75,23 +75,25 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             bool?[] bRelease1 = { false, false, false, false, false, false };
             bool?[] bRelease2 = { true, true, true, false, false, false };
-            m_arrNReleases[0] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeStart, m_arrMembers[0], bRelease1, 0);
-            m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
+            //m_arrNReleases[0] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeStart, m_arrMembers[0], bRelease1, 0);
+            //m_arrNReleases[1] = new BaseClasses.CNRelease(6, m_arrMembers[0].NodeEnd, m_arrMembers[0], bRelease2, 0);
 
             // Nodal Loads
+            /*
             m_arrNLoads[0] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fx, 1.0f, true, 0);
             m_arrNLoads[1] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mx, 1.0f, true, 0);
             m_arrNLoads[2] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fy, 1.0f, true, 0);
             m_arrNLoads[3] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_My, 1.0f, true, 0);
             m_arrNLoads[4] = new BaseClasses.CNLoadSingle(m_arrNodes[0], ENLoadType.eNLT_Fz, 1.0f, true, 0);
             m_arrNLoads[5] = new BaseClasses.CNLoadSingle(m_arrNodes[1], ENLoadType.eNLT_Mz, 1.0f, true, 0);
+            */
 
             // Member Loads
             //m_arrMLoads[0] = new BaseClasses.CMLoad_12(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12,EMLoadType.eMLT_F,EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
 
-            m_arrMLoads[0] = new BaseClasses.CMLoad_21(0.8f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FXX_MXX, true, 0);
-            m_arrMLoads[1] = new BaseClasses.CMLoad_21(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FYU_MZV, true, 0);
-            m_arrMLoads[2] = new BaseClasses.CMLoad_21(1.5f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+            m_arrMLoads[0] = new BaseClasses.CMLoad_21(-0.8f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+            //m_arrMLoads[1] = new BaseClasses.CMLoad_21(1.0f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FYU_MZV, true, 0);
+            //m_arrMLoads[2] = new BaseClasses.CMLoad_21(1.5f, m_arrMembers[0], EMLoadTypeDistr.eMLT_FS_H_12, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
         }
     }
 }
