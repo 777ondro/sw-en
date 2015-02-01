@@ -164,6 +164,7 @@ namespace CRSC
         m_fq_t,
         m_fW_t_pl,
         m_ff_t_plel,
+        m_fI_w,
         m_fEta_y_v,
         m_fA_y_v_el,
         m_fA_y_v_pl,
@@ -172,6 +173,120 @@ namespace CRSC
         m_fA_z_v_el,
         m_fA_z_v_pl,
         m_ff_z_v_plel;
+
+        public float FI_w
+        {
+            get { return m_fI_w; }
+            set { m_fI_w = value; }
+        }
+
+        public float FEta_z_v
+        {
+            get { return m_fEta_z_v; }
+            set { m_fEta_z_v = value; }
+        }
+
+        public float FA_z_v_pl
+        {
+            get { return m_fA_z_v_pl; }
+            set { m_fA_z_v_pl = value; }
+        }
+
+        public float FA_z_v_el
+        {
+            get { return m_fA_z_v_el; }
+            set { m_fA_z_v_el = value; }
+        }
+
+        public float FA_y_v_pl
+        {
+            get { return m_fA_y_v_pl; }
+            set { m_fA_y_v_pl = value; }
+        }
+
+        public float FA_y_v_el
+        {
+            get { return m_fA_y_v_el; }
+            set { m_fA_y_v_el = value; }
+        }
+
+        public float FEta_y_v
+        {
+            get { return m_fEta_y_v; }
+            set { m_fEta_y_v = value; }
+        }
+
+        public float Ff_t_plel
+        {
+            get { return m_ff_t_plel; }
+            set { m_ff_t_plel = value; }
+        }
+
+        public float FW_t_pl
+        {
+            get { return m_fW_t_pl; }
+            set { m_fW_t_pl = value; }
+        }
+
+        public float FW_t_el
+        {
+            get { return m_fW_t_el; }
+            set { m_fW_t_el = value; }
+        }
+
+        public float Fi_t
+        {
+            get { return m_fi_t; }
+            set { m_fi_t = value; }
+        }
+
+        public float Ff_z_v_plel
+        {
+            get { return m_ff_z_v_plel; }
+            set { m_ff_z_v_plel = value; }
+        }
+
+        public float Ff_z_plel
+        {
+            get { return m_ff_z_plel; }
+            set { m_ff_z_plel = value; }
+        }
+
+        public float FW_z_pl
+        {
+            get { return m_fW_z_pl; }
+            set { m_fW_z_pl = value; }
+        }
+
+        public float FW_z_el
+        {
+            get { return m_fW_z_el; }
+            set { m_fW_z_el = value; }
+        }
+
+        public float Ff_y_plel
+        {
+            get { return m_ff_y_plel; }
+            set { m_ff_y_plel = value; }
+        }
+
+        public float Ff_y_v_plel
+        {
+            get { return m_ff_y_v_plel; }
+            set { m_ff_y_v_plel = value; }
+        }
+
+        public float FW_y_pl
+        {
+            get { return m_fW_y_pl; }
+            set { m_fW_y_pl = value; }
+        }
+
+        public float FW_y_el
+        {
+            get { return m_fW_y_el; }
+            set { m_fW_y_el = value; }
+        }
 
         public float Fh
         {

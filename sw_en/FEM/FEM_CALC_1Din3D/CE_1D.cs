@@ -797,7 +797,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // 00___
+                // 00 _ __
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00___;
             }
             else if
@@ -808,7 +808,7 @@ namespace FEM_CALC_1Din3D
             IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // ___00
+                // __ _ 00
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____00;
             }
             else if
@@ -819,7 +819,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // 00_0_
+                // 00 _ 0_
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_0_;
             }
             else if
@@ -830,8 +830,30 @@ namespace FEM_CALC_1Din3D
             IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // 0__00
+                // 0_ _ 00
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00;
+            }
+            else if
+            (
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // 00 _ _0
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00__0;
+            }
+            else if
+            (
+            !IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_U) &&
+            IsMemberDOFRigid(NodeStart.m_ArrNodeDOF, NodeStart.m_iMemberCollection, Member.CnRelease1, eDOF_R) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_U) &&
+            IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
+            )
+            {
+                // _0 _ 00
+                return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0_00;
             }
             else if
             (
@@ -841,7 +863,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // 0__0_
+                // 0_ _ 0_
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_;
             }
             else if
@@ -852,7 +874,7 @@ namespace FEM_CALC_1Din3D
             IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // _0__0
+                // _0 _ _0
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0__0;
             }
             else if
@@ -863,7 +885,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // 0____
+                // 0_ _ __
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0____;
             }
             else if
@@ -874,7 +896,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // ___0_
+                // __ _ 0_
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl____0_;
             }
             else if
@@ -885,7 +907,7 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // _0___
+                // _0 _ __
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0___;
             }
             else if
@@ -896,12 +918,12 @@ namespace FEM_CALC_1Din3D
             !IsMemberDOFRigid(NodeEnd.m_ArrNodeDOF, NodeEnd.m_iMemberCollection, Member.CnRelease2, eDOF_R)
             )
             {
-                // ____0
+                // __ _ _0
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_____0;
             }
             else
             {
-                // _______  // Not supported member !!!  or other not implemented restraint conditions
+                // __ _ __  // Not supported member !!!  or other not implemented restraint conditions
                 return FEM_CALC_BASE.Enums.EElemSuppType2D.eEl______;
             }
         }
@@ -980,6 +1002,27 @@ namespace FEM_CALC_1Din3D
                 eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__00
             )
                 m_eSuppType3D = EElemSuppType3D.e3DEl_0_00_0_000000;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_0000___0000__;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_00__0 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl_0000____000__;
+            else if
+            (
+                eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl__0_00 &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUYRZ] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
+                eArrSuppType[(int)EM_PCS_DIR1.eUZRY] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_
+            )
+                m_eSuppType3D = EElemSuppType3D.e3DEl__000___0000__;
             else if
             (
                 eArrSuppType[(int)EM_PCS_DIR1.eUXRX] == FEM_CALC_BASE.Enums.EElemSuppType2D.eEl_0__0_ &&
@@ -1130,7 +1173,7 @@ namespace FEM_CALC_1Din3D
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
-            fM.m_fArrMembers = new float[6, 6]  
+            fM.m_fArrMembers = new float[6, 6]
             {
             {  fEA_len,          0f,            0f,         0f,            0f,            0f },
             {       0f, f12EIz_len3,            0f,         0f,            0f,   f06EIz_len2 },
@@ -1201,11 +1244,11 @@ namespace FEM_CALC_1Din3D
 
             // Local Stiffeness Matrix
             CMatrix fM = new CMatrix(6);
-            fM.m_fArrMembers = new float[6, 6]  
+            fM.m_fArrMembers = new float[6, 6]
             {
             {fEA_len,           0f,         0f,         0f,          0f,      0f },
             {       0f, f3EIz_len3,         0f,         0f,          0f,      0f },
-            {       0f,         0f, f3EIy_len3,         0f, -f3EIy_len2,      0f }, 
+            {       0f,         0f, f3EIy_len3,         0f, -f3EIy_len2,      0f },
             {       0f,         0f,         0f,  fGIT_len1,          0f,      0f },
             {       0f,         0f,-f3EIy_len2,         0f,  f3EIy_len1,      0f },
             {       0f,         0f,         0f,         0f,          0f,      0f }
@@ -1230,6 +1273,9 @@ namespace FEM_CALC_1Din3D
                     break;
                 case EElemSuppType3D.e3DEl_000000_0_00_0:
                 case EElemSuppType3D.e3DEl_0_00_0_000000:
+                case EElemSuppType3D.e3DEl_0000___0000__: //? Overit - Prut klbovo ulozeny pre RY a RZ, RX je zamedzene na oboch koncoch, priecne zatazenie
+                case EElemSuppType3D.e3DEl_0000____000__: //? Overit - Uvolneny posun UX na konci, uvolnenie RY a RZ na oboch koncoch
+                case EElemSuppType3D.e3DEl__000___0000__: //? Overit - Uvolneny posun UX na zaciatku, uvolnenie RY a RZ na oboch koncoch
                     m_fkLocMatr = GetLocMatrix_3D_000000_0_00_0();
                     break;
                 case EElemSuppType3D.e3DEl_000000_______:
