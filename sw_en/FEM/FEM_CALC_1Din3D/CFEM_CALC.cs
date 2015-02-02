@@ -93,7 +93,7 @@ namespace FEM_CALC_1Din3D
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Constructor
+        // Constructor - new
         public CFEM_CALC(CModel model, bool bDebugging)
         {
             // Load Topological model
@@ -334,7 +334,7 @@ namespace FEM_CALC_1Din3D
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TEMPORARY EXAMPLE DATA
 
-        // Consructor
+        // Consructor - old
         public CFEM_CALC()
         {
             // Geometry
