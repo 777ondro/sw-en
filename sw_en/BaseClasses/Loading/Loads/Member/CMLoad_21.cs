@@ -86,8 +86,8 @@ namespace BaseClasses
                 else
                     pPoint = new Point3D(0, -Fq, 0);
 
-                Cylinder cConnectLine = new Cylinder(0.008f, Member.FLength, m_Material);
-                model_gr.Children.Add(cConnectLine.CreateM_G_M_3D_Volume_Cylinder(pPoint, 0.008f, Member.FLength, m_Material));
+                Cylinder cConnectLine = new Cylinder(0.005f * Math.Abs(Fq), Member.FLength, m_Material);
+                model_gr.Children.Add(cConnectLine.CreateM_G_M_3D_Volume_Cylinder(pPoint, 0.005f * Math.Abs(Fq), Member.FLength, m_Material));
             }
 
             return model_gr; // Model group of whole member load in LCS
