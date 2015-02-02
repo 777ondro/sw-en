@@ -23,21 +23,21 @@ namespace BaseClasses
 
             if (eLoadType == ENLoadType.eNLT_Fx || eLoadType == ENLoadType.eNLT_Mx)
             {
-                cColor = Color.FromRgb(200, 20, 20);
+                cColor = Color.FromRgb(100, 40, 40);
 
                 if (fValue < 0.0f)
                     cColor = Color.FromRgb(150, 20, 20);
             }
             else if (eLoadType == ENLoadType.eNLT_Fy || eLoadType == ENLoadType.eNLT_My)
             {
-                cColor = Color.FromRgb(20, 200, 20);
+                cColor = Color.FromRgb(40, 100, 40);
 
                 if (fValue < 0.0f)
                     cColor = Color.FromRgb(20, 150, 20);
             }
             else //if (NLoadType == ENLoadType.eNLT_Fz || NLoadType == ENLoadType.eNLT_Mz)
             {
-                cColor = Color.FromRgb(20, 20, 200);
+                cColor = Color.FromRgb(40, 40, 100);
 
                 if (fValue < 0.0f)
                     cColor = Color.FromRgb(20, 20, 150);
@@ -46,6 +46,8 @@ namespace BaseClasses
             fOpacity = 0.9f;
             material.Brush = new SolidColorBrush(cColor);
             material.Brush.Opacity = fOpacity;
+            material.AmbientColor = cColor;
+            material.Color = cColor;
 
             if (eLoadType == ENLoadType.eNLT_Fx || eLoadType == ENLoadType.eNLT_Fy || eLoadType == ENLoadType.eNLT_Fz) // Force
             {
