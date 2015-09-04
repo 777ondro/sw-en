@@ -138,6 +138,7 @@ namespace sw_en_GUI
             }
             else
             {
+                // Neinicializovany objekt vypoctoveho modelu
                 MessageBox.Show("Model not initialized. Import data first!!!");
             }
         }
