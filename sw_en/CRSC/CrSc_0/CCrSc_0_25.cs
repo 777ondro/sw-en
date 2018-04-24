@@ -56,16 +56,6 @@ namespace CRSC
         //public  float[,] m_CrScPoint; // Array of Points and values in 2D
         //----------------------------------------------------------------------------
 
-        public float Fh
-        {
-            get { return m_fh; }
-            set { m_fh = value; }
-        }
-        public float Fb
-        {
-            get { return m_fb; }
-            set { m_fb = value; }
-        }
         public float Ft_f
         {
             get { return m_ft_f; }

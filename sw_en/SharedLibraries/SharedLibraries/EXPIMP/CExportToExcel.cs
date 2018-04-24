@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
-using Microsoft.Office.Interop.Excel;
+//using Microsoft.Office.Interop.Excel; // Problem s nacitanim - TODO - prepisat kod tak, aby to nebolo zavisle na tom ci je alebo nie je nainstalovany MS Office
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
@@ -20,11 +20,11 @@ namespace SharedLibraries.EXPIMP
 				throw new ArgumentNullException("myDataSet");
 			}
 
-			var excel = new Application();
+			//var excel = new Application();
 
 			try
 			{
-				Workbook book;
+				/*Workbook book;
 
 				if (File.Exists(fileName))
 				{
@@ -64,7 +64,7 @@ namespace SharedLibraries.EXPIMP
 					}
 				}
 				book.SaveAs(fileName, AccessMode: XlSaveAsAccessMode.xlShared);
-				book.Close();
+				book.Close();*/
 			}
 			catch (Exception ex) 
 			{
@@ -76,8 +76,8 @@ namespace SharedLibraries.EXPIMP
 			}
 			finally
 			{
-				excel.Workbooks.Close();
-				excel.Quit();
+				//excel.Workbooks.Close();
+				//excel.Quit();
 			}
 		}
 		

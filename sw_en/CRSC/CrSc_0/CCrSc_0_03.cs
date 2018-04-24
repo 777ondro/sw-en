@@ -18,8 +18,8 @@ namespace CRSC
         private float m_fb;           // Minor Axis Dimension (2x Length of Semiminor Axis)
         private float m_fa_semi;      // Semimajor Axis Dimension
         private float m_fb_semi;      // Semiminor Axis Dimension
-        private float m_fr_1;         // Radius max
-        private float m_fr_2;         // Radius min
+        //private float m_fr_1;         // Radius max
+        //private float m_fr_2;         // Radius min
         private float m_fAngle;       // Angle of Rotation
         //private short m_iTotNoPoints; // Total Number of Cross-section Points for Drawing (withCentroid Point)
         //public float[,] m_CrScPoint;  // Array of Points and values in 2D
@@ -29,12 +29,6 @@ namespace CRSC
         {
             get { return m_fa; }
             set { m_fa = value; }
-        }
-
-        public float Fb
-        {
-            get { return m_fb; }
-            set { m_fb = value; }
         }
 
         /*public short ITotNoPoints

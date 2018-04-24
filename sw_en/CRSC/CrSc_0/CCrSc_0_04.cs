@@ -53,17 +53,6 @@ namespace CRSC
 
         private float m_fh;  // Height
         private float m_fb;  // Base Length
-        public float Fh
-        {
-            get { return m_fh; }
-            set { m_fh = value; }
-        }
-
-        public float Fb
-        {
-            get { return m_fb; }
-            set { m_fb = value; }
-        }
 
         public CCrSc_0_04(float fh, float fb)
         {
