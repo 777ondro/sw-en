@@ -112,7 +112,7 @@ namespace FEM_CALC_1Din2D
         {
             // Element / Member load
 
-
+ 
 
             // Lengths in Global Coordinates
             m_fLength_X = GetGCSLengh(0);

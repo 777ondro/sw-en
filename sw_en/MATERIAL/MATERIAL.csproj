@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMat_2\CMat_02_00_AAC.cs" />
     <Compile Include="CMat_0\CMat_00.cs" />
     <Compile Include="CMat_5\CMat_05_00.cs" />
     <Compile Include="CMat_6\CMat_06_00.cs" />
@@ -117,7 +118,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DATABASE\DATABASE.csproj">
       <Project>{84EC019C-BD16-4774-91D4-E50CFB2E62E3}</Project>
-      <Name>DATABASE %28DATABASE\DATABASE%29</Name>
+      <Name>DATABASE</Name>
     </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>

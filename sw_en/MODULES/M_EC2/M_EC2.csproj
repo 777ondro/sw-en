@@ -117,7 +117,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CRSC\CRSC.csproj">
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
-      <Name>CRSC %28CRSC\CRSC%29</Name>
+      <Name>CRSC</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>

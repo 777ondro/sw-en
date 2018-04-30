@@ -30,6 +30,7 @@ namespace MATERIAL
             get { return fck; }
             set { fck = value; }
         }
+
         double fck_cube;
 
         public double Fck_cube
@@ -37,6 +38,7 @@ namespace MATERIAL
             get { return fck_cube; }
             set { fck_cube = value; }
         }
+
         double fctm;
 
         public double Fctm
@@ -44,6 +46,7 @@ namespace MATERIAL
             get { return fctm; }
             set { fctm = value; }
         }
+
         double fcm;
 
         public double Fcm
@@ -51,8 +54,23 @@ namespace MATERIAL
             get { return fcm; }
             set { fcm = value; }
         }
+
         double fctk0_05;
+
+        public double Fctk0_05
+        {
+            get { return fctk0_05; }
+            set { fctk0_05 = value; }
+        }
+
         double fctk0_95;
+
+        public double Fctk0_95
+        {
+            get { return fctk0_95; }
+            set { fctk0_95 = value; }
+        }
+
         double epsilon_c1;
         double epsilon_cu1;
         double epsilon_c2;

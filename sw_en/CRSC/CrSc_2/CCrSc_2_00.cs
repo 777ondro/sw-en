@@ -10,7 +10,7 @@ namespace CRSC
     {
       // Solid rectangle
 
-      public CCrSc_2_00(float fh, float fb, float ft)
+      public CCrSc_2_00(float fh, float fb/*, float ft*/)
       {
           //ITotNoPoints = 4;
           Fh = fh;

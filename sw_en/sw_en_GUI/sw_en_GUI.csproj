@@ -298,7 +298,7 @@
     </ProjectReference>
     <ProjectReference Include="..\CRSC\CRSC.csproj">
       <Project>{D54FA90D-3C90-42D1-B58D-BC345EC34325}</Project>
-      <Name>CRSC %28CRSC\CRSC%29</Name>
+      <Name>CRSC</Name>
     </ProjectReference>
     <ProjectReference Include="..\FEM\FEM_CALC_1Din2D\FEM_CALC_1Din2D.csproj">
       <Project>{602C8862-99F4-4595-A033-84194DDFE00A}</Project>
@@ -314,7 +314,7 @@
     </ProjectReference>
     <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
       <Project>{864D95AD-46AE-4198-B7F3-D5BBE1245208}</Project>
-      <Name>MATERIAL %28MATERIAL\MATERIAL%29</Name>
+      <Name>MATERIAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0E2ADCC8-209E-4FCC-9AC2-D0C7EEA8AC26}</Project>
@@ -322,11 +322,11 @@
     </ProjectReference>
     <ProjectReference Include="..\SharedLibraries\SharedLibraries\SharedLibraries.csproj">
       <Project>{28044445-E8DD-4041-B534-3FEE5C07237F}</Project>
-      <Name>SharedLibraries %28SharedLibraries\SharedLibraries%29</Name>
+      <Name>SharedLibraries</Name>
     </ProjectReference>
     <ProjectReference Include="..\sw_en\SW_EN.csproj">
       <Project>{8D8A9215-1A12-4970-9CAB-09762D182642}</Project>
-      <Name>SW_EN %28sw_en\SW_EN%29</Name>
+      <Name>SW_EN</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
