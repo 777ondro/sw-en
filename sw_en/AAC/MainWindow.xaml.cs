@@ -27,12 +27,29 @@ namespace AAC
             InitializeComponent();
         }
 
+        public enum E_AACElementType
+        {
+            Floor_Panel,
+            Roof_Panel,
+            Vertical_Wall_Panel,
+            Horizontal_Wall_Panel,
+            Beam
+        };
+
+        public enum E_SupportMaterialType
+        {
+            masonry,
+            steel,
+            concrete,
+            wood
+        };
+
         // Combobox input
 
-        int selected_AAC_ComponentIndex;
+        E_AACElementType selected_AAC_ComponentIndex;
         int selected_StandardIndex;
-        int selected_SupportMaterial_1S_Index;
-        int selected_SupportMaterial_2E_Index;
+        E_SupportMaterialType selected_SupportMaterial_1S_Index;
+        E_SupportMaterialType selected_SupportMaterial_2E_Index;
         int selected_AAC_StrengthClassIndex;
         int selected_AAC_DensityClassIndex;
         int selected_Reinforcement_StrengthClassIndex;
@@ -57,12 +74,13 @@ namespace AAC
         float fa_2_min = 0.0f; // Support Minimum Length
         float fc_1 = 0.0f; // Concrete Cover
         float fc_2 = 0.0f; // Concrete Cover
-        float fc_trans = 0.0f; // Concrete Cover of transversal reinforcement (distance between end of bar and concrete surface)
+        float fc_trans = 0.0f; // Concrete cover of transversal reinforcement (distance between end of bar and concrete surface)
 
         // Concrete
         float fFactor_Alpha = 0.0f; // Reduction coefficient for long term effect on compressive strength of concrete
 
-        public float fGamma_c = 0.0f;
+        public float fGamma_c_DBF = 0.0f;
+        public float fGamma_c_BF = 0.0f;
 
         // Reinforcement
 
@@ -70,12 +88,12 @@ namespace AAC
         int number_long_lower_bars = 0;
         int number_trans_bars = 0;
 
-        public float d_long_upper = 0.0f;
-        public float d_long_lower = 0.0f;
-        public float d_trans = 0.0f;
+        public float fd_long_upper = 0.0f;
+        public float fd_long_lower = 0.0f;
+        public float fd_trans = 0.0f;
 
-        public float b_long_upper = 0.0f;
-        public float b_long_lower = 0.0f;
+        public float fsl_upper = 0.0f;
+        public float fsl_lower = 0.0f;
 
         public float fGamma_s = 0.0f;
 
@@ -94,13 +112,11 @@ namespace AAC
         float fgamma_t = 0.0f;
         float fRho_trans = 0.0f;
 
-
-
         private void ComboBox_AAC_Component_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ... Get control that raised this event.
             ComboBox combobox = (ComboBox)sender;
-            selected_AAC_ComponentIndex = combobox.SelectedIndex;
+            selected_AAC_ComponentIndex = (E_AACElementType)combobox.SelectedIndex;
         }
 
         private void ComboBox_Standard_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -114,14 +130,14 @@ namespace AAC
         {
             // ... Get control that raised this event.
             ComboBox combobox = (ComboBox)sender;
-            selected_SupportMaterial_1S_Index = combobox.SelectedIndex;
+            selected_SupportMaterial_1S_Index = (E_SupportMaterialType)combobox.SelectedIndex;
         }
 
         private void ComboBox_SupportMaterial_2E_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ... Get control that raised this event.
             ComboBox combobox = (ComboBox)sender;
-            selected_SupportMaterial_2E_Index = combobox.SelectedIndex;
+            selected_SupportMaterial_2E_Index = (E_SupportMaterialType)combobox.SelectedIndex;
         }
 
         private void TextBoxLength_h_TextChanged(object sender, TextChangedEventArgs e)
@@ -210,11 +226,18 @@ namespace AAC
             fFactor_Alpha = (float)Convert.ToDecimal(textBox.Text);
         }
 
-        private void TextBoxConcreteFactor_Gamma_c_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxConcreteFactor_Gamma_c_DBF_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fGamma_c = (float)Convert.ToDecimal(textBox.Text);
+            fGamma_c_DBF = (float)Convert.ToDecimal(textBox.Text); // Ductile bending failure (1.44)
+        }
+
+        private void TextBoxConcreteFactor_Gamma_c_BF_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            fGamma_c_BF = (float)Convert.ToDecimal(textBox.Text); // Brittle failure (1.73)
         }
 
         // Reinforcement
@@ -254,11 +277,11 @@ namespace AAC
             selected_Reinforcement_d_long_upper_Index = combobox.SelectedIndex;
         }
 
-        private void TextBoxLongReinUpper_distance_b_2_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxLongReinUpper_distance_sl_2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            b_long_upper = (float)Convert.ToDecimal(textBox.Text);
+            fsl_upper = (float)Convert.ToDecimal(textBox.Text);
         }
 
         private void ComboBox_LongReinLower_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -268,11 +291,11 @@ namespace AAC
             selected_Reinforcement_d_long_lower_Index = combobox.SelectedIndex;
         }
 
-        private void TextBoxLongReinLower_distance_b_1_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxLongReinLower_distance_sl_1_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            b_long_lower = (float)Convert.ToDecimal(textBox.Text);
+            fsl_lower = (float)Convert.ToDecimal(textBox.Text);
         }
 
         private void ComboBox_TransRein_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -367,21 +390,21 @@ namespace AAC
                                  selected_Reinforcement_d_long_lower_Index,
                                  selected_Reinforcement_d_trans_Index,
                                  out Reinforcement.m_ff_yk_0,
-                                 out d_long_upper,
-                                 out d_long_lower,
-                                 out d_trans);
+                                 out fd_long_upper,
+                                 out fd_long_lower,
+                                 out fd_trans);
 
             // Floor Panel EN 12602
 
 
             float fa_2 = (fL - fL_w - fa_1); // Todo predpoklada symetricke ulozenie na podpory
 
-            fa_1_min = Get_minimum_support_a_min(selected_AAC_ComponentIndex, selected_SupportMaterial_1S_Index);
-            fa_2_min = Get_minimum_support_a_min(selected_AAC_ComponentIndex, selected_SupportMaterial_2E_Index);
+            fa_1_min = Get_minimum_support_a_min(selected_SupportMaterial_1S_Index);
+            fa_2_min = Get_minimum_support_a_min(selected_SupportMaterial_2E_Index);
 
             float fL_eff = fL_w + 1.0f / 3.0f * fa_1_min + 1.0f / 3.0f * fa_2_min;
-            
-            float fd_eff_lower = fh - fc_1 - 0.5f * d_long_lower; // Effective Depth
+
+            float fd_eff_lower = (float)Math.Min(fh - fc_1 - 0.5f * fd_long_lower, 0.4f); // Effective Depth of Section, see A.6
             float fb_load = fb; // !!!!!! ????? Could be different
 
             float fA_c_lower = fb * fd_eff_lower; // Compressed area of concrete
@@ -424,7 +447,7 @@ namespace AAC
             float fM_t = (float)(0.5f * fgamma_t * fG_t * Math.Pow(fL_cantilever, 2));
 
             // Design
-            double fTau_Rd = 0.063f * Math.Sqrt(Concrete.Fck) / Concrete.D_gamaMc;
+            double fTau_Rd = 0.063f * Math.Sqrt(Concrete.Fck) / fGamma_c_BF;
             Concrete.D_Ecm = 5.0 * (Concrete.Rho_m - 150.0f);
             double thousand_md = 1000 * fM_Sd_1 * Concrete.D_gamaMc / (fFactor_Alpha * Concrete.Fck * fA_c_lower * fd_eff_lower);
 
@@ -446,13 +469,20 @@ namespace AAC
 
             float fomega = (float)thousand_omega / 1000.0f;
 
-            double fA_s_b_min = fA_c_lower * fomega * fFactor_Alpha * Concrete.Fck * fGamma_s / (fGamma_c * Reinforcement.m_ff_yk_0);
+            double fA_s_b_min = fA_c_lower * fomega * fFactor_Alpha * Concrete.Fck * fGamma_s / (fGamma_c_BF * Reinforcement.m_ff_yk_0);
+
+            double fA_s_exis_lower = number_long_lower_bars * Math.PI * (fd_long_lower * fd_long_lower / 4.0); // Bottom Reinforcement
+ 
+            if (fA_s_b_min > fA_s_exis_lower)
+            {
+                MessageBox.Show("Error! Check area of longitudinal bottom reinforcement.");
+            }
 
             // Upper Reinforcement
-            float fd_eff_u = fh - fc_2 - 0.5f * d_long_upper; // Effective Depth
+            float fd_eff_u = (float)Math.Min(fh - fc_2 - 0.5f * fd_long_upper, 0.4f); // Effective Depth
             float fA_c_u = fb * fd_eff_u; // Compressed area of concrete
 
-            double thousand_md_upper = 1000 * fM_t * fGamma_c / (fFactor_Alpha * Concrete.Fck * fA_c_u * fd_eff_u);
+            double thousand_md_upper = 1000 * fM_t * fGamma_c_BF / (fFactor_Alpha * Concrete.Fck * fA_c_u * fd_eff_u);
 
             AAC_data.GetAAC_values_for_1000md(thousand_md_upper);
 
@@ -471,7 +501,14 @@ namespace AAC
 
             float fomega_u = (float)thousand_omega_u / 1000.0f;
 
-            double fA_s_u_min = fA_c_u * fomega_u * fFactor_Alpha * Concrete.Fck * fGamma_s / (fGamma_c * Reinforcement.m_ff_yk_0);
+            double fA_s_u_min = fA_c_u * fomega_u * fFactor_Alpha * Concrete.Fck * fGamma_s / (fGamma_c_DBF * Reinforcement.m_ff_yk_0);
+
+            double fA_s_exis_upper = number_long_upper_bars * Math.PI * (fd_long_upper * fd_long_upper / 4.0); // Upper Reinforcement
+
+            if (fA_s_u_min > fA_s_exis_upper)
+            {
+                MessageBox.Show("Error! Check area of longitudinal upper reinforcement.");
+            }
 
             // Minimum Reinforcement
 
@@ -479,53 +516,184 @@ namespace AAC
 
             float fA_ct = Cross_Section.Fb * 0.5f * Cross_Section.Fh;
 
-            double fAs_min = fk_x_u * fA_ct * ff_cflm / Reinforcement.m_ff_yk_0;
+            // k = 1 - pure tension in the whole cross-section
+            // k = 0.4 - pure bending without normal compressive force
 
-            double fA_s_exis_lower = number_long_lower_bars * Math.PI * (d_long_lower * d_long_lower / 4.0); // Bottom Reinforcement
-            double fA_s_exis_upper = number_long_upper_bars * Math.PI * (d_long_upper * d_long_upper / 4.0); // Upper Reinforcement
+            float fk_A34 = 0.4f;
+            double fAs_min = fk_A34 * fA_ct * ff_cflm / Reinforcement.m_ff_yk_0;
 
             float fb_w = Cross_Section.Fb; //  ??????? Moze byt ina
 
-            double rho_l = fA_s_exis_lower / (Cross_Section.Fb * fd_eff_lower);
-            double VRd_1_min = 0.5f * Concrete.Fctk0_05 / fGamma_c * fb_w * fd_eff_lower;
-            double VRd_1 = fTau_Rd * (1.0f - 0.83f * fd_eff_lower) * (1 + 240 * rho_l) * fb_w * fd_eff_lower;
+            double rho_l = Math.Min(fA_s_exis_lower / (Cross_Section.Fb * fd_eff_lower), 0.005); // A.4
+
+            // A.6
+            double VRd_1_A6_1 = 0.5f * Concrete.Fctk0_05 / fGamma_c_BF * fb_w * fd_eff_lower;
+            double VRd_1_A6_2 = fTau_Rd * (1.0f - 0.83f * fd_eff_lower) * (1 + 240 * rho_l) * fb_w * fd_eff_lower;
+            double VRd_1 = Math.Max(VRd_1_A6_1, VRd_1_A6_2);
+
+            double eta_VSd_1_to_VRd1 = fV_Sd_1 / VRd_1;
+
+            // Check distance between bars of longitudinal reinforcement
+            float fsl_1_min, fsl_1_max;
+            float fsl_2_min, fsl_2_max;
+
+            Minimum_Spacing_of_Long_Bars(fd_long_lower, fd_eff_lower, out fsl_1_min, out fsl_1_max);
+
+            if (fsl_1_min > fsl_lower || fsl_1_max < fsl_lower)
+            {
+                MessageBox.Show("Error! Check limit for distance between bars of longitudinal reinforcement.");
+            }
+
+            //Minimum_Spacing_of_Long_Bars(d_long_upper, fd_eff_upper, out fsl_2_min, out fsl_2_max);
+
+
+            // Table A.1 - Bond Classes
+            //       Kc1    Kc2
+            // B1   1.35   2.20
+            // B2   1.50   2.70
+
+            // B1
+            float fK_c1 = 1.35f;
+            float fK_c2 = 2.2f;
 
             // Transverse reinforcement bars
-            double fe = fc_1 + d_long_lower + 0.5f * d_trans;
+            double e_dis = fc_1 + fd_long_lower + 0.5f * fd_trans;
 
-            // Maximum tensile force
             double z = 0.9f * fd_eff_lower; // 0.9 ????
             float fM_d1_max = fM_Sd_1;
-
-            double F_ld_max = fM_d1_max / z;
-
             float fd_support = Math.Max(fa_1, fa_2); // Ulozenie na podpore ???
-
             float fM_d1_support = fV_Sd_1 * fd_support;
+
+            // Maximum tensile force
+            double F_ld_max = fM_d1_max / z;
             double F_ld_support = fM_d1_support / z;
 
             // Design value of bearing strength at support
-            float fm_support = 1.3f;
-            double f_ld_support = 1.35f * fm_support * Math.Pow(fe / d_trans, 1.0 / 3.0) * fFactor_Alpha * Concrete.Fck / fGamma_c;
-            double f_ld_limit = 2.2f * Concrete.Fck / fGamma_c;
+            int n_p_support = 2;
+            int n_t_support = 2; // Number of transverse bars between the section concerned and the end of the component
+
+            float fm_support = Get_m(n_p_support, n_t_support);
+
+            double f_ld_support = Get_fld(fK_c1, fm_support, e_dis, fd_trans, fFactor_Alpha, Concrete.Fck, fGamma_c_DBF);
+
+            // Limit value of bearing strength at support
+            double f_ld_limit_support = fK_c2 * Concrete.Fck / fGamma_c_DBF;
+
+            if (f_ld_support > f_ld_limit_support)
+                f_ld_support = f_ld_limit_support;
 
             // Design value of bearing strength at middle of span
-            float fm_midspan = 1.067f;
-            float fn_p_midspan = 2.0f;
-            double f_ld_midspan = 1.35f * fm_midspan * Math.Pow(fe / d_trans, 1.0 / 3.0) * fFactor_Alpha * Concrete.Fck / fGamma_c;
+            int n_p_midspan = 2;
+            int n_t_midspan = (int)(0.5f * number_trans_bars); // // Number of transverse bars between the section concerned and the end of the component Eq. (A.48) Polovica z celkoveho poctu priecnych vyztuznych prutov na spodnom okraji
+            float fm_midspan = Get_m(n_p_midspan, n_t_midspan);
+
+            double f_ld_midspan = Get_fld(fK_c1, fm_midspan, e_dis, fd_trans, fFactor_Alpha, Concrete.Fck, fGamma_c_BF);
+
+            // Limit value of bearing strength at midspan
+            double f_ld_limit_midspan = fK_c2 * Concrete.Fck / fGamma_c_BF;
+
+            if (f_ld_midspan > f_ld_limit_midspan)
+                f_ld_midspan = f_ld_limit_midspan;
 
             // Anchorage force capacity - bottom reinforcement
-            float fA_sl = 0.0f;
-            float fn_l = number_long_lower_bars;
-            float fn_t = 2.0f;
+            double A_sl = fA_s_exis_lower; // Cross sectional area of the reinforcing bar with the larger diameter of the connection
 
-            float t_t = (number_long_lower_bars - 2) * b_long_lower + 2 * 0.5f * b_long_lower + 0.015f + 0.015f; // Vzdialenost medzi pozdlznou vystuzou + presah // TODO
+            float t_t = (number_long_lower_bars - 2) * fsl_lower + 2 * 0.5f * fsl_lower + 0.015f + 0.015f; // Vzdialenost medzi pozdlznou vystuzou + presah // TODO
 
-            double fF_RA_support = 0.83f * fn_t * d_trans * t_t * f_ld_support;
-            float fF_wg = 0.25f * fA_sl * Reinforcement.m_ff_yk_0;
-            double fF_RA_support_limit = 0.6f * fn_l * fn_t * fF_wg / fGamma_s;
+            double F_RA_support = 0.83f * n_t_support * fd_trans * t_t * f_ld_support;
 
-            double fF_RA_max = 0.0f;
+            // Welding strength classes - Table 5c (S1 - 0.25, S2 - 0.5)
+            float fk_w = 0.25f;
+            int n_l = number_long_lower_bars; // Number of longitudinal bars - Eq. (A.48)
+
+            double F_wg = fk_w * A_sl * Reinforcement.m_ff_yk_0;
+            double F_RA_support_limit = 0.6f * n_l * n_t_support * F_wg / fGamma_s;
+
+            if (F_RA_support > F_RA_support_limit) //A.48
+                F_RA_support = F_RA_support_limit;
+
+            // TODO definovat pocet a roztec uzivatelsky podla poctu zvolenych transveral bars
+            // Moze byt ine pre hornu a spodnu vystuz
+
+            double dist_a1 = 0.03; // Cover 
+            double dist_a2 = 0.1;
+            double dist_a3 = 0.32;
+            double dist_a4 = 0.5;
+
+            // Todo dynamicky pocet prvkov v poli a x suradnice
+            double[] tras_bar_position_in_panel_array = new double[number_trans_bars];
+            tras_bar_position_in_panel_array[0] = dist_a1;
+            tras_bar_position_in_panel_array[1] = tras_bar_position_in_panel_array[0] + dist_a2;
+            tras_bar_position_in_panel_array[2] = tras_bar_position_in_panel_array[1] + dist_a2;
+            tras_bar_position_in_panel_array[3] = tras_bar_position_in_panel_array[2] + dist_a2;
+            tras_bar_position_in_panel_array[4] = tras_bar_position_in_panel_array[3] + dist_a2;
+            tras_bar_position_in_panel_array[5] = tras_bar_position_in_panel_array[4] + dist_a3;
+            tras_bar_position_in_panel_array[6] = tras_bar_position_in_panel_array[5] + dist_a4;
+            tras_bar_position_in_panel_array[7] = tras_bar_position_in_panel_array[6] + dist_a4;
+            tras_bar_position_in_panel_array[8] = tras_bar_position_in_panel_array[7] + dist_a4;
+            tras_bar_position_in_panel_array[9] = tras_bar_position_in_panel_array[8] + dist_a4;
+            tras_bar_position_in_panel_array[10] = tras_bar_position_in_panel_array[9] + dist_a4;
+            tras_bar_position_in_panel_array[11] = tras_bar_position_in_panel_array[10] + dist_a4;
+            tras_bar_position_in_panel_array[12] = tras_bar_position_in_panel_array[11] + dist_a4;
+            tras_bar_position_in_panel_array[13] = tras_bar_position_in_panel_array[12] + dist_a3;
+            tras_bar_position_in_panel_array[14] = tras_bar_position_in_panel_array[13] + dist_a2;
+            tras_bar_position_in_panel_array[15] = tras_bar_position_in_panel_array[14] + dist_a2;
+            tras_bar_position_in_panel_array[16] = tras_bar_position_in_panel_array[15] + dist_a2;
+            tras_bar_position_in_panel_array[17] = tras_bar_position_in_panel_array[16] + dist_a2;
+
+            double[] F_RA_array = new double[n_t_midspan]; // Array of values
+
+            for (int i = 0; i < n_t_midspan; i++)
+            {
+                int n_p = 2;
+                int n_t = i + 1;
+                float fm = Get_m(n_p, n_t);
+                double f_ld = Get_fld(fK_c1, fm, e_dis, fd_trans, fFactor_Alpha, Concrete.Fck, i < 2 ? fGamma_c_DBF : fGamma_c_BF);
+                double f_ld_limit = fK_c2 * Concrete.Fck / (i < 2 ? fGamma_c_DBF : fGamma_c_BF);
+
+                if (f_ld > f_ld_limit)
+                    f_ld = f_ld_limit;
+
+                double F_RA = 0.83f * n_t * fd_trans * t_t * f_ld;
+                double F_RA_limit = 0.6f * n_l * n_t * F_wg / fGamma_s;
+
+                if (F_RA > F_RA_limit)
+                    F_RA = F_RA_limit;
+
+                F_RA_array[i] = F_RA;
+            }
+
+            double[] F_ld_transversal_bar_array = new double[number_trans_bars];
+
+            for (int i = 0; i < tras_bar_position_in_panel_array.Length; i++)
+            {
+                double M_d1_x_transversal_bar;
+
+                if (tras_bar_position_in_panel_array[i] < fa_1 || tras_bar_position_in_panel_array[i] > (fL -fa_2))
+                    M_d1_x_transversal_bar = 0;
+                else
+                    M_d1_x_transversal_bar = fV_Sd_1 * tras_bar_position_in_panel_array[i] - (((fG_d1 + fQ_d1) * tras_bar_position_in_panel_array[i] * tras_bar_position_in_panel_array[i]) / 2.0);
+
+                // tensile force
+                F_ld_transversal_bar_array[i] = M_d1_x_transversal_bar / z;
+            }
+
+            float fDesign_Ratio_F_ld_F_RA_max = 0.0f;
+            float fF_ld_max = 0.0f;
+            float fF_RA_max = 0.0f;
+
+            // Design Check
+            for (int i = 0; i < n_t_midspan; i++)
+            {
+                float fdesignRatio_temp = (float) (F_ld_transversal_bar_array[i] / F_RA_array[i]);
+
+                if (fdesignRatio_temp > fDesign_Ratio_F_ld_F_RA_max)
+                {
+                    fF_ld_max = (float)F_ld_transversal_bar_array[i];
+                    fF_RA_max = (float)F_RA_array[i];
+                    fDesign_Ratio_F_ld_F_RA_max = fdesignRatio_temp;
+                }
+            }
 
             // Anchorage force capacity - upper reinforcement
 
@@ -535,42 +703,43 @@ namespace AAC
             // Serviceability Limit States
 
             // Cracking moment
-            //float ff_cflm = 0.27f * 0.8f * Concrete.Fck; // flexural strength 0.8  ?????
+            ff_cflm = 0.27f * 0.8f * Concrete.Fck; // TODO flexural strength 0.8 niekde je s 0.8 inde nie, zistit preco ?????
 
-            Cross_Section.FW_y_el = (float)(Cross_Section.Fb * Math.Pow(Cross_Section.Fh, 2) / 6);
+            Cross_Section.FW_y_el = (float)(Cross_Section.Fb * Math.Pow(Cross_Section.Fh, 2) / 6.0);
 
-            double M_cr = Cross_Section.FW_y_el * ff_cflm;
+            double M_cr = Cross_Section.FW_y_el * ff_cflm; // TODO podmienka pre typ posudenia SLS - uncracked, cracked condition
 
-            float fd_1 = d_long_lower;
-            float fd_2 = d_long_upper;
+            float fd_1 = fd_long_lower;
+            float fd_2 = fd_long_upper;
 
             double A_s1 = fA_s_exis_lower;
             double A_s2 = fA_s_exis_upper;
 
-            float fy_s1 = fc_1 + 0.5f * d_long_lower;
-            float fy_s2 = Cross_Section.Fh - fc_2 + 0.5f * d_long_upper - d_trans; // Horna vyztuz sa nachadza pod priecnou ??? TODO overit podla vykresov
+            float fy_s1 = fc_1 + 0.5f * fd_long_lower;
+            float fy_s2 = Cross_Section.Fh - fc_2 + 0.5f * fd_long_upper - fd_trans; // Horna vyztuz sa nachadza pod priecnou ??? TODO overit podla vykresov
 
             // Deflection under uncracked condition
             // Short-term deflection
             // Ratio of the modulus of elasticity of reinforcing steel and AAC
 
-            Reinforcement.m_fE = 2.0e11f;
+            Reinforcement.m_fE = 2.0e11f; // 210 MPa - structural steel, 200 MPa - reinforcement
+
             float fn_short_term = (float)(Reinforcement.m_fE / Concrete.E_cm);
-            fn_short_term = 100.0f; // approximately - short term condition
 
             double fI_c_brutto_shortterm = Get_I_c_brutto(Cross_Section.Fb, Cross_Section.Fh, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2); // Moment of inertia of AAC and reinforcement
             double y_s_shortterm = Get_y_s(Cross_Section.Fb, Cross_Section.Fh, fn_short_term, fy_s1, fy_s2, A_s1, A_s2); // Centre of grafity
             double I_st_shortterm = Get_I_st(Cross_Section.Fb, Cross_Section.Fh, fn_short_term, y_s_shortterm, fy_s1, fy_s2, A_s1, A_s2); // Moment of inertia of reinforcement
             double I_ci_shortterm = fI_c_brutto_shortterm + I_st_shortterm;
-            double Ecm_Ici_shortterm = Concrete.D_Ecm * I_ci_shortterm;
+            double Ecm_Ici_shortterm = Concrete.E_cm * I_ci_shortterm;
             double y_el_shortterm = 5.0f / 48.0f * fM_Sd_2 * Math.Pow(fL_eff, 2.0f) / (Ecm_Ici_shortterm); // Deflection due to load combination 2
             double y_el_lim = fL_eff / 250.0f;
 
+            double y_el_shortterm_des_ratio = y_el_shortterm / y_el_lim;
+
             // Long-term deflection
             float fPhi = 1.0f; // Todo - temporary
-            float fE_c_eff = (float)Concrete.E_cm / (1 + fPhi);
-            fE_c_eff = 1000000000.0f;
-            float fn_long_term = 200.0f; // approximately - long term condition
+            double fE_c_eff = Concrete.E_cm / (1 + fPhi);
+            float fn_long_term = (float)(Reinforcement.m_fE / fE_c_eff);
 
             double fI_c_brutto_longterm = Get_I_c_brutto(Cross_Section.Fb, Cross_Section.Fh, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
             double y_s_longterm = Get_y_s(Cross_Section.Fb, Cross_Section.Fh, fn_long_term, fy_s1, fy_s2, A_s1, A_s2);
@@ -579,18 +748,22 @@ namespace AAC
             double Eceff_Ici_longterm = fE_c_eff * I_ci_longterm;
             double y_el_longterm = 5.0f / 48.0f * fM_Sd_3 * Math.Pow(fL_eff, 2.0f) / (Eceff_Ici_longterm);
 
+            double y_el_longterm_des_ratio = y_el_longterm / y_el_lim;
+
             // Deflection under cracked condition
             // Short-term deflection
 
-            double fA = fb * Concrete.E_cm/ (2.0f * A_s1 * Reinforcement.m_fE);
+            double fA = fb * Concrete.E_cm / (2.0f * A_s1 * Reinforcement.m_fE);
             double x = (Math.Sqrt(1.0f + 4.0f * fd_eff_lower * fA) - 1.0f) / (2.0f * fA);
 
             double fI_c_brutto_shortterm_crk = Get_I_c_brutto(Cross_Section.Fb, x, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
             double y_s_shortterm_crk = Get_y_s_x(fb, fh, x, fn_short_term, fy_s1, fy_s2, A_s1, A_s2);
-            double I_st_shortterm_crk = Get_I_st_x(Cross_Section.Fb, Cross_Section.Fh, x, fn_short_term, y_s_shortterm, fy_s1, fy_s2, A_s1, A_s2);
+            double I_st_shortterm_crk = Get_I_st_x(Cross_Section.Fb, Cross_Section.Fh, x, fn_short_term, y_s_shortterm_crk, fy_s1, fy_s2, A_s1, A_s2);
             double I_ci_shortterm_crk = fI_c_brutto_shortterm_crk + I_st_shortterm_crk;
-            double Ecm_Ici_shortterm_crk = Concrete.D_Ecm * I_ci_shortterm_crk;
+            double Ecm_Ici_shortterm_crk = Concrete.E_cm * I_ci_shortterm_crk;
             double y_el_shortterm_crk = 5.0f / 48.0f * fM_Sd_2 * Math.Pow(fL_eff, 2.0f) / (Ecm_Ici_shortterm_crk);
+
+            double y_el_shortterm_crk_des_ratio = y_el_shortterm_crk / y_el_lim;
 
             // Long-term deflection
             double fI_c_brutto_longterm_crk = Get_I_c_brutto(Cross_Section.Fb, x, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
@@ -600,14 +773,66 @@ namespace AAC
             double Eceff_Ici_longterm_crk = fE_c_eff * I_ci_longterm_crk;
             double y_el_longterm_crk = 5.0f / 48.0f * fM_Sd_3 * Math.Pow(fL_eff, 2.0f) / (Eceff_Ici_longterm_crk);
 
+            double y_el_longterm_crk_des_ratio = y_el_longterm_crk / y_el_lim;
+
             // Combination of deflection uncracked / cracked
 
             double k = 1.0f - 0.8f * Math.Pow(M_cr / fM_Sd_2, 2);
 
             // Short-term deflection
             double y_el_comb_shortterm = Get_y_el_comb(k, y_el_shortterm, y_el_shortterm_crk);
+            double y_el_comb_shortterm_des_ratio = y_el_comb_shortterm / y_el_lim;
             // Long-term deflection
             double y_el_comb_longterm = Get_y_el_comb(k, y_el_longterm, y_el_longterm_crk);
+            double y_el_comb_longterm_des_ratio = y_el_comb_longterm / y_el_lim;
+
+            // Output - Results
+            MessageBox.Show("Ultimate Limit State\n\n" +
+
+            "Tensile force F ld = " + Math.Round(0.001 * fF_ld_max, 2) + " kN \n" +
+            "Anchorange force capacity F RA = " + Math.Round(0.001 * fF_RA_max, 2) + " kN \n" +
+            "Maximum design ratio F ld / F RA = " + Math.Round(fDesign_Ratio_F_ld_F_RA_max, 4) * 100 + " % \n\n" +
+
+            "Serviceability Limit State\n\n" +
+
+            "Deflection under uncracked condition\n\n" +
+            "Short-term deflection\n" +
+            "Deflection y el,st = " + Math.Round(1000 * y_el_shortterm, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,st / y el,lim = " + Math.Round(y_el_shortterm_des_ratio, 4) * 100 + " % \n\n" +
+            "Long-term deflection\n" +
+            "Deflection y el,lt = " + Math.Round(1000 * y_el_longterm, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,lt / y el,lim = " + Math.Round(y_el_longterm_des_ratio, 4) * 100 + " % \n\n" +
+
+            "Deflection under cracked condition\n\n" +
+            "Short-term deflection\n" +
+            "Deflection y el,st,cr = " + Math.Round(1000 * y_el_shortterm_crk, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,st,cr / y el,lim = " + Math.Round(y_el_shortterm_crk_des_ratio, 4) * 100 + " % \n\n" +
+            "Long-term deflection\n" +
+            "Deflection y el,lt,cr = " + Math.Round(1000 * y_el_longterm_crk, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,lt,cr / y el,lim = " + Math.Round(y_el_longterm_crk_des_ratio, 4) * 100 + " % \n\n" +
+
+            "Combination of deflection uncracked / cracked\n\n" +
+            "Short-term deflection\n" +
+            "Deflection y el,st,com = " + Math.Round(1000 * y_el_comb_shortterm, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,st,com / y el,lim = " + Math.Round(y_el_comb_shortterm_des_ratio, 4) * 100 + " % \n\n" +
+            "Long-term deflection\n" +
+            "Deflection y el,lt,com = " + Math.Round(1000 * y_el_comb_longterm, 2) + " mm \n" +
+            "Deflection limit y el,lim = " + Math.Round(1000 * y_el_lim, 2) + " mm \n" +
+            "Maximum design ratio y el,lt,com / y el,lim = " + Math.Round(y_el_comb_longterm_des_ratio, 4) * 100 + " % \n");
+        }
+
+        private void Display_Graph_Click(object sender, RoutedEventArgs e)
+        {
+            Window a = new Window1();
+
+
+            a.Show();
+            //this.Close();
         }
 
         // Private Auxiliary Functions
@@ -633,7 +858,7 @@ namespace AAC
 
         private double Get_I_st_x(float fb, float fh, double x, float n, double y_s, float fy_s1, float fy_s2, double A_s1, double A_s2)
         {
-            return fb * x * Math.Pow(fh - 0.5f * x - y_s, 2.0f) + n * (A_s1 * Math.Pow(fy_s1 - y_s, 2.0f) + Math.Pow(fy_s2 - y_s, 2.0f));
+            return fb * x * Math.Pow(fh - 0.5f * x - y_s, 2.0f) + n * (A_s1 * Math.Pow(fy_s1 - y_s, 2.0f) + A_s2 * Math.Pow(fy_s2 - y_s, 2.0f));
         }
 
         private double Get_y_el_comb(double k, double fp_I, double fp_II)
@@ -641,7 +866,20 @@ namespace AAC
             return k * fp_II + (1.0f - k) * fp_I;
         }
 
-        public float Get_minimum_support_a_min(int selected_AAC_ComponentIndex, int selected_SupportMaterialIndex)
+        private double Get_fld(float fK_c1, float fm, double e, double d, float fFactor_Alpha, double fck, float fGamma_c)
+        {
+            return fK_c1 * fm * Math.Pow(e / d, 1.0 / 3.0) * fFactor_Alpha * fck / fGamma_c;
+        }
+
+        private float Get_m(int np, int nt)
+        {
+            if (nt > 0)
+                return 1.0f + 0.3f * np / nt;
+            else
+                return 0.0f;
+        }
+
+        public float Get_minimum_support_a_min(E_SupportMaterialType SupportMaterialIndex)
         {
             //AAC element
 
@@ -658,16 +896,32 @@ namespace AAC
             //2 - "concrete"
             //3 - "wood"
 
-            if (selected_AAC_ComponentIndex == 4)
+            if (selected_AAC_ComponentIndex == E_AACElementType.Beam)
                 return 0.10f;
-            else if (selected_SupportMaterialIndex == 0)
+            else if (SupportMaterialIndex == E_SupportMaterialType.masonry)
                 return 0.07f;
             else
                 return 0.05f;
         }
 
-
-
+        public void Minimum_Spacing_of_Long_Bars(float fd_bar, float fd_eff_section, out float fsl_min, out float fsl_max)
+        {
+            if (selected_AAC_ComponentIndex == E_AACElementType.Floor_Panel || selected_AAC_ComponentIndex == E_AACElementType.Roof_Panel)
+            {
+                fsl_min = 0.05f;
+                fsl_max = 2.0f * fd_eff_section;
+            }
+            else if (selected_AAC_ComponentIndex == E_AACElementType.Beam)
+            {
+                fsl_min = 2.5f * fd_bar;
+                fsl_max = 2.0f * fd_eff_section;
+            }
+            else // Walls
+            {
+                fsl_min = 0.05f;
+                fsl_max = 0.7f;
+            }
+        }
     }
 
     public class ComboItem
