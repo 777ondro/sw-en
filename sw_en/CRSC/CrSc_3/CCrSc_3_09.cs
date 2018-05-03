@@ -37,6 +37,7 @@ namespace CRSC
         //----------------------------------------------------------------------------
         public CCrSc_3_09(float fd, short iTotNoPoints)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             Fd = fd;
             ITotNoPoints = iTotNoPoints; // + 1 auxialiary node in centroid / stredovy bod v tazisku
@@ -52,12 +53,18 @@ namespace CRSC
             // Fill Array Data
             CalcCrSc_Coord();
 
-            // Fill list of indices for drawing of surface - triangles edges
+            // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+
+            // All indices together
             loadCrScIndices();
         }
 
         public CCrSc_3_09(float fd)
         {
+            IsShapeSolid = true;
             // m_iTotNoPoints = 72+1; // vykreslujeme ako plny n-uholnik + 1 stredovy bod
             Fd = fd;
             ITotNoPoints = 73; // 1 auxialiary node in centroid / stredovy bod v tazisku
@@ -72,20 +79,13 @@ namespace CRSC
             // Fill Array Data
             CalcCrSc_Coord();
 
-            // Fill list of indices for drawing of surface - triangles edges
+            // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+
+            // All indices together
             loadCrScIndices();
-        }
-
-        protected override void loadCrScIndicesFrontSide()
-        {
-        }
-
-        protected override void loadCrScIndicesShell()
-        {
-        }
-
-        protected override void loadCrScIndicesBackSide()
-        {
         }
     }
 }

@@ -8,9 +8,12 @@ namespace CRSC
 {
     public class CCrSc_2_00 : CCrSc_0_05
     {
-      // Solid rectangle
+        // Solid rectangle
 
-      public CCrSc_2_00(float fh, float fb/*, float ft*/)
+      public CCrSc_2_00()
+      {
+      }
+          public CCrSc_2_00(float fh, float fb/*, float ft*/)
       {
           //ITotNoPoints = 4;
           Fh = fh;

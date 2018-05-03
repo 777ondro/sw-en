@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MATH;
 using System.Windows.Media;
+using MATH;
 
 namespace CRSC
 {
@@ -60,7 +60,12 @@ namespace CRSC
             // Fill Array Data
             CalcCrSc_Coord();
 
-            // Fill list of indices for drawing of surface - triangles edges
+            // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+
+            // All indices together
             loadCrScIndices();
         }
         public CCrSc_0_02(float fd)
@@ -82,7 +87,21 @@ namespace CRSC
             CalcCrSc_Coord();
 
             // Fill list of indices for drawing of surface - triangles edges
+
+            // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+
+            // All indices together
             loadCrScIndices();
+
+            // Calculate cross-section properties
+            //Calc_A();
+            //Calc_I_y();
+            //Calc_I_z();
+            //Calc_I_t();
+
         }
 
         //----------------------------------------------------------------------------
@@ -242,14 +261,61 @@ namespace CRSC
 
         protected override void loadCrScIndicesFrontSide()
         {
+            TriangleIndicesFrontSide = new Int32Collection();
+
+            // Front Side / Forehead
+            for (int i = 0; i < ITotNoPoints - 1; i++)
+            {
+                if (i < ITotNoPoints - 2)
+                {
+                    TriangleIndicesFrontSide.Add(i);
+                    TriangleIndicesFrontSide.Add(ITotNoPoints - 1);
+                    TriangleIndicesFrontSide.Add(i + 1);
+                }
+                else // Last Element
+                {
+                    TriangleIndicesFrontSide.Add(i);
+                    TriangleIndicesFrontSide.Add(ITotNoPoints - 1);
+                    TriangleIndicesFrontSide.Add(0);
+                }
+            }
         }
 
         protected override void loadCrScIndicesShell()
         {
+            TriangleIndicesShell = new Int32Collection();
+
+            // Shell Surface OutSide
+            for (int i = 0; i < ITotNoPoints - 1; i++)
+            {
+                if (i < ITotNoPoints - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+
+            }
         }
 
         protected override void loadCrScIndicesBackSide()
         {
+            TriangleIndicesBackSide = new Int32Collection();
+
+            // Back Side
+            for (int i = 0; i < ITotNoPoints - 1; i++)
+            {
+                if (i < ITotNoPoints - 2)
+                {
+                    TriangleIndicesBackSide.Add(ITotNoPoints + i);
+                    TriangleIndicesBackSide.Add(ITotNoPoints + i + 1);
+                    TriangleIndicesBackSide.Add(ITotNoPoints + ITotNoPoints - 1);
+                }
+                else // Last Element
+                {
+                    TriangleIndicesBackSide.Add(ITotNoPoints + i);
+                    TriangleIndicesBackSide.Add(ITotNoPoints);
+                    TriangleIndicesBackSide.Add(ITotNoPoints + ITotNoPoints - 1);
+                }
+            }
         }
     }
 }

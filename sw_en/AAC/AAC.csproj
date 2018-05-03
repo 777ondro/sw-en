@@ -54,9 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AAC_Panel.cs" />
+    <Compile Include="Object3DModel.cs" />
     <Compile Include="PanelPreview.xaml.cs">
       <DependentUpon>PanelPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReinforcementBar.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
     <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
       <Project>{864d95ad-46ae-4198-b7f3-d5bbe1245208}</Project>
       <Name>MATERIAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MATH\MATH.csproj">
+      <Project>{0e2adcc8-209e-4fcc-9ac2-d0c7eea8ac26}</Project>
+      <Name>MATH</Name>
     </ProjectReference>
     <ProjectReference Include="..\MODULES\M_BASE\M_BASE.csproj">
       <Project>{ad3e14f4-72c6-476e-b67f-93cc194e0e02}</Project>

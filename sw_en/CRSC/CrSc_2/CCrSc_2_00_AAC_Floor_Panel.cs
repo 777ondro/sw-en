@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Media;
+using MATH;
+
+namespace CRSC
+{
+    public class CCrSc_2_00_AAC_Floor_Panel : CCrSc_2_00
+    {
+        //  Solid AAC floor panel - grooved
+
+        public CCrSc_2_00_AAC_Floor_Panel()
+        {
+        }
+        public CCrSc_2_00_AAC_Floor_Panel(float fh, float fb)
+        {
+            IsShapeSolid = true;
+
+            //ITotNoPoints = 10;
+            ITotNoPoints = 10;
+            Fh = fh;
+            Fb = fb;
+
+            // Create Array - allocate memory
+            CrScPointsOut = new float[ITotNoPoints, 2];
+
+            // Fill Array Data
+            CalcCrSc_Coord();
+
+            // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+            loadCrScIndicesFrontSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
+
+            // All indices together
+            //loadCrScIndices();
+        }
+
+        public new void CalcCrSc_Coord()
+        {
+            // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
+
+            // Outside Points Coordinates
+
+            float xb = 0.18f * Fb;
+            float xa = 0.15f * Fb;
+            float xc = 0.03f; // 30 mm ???
+
+            float ya = 0.5f * Fh;
+            float yb = 0.7f * Fh;
+
+            float h = (float)Fh;
+            float b = (float)Fb;
+
+            CrScPointsOut[0, 0] = 0.0f;
+            CrScPointsOut[0, 1] = h;
+            CrScPointsOut[1, 0] = b - xa;
+            CrScPointsOut[1, 1] = h;
+            CrScPointsOut[2, 0] = b - xb;
+            CrScPointsOut[2, 1] = yb;
+            CrScPointsOut[3, 0] = b;
+            CrScPointsOut[3, 1] = ya;
+            CrScPointsOut[4, 0] = b;
+            CrScPointsOut[4, 1] = 0;
+            CrScPointsOut[5, 0] = 0;
+            CrScPointsOut[5, 1] = 0;
+            CrScPointsOut[6, 0] = 0;
+            CrScPointsOut[6, 1] = ya;
+            CrScPointsOut[7, 0] = xc;
+            CrScPointsOut[7, 1] = ya + 0.5f * xc;
+            CrScPointsOut[8, 0] = xc;
+            CrScPointsOut[8, 1] = yb;
+            CrScPointsOut[9, 0] = 0;
+            CrScPointsOut[9, 1] = yb + 0.5f * xc;
+        }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+            TriangleIndicesFrontSide = new Int32Collection();
+
+            AddTriangleIndices(TriangleIndicesFrontSide, 0, 9, 2);
+            AddTriangleIndices(TriangleIndicesFrontSide, 0, 2, 1);
+            AddTriangleIndices(TriangleIndicesFrontSide, 9, 8, 2);
+            AddTriangleIndices(TriangleIndicesFrontSide, 8, 7, 2);
+            AddTriangleIndices(TriangleIndicesFrontSide, 7, 3, 2);
+            AddTriangleIndices(TriangleIndicesFrontSide, 7, 6, 3);
+            AddTriangleIndices(TriangleIndicesFrontSide, 6, 5, 4);
+            AddTriangleIndices(TriangleIndicesFrontSide, 6, 4, 3);
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+            TriangleIndicesShell = new Int32Collection();
+
+            // Shell Surface OutSide
+            for (int i = 0; i < ITotNoPoints - 1; i++)
+            {
+                if (i < ITotNoPoints - 2)
+                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                else
+                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+
+            }
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
+            TriangleIndicesBackSide = new Int32Collection();
+
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 1, ITotNoPoints + 2);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 2, ITotNoPoints + 9);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 9, ITotNoPoints + 8, ITotNoPoints + 2);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 8, ITotNoPoints + 7, ITotNoPoints + 2);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 3, ITotNoPoints + 2);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 6, ITotNoPoints + 3);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 5, ITotNoPoints + 3);
+            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 3, ITotNoPoints + 4);
+        }
+
+        private void AddTriangleIndices(Int32Collection collection, int a, int b, int c)
+        {
+            collection.Add(a);
+            collection.Add(b);
+            collection.Add(c);
+        }
+
+
+}
+}

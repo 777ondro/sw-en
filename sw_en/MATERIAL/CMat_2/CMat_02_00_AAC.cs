@@ -15,46 +15,22 @@ namespace MATERIAL
             get => m_Rho_m;
             set => m_Rho_m = value;
         }
+        double fcflk0_05;
 
-        double fctk_005;
-
-        public double Fctk_005
+        public double Fcflk0_05
         {
-            get { return fctk_005; }
-            set { fctk_005 = value; }
+            get { return fcflk0_05; }
+            set { fcflk0_05 = value; }
         }
 
-        double fctk_095;
+        double fcflk0_95;
 
-        public double Fctk_095
+        public double Fcflk0_95
         {
-            get { return fctk_095; }
-            set { fctk_095 = value; }
+            get { return fcflk0_95; }
+            set { fcflk0_95 = value; }
         }
 
-        double fcflk_005;
-
-        public double Fcflk_005
-        {
-            get { return fcflk_005; }
-            set { fcflk_005 = value; }
-        }
-
-        double fcflk_095;
-
-        public double Fcflk_095
-        {
-            get { return fcflk_095; }
-            set { fcflk_095 = value; }
-        }
-
-        double fE_cm;
-
-        public double E_cm
-        {
-            get { return fE_cm; }
-            set { fE_cm = value; }
-        }
 
         public CMat_02_00_AAC()
         {
@@ -71,11 +47,11 @@ namespace MATERIAL
             Rho_m = rho_m_density; //kg/m^3
             Fck = AAC_fck_array[id_database] * 1.0e+6; // Pa
 
-            Fctk_005 = 0.1f * Fck;
-            Fctk_095 = 0.24f * Fck;
-            Fcflk_005 = 0.18f * Fck;
-            Fcflk_095 = 0.36f * Fck;
-            E_cm = 5 * (Rho_m - 150) * 1e+6f; //Pa EN 12602 - 4.2.7(6)
+            Fctk0_05 = 0.1f * Fck;
+            Fctk0_95 = 0.24f * Fck;
+            Fcflk0_05 = 0.18f * Fck;
+            Fcflk0_95 = 0.36f * Fck;
+            D_Ecm = 5 * (Rho_m - 150) * 1e+6f; //Pa EN 12602 - 4.2.7(6)
         }
 
         // Autoclaved Aered Concrete

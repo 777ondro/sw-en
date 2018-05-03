@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using BaseClasses;
 using BaseClasses.GraphObj;
 using _3DTools;
+using MATH;
 
 namespace AAC
 {
@@ -24,168 +25,127 @@ namespace AAC
     /// </summary>
     public partial class PanelPreview : Page
     {
-        //--------------------------------------------------------------------------------------------
-        public PanelPreview()
-        {
-            InitializeComponent();
-            CreatePreviewModel(5, 0.625, 0.25); // Todo - hodnoty natvrdo, zapracovat nacitanie z GUI Main Window a update 3D modelu podla zakladnych hodnot
-        }
-
-        public PanelPreview(double L, double b, double h)
-        {
-            InitializeComponent();
-            CreatePreviewModel(L, b, h);
-        }
+        AAC_Panel obj_panel = new AAC_Panel();
 
         //--------------------------------------------------------------------------------------------
-        public void CreatePreviewModel(double L, double b, double h)
+        public PanelPreview(AAC_Panel panel)
+        {
+            obj_panel = panel;
+
+            InitializeComponent();
+
+            CreatePreviewModel();
+        }
+
+        //--------------------------------------------------------------------------------------------
+        public void CreatePreviewModel()
         {
             // Default view
-            Point3D lookAtPoint = new Point3D(0.0, 0.6, 0.1);
+            Point3D lookAtPoint = new Point3D(1, 0, -0.5);
 
-            _trackport.PerspectiveCamera.Position = new Point3D(0, -1.5, 0.4);
+            _trackport.PerspectiveCamera.Position = new Point3D(-0.75, 0.4, -0.1);
             LookAt(_trackport.PerspectiveCamera, lookAtPoint);
 
             //OrthographicCamera camera = new OrthographicCamera(); // Doplnit moznost zobrazit v pravouhlom priemietani
 
             // Light Direction
-            _trackport.Light.Direction = new Vector3D(0, 5, -10);
+            _trackport.Light.Direction = new Vector3D(-1, -10, 0);
 
-            Model3DGroup model = CreateFloorPanel(L, b, h, 0.8);
+            // Define a lighting model
+            //DirectionalLight qLight = new DirectionalLight();
+            //qLight.Color = Colors.White;
+            //qLight.Direction = new Vector3D(-0.5, -0.25, -0.5);
 
-            //Model3DGroup model_reinf = CreateFloorPanel(2,0.3, 0.1, 1.0);
+            Model3DGroup model = new Model3DGroup();
 
-            //model.Children.Add(model_reinf);
+            EGCS eGCS = EGCS.eGCSLeftHanded;
 
-            _trackport.Model = (Model3D)model;
+            //!!!!!!! POZOR PRIEHLADNOST ZAVISI NA PORADI VYKRESLOVANIA OBJEKTOV!!!!!!!!!
+            bool bIsReinfocementSurfaceTransparent = false;
+            bool bIsPanelSurfaceTransparent = false;
+
+            // Reinforcement
+            SolidColorBrush brRein_1 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Front Side
+            SolidColorBrush brRein_2 = new SolidColorBrush(Color.FromRgb(200, 0, 0)); // Material color - Shell
+            SolidColorBrush brRein_3 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Back Side
+
+            double y1_lower = 0.102;
+
+            for(int i = 0; i < obj_panel.Long_Bottom_Bars_Array.Length; i++)
+              model.Children.Add(obj_panel.Long_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), new Point3D(obj_panel.Long_Bottom_Bars_Array[0].fL - obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), obj_panel.Long_Bottom_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+
+            double y2_upper = 0.06;
+            for (int i = 0; i < obj_panel.Long_Upper_Bars_Array.Length; i++)
+                model.Children.Add(obj_panel.Long_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 *obj_panel.fd_long_upper), new Point3D(obj_panel.Long_Upper_Bars_Array[0].fL - obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), obj_panel.Long_Upper_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+
+            //double[] trans_rein_position_x_array = new double[obj_panel.number_trans_lower_bars];
+            double x1 = 0.03;
+            double x2 = 0.10;
+            double x3 = 0.32;
+            double x4 = 0.50;
+
+            double[] trans_rein_position_x_array = new double[] {
+                x1,
+                x1 + x2,
+                x1 + 2 * x2,
+                x1 + 3 * x2,
+                x1 + 4 * x2,
+                x1 + 4 * x2 + x3,
+                x1 + 4 * x2 + x3 + x4,
+                x1 + 4 * x2 + x3 + 2 * x4,
+                x1 + 4 * x2 + x3 + 3 * x4,
+                x1 + 4 * x2 + x3 + 4 * x4,
+                x1 + 4 * x2 + x3 + 5 * x4,
+                x1 + 4 * x2 + x3 + 6 * x4,
+                x1 + 4 * x2 + x3 + 7 * x4,
+                x1 + 4 * x2 + x3 + 7 * x4 + x3,
+                x1 + 4 * x2 + x3 + 7 * x4 + x3 + x2,
+                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 2 * x2,
+                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 3 * x2,
+                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 4 * x2
+            };
+
+            double trans_lower_start = y1_lower - obj_panel.fc_trans_lower;
+            double l_trans_lower = (obj_panel.number_long_lower_bars - 1) * obj_panel.fsl_lower + 2 * obj_panel.fc_trans_lower;
+
+            double trans_upper_start = y2_upper - obj_panel.fc_trans_upper;
+            double l_trans_upper = (obj_panel.number_long_upper_bars - 1) * obj_panel.fsl_upper + 2 * obj_panel.fc_trans_upper;
+
+            for (int i = 0; i < obj_panel.Trans_Bottom_Bars_Array.Length; i++)
+                model.Children.Add(obj_panel.Trans_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_lower_start, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), new Point3D(trans_rein_position_x_array[i], trans_lower_start + l_trans_lower, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), obj_panel.Trans_Bottom_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+
+            for (int i = 0; i < obj_panel.Trans_Upper_Bars_Array.Length; i++)
+                model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+
+            // Panel
+            SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(130, 130, 130));  // Material color - Front Side
+            SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(210, 210, 210));  // Material color - Shell
+            SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(131, 131, 131));  // Material color - Back Side
+
+            br1.Opacity = 0.5;
+            br2.Opacity = 0.7;
+            br3.Opacity = 0.5;
+
+            DiffuseMaterial  qDiffTrans = new DiffuseMaterial(new SolidColorBrush(Color.FromArgb(130, 130, 130, 1)));
+            SpecularMaterial qSpecTrans = new SpecularMaterial(new SolidColorBrush(Color.FromArgb(210, 210, 210, 210)), 90.0);
+
+            MaterialGroup qOuterMaterial = new MaterialGroup();
+            qOuterMaterial.Children.Add(qDiffTrans);
+            qOuterMaterial.Children.Add(qSpecTrans);
+
+            model.Children.Add(obj_panel.GetMemberModel(eGCS, bIsPanelSurfaceTransparent, new Point3D(0, 0, 0), new Point3D(obj_panel.fL, 0, 0), obj_panel.Cross_Section, br1, br2, br3, qOuterMaterial));
+
+            RotateTransform3D myRotateTransform3D = new RotateTransform3D();
+            AxisAngleRotation3D rotation = new AxisAngleRotation3D(new Vector3D(1, 0, 0), 270);
+            myRotateTransform3D.Rotation = rotation;
+            model.Transform = myRotateTransform3D;
 
             _trackport.Model = (Model3D)model;
             _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
             _trackport.SetupScene();
         }
 
-        //--------------------------------------------------------------------------------------------
-        public Model3DGroup CreateFloorPanel(double L, double b, double h, double opacity)
-        {
-            Model3DGroup models = new Model3DGroup();
 
-            double xb = 0.2 * b;
-            double xa = 0.18 * b;
-            double xc = 0.03;
-
-            double ya = 0.5 * h;
-            double yb = 0.8 * h;
-
-            Point3D p0 = new Point3D(0, 0, h);
-            Point3D p1 = new Point3D(b - xa, 0, h);
-            Point3D p2 = new Point3D(b - xb, 0, yb);
-            Point3D p3 = new Point3D(b, 0, ya);
-            Point3D p4 = new Point3D(b, 0, 0);
-            Point3D p5 = new Point3D(0, 0, 0);
-            Point3D p6 = new Point3D(0, 0, ya);
-            Point3D p7 = new Point3D(xc, 0, ya + 0.5 * xc);
-            Point3D p8 = new Point3D(xc, 0, yb);
-            Point3D p9 = new Point3D(0, 0, yb + 0.5 * xc);
-
-            Point3D p10 = new Point3D(0, L, h);
-            Point3D p11 = new Point3D(b - xa, L, h);
-            Point3D p12 = new Point3D(b - xb, L, yb);
-            Point3D p13 = new Point3D(b, L, ya);
-            Point3D p14 = new Point3D(b, L, 0);
-            Point3D p15 = new Point3D(0, L, 0);
-            Point3D p16 = new Point3D(0, L, ya);
-            Point3D p17 = new Point3D(xc, L, ya + 0.5 * xc);
-            Point3D p18 = new Point3D(xc, L, yb);
-            Point3D p19 = new Point3D(0, L, yb + 0.5 * xc);
-
-            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(200,200,200));
-            brush.Opacity = opacity;
-            DiffuseMaterial DiffMat = new DiffuseMaterial(brush);
-
-            // Front Side
-            models.Children.Add(CreateRectangle(p0, p9, p2, p1, DiffMat));
-            models.Children.Add(CreateTriangle(p9, p8, p2, DiffMat));
-            models.Children.Add(CreateTriangle(p8, p7, p2, DiffMat));
-            models.Children.Add(CreateTriangle(p7, p3, p2, DiffMat));
-            models.Children.Add(CreateTriangle(p7, p6, p3, DiffMat));
-            models.Children.Add(CreateRectangle(p6, p5, p4, p3, DiffMat));
-
-            // Back Side
-            models.Children.Add(CreateRectangle(p10, p11, p12, p19, DiffMat));
-            models.Children.Add(CreateTriangle(p19, p12, p18, DiffMat));
-            models.Children.Add(CreateTriangle(p18, p12, p17, DiffMat));
-            models.Children.Add(CreateTriangle(p17, p12, p13, DiffMat));
-            models.Children.Add(CreateTriangle(p17, p13, p16, DiffMat));
-            models.Children.Add(CreateRectangle(p16, p13, p14, p15, DiffMat));
-
-            //
-            models.Children.Add(CreateRectangle(p0, p1, p11, p10, DiffMat));
-            models.Children.Add(CreateRectangle(p1, p2, p12, p11, DiffMat));
-            models.Children.Add(CreateRectangle(p2, p3, p13, p12, DiffMat));
-            models.Children.Add(CreateRectangle(p3, p4, p14, p13, DiffMat));
-            models.Children.Add(CreateRectangle(p4, p5, p15, p14, DiffMat));
-            models.Children.Add(CreateRectangle(p5, p6, p16, p15, DiffMat));
-            models.Children.Add(CreateRectangle(p6, p7, p17, p16, DiffMat));
-            models.Children.Add(CreateRectangle(p7, p8, p18, p17, DiffMat));
-            models.Children.Add(CreateRectangle(p8, p9, p19, p18, DiffMat));
-            models.Children.Add(CreateRectangle(p9, p0, p10, p19, DiffMat));
-
-            return models;
-        }
-
-        //--------------------------------------------------------------------------------------------
-        public GeometryModel3D CreateRectangle(
-              Point3D point1, Point3D point2,
-              Point3D point3, Point3D point4,
-              DiffuseMaterial DiffMat)
-        {
-            MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(point1);
-            mesh.Positions.Add(point2);
-            mesh.Positions.Add(point3);
-            mesh.Positions.Add(point4);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-
-            mesh.TextureCoordinates.Add(new Point(0, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 0));
-
-            return new GeometryModel3D(mesh, DiffMat);
-        }
-
-        //--------------------------------------------------------------------------------------------
-        public GeometryModel3D CreateTriangle(
-              Point3D point1, Point3D point2,
-              Point3D point3,
-              DiffuseMaterial DiffMat)
-        {
-            MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(point1);
-            mesh.Positions.Add(point2);
-            mesh.Positions.Add(point3);
-
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-
-            mesh.TextureCoordinates.Add(new Point(0, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 0));
-
-            return new GeometryModel3D(mesh, DiffMat);
-        }
         //--------------------------------------------------------------------------------------------
         private void LookAt(PerspectiveCamera camera, Point3D lookAtPoint)
         {

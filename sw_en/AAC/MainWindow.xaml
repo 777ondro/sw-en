@@ -8,7 +8,7 @@
         Title="AAC Panel Design" Height="800" Width="1280" MinWidth="100" MinHeight="100" MaxWidth="1280" MaxHeight="800">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,25,0,0" TextWrapping="Wrap" Text="AAC component" VerticalAlignment="Top" Width="95"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="0">
+        <ComboBox Name ="ComboBox_AAC_Component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="0">
             <ComboBoxItem Content="Floor Panel"/>
             <ComboBoxItem Content="Roof Panel"/>
             <ComboBoxItem Content="Vertical Wall Panel"/>
@@ -17,7 +17,7 @@
         </ComboBox>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,50,0,0" TextWrapping="Wrap" Text="Standard" VerticalAlignment="Top" Width="95"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,50,0,0" SelectionChanged="ComboBox_Standard_SelectionChanged" Height="20" SelectedIndex="0">
+        <ComboBox Name ="ComboBox_Standard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,50,0,0" SelectionChanged="ComboBox_Standard_SelectionChanged" Height="20" SelectedIndex="0">
             <ComboBoxItem Content="EN 12602"/>
             <ComboBoxItem Content="AS 3700-2011"/>
             <ComboBoxItem Content="AS 5146.2"/>
@@ -25,7 +25,7 @@
         </ComboBox>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,75,0,0" TextWrapping="Wrap" Text="Support Material 1 (S)" VerticalAlignment="Top" Width="113"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,75,0,0" SelectionChanged="ComboBox_SupportMaterial_1S_SelectionChanged" Height="20" SelectedIndex="0">
+        <ComboBox Name ="ComboBox_SupportMaterial_1S" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,75,0,0" SelectionChanged="ComboBox_SupportMaterial_1S_SelectionChanged" Height="20" SelectedIndex="0">
             <ComboBoxItem Content="masonry"/>
             <ComboBoxItem Content="steel"/>
             <ComboBoxItem Content="concrete"/>
@@ -33,7 +33,7 @@
         </ComboBox>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,100,0,0" TextWrapping="Wrap" Text="Support Material 2 (E)" VerticalAlignment="Top" Width="113"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,100,0,0" SelectionChanged="ComboBox_SupportMaterial_2E_SelectionChanged" Height="20" SelectedIndex="0">
+        <ComboBox Name ="ComboBox_SupportMaterial_2E" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,100,0,0" SelectionChanged="ComboBox_SupportMaterial_2E_SelectionChanged" Height="20" SelectedIndex="0">
             <ComboBoxItem Content="masonry"/>
             <ComboBoxItem Content="steel"/>
             <ComboBoxItem Content="concrete"/>
@@ -73,7 +73,7 @@
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,360,0,0" TextWrapping="Wrap" Text="Autoclaved aerated concrete (AAC)" VerticalAlignment="Top" Width="160"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"><Run Text="Strength Class"/></TextBlock>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,393,0,0" SelectionChanged="ComboBox_AAC_CSC_SelectionChanged" Height="20"  SelectedIndex="6">
+        <ComboBox Name ="ComboBox_AAC_CSC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,393,0,0" SelectionChanged="ComboBox_AAC_CSC_SelectionChanged" Height="20"  SelectedIndex="6">
             <ComboBoxItem Content="AAC 1.5"/>
             <ComboBoxItem Content="AAC   2"/>
             <ComboBoxItem Content="AAC 2.5"/>
@@ -91,7 +91,7 @@
         </ComboBox>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,418,0,0" TextWrapping="Wrap" Text="Density Class" VerticalAlignment="Top" Width="160"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,418,0,0" SelectionChanged="ComboBox_AAC_DC_SelectionChanged" Height="20"  SelectedIndex="5">
+        <ComboBox Name ="ComboBox_AAC_DC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,418,0,0" SelectionChanged="ComboBox_AAC_DC_SelectionChanged" Height="20"  SelectedIndex="5">
             <ComboBoxItem Content="300"/>
             <ComboBoxItem Content="350"/>
             <ComboBoxItem Content="400"/>
@@ -124,7 +124,7 @@
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,560,0,0" TextWrapping="Wrap" Text="Reinforcement" VerticalAlignment="Top" Width="150"/>
 
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,560,0,0" SelectionChanged="ComboBox_Reinforcement_SelectionChanged" Height="20"  SelectedIndex="1">
+        <ComboBox Name ="ComboBox_Reinforcement" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="155,560,0,0" SelectionChanged="ComboBox_Reinforcement_SelectionChanged" Height="20"  SelectedIndex="1">
             <ComboBoxItem Content="250"/>
             <ComboBoxItem Content="500B"/>
             <ComboBoxItem Content="500C"/>
@@ -134,7 +134,7 @@
         <TextBox Name="TextBoxLongReinUpper_No" HorizontalAlignment="Left" Height="20" Margin="155,585,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxLongReinUpper_No_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="185,585,0,0" TextWrapping="Wrap" Text="x Ø" VerticalAlignment="Top" Width="20"/>
 
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,585,0,0" SelectionChanged="ComboBox_LongReinUpper_SelectionChanged" Height="20"  SelectedIndex="2">
+        <ComboBox Name ="ComboBox_LongReinUpper" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,585,0,0" SelectionChanged="ComboBox_LongReinUpper_SelectionChanged" Height="20"  SelectedIndex="2">
             <ComboBoxItem Content="5"/>
             <ComboBoxItem Content="5.5"/>
             <ComboBoxItem Content="6"/>
@@ -148,14 +148,14 @@
         </ComboBox>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="265,585,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
-        <TextBox Name="TextBoxLongReinUpper_distance_sl_2" HorizontalAlignment="Left" Height="20" Margin="275,585,0,0" TextWrapping="Wrap" Text="0.300" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLongReinUpper_distance_sl_2_TextChanged"/>
+        <TextBox Name="TextBoxLongReinUpper_distance_sl_2" HorizontalAlignment="Left" Height="20" Margin="275,585,0,0" TextWrapping="Wrap" Text="0.210" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLongReinUpper_distance_sl_2_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="335,585,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,610,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"><Run Text="Longitudinal - Lower"/></TextBlock>
         <TextBox Name="TextBoxLongReinLower_No" HorizontalAlignment="Left" Height="20" Margin="155,610,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxLongReinLower_No_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="185,610,0,0" TextWrapping="Wrap" Text="x Ø" VerticalAlignment="Top" Width="20"/>
 
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,610,0,0" SelectionChanged="ComboBox_LongReinLower_SelectionChanged" Height="20"  SelectedIndex="3">
+        <ComboBox Name ="ComboBox_LongReinLower" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,610,0,0" SelectionChanged="ComboBox_LongReinLower_SelectionChanged" Height="20"  SelectedIndex="3">
             <ComboBoxItem Content="5"/>
             <ComboBoxItem Content="5.5"/>
             <ComboBoxItem Content="6"/>
@@ -176,7 +176,7 @@
         <TextBox Name="TextBoxTransRein_No" HorizontalAlignment="Left" Height="20" Margin="155,635,0,0" TextWrapping="Wrap" Text="18" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransRein_No_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="185,635,0,0" TextWrapping="Wrap" Text="x Ø" VerticalAlignment="Top" Width="20"/>
 
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,635,0,0" SelectionChanged="ComboBox_TransRein_SelectionChanged" Height="20" SelectedIndex="1">
+        <ComboBox Name ="ComboBox_TransRein" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,635,0,0" SelectionChanged="ComboBox_TransRein_SelectionChanged" Height="20" SelectedIndex="1">
             <ComboBoxItem Content="5"/>
             <ComboBoxItem Content="5.5"/>
             <ComboBoxItem Content="6"/>
@@ -212,11 +212,11 @@
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,220,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,245,0,0" TextWrapping="Wrap" Text="g k" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingValue_g_k" HorizontalAlignment="Left" Height="20" Margin="460,245,0,0" TextWrapping="Wrap" Text="3.420" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorValue_g_k_TextChanged"/>
+        <TextBox Name="TextBoxLoadingValue_g_k" HorizontalAlignment="Left" Height="20" Margin="460,245,0,0" TextWrapping="Wrap" Text="3.420" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_g_k_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,245,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,270,0,0" TextWrapping="Wrap" Text="q k" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingValue_q_k" HorizontalAlignment="Left" Height="20" Margin="460,270,0,0" TextWrapping="Wrap" Text="2.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorValue_q_k_TextChanged"/>
+        <TextBox Name="TextBoxLoadingValue_q_k" HorizontalAlignment="Left" Height="20" Margin="460,270,0,0" TextWrapping="Wrap" Text="2.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_q_k_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,270,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,360,0,0" TextWrapping="Wrap" Text="Transport" VerticalAlignment="Top" Width="95"/>
@@ -233,7 +233,7 @@
         <TextBox Name="TextBoxAACPanelDensity_Rho_trans" HorizontalAlignment="Left" Height="20" Margin="460,440,0,0" TextWrapping="Wrap" Text="775.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxAACPanelDensity_Rho_trans_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,440,0,0" TextWrapping="Wrap" Text="[kg/m^3]" VerticalAlignment="Top" Width="50"/>
 
-        <Frame Content="Panel 3D Preview" HorizontalAlignment="Left" Height="725" Margin="580,0,0,0" VerticalAlignment="Top" Width="683" NavigationUIVisibility="Hidden" Source="PanelPreview.xaml"/>
+        <Frame Name ="Frame1" Content="Panel 3D Preview" HorizontalAlignment="Left" Height="725" Margin="580,0,0,0" VerticalAlignment="Top" Width="683" NavigationUIVisibility="Hidden"/>
 
         <Button Content="Calculate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1175,730,0,0" Click="Calculate_Click"/>
 

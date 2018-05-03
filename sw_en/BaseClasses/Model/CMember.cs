@@ -398,7 +398,6 @@ namespace BaseClasses
             // Mesh Triangles - various cross-sections shapes defined
             mesh.TriangleIndices = obj_CrScA.TriangleIndices;
 
-
             // Dislay data in the output window
 
             sOutput = null;
@@ -519,7 +518,6 @@ namespace BaseClasses
                 }
             }
 
-
             // Transform coordinates
             TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
             TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshShell.Positions);
@@ -541,7 +539,6 @@ namespace BaseClasses
                 ChangeIndices(meshShell.TriangleIndices);
                 ChangeIndices(meshBackSide.TriangleIndices);
             }
-
         }
 
         public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
@@ -674,7 +671,7 @@ namespace BaseClasses
             Z Rotation *
 
             cos (gamaZ)     -sin (gamaZ)     0      0
-            sin (gamaZ)     cos (gamaZ)      0      0
+            sin (gamaZ)      cos (gamaZ)     0      0
             0                 0              1      0
             0                 0              0      1
             */
@@ -687,14 +684,14 @@ namespace BaseClasses
 
             1           0             0               0
             0     cos (alphaX)     sin (alphaX)       0
-            0     -sin (alphaX)    cos (alphaX)       0
+            0    -sin (alphaX)     cos (alphaX)       0
             0           0             0               1
             */
 
             /*
             Y Rotation *
 
-            cos (betaY)    0     -sin (betaY)   0
+            cos (betaY)    0    -sin (betaY)    0
             0              1     0              0
             sin (betaY)    0     cos (betaY)    0
             0              0     0              1
@@ -703,10 +700,10 @@ namespace BaseClasses
             /*
             Z Rotation *
 
-            cos (gamaZ)     sin (gamaZ)      0      0
-            -sin (gamaZ)    cos (gamaZ)      0      0
-            0                 0              1      0
-            0                 0              0      1
+             cos (gamaZ)     sin (gamaZ)      0      0
+            -sin (gamaZ)     cos (gamaZ)      0      0
+             0                 0              1      0
+             0                 0              0      1
             */
 
             Point3D pTemp1 = new Point3D();
@@ -823,17 +820,17 @@ namespace BaseClasses
             /*
             Y Rotation *
 
-            cos (betaY)    0     sin (betaY)    0
-            0              1     0              0
+             cos (betaY)   0     sin (betaY)    0
+             0             1     0              0
             -sin (betaY)   0     cos (betaY)    0
-            0              0     0              1
+             0             0     0              1
             */
 
             /*
             Z Rotation *
 
             cos (gamaZ)     -sin (gamaZ)     0      0
-            sin (gamaZ)     cos (gamaZ)      0      0
+            sin (gamaZ)      cos (gamaZ)     0      0
             0                 0              1      0
             0                 0              0      1
             */
@@ -845,7 +842,7 @@ namespace BaseClasses
             X Rotation *
 
             1           0             0               0
-            0     cos (alphaX)     sin (alphaX)       0
+            0      cos (alphaX)    sin (alphaX)       0
             0     -sin (alphaX)    cos (alphaX)       0
             0           0             0               1
             */
@@ -853,7 +850,7 @@ namespace BaseClasses
             /*
             Y Rotation *
 
-            cos (betaY)    0     -sin (betaY)   0
+            cos (betaY)    0    -sin (betaY)    0
             0              1     0              0
             sin (betaY)    0     cos (betaY)    0
             0              0     0              1
@@ -862,10 +859,10 @@ namespace BaseClasses
             /*
             Z Rotation *
 
-            cos (gamaZ)     sin (gamaZ)      0      0
-            -sin (gamaZ)    cos (gamaZ)      0      0
-            0                 0              1      0
-            0                 0              0      1
+             cos (gamaZ)     sin (gamaZ)      0      0
+            -sin (gamaZ)     cos (gamaZ)      0      0
+             0                 0              1      0
+             0                 0              0      1
             */
 
             /*
