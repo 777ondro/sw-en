@@ -7,16 +7,16 @@ using MATH;
 
 namespace CRSC
 {
-    public class CCrSc_2_00_AAC_Roof_Panel : CCrSc_2_00
+    public class CCrSc_2_00_AAC_Wall_Panel_1 : CCrSc_2_00
     {
-        // Solid AAC roof panel - grooved
+        // Solid AAC vertical wall panel - grooved
 
         bool bIndicesCW = true; // Clockwise or counter-clockwise system
 
-        public CCrSc_2_00_AAC_Roof_Panel()
+        public CCrSc_2_00_AAC_Wall_Panel_1()
         {
         }
-        public CCrSc_2_00_AAC_Roof_Panel(float fh, float fb)
+        public CCrSc_2_00_AAC_Wall_Panel_1(float fh, float fb)
         {
             IsShapeSolid = true;
 
@@ -33,8 +33,8 @@ namespace CRSC
 
             // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
             loadCrScIndicesFrontSide();
-            loadCrScIndicesShell();
-            loadCrScIndicesBackSide();
+            //loadCrScIndicesShell();
+            //loadCrScIndicesBackSide();
 
             // All indices together
             //loadCrScIndices();
@@ -60,9 +60,9 @@ namespace CRSC
             CrScPointsOut[1, 1] = h;
             CrScPointsOut[2, 0] = b;
             CrScPointsOut[2, 1] = h - ya;
-            CrScPointsOut[3, 0] = b + xc;
+            CrScPointsOut[3, 0] = b - xc;
             CrScPointsOut[3, 1] = h - yb;
-            CrScPointsOut[4, 0] = b + xc;
+            CrScPointsOut[4, 0] = b - xc;
             CrScPointsOut[4, 1] = yb;
             CrScPointsOut[5, 0] = b;
             CrScPointsOut[5, 1] = ya;
@@ -111,7 +111,6 @@ namespace CRSC
                 AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 8, 5, 6);
                 AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 8, 6, 7);
             }
-
         }
 
         protected override void loadCrScIndicesShell()

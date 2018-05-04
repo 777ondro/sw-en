@@ -431,9 +431,45 @@ namespace CRSC
 			Indices.Add(point4);
 		}
 
-		// Draw Prism CaraLaterals
-		// Kresli plast hranola pre kontinualne pravidelne cislovanie bodov
-		protected void DrawCaraLaterals(int secNum, Int32Collection TriangelsIndices)
+        // Draw Triangle / Add triangle indices - clockwise CW numbering of input points 1,2,3 (see scheme)
+        // Add in order 1,2,3,4
+        protected void AddTriangleIndices_CW_123(Int32Collection Indices,
+              int point1, int point2,
+              int point3)
+        {
+            // Main numbering is clockwise
+
+            // 1  _______  2
+            //           | 
+            //             3
+
+            // Triangle Numbering is Counterclockwise
+            Indices.Add(point1);
+            Indices.Add(point3);
+            Indices.Add(point2);
+        }
+
+        // Draw Triangle / Add triangle indices - countrer-clockwise CCW numbering of input points 1,2,3 (see scheme)
+        // Add in order 1,3,2
+        protected void AddTriangleIndices_CCW_123(Int32Collection Indices,
+              int point1, int point2,
+              int point3)
+        {
+            // Main input numbering is clockwise, add indices counter-clockwise
+
+            // 1  _______  2
+            //           | 
+            //             3
+
+            // Triangles Numbering is Clockwise
+            Indices.Add(point1);
+            Indices.Add(point2);
+            Indices.Add(point3);
+        }
+
+        // Draw Prism CaraLaterals
+        // Kresli plast hranola pre kontinualne pravidelne cislovanie bodov
+        protected void DrawCaraLaterals(int secNum, Int32Collection TriangelsIndices)
 		{
 			// secNum - number of one base edges / - pocet rohov - hranicnych bodov jednej podstavy
 

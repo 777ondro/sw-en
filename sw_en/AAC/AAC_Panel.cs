@@ -36,13 +36,22 @@ namespace AAC
         public float fsl_upper = 0.0f;
         public float fsl_lower = 0.0f;
 
+        public int number_tr_rein_arr_1 = 0;
+        public int number_tr_rein_arr_2 = 0;
+        public int number_tr_rein_arr_3 = 0;
+
+        public float fx_tr_rein_arr_1 = 0.0f;
+        public float fx_tr_rein_arr_2 = 0.0f;
+        public float fx_tr_rein_arr_3 = 0.0f;
+
         public E_AACElementType panelType;
 
         public enum E_AACElementType
         {
             Floor_Panel,
             Roof_Panel,
-            Vertical_Wall_Panel,
+            Vertical_Wall_Panel_1,
+            Vertical_Wall_Panel_2,
             Horizontal_Wall_Panel,
             Beam
         };
@@ -78,7 +87,13 @@ namespace AAC
             float LB_FrontSideCover,
             float LU_FrontSideCover,
             float TB_FrontSideCover,
-            float TU_FrontSideCover)
+            float TU_FrontSideCover,
+            int iTRA_No_1,
+            int iTRA_No_2,
+            int iTRA_No_3,
+            float TRA_dist_x_1,
+            float TRA_dist_x_2,
+            float TRA_dist_x_3)
         {
             panelType = AAC_panel_type;
 
@@ -110,7 +125,15 @@ namespace AAC
             fsl_upper = sl_upper;
             fsl_lower = sl_lower;
 
-            Long_Bottom_Bars_Array = new ReinforcementBar[iLB_No];
+            number_tr_rein_arr_1 = iTRA_No_1;
+            number_tr_rein_arr_2 = iTRA_No_2;
+            number_tr_rein_arr_3 = iTRA_No_3;
+
+            fx_tr_rein_arr_1 = TRA_dist_x_1;
+            fx_tr_rein_arr_2 = TRA_dist_x_2;
+            fx_tr_rein_arr_3 = TRA_dist_x_3;
+
+        Long_Bottom_Bars_Array = new ReinforcementBar[iLB_No];
             Long_Upper_Bars_Array = new ReinforcementBar[iLU_No];
             Trans_Bottom_Bars_Array = new ReinforcementBar[iTB_No];
             Trans_Upper_Bars_Array = new ReinforcementBar[iTU_No];
@@ -129,60 +152,6 @@ namespace AAC
                 ArrayOfBars[i] = new ReinforcementBar(fd, fL_bar, Reinforcement);
                 
             }
-        }
-
-        //--------------------------------------------------------------------------------------------
-        public GeometryModel3D CreateRectangle(
-              Point3D point1, Point3D point2,
-              Point3D point3, Point3D point4,
-              DiffuseMaterial DiffMat)
-        {
-            MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(point1);
-            mesh.Positions.Add(point2);
-            mesh.Positions.Add(point3);
-            mesh.Positions.Add(point4);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-
-            mesh.TextureCoordinates.Add(new Point(0, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 0));
-
-            return new GeometryModel3D(mesh, DiffMat);
-        }
-
-        //--------------------------------------------------------------------------------------------
-        public GeometryModel3D CreateTriangle(
-              Point3D point1, Point3D point2,
-              Point3D point3,
-              DiffuseMaterial DiffMat)
-        {
-            MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(point1);
-            mesh.Positions.Add(point2);
-            mesh.Positions.Add(point3);
-
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-
-            mesh.TextureCoordinates.Add(new Point(0, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 1));
-            mesh.TextureCoordinates.Add(new Point(1, 0));
-
-            return new GeometryModel3D(mesh, DiffMat);
         }
     }
 }

@@ -15,7 +15,9 @@ namespace CRSC
       }
           public CCrSc_2_00(float fh, float fb/*, float ft*/)
       {
-          //ITotNoPoints = 4;
+            //ITotNoPoints = 4;
+          IsShapeSolid = true;
+          ITotNoPoints = 4;
           Fh = fh;
           Fb = fb;
 
@@ -23,6 +25,13 @@ namespace CRSC
           CrScPointsOut = new float[ITotNoPoints, 2];
           // Fill Array Data
           CalcCrSc_Coord();
+
+          // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
+          loadCrScIndicesFrontSide();
+          loadCrScIndicesShell();
+          loadCrScIndicesBackSide();
+
+          // All indices together
 
           // Fill list of indices for drawing of surface - triangles edges
           loadCrScIndices();

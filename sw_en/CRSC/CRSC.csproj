@@ -102,8 +102,10 @@
     <Compile Include="CrSc_0\CCrSc_0_58.cs" />
     <Compile Include="CrSc_0\CCrSc_0_60.cs" />
     <Compile Include="CrSc_0\CCrSc_0_61.cs" />
+    <Compile Include="CrSc_2\CCrSc_2_00_AAC_Beam.cs" />
     <Compile Include="CrSc_2\CCrSc_2_00.cs" />
-    <Compile Include="CrSc_2\CCrSc_2_00_AAC_Wall_Panel_1 - Copy.cs" />
+    <Compile Include="CrSc_2\CCrSc_2_00_AAC_Wall_Panel_2.cs" />
+    <Compile Include="CrSc_2\CCrSc_2_00_AAC_Wall_Panel_1.cs" />
     <Compile Include="CrSc_2\CCrSc_2_00_AAC_Roof_Panel.cs" />
     <Compile Include="CrSc_2\CCrSc_2_00_AAC_Floor_Panel.cs" />
     <Compile Include="CrSc_2\CCrSc_2_02.cs" />

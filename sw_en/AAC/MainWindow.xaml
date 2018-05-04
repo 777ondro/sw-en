@@ -8,10 +8,11 @@
         Title="AAC Panel Design" Height="800" Width="1280" MinWidth="100" MinHeight="100" MaxWidth="1280" MaxHeight="800">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,25,0,0" TextWrapping="Wrap" Text="AAC component" VerticalAlignment="Top" Width="95"/>
-        <ComboBox Name ="ComboBox_AAC_Component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="0">
+        <ComboBox Name ="ComboBox_AAC_Component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="3">
             <ComboBoxItem Content="Floor Panel"/>
             <ComboBoxItem Content="Roof Panel"/>
-            <ComboBoxItem Content="Vertical Wall Panel"/>
+            <ComboBoxItem Content="Vertical Wall Panel 1"/>
+            <ComboBoxItem Content="Vertical Wall Panel 2 - arc"/>
             <ComboBoxItem Content="Horizontal Wall Panel"/>
             <ComboBoxItem Content="Beam"/>
         </ComboBox>
@@ -149,7 +150,7 @@
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="265,585,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
         <TextBox Name="TextBoxLongReinUpper_distance_sl_2" HorizontalAlignment="Left" Height="20" Margin="275,585,0,0" TextWrapping="Wrap" Text="0.210" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLongReinUpper_distance_sl_2_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="335,585,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="335,585,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="20"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,610,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"><Run Text="Longitudinal - Lower"/></TextBlock>
         <TextBox Name="TextBoxLongReinLower_No" HorizontalAlignment="Left" Height="20" Margin="155,610,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxLongReinLower_No_TextChanged"/>
@@ -170,10 +171,10 @@
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="265,610,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
         <TextBox Name="TextBoxLongReinLower_distance_sl_1" HorizontalAlignment="Left" Height="20" Margin="275,610,0,0" TextWrapping="Wrap" Text="0.070" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLongReinLower_distance_sl_1_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="335,610,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="335,610,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="20"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,635,0,0" TextWrapping="Wrap" Text="Transversal" VerticalAlignment="Top" Width="150"/>
-        <TextBox Name="TextBoxTransRein_No" HorizontalAlignment="Left" Height="20" Margin="155,635,0,0" TextWrapping="Wrap" Text="18" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransRein_No_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,635,0,0" TextWrapping="Wrap" Text="Transversal                     2x" VerticalAlignment="Top" Width="150"/>
+        <TextBox Name="TextBoxTransRein_No_half" HorizontalAlignment="Left" Height="20" Margin="155,635,0,0" TextWrapping="Wrap" Text="9" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransRein_No_half_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="185,635,0,0" TextWrapping="Wrap" Text="x Ø" VerticalAlignment="Top" Width="20"/>
 
         <ComboBox Name ="ComboBox_TransRein" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="210,635,0,0" SelectionChanged="ComboBox_TransRein_SelectionChanged" Height="20" SelectedIndex="1">
@@ -193,49 +194,69 @@
         <TextBox Name="TextBoxReinforcementFactor_Gamma_s" HorizontalAlignment="Left" Height="20" Margin="155,660,0,0" TextWrapping="Wrap" Text="1.150" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxReinforcementFactor_Gamma_s_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="215,660,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,123,0,0" TextWrapping="Wrap" Text="Loading" VerticalAlignment="Top" Width="95"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,560,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215"><Run Text="Transversal Reinforcement Arrangement"/></TextBlock>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,145,0,0" TextWrapping="Wrap" Text="γ g" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingFactorGamma_g" HorizontalAlignment="Left" Height="20" Margin="460,145,0,0" TextWrapping="Wrap" Text="1.35" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorGamma_g_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,145,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="TextBoxTransReinArr_1_No" HorizontalAlignment="Left" Height="20" Margin="365,585,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransReinArr_1_No_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="394,585,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
+        <TextBox x:Name="TextBoxTransReinArr_1_distance_x" HorizontalAlignment="Left" Height="20" Margin="404,585,0,0" TextWrapping="Wrap" Text="0.100" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransReinArr_1_distance_x_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="463,585,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="20"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,170,0,0" TextWrapping="Wrap" Text="γ q" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingFactorGamma_q" HorizontalAlignment="Left" Height="20" Margin="460,170,0,0" TextWrapping="Wrap" Text="1.50" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorGamma_q_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,170,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="TextBoxTransReinArr_2_No" HorizontalAlignment="Left" Height="20" Margin="365,610,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransReinArr_2_No_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="394,610,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
+        <TextBox x:Name="TextBoxTransReinArr_2_distance_x" HorizontalAlignment="Left" Height="20" Margin="404,610,0,0" TextWrapping="Wrap" Text="0.320" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransReinArr_2_distance_x_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="463,610,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="20"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,195,0,0" TextWrapping="Wrap" Text="ψ 1" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingFactorPsi_1" HorizontalAlignment="Left" Height="20" Margin="460,195,0,0" TextWrapping="Wrap" Text="0.500" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorPsi_1_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,195,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="TextBoxTransReinArr_3_No" HorizontalAlignment="Left" Height="20" Margin="365,635,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="25" MaxLength="250" TextChanged="TextBoxTransReinArr_3_No_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="394,635,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="10"/>
+        <TextBox x:Name="TextBoxTransReinArr_3_distance_x" HorizontalAlignment="Left" Height="20" Margin="404,635,0,0" TextWrapping="Wrap" Text="0.500" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransReinArr_3_distance_x_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="463,635,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="20"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,220,0,0" TextWrapping="Wrap" Text="ψ 2" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingFactorPsi_2" HorizontalAlignment="Left" Height="20" Margin="460,220,0,0" TextWrapping="Wrap" Text="0.300" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorPsi_2_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,220,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,123,0,0" TextWrapping="Wrap" Text="Loading" VerticalAlignment="Top" Width="95"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,245,0,0" TextWrapping="Wrap" Text="g k" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingValue_g_k" HorizontalAlignment="Left" Height="20" Margin="460,245,0,0" TextWrapping="Wrap" Text="3.420" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_g_k_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,245,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,145,0,0" TextWrapping="Wrap" Text="γ g" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingFactorGamma_g" HorizontalAlignment="Left" Height="20" Margin="420,145,0,0" TextWrapping="Wrap" Text="1.35" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorGamma_g_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,145,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,270,0,0" TextWrapping="Wrap" Text="q k" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxLoadingValue_q_k" HorizontalAlignment="Left" Height="20" Margin="460,270,0,0" TextWrapping="Wrap" Text="2.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_q_k_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,270,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,170,0,0" TextWrapping="Wrap" Text="γ q" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingFactorGamma_q" HorizontalAlignment="Left" Height="20" Margin="420,170,0,0" TextWrapping="Wrap" Text="1.50" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorGamma_q_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,170,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,360,0,0" TextWrapping="Wrap" Text="Transport" VerticalAlignment="Top" Width="95"/>
- 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,390,0,0" TextWrapping="Wrap" Text="b s" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxTransportValue_b_s" HorizontalAlignment="Left" Height="20" Margin="460,390,0,0" TextWrapping="Wrap" Text="1.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransportValue_b_s_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,390,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,195,0,0" TextWrapping="Wrap" Text="ψ 1" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingFactorPsi_1" HorizontalAlignment="Left" Height="20" Margin="420,195,0,0" TextWrapping="Wrap" Text="0.500" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorPsi_1_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,195,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,415,0,0" TextWrapping="Wrap" Text="γ T" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxTransportValue_Gamma_t" HorizontalAlignment="Left" Height="20" Margin="460,415,0,0" TextWrapping="Wrap" Text="1.300" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransportValue_Gamma_t_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,415,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
-        
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="340,440,0,0" TextWrapping="Wrap" Text="ρ T" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxAACPanelDensity_Rho_trans" HorizontalAlignment="Left" Height="20" Margin="460,440,0,0" TextWrapping="Wrap" Text="775.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxAACPanelDensity_Rho_trans_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="520,440,0,0" TextWrapping="Wrap" Text="[kg/m^3]" VerticalAlignment="Top" Width="50"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,220,0,0" TextWrapping="Wrap" Text="ψ 2" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingFactorPsi_2" HorizontalAlignment="Left" Height="20" Margin="420,220,0,0" TextWrapping="Wrap" Text="0.300" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingFactorPsi_2_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,220,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,245,0,0" TextWrapping="Wrap" Text="g k" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingValue_g_k" HorizontalAlignment="Left" Height="20" Margin="420,245,0,0" TextWrapping="Wrap" Text="3.420" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_g_k_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,245,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,270,0,0" TextWrapping="Wrap" Text="q k" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxLoadingValue_q_k" HorizontalAlignment="Left" Height="20" Margin="420,270,0,0" TextWrapping="Wrap" Text="2.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLoadingValue_q_k_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,270,0,0" TextWrapping="Wrap" Text="[kN/m^2]" VerticalAlignment="Top" Width="55"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,360,0,0" TextWrapping="Wrap" Text="Transport" VerticalAlignment="Top" Width="95"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,390,0,0" TextWrapping="Wrap" Text="b s" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxTransportValue_b_s" HorizontalAlignment="Left" Height="20" Margin="420,390,0,0" TextWrapping="Wrap" Text="1.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransportValue_b_s_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,390,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,415,0,0" TextWrapping="Wrap" Text="γ T" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxTransportValue_Gamma_t" HorizontalAlignment="Left" Height="20" Margin="420,415,0,0" TextWrapping="Wrap" Text="1.300" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxTransportValue_Gamma_t_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,415,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="50"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="360,440,0,0" TextWrapping="Wrap" Text="ρ T" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="TextBoxAACPanelDensity_Rho_trans" HorizontalAlignment="Left" Height="20" Margin="420,440,0,0" TextWrapping="Wrap" Text="775.000" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxAACPanelDensity_Rho_trans_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="480,440,0,0" TextWrapping="Wrap" Text="[kg/m^3]" VerticalAlignment="Top" Width="50"/>
 
         <Frame Name ="Frame1" Content="Panel 3D Preview" HorizontalAlignment="Left" Height="725" Margin="580,0,0,0" VerticalAlignment="Top" Width="683" NavigationUIVisibility="Hidden"/>
 
         <Button Content="Calculate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1175,730,0,0" Click="Calculate_Click"/>
+
+
+
 
         <!--<Button Content="Graph" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1095,730,0,0" Click="Display_Graph_Click"/> -->
 

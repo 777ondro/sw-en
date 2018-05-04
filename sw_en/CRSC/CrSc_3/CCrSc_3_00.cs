@@ -453,7 +453,7 @@ namespace CRSC
 
 		    // Point No. XX
 		    CrScPointsOut[iNumberAux + 2 * m_iNumOfArcPoints + 10, 0] = CrScPointsOut[4, 0];       // y
-		    CrScPointsOut[iNumberAux + 2 * m_iNumOfArcPoints + 10, 1] = -CrScPointsOut[8, 1];        // z
+		    CrScPointsOut[iNumberAux + 2 * m_iNumOfArcPoints + 10, 1] = -CrScPointsOut[8, 1];      // z
 
 		    // 3rd radius - centre "3" (270-360 degrees)
 		    for (short i = 0; i < m_iNumOfArcPoints; i++)
@@ -486,7 +486,7 @@ namespace CRSC
             // List
             // const int secNum = iAux + iRadiusPoints * 8;  // Number of points in section (2D)
             // load_3_00_TriangelIndices(0, 12, 8); // Shape ID, number of auxiliary points , number of segments of arc
-            // load_3_00_TriangelIndices(1,8,4); // Shape ID, number of auxiliary points , number of segments of arc
+            // load_3_00_TriangelIndices(1, 8, 4); // Shape ID, number of auxiliary points , number of segments of arc
             // load_3_00_TriangelIndices(2, 4, 4); // Shape ID, number of auxiliary points , number of segments of arc
 
 

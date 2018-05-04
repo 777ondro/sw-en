@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using BaseClasses;
@@ -366,6 +367,62 @@ namespace AAC
             }
 
             return p3Drotated;
+        }
+
+
+        // Unused functions
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateRectangle(
+              Point3D point1, Point3D point2,
+              Point3D point3, Point3D point4,
+              DiffuseMaterial DiffMat)
+        {
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            mesh.Positions.Add(point1);
+            mesh.Positions.Add(point2);
+            mesh.Positions.Add(point3);
+            mesh.Positions.Add(point4);
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(1);
+            mesh.TriangleIndices.Add(2);
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(2);
+            mesh.TriangleIndices.Add(3);
+
+            mesh.TextureCoordinates.Add(new Point(0, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 0));
+
+            return new GeometryModel3D(mesh, DiffMat);
+        }
+
+        //--------------------------------------------------------------------------------------------
+        public GeometryModel3D CreateTriangle(
+              Point3D point1, Point3D point2,
+              Point3D point3,
+              DiffuseMaterial DiffMat)
+        {
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            mesh.Positions.Add(point1);
+            mesh.Positions.Add(point2);
+            mesh.Positions.Add(point3);
+
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(1);
+            mesh.TriangleIndices.Add(2);
+
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(2);
+            mesh.TriangleIndices.Add(3);
+
+            mesh.TextureCoordinates.Add(new Point(0, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 0));
+
+            return new GeometryModel3D(mesh, DiffMat);
         }
     }
 }

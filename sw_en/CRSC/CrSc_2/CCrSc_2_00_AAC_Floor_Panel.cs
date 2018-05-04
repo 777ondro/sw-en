@@ -11,6 +11,8 @@ namespace CRSC
     {
         //  Solid AAC floor panel - grooved
 
+        bool bIndicesCW = true; // Clockwise or counter-clockwise system
+
         public CCrSc_2_00_AAC_Floor_Panel()
         {
         }
@@ -80,14 +82,29 @@ namespace CRSC
         {
             TriangleIndicesFrontSide = new Int32Collection();
 
-            AddTriangleIndices(TriangleIndicesFrontSide, 0, 9, 2);
-            AddTriangleIndices(TriangleIndicesFrontSide, 0, 2, 1);
-            AddTriangleIndices(TriangleIndicesFrontSide, 9, 8, 2);
-            AddTriangleIndices(TriangleIndicesFrontSide, 8, 7, 2);
-            AddTriangleIndices(TriangleIndicesFrontSide, 7, 3, 2);
-            AddTriangleIndices(TriangleIndicesFrontSide, 7, 6, 3);
-            AddTriangleIndices(TriangleIndicesFrontSide, 6, 5, 4);
-            AddTriangleIndices(TriangleIndicesFrontSide, 6, 4, 3);
+            if (bIndicesCW)
+            {
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 0, 2, 9);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 0, 1, 2);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 9, 2, 8);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 8, 2, 7);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 7, 2, 3);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 7, 3, 6);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 6, 4, 5);
+                AddTriangleIndices_CW_123(TriangleIndicesFrontSide, 6, 3, 4);
+
+            }
+            else
+            {
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 0, 2, 9);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 0, 1, 2);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 9, 2, 8);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 8, 2, 7);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 7, 2, 3);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 7, 3, 6);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 6, 4, 5);
+                AddTriangleIndices_CCW_123(TriangleIndicesFrontSide, 6, 3, 4);
+            }
         }
 
         protected override void loadCrScIndicesShell()
@@ -98,10 +115,19 @@ namespace CRSC
             for (int i = 0; i < ITotNoPoints - 1; i++)
             {
                 if (i < ITotNoPoints - 2)
-                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                {
+                    if (bIndicesCW)
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                    else
+                        AddRectangleIndices_CCW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                }
                 else
-                    AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
-
+                {
+                    if (bIndicesCW)
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+                    else
+                        AddRectangleIndices_CCW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+                }
             }
         }
 
@@ -109,23 +135,28 @@ namespace CRSC
         {
             TriangleIndicesBackSide = new Int32Collection();
 
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 1, ITotNoPoints + 2);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 2, ITotNoPoints + 9);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 9, ITotNoPoints + 8, ITotNoPoints + 2);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 8, ITotNoPoints + 7, ITotNoPoints + 2);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 3, ITotNoPoints + 2);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 6, ITotNoPoints + 3);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 5, ITotNoPoints + 3);
-            AddTriangleIndices(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 3, ITotNoPoints + 4);
+            if (bIndicesCW)
+            {
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 1, ITotNoPoints + 2);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 2, ITotNoPoints + 9);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 9, ITotNoPoints + 8, ITotNoPoints + 2);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 8, ITotNoPoints + 7, ITotNoPoints + 2);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 3, ITotNoPoints + 2);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 6, ITotNoPoints + 3);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 5, ITotNoPoints + 3);
+                AddTriangleIndices_CCW_123(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 3, ITotNoPoints + 4);
+            }
+            else
+            {
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 1, ITotNoPoints + 2);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints, ITotNoPoints + 2, ITotNoPoints + 9);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 9, ITotNoPoints + 8, ITotNoPoints + 2);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 8, ITotNoPoints + 7, ITotNoPoints + 2);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 3, ITotNoPoints + 2);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 7, ITotNoPoints + 6, ITotNoPoints + 3);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 5, ITotNoPoints + 3);
+                AddTriangleIndices_CW_123(TriangleIndicesBackSide, ITotNoPoints + 6, ITotNoPoints + 3, ITotNoPoints + 4);
+            }
         }
-
-        private void AddTriangleIndices(Int32Collection collection, int a, int b, int c)
-        {
-            collection.Add(a);
-            collection.Add(b);
-            collection.Add(c);
-        }
-
-
-}
+    }
 }

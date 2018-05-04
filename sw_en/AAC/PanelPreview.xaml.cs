@@ -43,7 +43,21 @@ namespace AAC
             // Default view
             Point3D lookAtPoint = new Point3D(1, 0, -0.5);
 
-            _trackport.PerspectiveCamera.Position = new Point3D(-0.75, 0.4, -0.1);
+            //!!!!!!! POZOR PRIEHLADNOST ZAVISI NA PORADI VYKRESLOVANIA OBJEKTOV!!!!!!!!!
+            bool bIsReinfocementSurfaceTransparent = false;
+            bool bIsPanelSurfaceTransparent = true;
+            bool bDisplayReinforcement = true; // Display reinforcement mesh
+            bool bDisplayConcretePanel = true; // Display concrete 
+            bool bSeeFrontSide = true; // See front side or back side of panel
+
+            Point3D camera_position;
+
+            if(bSeeFrontSide)
+               camera_position = new Point3D(-0.75, 0.4, -0.1); // FrontSide of Panel
+            else
+               camera_position = new Point3D(obj_panel.fL + 0.75f, 0.4, -0.1); // BackSide of Panel // TODO - ERROR - nevykresluje sa zadne celo panela ani vyztuze ?????
+
+            _trackport.PerspectiveCamera.Position = camera_position; 
             LookAt(_trackport.PerspectiveCamera, lookAtPoint);
 
             //OrthographicCamera camera = new OrthographicCamera(); // Doplnit moznost zobrazit v pravouhlom priemietani
@@ -60,81 +74,85 @@ namespace AAC
 
             EGCS eGCS = EGCS.eGCSLeftHanded;
 
-            //!!!!!!! POZOR PRIEHLADNOST ZAVISI NA PORADI VYKRESLOVANIA OBJEKTOV!!!!!!!!!
-            bool bIsReinfocementSurfaceTransparent = false;
-            bool bIsPanelSurfaceTransparent = false;
-
             // Reinforcement
-            SolidColorBrush brRein_1 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Front Side
-            SolidColorBrush brRein_2 = new SolidColorBrush(Color.FromRgb(200, 0, 0)); // Material color - Shell
-            SolidColorBrush brRein_3 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Back Side
+            if (bDisplayReinforcement)
+            {
+                SolidColorBrush brRein_l1 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Front Side
+                SolidColorBrush brRein_l2 = new SolidColorBrush(Color.FromRgb(200, 0, 0)); // Material color - Shell
+                SolidColorBrush brRein_l3 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Back Side
 
-            double y1_lower = 0.102;
+                SolidColorBrush brRein_u1 = new SolidColorBrush(Color.FromRgb(0, 130, 0)); // Material color - Front Side
+                SolidColorBrush brRein_u2 = new SolidColorBrush(Color.FromRgb(0, 120, 0)); // Material color - Shell
+                SolidColorBrush brRein_u3 = new SolidColorBrush(Color.FromRgb(0, 130, 0)); // Material color - Back Side
 
-            for(int i = 0; i < obj_panel.Long_Bottom_Bars_Array.Length; i++)
-              model.Children.Add(obj_panel.Long_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), new Point3D(obj_panel.Long_Bottom_Bars_Array[0].fL - obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), obj_panel.Long_Bottom_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+                double y1_lower = 0.102;
 
-            double y2_upper = 0.06;
-            for (int i = 0; i < obj_panel.Long_Upper_Bars_Array.Length; i++)
-                model.Children.Add(obj_panel.Long_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 *obj_panel.fd_long_upper), new Point3D(obj_panel.Long_Upper_Bars_Array[0].fL - obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), obj_panel.Long_Upper_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+                for (int i = 0; i < obj_panel.Long_Bottom_Bars_Array.Length; i++)
+                    model.Children.Add(obj_panel.Long_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), new Point3D(obj_panel.Long_Bottom_Bars_Array[0].fL - obj_panel.fc_1, y1_lower + i * obj_panel.fsl_lower, obj_panel.fc_1 + 0.5 * obj_panel.fd_long_lower), obj_panel.Long_Bottom_Bars_Array[i].Cross_Section, brRein_l1, brRein_l2, brRein_l3, null));
 
-            //double[] trans_rein_position_x_array = new double[obj_panel.number_trans_lower_bars];
-            double x1 = 0.03;
-            double x2 = 0.10;
-            double x3 = 0.32;
-            double x4 = 0.50;
+                double y2_upper = 0.06;
+                for (int i = 0; i < obj_panel.Long_Upper_Bars_Array.Length; i++)
+                    model.Children.Add(obj_panel.Long_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), new Point3D(obj_panel.Long_Upper_Bars_Array[0].fL - obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), obj_panel.Long_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
 
-            double[] trans_rein_position_x_array = new double[] {
-                x1,
-                x1 + x2,
-                x1 + 2 * x2,
-                x1 + 3 * x2,
-                x1 + 4 * x2,
-                x1 + 4 * x2 + x3,
-                x1 + 4 * x2 + x3 + x4,
-                x1 + 4 * x2 + x3 + 2 * x4,
-                x1 + 4 * x2 + x3 + 3 * x4,
-                x1 + 4 * x2 + x3 + 4 * x4,
-                x1 + 4 * x2 + x3 + 5 * x4,
-                x1 + 4 * x2 + x3 + 6 * x4,
-                x1 + 4 * x2 + x3 + 7 * x4,
-                x1 + 4 * x2 + x3 + 7 * x4 + x3,
-                x1 + 4 * x2 + x3 + 7 * x4 + x3 + x2,
-                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 2 * x2,
-                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 3 * x2,
-                x1 + 4 * x2 + x3 + 7 * x4 + x3 + 4 * x2
-            };
+                double x1 = 0.03;
 
-            double trans_lower_start = y1_lower - obj_panel.fc_trans_lower;
-            double l_trans_lower = (obj_panel.number_long_lower_bars - 1) * obj_panel.fsl_lower + 2 * obj_panel.fc_trans_lower;
+                double[] trans_rein_position_x_array = new double[obj_panel.number_trans_lower_bars];
 
-            double trans_upper_start = y2_upper - obj_panel.fc_trans_upper;
-            double l_trans_upper = (obj_panel.number_long_upper_bars - 1) * obj_panel.fsl_upper + 2 * obj_panel.fc_trans_upper;
+                trans_rein_position_x_array[0] = x1;
 
-            for (int i = 0; i < obj_panel.Trans_Bottom_Bars_Array.Length; i++)
-                model.Children.Add(obj_panel.Trans_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_lower_start, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), new Point3D(trans_rein_position_x_array[i], trans_lower_start + l_trans_lower, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), obj_panel.Trans_Bottom_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+                // Fill Array of x positions of transversal bars - now it is for 3 different x values between bars, TODO make it more general
+                for (int i = 1; i < obj_panel.number_trans_lower_bars; i++)
+                {
+                    if (i < obj_panel.number_trans_lower_bars / 2) // 1st half of panel
+                    {
+                        if (i <= obj_panel.number_tr_rein_arr_1)
+                            trans_rein_position_x_array[i] = x1 + i * obj_panel.fx_tr_rein_arr_1;
+                        else if (i <= (obj_panel.number_tr_rein_arr_1 + obj_panel.number_tr_rein_arr_2))
+                            trans_rein_position_x_array[i] = x1 + obj_panel.number_tr_rein_arr_1 * obj_panel.fx_tr_rein_arr_1 + (i - obj_panel.number_tr_rein_arr_1) * obj_panel.fx_tr_rein_arr_2;
+                        else
+                            trans_rein_position_x_array[i] = x1 + obj_panel.number_tr_rein_arr_1 * obj_panel.fx_tr_rein_arr_1 + obj_panel.number_tr_rein_arr_2 * obj_panel.fx_tr_rein_arr_2 + (i - (obj_panel.number_tr_rein_arr_1 + obj_panel.number_tr_rein_arr_2)) * obj_panel.fx_tr_rein_arr_3;
+                    }
+                    else // Symmetrical - second half of panel
+                    {
+                        trans_rein_position_x_array[i] = obj_panel.fL - trans_rein_position_x_array[-(i - obj_panel.number_trans_lower_bars + 1)];
+                    }
+                }
 
-            for (int i = 0; i < obj_panel.Trans_Upper_Bars_Array.Length; i++)
-                model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_1, brRein_2, brRein_3, null));
+                double trans_lower_start = y1_lower - obj_panel.fc_trans_lower;
+                double l_trans_lower = (obj_panel.number_long_lower_bars - 1) * obj_panel.fsl_lower + 2 * obj_panel.fc_trans_lower;
+
+                double trans_upper_start = y2_upper - obj_panel.fc_trans_upper;
+                double l_trans_upper = (obj_panel.number_long_upper_bars - 1) * obj_panel.fsl_upper + 2 * obj_panel.fc_trans_upper;
+
+                for (int i = 0; i < obj_panel.Trans_Bottom_Bars_Array.Length; i++)
+                    model.Children.Add(obj_panel.Trans_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_lower_start, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), new Point3D(trans_rein_position_x_array[i], trans_lower_start + l_trans_lower, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), obj_panel.Trans_Bottom_Bars_Array[i].Cross_Section, brRein_l1, brRein_l2, brRein_l3, null));
+
+                for (int i = 0; i < obj_panel.Trans_Upper_Bars_Array.Length; i++)
+                    model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
+            }
 
             // Panel
-            SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(130, 130, 130));  // Material color - Front Side
-            SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(210, 210, 210));  // Material color - Shell
-            SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(131, 131, 131));  // Material color - Back Side
+            if (bDisplayConcretePanel)
+            {
+                SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(130, 130, 130));  // Material color - Front Side
+                SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(210, 210, 210));  // Material color - Shell
+                SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(131, 131, 131));  // Material color - Back Side
 
-            br1.Opacity = 0.5;
-            br2.Opacity = 0.7;
-            br3.Opacity = 0.5;
+                br1.Opacity = 0.5;
+                br2.Opacity = 0.7;
+                br3.Opacity = 0.5;
 
-            DiffuseMaterial  qDiffTrans = new DiffuseMaterial(new SolidColorBrush(Color.FromArgb(130, 130, 130, 1)));
-            SpecularMaterial qSpecTrans = new SpecularMaterial(new SolidColorBrush(Color.FromArgb(210, 210, 210, 210)), 90.0);
+                DiffuseMaterial qDiffTrans = new DiffuseMaterial(new SolidColorBrush(Color.FromArgb(130, 130, 130, 1)));
+                SpecularMaterial qSpecTrans = new SpecularMaterial(new SolidColorBrush(Color.FromArgb(210, 210, 210, 210)), 90.0);
 
-            MaterialGroup qOuterMaterial = new MaterialGroup();
-            qOuterMaterial.Children.Add(qDiffTrans);
-            qOuterMaterial.Children.Add(qSpecTrans);
+                MaterialGroup qOuterMaterial = new MaterialGroup();
+                qOuterMaterial.Children.Add(qDiffTrans);
+                qOuterMaterial.Children.Add(qSpecTrans);
 
-            model.Children.Add(obj_panel.GetMemberModel(eGCS, bIsPanelSurfaceTransparent, new Point3D(0, 0, 0), new Point3D(obj_panel.fL, 0, 0), obj_panel.Cross_Section, br1, br2, br3, qOuterMaterial));
+                model.Children.Add(obj_panel.GetMemberModel(eGCS, bIsPanelSurfaceTransparent, new Point3D(0, 0, 0), new Point3D(obj_panel.fL, 0, 0), obj_panel.Cross_Section, br1, br2, br3, qOuterMaterial));
+            }
 
+            // Transform (Rotate) panel to display it in system of WPF coordinates z_WPF = x_Panel, x_WPF = y_Panel, y_WPF = z_Panel
             RotateTransform3D myRotateTransform3D = new RotateTransform3D();
             AxisAngleRotation3D rotation = new AxisAngleRotation3D(new Vector3D(1, 0, 0), 270);
             myRotateTransform3D.Rotation = rotation;

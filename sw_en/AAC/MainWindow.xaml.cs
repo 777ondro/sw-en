@@ -92,6 +92,7 @@ namespace AAC
 
         int number_long_upper_bars = 0;
         int number_long_lower_bars = 0;
+        int number_trans_bars_half = 0;
         int number_trans_bars = 0;
 
         public float fd_long_upper = 0.0f;
@@ -102,6 +103,14 @@ namespace AAC
         public float fsl_lower = 0.0f;
 
         public float fGamma_s = 0.0f;
+
+        int number_trans_rein_arr_1 = 0;
+        int number_trans_rein_arr_2 = 0;
+        int number_trans_rein_arr_3 = 0;
+
+        public float ftrans_rein_arr_dist_1 = 0.0f;
+        public float ftrans_rein_arr_dist_2 = 0.0f;
+        public float ftrans_rein_arr_dist_3 = 0.0f;
 
         // Loading
 
@@ -263,11 +272,12 @@ namespace AAC
             number_long_lower_bars = Convert.ToInt32(textBox.Text);
         }
 
-        private void TextBoxTransRein_No_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBoxTransRein_No_half_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            number_trans_bars = Convert.ToInt32(textBox.Text);
+            number_trans_bars_half = Convert.ToInt32(textBox.Text);
+            number_trans_bars = 2 * number_trans_bars_half;
         }
 
         private void ComboBox_LongReinUpper_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,6 +322,50 @@ namespace AAC
             fGamma_s = (float)Convert.ToDecimal(textBox.Text);
         }
 
+        // Transversal Reinforcement Arrangement
+
+        private void TextBoxTransReinArr_1_No_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            number_trans_rein_arr_1 = Convert.ToInt32(textBox.Text);
+        }
+
+        private void TextBoxTransReinArr_1_distance_x_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(textBox.Text);
+        }
+
+        private void TextBoxTransReinArr_2_No_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            number_trans_rein_arr_2 = Convert.ToInt32(textBox.Text);
+        }
+
+        private void TextBoxTransReinArr_2_distance_x_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(textBox.Text);
+        }
+
+        private void TextBoxTransReinArr_3_No_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            number_trans_rein_arr_3 = Convert.ToInt32(textBox.Text);
+        }
+
+        private void TextBoxTransReinArr_3_distance_x_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // ... Get control that raised this event.
+            var textBox = sender as TextBox;
+            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(textBox.Text);
+        }
+        
         // Loading
 
         private void TextBoxLoadingFactorGamma_g_TextChanged(object sender, TextChangedEventArgs e)
@@ -405,13 +459,22 @@ namespace AAC
             selected_Reinforcement_StrengthClassIndex = ComboBox_Reinforcement.SelectedIndex;
             number_long_upper_bars = Convert.ToInt32(TextBoxLongReinUpper_No.Text);
             number_long_lower_bars = Convert.ToInt32(TextBoxLongReinLower_No.Text);
-            number_trans_bars = Convert.ToInt32(TextBoxTransRein_No.Text);
+            number_trans_bars = 2 * Convert.ToInt32(TextBoxTransRein_No_half.Text);
             selected_Reinforcement_d_long_upper_Index = ComboBox_LongReinUpper.SelectedIndex;
             fsl_upper = (float)Convert.ToDecimal(TextBoxLongReinUpper_distance_sl_2.Text);
             selected_Reinforcement_d_long_lower_Index = ComboBox_LongReinLower.SelectedIndex;
             fsl_lower = (float)Convert.ToDecimal(TextBoxLongReinLower_distance_sl_1.Text);
             selected_Reinforcement_d_trans_Index = ComboBox_TransRein.SelectedIndex;
+
             fGamma_s = (float)Convert.ToDecimal(TextBoxReinforcementFactor_Gamma_s.Text);
+
+            number_trans_rein_arr_1 = Convert.ToInt32(TextBoxTransReinArr_1_No.Text);
+            number_trans_rein_arr_2 = Convert.ToInt32(TextBoxTransReinArr_2_No.Text);
+            number_trans_rein_arr_3 = Convert.ToInt32(TextBoxTransReinArr_3_No.Text);
+
+            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(TextBoxTransReinArr_1_distance_x.Text);
+            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(TextBoxTransReinArr_2_distance_x.Text);
+            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(TextBoxTransReinArr_3_distance_x.Text);
 
             fgamma_g = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_g.Text);
             fgamma_q = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_q.Text);
@@ -441,15 +504,25 @@ namespace AAC
 
             CCrSc panel_crsc;
 
-            if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Floor_Panel)
+            if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Beam)
+                panel_crsc = new CRSC.CCrSc_2_00_AAC_Beam(fh, fb); // Solid Beam
+            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Floor_Panel)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Floor_Panel(fh, fb);
-            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Vertical_Wall_Panel)
+            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Vertical_Wall_Panel_1)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Wall_Panel_1(fh, fb);
+            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Vertical_Wall_Panel_2)
+                panel_crsc = new CRSC.CCrSc_2_00_AAC_Wall_Panel_2(fh, fb);
             else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Roof_Panel)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Roof_Panel(fh, fb);
             else
                 panel_crsc = null; // TODO
 
+            // Validate input
+
+            if ((1 + number_trans_rein_arr_1 + number_trans_rein_arr_2 + number_trans_rein_arr_3) != number_trans_bars_half)
+            {
+                MessageBox.Show("Error in number of transversal bars.");
+            }
 
             // Create Panel
             obj_panel = new AAC_Panel(
@@ -471,7 +544,14 @@ namespace AAC
                 fc_1,
                 fc_2,
                 fc_trans,
-                fc_trans);
+                fc_trans,
+                number_trans_rein_arr_1,
+                number_trans_rein_arr_2,
+                number_trans_rein_arr_3,
+                ftrans_rein_arr_dist_1,
+                ftrans_rein_arr_dist_2,
+                ftrans_rein_arr_dist_3
+                );
 
             obj_panel.Reinforcement.m_ff_yk_0 = ff_yk_0;
             obj_panel.FillReinforcementData(0, obj_panel.Long_Bottom_Bars_Array, fd_long_lower, fc_1);
