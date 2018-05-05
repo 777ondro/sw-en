@@ -78,13 +78,13 @@ namespace AAC
             // Reinforcement
             if (bDisplayReinforcement)
             {
-                SolidColorBrush brRein_l1 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Front Side
-                SolidColorBrush brRein_l2 = new SolidColorBrush(Color.FromRgb(200, 0, 0)); // Material color - Shell
-                SolidColorBrush brRein_l3 = new SolidColorBrush(Color.FromRgb(255, 0, 0)); // Material color - Back Side
+                SolidColorBrush brRein_l1 = new SolidColorBrush(Color.FromRgb(255, 150, 0)); // Material color - Front Side
+                SolidColorBrush brRein_l2 = new SolidColorBrush(Color.FromRgb(255, 150, 0)); // Material color - Shell
+                SolidColorBrush brRein_l3 = new SolidColorBrush(Color.FromRgb(255, 150, 0)); // Material color - Back Side
 
-                SolidColorBrush brRein_u1 = new SolidColorBrush(Color.FromRgb(0, 130, 0)); // Material color - Front Side
-                SolidColorBrush brRein_u2 = new SolidColorBrush(Color.FromRgb(0, 120, 0)); // Material color - Shell
-                SolidColorBrush brRein_u3 = new SolidColorBrush(Color.FromRgb(0, 130, 0)); // Material color - Back Side
+                SolidColorBrush brRein_u1 = new SolidColorBrush(Color.FromRgb(250, 230, 50)); // Material color - Front Side
+                SolidColorBrush brRein_u2 = new SolidColorBrush(Color.FromRgb(250, 230, 50)); // Material color - Shell
+                SolidColorBrush brRein_u3 = new SolidColorBrush(Color.FromRgb(250, 230, 50)); // Material color - Back Side
 
                 double y1_lower = 0.102;
 
