@@ -119,6 +119,15 @@ namespace CRSC
             set { m_iCrSc_ID = value; }
         }
 
+        // Number of auxliary points in one section in one surface (auxialiary points of section in 2D in one surface), these points should be defined before real edges (outside or inside points) definition
+        private int m_iNoAuxPoints;
+
+        public int INoAuxPoints
+        {
+            get => m_iNoAuxPoints;
+            set => m_iNoAuxPoints = value;
+        }
+
 
         // !!! Pre FEM vypocet nepotrebujeme vsetky charakteristiky, len Ag, Avy, Avz, Iy, Iz, It !!!!
         // !!! Ostatne charakteristiky postaci nacitavat az pri posudeni

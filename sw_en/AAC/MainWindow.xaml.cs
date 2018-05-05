@@ -508,14 +508,16 @@ namespace AAC
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Beam(fh, fb); // Solid Beam
             else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Floor_Panel)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Floor_Panel(fh, fb);
+            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Horizontal_Wall_Panel)
+                panel_crsc = new CRSC.CCrSc_2_00_AAC_Horizontal_Wall_Panel(fh, fb);
+            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Roof_Panel)
+                panel_crsc = new CRSC.CCrSc_2_00_AAC_Roof_Panel(fh, fb);
             else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Vertical_Wall_Panel_1)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Wall_Panel_1(fh, fb);
             else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Vertical_Wall_Panel_2)
                 panel_crsc = new CRSC.CCrSc_2_00_AAC_Wall_Panel_2(fh, fb);
-            else if (selected_AAC_ComponentIndex == AAC_Panel.E_AACElementType.Roof_Panel)
-                panel_crsc = new CRSC.CCrSc_2_00_AAC_Roof_Panel(fh, fb);
             else
-                panel_crsc = null; // TODO
+                panel_crsc = null; // Unexpected index (type of panel)
 
             // Validate input
 

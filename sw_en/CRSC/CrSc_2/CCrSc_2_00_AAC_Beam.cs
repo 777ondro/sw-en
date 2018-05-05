@@ -6,7 +6,7 @@ using MATH;
 
 namespace CRSC
 {
-    public class CCrSc_2_00_AAC_Beam : CCrSc_0_05
+    public class CCrSc_2_00_AAC_Beam : CCrSc_2_00
     {
         // Solid rectangle beam
 
@@ -18,6 +18,8 @@ namespace CRSC
             //ITotNoPoints = 4;
             IsShapeSolid = true;
             ITotNoPoints = 4;
+            INoAuxPoints = 0;
+
             Fh = fh;
             Fb = fb;
 

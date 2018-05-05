@@ -29,7 +29,8 @@ namespace CRSC
             m_iNumOfArcSegment = 18; // !!! between 0 and 180 degrees, have to be an even number
             m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points // have to be an odd number
 
-            ITotNoPoints = (short)(2 * (short)m_iNumOfArcPoints + (4 + 4));
+            INoAuxPoints = 4;
+            ITotNoPoints = (short)(2 * (short)m_iNumOfArcPoints + (INoAuxPoints + 4));
 
             Fh = fh;
             Fb = fb;
@@ -53,10 +54,6 @@ namespace CRSC
         public new void CalcCrSc_Coord()
         {
             // Fill Point Array Data in LCS (Local Coordinate System of Cross-Section, horizontal y, vertical - z)
-
-            // Auxialiary nodes
-
-            short iNumberAux = 4;
 
             // Point No. 1
             CrScPointsOut[0, 0] = m_fr_1;                   // y
@@ -89,23 +86,23 @@ namespace CRSC
             // 1st radius - centre "1" (90-270 degrees)
             for (short i = 0; i < m_iNumOfArcPoints; i++)
             {
-                CrScPointsOut[iNumberAux + i + 2, 0] = CrScPointsOut[1, 0] + m_fr_1 + Geom2D.GetPositionX(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
-                CrScPointsOut[iNumberAux + i + 2, 1] = CrScPointsOut[1, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+                CrScPointsOut[INoAuxPoints + i + 2, 0] = CrScPointsOut[1, 0] + m_fr_1 + Geom2D.GetPositionX(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                CrScPointsOut[INoAuxPoints + i + 2, 1] = CrScPointsOut[1, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 90 + i * iRadiusAngle / m_iNumOfArcSegment); // z
             }
 
             // Point No. 7
-            CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 2, 0] = CrScPointsOut[5, 0];      // y
-            CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 2, 1] = 0;                        // z
+            CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + 2, 0] = CrScPointsOut[5, 0];      // y
+            CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + 2, 1] = 0;                        // z
 
             // Point No. 8
-            CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 3, 0] = 0;                        // y
-            CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 3, 1] = 0;                        // z
+            CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + 3, 0] = 0;                        // y
+            CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + 3, 1] = 0;                        // z
 
             // 2nd radius - centre "2" (180-270 degrees)
             for (short i = 0; i < m_iNumOfArcPoints; i++)
             {
-                CrScPointsOut[iNumberAux + m_iNumOfArcPoints + i + 4, 0] = CrScPointsOut[0, 0] - m_fr_1 + Geom2D.GetPositionX(m_fr_1, 270 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
-                CrScPointsOut[iNumberAux + m_iNumOfArcPoints + i + 4, 1] = CrScPointsOut[0, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 270 + i * iRadiusAngle / m_iNumOfArcSegment); // z
+                CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + i + 4, 0] = CrScPointsOut[0, 0] - m_fr_1 + Geom2D.GetPositionX(m_fr_1, 270 + i * iRadiusAngle / m_iNumOfArcSegment);     // y
+                CrScPointsOut[INoAuxPoints + m_iNumOfArcPoints + i + 4, 1] = CrScPointsOut[0, 1] - m_fr_1 + Geom2D.GetPositionY_CCW(m_fr_1, 270 + i * iRadiusAngle / m_iNumOfArcSegment); // z
             }
         }
 
@@ -113,25 +110,24 @@ namespace CRSC
         {
             TriangleIndicesFrontSide = new Int32Collection();
 
-            int iAux = 4;
             int iRadiusPoints = m_iNumOfArcSegment + 1;
             int iRadiusPoints_14 = m_iNumOfArcSegment / 2 + 1;
             int iNumOfArcSegment_14 = m_iNumOfArcSegment / 2;
 
             // Front Side / Forehead
-            AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, 4, 5, iAux + 2, iAux + 3 + 2 * iRadiusPoints);
+            AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, 4, 5, INoAuxPoints + 2, INoAuxPoints + 3 + 2 * iRadiusPoints);
             AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, 0, 1, 2, 3);
-            AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, iAux + 4 + iRadiusPoints, iAux + 1 + iRadiusPoints, iAux + 2 + iRadiusPoints, iAux + 3 + iRadiusPoints);
+            AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, INoAuxPoints + 4 + iRadiusPoints, INoAuxPoints + 1 + iRadiusPoints, INoAuxPoints + 2 + iRadiusPoints, INoAuxPoints + 3 + iRadiusPoints);
             
             // Arc sectors
             // 1st SolidCircleSector
-            AddSolidCircleSectorIndices(1, iAux + 2, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
+            AddSolidCircleSectorIndices(1, INoAuxPoints + 2, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
             // 2nd SolidCircleSector
-            AddSolidCircleSectorIndices(2, iAux + 2 + iNumOfArcSegment_14, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
+            AddSolidCircleSectorIndices(2, INoAuxPoints + 2 + iNumOfArcSegment_14, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
             // 3rd SolidCircleSector
-            AddSolidCircleSectorIndices(3, iAux + 4 + 2 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
+            AddSolidCircleSectorIndices(3, INoAuxPoints + 4 + 2 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
             // 4th SolidCircleSector
-            AddSolidCircleSectorIndices(0, iAux + 4 + 3 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
+            AddSolidCircleSectorIndices(0, INoAuxPoints + 4 + 3 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesFrontSide, false);
         }
 
         protected override void loadCrScIndicesShell()
@@ -139,36 +135,34 @@ namespace CRSC
             TriangleIndicesShell = new Int32Collection();
 
             // Shell
-            int iAux = 4;
             int iRadiusPoints = m_iNumOfArcSegment + 1;
 
-            DrawCaraLaterals(iAux, 2 * iRadiusPoints + 4, TriangleIndicesShell);
+            DrawCaraLaterals(INoAuxPoints, 2 * iRadiusPoints + 4, TriangleIndicesShell);
         }
 
         protected override void loadCrScIndicesBackSide()
         {
             TriangleIndicesBackSide = new Int32Collection();
 
-            int iAux = 4;
             int iRadiusPoints = m_iNumOfArcSegment + 1;
             int iRadiusPoints_14 = m_iNumOfArcSegment / 2 + 1;
             int iNumOfArcSegment_14 = m_iNumOfArcSegment / 2;
-            int iPointNumbersOffset = iAux + 2 * iRadiusPoints + 4; // Number of nodes per section - Nodes offset (aux points + 2 *radius points + 4 * edge points)
+            int iPointNumbersOffset = INoAuxPoints + 2 * iRadiusPoints + 4; // Number of nodes per section - Nodes offset (aux points + 2 *radius points + 4 * edge points)
 
             // Front Side / Forehead
-            AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + iAux + 2, iPointNumbersOffset + iAux + 3 + 2 * iRadiusPoints);
+            AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, iPointNumbersOffset + 4, iPointNumbersOffset + 5, iPointNumbersOffset + INoAuxPoints + 2, iPointNumbersOffset + INoAuxPoints + 3 + 2 * iRadiusPoints);
             AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, iPointNumbersOffset + 0, iPointNumbersOffset + 1, iPointNumbersOffset + 2, iPointNumbersOffset + 3);
-            AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, iPointNumbersOffset + iAux + 4 + iRadiusPoints, iPointNumbersOffset + iAux + 1 + iRadiusPoints, iPointNumbersOffset + iAux + 2 + iRadiusPoints, iPointNumbersOffset + iAux + 3 + iRadiusPoints);
+            AddRectangleIndices_CCW_1234(TriangleIndicesBackSide, iPointNumbersOffset + INoAuxPoints + 4 + iRadiusPoints, iPointNumbersOffset + INoAuxPoints + 1 + iRadiusPoints, iPointNumbersOffset + INoAuxPoints + 2 + iRadiusPoints, iPointNumbersOffset + INoAuxPoints + 3 + iRadiusPoints);
 
             // Arc sectors
             // 1st SolidCircleSector
-            AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + iAux + 2, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
+            AddSolidCircleSectorIndices(iPointNumbersOffset + 1, iPointNumbersOffset + INoAuxPoints + 2, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
             // 2nd SolidCircleSector
-            AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + iAux + 2 + iNumOfArcSegment_14, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
+            AddSolidCircleSectorIndices(iPointNumbersOffset + 2, iPointNumbersOffset + INoAuxPoints + 2 + iNumOfArcSegment_14, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
             // 3rd SolidCircleSector
-            AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + iAux + 4 + 2 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
+            AddSolidCircleSectorIndices(iPointNumbersOffset + 3, iPointNumbersOffset + INoAuxPoints + 4 + 2 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
             // 4th SolidCircleSector
-            AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + iAux + 4 + 3 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
+            AddSolidCircleSectorIndices(iPointNumbersOffset + 0, iPointNumbersOffset + INoAuxPoints + 4 + 3 * iNumOfArcSegment_14 + 1, iNumOfArcSegment_14, TriangleIndicesBackSide, true);
         }
     }
 }

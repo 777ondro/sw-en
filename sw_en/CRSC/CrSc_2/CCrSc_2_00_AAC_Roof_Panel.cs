@@ -22,6 +22,7 @@ namespace CRSC
 
             //ITotNoPoints = 12;
             ITotNoPoints = 12;
+            INoAuxPoints = 0;
             Fh = fh;
             Fb = fb;
 

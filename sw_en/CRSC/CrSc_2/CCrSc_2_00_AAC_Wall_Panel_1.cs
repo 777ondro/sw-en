@@ -20,8 +20,8 @@ namespace CRSC
         {
             IsShapeSolid = true;
 
-            //ITotNoPoints = 12;
             ITotNoPoints = 12;
+            INoAuxPoints = 0;
             Fh = fh;
             Fb = fb;
 
@@ -33,8 +33,8 @@ namespace CRSC
 
             // Particular indices Rozpracovane pre vykreslovanie cela prutu inou farbou
             loadCrScIndicesFrontSide();
-            //loadCrScIndicesShell();
-            //loadCrScIndicesBackSide();
+            loadCrScIndicesShell();
+            loadCrScIndicesBackSide();
 
             // All indices together
             //loadCrScIndices();

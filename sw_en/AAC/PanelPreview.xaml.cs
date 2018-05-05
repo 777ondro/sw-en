@@ -47,17 +47,18 @@ namespace AAC
             bool bIsReinfocementSurfaceTransparent = false;
             bool bIsPanelSurfaceTransparent = true;
             bool bDisplayReinforcement = true; // Display reinforcement mesh
-            bool bDisplayConcretePanel = true; // Display concrete 
-            bool bSeeFrontSide = false; // See front side or back side of panel
+            bool bDisplayConcretePanel = true; // Display concrete
+            bool bDisplayConcretePanel_WireFrame = true; // Display Wireframe
+            bool bSeeFrontSide = true; // See front side or back side of panel
 
             Point3D camera_position;
 
-            if(bSeeFrontSide)
-               camera_position = new Point3D(-0.75, 0.4, -0.1); // FrontSide of Panel
+            if (bSeeFrontSide)
+                camera_position = new Point3D(-0.8, 0.4, -0.1); // FrontSide of Panel
             else
-               camera_position = new Point3D(obj_panel.fL + 0.75f, 0.4, -0.1); // BackSide of Panel // TODO - ERROR - nevykresluje sa zadne celo panela ani vyztuze ?????
+                camera_position = new Point3D(obj_panel.fL + 0.8, 0.4, -0.1); // BackSide of Panel // TODO - ERROR - nevykresluje sa zadne celo panela ani vyztuze ?????
 
-            _trackport.PerspectiveCamera.Position = camera_position; 
+            _trackport.PerspectiveCamera.Position = camera_position;
             LookAt(_trackport.PerspectiveCamera, lookAtPoint);
 
             //OrthographicCamera camera = new OrthographicCamera(); // Doplnit moznost zobrazit v pravouhlom priemietani
@@ -131,7 +132,8 @@ namespace AAC
                     model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
             }
 
-            // Panel
+
+            // Panel - Solid Surface
             if (bDisplayConcretePanel)
             {
                 SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(130, 130, 130));  // Material color - Front Side
@@ -158,13 +160,17 @@ namespace AAC
             myRotateTransform3D.Rotation = rotation;
             model.Transform = myRotateTransform3D;
 
-            ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(0);
-            ScreenSpaceLines3D wireFrame_BackSide = wireFrame(obj_panel.fL);
-            ScreenSpaceLines3D wireFrame_Lateral = wireFrameLateral(0, obj_panel.fL);
+            // Panel - Wire Frame
+            if (bDisplayConcretePanel_WireFrame)
+            {
+                ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(0);
+                ScreenSpaceLines3D wireFrame_BackSide = wireFrame(obj_panel.fL);
+                ScreenSpaceLines3D wireFrame_Lateral = wireFrameLateral(0, obj_panel.fL);
 
-            _trackport.ViewPort.Children.Add(wireFrame_FrontSide);
-            _trackport.ViewPort.Children.Add(wireFrame_BackSide);
-            _trackport.ViewPort.Children.Add(wireFrame_Lateral);
+                _trackport.ViewPort.Children.Add(wireFrame_FrontSide);
+                _trackport.ViewPort.Children.Add(wireFrame_BackSide);
+                _trackport.ViewPort.Children.Add(wireFrame_Lateral);
+            }
 
             _trackport.Model = (Model3D)model;
             _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
@@ -174,12 +180,10 @@ namespace AAC
         public ScreenSpaceLines3D wireFrame(double x)
         {
             ScreenSpaceLines3D wireFrame = new ScreenSpaceLines3D();
-            wireFrame.Color = Color.FromRgb(0, 255, 0);
+            wireFrame.Color = Color.FromRgb(200, 200, 200);
             wireFrame.Thickness = 1.0;
 
-            int iAuxNum = 4;
-
-            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum; i++)
+            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - obj_panel.Cross_Section.INoAuxPoints; i++)
             {
                 Point3D pi = new Point3D();
                 Point3D pj = new Point3D();
@@ -188,15 +192,15 @@ namespace AAC
                 // Malo by sa zadat v originalnych suradniach a rotovat do defaultneho pohladu ako jedna Model3DGroup ale ScreenSpaceLines3D sa do Model3DGroup nedaju pridat
                 // Este elegantnejsie by bolo nastavit defaultne zobrazenie tak ze z je vertikalna os na obrazovke, nie osa kolma na obrazovku
 
-                if (i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum - 1)
+                if (i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - obj_panel.Cross_Section.INoAuxPoints - 1)
                 {
-                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
-                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum + 1, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i + 1, 0]);
+                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + obj_panel.Cross_Section.INoAuxPoints, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i, 0]);
+                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + obj_panel.Cross_Section.INoAuxPoints + 1, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i + 1, 0]);
                 }
                 else // Last line
                 {
-                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
-                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[iAuxNum + 0, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + 0, 0]);
+                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i, 0]);
+                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + 0, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + 0, 0]);
                 }
 
                 wireFrame.Points.Add(pi);
@@ -208,12 +212,10 @@ namespace AAC
         public ScreenSpaceLines3D wireFrameLateral(double x1, double x2)
         {
             ScreenSpaceLines3D wireFrame = new ScreenSpaceLines3D();
-            wireFrame.Color = Color.FromRgb(0, 255, 0);
+            wireFrame.Color = Color.FromRgb(200, 200, 200);
             wireFrame.Thickness = 1.0;
 
-            int iAuxNum = 4;
-
-            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum; i++)
+            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - obj_panel.Cross_Section.INoAuxPoints; i++)
             {
                 Point3D pi = new Point3D();
                 Point3D pj = new Point3D();
@@ -222,8 +224,8 @@ namespace AAC
                 // Malo by sa zadat v originalnych suradniach a rotovat do defaultneho pohladu ako jedna Model3DGroup ale ScreenSpaceLines3D sa do Model3DGroup nedaju pridat
                 // Este elegantnejsie by bolo nastavit defaultne zobrazenie tak ze z je vertikalna os na obrazovke, nie osa kolma na obrazovku
 
-                pi = new Point3D(x1, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
-                pj = new Point3D(x2, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
+                pi = new Point3D(x1, obj_panel.Cross_Section.CrScPointsOut[i + obj_panel.Cross_Section.INoAuxPoints, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i, 0]);
+                pj = new Point3D(x2, obj_panel.Cross_Section.CrScPointsOut[i + obj_panel.Cross_Section.INoAuxPoints, 1], -obj_panel.Cross_Section.CrScPointsOut[obj_panel.Cross_Section.INoAuxPoints + i, 0]);
 
                 wireFrame.Points.Add(pi);
                 wireFrame.Points.Add(pj);

@@ -10,7 +10,7 @@ namespace CRSC
     {
         // Solid rectangle
 
-      public CCrSc_2_00()
+        public CCrSc_2_00()
       {
       }
           public CCrSc_2_00(float fh, float fb/*, float ft*/)
@@ -18,6 +18,8 @@ namespace CRSC
             //ITotNoPoints = 4;
           IsShapeSolid = true;
           ITotNoPoints = 4;
+          INoAuxPoints = 0;
+
           Fh = fh;
           Fb = fb;
 
@@ -36,5 +38,7 @@ namespace CRSC
           // Fill list of indices for drawing of surface - triangles edges
           loadCrScIndices();
       }
+
+
     }
 }
