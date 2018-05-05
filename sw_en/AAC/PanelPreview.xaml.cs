@@ -48,7 +48,7 @@ namespace AAC
             bool bIsPanelSurfaceTransparent = true;
             bool bDisplayReinforcement = true; // Display reinforcement mesh
             bool bDisplayConcretePanel = true; // Display concrete 
-            bool bSeeFrontSide = true; // See front side or back side of panel
+            bool bSeeFrontSide = false; // See front side or back side of panel
 
             Point3D camera_position;
 
@@ -158,11 +158,78 @@ namespace AAC
             myRotateTransform3D.Rotation = rotation;
             model.Transform = myRotateTransform3D;
 
+            ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(0);
+            ScreenSpaceLines3D wireFrame_BackSide = wireFrame(obj_panel.fL);
+            ScreenSpaceLines3D wireFrame_Lateral = wireFrameLateral(0, obj_panel.fL);
+
+            _trackport.ViewPort.Children.Add(wireFrame_FrontSide);
+            _trackport.ViewPort.Children.Add(wireFrame_BackSide);
+            _trackport.ViewPort.Children.Add(wireFrame_Lateral);
+
             _trackport.Model = (Model3D)model;
             _trackport.Trackball.TranslateScale = 1000;   //step for moving object (panning)
             _trackport.SetupScene();
         }
 
+        public ScreenSpaceLines3D wireFrame(double x)
+        {
+            ScreenSpaceLines3D wireFrame = new ScreenSpaceLines3D();
+            wireFrame.Color = Color.FromRgb(0, 255, 0);
+            wireFrame.Thickness = 1.0;
+
+            int iAuxNum = 4;
+
+            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum; i++)
+            {
+                Point3D pi = new Point3D();
+                Point3D pj = new Point3D();
+
+                // Note: Due to default rotation is y considered as z_Crsc and z asi -y_Crsc
+                // Malo by sa zadat v originalnych suradniach a rotovat do defaultneho pohladu ako jedna Model3DGroup ale ScreenSpaceLines3D sa do Model3DGroup nedaju pridat
+                // Este elegantnejsie by bolo nastavit defaultne zobrazenie tak ze z je vertikalna os na obrazovke, nie osa kolma na obrazovku
+
+                if (i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum - 1)
+                {
+                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
+                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum + 1, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i + 1, 0]);
+                }
+                else // Last line
+                {
+                    pi = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
+                    pj = new Point3D(x, obj_panel.Cross_Section.CrScPointsOut[iAuxNum + 0, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + 0, 0]);
+                }
+
+                wireFrame.Points.Add(pi);
+                wireFrame.Points.Add(pj);
+            }
+            return wireFrame;
+        }
+
+        public ScreenSpaceLines3D wireFrameLateral(double x1, double x2)
+        {
+            ScreenSpaceLines3D wireFrame = new ScreenSpaceLines3D();
+            wireFrame.Color = Color.FromRgb(0, 255, 0);
+            wireFrame.Thickness = 1.0;
+
+            int iAuxNum = 4;
+
+            for (int i = 0; i < obj_panel.Cross_Section.CrScPointsOut.Length / 2 - iAuxNum; i++)
+            {
+                Point3D pi = new Point3D();
+                Point3D pj = new Point3D();
+
+                // Note: Due to default rotation is y considered as z_Crsc and z asi -y_Crsc
+                // Malo by sa zadat v originalnych suradniach a rotovat do defaultneho pohladu ako jedna Model3DGroup ale ScreenSpaceLines3D sa do Model3DGroup nedaju pridat
+                // Este elegantnejsie by bolo nastavit defaultne zobrazenie tak ze z je vertikalna os na obrazovke, nie osa kolma na obrazovku
+
+                pi = new Point3D(x1, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
+                pj = new Point3D(x2, obj_panel.Cross_Section.CrScPointsOut[i + iAuxNum, 1], -obj_panel.Cross_Section.CrScPointsOut[iAuxNum + i, 0]);
+
+                wireFrame.Points.Add(pi);
+                wireFrame.Points.Add(pj);
+            }
+            return wireFrame;
+        }
 
         //--------------------------------------------------------------------------------------------
         private void LookAt(PerspectiveCamera camera, Point3D lookAtPoint)
