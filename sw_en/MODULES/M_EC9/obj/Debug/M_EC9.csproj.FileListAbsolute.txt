@@ -1,0 +1,11 @@
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\M_EC9.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\M_EC9.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\M_BASE.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\MATH.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\M_BASE.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\bin\Debug\MATH.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\obj\Debug\M_EC9.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\obj\Debug\M_EC9.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\obj\Debug\M_EC9.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\obj\Debug\M_EC9.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC9\obj\Debug\M_EC9.pdb

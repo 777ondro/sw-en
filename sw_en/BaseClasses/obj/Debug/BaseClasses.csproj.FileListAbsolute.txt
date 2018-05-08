@@ -1,0 +1,15 @@
+d:\Programming\sw-en\sw_en\BaseClasses\obj\Debug\BaseClasses.csprojResolveAssemblyReference.cache
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\BaseClasses.dll
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\BaseClasses.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\3DTools.dll
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\CRSC.exe
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\MATERIAL.exe
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\MATH.exe
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\DATABASE.exe
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\3DTools.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\CRSC.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\MATERIAL.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\MATH.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\bin\Debug\DATABASE.pdb
+D:\Programming\sw-en\sw_en\BaseClasses\obj\Debug\BaseClasses.dll
+D:\Programming\sw-en\sw_en\BaseClasses\obj\Debug\BaseClasses.pdb

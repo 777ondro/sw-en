@@ -1,0 +1,16 @@
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\bin\Debug\InteractiveViewport3DSample.exe
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\bin\Debug\InteractiveViewport3DSample.pdb
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\bin\Debug\3DTools.dll
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\bin\Debug\3DTools.pdb
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\Window1.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\App.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\GeneratedInternalTypeHelper.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample_MarkupCompile.cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample_MarkupCompile.lref
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\Window1.baml
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.g.resources
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.exe
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\InteractiveViewport3DSample\obj\Debug\InteractiveViewport3DSample.pdb

@@ -1,0 +1,6 @@
+d:\Programming\sw-en\sw_en\EXPIMP\bin\Debug\EXPIMP.exe
+d:\Programming\sw-en\sw_en\EXPIMP\bin\Debug\EXPIMP.pdb
+d:\Programming\sw-en\sw_en\EXPIMP\obj\Debug\EXPIMP.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\EXPIMP\obj\Debug\EXPIMP.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\EXPIMP\obj\Debug\EXPIMP.exe
+d:\Programming\sw-en\sw_en\EXPIMP\obj\Debug\EXPIMP.pdb

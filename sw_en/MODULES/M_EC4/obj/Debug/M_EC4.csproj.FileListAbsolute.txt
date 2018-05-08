@@ -1,0 +1,9 @@
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\bin\Debug\M_EC4.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\bin\Debug\M_EC4.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\bin\Debug\MATH.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\bin\Debug\MATH.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\obj\Debug\M_EC4.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\obj\Debug\M_EC4.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\obj\Debug\M_EC4.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC4\obj\Debug\M_EC4.pdb
+D:\Programming\sw-en\sw_en\MODULES\M_EC4\obj\Debug\M_EC4.csprojResolveAssemblyReference.cache

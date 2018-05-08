@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MATERIAL;
 using CRSC;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AAC
 {
@@ -24,9 +26,12 @@ namespace AAC
     {
         AAC_Database_Data AAC_data = new AAC_Database_Data();
         AAC_Panel obj_panel;
+        CultureInfo ci;
 
         public MainWindow()
         {
+            ci = new CultureInfo("en-us");
+
             InitializeComponent();
 
             LoadDataFromWindow();
@@ -37,6 +42,8 @@ namespace AAC
 
             // Display panel model in 3D preview
             Frame1.Content = page1;
+
+            
         }
 
         public enum E_SupportMaterialType
@@ -135,6 +142,54 @@ namespace AAC
             // ... Get control that raised this event.
             ComboBox combobox = (ComboBox)sender;
             selected_AAC_ComponentIndex = (AAC_Panel.E_AACElementType)combobox.SelectedIndex;
+
+            switch (selected_AAC_ComponentIndex)
+            {
+                case AAC_Panel.E_AACElementType.Beam:
+                    myStackPanel.Children.Add(new Label { Content  = "Zdar Mato.Ta toto je label." });
+                    //myStackPanel.Children.Add(new Button { Content = "Button"});                    
+
+                    ComboBox cbox = new ComboBox();
+                    cbox.Width = 280;
+                    cbox.Height = 30;
+                    cbox.Background = Brushes.LightBlue;
+                    ComboBoxItem cboxitem = new ComboBoxItem();
+                    cboxitem.Content = "Item 1";
+                    cbox.Items.Add(cboxitem);
+                    ComboBoxItem cboxitem2 = new ComboBoxItem();
+                    cboxitem2.Content = "Item 2";
+                    cbox.Items.Add(cboxitem2);
+                    ComboBoxItem cboxitem3 = new ComboBoxItem();
+                    cboxitem3.Content = "Item 3";
+                    cbox.Items.Add(cboxitem3);
+                    myStackPanel.Children.Add(cbox);
+                    myStackPanel.Width = 200;
+                    myStackPanel.Height = 200;
+                    myStackPanel.Background = Brushes.Green;
+
+                    break;
+                case AAC_Panel.E_AACElementType.Floor_Panel:
+                    
+                    break;
+                case AAC_Panel.E_AACElementType.Horizontal_Wall_Panel:
+                    
+                    break;
+                case AAC_Panel.E_AACElementType.Roof_Panel: break;
+                case AAC_Panel.E_AACElementType.Vertical_Wall_Panel_1:
+                    //skryt prvok
+                    ComboBox_SupportMaterial_1S.Visibility = Visibility.Hidden;
+                    ComboBox_SupportMaterial_2E.Visibility = Visibility.Hidden;
+                    break;
+                case AAC_Panel.E_AACElementType.Vertical_Wall_Panel_2:
+                    if (ComboBox_SupportMaterial_1S == null) return;
+                    if (ComboBox_SupportMaterial_2E == null) return;
+                    //znovu zobrazit prvok
+                    ComboBox_SupportMaterial_1S.Visibility = Visibility.Visible;
+                    ComboBox_SupportMaterial_2E.Visibility = Visibility.Visible;
+                    break;
+                default: break;
+            }
+
         }
 
         private void ComboBox_Standard_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,51 +215,53 @@ namespace AAC
 
         private void TextBoxLength_h_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fh = (float)Convert.ToDecimal(textBox.Text);
+            if (string.IsNullOrEmpty(textBox.Text)) return;
+            fh = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_b_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fb = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fb = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_Lw_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fL_w = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fL_w = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_L_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fL = (float) Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fL = (float) Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_a1_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fa_1 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fa_1 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_c1_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fc_1 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fc_1 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLength_c2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fc_2 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fc_2 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void ComboBox_AAC_CSC_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -224,29 +281,29 @@ namespace AAC
         private void TextBoxConcreteDensity_rho_m_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fRho_m = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fRho_m = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxConcreteFactor_Alpha_c_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fFactor_Alpha = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fFactor_Alpha = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxConcreteFactor_Gamma_c_DBF_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fGamma_c_DBF = (float)Convert.ToDecimal(textBox.Text); // Ductile bending failure (1.44)
+            var textBox = sender as TextBox;            
+            fGamma_c_DBF = (float)Convert.ToDecimal(textBox.Text, ci); // Ductile bending failure (1.44)
         }
 
         private void TextBoxConcreteFactor_Gamma_c_BF_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fGamma_c_BF = (float)Convert.ToDecimal(textBox.Text); // Brittle failure (1.73)
+            var textBox = sender as TextBox;            
+            fGamma_c_BF = (float)Convert.ToDecimal(textBox.Text, ci); // Brittle failure (1.73)
         }
 
         // Reinforcement
@@ -290,8 +347,8 @@ namespace AAC
         private void TextBoxLongReinUpper_distance_sl_2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fsl_upper = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fsl_upper = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void ComboBox_LongReinLower_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -304,8 +361,8 @@ namespace AAC
         private void TextBoxLongReinLower_distance_sl_1_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fsl_lower = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fsl_lower = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void ComboBox_TransRein_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -318,8 +375,8 @@ namespace AAC
         private void TextBoxReinforcementFactor_Gamma_s_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fGamma_s = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fGamma_s = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         // Transversal Reinforcement Arrangement
@@ -327,29 +384,29 @@ namespace AAC
         private void TextBoxTransReinArr_1_No_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            number_trans_rein_arr_1 = Convert.ToInt32(textBox.Text);
+            var textBox = sender as TextBox;            
+            number_trans_rein_arr_1 = Convert.ToInt32(textBox.Text, ci);
         }
 
         private void TextBoxTransReinArr_1_distance_x_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxTransReinArr_2_No_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
+            var textBox = sender as TextBox;            
             number_trans_rein_arr_2 = Convert.ToInt32(textBox.Text);
         }
 
         private void TextBoxTransReinArr_2_distance_x_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxTransReinArr_3_No_TextChanged(object sender, TextChangedEventArgs e)
@@ -362,8 +419,8 @@ namespace AAC
         private void TextBoxTransReinArr_3_distance_x_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
         
         // Loading
@@ -371,43 +428,43 @@ namespace AAC
         private void TextBoxLoadingFactorGamma_g_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
-            var textBox = sender as TextBox;
-            fgamma_g = (float)Convert.ToDecimal(textBox.Text);
+            var textBox = sender as TextBox;            
+            fgamma_g = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLoadingFactorGamma_q_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fgamma_q = (float)Convert.ToDecimal(textBox.Text);
+            fgamma_q = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLoadingFactorPsi_1_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fPsi_1 = (float)Convert.ToDecimal(textBox.Text);
+            fPsi_1 = (float)Convert.ToDecimal(textBox.Text,ci);
         }
 
         private void TextBoxLoadingFactorPsi_2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fPsi_2 = (float)Convert.ToDecimal(textBox.Text);
+            fPsi_2 = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLoadingValue_g_k_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fg_k = (float)Convert.ToDecimal(textBox.Text);
+            fg_k = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxLoadingValue_q_k_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fq_k = (float)Convert.ToDecimal(textBox.Text);
+            fq_k = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         // Transport
@@ -416,21 +473,21 @@ namespace AAC
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fb_s = (float)Convert.ToDecimal(textBox.Text);
+            fb_s = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxTransportValue_Gamma_t_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fgamma_t = (float)Convert.ToDecimal(textBox.Text);
+            fgamma_t = (float)Convert.ToDecimal(textBox.Text, ci);
         }
 
         private void TextBoxAACPanelDensity_Rho_trans_TextChanged(object sender, TextChangedEventArgs e)
         {
             // ... Get control that raised this event.
             var textBox = sender as TextBox;
-            fRho_trans = (float)Convert.ToDecimal(textBox.Text);
+            fRho_trans = (float)Convert.ToDecimal(textBox.Text, ci);
         }
         #endregion
 
@@ -441,51 +498,51 @@ namespace AAC
             selected_SupportMaterial_1S_Index = (E_SupportMaterialType)ComboBox_SupportMaterial_1S.SelectedIndex;
             selected_SupportMaterial_2E_Index = (E_SupportMaterialType)ComboBox_SupportMaterial_2E.SelectedIndex;
 
-            fh = (float)Convert.ToDecimal(TextBoxCrossSectionHeight_h.Text);
-            fb = (float)Convert.ToDecimal(TextBoxCrossSectionWidth_b.Text);
-            fL_w = (float)Convert.ToDecimal(TextBoxLength_Lw.Text);
-            fL = (float)Convert.ToDecimal(TextBoxLength_L.Text);
-            fa_1 = (float)Convert.ToDecimal(TextBoxSupportWidth_a1.Text);
-            fc_1 = (float)Convert.ToDecimal(TextBoxConcreteCover_c1.Text);
-            fc_2 = (float)Convert.ToDecimal(TextBoxConcreteCover_c2.Text);
+            fh = (float)Convert.ToDecimal(TextBoxCrossSectionHeight_h.Text, ci);
+            fb = (float)Convert.ToDecimal(TextBoxCrossSectionWidth_b.Text,ci);
+            fL_w = (float)Convert.ToDecimal(TextBoxLength_Lw.Text,ci);
+            fL = (float)Convert.ToDecimal(TextBoxLength_L.Text,ci);
+            fa_1 = (float)Convert.ToDecimal(TextBoxSupportWidth_a1.Text,ci);
+            fc_1 = (float)Convert.ToDecimal(TextBoxConcreteCover_c1.Text,ci);
+            fc_2 = (float)Convert.ToDecimal(TextBoxConcreteCover_c2.Text,ci);
 
             selected_AAC_StrengthClassIndex = ComboBox_AAC_CSC.SelectedIndex;
             selected_AAC_DensityClassIndex = ComboBox_AAC_DC.SelectedIndex;
-            fRho_m = (float)Convert.ToDecimal(TextBoxConcreteDensity_rho_m.Text);
-            fFactor_Alpha = (float)Convert.ToDecimal(TextBoxConcreteFactor_Alpha_c.Text);
-            fGamma_c_DBF = (float)Convert.ToDecimal(TextBoxConcreteFactor_Gamma_c_DBF.Text);
-            fGamma_c_BF = (float)Convert.ToDecimal(TextBoxConcreteFactor_Gamma_c_BF.Text);
+            fRho_m = (float)Convert.ToDecimal(TextBoxConcreteDensity_rho_m.Text,ci);
+            fFactor_Alpha = (float)Convert.ToDecimal(TextBoxConcreteFactor_Alpha_c.Text,ci);
+            fGamma_c_DBF = (float)Convert.ToDecimal(TextBoxConcreteFactor_Gamma_c_DBF.Text,ci);
+            fGamma_c_BF = (float)Convert.ToDecimal(TextBoxConcreteFactor_Gamma_c_BF.Text,ci);
 
             selected_Reinforcement_StrengthClassIndex = ComboBox_Reinforcement.SelectedIndex;
             number_long_upper_bars = Convert.ToInt32(TextBoxLongReinUpper_No.Text);
             number_long_lower_bars = Convert.ToInt32(TextBoxLongReinLower_No.Text);
             number_trans_bars = 2 * Convert.ToInt32(TextBoxTransRein_No_half.Text);
             selected_Reinforcement_d_long_upper_Index = ComboBox_LongReinUpper.SelectedIndex;
-            fsl_upper = (float)Convert.ToDecimal(TextBoxLongReinUpper_distance_sl_2.Text);
+            fsl_upper = (float)Convert.ToDecimal(TextBoxLongReinUpper_distance_sl_2.Text,ci);
             selected_Reinforcement_d_long_lower_Index = ComboBox_LongReinLower.SelectedIndex;
-            fsl_lower = (float)Convert.ToDecimal(TextBoxLongReinLower_distance_sl_1.Text);
+            fsl_lower = (float)Convert.ToDecimal(TextBoxLongReinLower_distance_sl_1.Text,ci);
             selected_Reinforcement_d_trans_Index = ComboBox_TransRein.SelectedIndex;
 
-            fGamma_s = (float)Convert.ToDecimal(TextBoxReinforcementFactor_Gamma_s.Text);
+            fGamma_s = (float)Convert.ToDecimal(TextBoxReinforcementFactor_Gamma_s.Text,ci);
 
             number_trans_rein_arr_1 = Convert.ToInt32(TextBoxTransReinArr_1_No.Text);
             number_trans_rein_arr_2 = Convert.ToInt32(TextBoxTransReinArr_2_No.Text);
             number_trans_rein_arr_3 = Convert.ToInt32(TextBoxTransReinArr_3_No.Text);
 
-            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(TextBoxTransReinArr_1_distance_x.Text);
-            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(TextBoxTransReinArr_2_distance_x.Text);
-            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(TextBoxTransReinArr_3_distance_x.Text);
+            ftrans_rein_arr_dist_1 = (float)Convert.ToDecimal(TextBoxTransReinArr_1_distance_x.Text,ci);
+            ftrans_rein_arr_dist_2 = (float)Convert.ToDecimal(TextBoxTransReinArr_2_distance_x.Text,ci);
+            ftrans_rein_arr_dist_3 = (float)Convert.ToDecimal(TextBoxTransReinArr_3_distance_x.Text,ci);
 
-            fgamma_g = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_g.Text);
-            fgamma_q = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_q.Text);
-            fPsi_1 = (float)Convert.ToDecimal(TextBoxLoadingFactorPsi_1.Text);
-            fPsi_2 = (float)Convert.ToDecimal(TextBoxLoadingFactorPsi_2.Text);
-            fg_k = (float)Convert.ToDecimal(TextBoxLoadingValue_g_k.Text);
-            fq_k = (float)Convert.ToDecimal(TextBoxLoadingValue_q_k.Text);
+            fgamma_g = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_g.Text,ci);
+            fgamma_q = (float)Convert.ToDecimal(TextBoxLoadingFactorGamma_q.Text,ci);
+            fPsi_1 = (float)Convert.ToDecimal(TextBoxLoadingFactorPsi_1.Text,ci);
+            fPsi_2 = (float)Convert.ToDecimal(TextBoxLoadingFactorPsi_2.Text,ci);
+            fg_k = (float)Convert.ToDecimal(TextBoxLoadingValue_g_k.Text,ci);
+            fq_k = (float)Convert.ToDecimal(TextBoxLoadingValue_q_k.Text,ci);
 
-            fb_s = (float)Convert.ToDecimal(TextBoxTransportValue_b_s.Text);
-            fgamma_t = (float)Convert.ToDecimal(TextBoxTransportValue_Gamma_t.Text);
-            fRho_trans = (float)Convert.ToDecimal(TextBoxAACPanelDensity_Rho_trans.Text);
+            fb_s = (float)Convert.ToDecimal(TextBoxTransportValue_b_s.Text,ci);
+            fgamma_t = (float)Convert.ToDecimal(TextBoxTransportValue_Gamma_t.Text,ci);
+            fRho_trans = (float)Convert.ToDecimal(TextBoxAACPanelDensity_Rho_trans.Text,ci);
         }
 
         private void CreatePanel()
@@ -1089,6 +1146,32 @@ namespace AAC
             {
                 fsl_min = 0.05f;
                 fsl_max = 0.7f;
+            }
+        }
+
+        private void TextBoxCrossSectionHeight_h_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
+        // Use the DataObject.Pasting Handler 
+        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
             }
         }
     }

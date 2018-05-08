@@ -1,0 +1,17 @@
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.CRSC_Form.resources
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.CSOForm.resources
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.Data_CSForm.resources
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.csproj.GenerateResource.Cache
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\CRSC.exe
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\CRSC.pdb
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\MATERIAL.exe
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\MATH.exe
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\DATABASE.exe
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\MATERIAL.pdb
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\MATH.pdb
+D:\Programming\sw-en\sw_en\CRSC\bin\Debug\DATABASE.pdb
+D:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.exe
+D:\Programming\sw-en\sw_en\CRSC\obj\Debug\CRSC.pdb

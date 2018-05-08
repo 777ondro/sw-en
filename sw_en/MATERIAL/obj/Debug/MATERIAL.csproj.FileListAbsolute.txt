@@ -1,0 +1,12 @@
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.Data_MatForm.resources
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\MATERIAL.exe
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\MATERIAL.pdb
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\DATABASE.exe
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\MATH.exe
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\DATABASE.pdb
+d:\Programming\sw-en\sw_en\MATERIAL\bin\Debug\MATH.pdb
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.exe
+d:\Programming\sw-en\sw_en\MATERIAL\obj\Debug\MATERIAL.pdb

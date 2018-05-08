@@ -1,0 +1,17 @@
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\Sample Models\Tiger.xaml
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\Sample Models\Tiger.bmp
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\ModelViewer.exe
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\ModelViewer.pdb
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\3DTools.dll
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\bin\Debug\3DTools.pdb
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\MainWindow.baml
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\MainWindow.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\MyApp.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer_Content.g.cs
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer_MarkupCompile.cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.g.resources
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.exe
+d:\Programming\sw-en\sw_en\3DTools-1.0-src\Samples\ModelViewer\obj\Debug\ModelViewer.pdb

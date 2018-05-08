@@ -124,8 +124,8 @@ namespace CRSC
 
         public int INoAuxPoints
         {
-            get => m_iNoAuxPoints;
-            set => m_iNoAuxPoints = value;
+            get { return m_iNoAuxPoints; }
+            set { m_iNoAuxPoints = value; }
         }
 
 

@@ -1,0 +1,11 @@
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\M_EC3.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\M_EC3.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\MATH.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\M_BASE.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\MATH.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\bin\Debug\M_BASE.pdb
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\obj\Debug\M_EC3.csprojResolveAssemblyReference.cache
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\obj\Debug\M_EC3.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\obj\Debug\M_EC3.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\obj\Debug\M_EC3.exe
+d:\Programming\sw-en\sw_en\MODULES\M_EC3\obj\Debug\M_EC3.pdb

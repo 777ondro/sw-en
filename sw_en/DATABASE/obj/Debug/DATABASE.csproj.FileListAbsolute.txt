@@ -1,0 +1,6 @@
+d:\Programming\sw-en\sw_en\DATABASE\bin\Debug\DATABASE.exe
+d:\Programming\sw-en\sw_en\DATABASE\bin\Debug\DATABASE.pdb
+d:\Programming\sw-en\sw_en\DATABASE\obj\Debug\DATABASE.Properties.Resources.resources
+d:\Programming\sw-en\sw_en\DATABASE\obj\Debug\DATABASE.csproj.GenerateResource.Cache
+d:\Programming\sw-en\sw_en\DATABASE\obj\Debug\DATABASE.exe
+d:\Programming\sw-en\sw_en\DATABASE\obj\Debug\DATABASE.pdb

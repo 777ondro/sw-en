@@ -1,0 +1,6 @@
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\bin\Debug\SharedLibraries.dll
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\bin\Debug\SharedLibraries.pdb
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\bin\Debug\Excel.dll
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\bin\Debug\ICSharpCode.SharpZipLib.dll
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\obj\Debug\SharedLibraries.dll
+d:\Programming\sw-en\sw_en\SharedLibraries\SharedLibraries\obj\Debug\SharedLibraries.pdb

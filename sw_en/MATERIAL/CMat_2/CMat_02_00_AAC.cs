@@ -12,8 +12,10 @@ namespace MATERIAL
 
         public double Rho_m
         {
-            get => m_Rho_m;
-            set => m_Rho_m = value;
+            get { return m_Rho_m; }
+            set { m_Rho_m = value; }
+            //get = m_Rho_m;
+            //set = m_Rho_m = value;
         }
         double fcflk0_05;
 

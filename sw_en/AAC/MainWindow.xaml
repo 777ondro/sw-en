@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:AAC"
         mc:Ignorable="d"
         Title="AAC Panel Design" Height="800" Width="1280" MinWidth="100" MinHeight="100" MaxWidth="1280" MaxHeight="800">
-    <Grid>
+    
+    <Grid>        
+        <StackPanel Name="myStackPanel" Background="AliceBlue" Width="300" Height="100" VerticalAlignment="Top" Margin="330,0,0,0" HorizontalAlignment="Left">
+        </StackPanel>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,25,0,0" TextWrapping="Wrap" Text="AAC component" VerticalAlignment="Top" Width="95"/>
         <ComboBox Name ="ComboBox_AAC_Component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="3">
             <ComboBoxItem Content="Floor Panel"/>
@@ -15,8 +18,8 @@
             <ComboBoxItem Content="Vertical Wall Panel 2 - arc"/>
             <ComboBoxItem Content="Horizontal Wall Panel"/>
             <ComboBoxItem Content="Beam"/>
-        </ComboBox>
-
+        </ComboBox>        
+        
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,50,0,0" TextWrapping="Wrap" Text="Standard" VerticalAlignment="Top" Width="95"/>
         <ComboBox Name ="ComboBox_Standard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,50,0,0" SelectionChanged="ComboBox_Standard_SelectionChanged" Height="20" SelectedIndex="0">
             <ComboBoxItem Content="EN 12602"/>
@@ -24,6 +27,7 @@
             <ComboBoxItem Content="AS 5146.2"/>
             <ComboBoxItem Content="ASTM C 1386-07"/>
         </ComboBox>
+
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,75,0,0" TextWrapping="Wrap" Text="Support Material 1 (S)" VerticalAlignment="Top" Width="113"/>
         <ComboBox Name ="ComboBox_SupportMaterial_1S" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,75,0,0" SelectionChanged="ComboBox_SupportMaterial_1S_SelectionChanged" Height="20" SelectedIndex="0">
@@ -44,7 +48,8 @@
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,123,0,0" TextWrapping="Wrap" Text="Geometry" VerticalAlignment="Top" Width="95"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,148,0,0" TextWrapping="Wrap" Text="h" VerticalAlignment="Top" Width="50"/>
-        <TextBox Name="TextBoxCrossSectionHeight_h" HorizontalAlignment="Left" Height="20" Margin="155,148,0,0" TextWrapping="Wrap" Text="0.250" VerticalAlignment="Top" Width="50" MaxLength="250" TextChanged="TextBoxLength_h_TextChanged"/>
+        
+        <TextBox Name="TextBoxCrossSectionHeight_h" HorizontalAlignment="Left" Height="20" Margin="155,148,0,0" TextWrapping="Wrap" Text="0.250" VerticalAlignment="Top" Width="50" MaxLength="250"  TextChanged="TextBoxLength_h_TextChanged" PreviewTextInput="TextBoxCrossSectionHeight_h_PreviewTextInput" DataObject.Pasting="TextBoxPasting"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="215,148,0,0" TextWrapping="Wrap" Text="[m]" VerticalAlignment="Top" Width="50"/>
 
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,173,0,0" TextWrapping="Wrap" Text="b" VerticalAlignment="Top" Width="50"/>
