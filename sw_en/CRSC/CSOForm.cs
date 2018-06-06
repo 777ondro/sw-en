@@ -34,6 +34,10 @@ namespace CRSC
             // Fill example data - default
             this.FillDatagrid_EX_01();
 
+            // Draw default cross-section
+            this.drawPictureFromDatagrid();
+
+
             /*
             DataSet ds = new DataSet();
             DataTable table = new DataTable();
@@ -103,19 +107,32 @@ namespace CRSC
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
             //Potrebne popridavat vsetky premenne,ktore chceme zobrazit
-            dataGridView2.Rows.Add("x\u207D x⁽ ⁴⁻²⁾ O₂ Ag =", d_A, "mm²", "Avy =", d_A_vy, "mm\xB2", "Avz =", d_A_vz, "mm\xB2");
-            dataGridView2.Rows.Add("ygc =", d_y_gc, "mm", "SyO =", d_S_y0, "mm\xB3", "Iy =", d_I_y, "mm4");
-            dataGridView2.Rows.Add("zgc ="    , d_z_gc,    "mm" , "SzO ="       , d_S_z0,     "mm3",  "Iz ="          , d_I_z      , "mm4");
-            dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, "mm" , "Wzel1 ="     , d_Wz_el_1,  "mm3",               " ", " "        , " "  );
-            dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, "mm" , "Wzel2 ="     , d_Wz_el_2,  "mm3",               " ", " "        , " "  );
-            dataGridView2.Rows.Add("α ="      , d_Alpha,   "rad", " "           , " "              ,  "Iyz ="         , d_I_yz     , "mm4");
-            dataGridView2.Rows.Add("Iξ ="     , d_I_eps,   "mm4", "Iη ="        , d_I_eta,    "mm4",  " "             , " "        , " "  );
-            dataGridView2.Rows.Add("Iω ="     , d_I_ome,   "mm6", "ω mean ="    , d_ome_mean, "mm2",  "ω max ="       , d_ome_max  , "mm2");
-            dataGridView2.Rows.Add("Iyω ="    , d_I_y_ome, "mm6", "Izω ="       , d_I_z_ome,  "mm6",  "Iωω ="         , d_I_ome_ome, "mm6");
-            dataGridView2.Rows.Add("ys ="     , d_y_s,      "mm", "zs ="        , d_z_s,       "mm",  "Ip ="          , d_I_p      , "mm4");
-            dataGridView2.Rows.Add("yj ="     , d_y_j,      "mm", "zj ="        , d_z_j,       "mm",  " "             , " "        , " "  );
-            dataGridView2.Rows.Add("Iw ="     , d_I_w,     "mm6", "Ww ="        , d_W_w,      "mm3",  " "             , " "        , " "  );
-            dataGridView2.Rows.Add("It ="     , d_I_t,     "mm4", "Wt ="        , d_W_t,      "mm3",  " "             , " "        , " "  );
+
+            string s_sup_2 = "\xB2";
+            string s_sup_3 = "\xB3";
+            string s_sup_4 = "\u2074";
+            string s_sup_6 = "\u2076";
+
+            string s_unit_length = "mm";
+
+            string s_unit_area = s_unit_length + s_sup_2;
+            string s_unit_first_moment_of_area = s_unit_length + s_sup_3;
+            string s_unit_second_moment_of_area = s_unit_length + s_sup_4;
+            string s_unit_moment_omega = s_unit_length + s_sup_6;
+
+            dataGridView2.Rows.Add("Ag ="     , d_A,       s_unit_area,                  "Avy ="       , d_A_vy, s_unit_area,                    "Avz ="         , d_A_vz     , s_unit_area);
+            dataGridView2.Rows.Add("ygc ="    , d_y_gc,    s_unit_length,                "SyO ="       , d_S_y0, s_unit_first_moment_of_area,    "Iy ="          , d_I_y      , s_unit_second_moment_of_area);
+            dataGridView2.Rows.Add("zgc ="    , d_z_gc,    s_unit_length,                "SzO ="       , d_S_z0, s_unit_first_moment_of_area,    "Iz ="          , d_I_z      , s_unit_second_moment_of_area);
+            dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, s_unit_length,                "Wzel1 ="     , d_Wz_el_1, s_unit_first_moment_of_area,              " ", " "        , " "  );
+            dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, s_unit_length,                "Wzel2 ="     , d_Wz_el_2, s_unit_first_moment_of_area,              " ", " "        , " "  );
+            dataGridView2.Rows.Add("α ="      , d_Alpha,   "rad",                        " "           , " ",                        " "  ,      "Iyz ="         , d_I_yz     , s_unit_second_moment_of_area);
+            dataGridView2.Rows.Add("Iξ ="     , d_I_eps,   s_unit_second_moment_of_area, "Iη ="        , d_I_eta, s_unit_second_moment_of_area,  " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Iω ="     , d_I_ome,   s_unit_moment_omega,          "ω mean ="    , d_ome_mean, s_unit_area,                "ω max ="       , d_ome_max  , s_unit_area);
+            dataGridView2.Rows.Add("Iyω ="    , d_I_y_ome, s_unit_moment_omega,          "Izω ="       , d_I_z_ome, s_unit_moment_omega,         "Iωω ="         , d_I_ome_ome, s_unit_moment_omega);
+            dataGridView2.Rows.Add("ys ="     , d_y_s,     s_unit_length,                "zs ="        , d_z_s, s_unit_length,                   "Ip ="          , d_I_p      , s_unit_second_moment_of_area);
+            dataGridView2.Rows.Add("yj ="     , d_y_j,     s_unit_length,                "zj ="        , d_z_j, s_unit_length,                   " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Iw ="     , d_I_w,     s_unit_moment_omega,          "Ww ="        , d_W_w, s_unit_first_moment_of_area,     " "             , " "        , " "  );
+            dataGridView2.Rows.Add("It ="     , d_I_t,     s_unit_second_moment_of_area, "Wt ="        , d_W_t, s_unit_first_moment_of_area,     " "             , " "        , " "  );
         }
 
         private void FillDatagrid_EX_01()
@@ -367,14 +384,12 @@ namespace CRSC
         {
             for (int i = 1; i < dataGridView1.Rows.Count; i++)
                 dataGridView1.Rows[i-1].Cells[0].Value = i;
-            
         }
 
         private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             for (int i = 1; i < dataGridView1.Rows.Count; i++)
                 dataGridView1.Rows[i-1].Cells[0].Value = i;
-            
         }
     }
 }

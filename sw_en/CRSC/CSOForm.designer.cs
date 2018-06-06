@@ -30,10 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CSOForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +45,10 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.z = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -63,42 +63,21 @@
             this.y,
             this.z,
             this.t});
-            this.dataGridView1.Location = new System.Drawing.Point(408, 25);
+            this.dataGridView1.Location = new System.Drawing.Point(612, 38);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(395, 371);
+            this.dataGridView1.Size = new System.Drawing.Size(592, 571);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             this.dataGridView1.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserDeletedRow);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
             // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Column1.HeaderText = "Point";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 56;
-            // 
-            // y
-            // 
-            this.y.HeaderText = "y";
-            this.y.Name = "y";
-            // 
-            // z
-            // 
-            this.z.HeaderText = "z";
-            this.z.Name = "z";
-            // 
-            // t
-            // 
-            this.t.HeaderText = "t";
-            this.t.Name = "t";
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(565, 848);
+            this.button1.Location = new System.Drawing.Point(848, 1305);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 23);
+            this.button1.Size = new System.Drawing.Size(192, 35);
             this.button1.TabIndex = 1;
             this.button1.Text = "Show MSG Table";
             this.button1.UseVisualStyleBackColor = true;
@@ -106,9 +85,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(728, 848);
+            this.button2.Location = new System.Drawing.Point(1092, 1305);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(112, 35);
             this.button2.TabIndex = 2;
             this.button2.Text = "Calculate";
             this.button2.UseVisualStyleBackColor = true;
@@ -117,17 +97,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(406, 9);
+            this.label2.Location = new System.Drawing.Point(609, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(111, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "INPUT TABLE";
             // 
             // buttonDraw
             // 
-            this.buttonDraw.Location = new System.Drawing.Point(408, 402);
+            this.buttonDraw.Location = new System.Drawing.Point(612, 618);
+            this.buttonDraw.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonDraw.Name = "buttonDraw";
-            this.buttonDraw.Size = new System.Drawing.Size(75, 23);
+            this.buttonDraw.Size = new System.Drawing.Size(112, 35);
             this.buttonDraw.TabIndex = 6;
             this.buttonDraw.Text = "Redraw";
             this.buttonDraw.UseVisualStyleBackColor = true;
@@ -136,9 +118,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(2, 25);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 38);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(400, 400);
+            this.pictureBox1.Size = new System.Drawing.Size(600, 615);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
@@ -157,9 +140,10 @@
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView2.Location = new System.Drawing.Point(2, 431);
+            this.dataGridView2.Location = new System.Drawing.Point(3, 663);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(801, 411);
+            this.dataGridView2.Size = new System.Drawing.Size(1202, 632);
             this.dataGridView2.TabIndex = 8;
             // 
             // Premenna
@@ -213,11 +197,34 @@
             this.Column4.HeaderText = "Unit";
             this.Column4.Name = "Column4";
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column1.HeaderText = "Point No.";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 109;
+            // 
+            // y
+            // 
+            this.y.HeaderText = "y [mm]";
+            this.y.Name = "y";
+            // 
+            // z
+            // 
+            this.z.HeaderText = "z [mm]";
+            this.z.Name = "z";
+            // 
+            // t
+            // 
+            this.t.HeaderText = "t [mm]";
+            this.t.Name = "t";
+            // 
             // CSOForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 884);
+            this.ClientSize = new System.Drawing.Size(1206, 1360);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonDraw);
@@ -225,6 +232,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CSOForm";
             this.Text = "CS_0";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -244,10 +252,6 @@
         private System.Windows.Forms.Button buttonDraw;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn z;
-        private System.Windows.Forms.DataGridViewTextBoxColumn t;
         private System.Windows.Forms.DataGridViewTextBoxColumn Premenna;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hodnota;
         private System.Windows.Forms.DataGridViewTextBoxColumn Jednotka;
@@ -257,5 +261,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn y;
+        private System.Windows.Forms.DataGridViewTextBoxColumn z;
+        private System.Windows.Forms.DataGridViewTextBoxColumn t;
     }
 }
