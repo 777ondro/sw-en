@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sw_en", "sw_en", "{2103852C-828A-4D0B-AEB7-0BCE9168AF35}"
 EndProject
@@ -93,7 +93,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAC", "AAC\AAC.csproj", "{D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AAC", "AAC", "{93773F05-D757-4272-8510-486E919C2018}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M_AS4600", "M_AS4600\M_AS4600.csproj", "{209738F7-CDB3-4C11-98A3-E345299D9191}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -356,6 +362,18 @@ Global
 		{D046772D-CE7A-4245-B490-EC805829837A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D046772D-CE7A-4245-B490-EC805829837A}.Release|x86.ActiveCfg = Release|Any CPU
 		{D046772D-CE7A-4245-B490-EC805829837A}.Release|x86.Build.0 = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Debug|x86.Build.0 = Debug|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|x86.ActiveCfg = Release|Any CPU
+		{209738F7-CDB3-4C11-98A3-E345299D9191}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -387,13 +405,10 @@ Global
 		{C027BE8A-6935-4525-BB39-A1A2F2F8C0D7} = {31ABDBB2-53AB-4296-A003-E91CECB9CE51}
 		{1AD8C2C0-40CF-4C23-A715-43214CD8DB89} = {31ABDBB2-53AB-4296-A003-E91CECB9CE51}
 		{D046772D-CE7A-4245-B490-EC805829837A} = {93773F05-D757-4272-8510-486E919C2018}
+		{209738F7-CDB3-4C11-98A3-E345299D9191} = {7239374F-E8CD-4AB3-B6FC-181D1525AF71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {3213026E-7FBB-4D9E-901B-23243EDEA58A}
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
