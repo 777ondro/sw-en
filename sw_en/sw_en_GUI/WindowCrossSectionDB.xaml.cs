@@ -295,19 +295,19 @@ namespace sw_en_GUI
 
         private void btnGeneral_CS0_Click(object sender, RoutedEventArgs e)
         {
-            CSOForm cso_form = new CSOForm();
+            CSForm cso_form = new CSForm();
             cso_form.Show();
         }
 
         private void btnSteel_CSO_Click(object sender, RoutedEventArgs e)
         {
-            CSOForm cso_form = new CSOForm();
+            CSForm cso_form = new CSForm();
             cso_form.Show();
         }
 
         private void btnAluminium_CSO_Click(object sender, RoutedEventArgs e)
         {
-            CSOForm cso_form = new CSOForm();
+            CSForm cso_form = new CSForm();
             cso_form.Show();
         }
 

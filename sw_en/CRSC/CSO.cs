@@ -2,319 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using System.Drawing;
 using MATH;
+using System.Windows.Media;
+using System.Windows.Forms;
 
 namespace CRSC
 {
     // THIN-WALLED OPENED CROSS-SECTION PROPERTIES CALCULATION
     // Opened cross section characteristic calculation (closed cell are not allowed)
 
-    public class CSO
+    public class CSO : CCrSc_TW
     {
-        #region variables
+        // CONSTRUCTOR
 
-        // VARIABLES
-        // EN 1999-1-1:2007 Annex J - J.4, page 183
-
-        List<double> y_suradnice;
-        List<double> z_suradnice;
-        List<double> t_hodnoty;
-        double _h;
-        double _b;
-        double _A;                   // Cross-section area (J.6)
-        double dA;                   // Area off segment (J.5)
-        double _d_A_vy;              // Cross-section shear area
-        double _d_A_vz;              // Cross-section shear area
-        double _Sy0;                 // Static modulus to primary axis yO and zO  (J.7) and (J.9)
-        double _Sz0;                 // Static modulus to primary axis zO
-        double _Sy;                  // Static modulus to centre of gravity
-        double _Sz;                  // Static modulus to centre of gravity
-        double d_z_gc;               // Gentre of gravity coordinate // (J.7)
-        double d_y_gc;               // (J.7)
-        double _Iy0;                 // Moment of inertia (Second moment of area) y0-y0 and z0-z0 // (J.8)
-        double _Iy;                  // Moment of inertia (Second moment of area) y-y and z-z // (J.8)
-        double _Iz0;                 // (J.10)
-        double _Iz;                  // (J.10)
-        double _Iyz0;                // Deviacni moment k puvodnim osam y a z // (J.11)
-        double _Iyz;                 // Deviacni moment k osam y a z prochazejicim tezistem // (J.11)
-        double alfa;                 // Rotation of main axis / Natoceni hlavnich os  // (J.12)
-        double _Iepsilon;            // Moment of inertia (Second moment of area) to main axis - greek letters XI and ETA  // (J.13)
-        double _Imikro;              // (J.14)
-
-        double[] omega0i;            // Vysecove souradnice (J.15)
-        double[] omega;
-        double _Iomega;              // Stredni vysecova souradnice  // (J.16)
-
-        double _omega_mean           // Stredni vysecova souradnice  // (J.16)
-             , _Iy_omega0            // Staticky vysecový moment // (J.17)
-             , _Iz_omega0            // (J.18)
-             , _Iomega_omega0        // (J.19)
-             , _Iy_omega             // Staticky vysecový moment // (J.17)
-             , _Iz_omega             // Staticky vysecový moment // (J.18) 
-             , _Iomega_omega         // Staticky vysecový moment // (J.19)
-             , _Ip                   // Polarni moment setrvacnosti // (J.26)
-             , d_y_sc                // Souradnice stredu smyku (J.20) // (J.20)
-             , d_z_sc                // (J.20)
-             , d_y_s                 // Vzdalenost stredu smyku a teziste // (J.25)
-             , d_z_s                 // (J.25)
-             , d_I_w                 // Vysecovy moment setrvacnosti (J.21)  // Warping constant, Iw - Vysecovy moment setrvacnosti
-             , d_I_t                 // St. Venant torsional constant / Moment tuhosti v prostem krouceni // (J.22)
-             , d_W_t                 // Modul odporu prierezu v kruteni / Modul tuhosti v prostem krouceni // (J.22)
-             , omega_max             // Nejvetsi vysecove poradnice a vysecovy modul // (J.24)
-             , d_W_w                 // Vysecovy modul (J.24)
-             , d_z_j                 // Factors of asymetry (J.27) and (J.28)  // according Annex I
-             , d_y_j                 // (J.28)
-             , d_y_ci                // Partial coordinates of centre of cross-section segments // (J.29)
-             , d_z_ci                // Partial coordinates of centre of cross-section segments
-             , _Sw                   // Sectorial product of area  Staticky vysecovy moment // missing formula
-             , _Wy_el_1              // Elastic cross-section modulus y-y and z-z
-             , _Wy_el_2              // Elastic cross-section modulus y-y and z-z
-             , _Wz_el_1              // Elastic cross-section modulus y-y and z-z
-             , _Wz_el_2              // Elastic cross-section modulus y-y and z-z
-             , _Wy_pl                // Plastic cross-section modulus y-y and z-z
-             , _Wz_pl;               // Plastic cross-section modulus y-y and z-z
-        double[] d_omega_s;          // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
-
-        double _Beta_y, _Beta_z;      // Monosymmetry constant AS / NZS standards
-
-        double y_min
-               ,y_max
-               ,z_min
-               ,z_max;
-
-        #endregion
-
-        #region Properties
-        public double A
-        {
-            get { return _A; }
-            set { _A = value; }
-        }
-
-        public double DA
-        {
-            get { return dA; }
-            set { dA = value; }
-        }
-
-        public double d_A_vy
-        {
-            get { return _d_A_vy; }
-            set { _d_A_vy = value; }
-        }
-        public double d_A_vz
-        {
-            get { return _d_A_vz; }
-            set { _d_A_vz = value; }
-        }
-        public double Sy0
-        {
-            get { return _Sy0; }
-            set { _Sy0 = value; }
-        }
-        public double Sz0
-        {
-            get { return _Sz0; }
-            set { _Sz0 = value; }
-        }
-        public double D_z_gc
-        {
-            get { return d_z_gc; }
-            set { d_z_gc = value; }
-        }
-        public double D_y_gc
-        {
-            get { return d_y_gc; }
-            set { d_y_gc = value; }
-        }
-        public double Iy
-        {
-            get { return _Iy; }
-            set { _Iy = value; }
-        }
-        public double Iz
-        {
-            get { return _Iz; }
-            set { _Iz = value; }
-        }
-        public double Iyz
-        {
-            get { return _Iyz; }
-            set { _Iyz = value; }
-        }
-        public double Alfa
-        {
-            get { return alfa; }
-            set { alfa = value; }
-        }
-        public double Iepsilon
-        {
-            get { return _Iepsilon; }
-            set { _Iepsilon = value; }
-        }
-        public double Imikro
-        {
-            get { return _Imikro; }
-            set { _Imikro = value; }
-        }
-        public double Iomega
-        {
-            get { return _Iomega; }
-            set { _Iomega = value; }
-        }
-        public double Omega_mean
-        {
-            get { return _omega_mean; }
-            set { _omega_mean = value; }
-        }
-
-        public double D_y_j
-        {
-            get { return d_y_j; }
-            set { d_y_j = value; }
-        }
-
-        public double D_z_j
-        {
-            get { return d_z_j; }
-            set { d_z_j = value; }
-        }
-
-        public double D_W_w
-        {
-            get { return d_W_w; }
-            set { d_W_w = value; }
-        }
-
-        public double Omega_max
-        {
-            get { return omega_max; }
-            set { omega_max = value; }
-        }
-
-        public double D_W_t
-        {
-            get { return d_W_t; }
-            set { d_W_t = value; }
-        }
-
-        public double D_I_t
-        {
-            get { return d_I_t; }
-            set { d_I_t = value; }
-        }
-
-        public double D_I_w
-        {
-            get { return d_I_w; }
-            set { d_I_w = value; }
-        }
-
-        public double D_z_s
-        {
-            get { return d_z_s; }
-            set { d_z_s = value; }
-        }
-
-        public double D_y_s
-        {
-            get { return d_y_s; }
-            set { d_y_s = value; }
-        }
-
-        public double Ip
-        {
-            get { return _Ip; }
-            set { _Ip = value; }
-        }
-
-        public double Iomega_omega
-        {
-            get { return _Iomega_omega; }
-            set { _Iomega_omega = value; }
-        }
-
-        public double Iz_omega
-        {
-            get { return _Iz_omega; }
-            set { _Iz_omega = value; }
-        }
-
-        public double Iy_omega
-        {
-            get { return _Iy_omega; }
-            set { _Iy_omega = value; }
-        }
-
-        public double Sw
-        {
-            get { return _Sw; }
-            set { _Sw = value; }
-        }
-
-        public double Wy_pl
-        {
-            get { return _Wy_pl; }
-            set { _Wy_pl = value; }
-        }
-
-        public double Wz_pl
-        {
-            get { return _Wz_pl; }
-            set { _Wz_pl = value; }
-        }
-
-        public double Wy_el_1
-        {
-            get { return _Wy_el_1; }
-            set { _Wy_el_1 = value; }
-        }
-
-        public double Wz_el_1
-        {
-            get { return _Wz_el_1; }
-            set { _Wz_el_1 = value; }
-        }
-
-        public double Wy_el_2
-        {
-            get { return _Wy_el_2; }
-            set { _Wy_el_2 = value; }
-        }
-
-        public double Wz_el_2
-        {
-            get { return _Wz_el_2; }
-            set { _Wz_el_2 = value; }
-        }
-
-        public double Beta_y
-        {
-            get { return _Beta_y; }
-            set { _Beta_y = value; }
-        }
-
-        public double Beta_z
-        {
-            get { return _Beta_z; }
-            set { _Beta_z = value; }
-        }
-
-        // end of cross-section variables definition
-        #endregion
-
-        //KONSTRUCTOR
-
-        public CSO () {}
-        public CSO(List<double> y_suradnice,List<double> z_suradnice,List<double> t_hodnoty) 
+        public CSO() { }
+        public CSO(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty)
         {
             int count = y_suradnice.Count;
 
             this.y_suradnice = y_suradnice;
             this.z_suradnice = z_suradnice;
             this.t_hodnoty = t_hodnoty;
-            
+
             this.J_Calc_Dimensions();
 
             A = this.A_method(count);
@@ -322,8 +32,8 @@ namespace CRSC
             this.A_vz_method(count);
             this.Sy0_Sz0_method(count);
             this.Iy0_Iz0_method(count);
-            this.omega0i   = new double[count];
-            this.omega     = new double[count];
+            this.omega0i = new double[count];
+            this.omega = new double[count];
             this.d_omega_s = new double[count];
             this.J_12_13_14_method();
             this.J_15_method(count);
@@ -339,8 +49,192 @@ namespace CRSC
             this.Calc_Beta_z_method(count);
         }
 
+        public void CrScDefPoints_EX_01()
+        {
+            // Fill example data
+            IsShapeSolid = true;
+            const int number_rows = 9;
+
+            arrPointCoord = new float[number_rows, 3] {
+            {-8.0f,  17.0f,  0.0f},
+            {-6.0f,  20.0f,  1.0f},
+            { 6.0f,  20.0f,  1.0f},
+            { 8.0f,  17.0f,  1.0f},
+            { 6.0f,  20.0f,  0.0f},
+            { 0.0f,  20.0f,  0.0f},
+            { 0.0f,   0.0f,  0.8f},
+            { 6.0f,   0.0f,  0.0f},
+            {-6.0f,   0.0f,  1.0f}
+            };
+        }
+
+        public void CrScDefPoints_EX_02()
+        {
+            // Fill example data - Duragal C300x90x8.0
+
+            const int number_rows = 6;
+
+            float fh = 300f;
+            float fb = 90f;
+            float ft = 8f;
+            float fr_1 = 8f;
+
+
+            arrPointCoord = new float[number_rows, 3] {
+            { fb - 0.5f * ft,  -0.5f * fh + 0.5f * ft,  0.0f}, //0
+            { 0.5f * ft + fr_1,  -0.5f * fh + 0.5f * ft,  ft}, //1
+            { 0, -0.5f * fh + 0.5f * ft  + fr_1,  ft}, //2
+            { 0, 0,  ft}, //3
+            { 0, 0,  ft}, //4
+            { 0, 0,  ft}, //5
+            };
+
+            // Fill coordinates (symmetry about horizontal y-y axis)
+
+            for (int i = number_rows / 2; i < number_rows; i++)
+            {
+                arrPointCoord[i, 0] = arrPointCoord[number_rows - i - 1, 0];
+                arrPointCoord[i, 1] = -arrPointCoord[number_rows - i - 1, 1];
+            }
+        }
+
+        public void CrScDefPoints_EX_2710095()
+        {
+            // Fill example data
+            IsShapeSolid = true;
+            const int number_rows = 28;
+
+            float fh = 270f;
+            float fb = 70f;
+            float ft = 0.95f;
+            float fr_1 = 4f;
+            float fr_2 = 8f;
+            float fr_3 = 5f;
+
+            float fy_1 = 10f; // flange edge stiffener
+            float fy_2 = 25f;
+            //float fy_3 = 20f;
+            //float fy_4 = 25f;
+
+            float fy_5 = 10f; // web stiffener
+
+            float fz_1 = 20f; // flange edge stiffener
+            //float fz_2 = 50f;
+            float fz_3 = 20f; // web stiffener
+            float fz_4 = 15f; // web stiffener
+            float fz_5 = 20f; // web stiffener
+            float fz_6 = 60f;
+
+            arrPointCoord = new float[number_rows, 3] {
+            { fb - fy_1 - ft,  -0.5f * fh + fz_1 - 0.5f * ft,  0.0f}, //0
+            { fb - ft - fr_1,  -0.5f * fh + fz_1 - 0.5f * ft,  ft}, //1
+            { fb - ft, -0.5f * fh + fz_1 - 0.5f * ft - fr_3,  ft}, //2
+            { fb - ft, -0.5f * fh + 0.5f * ft + fr_1,  ft}, //3
+            { fb - ft - fr_1,  -0.5f * fh + 0.5f * ft,  ft}, //4
+            { fb - 0.5f * ft - fy_2, -0.5f * fh + 0.5f * ft,  ft}, //5
+            { 0.5f * (fb - ft), -0.5f * fh + 0.5f * ft + fr_1,  ft}, //6
+            { fy_2 - 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { fr_2 + 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { 0f,  -0.5f * fh + 0.5f * ft + fr_2,  ft}, //9
+            { 0f,  - 0.5f * fz_6 - fz_5 - fz_4 - fz_3,  ft}, //10
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5 - fz_4,  ft},
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5,  ft},
+            { 0f,  - 0.5f * fz_6,  ft}, //13
+            { 0f,  0f,  ft}, //14
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //17
+            { 0f,  0f,  ft}, //18
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //21
+            { 0f,  0f,  ft}, //22
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //25
+            { 0f,  0f,  ft}, //26
+            {-0f,  0f,  ft}  //27
+            };
+
+            // Fill coordinates (symmetry about horizontal y-y axis)
+
+            for (int i = number_rows / 2; i < number_rows; i++)
+            {
+                arrPointCoord[i, 0] = arrPointCoord[number_rows - i - 1, 0];
+                arrPointCoord[i, 1] = -arrPointCoord[number_rows - i - 1, 1];
+            }
+        }
+
+        public void CrScDefPoints_EX_2710115()
+        {
+            // Fill example data
+            IsShapeSolid = true;
+            const int number_rows = 28;
+
+            float fh = 270f;
+            float fb = 70f;
+            float ft = 1.15f;
+            float fr_1 = 4f;
+            float fr_2 = 8f;
+            float fr_3 = 5f;
+
+            float fy_1 = 10f; // flange edge stiffener
+            float fy_2 = 25f;
+            //float fy_3 = 20f;
+            //float fy_4 = 25f;
+
+            float fy_5 = 10f; // web stiffener
+
+            float fz_1 = 20f; // flange edge stiffener
+            //float fz_2 = 50f;
+            float fz_3 = 20f; // web stiffener
+            float fz_4 = 15f; // web stiffener
+            float fz_5 = 20f; // web stiffener
+            float fz_6 = 60f;
+
+            arrPointCoord = new float[number_rows, 3] {
+            { fb - fy_1 - ft,  -0.5f * fh + fz_1 - 0.5f * ft,  0.0f}, //0
+            { fb - ft - fr_1,  -0.5f * fh + fz_1 - 0.5f * ft,  ft}, //1
+            { fb - ft, -0.5f * fh + fz_1 - 0.5f * ft - fr_3,  ft}, //2
+            { fb - ft, -0.5f * fh + 0.5f * ft + fr_1,  ft}, //3
+            { fb - ft - fr_1,  -0.5f * fh + 0.5f * ft,  ft}, //4
+            { fb - 0.5f * ft - fy_2, -0.5f * fh + 0.5f * ft,  ft}, //5
+            { 0.5f * (fb - ft), -0.5f * fh + 0.5f * ft + fr_1,  ft}, //6
+            { fy_2 - 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { fr_2 + 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { 0f,  -0.5f * fh + 0.5f * ft + fr_2,  ft}, //9
+            { 0f,  - 0.5f * fz_6 - fz_5 - fz_4 - fz_3,  ft}, //10
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5 - fz_4,  ft},
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5,  ft},
+            { 0f,  - 0.5f * fz_6,  ft}, //13
+            { 0f,  0f,  ft}, //14
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //17
+            { 0f,  0f,  ft}, //18
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //21
+            { 0f,  0f,  ft}, //22
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //25
+            { 0f,  0f,  ft}, //26
+            {-0f,  0f,  ft}  //27
+            };
+
+            // Fill coordinates (symmetry about horizontal y-y axis)
+
+            for (int i = number_rows / 2; i < number_rows; i++)
+            {
+                arrPointCoord[i, 0] = arrPointCoord[number_rows - i - 1, 0];
+                arrPointCoord[i, 1] = -arrPointCoord[number_rows - i - 1, 1];
+            }
+        }
+
+
         // Methods for calculations...
-        public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty) 
+        public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty)
         {
             int count = y_suradnice.Count;
 
@@ -367,17 +261,17 @@ namespace CRSC
             this.Calc_Beta_z_method(count);
         }
         //(J.5) method
-        private double dAi_method(int i)
+        public double dAi_method(int i)
         {
             double dAi = t_hodnoty[i] * Math.Sqrt(Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 2)
                             + Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 2));
             return dAi;
         }
         //(J.6) method
-        private double A_method(int count) 
+        public double A_method(int count)
         {
             double sum = 0;
-            for (int i = 1; i < count; i++) 
+            for (int i = 1; i < count; i++)
             {
                 sum += dAi_method(i);
             }
@@ -385,7 +279,7 @@ namespace CRSC
         }
         // Shear Area Y
         //(sum of all parts paralel to y-Axis and)
-        private double A_vy_method(int count)
+        public double A_vy_method(int count)
         {
             double sum = 0;
             for (int i = 1; i < count; i++)
@@ -397,7 +291,7 @@ namespace CRSC
         }
         // Shear Area Z
         //(sum of all parts paralel to z-Axis and)
-        private double A_vz_method(int count)
+        public double A_vz_method(int count)
         {
             double sum = 0;
             for (int i = 1; i < count; i++)
@@ -408,7 +302,7 @@ namespace CRSC
             return d_A_vz;
         }
         //(J.7) and (J.9) method
-        private void Sy0_Sz0_method(int count) 
+        public void Sy0_Sz0_method(int count)
         {
             this._Sz0 = 0;
             this._Sy0 = 0;
@@ -424,7 +318,7 @@ namespace CRSC
             this.d_y_gc = _Sz0 / A;
         }
         //(J.8) and (J.10) , (J.11) method
-        private void Iy0_Iz0_method(int count) 
+        public void Iy0_Iz0_method(int count)
         {
             this._Iy0 = 0;
             this._Iz0 = 0;
@@ -433,20 +327,20 @@ namespace CRSC
             for (int i = 1; i < count; i++)
             {
                 dAi = dAi_method(i);
-                _Iy0 += (Math.Pow(z_suradnice[i],2) + Math.Pow(z_suradnice[i - 1],2) + z_suradnice[i]*z_suradnice[i-1])
-                        * (dAi/3);
+                _Iy0 += (Math.Pow(z_suradnice[i], 2) + Math.Pow(z_suradnice[i - 1], 2) + z_suradnice[i] * z_suradnice[i - 1])
+                        * (dAi / 3);
                 _Iz0 += (Math.Pow(y_suradnice[i], 2) + Math.Pow(y_suradnice[i - 1], 2) + y_suradnice[i] * y_suradnice[i - 1])
-                        * (dAi/3);
+                        * (dAi / 3);
                 _Iyz0 += (2 * y_suradnice[i - 1] * z_suradnice[i - 1] + 2 * y_suradnice[i] * z_suradnice[i]
-                        + y_suradnice[i - 1] * z_suradnice[i] + y_suradnice[i] * z_suradnice[i - 1])*dAi/6;
+                        + y_suradnice[i - 1] * z_suradnice[i] + y_suradnice[i] * z_suradnice[i - 1]) * dAi / 6;
             }
-            
+
             this._Iy = _Iy0 - A * Math.Pow(d_z_gc, 2);
             this._Iz = _Iz0 - A * Math.Pow(d_y_gc, 2);
             this._Iyz = _Iyz0 - (_Sy0 * _Sz0 / A);
         }
         //J.12,J.13,J.14 method
-        private void J_12_13_14_method()
+        public void J_12_13_14_method()
         {
             if ((_Iz - _Iy) != 0)
                 alfa = Math.Atan(2 * _Iyz / (_Iz - _Iy)) / 2;
@@ -456,18 +350,18 @@ namespace CRSC
             this._Imikro = 0.5 * (_Iy + _Iz - temp);
         }
         //J.15 method
-        private void J_15_method(int count) 
+        public void J_15_method(int count)
         {
             omega0i[0] = 0;
             omega[0] = 0;
-            for (int i = 1; i < count; i++) 
+            for (int i = 1; i < count; i++)
             {
                 omega0i[i] = y_suradnice[i - 1] * z_suradnice[i] - y_suradnice[i] * z_suradnice[i - 1];
-                omega[i] = omega[i - 1] + omega0i[i]; 
+                omega[i] = omega[i - 1] + omega0i[i];
             }
         }
         //J.16 method
-        private void J_16_method(int count) 
+        public void J_16_method(int count)
         {
             _Iomega = 0;
             for (int i = 1; i < count; i++)
@@ -477,7 +371,7 @@ namespace CRSC
             _omega_mean = _Iomega / A;
         }
         //J.17,J18,J19 method 
-        private void J_17_18_19_method(int count) 
+        public void J_17_18_19_method(int count)
         {
             _Iy_omega0 = 0;
             _Iz_omega0 = 0;
@@ -493,7 +387,7 @@ namespace CRSC
                 _Iz_omega0 += (2 * omega[i - 1] * z_suradnice[i - 1] +
                                2 * omega[i] * z_suradnice[i] +
                                omega[i - 1] * z_suradnice[i] +
-                               omega[i]     * z_suradnice[i - 1]) * dAi / 6;
+                               omega[i] * z_suradnice[i - 1]) * dAi / 6;
                 _Iomega_omega0 += (Math.Pow(omega[i], 2) + Math.Pow(omega[i - 1], 2) + omega[i] * omega[i - 1]) * dAi / 3;
             }
             _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / _A);
@@ -501,19 +395,19 @@ namespace CRSC
             _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / _A);
         }
         //J.20 and J.21 method
-        private void J_20_21_method() 
+        public void J_20_21_method()
         {
             try
             {
                 double temp = _Iy * _Iz - Math.Pow(_Iyz, 2);
-                d_y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz)/temp;
+                d_y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz) / temp;
                 d_z_sc = (-_Iy_omega * _Iy - _Iz_omega * _Iyz) / temp;
                 d_I_w = _Iomega_omega + d_z_sc * _Iy_omega - d_y_sc * _Iz_omega;
             }
             catch (DivideByZeroException) { MessageBox.Show("ERROR. Divide by zero, J.20 method."); }
         }
         //J.22 method
-        private void J_22_method(int count)
+        public void J_22_method(int count)
         {
             d_I_t = 0;
             for (int i = 1; i < count; i++)
@@ -538,10 +432,10 @@ namespace CRSC
                 d_W_t = d_I_t / min_more_than_zero;
             }
             else
-              MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
+                MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
         }
         //J.23 method   ????? nerozumiem vzorcu...je potrebne upresnit
-        private void J_23_method(int count)
+        public void J_23_method(int count)
         {
             d_omega_s[0] = 0;
             for (int i = 1; i < count; i++)
@@ -550,7 +444,7 @@ namespace CRSC
             }
         }
         //J.24,J.25,J.26 method
-        private void J_24_25_26_method() 
+        public void J_24_25_26_method()
         {
             omega_max = MathF.Max(d_omega_s);
             d_W_w = d_I_w / omega_max;
@@ -560,17 +454,17 @@ namespace CRSC
 
         }
         //J.29 method
-        private void J_29_method(int num) 
+        public void J_29_method(int num)
         {
             d_y_ci = (y_suradnice[num] + y_suradnice[num - 1]) / 2 - d_y_gc;
             d_z_ci = (z_suradnice[num] + z_suradnice[num - 1]) / 2 - d_z_gc;
         }
         //J.27,J.28 method
         //This method uses J.29 method to count actual d_y_ci and d_z_ci numbers
-        private void J_27_J_28_method(int count) 
+        public void J_27_J_28_method(int count)
         {
-            double zj_temp=0, yj_temp=0,dAi;
-            for (int i = 1; i < count; i++) 
+            double zj_temp = 0, yj_temp = 0, dAi;
+            for (int i = 1; i < count; i++)
             {
                 this.J_29_method(i);
                 dAi = this.dAi_method(i);
@@ -585,7 +479,7 @@ namespace CRSC
             d_y_j = d_y_s - (0.5 / _Iz) * yj_temp;
         }
         // Calculate dimensions
-        private void J_Calc_Dimensions()
+        public void J_Calc_Dimensions()
         {
             y_min = y_suradnice[0];
             y_max = y_suradnice[0];
@@ -609,7 +503,7 @@ namespace CRSC
 
         }
         // Calculate elastic cross-section moduli
-        private void J_W_el()
+        public void J_W_el()
         {
             this._Wy_el_1 = _Iy / (z_max - d_z_gc);
             this._Wy_el_2 = _Iy / (d_z_gc - z_min);
@@ -618,7 +512,7 @@ namespace CRSC
             this._Wz_el_2 = _Iz / (d_y_gc - y_min);
         }
         // Calculate Monosymmetry section constant Beta y
-        private void Calc_Beta_y_method(int count)
+        public void Calc_Beta_y_method(int count)
         {
             double Beta_y_temp = 0, dAi;
             for (int i = 1; i < count; i++)
@@ -626,13 +520,14 @@ namespace CRSC
                 this.J_29_method(i);
                 dAi = this.dAi_method(i);
 
-                Beta_y_temp += (Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 2) * (z_suradnice[i] - z_suradnice[i - 1]) + Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 3)) * dAi;
+                //Beta_y_temp += (Math.Pow((y_suradnice[i] - d_y_gc) - (y_suradnice[i - 1] - d_y_gc), 2) * ((z_suradnice[i] - d_z_gc) - (z_suradnice[i - 1] - d_z_gc)) + Math.Pow((z_suradnice[i] - d_z_gc) - (z_suradnice[i - 1] - d_z_gc), 3)) * dAi;
+                Beta_y_temp += (Math.Pow(d_y_ci, 2) * (d_z_ci) + Math.Pow(d_z_ci, 3)) * dAi;
             }
 
             Beta_y = (1 / _Iy) * Beta_y_temp - 2 * d_z_s;
         }
         // Calculate Monosymmetry section constant Beta z
-        private void Calc_Beta_z_method(int count)
+        public void Calc_Beta_z_method(int count)
         {
             double Beta_z_temp = 0, dAi;
             for (int i = 1; i < count; i++)
@@ -640,7 +535,8 @@ namespace CRSC
                 this.J_29_method(i);
                 dAi = this.dAi_method(i);
 
-                Beta_z_temp += (Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 2) * (y_suradnice[i] - y_suradnice[i - 1]) + Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 3)) * dAi;
+                // Beta_z_temp += (Math.Pow((z_suradnice[i] - d_z_gc) - (z_suradnice[i - 1] - d_z_gc), 2) * ((y_suradnice[i] - d_y_gc) - (y_suradnice[i - 1] - d_y_gc)) + Math.Pow((y_suradnice[i] - d_y_gc) - (y_suradnice[i - 1] - d_y_gc), 3)) * dAi;
+                Beta_z_temp += (Math.Pow(d_z_ci, 2) * (d_y_ci) + Math.Pow(d_y_ci, 3)) * dAi;
             }
 
             Beta_z = (1 / _Iz) * Beta_z_temp - 2 * d_y_s;
@@ -661,7 +557,22 @@ namespace CRSC
             double beta_L = 0;
             double m = (a * a * b * b * t) / _Iy * (0.25 + c / (2 * b) - (2 * c * c * c) / (3 * a * a * b));
             double beta_yps = ((beta_w + beta_f + beta_L) / _Iy) - 2 * x_o;
+        }
 
+        protected override void loadCrScIndices()
+        {
+        }
+
+        protected override void loadCrScIndicesFrontSide()
+        {
+        }
+
+        protected override void loadCrScIndicesShell()
+        {
+        }
+
+        protected override void loadCrScIndicesBackSide()
+        {
         }
     }
 }

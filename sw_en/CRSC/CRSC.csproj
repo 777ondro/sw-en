@@ -126,14 +126,16 @@
     <Compile Include="CrSc_9\CCrSc_9_10.cs" />
     <Compile Include="CrSc_9\CCrSc_9_09.cs" />
     <Compile Include="CrSc_SW\CCrSc_GE.cs" />
-    <Compile Include="CSCClass.cs" />
+    <Compile Include="CCrSc_SO.cs" />
+    <Compile Include="CCrSc_TW.cs" />
+    <Compile Include="CSC.cs" />
     <Compile Include="CSGClass.cs" />
     <Compile Include="CSO.cs" />
-    <Compile Include="CSOForm.cs">
+    <Compile Include="CSForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CSOForm.designer.cs">
-      <DependentUpon>CSOForm.cs</DependentUpon>
+    <Compile Include="CSForm.designer.cs">
+      <DependentUpon>CSForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data_CSForm.cs">
       <SubType>Form</SubType>
@@ -153,8 +155,8 @@
     <EmbeddedResource Include="CRSC_Form.resx">
       <DependentUpon>CRSC_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CSOForm.resx">
-      <DependentUpon>CSOForm.cs</DependentUpon>
+    <EmbeddedResource Include="CSForm.resx">
+      <DependentUpon>CSForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Data_CSForm.resx">

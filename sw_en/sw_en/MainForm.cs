@@ -99,8 +99,8 @@ namespace CENEX
         }
         private void crossSectionToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            CSOForm iCSOForm = new CSOForm();
-            iCSOForm.ShowDialog();
+            CSForm iCSForm = new CSForm();
+            iCSForm.ShowDialog();
         }
 
         private void en1999ToolStripMenuItem_Click(object sender, EventArgs e)

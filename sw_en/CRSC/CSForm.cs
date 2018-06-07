@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace CRSC
 {
-    public partial class CSOForm : Form
+    public partial class CSForm : Form
     {
         private List<double> ySuradnice;
         private List<double> zSuradnice;
@@ -20,10 +20,14 @@ namespace CRSC
         private List<double> tHodnoty;
         private List<int> idHodnoty;
 
+        public bool bIsShapeSolid;
+        public float[,] arrPointCoord;
+
         //Constructor
-        public CSOForm()
+        public CSForm()
         {
             InitializeComponent();
+
             ySuradnice = new List<double>(5);  //for counting
             zSuradnice = new List<double>(5);
             ySuradniceDatagrid = new List<double>(5); //for writing values to the picture
@@ -31,12 +35,30 @@ namespace CRSC
             tHodnoty = new List<double>(5);
             idHodnoty = new List<int>(5);
 
-            // Fill example data - default
-            this.FillDatagrid_EX_02();
+            // Load example data - default
+            /*
+            CSO cs = new CSO(); // Choose class CSO (open) or CSC (closed)
+            cs.CrScDefPoints_EX_2710115();
+            */
+
+            CSC cs = new CSC(); // Choose class CSO (open) or CSC (closed)
+            cs.CrScDefPoints_EX_10075();
+
+            bIsShapeSolid = cs.IsShapeSolid;
+            arrPointCoord = new float[cs.arrPointCoord.Length / 3, 3];
+
+            for (int i = 0; i < arrPointCoord.Length / 3; i++)
+            {
+                arrPointCoord[i, 0] = cs.arrPointCoord[i, 0];
+                arrPointCoord[i, 1] = cs.arrPointCoord[i, 1];
+                arrPointCoord[i, 2] = cs.arrPointCoord[i, 2];
+            }
+
+            //Fill example data into datagrid
+            FillDataGridView();
 
             // Draw default cross-section
             this.drawPictureFromDatagrid();
-
 
             /*
             DataSet ds = new DataSet();
@@ -48,63 +70,82 @@ namespace CRSC
             table.Rows.Add(row);
             ds.Tables.Add(table);
             */
-
         }
 
         public void button1_Click(object sender, EventArgs e)
         {
-            CSO CSOprop = new CSO();
+            CCrSc_TW cs;
+
+            if (bIsShapeSolid)
+            {
+                cs = new CSO();
+            }
+            else
+            {
+                cs = new CSC();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //CSOClass CSOprop = new CSOClass();
-
             // Calculation of cross section attributes
             this.getListsFromDatagrid();
-            CSO cso = new CSO(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
+
+            // Check cross-section shape and create open or closed cross-section class
+
+            // Temporary acc. to default
+            CCrSc_TW cs;
+
+            if (bIsShapeSolid)
+            {
+                cs = new CSO(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
+            }
+            else
+            {
+                cs = new CSC(this.ySuradniceDatagrid, this.zSuradniceDatagrid, this.tHodnoty);
+            }
 
             // Round numerical values
             int dec_place_num1 = 1;
             int dec_place_num2 = 2;
 
-            double d_A = Math.Round(cso.A, dec_place_num2);
-            double d_A_vy = Math.Round(cso.d_A_vy, dec_place_num2);
-            double d_A_vz = Math.Round(cso.d_A_vz, dec_place_num2);
-            double d_y_gc = Math.Round(cso.D_y_gc, dec_place_num2);
-            double d_z_gc = Math.Round(cso.D_z_gc, dec_place_num2);
-            double d_S_y0 = Math.Round(cso.Sy0, dec_place_num2);
-            double d_S_z0 = Math.Round(cso.Sz0, dec_place_num2);
-            double d_I_y = Math.Round(cso.Iy, dec_place_num2);
-            double d_I_z = Math.Round(cso.Iz, dec_place_num2);
-            double d_Wy_el_1 = Math.Round(cso.Wy_el_1, dec_place_num2);
-            double d_Wz_el_1 = Math.Round(cso.Wz_el_1, dec_place_num2);
-            double d_Wy_el_2 = Math.Round(cso.Wy_el_2, dec_place_num2);
-            double d_Wz_el_2 = Math.Round(cso.Wz_el_2, dec_place_num2);
+            double d_A = Math.Round(cs.A, dec_place_num2);
+            double d_A_vy = Math.Round(cs.d_A_vy, dec_place_num2);
+            double d_A_vz = Math.Round(cs.d_A_vz, dec_place_num2);
+            double d_y_gc = Math.Round(cs.D_y_gc, dec_place_num2);
+            double d_z_gc = Math.Round(cs.D_z_gc, dec_place_num2);
+            double d_S_y0 = Math.Round(cs.Sy0, dec_place_num2);
+            double d_S_z0 = Math.Round(cs.Sz0, dec_place_num2);
+            double d_I_y = Math.Round(cs.Iy, dec_place_num2);
+            double d_I_z = Math.Round(cs.Iz, dec_place_num2);
+            double d_Wy_el_1 = Math.Round(cs.Wy_el_1, dec_place_num2);
+            double d_Wz_el_1 = Math.Round(cs.Wz_el_1, dec_place_num2);
+            double d_Wy_el_2 = Math.Round(cs.Wy_el_2, dec_place_num2);
+            double d_Wz_el_2 = Math.Round(cs.Wz_el_2, dec_place_num2);
 
-            double d_Alpha = Math.Round(cso.Alfa, dec_place_num2);
-            double d_I_yz = Math.Round(cso.Iyz, dec_place_num2);
-            double d_I_eps = Math.Round(cso.Iepsilon, dec_place_num2);
-            double d_I_eta = Math.Round(cso.Imikro, dec_place_num2);
-            double d_I_ome = Math.Round(cso.Iomega, dec_place_num2);
-            double d_ome_mean = Math.Round(cso.Omega_mean, dec_place_num2);
-            double d_ome_max = Math.Round(cso.Omega_max, dec_place_num2);
-            double d_I_y_ome = Math.Round(cso.Iy_omega, dec_place_num2);
-            double d_I_z_ome = Math.Round(cso.Iz_omega, dec_place_num2);
-            double d_I_ome_ome = Math.Round(cso.Iomega_omega, dec_place_num2);
+            double d_Alpha = Math.Round(cs.Alfa, dec_place_num2);
+            double d_I_yz = Math.Round(cs.Iyz, dec_place_num2);
+            double d_I_eps = Math.Round(cs.Iepsilon, dec_place_num2);
+            double d_I_eta = Math.Round(cs.Imikro, dec_place_num2);
+            double d_I_ome = Math.Round(cs.Iomega, dec_place_num2);
+            double d_ome_mean = Math.Round(cs.Omega_mean, dec_place_num2);
+            double d_ome_max = Math.Round(cs.Omega_max, dec_place_num2);
+            double d_I_y_ome = Math.Round(cs.Iy_omega, dec_place_num2);
+            double d_I_z_ome = Math.Round(cs.Iz_omega, dec_place_num2);
+            double d_I_ome_ome = Math.Round(cs.Iomega_omega, dec_place_num2);
 
-            double d_y_s = Math.Round(cso.D_y_s, dec_place_num2);
-            double d_z_s = Math.Round(cso.D_z_s, dec_place_num2);
-            double d_I_p = Math.Round(cso.Ip, dec_place_num2);
-            double d_y_j = Math.Round(cso.D_y_j, dec_place_num2);
-            double d_z_j = Math.Round(cso.D_z_j, dec_place_num2);
-            double d_I_w = Math.Round(cso.D_I_w, dec_place_num2);
-            double d_W_w = Math.Round(cso.D_W_w, dec_place_num2);
-            double d_I_t = Math.Round(cso.D_I_t, dec_place_num2);
-            double d_W_t = Math.Round(cso.D_W_t, dec_place_num2);
+            double d_y_s = Math.Round(cs.D_y_s, dec_place_num2);
+            double d_z_s = Math.Round(cs.D_z_s, dec_place_num2);
+            double d_I_p = Math.Round(cs.Ip, dec_place_num2);
+            double d_y_j = Math.Round(cs.D_y_j, dec_place_num2);
+            double d_z_j = Math.Round(cs.D_z_j, dec_place_num2);
+            double d_I_w = Math.Round(cs.D_I_w, dec_place_num2);
+            double d_W_w = Math.Round(cs.D_W_w, dec_place_num2);
+            double d_I_t = Math.Round(cs.D_I_t, dec_place_num2);
+            double d_W_t = Math.Round(cs.D_W_t, dec_place_num2);
 
-            double d_Beta_y = Math.Round(cso.Beta_y, dec_place_num2);
-            double d_Beta_z = Math.Round(cso.Beta_z, dec_place_num2);
+            double d_Beta_y = Math.Round(cs.Beta_y, dec_place_num2);
+            double d_Beta_z = Math.Round(cs.Beta_z, dec_place_num2);
 
             //vymazanie datagridview2
             dataGridView2.Rows.Clear();
@@ -139,103 +180,15 @@ namespace CRSC
             dataGridView2.Rows.Add("βy ="     , d_Beta_y,  s_unit_length,                "βz ="        , d_Beta_z, s_unit_length,                " "             , " "        , " "  );
         }
 
-        private void FillDatagrid_EX_01()
+        private void FillDataGridView()
         {
-            // Fill example data
-            const int number_rows = 9;
-
-            float [,] arrtemp = new float[number_rows, 3] {
-            {-8.0f,  17.0f,  0.0f},
-            {-6.0f,  20.0f,  1.0f},
-            { 6.0f,  20.0f,  1.0f},
-            { 8.0f,  17.0f,  1.0f},
-            { 6.0f,  20.0f,  0.0f},
-            { 0.0f,  20.0f,  0.0f},
-            { 0.0f,   0.0f,  0.8f},
-            { 6.0f,   0.0f,  0.0f},
-            {-6.0f,   0.0f,  1.0f}
-            };
-
-            FillDataGridView(number_rows, arrtemp);
-        }
-
-        private void FillDatagrid_EX_02()
-        {
-            // Fill example data
-            const int number_rows = 28;
-
-            float fh = 270f;
-            float fb = 70f;
-            float ft = 0.95f;
-            float fr_1 = 4f;
-            float fr_2 = 8f;
-            float fr_3 = 5f;
-
-            float fy_1 = 10f; // flange edge stiffener
-            float fy_2 = 25f;
-            //float fy_3 = 20f;
-            //float fy_4 = 25f;
-
-            float fy_5 = 10f; // web stiffener
-
-            float fz_1 = 20f; // flange edge stiffener
-            //float fz_2 = 50f;
-            float fz_3 = 20f; // web stiffener
-            float fz_4 = 15f; // web stiffener
-            float fz_5 = 20f; // web stiffener
-            float fz_6 = 60f;
-
-            float[,] arrtemp = new float[number_rows, 3] {
-            { fb - fy_1 - ft,  -0.5f * fh + fz_1 - 0.5f * ft,  0.0f}, //0
-            { fb - ft - fr_1,  -0.5f * fh + fz_1 - 0.5f * ft,  ft}, //1
-            { fb - ft, -0.5f * fh + fz_1 - 0.5f * ft - fr_3,  ft}, //2
-            { fb - ft, -0.5f * fh + 0.5f * ft + fr_1,  ft}, //3
-            { fb - ft - fr_1,  -0.5f * fh + 0.5f * ft,  ft}, //4
-            { fb - 0.5f * ft - fy_2, -0.5f * fh + 0.5f * ft,  ft}, //5
-            { 0.5f * (fb - ft), -0.5f * fh + 0.5f * ft + fr_1,  ft}, //6
-            { fy_2 - 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
-            { fr_2 + 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
-            { 0f,  -0.5f * fh + 0.5f * ft + fr_2,  ft}, //9
-            { 0f,  - 0.5f * fz_6 - fz_5 - fz_4 - fz_3,  ft}, //10
-            { fy_5 - ft,  - 0.5f * fz_6 - fz_5 - fz_4,  ft},
-            { fy_5 - ft,  - 0.5f * fz_6 - fz_5,  ft},
-            { 0f,  - 0.5f * fz_6,  ft}, //13
-            { 0f,  0f,  ft}, //14
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft}, //17
-            { 0f,  0f,  ft}, //18
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft}, //21
-            { 0f,  0f,  ft}, //22
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft},
-            { 0f,  0f,  ft}, //25
-            { 0f,  0f,  ft}, //26
-            {-0f,  0f,  ft}  //27
-            };
-
-            // Fill coordinates (symmetry about horizontal y-y axis)
-
-            for (int i = 14; i < number_rows; i++)
-            {
-                arrtemp[i, 0] = arrtemp[number_rows - i - 1, 0];
-                arrtemp[i, 1] = -arrtemp[number_rows - i - 1, 1];
-            }
-
-            FillDataGridView(number_rows, arrtemp);
-        }
-
-        private void FillDataGridView(int number_rows, float[,] arrtemp)
-        {
-            for (int i = 0; i < number_rows; i++)
+            for (int i = 0; i < arrPointCoord.Length / 3; i++)
             {
                 dataGridView1.Rows.Add(new DataGridViewRow());
                 dataGridView1.Rows[i].Cells[0].Value = i + 1;
-                dataGridView1.Rows[i].Cells[1].Value = arrtemp[i, 0];
-                dataGridView1.Rows[i].Cells[2].Value = arrtemp[i, 1];
-                dataGridView1.Rows[i].Cells[3].Value = arrtemp[i, 2];
+                dataGridView1.Rows[i].Cells[1].Value = arrPointCoord[i, 0];
+                dataGridView1.Rows[i].Cells[2].Value = arrPointCoord[i, 1];
+                dataGridView1.Rows[i].Cells[3].Value = arrPointCoord[i, 2];
             }
         }
 
@@ -401,7 +354,7 @@ namespace CRSC
             p.DashStyle = DashStyle.Solid;
 
             double y1, z1, t1, y2, z2, t2;
-            int okraj_y = 100;
+            int okraj_y = 50;
             int okraj_z = 30;
 
             int posun_text_y = 30;
@@ -499,7 +452,19 @@ namespace CRSC
             try
             {
                 this.drawPictureFromDatagrid();
-                CSO cso = new CSO(ySuradnice, zSuradnice, tHodnoty);
+
+                // Check cross-section shape and create open or closed cross-section class
+                CCrSc_TW cs;
+
+                // Temporary acc. to default
+                if (bIsShapeSolid)
+                {
+                    cs = new CSO(ySuradnice, zSuradnice, tHodnoty);
+                }
+                else
+                {
+                    cs = new CSC(ySuradnice, zSuradnice, tHodnoty);
+                }
             }
             catch (ArgumentOutOfRangeException) { MessageBox.Show("Set values to y,z,t in the table."); }
         }
