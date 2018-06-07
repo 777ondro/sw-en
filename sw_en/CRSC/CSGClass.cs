@@ -21,18 +21,6 @@ namespace CENEX
 
         #endregion
 
-
-
-
-        
-
-
-
-
-
-
-
-
         #region   Variables EC9
 
         double b;
@@ -100,8 +88,6 @@ namespace CENEX
         
         #endregion  
         #endregion
-
-
 
         // Constructor
 

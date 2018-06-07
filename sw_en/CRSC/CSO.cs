@@ -12,7 +12,6 @@ namespace CRSC
 
     public class CSO
     {
-
         #region variables
 
         // VARIABLES
@@ -76,6 +75,8 @@ namespace CRSC
              , _Wy_pl                // Plastic cross-section modulus y-y and z-z
              , _Wz_pl;               // Plastic cross-section modulus y-y and z-z
         double[] d_omega_s;          // Vysecove souradnice ktere jsou vztazeny ke stredu smyku (J.23) // (J.23)
+
+        double _Beta_y, _Beta_z;      // Monosymmetry constant AS / NZS standards
 
         double y_min
                ,y_max
@@ -288,10 +289,21 @@ namespace CRSC
             set { _Wz_el_2 = value; }
         }
 
+        public double Beta_y
+        {
+            get { return _Beta_y; }
+            set { _Beta_y = value; }
+        }
+
+        public double Beta_z
+        {
+            get { return _Beta_z; }
+            set { _Beta_z = value; }
+        }
+
         // end of cross-section variables definition
         #endregion
 
-        
         //KONSTRUCTOR
 
         public CSO () {}
@@ -323,7 +335,8 @@ namespace CRSC
             this.J_24_25_26_method();
             this.J_27_J_28_method(count);
             this.J_W_el();
-
+            this.Calc_Beta_y_method(count);
+            this.Calc_Beta_z_method(count);
         }
 
         // Methods for calculations...
@@ -350,6 +363,8 @@ namespace CRSC
             this.J_23_method(count);
             this.J_24_25_26_method();
             this.J_27_J_28_method(count);
+            this.Calc_Beta_y_method(count);
+            this.Calc_Beta_z_method(count);
         }
         //(J.5) method
         private double dAi_method(int i)
@@ -407,7 +422,6 @@ namespace CRSC
 
             this.d_z_gc = _Sy0 / A;
             this.d_y_gc = _Sz0 / A;
-            
         }
         //(J.8) and (J.10) , (J.11) method
         private void Iy0_Iz0_method(int count) 
@@ -430,7 +444,6 @@ namespace CRSC
             this._Iy = _Iy0 - A * Math.Pow(d_z_gc, 2);
             this._Iz = _Iz0 - A * Math.Pow(d_y_gc, 2);
             this._Iyz = _Iyz0 - (_Sy0 * _Sz0 / A);
-            
         }
         //J.12,J.13,J.14 method
         private void J_12_13_14_method()
@@ -603,6 +616,52 @@ namespace CRSC
 
             this._Wz_el_1 = _Iz / (y_max - d_y_gc);
             this._Wz_el_2 = _Iz / (d_y_gc - y_min);
+        }
+        // Calculate Monosymmetry section constant Beta y
+        private void Calc_Beta_y_method(int count)
+        {
+            double Beta_y_temp = 0, dAi;
+            for (int i = 1; i < count; i++)
+            {
+                this.J_29_method(i);
+                dAi = this.dAi_method(i);
+
+                Beta_y_temp += (Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 2) * (z_suradnice[i] - z_suradnice[i - 1]) + Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 3)) * dAi;
+            }
+
+            Beta_y = (1 / _Iy) * Beta_y_temp - 2 * d_z_s;
+        }
+        // Calculate Monosymmetry section constant Beta z
+        private void Calc_Beta_z_method(int count)
+        {
+            double Beta_z_temp = 0, dAi;
+            for (int i = 1; i < count; i++)
+            {
+                this.J_29_method(i);
+                dAi = this.dAi_method(i);
+
+                Beta_z_temp += (Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 2) * (y_suradnice[i] - y_suradnice[i - 1]) + Math.Pow(y_suradnice[i] - y_suradnice[i - 1], 3)) * dAi;
+            }
+
+            Beta_z = (1 / _Iz) * Beta_z_temp - 2 * d_y_s;
+
+            //Table E1
+            // Pokusny vypocet - c s vystuhami na koncoch
+            double a, b, c;
+
+            a = 270 - 0.95;
+            b = 70 - 0.95;
+            c = 20;
+            double t = 0.95;
+
+            double x_ = b * b / (a + 2 * b);
+            double x_o = x_ + ((3 * b * b) / (6 * b + a));
+            double beta_w = (1 / 12) * t * x_ * a * a * a + t * x_ * x_ * x_ * a;
+            double beta_f = (0.5 * t * (Math.Pow(b + x_, 4) - Math.Pow(x_, 4))) + (0.25 * a * a * t * (Math.Pow(b + x_, 2) + x_ * x_));
+            double beta_L = 0;
+            double m = (a * a * b * b * t) / _Iy * (0.25 + c / (2 * b) - (2 * c * c * c) / (3 * a * a * b));
+            double beta_yps = ((beta_w + beta_f + beta_L) / _Iy) - 2 * x_o;
+
         }
     }
 }

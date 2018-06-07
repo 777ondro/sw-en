@@ -32,7 +32,7 @@ namespace CRSC
             idHodnoty = new List<int>(5);
 
             // Fill example data - default
-            this.FillDatagrid_EX_01();
+            this.FillDatagrid_EX_02();
 
             // Draw default cross-section
             this.drawPictureFromDatagrid();
@@ -103,6 +103,9 @@ namespace CRSC
             double d_I_t = Math.Round(cso.D_I_t, dec_place_num2);
             double d_W_t = Math.Round(cso.D_W_t, dec_place_num2);
 
+            double d_Beta_y = Math.Round(cso.Beta_y, dec_place_num2);
+            double d_Beta_z = Math.Round(cso.Beta_z, dec_place_num2);
+
             //vymazanie datagridview2
             dataGridView2.Rows.Clear();
             //Pridavanie Riadkov do Datagridview2 
@@ -123,8 +126,8 @@ namespace CRSC
             dataGridView2.Rows.Add("Ag ="     , d_A,       s_unit_area,                  "Avy ="       , d_A_vy, s_unit_area,                    "Avz ="         , d_A_vz     , s_unit_area);
             dataGridView2.Rows.Add("ygc ="    , d_y_gc,    s_unit_length,                "SyO ="       , d_S_y0, s_unit_first_moment_of_area,    "Iy ="          , d_I_y      , s_unit_second_moment_of_area);
             dataGridView2.Rows.Add("zgc ="    , d_z_gc,    s_unit_length,                "SzO ="       , d_S_z0, s_unit_first_moment_of_area,    "Iz ="          , d_I_z      , s_unit_second_moment_of_area);
-            dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, s_unit_length,                "Wzel1 ="     , d_Wz_el_1, s_unit_first_moment_of_area,              " ", " "        , " "  );
-            dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, s_unit_length,                "Wzel2 ="     , d_Wz_el_2, s_unit_first_moment_of_area,              " ", " "        , " "  );
+            dataGridView2.Rows.Add("Wyel1 ="  , d_Wy_el_1, s_unit_length,                "Wzel1 ="     , d_Wz_el_1, s_unit_first_moment_of_area, " "             , " "        , " "  );
+            dataGridView2.Rows.Add("Wyel2 ="  , d_Wy_el_2, s_unit_length,                "Wzel2 ="     , d_Wz_el_2, s_unit_first_moment_of_area, " "             , " "        , " "  );
             dataGridView2.Rows.Add("α ="      , d_Alpha,   "rad",                        " "           , " ",                        " "  ,      "Iyz ="         , d_I_yz     , s_unit_second_moment_of_area);
             dataGridView2.Rows.Add("Iξ ="     , d_I_eps,   s_unit_second_moment_of_area, "Iη ="        , d_I_eta, s_unit_second_moment_of_area,  " "             , " "        , " "  );
             dataGridView2.Rows.Add("Iω ="     , d_I_ome,   s_unit_moment_omega,          "ω mean ="    , d_ome_mean, s_unit_area,                "ω max ="       , d_ome_max  , s_unit_area);
@@ -133,13 +136,15 @@ namespace CRSC
             dataGridView2.Rows.Add("yj ="     , d_y_j,     s_unit_length,                "zj ="        , d_z_j, s_unit_length,                   " "             , " "        , " "  );
             dataGridView2.Rows.Add("Iw ="     , d_I_w,     s_unit_moment_omega,          "Ww ="        , d_W_w, s_unit_first_moment_of_area,     " "             , " "        , " "  );
             dataGridView2.Rows.Add("It ="     , d_I_t,     s_unit_second_moment_of_area, "Wt ="        , d_W_t, s_unit_first_moment_of_area,     " "             , " "        , " "  );
+            dataGridView2.Rows.Add("βy ="     , d_Beta_y,  s_unit_length,                "βz ="        , d_Beta_z, s_unit_length,                " "             , " "        , " "  );
         }
 
         private void FillDatagrid_EX_01()
         {
             // Fill example data
+            const int number_rows = 9;
 
-            float [,] arrtemp = new float[9,3] {
+            float [,] arrtemp = new float[number_rows, 3] {
             {-8.0f,  17.0f,  0.0f},
             {-6.0f,  20.0f,  1.0f},
             { 6.0f,  20.0f,  1.0f},
@@ -151,10 +156,83 @@ namespace CRSC
             {-6.0f,   0.0f,  1.0f}
             };
 
-            for (int i = 0; i < 9; i++)
+            FillDataGridView(number_rows, arrtemp);
+        }
+
+        private void FillDatagrid_EX_02()
+        {
+            // Fill example data
+            const int number_rows = 28;
+
+            float fh = 270f;
+            float fb = 70f;
+            float ft = 0.95f;
+            float fr_1 = 4f;
+            float fr_2 = 8f;
+            float fr_3 = 5f;
+
+            float fy_1 = 10f; // flange edge stiffener
+            float fy_2 = 25f;
+            //float fy_3 = 20f;
+            //float fy_4 = 25f;
+
+            float fy_5 = 10f; // web stiffener
+
+            float fz_1 = 20f; // flange edge stiffener
+            //float fz_2 = 50f;
+            float fz_3 = 20f; // web stiffener
+            float fz_4 = 15f; // web stiffener
+            float fz_5 = 20f; // web stiffener
+            float fz_6 = 60f;
+
+            float[,] arrtemp = new float[number_rows, 3] {
+            { fb - fy_1 - ft,  -0.5f * fh + fz_1 - 0.5f * ft,  0.0f}, //0
+            { fb - ft - fr_1,  -0.5f * fh + fz_1 - 0.5f * ft,  ft}, //1
+            { fb - ft, -0.5f * fh + fz_1 - 0.5f * ft - fr_3,  ft}, //2
+            { fb - ft, -0.5f * fh + 0.5f * ft + fr_1,  ft}, //3
+            { fb - ft - fr_1,  -0.5f * fh + 0.5f * ft,  ft}, //4
+            { fb - 0.5f * ft - fy_2, -0.5f * fh + 0.5f * ft,  ft}, //5
+            { 0.5f * (fb - ft), -0.5f * fh + 0.5f * ft + fr_1,  ft}, //6
+            { fy_2 - 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { fr_2 + 0.5f * ft, -0.5f * fh + 0.5f * ft,  ft},
+            { 0f,  -0.5f * fh + 0.5f * ft + fr_2,  ft}, //9
+            { 0f,  - 0.5f * fz_6 - fz_5 - fz_4 - fz_3,  ft}, //10
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5 - fz_4,  ft},
+            { fy_5 - ft,  - 0.5f * fz_6 - fz_5,  ft},
+            { 0f,  - 0.5f * fz_6,  ft}, //13
+            { 0f,  0f,  ft}, //14
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //17
+            { 0f,  0f,  ft}, //18
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //21
+            { 0f,  0f,  ft}, //22
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft},
+            { 0f,  0f,  ft}, //25
+            { 0f,  0f,  ft}, //26
+            {-0f,  0f,  ft}  //27
+            };
+
+            // Fill coordinates (symmetry about horizontal y-y axis)
+
+            for (int i = 14; i < number_rows; i++)
+            {
+                arrtemp[i, 0] = arrtemp[number_rows - i - 1, 0];
+                arrtemp[i, 1] = -arrtemp[number_rows - i - 1, 1];
+            }
+
+            FillDataGridView(number_rows, arrtemp);
+        }
+
+        private void FillDataGridView(int number_rows, float[,] arrtemp)
+        {
+            for (int i = 0; i < number_rows; i++)
             {
                 dataGridView1.Rows.Add(new DataGridViewRow());
-                dataGridView1.Rows[i].Cells[0].Value = i+1;
+                dataGridView1.Rows[i].Cells[0].Value = i + 1;
                 dataGridView1.Rows[i].Cells[1].Value = arrtemp[i, 0];
                 dataGridView1.Rows[i].Cells[2].Value = arrtemp[i, 1];
                 dataGridView1.Rows[i].Cells[3].Value = arrtemp[i, 2];
@@ -292,15 +370,42 @@ namespace CRSC
             Image image = Image.FromFile(@"biely.bmp");
             Bitmap myBitmap = new Bitmap(image, pictureBox1.Width, pictureBox1.Height);
             Graphics g = Graphics.FromImage(myBitmap);
-            Font font = new Font("Arial",10,FontStyle.Bold);
-            Font font2 = new Font("Courier new", 8);
-            Brush brush = new SolidBrush(Color.Black);
-            
 
-            Pen p = new Pen(Color.Red, 5);
+            bool bDrawPoints = true;
+            bool bDrawElements = true;
+            bool bDraPointNumbers = true;
+            bool bDrawPOintCoordinates = false;
+
+            float fPointSquareSize = 1f;
+
+            int iPointTextSize = 7;
+            string sPointTextFont = "Arial";
+            int iPointCoordinatesTextSize = 7;
+            string sPointCoordinatesTextFont = "Arial";
+
+            Color cPointColor = Color.Black;
+            Color cPointNumberColor = Color.Blue;
+            Color cPointCoordinatesColor = Color.DarkGreen;
+
+            Color cElementColor = Color.Red;
+            float fElementDefaultThickness = 2f;
+
+            Font font1 = new Font(sPointTextFont, iPointTextSize, FontStyle.Bold);
+            Font font2 = new Font(sPointCoordinatesTextFont, iPointCoordinatesTextSize);
+
+            Brush brush1 = new SolidBrush(cPointNumberColor);
+            Brush brush2 = new SolidBrush(cPointCoordinatesColor);
+
+            Pen p = new Pen(cElementColor, fElementDefaultThickness);
+
             p.DashStyle = DashStyle.Solid;
+
             double y1, z1, t1, y2, z2, t2;
-            int okraj = 30;
+            int okraj_y = 100;
+            int okraj_z = 30;
+
+            int posun_text_y = 30;
+            int posun_text_z = 20;
 
             //cast inicializacie a prepoctov suradnic pre maximalne vykreslenie
             try
@@ -316,42 +421,71 @@ namespace CRSC
             double zmin = this.findMin(zSuradnice);
             double pomer;
 
-            pomer = this.countZoomForPicture(ymax, ymin, zmax, zmin);  //vypocet pomeru 
+            pomer = this.countZoomForPicture(ymax, ymin, zmax, zmin);  //vypocet pomeru
             this.countPositionsForLists(); //nastavenie hodnot na pociatocny bod
 
             if (ySuradnice.Count > 1)
             {
                 for (int i = 0; i < ySuradnice.Count - 1; i++)
                 {
-                    y1 = (ySuradnice[i] * pomer + okraj);
-                    z1 = 400 - (zSuradnice[i] * pomer + okraj);
+                    y1 = (ySuradnice[i] * pomer + okraj_y);
+                    z1 = 400 - (zSuradnice[i] * pomer + okraj_z);
                     t1 = tHodnoty[i];
-                    y2 = (ySuradnice[i + 1] * pomer + okraj);
-                    z2 = 400 - (zSuradnice[i + 1] * pomer + okraj);
+                    y2 = (ySuradnice[i + 1] * pomer + okraj_y);
+                    z2 = 400 - (zSuradnice[i + 1] * pomer + okraj_z);
                     t2 = tHodnoty[i + 1];
-                    p = new Pen(Color.Red, (float)t2);
-                    if (t2 > 0) g.DrawLine(p, (int)Math.Round(y1), (int)Math.Round(z1), (int)Math.Round(y2), (int)Math.Round(z2));
-                    p = new Pen(Color.Black, 4);
-                    g.DrawRectangle(p, (float)y1, (float)z1, 2, 2);
-                    g.DrawString(idHodnoty[i].ToString(), font, brush, (float)y1 - 5, (float)z1 + 4);
-                    g.DrawString("["+ ySuradniceDatagrid[i]+";"+ zSuradniceDatagrid[i]+"]",
-                                font2, brush, (float)y1 - 30, (float)z1 - 20);
-                    g.DrawRectangle(p, (float)y2, (float)z2, 2, 2);
-                    g.DrawString(idHodnoty[i + 1].ToString(), font, brush, (float)y2 - 5, (float)z2 + 4);
-                    g.DrawString("[" + ySuradniceDatagrid[i+1] + ";" + zSuradniceDatagrid[i+1] + "]",
-                                font2, brush, (float)y2 - 30, (float)z2 - 20);
+
+                    if (bDrawElements)
+                    {
+                        p = new Pen(cElementColor, /*fElementDefaultThickness * */(float)t2);
+                        if (t2 > 0) g.DrawLine(p, (int)Math.Round(y1), (int)Math.Round(z1), (int)Math.Round(y2), (int)Math.Round(z2));
+                    }
+
+                    if (bDrawPoints)
+                    {
+                        p = new Pen(cPointColor, 4);
+                        g.DrawRectangle(p, (float)y1, (float)z1, fPointSquareSize, fPointSquareSize);
+                    }
+
+                    if(bDraPointNumbers)
+                       g.DrawString(idHodnoty[i].ToString(), font1, brush1, (float)y1 - 5, (float)z1 + 4);
+
+                    if(bDrawPOintCoordinates)
+                       g.DrawString("["+ ySuradniceDatagrid[i]+";"+ zSuradniceDatagrid[i]+"]",
+                                font2, brush2, (float)y1 - posun_text_y, (float)z1 - posun_text_z);
+
+                    if (bDrawPoints)
+                    {
+                        p = new Pen(cPointColor, 4);
+                        g.DrawRectangle(p, (float)y2, (float)z2, fPointSquareSize, fPointSquareSize);
+                    }
+
+                    if(bDraPointNumbers)
+                       g.DrawString(idHodnoty[i + 1].ToString(), font1, brush1, (float)y2 - 5, (float)z2 + 4);
+
+                    if(bDrawPOintCoordinates)
+                       g.DrawString("[" + ySuradniceDatagrid[i+1] + ";" + zSuradniceDatagrid[i+1] + "]",
+                                font2, brush2, (float)y2 - posun_text_y, (float)z2 - posun_text_z);
 
                 }
             }
             else
             {
-                y1 = ySuradnice[0] + okraj;
-                z1 = 400- (zSuradnice[0] + okraj);
+                y1 = ySuradnice[0] + okraj_y;
+                z1 = 400- (zSuradnice[0] + okraj_z);
                 p = new Pen(Color.Black, 4);
-                g.DrawRectangle(p, (float)y1, (float)z1, 2, 2);
-                g.DrawString(idHodnoty[0].ToString(), font, brush, (float)y1 - 5, (float)z1 + 4);
-                g.DrawString("[" + ySuradniceDatagrid[0] + ";" + zSuradniceDatagrid[0] + "]",
-                                font2, brush, (float)y1 - 20, (float)z1 - 20);
+
+                if (bDrawPoints)
+                {
+                    p = new Pen(cPointColor, 4);
+                    g.DrawRectangle(p, (float)y1, (float)z1, fPointSquareSize, fPointSquareSize);
+                }
+
+                if (bDraPointNumbers)
+                    g.DrawString(idHodnoty[0].ToString(), font1, brush1, (float)y1 - 5, (float)z1 + 4);
+                if (bDrawPOintCoordinates)
+                    g.DrawString("[" + ySuradniceDatagrid[0] + ";" + zSuradniceDatagrid[0] + "]",
+                                font2, brush2, (float)y1 - posun_text_y, (float)z1 - posun_text_z);
 
             }
 
