@@ -29,7 +29,10 @@ namespace M_AS4600
         }
         public float Eq_7212_4__(float fA_g, float ff_oc)
         {
-            return fA_g * ff_oc; // Eq. (7.2.1.2(4)) // fN_oc
+            if (ff_oc > 0)
+                return fA_g * ff_oc; // Eq. (7.2.1.2(4)) // fN_oc
+            else
+                return 0f; // Error
         }
         public float Eq_7212_5__(float fA_g, float ff_y)
         {
@@ -56,7 +59,10 @@ namespace M_AS4600
         }
         public float Eq_7213_4__(float fA_g, float ff_ol)
         {
-            return fA_g * ff_ol; // Eq. (7.2.1.3(4)) // fN_ol
+            if (ff_ol > 0)
+                return fA_g * ff_ol; // Eq. (7.2.1.3(4)) // fN_ol
+            else
+                return 0f; // Error
         }
         public float Eq_7214_1__(float fN_y)
         {
@@ -79,7 +85,10 @@ namespace M_AS4600
         }
         public float Eq_7214_4__(float fA_g, float ff_od)
         {
-            return fA_g * ff_od; // Eq. (7.2.1.4(4)) // fN_od
+            if (ff_od > 0)
+                return fA_g * ff_od; // Eq. (7.2.1.4(4)) // fN_od
+            else
+                return 0f; // Error
         }
 
 

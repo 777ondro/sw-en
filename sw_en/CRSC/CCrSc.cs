@@ -153,11 +153,13 @@ namespace CRSC
 
         m_S_y,
         m_I_y,
+        m_i_y_radius_gyration,
         m_W_y_el,
         m_W_y_pl,
         m_f_y_plel,
         m_S_z,
         m_I_z,
+        m_i_z_radius_gyration,
         m_W_z_el,
         m_W_z_pl,
         m_f_z_plel,
@@ -165,9 +167,20 @@ namespace CRSC
         m_W_y_el_2,
         m_W_z_el_1,
         m_W_z_el_2,
+
         m_I_epsilon,
+        m_i_epsilon_radius_gyration,
         m_I_mikro,
+        m_i_mikro_radius_gyration,
         m_I_yz,
+        m_i_yz_radius_gyration,
+        m_I_p,
+        m_i_p_radius_gyration,
+        m_I_p_M,
+        m_i_p_M_radius_gyration,
+        m_I_Omega_M,
+        m_i_Omega_M_radius_gyration,
+
         m_W_t_el,
         m_I_t,
         m_i_t,
@@ -383,10 +396,22 @@ namespace CRSC
             set { m_I_y = value; }
         }
 
+        public double i_y_rg
+        {
+            get { return m_i_y_radius_gyration; }
+            set { m_i_y_radius_gyration = value; }
+        }
+
         public double I_z
         {
             get { return m_I_z; }
             set { m_I_z = value; }
+        }
+
+        public double i_z_rg
+        {
+            get { return m_i_z_radius_gyration; }
+            set { m_i_z_radius_gyration = value; }
         }
 
         public double I_epsilon
@@ -395,16 +420,70 @@ namespace CRSC
             set { m_I_epsilon = value; }
         }
 
+        public double i_epsilon_rg
+        {
+            get { return m_i_epsilon_radius_gyration; }
+            set { m_i_epsilon_radius_gyration = value; }
+        }
+
         public double I_mikro
         {
             get { return m_I_mikro; }
             set { m_I_mikro = value; }
         }
 
+        public double i_mikro_rg
+        {
+            get { return m_i_mikro_radius_gyration; }
+            set { m_i_mikro_radius_gyration = value; }
+        }
+
         public double I_yz
         {
             get { return m_I_yz; }
             set { m_I_yz = value; }
+        }
+
+        public double i_yz_rg
+        {
+            get { return m_i_yz_radius_gyration; }
+            set { m_i_yz_radius_gyration = value; }
+        }
+
+        public double I_p
+        {
+            get { return m_I_p; }
+            set { m_I_p = value; }
+        }
+
+        public double i_p_rg
+        {
+            get { return m_i_p_radius_gyration; }
+            set { m_i_p_radius_gyration = value; }
+        }
+
+        public double I_p_M
+        {
+            get { return m_I_p_M; }
+            set { m_I_p_M = value; }
+        }
+
+        public double i_p_M_rg
+        {
+            get { return m_i_p_M_radius_gyration; }
+            set { m_i_p_M_radius_gyration = value; }
+        }
+
+        public double I_Omega_M
+        {
+            get { return m_I_Omega_M; }
+            set { m_I_Omega_M = value; }
+        }
+
+        public double i_Omega_M_rg
+        {
+            get { return m_i_Omega_M_radius_gyration; }
+            set { m_i_Omega_M_radius_gyration = value; }
         }
 
         public double I_t

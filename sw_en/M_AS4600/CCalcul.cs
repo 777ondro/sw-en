@@ -13,6 +13,7 @@ namespace M_AS4600
     {
         CCrSc_TW cs; // Thin-walled cross-section
 
+        float fN_c = 50f;
         float ff_y;
         float fE;
         float fG;
@@ -29,7 +30,7 @@ namespace M_AS4600
         float ff_ox; //x = y
         float ff_oy; //y = z
 
-        float fr_o1, fx_o, fy_o;
+        float fr_x, fr_y, fr_o1, fx_o, fy_o;
 
         float ff_ol;
         float flambda_l;
@@ -47,6 +48,7 @@ namespace M_AS4600
         float fk;
 
         float fx_cfl_par, fy_cfl_par;
+
         public float fA_cfl, fJ_cfl, fI_x_cfl, fI_y_cfl, fI_xy_cfl, fI_w_cfl;
 
         public CCalcul(CCrSc_TW cs_temp)
@@ -70,6 +72,25 @@ namespace M_AS4600
             float fb_CEQ = 0f;
             float fc_CEQ = 0f;
             float fd_CEQ = 0f;
+
+            float fl_ez = 5f;
+
+            float fl_ex = 5f;
+            float fl_ey = 5f;
+
+            fx_o = (float)cs.D_y_s;
+            fy_o = (float)cs.D_z_s;
+
+            fr_x = (float)cs.i_y_rg;
+            fr_y = (float)cs.i_z_rg;
+
+            //float fr_o1 = cs.i_yz_rg;
+            fr_o1 = eq.Eq_D111_6__(fr_x, fr_y, fx_o, fy_o);
+
+            ff_oz = eq.Eq_D111_5__(fG, fE, (float)cs.I_t, (float)cs.I_w, fA_g, fl_ez, fr_o1);
+
+            ff_ox = eq.Eq_D111_3__(fE, fl_ex, fr_x);
+            ff_oy = eq.Eq_D111_3__(fE, fl_ey, fr_y);
 
             eq.Eq_D111_9__(ff_oz, ff_ox, ff_oy, fr_o1, fx_o, fy_o, out fa_CEQ, out fb_CEQ, out fc_CEQ, out fd_CEQ);
             CCardanoCubicEQSolver cubic_solver = new CCardanoCubicEQSolver(fa_CEQ, fb_CEQ, fc_CEQ, fd_CEQ);
@@ -113,7 +134,12 @@ namespace M_AS4600
             flambda_d = eq.Eq_7214_3__(fN_ce, fN_ol);
             fN_cd = eq.Eq_7214____(flambda_d, fN_y, fN_od);
 
-            MessageBox.Show("Calculation finished.");
+            float fN_c_min = MathF.Min(fN_ce, fN_cl, fN_cd);
+
+            float fDesignRatio = Math.Abs(fN_c / fN_c_min);
+
+            MessageBox.Show("Calculation finished.\n"
+                          + "Design Ratio η = "+ fDesignRatio + " [-]");
         }
     }
 }

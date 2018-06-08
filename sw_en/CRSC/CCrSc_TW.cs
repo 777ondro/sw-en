@@ -26,8 +26,8 @@ namespace CRSC
         public double _A_elem;                // Area off segment (J.5)
         //public double _d_A_vy;              // Cross-section shear area
         //public double _d_A_vz;              // Cross-section shear area
-        public double _Sy0;                 // Static modulus to primary axis yO and zO  (J.7) and (J.9)
-        public double _Sz0;                 // Static modulus to primary axis zO
+        //public double _Sy0;                 // Static modulus to primary axis yO and zO  (J.7) and (J.9)
+        //public double _Sz0;                 // Static modulus to primary axis zO
         //public double _Sy;                  // Static modulus to centre of gravity
         //public double _Sz;                  // Static modulus to centre of gravity
         public double d_z_gc;               // Gentre of gravity coordinate // (J.7)
@@ -90,16 +90,6 @@ namespace CRSC
             set { _A_elem = value; }
         }
 
-        public double Sy0
-        {
-            get { return _Sy0; }
-            set { _Sy0 = value; }
-        }
-        public double Sz0
-        {
-            get { return _Sz0; }
-            set { _Sz0 = value; }
-        }
         public double D_z_gc
         {
             get { return d_z_gc; }

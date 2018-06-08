@@ -45,6 +45,7 @@ namespace CRSC
             this.J_24_25_26_method();
             this.J_27_J_28_method(count);
             this.J_W_el();
+            this.Calc_Radius_of_Gyration();
             this.Calc_Beta_y_method(count);
             this.Calc_Beta_z_method(count);
             this.t_min_method();
@@ -234,7 +235,7 @@ namespace CRSC
         }
 
         // Methods for calculations...
-        public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty)
+        public void calculate(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty)
         {
             int count = y_suradnice.Count;
 
@@ -257,6 +258,8 @@ namespace CRSC
             this.J_23_method(count);
             this.J_24_25_26_method();
             this.J_27_J_28_method(count);
+            this.J_W_el();
+            this.Calc_Radius_of_Gyration();
             this.Calc_Beta_y_method(count);
             this.Calc_Beta_z_method(count);
             this.t_min_method();
@@ -306,18 +309,18 @@ namespace CRSC
         //(J.7) and (J.9) method
         public void Sy0_Sz0_method(int count)
         {
-            this._Sz0 = 0;
-            this._Sy0 = 0;
+            S_z0 = 0;
+            S_y0 = 0;
             double dAi = 0;
             for (int i = 1; i < count; i++)
             {
                 dAi = dAi_method(i) / 2;
-                _Sy0 += (z_suradnice[i] + z_suradnice[i - 1]) * dAi;
-                _Sz0 += (y_suradnice[i] + y_suradnice[i - 1]) * dAi;
+                S_y0 += (z_suradnice[i] + z_suradnice[i - 1]) * dAi;
+                S_z0 += (y_suradnice[i] + y_suradnice[i - 1]) * dAi;
             }
 
-            this.d_z_gc = _Sy0 / A_g;
-            this.d_y_gc = _Sz0 / A_g;
+            this.d_z_gc = S_y0 / A_g;
+            this.d_y_gc = S_z0 / A_g;
         }
         //(J.8) and (J.10) , (J.11) method
         public void Iy0_Iz0_method(int count)
@@ -339,7 +342,7 @@ namespace CRSC
 
             I_y = I_y0 - A_g * Math.Pow(d_z_gc, 2);
             I_z = I_z0 - A_g * Math.Pow(d_y_gc, 2);
-            I_yz = I_yz0 - (_Sy0 * _Sz0 / A_g);
+            I_yz = I_yz0 - (S_y0 * S_z0 / A_g);
         }
         //J.12,J.13,J.14 method
         public void J_12_13_14_method()
@@ -392,8 +395,8 @@ namespace CRSC
                                omega[i] * z_suradnice[i - 1]) * dAi / 6;
                 _Iomega_omega0 += (Math.Pow(omega[i], 2) + Math.Pow(omega[i - 1], 2) + omega[i] * omega[i - 1]) * dAi / 3;
             }
-            _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / A_g);
-            _Iz_omega = _Iz_omega0 - (_Sy0 * _Iomega / A_g);
+            _Iy_omega = _Iy_omega0 - (S_z0 * _Iomega / A_g);
+            _Iz_omega = _Iz_omega0 - (S_y0 * _Iomega / A_g);
             _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / A_g);
         }
         //J.20 and J.21 method
@@ -512,6 +515,19 @@ namespace CRSC
 
             W_z_el_1 = I_z / (y_max - d_y_gc);
             W_z_el_2 = I_z / (d_y_gc - y_min);
+        }
+        // Radius of gyration
+        public void Calc_Radius_of_Gyration()
+        {
+            i_y_rg = MathF.Sqrt(I_y / A_g);
+            i_z_rg = MathF.Sqrt(I_z / A_g);
+            i_yz_rg = MathF.Sqrt(I_yz / A_g);
+            i_epsilon_rg = MathF.Sqrt(I_epsilon / A_g);
+            i_mikro_rg = MathF.Sqrt(I_mikro / A_g);
+
+            i_p_rg = MathF.Sqrt(I_p / A_g);
+            //i_p_M_rg_= MathF.Sqrt(I_p_M / A_g);
+            //i_Omega_M = MathF.Sqrt(I_Omega_M / A_g);
         }
         // Calculate Monosymmetry section constant Beta y
         public void Calc_Beta_y_method(int count)

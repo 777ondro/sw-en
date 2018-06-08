@@ -114,8 +114,8 @@ namespace CRSC
             double d_A_vz = Math.Round(cs.A_vz, dec_place_num2);
             double d_y_gc = Math.Round(cs.D_y_gc, dec_place_num2);
             double d_z_gc = Math.Round(cs.D_z_gc, dec_place_num2);
-            double d_S_y0 = Math.Round(cs.Sy0, dec_place_num2);
-            double d_S_z0 = Math.Round(cs.Sz0, dec_place_num2);
+            double d_S_y0 = Math.Round(cs.S_y0, dec_place_num2);
+            double d_S_z0 = Math.Round(cs.S_z0, dec_place_num2);
             double d_I_y = Math.Round(cs.I_y, dec_place_num2);
             double d_I_z = Math.Round(cs.I_z, dec_place_num2);
             double d_Wy_el_1 = Math.Round(cs.W_y_el_1, dec_place_num2);
