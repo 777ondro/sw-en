@@ -23,8 +23,8 @@ namespace CRSC
             //ITotNoPoints = 10;
             ITotNoPoints = 10;
             INoAuxPoints = 0;
-            Fh = fh;
-            Fb = fb;
+            h = fh;
+            b = fb;
 
             // Create Array - allocate memory
             CrScPointsOut = new float[ITotNoPoints, 2];
@@ -47,25 +47,22 @@ namespace CRSC
 
             // Outside Points Coordinates
 
-            float xb = 0.18f * Fb;
-            float xa = 0.15f * Fb;
+            float xb = 0.18f * (float)b;
+            float xa = 0.15f * (float)b;
             float xc = 0.03f; // 30 mm ???
 
-            float ya = 0.5f * Fh;
-            float yb = 0.7f * Fh;
-
-            float h = (float)Fh;
-            float b = (float)Fb;
+            float ya = 0.5f * (float)h;
+            float yb = 0.7f * (float)h;
 
             CrScPointsOut[0, 0] = 0.0f;
-            CrScPointsOut[0, 1] = h;
-            CrScPointsOut[1, 0] = b - xa;
-            CrScPointsOut[1, 1] = h;
-            CrScPointsOut[2, 0] = b - xb;
+            CrScPointsOut[0, 1] = (float)h;
+            CrScPointsOut[1, 0] = (float)b - xa;
+            CrScPointsOut[1, 1] = (float)h;
+            CrScPointsOut[2, 0] = (float)b - xb;
             CrScPointsOut[2, 1] = yb;
-            CrScPointsOut[3, 0] = b;
+            CrScPointsOut[3, 0] = (float)b;
             CrScPointsOut[3, 1] = ya;
-            CrScPointsOut[4, 0] = b;
+            CrScPointsOut[4, 0] = (float)b;
             CrScPointsOut[4, 1] = 0;
             CrScPointsOut[5, 0] = 0;
             CrScPointsOut[5, 1] = 0;

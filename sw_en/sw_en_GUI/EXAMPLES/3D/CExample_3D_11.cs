@@ -32,12 +32,12 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             m_arrCrSc[0] = new CRSC.CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f); // I 300 section
-            m_arrCrSc[0].FI_t = 5.69e-07f;
-            m_arrCrSc[0].FI_y = 9.79e-05f;
-            m_arrCrSc[0].FI_z = 4.49e-06f;
-            m_arrCrSc[0].FA_g = 6.90e-03f;
-            m_arrCrSc[0].FA_vy = 4.01e-03f;
-            m_arrCrSc[0].FA_vz = 2.89e-03f;
+            m_arrCrSc[0].I_t = 5.69e-07f;
+            m_arrCrSc[0].I_y = 9.79e-05f;
+            m_arrCrSc[0].I_z = 4.49e-06f;
+            m_arrCrSc[0].A_g = 6.90e-03f;
+            m_arrCrSc[0].A_vy = 4.01e-03f;
+            m_arrCrSc[0].A_vz = 2.89e-03f;
 
             // Nodes
             // Nodes List - Nodes Array

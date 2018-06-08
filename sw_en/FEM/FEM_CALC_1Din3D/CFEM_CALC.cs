@@ -347,12 +347,12 @@ namespace FEM_CALC_1Din3D
 
             // Cross-section
             CCrSc m_CrSc = new CCrSc_3_00(0, 8, 300, 125, 16.2f, 10.8f, 10.8f, 6.5f, 241.6f); // I 300 section // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_CrSc.FI_t = 5.69e-07f;
-            m_CrSc.FI_y = 9.79e-05f;
-            m_CrSc.FI_z = 4.49e-06f;
-            m_CrSc.FA_g = 6.90e-03f;
-            m_CrSc.FA_vy = 4.01e-03f;
-            m_CrSc.FA_vz = 2.89e-03f;
+            m_CrSc.I_t = 5.69e-07f;
+            m_CrSc.I_y = 9.79e-05f;
+            m_CrSc.I_z = 4.49e-06f;
+            m_CrSc.A_g = 6.90e-03f;
+            m_CrSc.A_vy = 4.01e-03f;
+            m_CrSc.A_vz = 2.89e-03f;
 
             // Define Nodes Properties
 

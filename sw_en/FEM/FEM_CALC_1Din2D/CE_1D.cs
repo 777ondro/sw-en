@@ -506,8 +506,8 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_00_00()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FA_g / FLength;
-            float f_EIy = Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FI_y;
+            float fEA_len = Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.A_g / FLength;
+            float f_EIy = Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.I_y;
             float f12EIy_len3 = (12f * f_EIy) / (float)Math.Pow(FLength, 3f);
             float f06EIy_len2 = (6f * f_EIy) / (float)Math.Pow(FLength, 2f);
             float f04EIy_len1 = (4f * f_EIy) / FLength;
@@ -530,8 +530,8 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_00_0_()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = (Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FA_g) / FLength;
-            float f_EIy = Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FI_y;
+            float fEA_len = (Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.A_g) / FLength;
+            float f_EIy = Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.I_y;
             float f3EIy_len3 = (3f * f_EIy) / (float)Math.Pow(FLength, 3f);
             float f3EIy_len2 = (3f * f_EIy) / (float)Math.Pow(FLength, 2f);
             float f3EIy_len1 = (3f * f_EIy) / FLength;
@@ -554,8 +554,8 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_0__00()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FA_g / FLength;
-            float f3EIy_len3 = (3f * Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FI_y) / (float)Math.Pow(FLength, 3f);
+            float fEA_len = Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.A_g / FLength;
+            float f3EIy_len3 = (3f * Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.I_y) / (float)Math.Pow(FLength, 3f);
 
             // Local Stiffeness Matrix
             return new float[3, 3]  
@@ -574,7 +574,7 @@ namespace FEM_CALC_1Din2D
         private float[,] GetLocMatrix_2D_0__0_()
         {
             // Local Stiffeness Matrix Members
-            float fEA_len = Member.CrScStart.m_Mat.m_fE * Member.CrScStart.FA_g / FLength;
+            float fEA_len = Member.CrScStart.m_Mat.m_fE * (float)Member.CrScStart.A_g / FLength;
 
             // Local Stiffeness Matrix
             return new float[3, 3]  

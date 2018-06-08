@@ -52,9 +52,9 @@ namespace sw_en_GUI.EXAMPLES._2D
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             m_arrCrSc[0] = new CRSC.CCrSc_0_00();
 
-            m_arrCrSc[0].FA_g = 0.12f;   // Unit [m^2]
-            m_arrCrSc[0].FI_y = 0.0016f; // Unit [m^4]
-            m_arrCrSc[0].FI_z = 0.0016f; // Unit [m^4]
+            m_arrCrSc[0].A_g = 0.12f;   // Unit [m^2]
+            m_arrCrSc[0].I_y = 0.0016f; // Unit [m^4]
+            m_arrCrSc[0].I_z = 0.0016f; // Unit [m^4]
             m_arrCrSc[0].m_Mat = m_arrMat[0]; // Set CrSc Material
 
             // Nodes

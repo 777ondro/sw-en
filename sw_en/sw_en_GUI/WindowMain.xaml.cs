@@ -250,12 +250,12 @@ namespace sw_en_GUI
                 // Parametre pre IPN 300
                 //model.m_arrMembers[i].CrSc = new CCrSc_3_00(0, 8, 0.300f, 0.125f, 0.0162f, 0.0108f, 0.0108f, 0.0065f, 0.2416f); // Example - FEM calculation 3D
                 model.m_arrMembers[i].CrScStart = new CCrSc_0_05(0.1f, 0.05f); // Temp
-                model.m_arrMembers[i].CrScStart.FI_t = 5.69e-07f;
-                model.m_arrMembers[i].CrScStart.FI_y = 9.79e-05f;
-                model.m_arrMembers[i].CrScStart.FI_z = 4.49e-06f;
-                model.m_arrMembers[i].CrScStart.FA_g = 6.90e-03f;
-                model.m_arrMembers[i].CrScStart.FA_vy = 4.01e-03f;
-                model.m_arrMembers[i].CrScStart.FA_vz = 2.89e-03f;
+                model.m_arrMembers[i].CrScStart.I_t = 5.69e-07f;
+                model.m_arrMembers[i].CrScStart.I_y = 9.79e-05f;
+                model.m_arrMembers[i].CrScStart.I_z = 4.49e-06f;
+                model.m_arrMembers[i].CrScStart.A_g = 6.90e-03f;
+                model.m_arrMembers[i].CrScStart.A_vy = 4.01e-03f;
+                model.m_arrMembers[i].CrScStart.A_vz = 2.89e-03f;
             }
 
             model.m_arrNSupports = getNSupports(((DataSet)dataGridNodes.DataContext).Tables[6]);
@@ -385,22 +385,22 @@ namespace sw_en_GUI
                     crsc.ICrSc_ID = CrSc_ID;
 
                     float.TryParse(row["fI_t"].ToString(), out fI_t);
-                    crsc.FI_t = fI_t;
+                    crsc.I_t = fI_t;
 
                     float.TryParse(row["fI_y"].ToString(), out fI_y);
-                    crsc.FI_y = fI_y;
+                    crsc.I_y = fI_y;
 
                     float.TryParse(row["fI_z"].ToString(), out fI_z);
-                    crsc.FI_z = fI_z;
+                    crsc.I_z = fI_z;
 
                     float.TryParse(row["fA_g"].ToString(), out fA_g);
-                    crsc.FA_g = fA_g;
+                    crsc.A_g = fA_g;
 
                     float.TryParse(row["fA_vy"].ToString(), out fA_vy);
-                    crsc.FA_vy = fA_vy;
+                    crsc.A_vy = fA_vy;
 
                     float.TryParse(row["fA_vz"].ToString(), out fA_vz);
-                    crsc.FA_vz = fA_vz;
+                    crsc.A_vz = fA_vz;
 
                     list_crsc.Add(crsc);
                 }

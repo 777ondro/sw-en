@@ -13,8 +13,8 @@ namespace CRSC
       public CCrSc_9_10(float fh, float fb, float ft)
       {
           //ITotNoPoints = 4;
-          Fh = fh;
-          Fb = fb;
+          h = fh;
+          b = fb;
 
           // Create Array - allocate memory
           CrScPointsOut = new float[ITotNoPoints, 2];

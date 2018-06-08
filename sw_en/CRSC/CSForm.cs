@@ -109,24 +109,24 @@ namespace CRSC
             int dec_place_num1 = 1;
             int dec_place_num2 = 2;
 
-            double d_A = Math.Round(cs.A, dec_place_num2);
-            double d_A_vy = Math.Round(cs.d_A_vy, dec_place_num2);
-            double d_A_vz = Math.Round(cs.d_A_vz, dec_place_num2);
+            double d_A = Math.Round(cs.A_g, dec_place_num2);
+            double d_A_vy = Math.Round(cs.A_vy, dec_place_num2);
+            double d_A_vz = Math.Round(cs.A_vz, dec_place_num2);
             double d_y_gc = Math.Round(cs.D_y_gc, dec_place_num2);
             double d_z_gc = Math.Round(cs.D_z_gc, dec_place_num2);
             double d_S_y0 = Math.Round(cs.Sy0, dec_place_num2);
             double d_S_z0 = Math.Round(cs.Sz0, dec_place_num2);
-            double d_I_y = Math.Round(cs.Iy, dec_place_num2);
-            double d_I_z = Math.Round(cs.Iz, dec_place_num2);
-            double d_Wy_el_1 = Math.Round(cs.Wy_el_1, dec_place_num2);
-            double d_Wz_el_1 = Math.Round(cs.Wz_el_1, dec_place_num2);
-            double d_Wy_el_2 = Math.Round(cs.Wy_el_2, dec_place_num2);
-            double d_Wz_el_2 = Math.Round(cs.Wz_el_2, dec_place_num2);
+            double d_I_y = Math.Round(cs.I_y, dec_place_num2);
+            double d_I_z = Math.Round(cs.I_z, dec_place_num2);
+            double d_Wy_el_1 = Math.Round(cs.W_y_el_1, dec_place_num2);
+            double d_Wz_el_1 = Math.Round(cs.W_z_el_1, dec_place_num2);
+            double d_Wy_el_2 = Math.Round(cs.W_y_el_2, dec_place_num2);
+            double d_Wz_el_2 = Math.Round(cs.W_z_el_2, dec_place_num2);
 
-            double d_Alpha = Math.Round(cs.Alfa, dec_place_num2);
-            double d_I_yz = Math.Round(cs.Iyz, dec_place_num2);
-            double d_I_eps = Math.Round(cs.Iepsilon, dec_place_num2);
-            double d_I_eta = Math.Round(cs.Imikro, dec_place_num2);
+            double d_Alpha = Math.Round(cs.Alpha, dec_place_num2);
+            double d_I_yz = Math.Round(cs.I_yz, dec_place_num2);
+            double d_I_eps = Math.Round(cs.I_epsilon, dec_place_num2);
+            double d_I_eta = Math.Round(cs.I_mikro, dec_place_num2);
             double d_I_ome = Math.Round(cs.Iomega, dec_place_num2);
             double d_ome_mean = Math.Round(cs.Omega_mean, dec_place_num2);
             double d_ome_max = Math.Round(cs.Omega_max, dec_place_num2);
@@ -139,10 +139,10 @@ namespace CRSC
             double d_I_p = Math.Round(cs.Ip, dec_place_num2);
             double d_y_j = Math.Round(cs.D_y_j, dec_place_num2);
             double d_z_j = Math.Round(cs.D_z_j, dec_place_num2);
-            double d_I_w = Math.Round(cs.D_I_w, dec_place_num2);
-            double d_W_w = Math.Round(cs.D_W_w, dec_place_num2);
-            double d_I_t = Math.Round(cs.D_I_t, dec_place_num2);
-            double d_W_t = Math.Round(cs.D_W_t, dec_place_num2);
+            double d_I_w = Math.Round(cs.I_w, dec_place_num2);
+            double d_W_w = Math.Round(cs.W_w, dec_place_num2);
+            double d_I_t = Math.Round(cs.I_t, dec_place_num2);
+            double d_W_t = Math.Round(cs.W_t_el, dec_place_num2);
 
             double d_Beta_y = Math.Round(cs.Beta_y, dec_place_num2);
             double d_Beta_z = Math.Round(cs.Beta_z, dec_place_num2);

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="ARRAY\ArrayF.cs" />
     <Compile Include="ARRAY\CArray.cs" />
+    <Compile Include="EQUATION\CCardanoCubicEQSolver.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +128,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

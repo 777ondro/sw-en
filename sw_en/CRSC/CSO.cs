@@ -27,7 +27,7 @@ namespace CRSC
 
             this.J_Calc_Dimensions();
 
-            A = this.A_method(count);
+            A_g = this.A_method(count);
             this.A_vy_method(count);
             this.A_vz_method(count);
             this.Sy0_Sz0_method(count);
@@ -47,6 +47,8 @@ namespace CRSC
             this.J_W_el();
             this.Calc_Beta_y_method(count);
             this.Calc_Beta_z_method(count);
+            this.t_min_method();
+            this.t_max_method();
         }
 
         public void CrScDefPoints_EX_01()
@@ -78,7 +80,6 @@ namespace CRSC
             float fb = 90f;
             float ft = 8f;
             float fr_1 = 8f;
-
 
             arrPointCoord = new float[number_rows, 3] {
             { fb - 0.5f * ft,  -0.5f * fh + 0.5f * ft,  0.0f}, //0
@@ -232,7 +233,6 @@ namespace CRSC
             }
         }
 
-
         // Methods for calculations...
         public void calcutale(List<double> y_suradnice, List<double> z_suradnice, List<double> t_hodnoty)
         {
@@ -242,7 +242,7 @@ namespace CRSC
             this.z_suradnice = z_suradnice;
             this.t_hodnoty = t_hodnoty;
 
-            A = this.A_method(count);
+            A_g = this.A_method(count);
             this.Sy0_Sz0_method(count);
             this.Iy0_Iz0_method(count);
             this.omega0i = new double[count];
@@ -259,6 +259,8 @@ namespace CRSC
             this.J_27_J_28_method(count);
             this.Calc_Beta_y_method(count);
             this.Calc_Beta_z_method(count);
+            this.t_min_method();
+            this.t_max_method();
         }
         //(J.5) method
         public double dAi_method(int i)
@@ -314,40 +316,40 @@ namespace CRSC
                 _Sz0 += (y_suradnice[i] + y_suradnice[i - 1]) * dAi;
             }
 
-            this.d_z_gc = _Sy0 / A;
-            this.d_y_gc = _Sz0 / A;
+            this.d_z_gc = _Sy0 / A_g;
+            this.d_y_gc = _Sz0 / A_g;
         }
         //(J.8) and (J.10) , (J.11) method
         public void Iy0_Iz0_method(int count)
         {
-            this._Iy0 = 0;
-            this._Iz0 = 0;
-            this._Iyz0 = 0;
+            I_y0 = 0;
+            I_z0 = 0;
+            I_yz0 = 0;
             double dAi = 0;
             for (int i = 1; i < count; i++)
             {
                 dAi = dAi_method(i);
-                _Iy0 += (Math.Pow(z_suradnice[i], 2) + Math.Pow(z_suradnice[i - 1], 2) + z_suradnice[i] * z_suradnice[i - 1])
+                I_y0 += (Math.Pow(z_suradnice[i], 2) + Math.Pow(z_suradnice[i - 1], 2) + z_suradnice[i] * z_suradnice[i - 1])
                         * (dAi / 3);
-                _Iz0 += (Math.Pow(y_suradnice[i], 2) + Math.Pow(y_suradnice[i - 1], 2) + y_suradnice[i] * y_suradnice[i - 1])
+                I_z0 += (Math.Pow(y_suradnice[i], 2) + Math.Pow(y_suradnice[i - 1], 2) + y_suradnice[i] * y_suradnice[i - 1])
                         * (dAi / 3);
-                _Iyz0 += (2 * y_suradnice[i - 1] * z_suradnice[i - 1] + 2 * y_suradnice[i] * z_suradnice[i]
+                I_yz0 += (2 * y_suradnice[i - 1] * z_suradnice[i - 1] + 2 * y_suradnice[i] * z_suradnice[i]
                         + y_suradnice[i - 1] * z_suradnice[i] + y_suradnice[i] * z_suradnice[i - 1]) * dAi / 6;
             }
 
-            this._Iy = _Iy0 - A * Math.Pow(d_z_gc, 2);
-            this._Iz = _Iz0 - A * Math.Pow(d_y_gc, 2);
-            this._Iyz = _Iyz0 - (_Sy0 * _Sz0 / A);
+            I_y = I_y0 - A_g * Math.Pow(d_z_gc, 2);
+            I_z = I_z0 - A_g * Math.Pow(d_y_gc, 2);
+            I_yz = I_yz0 - (_Sy0 * _Sz0 / A_g);
         }
         //J.12,J.13,J.14 method
         public void J_12_13_14_method()
         {
-            if ((_Iz - _Iy) != 0)
-                alfa = Math.Atan(2 * _Iyz / (_Iz - _Iy)) / 2;
-            else alfa = 0;
-            double temp = Math.Sqrt(Math.Pow(_Iz - _Iy, 2) + 4 * Math.Pow(_Iyz, 2));
-            this._Iepsilon = 0.5 * (_Iy + _Iz + temp);
-            this._Imikro = 0.5 * (_Iy + _Iz - temp);
+            if ((I_z - I_y) != 0)
+                Alpha = Math.Atan(2 * I_yz / (I_z - I_y)) / 2;
+            else Alpha = 0;
+            double temp = Math.Sqrt(Math.Pow(I_z - I_y, 2) + 4 * Math.Pow(I_yz, 2));
+            this.I_epsilon = 0.5 * (I_y + I_z + temp);
+            this.I_mikro = 0.5 * (I_y + I_z - temp);
         }
         //J.15 method
         public void J_15_method(int count)
@@ -368,7 +370,7 @@ namespace CRSC
             {
                 _Iomega += (omega[i - 1] + omega[i]) * dAi_method(i) / 2;
             }
-            _omega_mean = _Iomega / A;
+            _omega_mean = _Iomega / A_g;
         }
         //J.17,J18,J19 method 
         public void J_17_18_19_method(int count)
@@ -390,33 +392,33 @@ namespace CRSC
                                omega[i] * z_suradnice[i - 1]) * dAi / 6;
                 _Iomega_omega0 += (Math.Pow(omega[i], 2) + Math.Pow(omega[i - 1], 2) + omega[i] * omega[i - 1]) * dAi / 3;
             }
-            _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / _A);
-            _Iz_omega = _Iz_omega0 - (_Sy0 * _Iomega / _A);
-            _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / _A);
+            _Iy_omega = _Iy_omega0 - (_Sz0 * _Iomega / A_g);
+            _Iz_omega = _Iz_omega0 - (_Sy0 * _Iomega / A_g);
+            _Iomega_omega = _Iomega_omega0 - (Math.Pow(_Iomega, 2) / A_g);
         }
         //J.20 and J.21 method
         public void J_20_21_method()
         {
             try
             {
-                double temp = _Iy * _Iz - Math.Pow(_Iyz, 2);
-                d_y_sc = (_Iz_omega * _Iz - _Iy_omega * _Iyz) / temp;
-                d_z_sc = (-_Iy_omega * _Iy - _Iz_omega * _Iyz) / temp;
-                d_I_w = _Iomega_omega + d_z_sc * _Iy_omega - d_y_sc * _Iz_omega;
+                double temp = I_y * I_z - Math.Pow(I_yz, 2);
+                d_y_sc = (_Iz_omega * I_z - _Iy_omega * I_yz) / temp;
+                d_z_sc = (-_Iy_omega * I_y - _Iz_omega * I_yz) / temp;
+                I_w = _Iomega_omega + d_z_sc * _Iy_omega - d_y_sc * _Iz_omega;
             }
             catch (DivideByZeroException) { MessageBox.Show("ERROR. Divide by zero, J.20 method."); }
         }
         //J.22 method
         public void J_22_method(int count)
         {
-            d_I_t = 0;
+            I_t = 0;
             for (int i = 1; i < count; i++)
             {
-                d_I_t += dAi_method(i) * Math.Pow(t_hodnoty[i], 2) / 3;
+                I_t += dAi_method(i) * Math.Pow(t_hodnoty[i], 2) / 3;
             }
 
             if (MathF.Min(t_hodnoty) != 0) // Existuje minimum rozne od nuly
-                d_W_t = d_I_t / MathF.Min(t_hodnoty); // Pre nenulovu hrubku
+                W_t_el = I_t / MathF.Min(t_hodnoty); // Pre nenulovu hrubku
             else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
             {
                 double min_more_than_zero, max;
@@ -429,7 +431,7 @@ namespace CRSC
                 foreach (double num in t_hodnoty)
                     if (num != 0 && num < min_more_than_zero) min_more_than_zero = num; // Set non zero minimum
 
-                d_W_t = d_I_t / min_more_than_zero;
+                W_t_el = I_t / min_more_than_zero;
             }
             else
                 MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");
@@ -447,10 +449,10 @@ namespace CRSC
         public void J_24_25_26_method()
         {
             omega_max = MathF.Max(d_omega_s);
-            d_W_w = d_I_w / omega_max;
+            W_w = I_w / omega_max;
             d_y_s = d_y_sc - d_y_gc;
             d_z_s = d_z_sc - d_z_gc;
-            _Ip = _Iy + _Iz + A * (Math.Pow(d_y_s, 2) + Math.Pow(d_z_s, 2));
+            _Ip = I_y + I_z + A_g * (Math.Pow(d_y_s, 2) + Math.Pow(d_z_s, 2));
 
         }
         //J.29 method
@@ -475,8 +477,8 @@ namespace CRSC
                         Math.Pow(z_suradnice[i] - z_suradnice[i - 1], 2) / 12) + d_z_ci * (z_suradnice[i] - z_suradnice[i - 1]) *
                         (y_suradnice[i] - y_suradnice[i - 1]) / 6) * dAi;
             }
-            d_z_j = d_z_s - (0.5 / _Iy) * zj_temp;
-            d_y_j = d_y_s - (0.5 / _Iz) * yj_temp;
+            d_z_j = d_z_s - (0.5 / I_y) * zj_temp;
+            d_y_j = d_y_s - (0.5 / I_z) * yj_temp;
         }
         // Calculate dimensions
         public void J_Calc_Dimensions()
@@ -498,18 +500,18 @@ namespace CRSC
                 if (num < z_min) z_min = num; // Set new minimum
             }
 
-            _b = Math.Abs(y_max - y_min);
-            _h = Math.Abs(z_max - z_min);
+            b = Math.Abs(y_max - y_min);
+            h = Math.Abs(z_max - z_min);
 
         }
         // Calculate elastic cross-section moduli
         public void J_W_el()
         {
-            this._Wy_el_1 = _Iy / (z_max - d_z_gc);
-            this._Wy_el_2 = _Iy / (d_z_gc - z_min);
+            W_y_el_1 = I_y / (z_max - d_z_gc);
+            W_y_el_2 = I_y / (d_z_gc - z_min);
 
-            this._Wz_el_1 = _Iz / (y_max - d_y_gc);
-            this._Wz_el_2 = _Iz / (d_y_gc - y_min);
+            W_z_el_1 = I_z / (y_max - d_y_gc);
+            W_z_el_2 = I_z / (d_y_gc - y_min);
         }
         // Calculate Monosymmetry section constant Beta y
         public void Calc_Beta_y_method(int count)
@@ -524,7 +526,7 @@ namespace CRSC
                 Beta_y_temp += (Math.Pow(d_y_ci, 2) * (d_z_ci) + Math.Pow(d_z_ci, 3)) * dAi;
             }
 
-            Beta_y = (1 / _Iy) * Beta_y_temp - 2 * d_z_s;
+            Beta_y = (1 / I_y) * Beta_y_temp - 2 * d_z_s;
         }
         // Calculate Monosymmetry section constant Beta z
         public void Calc_Beta_z_method(int count)
@@ -539,7 +541,7 @@ namespace CRSC
                 Beta_z_temp += (Math.Pow(d_z_ci, 2) * (d_y_ci) + Math.Pow(d_y_ci, 3)) * dAi;
             }
 
-            Beta_z = (1 / _Iz) * Beta_z_temp - 2 * d_y_s;
+            Beta_z = (1 / I_z) * Beta_z_temp - 2 * d_y_s;
 
             //Table E1
             // Pokusny vypocet - c s vystuhami na koncoch
@@ -555,8 +557,38 @@ namespace CRSC
             double beta_w = (1 / 12) * t * x_ * a * a * a + t * x_ * x_ * x_ * a;
             double beta_f = (0.5 * t * (Math.Pow(b + x_, 4) - Math.Pow(x_, 4))) + (0.25 * a * a * t * (Math.Pow(b + x_, 2) + x_ * x_));
             double beta_L = 0;
-            double m = (a * a * b * b * t) / _Iy * (0.25 + c / (2 * b) - (2 * c * c * c) / (3 * a * a * b));
-            double beta_yps = ((beta_w + beta_f + beta_L) / _Iy) - 2 * x_o;
+            double m = (a * a * b * b * t) / I_y * (0.25 + c / (2 * b) - (2 * c * c * c) / (3 * a * a * b));
+            double beta_yps = ((beta_w + beta_f + beta_L) / I_y) - 2 * x_o;
+        }
+        // Calculate t_min
+        public double t_min_method()
+        {
+            if (MathF.Min(t_hodnoty) != 0)
+                return MathF.Min(t_hodnoty);
+            else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
+            {
+                double min_more_than_zero, max;
+
+                max = t_hodnoty[0]; // Set first item
+                foreach (double num in t_hodnoty)
+                    if (num > max) max = num; // Set new maximum
+
+                min_more_than_zero = max; // Set minimum to maximum
+                foreach (double num in t_hodnoty)
+                    if (num != 0 && num < min_more_than_zero) min_more_than_zero = num; // Set non zero minimum
+
+                return min_more_than_zero;
+            }
+            else
+            {
+                // Error
+                return Double.NaN;
+            }
+        }
+        // Calculate t_max
+        public double t_max_method()
+        {
+            return MathF.Max(t_hodnoty);
         }
 
         protected override void loadCrScIndices()

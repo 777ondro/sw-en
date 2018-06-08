@@ -39,7 +39,7 @@ namespace CRSC
 
             this.J_Calc_Dimensions();
 
-            A = this.A_method(count);
+            A_g = this.A_method(count);
             this.A_vy_method(count);
             this.A_vz_method(count);
             this.Sy0_Sz0_method(count);
@@ -73,11 +73,11 @@ namespace CRSC
             A_t *= 0.5;
             A_t = Math.Abs(A_t); //?????? Area should be possitive
 
-            d_I_t = 4 * Math.Pow(A_t, 2) / S_t; // J.30
+            I_t = 4 * Math.Pow(A_t, 2) / S_t; // J.30
 
             if (MathF.Min(t_hodnoty) != 0) // Existuje minimum rozne od nuly
             {
-                d_W_t = 2 * A_t * MathF.Min(t_hodnoty); // Pre nenulovu hrubku
+                W_t_el = 2 * A_t * MathF.Min(t_hodnoty); // Pre nenulovu hrubku
             }
             else if (MathF.Max(t_hodnoty) != 0) // Existuje maximum rozne od nuly
             {
@@ -91,7 +91,7 @@ namespace CRSC
                 foreach (double num in t_hodnoty)
                     if (num != 0 && num < min_more_than_zero) min_more_than_zero = num; // Set non zero minimum
 
-                d_W_t = 2 * A_t * min_more_than_zero;
+                W_t_el = 2 * A_t * min_more_than_zero;
             }
             else
                 MessageBox.Show("ERROR. Minimalny prvok v t_hodnoty je nula!!!!.");

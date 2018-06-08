@@ -147,7 +147,7 @@ namespace AAC
                 if (iDirection == 0) // Longitudinal Bars
                     fL_bar = fL - 2 * fFrontSideCover;
                 else // Transversal bars
-                    fL_bar = Cross_Section.Fb - 2 * fFrontSideCover;
+                    fL_bar = (float)Cross_Section.b - 2 * fFrontSideCover;
 
                 ArrayOfBars[i] = new ReinforcementBar(fd, fL_bar, Reinforcement);
                 
