@@ -20,6 +20,11 @@ namespace M_AS4600
         float fNu;
 
         float fA_g;
+        float fZ_f_x;
+        float fZ_f_y;
+        float fS_f_x;
+        float fS_f_y;
+
         float ff_oc;
         float flambda_c;
         float fN_y;
@@ -67,6 +72,8 @@ namespace M_AS4600
             fE = cs.m_Mat.m_fE;
             fG = cs.m_Mat.m_fG;
             fNu = cs.m_Mat.m_fNu;
+
+            // Compression
 
             float fa_CEQ = 0f;
             float fb_CEQ = 0f;
@@ -136,10 +143,37 @@ namespace M_AS4600
 
             float fN_c_min = MathF.Min(fN_ce, fN_cl, fN_cd);
 
-            float fDesignRatio = Math.Abs(fN_c / fN_c_min);
+            float fDesignRatio_N = Math.Abs(fN_c / fN_c_min);
+
+            // 7.2.2 Design of members subject to bending
+
+            // 7.2.2.2.2 Lateral-torsional buckling
+
+            float fM_o_xu = 0f;
+            float fM_y_xu = eq.Eq_7222_4__(fZ_f_x, ff_y);
+            float fM_be_xu = eq.Eq_7222____(fM_o_xu, fM_y_xu);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             MessageBox.Show("Calculation finished.\n"
-                          + "Design Ratio η = "+ fDesignRatio + " [-]");
+                          + "Design Ratio η = "+ fDesignRatio_N + " [-]");
         }
     }
 }
