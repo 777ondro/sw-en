@@ -8,7 +8,7 @@ using CRSC;
 
 namespace sw_en_GUI.EXAMPLES._3D
 {
-    class CExample_3D_05 : CExample
+    public class CExample_3D_05 : CExample
     {
         /*
                 public CNode[] m_arrNodes = new CNode[68];

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D046772D-CE7A-4245-B490-EC805829837A}</ProjectGuid>
+    <ProjectGuid>{F53DE883-CBC6-4E3B-9455-0DD480CA6CC1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AAC</RootNamespace>
-    <AssemblyName>AAC</AssemblyName>
+    <RootNamespace>PFD</RootNamespace>
+    <AssemblyName>PFD</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,15 +54,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AAC_Panel.cs" />
-    <Compile Include="Object3DModel.cs" />
-    <Compile Include="PanelPreview.xaml.cs">
-      <DependentUpon>PanelPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ReinforcementBar.cs" />
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,21 +62,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DatabaseData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PanelPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window1.xaml">
+    <Page Include="Page3Dmodel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Page3Dmodel.xaml.cs">
+      <DependentUpon>Page3Dmodel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,10 +121,6 @@
       <Project>{d54fa90d-3c90-42d1-b58d-bc345ec34325}</Project>
       <Name>CRSC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DATABASE\DATABASE.csproj">
-      <Project>{84ec019c-bd16-4774-91d4-e50cfb2e62e3}</Project>
-      <Name>DATABASE</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MATERIAL\MATERIAL.csproj">
       <Project>{864d95ad-46ae-4198-b7f3-d5bbe1245208}</Project>
       <Name>MATERIAL</Name>
@@ -143,22 +128,6 @@
     <ProjectReference Include="..\MATH\MATH.csproj">
       <Project>{0e2adcc8-209e-4fcc-9ac2-d0c7eea8ac26}</Project>
       <Name>MATH</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MODULES\M_BASE\M_BASE.csproj">
-      <Project>{ad3e14f4-72c6-476e-b67f-93cc194e0e02}</Project>
-      <Name>M_BASE</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MODULES\M_EC1\M_EC1.csproj">
-      <Project>{9764d1bf-a2b3-45d6-ab93-050dce30830c}</Project>
-      <Name>M_EC1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MODULES\M_EC2\M_EC2.csproj">
-      <Project>{5f7f75f6-d383-4b86-9406-ec68c75090c6}</Project>
-      <Name>M_EC2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MODULES\M_EC3\M_EC3.csproj">
-      <Project>{515ce0e4-0e37-453d-869e-2a651557389e}</Project>
-      <Name>M_EC3</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharedLibraries\SharedLibraries\SharedLibraries.csproj">
       <Project>{28044445-e8dd-4041-b534-3fee5c07237f}</Project>

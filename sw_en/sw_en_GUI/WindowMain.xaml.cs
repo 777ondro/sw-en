@@ -828,6 +828,16 @@ namespace sw_en_GUI
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 90" + " - Window " + (Container.Children.Count + 1) });
             win.Close();
         }
+
+        private void menuItemExample3D_901_PF_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_901_PF();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 901 PF" + " - Window " + (Container.Children.Count + 1) });
+            win.Close();
+        }
+
         private void menuItemExample3D_Ondro_Click(object sender, RoutedEventArgs e)
         {
             //model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_Ondro();

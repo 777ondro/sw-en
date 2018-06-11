@@ -6,7 +6,7 @@ using BaseClasses;
 
 namespace sw_en_GUI.EXAMPLES
 {
-    class CExample : CModel
+    public class CExample : CModel
     {
     }
 }

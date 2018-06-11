@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MATH;
+using MATERIAL;
 
 namespace CRSC
 {
@@ -192,6 +193,8 @@ namespace CRSC
 
         // end of cross-section variables definition
         #endregion
+
+        public new CMat_03_00 m_Mat = new CMat_03_00();
 
         // Default example
         public CCrSc_TW()

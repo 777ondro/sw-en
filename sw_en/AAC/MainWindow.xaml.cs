@@ -12,10 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MATERIAL;
-using CRSC;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using MATERIAL;
+using CRSC;
+
 
 namespace AAC
 {
@@ -42,8 +43,6 @@ namespace AAC
 
             // Display panel model in 3D preview
             Frame1.Content = page1;
-
-            
         }
 
         public enum E_SupportMaterialType

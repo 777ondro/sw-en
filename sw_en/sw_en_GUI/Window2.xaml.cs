@@ -27,7 +27,8 @@ namespace sw_en_GUI
   /// </summary>
   public partial class Window2 : Window
   {
-      private bool bDebugging;
+    private bool bDebugging;
+    public Model3DGroup gr = new Model3DGroup();
 
     ///////////////////////////////////////////////////////////////
     // Create switch command for various sections, split code into separate objects / function of 3D drawing for each type
@@ -44,11 +45,13 @@ namespace sw_en_GUI
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
-    public Window2(bool bDebugging)
+    public Window2(bool bDebugging_temp)
     {
       InitializeComponent();
 
-      Model3DGroup gr = new Model3DGroup();
+      bDebugging = bDebugging_temp;
+
+
       //gr.Children.Add(new AmbientLight());
 
       GeometryModel3D SolidModel3D = new GeometryModel3D();
@@ -77,13 +80,14 @@ namespace sw_en_GUI
       _trackport.SetupScene();
     }
 
-    public Window2(CModel cmodel, bool bDebugging)
+    public Window2(CModel cmodel, bool bDebugging_temp)
     {
       InitializeComponent();
 
+      bDebugging = bDebugging_temp;
+
       if (cmodel != null)
       {
-          Model3DGroup gr = new Model3DGroup();
           //gr.Children.Add(new AmbientLight());
 
           // Default color

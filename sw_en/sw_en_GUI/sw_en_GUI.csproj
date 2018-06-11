@@ -121,6 +121,7 @@
     <Compile Include="EXAMPLES\3D\CExample_3D_02.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_03.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_04.cs" />
+    <Compile Include="EXAMPLES\3D\CExample_3D_901_PF.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_05.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_06.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_07.cs" />
