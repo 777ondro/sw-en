@@ -525,7 +525,7 @@ namespace sw_en_GUI
       }
     }
 
-    private void CalculateModelLimits(CModel cmodel,
+    public void CalculateModelLimits(CModel cmodel,
         out float fTempMax_X,
         out float fTempMin_X,
         out float fTempMax_Y,

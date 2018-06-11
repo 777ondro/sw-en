@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="1200" Width="1800">
     <Grid>
-        <Frame Name ="Frame1" Content="Portal Frame 3D Preview" HorizontalAlignment="Left" Height="1123" Margin="248,0,0,0" VerticalAlignment="Top" Width="1545" NavigationUIVisibility="Hidden"/>
+        <Frame Name ="Frame1" Content="Portal Frame 3D Preview" HorizontalAlignment="Left" Height="1123" Margin="1000,0,0,0" VerticalAlignment="Top" Width="793" NavigationUIVisibility="Hidden"/>
         <Button Content="Calculate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1708,1141,0,0" Click="Calculate_Click"/>
 
     </Grid>
