@@ -12,9 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using System.Data;
 using BaseClasses;
+using CRSC;
 using sw_en_GUI;
 using sw_en_GUI.EXAMPLES._3D;
+using M_AS4600;
 
 namespace PFD
 {
@@ -23,14 +27,24 @@ namespace PFD
     /// </summary>
     public partial class MainWindow : Window
     {
+        //SqlConnection cn;
+        //SqlDataAdapter da;
+        DataSet ds;
+        public CModel model;
+
+        List<string> zoznamMenuNazvy = new List<string>(4);          // premenne zobrazene v tabulke
+        List<string> zoznamMenuHodnoty = new List<string>(4);        // hodnoty danych premennych
+        List<string> zoznamMenuJednotky = new List<string>(4);       // jednotky danych premennych
+
         public MainWindow()
         {
             InitializeComponent();
 
-            CModel model = new CModel();
-
             // Load Example Model Data
             model = new CExample_3D_901_PF();
+
+            //cn = new SqlConnection(@"Data Source"); // Data Source
+            //cn.Open();
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -41,7 +55,169 @@ namespace PFD
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
+            // Clear results of previous calculation
+            // Todo Nefunguje
+            deleteLists();
+            Results_GridView.ItemsSource = null;
+            Results_GridView.Items.Clear();
+            Results_GridView.Items.Refresh();
 
+            //Calculate Internal Forces
+            // Todo - napojit FEM vypocet
+
+            float fN = -5000f;
+            float fN_c = fN > 0 ? 0f : Math.Abs(fN);
+            float fN_t = fN < 0 ? 0f : fN;
+            float fV_xu = 4100;
+            float fV_yv = 564556;
+            float fV_xx = 0;
+            float fV_yy = 0;
+            float fT = 0;
+            float fM_xu = 54548;
+            float fM_yv = 5454;
+            float fM_xx = 0;
+            float fM_yy = 0;
+
+            // Design Members
+            //for (int i = 0; i < model.m_arrMembers.Length; i++)
+            //{
+            // skontrolovat co sa pocita, ostatne nastavit
+            CCrSc_TW cso = new CSO();
+
+            //cso = model.m_arrMembers[i].CrScStart;
+
+            cso.A_g = 2100;
+            cso.I_y = 11200;
+            cso.I_z = 55406;
+            cso.I_yz = 12;
+            cso.I_t = 5887878;
+            cso.I_w = 5277778;
+            cso.A_vy = 6546;
+            cso.A_vz = 65465;
+            cso.W_y_el = 556;
+            cso.W_z_el = 564;
+            cso.W_y_pl = 742;
+            cso.W_z_pl = 545;
+
+            cso.h = 0.27f;
+            cso.b = 0.09f;
+            cso.t_min = 0.00115;
+            cso.t_max = 0.00115;
+
+            cso.m_Mat.m_ff_yk_0 = 5e+8f;
+            cso.m_Mat.m_fE = 2.1e+8f;
+            cso.m_Mat.m_fG = 8.1e+7f;
+            cso.m_Mat.m_fNu = 0.297f;
+
+            cso.i_y_rg = 0.102f;
+            cso.i_z_rg = 0.052f;
+            cso.i_yz_rg = 0.102f;
+
+            cso.D_y_s = 0.043f;
+            cso.D_z_s = 0.0f;
+
+            CCalcul obj_calculate = new CCalcul(fN, fN_c, fN_t, fV_xu, fV_yv, fT, fM_xu, fM_yv, cso);
+            //}
+
+            // Display results in datagrid
+
+            zoznamMenuNazvy.Add("N ce");
+            zoznamMenuHodnoty.Add(obj_calculate.fN_ce.ToString());
+            zoznamMenuJednotky.Add("[N]");
+
+            zoznamMenuNazvy.Add("N cl");
+            zoznamMenuHodnoty.Add(obj_calculate.fN_cl.ToString());
+            zoznamMenuJednotky.Add("[N]");
+
+            zoznamMenuNazvy.Add("N cd");
+            zoznamMenuHodnoty.Add(obj_calculate.fN_cd.ToString());
+            zoznamMenuJednotky.Add("[N]");
+
+            zoznamMenuNazvy.Add("Eta max");
+            zoznamMenuHodnoty.Add(obj_calculate.fEta_max.ToString());
+            zoznamMenuJednotky.Add("[-]");
+
+            // Create Table
+            DataTable table = new DataTable("Table");
+            // Create Table Rows
+
+            table.Columns.Add("Symbol", typeof(String));
+            table.Columns.Add("Value", typeof(String));
+            table.Columns.Add("Unit", typeof(String));
+
+            table.Columns.Add("Symbol1", typeof(String));
+            table.Columns.Add("Value1", typeof(String));
+            table.Columns.Add("Unit1", typeof(String));
+
+            table.Columns.Add("Symbol2", typeof(String));
+            table.Columns.Add("Value2", typeof(String));
+            table.Columns.Add("Unit2", typeof(String));
+
+            // Set Column Caption
+            table.Columns["Symbol1"].Caption = table.Columns["Symbol2"].Caption = "Symbol";
+            table.Columns["Value1"].Caption = table.Columns["Value2"].Caption = "Value";
+            table.Columns["Unit1"].Caption = table.Columns["Unit2"].Caption = "Unit";
+
+            // Create Datases
+            ds = new DataSet();
+            // Add Table to Dataset
+            ds.Tables.Add(table);
+
+            for (int i = 0; i < zoznamMenuNazvy.Count; i++)
+            {
+                DataRow row = table.NewRow();
+
+                try
+                {
+                    row["Symbol"] = zoznamMenuNazvy[i];
+                    row["Value"] = zoznamMenuHodnoty[i];
+                    row["Unit"] = zoznamMenuJednotky[i];
+                    i++;
+                    row["Symbol1"] = zoznamMenuNazvy[i];
+                    row["Value1"] = zoznamMenuHodnoty[i];
+                    row["Unit1"] = zoznamMenuJednotky[i];
+                    i++;
+                    row["Symbol2"] = zoznamMenuNazvy[i];
+                    row["Value2"] = zoznamMenuHodnoty[i];
+                    row["Unit2"] = zoznamMenuJednotky[i];
+                }
+                catch (ArgumentOutOfRangeException) { }
+                table.Rows.Add(row);
+            }
+
+            Results_GridView.ItemsSource = ds.Tables[0].AsDataView();  //draw the table to datagridview
+
+            // Set Column Header
+            Results_GridView.Columns[0].Header = Results_GridView.Columns[3].Header = Results_GridView.Columns[6].Header = "Symbol";
+            Results_GridView.Columns[1].Header = Results_GridView.Columns[4].Header = Results_GridView.Columns[7].Header = "Value";
+            Results_GridView.Columns[2].Header = Results_GridView.Columns[5].Header = Results_GridView.Columns[8].Header = "Unit";
+
+            // Set Column Width
+            Results_GridView.Columns[0].Width = Results_GridView.Columns[3].Width = Results_GridView.Columns[6].Width = 127;
+            Results_GridView.Columns[1].Width = Results_GridView.Columns[4].Width = Results_GridView.Columns[7].Width = 100;
+            Results_GridView.Columns[2].Width = Results_GridView.Columns[5].Width = Results_GridView.Columns[8].Width = 100;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //da = new SqlDataAdapter("Select * from tablename", cn); // SQL Query
+            //ds = new DataSet();
+            //da.Fill(ds);
+
+            //Results_GridView.ItemsSource = ds.Tables[0].DefaultView;
+        }
+
+        private void Results_GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //deleting lists for updating actual values
+        private void deleteLists()
+        {
+            zoznamMenuNazvy.Clear();
+            zoznamMenuNazvy.Clear();
+            zoznamMenuJednotky.Clear();
         }
     }
 }

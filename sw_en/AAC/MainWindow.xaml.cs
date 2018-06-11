@@ -620,6 +620,8 @@ namespace AAC
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
+            //this.Clear(); // Delete results of previous calculation
+
             // Floor Panel according to EN 12602
 
             float fa_2 = (obj_panel.fL - fL_w - fa_1); // Todo predpoklada symetricke ulozenie na podpory

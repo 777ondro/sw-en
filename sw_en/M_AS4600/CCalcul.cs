@@ -132,35 +132,51 @@ namespace M_AS4600
         float fx_cfl_par, fy_cfl_par;
         public float fA_cfl, fJ_cfl, fI_x_cfl, fI_y_cfl, fI_xy_cfl, fI_w_cfl;
 
-        float fPhi_b = 0.9f;
-        float fPhi_v = 0.9f;
-        float fPhi_t = 0.9f;
-        float fPhi_c = 0.85f;
+        public float fPhi_b = 0.9f;
+        public float fPhi_v = 0.9f;
+        public float fPhi_t = 0.9f;
+        public float fPhi_c = 0.85f;
 
         // AS 4600 variables
-        float ff_oc;
-        float flambda_c;
-        float fN_y;
-        float fN_oc;
-        float fN_ce;
+        public float ff_oc;
+        public float flambda_c;
+        public float fN_y;
+        public float fN_oc;
+        public float fN_ce;
 
-        float ff_oz; //z = x
-        float ff_ox; //x = y
-        float ff_oy; //y = z
+        public float ff_oz; //z = x
+        public float ff_ox; //x = y
+        public float ff_oy; //y = z
 
-        float ff_ol;
-        float flambda_l;
-        float fN_ol;
-        float fN_cl;
+        public float ff_ol;
+        public float flambda_l;
+        public float fN_ol;
+        public float fN_cl;
 
-        float ff_od;
-        float flambda_d;
-        float fN_od;
-        float fN_cd;
+        public float ff_od;
+        public float flambda_d;
+        public float fN_od;
+        public float fN_cd;
+
+        public float fN_c_min;
+        public float fDesignRatio_N;
+
+        public float fM_p_xu, fM_y_xu;
+        public float fM_p_yv, fM_y_yv;
+        public float fM_be_xu;
+        public float fM_bd_xu;
+        public float fM_bl_xu;
+
+        public float fC_b;
+        public float ff_ol_bend;
+        public float ff_od_bend;
+        public float fLambda_l_xu;
+        public float fLambda_d_xu;
+
 
         float fk;
 
-        float fEta_max = 0.0f;
+        public float fEta_max = 0.0f;
 
         public CCalcul (float fN, float fN_c, float fN_t, float fV_xu, float fV_yv, float fT, float fM_xu, float fM_yv, CCrSc_TW cs_temp)
         {
@@ -274,17 +290,17 @@ namespace M_AS4600
             flambda_d = eq.Eq_7214_3__(fN_ce, fN_ol);
             fN_cd = eq.Eq_7214____(flambda_d, fN_y, fN_od);
 
-            float fN_c_min = MathF.Min(fN_ce, fN_cl, fN_cd);
+            fN_c_min = MathF.Min(fN_ce, fN_cl, fN_cd);
 
-            float fDesignRatio_N = Math.Abs(sIF.fN_c / fN_c_min);
+            fDesignRatio_N = Math.Abs(sIF.fN_c / fN_c_min);
             fEta_max = MathF.Max(fEta_max, fDesignRatio_N);
 
             // 7.2.2 Design of members subject to bending
 
             // 7.2.2.2.2 Lateral-torsional buckling
 
-            float fM_p_xu = eq.Eq_7222_6__(fS_f_xu, ff_y);
-            float fM_y_xu = eq.Eq_7222_4__(fZ_f_xu, ff_y);
+            fM_p_xu = eq.Eq_7222_6__(fS_f_xu, ff_y);
+            fM_y_xu = eq.Eq_7222_4__(fZ_f_xu, ff_y);
 
             // Bending about xu-axis
 
@@ -298,8 +314,6 @@ namespace M_AS4600
 
             if (sIF.fM_xu != 0.0f)
             {
-                float fC_b;
-
                 switch (eCb_option)
                 {
                     case Cb_option.eCb_D2112:
@@ -336,9 +350,9 @@ namespace M_AS4600
                 float fk_bend = 4.0f; // Todo - factors for bending
                 // ft, fb - asi pre kazdy element -> rozhoduje najstihlejsi ???
 
-                float ff_ol = eq.Eq_D131____(fk_bend, fE, fNu, ft, fb);
-                fM_ol_xu = eq.Eq_7223_4__(fZ_f_xu, ff_ol);
-                float fLambda_l_xu = eq.Eq_7223_3__(fM_be_xu, fM_ol_xu);
+                ff_ol_bend = eq.Eq_D131____(fk_bend, fE, fNu, ft, fb);
+                fM_ol_xu = eq.Eq_7223_4__(fZ_f_xu, ff_ol_bend);
+                fLambda_l_xu = eq.Eq_7223_3__(fM_be_xu, fM_ol_xu);
                 fM_bl_xu = eq.Eq_7223____(fM_ol_xu, fM_be_xu, fLambda_l_xu);
 
                 // Inelastic reserve
@@ -365,7 +379,7 @@ namespace M_AS4600
 
                 // 7.2.2.4 Distorsional buckling
                 // 7.2.2.4.2 Beams without holes
-                float ff_od = eq.Eq_D121_1_DB(fE, fA_cfl, fI_x_cfl, fI_y_cfl, fI_xy_cfl, fJ_cfl, fI_w_cfl, fx_o, fy_o, fh_x, fh_y, fb_f, fb_w, ft);
+                float ff_od_bend = eq.Eq_D121_1_DB(fE, fA_cfl, fI_x_cfl, fI_y_cfl, fI_xy_cfl, fJ_cfl, fI_w_cfl, fx_o, fy_o, fh_x, fh_y, fb_f, fb_w, ft);
                 fM_od_xu = eq.Eq_7224_4__(fZ_f_xu, ff_od);
                 float fLambda_d_xu = eq.Eq_7224_3__(fM_y_xu, fM_od_xu);
                 fM_bd_xu = eq.Eq_7224____(fM_y_xu, fM_od_xu, fLambda_d_xu);

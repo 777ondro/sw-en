@@ -129,6 +129,10 @@
       <Project>{0e2adcc8-209e-4fcc-9ac2-d0c7eea8ac26}</Project>
       <Name>MATH</Name>
     </ProjectReference>
+    <ProjectReference Include="..\M_AS4600\M_AS4600.csproj">
+      <Project>{209738f7-cdb3-4c11-98a3-e345299d9191}</Project>
+      <Name>M_AS4600</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharedLibraries\SharedLibraries\SharedLibraries.csproj">
       <Project>{28044445-e8dd-4041-b534-3fee5c07237f}</Project>
       <Name>SharedLibraries</Name>
