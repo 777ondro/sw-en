@@ -831,10 +831,20 @@ namespace sw_en_GUI
 
         private void menuItemExample3D_901_PF_Click(object sender, RoutedEventArgs e)
         {
-            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_901_PF();
+
+            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_901_PF(6,10,5,5);
             Window2 win = new Window2(model, m_bDebugging);
             list_trackports.Add(win._trackport);
             Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 901 PF" + " - Window " + (Container.Children.Count + 1) });
+            win.Close();
+        }
+
+        private void menuItemExample3D_902_OM_Click(object sender, RoutedEventArgs e)
+        {
+            model = new sw_en_GUI.EXAMPLES._3D.CExample_3D_902_OM();
+            Window2 win = new Window2(model, m_bDebugging);
+            list_trackports.Add(win._trackport);
+            Container.Children.Add(new MdiChild { Content = (UIElement)win.Content, Title = "Example 3D 902 OM" + " - Window " + (Container.Children.Count + 1) });
             win.Close();
         }
 

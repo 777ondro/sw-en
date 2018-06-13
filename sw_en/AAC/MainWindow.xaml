@@ -18,7 +18,7 @@
             <ComboBoxItem Content="Vertical Wall Panel 2 - arc"/>
             <ComboBoxItem Content="Horizontal Wall Panel"/>
             <ComboBoxItem Content="Beam"/>
-        </ComboBox>        
+        </ComboBox>
         
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,50,0,0" TextWrapping="Wrap" Text="Standard" VerticalAlignment="Top" Width="95"/>
         <ComboBox Name ="ComboBox_Standard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,50,0,0" SelectionChanged="ComboBox_Standard_SelectionChanged" Height="20" SelectedIndex="0">

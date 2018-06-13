@@ -61,6 +61,31 @@ namespace BaseClasses
             set { m_CrScEnd = value; }
         }
 
+        // Priemet do osi GCS - rozdiel suradnic v GCS
+        private double dDelta_X;
+
+        public double Delta_X
+        {
+            get { return dDelta_X; }
+            set { dDelta_X = value; }
+        }
+
+        private double dDelta_Y;
+
+        public double Delta_Y
+        {
+            get { return dDelta_Y; }
+            set { dDelta_Y = value; }
+        }
+
+        private double dDelta_Z;
+
+        public double Delta_Z
+        {
+            get { return dDelta_Z; }
+            set { dDelta_Z = value; }
+        }
+
         private float m_fLength;
 
         public float FLength
@@ -76,6 +101,8 @@ namespace BaseClasses
             get { return m_dTheta_x; }
             set { m_dTheta_x = value; }
         }
+
+
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -243,6 +270,8 @@ namespace BaseClasses
 
         private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
         {
+            // All in one mesh
+
             MeshGeometry3D mesh = new MeshGeometry3D();
             mesh.Positions = new Point3DCollection();
 
@@ -251,14 +280,14 @@ namespace BaseClasses
             Point3D pB = mpB;
 
             // Priemet do osi GCS - rozdiel suradnic v GCS
-            double dDelta_X = pB.X - pA.X;
-            double dDelta_Y = pB.Y - pA.Y;
-            double dDelta_Z = pB.Z - pA.Z;
+            Delta_X = pB.X - pA.X;
+            Delta_Y = pB.Y - pA.Y;
+            Delta_Z = pB.Z - pA.Z;
 
             // Realna dlzka prvku // Length of member - straigth segment of member
             // Prečo je záporná ???
             // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(Delta_X, 2) + Math.Pow(Delta_Y, 2) + Math.Pow(Delta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;
@@ -458,6 +487,8 @@ namespace BaseClasses
 
         private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x, out MeshGeometry3D meshFrontSide, out MeshGeometry3D meshShell, out MeshGeometry3D meshBackSide)
         {
+            // Separate mesh for front, back and shell surfaces of member
+
             meshFrontSide = new MeshGeometry3D();
             meshShell = new MeshGeometry3D();
             meshBackSide = new MeshGeometry3D();
@@ -471,14 +502,14 @@ namespace BaseClasses
             Point3D pB = mpB;
 
             // Priemet do osi GCS - rozdiel suradnic v GCS
-            double dDelta_X = pB.X - pA.X;
-            double dDelta_Y = pB.Y - pA.Y;
-            double dDelta_Z = pB.Z - pA.Z;
+            Delta_X = pB.X - pA.X;
+            Delta_Y = pB.Y - pA.Y;
+            Delta_Z = pB.Z - pA.Z;
 
             // Realna dlzka prvku // Length of member - straigth segment of member
             // Prečo je záporná ???
             // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(Delta_X, 2) + Math.Pow(Delta_Y, 2) + Math.Pow(Delta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;

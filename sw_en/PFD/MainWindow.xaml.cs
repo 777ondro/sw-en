@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using BaseClasses;
 using CRSC;
 using sw_en_GUI;
@@ -31,6 +33,15 @@ namespace PFD
         //SqlDataAdapter da;
         DataSet ds;
         public CModel model;
+        CultureInfo ci;
+        public DatabaseModels dmodels; // Todo nahradit databazov modelov
+
+        int selected_Model_Index;
+        float fb;
+        float fL;
+        float fh;
+        float fL1;
+        int iFrNo;
 
         List<string> zoznamMenuNazvy = new List<string>(4);          // premenne zobrazene v tabulke
         List<string> zoznamMenuHodnoty = new List<string>(4);        // hodnoty danych premennych
@@ -38,23 +49,61 @@ namespace PFD
 
         public MainWindow()
         {
-            InitializeComponent();
+            ci = new CultureInfo("en-us");
 
-            // Load Example Model Data
-            model = new CExample_3D_901_PF();
-
+            // Database Connection
             //cn = new SqlConnection(@"Data Source"); // Data Source
             //cn.Open();
+            dmodels = new DatabaseModels();
+
+            InitializeComponent();
+
+            foreach (string modelname in dmodels.arr_ModelNames)
+              Combobox_Models.Items.Add(modelname);
+
+            // Set data from database in to the Window textboxes
+            SetDataFromDatabasetoWindow();
+
+            // Load data from window
+
+            LoadDataFromWindow();
+
+            // Create Model
+            // Kitset Steel Gable Enclosed Buildings
+            fL1 = fL / (iFrNo - 1);
+
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
 
-            // Display example model in 3D preview frame
+            // Display model in 3D preview frame
             Frame1.Content = page1;
+        }
+
+        private void SetDataFromDatabasetoWindow()
+        {
+            TextBox_Gable_Width.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 0].ToString();
+            TextBox_Length.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 1].ToString();
+            TextBox_Wall_Height.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 2].ToString();
+            TextBox_Frames_No.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 3].ToString();
+        }
+
+        private void LoadDataFromWindow()
+        {
+            selected_Model_Index = Combobox_Models.SelectedIndex;
+
+            fb = (float)Convert.ToDecimal(TextBox_Gable_Width.Text, ci) / 1000f; //From milimeters to meters
+            fL = (float)Convert.ToDecimal(TextBox_Length.Text, ci) / 1000f;
+            fh = (float)Convert.ToDecimal(TextBox_Wall_Height.Text, ci) / 1000f;
+            // Todo Pocet ramov bude volitelny ???
+            iFrNo = (int)Convert.ToInt64(TextBox_Frames_No.Text, ci);
         }
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo); // create calculation model
+
             // Clear results of previous calculation
             // Todo Nefunguje
             deleteLists();
@@ -218,6 +267,47 @@ namespace PFD
             zoznamMenuNazvy.Clear();
             zoznamMenuNazvy.Clear();
             zoznamMenuJednotky.Clear();
+        }
+
+        private void ComboBox_Models_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetDataFromDatabasetoWindow();
+
+            // Load data from window
+            LoadDataFromWindow();
+
+            // Create Model
+            // Kitset Steel Gable Enclosed Buildings
+            fL1 = fL / (iFrNo - 1);
+
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo);
+
+            // Create 3D window
+            Page3Dmodel page1 = new Page3Dmodel(model);
+
+            // Display model in 3D preview frame
+            Frame1.Content = page1;
+            this.UpdateLayout();
+        }
+
+        private void TextBox_Gable_Width_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_Length_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_Wall_Height_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_Frames_No_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

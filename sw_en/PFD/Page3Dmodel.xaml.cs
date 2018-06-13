@@ -73,10 +73,6 @@ namespace PFD
             // Frame Model
             Model3DGroup gr = new Model3DGroup();
 
-            if (model != null)
-                gr = win1.gr;
-
-            // Get model centre
             float fTempMax_X;
             float fTempMin_X;
             float fTempMax_Y;
@@ -84,18 +80,54 @@ namespace PFD
             float fTempMax_Z;
             float fTempMin_Z;
 
-            win1.CalculateModelLimits(model, out fTempMax_X, out fTempMin_X, out fTempMax_Y, out fTempMin_Y, out fTempMax_Z, out fTempMin_Z);
+            if (model != null)
+            {
+                gr = win1.gr;
 
-            float fModel_Length_X = fTempMax_X - fTempMin_X;
-            float fModel_Length_Y = fTempMax_Y - fTempMin_Y;
-            float fModel_Length_Z = fTempMax_Z - fTempMin_Z;
+                // Get model centre
 
-            Point3D pModelGeomCentre = new Point3D(fModel_Length_X / 2.0f, fModel_Length_Y / 2.0f, fModel_Length_Z / 2.0f);
-            Point3D cameraPosition = new Point3D(pModelGeomCentre.X + 1, pModelGeomCentre.Y - 25, pModelGeomCentre.Z + 10);
+                win1.CalculateModelLimits(model, out fTempMax_X, out fTempMin_X, out fTempMax_Y, out fTempMin_Y, out fTempMax_Z, out fTempMin_Z);
 
-            _trackport.PerspectiveCamera.Position = cameraPosition;
-            _trackport.PerspectiveCamera.LookDirection = new Vector3D(-(cameraPosition.X - pModelGeomCentre.X), -(cameraPosition.Y - pModelGeomCentre.Y), -(cameraPosition.Z - pModelGeomCentre.Z));
-            _trackport.Model = (Model3D)gr;
+                float fModel_Length_X = fTempMax_X - fTempMin_X;
+                float fModel_Length_Y = fTempMax_Y - fTempMin_Y;
+                float fModel_Length_Z = fTempMax_Z - fTempMin_Z;
+
+                Point3D pModelGeomCentre = new Point3D(fModel_Length_X / 2.0f, fModel_Length_Y / 2.0f, fModel_Length_Z / 2.0f);
+                Point3D cameraPosition = new Point3D(pModelGeomCentre.X + 1, pModelGeomCentre.Y - 25, pModelGeomCentre.Z + 10);
+
+                _trackport.PerspectiveCamera.Position = cameraPosition;
+                _trackport.PerspectiveCamera.LookDirection = new Vector3D(-(cameraPosition.X - pModelGeomCentre.X), -(cameraPosition.Y - pModelGeomCentre.Y), -(cameraPosition.Z - pModelGeomCentre.Z));
+                _trackport.Model = (Model3D)gr;
+            }
+
+            // Add WireFrame Model
+            // Todo - Zjednotit funckie pre vykreslovanie v oknach WIN 2, AAC a PORTAL FRAME
+
+            bool bDisplayMembers_WireFrame = true;
+
+            // Members - Wire Frame
+            if (bDisplayMembers_WireFrame && model != null  && model.m_arrMembers != null)
+            {
+                for (int i = 0; i < model.m_arrMembers.Length; i++)
+                {
+                    if (model.m_arrMembers[i] != null &&
+                        model.m_arrMembers[i].NodeStart != null &&
+                        model.m_arrMembers[i].NodeEnd != null &&
+                        model.m_arrMembers[i].CrScStart != null) // Member object is valid (not empty)
+                    {
+                        // Create WireFrime in LCS
+                        ScreenSpaceLines3D wireFrame_FrontSide = win1.wireFrame(model.m_arrMembers[i], 0);
+                        ScreenSpaceLines3D wireFrame_BackSide = win1.wireFrame(model.m_arrMembers[i], model.m_arrMembers[i].FLength);
+                        ScreenSpaceLines3D wireFrame_Lateral = win1.wireFrameLateral(model.m_arrMembers[i]);
+
+                        // Add Wireframe Lines to the trackport
+                        _trackport.ViewPort.Children.Add(wireFrame_FrontSide);
+                        _trackport.ViewPort.Children.Add(wireFrame_BackSide);
+                        _trackport.ViewPort.Children.Add(wireFrame_Lateral);
+                    }
+                }
+            }
+
             _trackport.SetupScene();
         }
     }
