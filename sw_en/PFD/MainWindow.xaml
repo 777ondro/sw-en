@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="1200" Width="1800">
     <Grid>
-        <Frame Name ="Frame1" Content="Portal Frame 3D Preview" HorizontalAlignment="Left" Height="1130" Margin="1000,0,0,0" VerticalAlignment="Top" Width="793" NavigationUIVisibility="Hidden"/>
+        <Frame Name ="Frame1" Content="Portal Frame 3D Preview" HorizontalAlignment="Left" Height="1130" Margin="910,0,0,0" VerticalAlignment="Top" Width="870" NavigationUIVisibility="Hidden"/>
         <Button Content="Calculate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="1708,1141,0,0" Click="Calculate_Click"/>
-        <DataGrid Name ="Results_GridView" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="990" RenderTransformOrigin="0.483,0.543" Margin="5,530,0,0" SelectionChanged="Results_GridView_SelectionChanged">
+        <DataGrid Name ="Results_GridView" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="900" Margin="5,530,0,0" SelectionChanged="Results_GridView_SelectionChanged" IsReadOnly="True">
         </DataGrid>
 
         <TextBlock Text="Model:" HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
@@ -30,6 +30,36 @@
         <TextBlock Text="Frames:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,110,0,0"/>
         <TextBox x:Name ="TextBox_Frames_No" HorizontalAlignment="Left" Height="20" Margin="115,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsReadOnly="true"  TextChanged="TextBox_Frames_No_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,110,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="40"/>
+        <TextBlock Text="Main Column" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,153,0,0"/>
 
+        <DataGrid Name ="Components" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="300" Margin="5,200,0,0" VerticalAlignment="Top" Width="900">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Status}" Header="Component" Width="200"/>
+                <DataGridTemplateColumn Header="Cross-Section" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox Height="22" SelectedItem="={Binding Status}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Material" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox Height="22" SelectedItem="={Binding Status}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

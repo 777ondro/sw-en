@@ -172,8 +172,7 @@ namespace M_AS4600
         public float ff_od_bend;
         public float fLambda_l_xu;
         public float fLambda_d_xu;
-
-
+        
         float fk;
 
         public float fEta_max = 0.0f;

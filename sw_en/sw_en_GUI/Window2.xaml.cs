@@ -53,7 +53,6 @@ namespace sw_en_GUI
 
             bDebugging = bDebugging_temp;
 
-
             //gr.Children.Add(new AmbientLight());
 
             GeometryModel3D SolidModel3D = new GeometryModel3D();
@@ -95,35 +94,40 @@ namespace sw_en_GUI
                 // Default color
                 SolidColorBrush brushDefault = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
-                // Global coordinate system - axis
-                ScreenSpaceLines3D sAxisX_3D = new ScreenSpaceLines3D();
-                ScreenSpaceLines3D sAxisY_3D = new ScreenSpaceLines3D();
-                ScreenSpaceLines3D sAxisZ_3D = new ScreenSpaceLines3D();
-                Point3D pGCS_centre = new Point3D(0, 0, 0);
-                Point3D pAxisX = new Point3D(1, 0, 0);
-                Point3D pAxisY = new Point3D(0, 1, 0);
-                Point3D pAxisZ = new Point3D(0, 0, 1);
+                bool bShowGlobalAxis = true;
 
-                sAxisX_3D.Points.Add(pGCS_centre);
-                sAxisX_3D.Points.Add(pAxisX);
-                sAxisX_3D.Color = Colors.Red;
-                sAxisX_3D.Thickness = 2;
+                if(bShowGlobalAxis)
+                {
+                    // Global coordinate system - axis
+                    ScreenSpaceLines3D sAxisX_3D = new ScreenSpaceLines3D();
+                    ScreenSpaceLines3D sAxisY_3D = new ScreenSpaceLines3D();
+                    ScreenSpaceLines3D sAxisZ_3D = new ScreenSpaceLines3D();
+                    Point3D pGCS_centre = new Point3D(0, 0, 0);
+                    Point3D pAxisX = new Point3D(1, 0, 0);
+                    Point3D pAxisY = new Point3D(0, 1, 0);
+                    Point3D pAxisZ = new Point3D(0, 0, 1);
 
-                sAxisY_3D.Points.Add(pGCS_centre);
-                sAxisY_3D.Points.Add(pAxisY);
-                sAxisY_3D.Color = Colors.Green;
-                sAxisY_3D.Thickness = 2;
+                    sAxisX_3D.Points.Add(pGCS_centre);
+                    sAxisX_3D.Points.Add(pAxisX);
+                    sAxisX_3D.Color = Colors.Red;
+                    sAxisX_3D.Thickness = 2;
 
-                sAxisZ_3D.Points.Add(pGCS_centre);
-                sAxisZ_3D.Points.Add(pAxisZ);
-                sAxisZ_3D.Color = Colors.Blue;
-                sAxisZ_3D.Thickness = 2;
+                    sAxisY_3D.Points.Add(pGCS_centre);
+                    sAxisY_3D.Points.Add(pAxisY);
+                    sAxisY_3D.Color = Colors.Green;
+                    sAxisY_3D.Thickness = 2;
 
-                //I made ViewPort public property to Access ViewPort object inside TrackPort3D
-                //to ViewPort add 3 children (3 axis)
-                _trackport.ViewPort.Children.Add(sAxisX_3D);
-                _trackport.ViewPort.Children.Add(sAxisY_3D);
-                _trackport.ViewPort.Children.Add(sAxisZ_3D);
+                    sAxisZ_3D.Points.Add(pGCS_centre);
+                    sAxisZ_3D.Points.Add(pAxisZ);
+                    sAxisZ_3D.Color = Colors.Blue;
+                    sAxisZ_3D.Thickness = 2;
+
+                    //I made ViewPort public property to Access ViewPort object inside TrackPort3D
+                    //to ViewPort add 3 children (3 axis)
+                    _trackport.ViewPort.Children.Add(sAxisX_3D);
+                    _trackport.ViewPort.Children.Add(sAxisY_3D);
+                    _trackport.ViewPort.Children.Add(sAxisZ_3D);
+                }
 
                 // Check that real model exists and create model geometry
                 if (cmodel != null)

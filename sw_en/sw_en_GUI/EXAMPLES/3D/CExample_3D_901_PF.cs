@@ -19,6 +19,21 @@ namespace sw_en_GUI.EXAMPLES._3D
 
         public CExample_3D_901_PF(float fH1_temp, float fW_temp, float fL1_temp, int iFrameNo_temp)
         {
+            // Todo asi prepracovat na zoznam tried objektov
+
+            string[,] componentTypesList = new string[9, 3]
+            {
+                {"Main Column","2x50020","AS"},
+                {"Rafter","2x50020",""},
+                {"Eaves Purlin","2x50020",""},
+                {"Purlin","2x50020",""},
+                {"Purlin Brace","2x50020",""},
+                {"Gird","2x50020",""},
+                {"Gird Brace","2x50020",""},
+                {"Roofing","2x50020",""},
+                {"Wall Cladding","2x50020",""}
+            };
+
             fH1_frame = fH1_temp;
             fW_frame = fW_temp;
             fL1_frame = fL1_temp;
@@ -37,7 +52,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             m_arrNodes = new BaseClasses.CNode[iFrameNodesNo * iFrameNo];
             m_arrMembers = new CMember[iFrameNo * (iFrameNodesNo - 1)];
             m_arrMat = new CMat_00[1];
-            m_arrCrSc = new CRSC.CCrSc[1];
+            m_arrCrSc = new CRSC.CCrSc[2];
             m_arrNSupports = new BaseClasses.CNSupport[2 * iFrameNo];
             //m_arrNLoads = new BaseClasses.CNLoad[35];
 
@@ -48,6 +63,7 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             m_arrCrSc[0] = new CCrSc_0_05(0.5f, 0.2f);
+            m_arrCrSc[1] = new CCrSc_0_05(0.6f, 0.2f);
 
             // Nodes Automatic Generation
             // Nodes List - Nodes Array
@@ -72,8 +88,8 @@ namespace sw_en_GUI.EXAMPLES._3D
             for (int i = 0; i < iFrameNo; i++)
             {
                 m_arrMembers[i * (iFrameNodesNo - 1) + 0] = new CMember(i * (iFrameNodesNo - 1) + 1, m_arrNodes[i * iFrameNodesNo + 0], m_arrNodes[i * iFrameNodesNo + 1], m_arrCrSc[0], 0);
-                m_arrMembers[i * (iFrameNodesNo - 1) + 1] = new CMember(i * (iFrameNodesNo - 1) + 2, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[i * iFrameNodesNo + 2], m_arrCrSc[0], 0);
-                m_arrMembers[i * (iFrameNodesNo - 1) + 2] = new CMember(i * (iFrameNodesNo - 1) + 3, m_arrNodes[i * iFrameNodesNo + 2], m_arrNodes[i * iFrameNodesNo + 3], m_arrCrSc[0], 0);
+                m_arrMembers[i * (iFrameNodesNo - 1) + 1] = new CMember(i * (iFrameNodesNo - 1) + 2, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[i * iFrameNodesNo + 2], m_arrCrSc[1], 0);
+                m_arrMembers[i * (iFrameNodesNo - 1) + 2] = new CMember(i * (iFrameNodesNo - 1) + 3, m_arrNodes[i * iFrameNodesNo + 2], m_arrNodes[i * iFrameNodesNo + 3], m_arrCrSc[1], 0);
                 m_arrMembers[i * (iFrameNodesNo - 1) + 3] = new CMember(i * (iFrameNodesNo - 1) + 4, m_arrNodes[i * iFrameNodesNo + 3], m_arrNodes[i * iFrameNodesNo + 4], m_arrCrSc[0], 0);
             }
 
