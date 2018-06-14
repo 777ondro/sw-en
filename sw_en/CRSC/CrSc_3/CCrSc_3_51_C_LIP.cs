@@ -8,7 +8,7 @@ namespace CRSC
 {
     public class CCrSc_3_51_C_LIP : CCrSc_TW
     {
-        // Thin-walled monoy-symmetrical C-section with lips
+        // Thin-walled mono-symmetrical C-section with lips
 
         private float m_ft_f; // Flange Thickness / Hrubka pasnice
         private float m_ft_w; // Web Thickness  / Hrubka steny/stojiny

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Media;
 using MATH;
 using MATERIAL;
 
@@ -217,14 +218,99 @@ namespace CRSC
 
         protected override void loadCrScIndicesFrontSide()
         {
+            TriangleIndicesFrontSide = new Int32Collection();
+
+            // Front Side / Forehead
+            if (IsShapeSolid)
+            {
+                for (int i = 0; i < (ITotNoPoints - 2) / 2; i++)
+                    AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, i, i + 1, ITotNoPoints - i - 2, ITotNoPoints - i - 1);
+            }
+            else
+            {
+                // INoAuxPoints - number of auxiliary points in inside/outside collection of points
+                // INoPointsOut - number of real points in inside/outside collection of points
+                // INoAuxPoints + INoPointsOut - total number of points in inside/outside collection of section
+
+                INoAuxPoints = 0;
+                // Front Side / Forehead
+
+                for (int i = 0; i < INoPointsOut; i++)
+                {
+                    if (i < INoPointsOut - 1)
+                        AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, INoAuxPoints + i, INoAuxPoints + i + 1, INoAuxPoints + i + (INoAuxPoints + INoPointsOut) + 1, INoAuxPoints + i + (INoAuxPoints + INoPointsOut));
+                    else
+                        AddRectangleIndices_CW_1234(TriangleIndicesFrontSide, INoAuxPoints + i, INoAuxPoints + 0, INoAuxPoints + i + INoAuxPoints + 1, INoAuxPoints + i + (INoAuxPoints + INoPointsOut)); // Last Element
+                }
+            }
         }
 
         protected override void loadCrScIndicesShell()
         {
+            TriangleIndicesShell = new Int32Collection();
+
+            // Shell Surface OutSide
+            if (IsShapeSolid)
+            {
+                for (int i = 0; i < ITotNoPoints - 1; i++)
+                {
+                    if (i < ITotNoPoints - 2)
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints + i + 1, i + 1);
+                    else
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, i, ITotNoPoints + i, ITotNoPoints, 0); // Last Element
+                }
+            }
+            else
+            {
+                // iAux - number of auxiliary points in inside/outside collection of points
+                // INoPointsOut - number of real points in inside/outside collection of points
+                // iAux + INoPointsOut - total number of points in inside/outside collection of section
+
+                // Shell Surface OutSide
+                for (int i = 0; i < INoPointsOut; i++)
+                {
+                    if (i < INoPointsOut - 1)
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i + 1, INoAuxPoints + i + 1);
+                    else
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints, INoAuxPoints + 0); // Last Element
+                }
+
+                // Shell Surface Inside
+                for (int i = 0; i < INoPointsOut; i++)
+                {
+                    if (i < INoPointsOut - 1)
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, INoAuxPoints + INoPointsOut + INoAuxPoints + i, INoAuxPoints + INoPointsOut + INoAuxPoints + i + 1, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut + 1, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut);
+                    else
+                        AddRectangleIndices_CW_1234(TriangleIndicesShell, 2 * (INoAuxPoints + INoPointsOut) + 2 * INoAuxPoints + i + 1, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut, INoAuxPoints + INoPointsOut + INoAuxPoints + i, 2 * INoAuxPoints + INoPointsOut); // Last Element
+                }
+            }
         }
 
         protected override void loadCrScIndicesBackSide()
         {
+            TriangleIndicesBackSide = new Int32Collection();
+
+            // Back Side
+            if (IsShapeSolid)
+            {
+                for (int i = 0; i < (ITotNoPoints - 2) / 2; i++)
+                    AddRectangleIndices_CW_1234(TriangleIndicesBackSide, ITotNoPoints + i, ITotNoPoints + i + 1, ITotNoPoints + ITotNoPoints - i - 2, ITotNoPoints + ITotNoPoints - i - 1);
+            }
+            else
+            {
+                // INoAuxPoints - number of auxiliary points in inside/outside collection of points
+                // INoPointsOut - number of real points in inside/outside collection of points
+                // INoAuxPoints + INoPointsOut - total number of points in inside/outside collection of section
+
+                // Back Side
+                for (int i = 0; i < INoPointsOut; i++)
+                {
+                    if (i < INoPointsOut - 1)
+                        AddRectangleIndices_CW_1234(TriangleIndicesBackSide, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut + 1, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i + 1);
+                    else
+                        AddRectangleIndices_CW_1234(TriangleIndicesBackSide, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + i, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + INoPointsOut, 2 * (INoAuxPoints + INoPointsOut) + i + 2 * INoAuxPoints + 1, 2 * (INoAuxPoints + INoPointsOut) + INoAuxPoints + 0); // Last Element
+                }
+            }
         }
     }
 }

@@ -118,6 +118,14 @@ namespace CRSC
             set { m_iNoAuxPoints = value; }
         }
 
+        private Color m_color;
+
+        public Color CSColor
+        {
+            get { return m_color; }
+            set { m_color = value; }
+        }
+
         // !!! Pre FEM vypocet nepotrebujeme vsetky charakteristiky, len Ag, Avy, Avz, Iy, Iz, It !!!!
         // !!! Ostatne charakteristiky postaci nacitavat az pri posudeni
 

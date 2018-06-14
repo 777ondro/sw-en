@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using BaseClasses;
 using MATERIAL;
 using CRSC;
@@ -30,7 +31,12 @@ namespace sw_en_GUI.EXAMPLES._3D
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             //m_arrCrSc[0] = new CCrSc_3_07(0, 0.5f, 0.2f, 0.020f);
-            m_arrCrSc[0] = new CCrSc_0_05(0.5f, 0.2f);
+            //m_arrCrSc[0] = new CCrSc_0_05(0.5f, 0.2f);
+            //m_arrCrSc[0] = new CCrSc_3_51_C_LIP2_FS50020(1f, 0.3f, 0.01f, 0.05f, 0.005f);
+            //m_arrCrSc[0] = new CCrSc_3_51_BOX_TEMP(1f, 0.3f, 0.003f);
+            m_arrCrSc[0] = new CCrSc_3_51_TRIANGLE_TEMP(0.866025f * 0.3f, 0.3f, 0.05f);
+
+            m_arrCrSc[0].CSColor = Colors.Azure;
 
             // Nodes Automatic Generation
             // Nodes List - Nodes Array

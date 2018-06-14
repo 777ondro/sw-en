@@ -27,10 +27,13 @@
         <TextBox Name ="TextBox_Wall_Height" HorizontalAlignment="Left" Height="20" Margin="115,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsReadOnly="true"  TextChanged="TextBox_Wall_Height_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,85,0,0" TextWrapping="Wrap" Text="[mm]" VerticalAlignment="Top" Width="40"/>
 
-        <TextBlock Text="Frames:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,110,0,0"/>
-        <TextBox x:Name ="TextBox_Frames_No" HorizontalAlignment="Left" Height="20" Margin="115,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsReadOnly="true"  TextChanged="TextBox_Frames_No_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,110,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="40"/>
-        <TextBlock Text="Main Column" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,153,0,0"/>
+        <TextBlock Text="Roof Pitch:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,110,0,0"/>
+        <TextBox Name ="TextBox_Roof_Pitch" HorizontalAlignment="Left" Height="20" Margin="115,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsReadOnly="true"  TextChanged="TextBox_Roof_Pitch_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,110,0,0" TextWrapping="Wrap" Text="[mm]" VerticalAlignment="Top" Width="40"/>
+
+        <TextBlock Text="Frames:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,135,0,0"/>
+        <TextBox x:Name ="TextBox_Frames_No" HorizontalAlignment="Left" Height="20" Margin="115,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsReadOnly="true"  TextChanged="TextBox_Frames_No_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,135,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="40"/>
 
         <DataGrid Name ="Components" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="300" Margin="5,200,0,0" VerticalAlignment="Top" Width="900">
             <DataGrid.Columns>

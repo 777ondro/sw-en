@@ -17,6 +17,7 @@ using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using BaseClasses;
+using MATH;
 using CRSC;
 using sw_en_GUI;
 using sw_en_GUI.EXAMPLES._3D;
@@ -42,12 +43,12 @@ namespace PFD
         float fh;
         float fL1;
         int iFrNo;
-
+        float fRoofPitch_radians;
+        float fh2;
+        
         List<string> zoznamMenuNazvy = new List<string>(4);          // premenne zobrazene v tabulke
         List<string> zoznamMenuHodnoty = new List<string>(4);        // hodnoty danych premennych
         List<string> zoznamMenuJednotky = new List<string>(4);       // jednotky danych premennych
-
-
 
         public MainWindow()
         {
@@ -73,9 +74,8 @@ namespace PFD
 
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
-            fL1 = fL / (iFrNo - 1);
 
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1f, 1.2f);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -90,6 +90,9 @@ namespace PFD
             TextBox_Length.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 1].ToString();
             TextBox_Wall_Height.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 2].ToString();
             TextBox_Frames_No.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 3].ToString();
+
+            float fRoofPitchinDegrees = 10f; // Default temporary
+            TextBox_Roof_Pitch.Text = fRoofPitchinDegrees.ToString(); 
         }
 
         private void LoadDataFromWindow()
@@ -101,6 +104,10 @@ namespace PFD
             fh = (float)Convert.ToDecimal(TextBox_Wall_Height.Text, ci) / 1000f;
             // Todo Pocet ramov bude volitelny ???
             iFrNo = (int)Convert.ToInt64(TextBox_Frames_No.Text, ci);
+
+            fL1 = fL / (iFrNo - 1);
+            fRoofPitch_radians = (float)Convert.ToDecimal(TextBox_Roof_Pitch.Text, ci) * MathF.fPI / 180f;
+            fh2 = fh + 0.5f * fb * (float)Math.Tan(fRoofPitch_radians);
         }
 
         private void DeleteCalculationResults()
@@ -114,7 +121,7 @@ namespace PFD
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo); // create calculation model
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1f, 1.2f); // create calculation model // TODO - set purlin distances
 
             // Clear results of previous calculation
             DeleteCalculationResults();
@@ -418,9 +425,7 @@ namespace PFD
 
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
-            fL1 = fL / (iFrNo - 1);
-
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.2f);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -451,6 +456,11 @@ namespace PFD
         }
 
         private void TextBox_Frames_No_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_Roof_Pitch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

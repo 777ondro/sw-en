@@ -205,8 +205,22 @@ namespace sw_en_GUI
                                         SolidColorBrush br1 = new SolidColorBrush(Color.FromRgb(255, 64, 64)); // Material color - Front Side (red)
                                         SolidColorBrush br2 = new SolidColorBrush(Color.FromRgb(141, 238, 238)); // Material color - Shell (red)
                                         SolidColorBrush br3 = new SolidColorBrush(Color.FromRgb(238, 154, 73)); // Material color - Back Side (orange)
-                                        br1.Opacity = br3.Opacity = 0.8;
-                                        br2.Opacity = 0.4;
+
+                                        bool bIsTranspartentModel = false;
+
+                                        if (bIsTranspartentModel)
+                                        {
+                                            br1.Opacity = br3.Opacity = 0.8;
+                                            br2.Opacity = 0.4;
+                                        }
+                                        else
+                                            br1.Opacity = br2.Opacity = br3.Opacity = 0;
+
+                                        bool bUseCrossSectionColor = true;
+
+                                        if (bUseCrossSectionColor && cmodel.m_arrMembers[i].CrScStart.CSColor != null)
+                                            br2 = new SolidColorBrush(cmodel.m_arrMembers[i].CrScStart.CSColor);
+
                                         gr.Children.Add(cmodel.m_arrMembers[i].getM_3D_G_Member(eGCS, br1, br2, br3));
                                     }
                                 }
@@ -538,8 +552,8 @@ namespace sw_en_GUI
                             cmodel.m_arrMembers[i].CrScStart != null) // Member object is valid (not empty)
                         {
                             // Create WireFrime in LCS
-                            ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(cmodel.m_arrMembers[i], 0);
-                            ScreenSpaceLines3D wireFrame_BackSide = wireFrame(cmodel.m_arrMembers[i], cmodel.m_arrMembers[i].FLength);
+                            ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(cmodel.m_arrMembers[i], - cmodel.m_arrMembers[i].FAlignment_Start);
+                            ScreenSpaceLines3D wireFrame_BackSide = wireFrame(cmodel.m_arrMembers[i], cmodel.m_arrMembers[i].FLength + cmodel.m_arrMembers[i].FAlignment_End);
                             ScreenSpaceLines3D wireFrame_Lateral = wireFrameLateral(cmodel.m_arrMembers[i]);
 
                             // Add Wireframe Lines to the trackport
@@ -664,12 +678,8 @@ namespace sw_en_GUI
                 wireFrame.Points.Add(pj);
             }
 
-            // Transform node to point
-            Point3D pA_GCS = new Point3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
-            Point3D pB_GCS = new Point3D(member.NodeEnd.X, member.NodeEnd.Y, member.NodeEnd.Z);
-
             // Transform coordinates from LCS to GCS
-            member.TransformMember_LCStoGCS(eGCS, pA_GCS, pB_GCS, member.Delta_X, member.Delta_Y, member.Delta_Z, member.m_dTheta_x, wireFrame.Points);
+            member.TransformMember_LCStoGCS(eGCS, member.PointStart, member.Delta_X, member.Delta_Y, member.Delta_Z, member.m_dTheta_x, wireFrame.Points);
 
             return wireFrame;
         }
@@ -688,8 +698,8 @@ namespace sw_en_GUI
                 Point3D pi = new Point3D();
                 Point3D pj = new Point3D();
 
-                pi = new Point3D(0, member.CrScStart.CrScPointsOut[i + member.CrScStart.INoAuxPoints, 0], member.CrScStart.CrScPointsOut[member.CrScStart.INoAuxPoints + i, 1]);
-                pj = new Point3D(member.FLength, member.CrScStart.CrScPointsOut[i + member.CrScStart.INoAuxPoints, 0], member.CrScStart.CrScPointsOut[member.CrScStart.INoAuxPoints + i, 1]);
+                pi = new Point3D(-member.FAlignment_Start, member.CrScStart.CrScPointsOut[i + member.CrScStart.INoAuxPoints, 0], member.CrScStart.CrScPointsOut[member.CrScStart.INoAuxPoints + i, 1]);
+                pj = new Point3D(member.FLength + member.FAlignment_End, member.CrScStart.CrScPointsOut[i + member.CrScStart.INoAuxPoints, 0], member.CrScStart.CrScPointsOut[member.CrScStart.INoAuxPoints + i, 1]);
 
                 // Add points
                 wireFrame.Points.Add(pi);
@@ -698,10 +708,9 @@ namespace sw_en_GUI
 
             // Transform node to point
             Point3D pA_GCS = new Point3D(member.NodeStart.X, member.NodeStart.Y, member.NodeStart.Z);
-            Point3D pB_GCS = new Point3D(member.NodeEnd.X, member.NodeEnd.Y, member.NodeEnd.Z);
 
             // Transform coordinates from LCS to GCS
-            member.TransformMember_LCStoGCS(eGCS, pA_GCS, pB_GCS, member.Delta_X, member.Delta_Y, member.Delta_Z, member.m_dTheta_x, wireFrame.Points);
+            member.TransformMember_LCStoGCS(eGCS, pA_GCS, member.Delta_X, member.Delta_Y, member.Delta_Z, member.m_dTheta_x, wireFrame.Points);
 
             return wireFrame;
         }
