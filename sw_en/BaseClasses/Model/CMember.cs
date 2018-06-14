@@ -218,7 +218,35 @@ namespace BaseClasses
             CNode iNode1,
             CNode iNode2,
             CCrSc objCrSc1,
+            float fAligment1,
+            float fAligment2,
+            float fTheta_x = 0,
+            int fTime = 0
+            )
+        {
+            ID = iLine_ID;
+            m_NodeStart = iNode1;
+            m_NodeEnd = iNode2;
+            m_cnRelease1 = null;
+            m_cnRelease2 = null;
+            m_CrScStart = objCrSc1;
+            FAlignment_Start = fAligment1;
+            FAlignment_End = fAligment2;
+            DTheta_x = fTheta_x;
+            FTime = fTime;
+
+            Fill_Basic();
+        }
+
+        // Constructor 6
+        public CMember(
+            int iLine_ID,
+            CNode iNode1,
+            CNode iNode2,
+            CCrSc objCrSc1,
             CCrSc objCrSc2,
+            float fAligment1,
+            float fAligment2,
             int fTime
             )
         {
@@ -229,6 +257,8 @@ namespace BaseClasses
             m_cnRelease2 = null;
             m_CrScStart = objCrSc1;
             m_CrScEnd = objCrSc2;
+            FAlignment_Start = fAligment1;
+            FAlignment_End = fAligment2;
             FTime = fTime;
 
             Fill_Basic();
@@ -244,10 +274,6 @@ namespace BaseClasses
             // Priemet do osi GCS - rozdiel suradnic v GCS
 
             FLength = (float)Math.Sqrt((float)Math.Pow(m_NodeEnd.X - m_NodeStart.X, 2f) + (float)Math.Pow(m_NodeEnd.Y - m_NodeStart.Y, 2f) + (float)Math.Pow(m_NodeEnd.Z - m_NodeStart.Z, 2f));
-
-            FAlignment_Start = 1f; // TODO TEMP
-            FAlignment_End = 1f; // TODO TEMP
-
             FLength_real = FAlignment_Start + FLength + FAlignment_End; // Real length of member
 
             SetStartPoint3DCoord();
@@ -290,9 +316,6 @@ namespace BaseClasses
 
         public GeometryModel3D getG_M_3D_Member(EGCS eGCS, SolidColorBrush brush)
         {
-            // Angle of rotation about local x-axis
-            DTheta_x = 0; // Temporary
-
             GeometryModel3D model = new GeometryModel3D();
 
             MeshGeometry3D mesh = getMeshMemberGeometry3DFromCrSc(eGCS, CrScStart, CrScEnd, DTheta_x); // Mesh one member
@@ -306,9 +329,6 @@ namespace BaseClasses
 
         public void getG_M_3D_Member(EGCS eGCS, SolidColorBrush brushFrontSide, SolidColorBrush brushShell, SolidColorBrush brushBackSide, out GeometryModel3D modelFrontSide, out GeometryModel3D modelShell, out GeometryModel3D modelBackSide)
         {
-            // Angle of rotation about local x-axis
-            DTheta_x = 0; // Temporary
-
             modelFrontSide = new GeometryModel3D();
             modelShell = new GeometryModel3D();
             modelBackSide = new GeometryModel3D();

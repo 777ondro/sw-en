@@ -36,6 +36,7 @@ namespace PFD
         public CModel model;
         CultureInfo ci;
         public DatabaseModels dmodels; // Todo nahradit databazov modelov
+        public DatabaseLocations dlocations; // Todo nahradit databazov miest - pokial mozno skusit pripravit mapu ktora by bola schopna identifikovat polohu podla kliknutia
 
         int selected_Model_Index;
         float fb;
@@ -59,11 +60,15 @@ namespace PFD
             //cn = new SqlConnection(@"data source"); // Data Source
             //cn.Open();
             dmodels = new DatabaseModels();
+            dlocations = new DatabaseLocations();
 
             InitializeComponent();
 
             foreach (string modelname in dmodels.arr_ModelNames)
               Combobox_Models.Items.Add(modelname);
+
+            foreach (string locationname in dlocations.arr_LocationNames)
+                Combobox_Location.Items.Add(locationname);
 
             // Set data from database in to the Window textboxes
             SetDataFromDatabasetoWindow();
@@ -75,7 +80,7 @@ namespace PFD
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
 
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1f, 1.2f);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -99,12 +104,10 @@ namespace PFD
         {
             selected_Model_Index = Combobox_Models.SelectedIndex;
 
-            fb = (float)Convert.ToDecimal(TextBox_Gable_Width.Text, ci) / 1000f; //From milimeters to meters
+            fb = (float)Convert.ToDecimal(TextBox_Gable_Width.Text, ci) / 1000f; // From milimeters to meters
             fL = (float)Convert.ToDecimal(TextBox_Length.Text, ci) / 1000f;
             fh = (float)Convert.ToDecimal(TextBox_Wall_Height.Text, ci) / 1000f;
-            // Todo Pocet ramov bude volitelny ???
             iFrNo = (int)Convert.ToInt64(TextBox_Frames_No.Text, ci);
-
             fL1 = fL / (iFrNo - 1);
             fRoofPitch_radians = (float)Convert.ToDecimal(TextBox_Roof_Pitch.Text, ci) * MathF.fPI / 180f;
             fh2 = fh + 0.5f * fb * (float)Math.Tan(fRoofPitch_radians);
@@ -113,7 +116,7 @@ namespace PFD
         private void DeleteCalculationResults()
         {
             //Todo - asi sa to da jednoduchsie
-            deleteLists();
+            DeleteLists();
             Results_GridView.ItemsSource = null;
             Results_GridView.Items.Clear();
             Results_GridView.Items.Refresh();
@@ -407,7 +410,7 @@ namespace PFD
         }
 
         //deleting lists for updating actual values
-        private void deleteLists()
+        private void DeleteLists()
         {
             zoznamMenuNazvy.Clear();
             zoznamMenuNazvy.Clear();
@@ -425,7 +428,21 @@ namespace PFD
 
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.2f);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
+
+            // Create 3D window
+            Page3Dmodel page1 = new Page3Dmodel(model);
+
+            // Display model in 3D preview frame
+            Frame1.Content = page1;
+            this.UpdateLayout();
+        }
+
+        private void UpdateAll()
+        {
+            // Create Model
+            // Kitset Steel Gable Enclosed Buildings
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -442,25 +459,93 @@ namespace PFD
 
         private void TextBox_Gable_Width_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fb = (float)Convert.ToDecimal(TextBox_Gable_Width.Text, ci) / 1000f;
+                    // Recalculate roof pitch
+                    fRoofPitch_radians = (float)Math.Atan((fh2 - fh) / (0.5f * fb));
+                    // Set new value in GUI
+                    TextBox_Roof_Pitch.Text = (fRoofPitch_radians * 180f / MathF.fPI).ToString();
 
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
         }
 
         private void TextBox_Length_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fL = (float)Convert.ToDecimal(TextBox_Length.Text, ci) / 1000f;
+                    // Recalculate fL1
+                    fL1 = fL / (iFrNo - 1);
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
         }
 
         private void TextBox_Wall_Height_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fh = (float)Convert.ToDecimal(TextBox_Wall_Height.Text, ci) / 1000f;
+                    // Recalculate roof heigth
+                    fh2 = fh + 0.5f * fb * (float)Math.Tan(fRoofPitch_radians);
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
         }
 
         private void TextBox_Frames_No_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    iFrNo = (int)Convert.ToInt64(TextBox_Frames_No.Text, ci);
+                    // Recalculate L1
+                    fL1 = fL / (iFrNo - 1);
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
         }
 
         private void TextBox_Roof_Pitch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fRoofPitch_radians = (float)Convert.ToDecimal(TextBox_Roof_Pitch.Text, ci) * MathF.fPI / 180f;
+                    // Recalculate h2
+                    fh2 = fh + 0.5f * fb * (float)Math.Tan(fRoofPitch_radians);
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
+        }
+
+        private void ComboBox_Location_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
