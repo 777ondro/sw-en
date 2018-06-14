@@ -46,6 +46,8 @@ namespace PFD
         int iFrNo;
         float fRoofPitch_radians;
         float fh2;
+        float fdist_girt;
+        float fdist_purlin;
         
         List<string> zoznamMenuNazvy = new List<string>(4);          // premenne zobrazene v tabulke
         List<string> zoznamMenuHodnoty = new List<string>(4);        // hodnoty danych premennych
@@ -80,7 +82,7 @@ namespace PFD
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
 
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, fdist_girt, fdist_purlin);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -97,7 +99,13 @@ namespace PFD
             TextBox_Frames_No.Text = dmodels.arr_Models_Dimensions[Combobox_Models.SelectedIndex, 3].ToString();
 
             float fRoofPitchinDegrees = 10f; // Default temporary
-            TextBox_Roof_Pitch.Text = fRoofPitchinDegrees.ToString(); 
+            TextBox_Roof_Pitch.Text = fRoofPitchinDegrees.ToString();
+
+            float fdist_girt_mm = 1000;
+            TextBox_Girt_Distance.Text = fdist_girt_mm.ToString();
+
+            float fdist_purlin_mm = 1000;
+            TextBox_Purlin_Distance.Text = fdist_purlin_mm.ToString();
         }
 
         private void LoadDataFromWindow()
@@ -111,6 +119,9 @@ namespace PFD
             fL1 = fL / (iFrNo - 1);
             fRoofPitch_radians = (float)Convert.ToDecimal(TextBox_Roof_Pitch.Text, ci) * MathF.fPI / 180f;
             fh2 = fh + 0.5f * fb * (float)Math.Tan(fRoofPitch_radians);
+
+            fdist_girt = (float)Convert.ToDecimal(TextBox_Girt_Distance.Text, ci) / 1000f;
+            fdist_purlin = (float)Convert.ToDecimal(TextBox_Purlin_Distance.Text, ci) / 1000f;
         }
 
         private void DeleteCalculationResults()
@@ -124,7 +135,7 @@ namespace PFD
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1f, 1.2f); // create calculation model // TODO - set purlin distances
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, fdist_girt, fdist_purlin); // create calculation model // TODO - set purlin distances
 
             // Clear results of previous calculation
             DeleteCalculationResults();
@@ -428,7 +439,7 @@ namespace PFD
 
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, fdist_girt, fdist_purlin);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -442,7 +453,7 @@ namespace PFD
         {
             // Create Model
             // Kitset Steel Gable Enclosed Buildings
-            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, 1.0f, 1.0f);
+            model = new CExample_3D_901_PF(fh, fb, fL1, iFrNo, fh2, fdist_girt, fdist_purlin);
 
             // Create 3D window
             Page3Dmodel page1 = new Page3Dmodel(model);
@@ -549,5 +560,37 @@ namespace PFD
         {
 
         }
+
+        private void TextBox_Girt_Distance_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fdist_girt = (float)Convert.ToDecimal(TextBox_Girt_Distance.Text, ci) / 1000f;
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
+        }
+
+        private void TextBox_Purlin_Distance_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selected_Model_Index != 0)
+            {
+                try
+                {
+                    fdist_purlin = (float)Convert.ToDecimal(TextBox_Purlin_Distance.Text, ci) / 1000f;
+                    DeleteCalculationResults();
+                    UpdateAll();
+                }
+                catch
+                { }
+            }
+        }
+
+
     }
 }

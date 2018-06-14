@@ -35,7 +35,15 @@
         <TextBox Name ="TextBox_Frames_No" HorizontalAlignment="Left" Height="20" Margin="115,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextChanged="TextBox_Frames_No_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,135,0,0" TextWrapping="Wrap" Text="[-]" VerticalAlignment="Top" Width="40"/>
 
-        <DataGrid Name ="Components" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="300" Margin="5,200,0,0" VerticalAlignment="Top" Width="900">
+        <TextBlock Text="Girt Distance:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,160,0,0"/>
+        <TextBox Name ="TextBox_Girt_Distance" HorizontalAlignment="Left" Height="20" Margin="115,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextChanged="TextBox_Girt_Distance_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,160,0,0" TextWrapping="Wrap" Text="[mm]" VerticalAlignment="Top" Width="40"/>
+
+        <TextBlock Text="Purlin Distance:" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="100" Margin="10,185,0,0"/>
+        <TextBox Name ="TextBox_Purlin_Distance" HorizontalAlignment="Left" Height="20" Margin="115,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextChanged="TextBox_Purlin_Distance_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="220,185,0,0" TextWrapping="Wrap" Text="[mm]" VerticalAlignment="Top" Width="40"/>
+        
+        <DataGrid Name ="Components" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="260" Margin="5,240,0,0" VerticalAlignment="Top" Width="900">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Status}" Header="Component" Width="200"/>
                 <DataGridTemplateColumn Header="Cross-Section" Width="100">
