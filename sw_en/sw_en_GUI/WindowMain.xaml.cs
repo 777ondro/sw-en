@@ -515,6 +515,12 @@ namespace sw_en_GUI
             p.ShowDialog();
         }
 
+        private void menuItemViewCrSc_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCrossSection2D csdraw = new WindowCrossSection2D();
+            csdraw.ShowDialog();
+        }
+
         private void Container_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.Key)

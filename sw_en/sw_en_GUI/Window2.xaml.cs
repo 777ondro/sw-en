@@ -99,28 +99,11 @@ namespace sw_en_GUI
                 if(bShowGlobalAxis)
                 {
                     // Global coordinate system - axis
-                    ScreenSpaceLines3D sAxisX_3D = new ScreenSpaceLines3D();
-                    ScreenSpaceLines3D sAxisY_3D = new ScreenSpaceLines3D();
-                    ScreenSpaceLines3D sAxisZ_3D = new ScreenSpaceLines3D();
-                    Point3D pGCS_centre = new Point3D(0, 0, 0);
-                    Point3D pAxisX = new Point3D(1, 0, 0);
-                    Point3D pAxisY = new Point3D(0, 1, 0);
-                    Point3D pAxisZ = new Point3D(0, 0, 1);
+                    ScreenSpaceLines3D sAxisX_3D;
+                    ScreenSpaceLines3D sAxisY_3D;
+                    ScreenSpaceLines3D sAxisZ_3D;
 
-                    sAxisX_3D.Points.Add(pGCS_centre);
-                    sAxisX_3D.Points.Add(pAxisX);
-                    sAxisX_3D.Color = Colors.Red;
-                    sAxisX_3D.Thickness = 2;
-
-                    sAxisY_3D.Points.Add(pGCS_centre);
-                    sAxisY_3D.Points.Add(pAxisY);
-                    sAxisY_3D.Color = Colors.Green;
-                    sAxisY_3D.Thickness = 2;
-
-                    sAxisZ_3D.Points.Add(pGCS_centre);
-                    sAxisZ_3D.Points.Add(pAxisZ);
-                    sAxisZ_3D.Color = Colors.Blue;
-                    sAxisZ_3D.Thickness = 2;
+                    DrawGlobalAxis(out sAxisX_3D, out sAxisY_3D, out sAxisZ_3D);
 
                     //I made ViewPort public property to Access ViewPort object inside TrackPort3D
                     //to ViewPort add 3 children (3 axis)
@@ -538,8 +521,9 @@ namespace sw_en_GUI
 
                 _trackport.Model = (Model3D)gr;
 
-                bool bDisplayMembers_WireFrame = true;
+                bool bDisplayMembers_WireFrame = false;
                 // Todo - Zjednotit funckie pre vykreslovanie v oknach WIN 2, AAC a PORTAL FRAME
+                // Todo - Memory leak v objekte ScreenSpaceLines3D
 
                 // Members - Wire Frame
                 if (bDisplayMembers_WireFrame && cmodel.m_arrMembers != null)
@@ -551,7 +535,7 @@ namespace sw_en_GUI
                             cmodel.m_arrMembers[i].NodeEnd != null &&
                             cmodel.m_arrMembers[i].CrScStart != null) // Member object is valid (not empty)
                         {
-                            // Create WireFrime in LCS
+                            // Create WireFrame in LCS
                             ScreenSpaceLines3D wireFrame_FrontSide = wireFrame(cmodel.m_arrMembers[i], - cmodel.m_arrMembers[i].FAlignment_Start);
                             ScreenSpaceLines3D wireFrame_BackSide = wireFrame(cmodel.m_arrMembers[i], cmodel.m_arrMembers[i].FLength + cmodel.m_arrMembers[i].FAlignment_End);
                             ScreenSpaceLines3D wireFrame_Lateral = wireFrameLateral(cmodel.m_arrMembers[i]);
@@ -713,6 +697,33 @@ namespace sw_en_GUI
             member.TransformMember_LCStoGCS(eGCS, pA_GCS, member.Delta_X, member.Delta_Y, member.Delta_Z, member.m_dTheta_x, wireFrame.Points);
 
             return wireFrame;
+        }
+
+        public void DrawGlobalAxis(out ScreenSpaceLines3D sAxisX_3D, out ScreenSpaceLines3D sAxisY_3D, out ScreenSpaceLines3D sAxisZ_3D)
+        {
+            // Global coordinate system - axis
+            sAxisX_3D = new ScreenSpaceLines3D();
+            sAxisY_3D = new ScreenSpaceLines3D();
+            sAxisZ_3D = new ScreenSpaceLines3D();
+            Point3D pGCS_centre = new Point3D(0, 0, 0);
+            Point3D pAxisX = new Point3D(1, 0, 0);
+            Point3D pAxisY = new Point3D(0, 1, 0);
+            Point3D pAxisZ = new Point3D(0, 0, 1);
+
+            sAxisX_3D.Points.Add(pGCS_centre);
+            sAxisX_3D.Points.Add(pAxisX);
+            sAxisX_3D.Color = Colors.Red;
+            sAxisX_3D.Thickness = 2;
+
+            sAxisY_3D.Points.Add(pGCS_centre);
+            sAxisY_3D.Points.Add(pAxisY);
+            sAxisY_3D.Color = Colors.Green;
+            sAxisY_3D.Thickness = 2;
+
+            sAxisZ_3D.Points.Add(pGCS_centre);
+            sAxisZ_3D.Points.Add(pAxisZ);
+            sAxisZ_3D.Color = Colors.Blue;
+            sAxisZ_3D.Thickness = 2;
         }
     }
 }

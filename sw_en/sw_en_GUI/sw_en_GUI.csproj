@@ -166,6 +166,9 @@
     <Compile Include="WindowMenu.xaml.cs">
       <DependentUpon>WindowMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowCrossSection2D.xaml.cs">
+      <DependentUpon>WindowCrossSection2D.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowPaint.xaml.cs">
       <DependentUpon>WindowPaint.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,10 @@
     <Page Include="WindowMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowCrossSection2D.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WindowPaint.xaml">
       <SubType>Designer</SubType>

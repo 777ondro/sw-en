@@ -40,35 +40,24 @@ namespace PFD
             EGCS eGCS = EGCS.eGCSLeftHanded;
             //EGCS eGCS = EGCS.eGCSRightHanded;
 
+            bool bShowGlobalAxis = true;
+
             // Global coordinate system - axis
-            ScreenSpaceLines3D sAxisX_3D = new ScreenSpaceLines3D();
-            ScreenSpaceLines3D sAxisY_3D = new ScreenSpaceLines3D();
-            ScreenSpaceLines3D sAxisZ_3D = new ScreenSpaceLines3D();
-            Point3D pGCS_centre = new Point3D(0, 0, 0);
-            Point3D pAxisX = new Point3D(1, 0, 0);
-            Point3D pAxisY = new Point3D(0, 1, 0);
-            Point3D pAxisZ = new Point3D(0, 0, 1);
+            if (bShowGlobalAxis)
+            {
+                // Global coordinate system - axis
+                ScreenSpaceLines3D sAxisX_3D;
+                ScreenSpaceLines3D sAxisY_3D;
+                ScreenSpaceLines3D sAxisZ_3D;
 
-            sAxisX_3D.Points.Add(pGCS_centre);
-            sAxisX_3D.Points.Add(pAxisX);
-            sAxisX_3D.Color = Colors.Red;
-            sAxisX_3D.Thickness = 2;
+                win1.DrawGlobalAxis(out sAxisX_3D, out sAxisY_3D, out sAxisZ_3D);
 
-            sAxisY_3D.Points.Add(pGCS_centre);
-            sAxisY_3D.Points.Add(pAxisY);
-            sAxisY_3D.Color = Colors.Green;
-            sAxisY_3D.Thickness = 2;
-
-            sAxisZ_3D.Points.Add(pGCS_centre);
-            sAxisZ_3D.Points.Add(pAxisZ);
-            sAxisZ_3D.Color = Colors.Blue;
-            sAxisZ_3D.Thickness = 2;
-
-            //I made ViewPort public property to Access ViewPort object inside TrackPort3D
-            //to ViewPort add 3 children (3 axis)
-            _trackport.ViewPort.Children.Add(sAxisX_3D);
-            _trackport.ViewPort.Children.Add(sAxisY_3D);
-            _trackport.ViewPort.Children.Add(sAxisZ_3D);
+                //I made ViewPort public property to Access ViewPort object inside TrackPort3D
+                //to ViewPort add 3 children (3 axis)
+                _trackport.ViewPort.Children.Add(sAxisX_3D);
+                _trackport.ViewPort.Children.Add(sAxisY_3D);
+                _trackport.ViewPort.Children.Add(sAxisZ_3D);
+            }
 
             // Frame Model
             Model3DGroup gr = new Model3DGroup();
