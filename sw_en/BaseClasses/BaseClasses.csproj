@@ -90,6 +90,7 @@
     <Compile Include="Loading\Combination\CLoadCombination_E.cs" />
     <Compile Include="Loading\Combination\CLoadCombination_L.cs" />
     <Compile Include="Loading\Combination\CLoadCombination.cs" />
+    <Compile Include="Loading\LimitStates\CLimitState.cs" />
     <Compile Include="Loading\Loads\CLoad.cs" />
     <Compile Include="Loading\Loads\Member\CMLoad_11.cs" />
     <Compile Include="Loading\Loads\Member\CMLoad_12.cs" />

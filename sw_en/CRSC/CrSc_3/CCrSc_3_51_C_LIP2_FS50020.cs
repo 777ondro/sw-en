@@ -47,10 +47,8 @@ namespace CRSC
             set { m_fc_lip2 = value; }
         }
 
-        public CCrSc_3_51_C_LIP2_FS50020(float fh = 0.5f, float fb = 0.1f, float fc_lip1 = 0.02f, float fc_lip2 = 0.05f, float ft = 0.002f)
+        public CCrSc_3_51_C_LIP2_FS50020(float fh, float fb, float fc_lip1, float fc_lip2, float ft, Color color_temp)
       {
-            CSColor = Colors.DarkGreen;
-
             //ITotNoPoints = 22;
             IsShapeSolid = true;
             ITotNoPoints = 22;
@@ -59,6 +57,9 @@ namespace CRSC
             b = fb;
             m_ft_f = ft;
             m_ft_w = ft;
+
+            CSColor = color_temp;
+
             m_fd = fh - 2 * ft;
             m_fc_lip1 = fc_lip1;
             m_fc_lip2 = fc_lip2;

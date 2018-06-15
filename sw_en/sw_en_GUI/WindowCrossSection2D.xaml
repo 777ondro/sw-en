@@ -15,9 +15,11 @@
             </MenuItem>
             <MenuItem Header="GCS"></MenuItem>
             <MenuItem Header="Test">
-                <MenuItem x:Name="menuItemTest1" Header="Draw test" Click="menuItemTest1_Click"></MenuItem>
+                <MenuItem Name="menuItemTest1" Header="Draw test" Click="menuItemTest1_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <Canvas x:Name="canvasForImage" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10"/>
+        <Canvas Name="canvasForImage" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10">
+            <!--<Line X1="50" Y1="50" X2="200" Y2="200" Stroke="Green"/> -->
+        </Canvas>
     </Grid>
 </Window>

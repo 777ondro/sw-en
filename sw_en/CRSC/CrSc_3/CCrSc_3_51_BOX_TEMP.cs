@@ -36,18 +36,19 @@ namespace CRSC
             set { m_fd = value; }
         }
 
-        public CCrSc_3_51_BOX_TEMP(float fh = 0.5f, float fb = 0.1f, float ft = 0.002f)
+        public CCrSc_3_51_BOX_TEMP(float fh, float fb, float ft, Color color_temp)
         {
-            CSColor = Colors.DarkGreen;
-
-            //ITotNoPoints = 22;
+            //ITotNoPoints = 16;
             IsShapeSolid = false;
-            INoPointsIn = INoPointsOut = 22; // vykreslujeme ako n-uholnik, pocet bodov n
+            INoPointsIn = INoPointsOut = 16; // vykreslujeme ako n-uholnik, pocet bodov n
 
             h = fh;
             b = fb;
             m_ft_f = ft;
             m_ft_w = ft;
+
+            CSColor = color_temp;
+
             m_fd = fh - 2 * ft;
 
             fz_stif1 = 0.04f;
@@ -170,7 +171,7 @@ namespace CRSC
             CrScPointsIn[6, 1] = 0;                             // z
 
             // Point No. 8
-            CrScPointsOut[7, 0] = CrScPointsIn[5, 0];           // y
+            CrScPointsIn[7, 0] = CrScPointsIn[5, 0];           // y
             CrScPointsIn[7, 1] = -CrScPointsIn[5, 1];          // z
 
             // Point No. 9

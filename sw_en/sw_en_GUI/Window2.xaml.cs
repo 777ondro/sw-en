@@ -92,7 +92,7 @@ namespace sw_en_GUI
                 //gr.Children.Add(new AmbientLight());
 
                 // Default color
-                SolidColorBrush brushDefault = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                SolidColorBrush brushDefault = new SolidColorBrush(Colors.Red);
 
                 bool bShowGlobalAxis = true;
 
@@ -521,7 +521,7 @@ namespace sw_en_GUI
 
                 _trackport.Model = (Model3D)gr;
 
-                bool bDisplayMembers_WireFrame = false;
+                bool bDisplayMembers_WireFrame = true;
                 // Todo - Zjednotit funckie pre vykreslovanie v oknach WIN 2, AAC a PORTAL FRAME
                 // Todo - Memory leak v objekte ScreenSpaceLines3D
 

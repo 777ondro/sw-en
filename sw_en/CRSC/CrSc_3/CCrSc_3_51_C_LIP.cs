@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using MATH;
 
 namespace CRSC
@@ -30,7 +31,7 @@ namespace CRSC
             set { m_fd = value; }
         }
 
-        public CCrSc_3_51_C_LIP(float fh, float fb, float fc_lip, float ft)
+        public CCrSc_3_51_C_LIP(float fh, float fb, float fc_lip, float ft, Color color_temp)
       {
             //ITotNoPoints = 12;
             IsShapeSolid = true;

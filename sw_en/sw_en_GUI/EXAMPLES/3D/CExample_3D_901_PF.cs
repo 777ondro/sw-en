@@ -92,12 +92,23 @@ namespace sw_en_GUI.EXAMPLES._3D
                 iPurlinNoInOneFrame = 2 * iOneRafterPurlinNo;
             }
 
+            // Alligments
+            float fMainColumnStart = 0f;
+            float fMainColumnEnd = 0f;
+            float fRafterStart = 0f;
+            float fRafterEnd = 0f;
+            float fEavesPurlinStart = 0f;
+            float fEavesPurlinEnd = 0f;
+            float fGirtStart = 0f;
+            float fGirtEnd = 0f;
+            float fPurlinStart = 0f;
+            float fPurlinEnd = 0f;
+
             m_arrNodes = new BaseClasses.CNode[iFrameNodesNo * iFrameNo + iFrameNo * iGirdNoInOneFrame + iFrameNo * iPurlinNoInOneFrame];
             m_arrMembers = new CMember[iMainColumnNo + iRafterNo + iEavesPurlinNo + (iFrameNo - 1) * iGirdNoInOneFrame + (iFrameNo - 1) * iPurlinNoInOneFrame];
             m_arrMat = new CMat_00[1];
             m_arrCrSc = new CRSC.CCrSc[5];
             m_arrNSupports = new BaseClasses.CNSupport[2 * iFrameNo];
-            //m_arrNLoads = new BaseClasses.CNLoad[35];
 
             // Materials
             // Materials List - Materials Array - Fill Data of Materials Array
@@ -105,17 +116,12 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Cross-sections
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
-            //m_arrCrSc[0] = new CCrSc_0_05(0.5f, 0.2f); // Main Column
-            m_arrCrSc[0] = new CCrSc_3_51_BOX_TEMP(0.5f, 0.2f, 0.002f);
-            //m_arrCrSc[1] = new CCrSc_0_05(0.6f, 0.2f); // Rafter
-            m_arrCrSc[1] = new CCrSc_3_51_BOX_TEMP(0.4f, 0.2f, 0.00115f);
-            //m_arrCrSc[2] = new CCrSc_0_05(0.4f, 0.2f); // Eaves Purlin
-            m_arrCrSc[2] = new CCrSc_3_51_C_LIP2_FS50020(0.5f, 0.1f, 0.02f, 0.05f, 0.01f);
-            m_arrCrSc[3] = new CCrSc_3_51_C_LIP2_FS50020(0.3f, 0.08f, 0.02f, 0.05f, 0.01f);
-            m_arrCrSc[4] = new CCrSc_3_51_C_LIP2_FS50020(0.35f, 0.10f, 0.015f, 0.065f, 0.001f);
+            m_arrCrSc[0] = new CCrSc_3_51_BOX_TEMP(0.5f, 0.2f, 0.002f, Colors.Violet); // Main Column
+            m_arrCrSc[1] = new CCrSc_3_51_BOX_TEMP(0.4f, 0.2f, 0.00115f, Colors.Green); // Rafter
+            m_arrCrSc[2] = new CCrSc_3_51_C_LIP2_FS50020(0.5f, 0.1f, 0.02f, 0.05f, 0.01f, Colors.Thistle);  // Eaves Purlin
+            m_arrCrSc[3] = new CCrSc_3_51_C_LIP2_FS50020(0.3f, 0.08f, 0.02f, 0.05f, 0.01f, Colors.Orange);  // Girt Purlin
+            m_arrCrSc[4] = new CCrSc_3_51_C_LIP2_FS50020(0.35f, 0.10f, 0.015f, 0.065f, 0.001f, Colors.SlateBlue); // Purlin
 
-            m_arrCrSc[0].CSColor = Colors.DarkKhaki;
-            m_arrCrSc[1].CSColor = Colors.DarkOrange;
             m_arrCrSc[2].CSColor = Colors.DarkCyan;
             m_arrCrSc[3].CSColor = Colors.DimGray;
             m_arrCrSc[4].CSColor = Colors.DarkSalmon;
@@ -137,18 +143,18 @@ namespace sw_en_GUI.EXAMPLES._3D
             for (int i = 0; i < iFrameNo; i++)
             {
                 // Main Column
-                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 0] = new CMember(i * (iFrameNodesNo - 1) + 1, m_arrNodes[i * iFrameNodesNo + 0], m_arrNodes[i * iFrameNodesNo + 1], m_arrCrSc[0], -0.1f, -0.1f, 0f, 0);
+                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 0] = new CMember(i * (iFrameNodesNo - 1) + 1, m_arrNodes[i * iFrameNodesNo + 0], m_arrNodes[i * iFrameNodesNo + 1], m_arrCrSc[0], fMainColumnStart, -fMainColumnEnd, 0f, 0);
                 // Rafters
-                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 1] = new CMember(i * (iFrameNodesNo - 1) + 2, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[i * iFrameNodesNo + 2], m_arrCrSc[1], -0.1f, -0.1f, 0f, 0);
-                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 2] = new CMember(i * (iFrameNodesNo - 1) + 3, m_arrNodes[i * iFrameNodesNo + 2], m_arrNodes[i * iFrameNodesNo + 3], m_arrCrSc[1], -0.1f, -0.1f, 0f, 0);
+                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 1] = new CMember(i * (iFrameNodesNo - 1) + 2, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[i * iFrameNodesNo + 2], m_arrCrSc[1], fRafterStart, fRafterEnd, 0f, 0);
+                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 2] = new CMember(i * (iFrameNodesNo - 1) + 3, m_arrNodes[i * iFrameNodesNo + 2], m_arrNodes[i * iFrameNodesNo + 3], m_arrCrSc[1], fRafterStart, fRafterEnd, 0f, 0);
                 // Main Column
-                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 3] = new CMember(i * (iFrameNodesNo - 1) + 4, m_arrNodes[i * iFrameNodesNo + 3], m_arrNodes[i * iFrameNodesNo + 4], m_arrCrSc[0], -0.1f, -0.1f, 0f, 0);
+                m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 3] = new CMember(i * (iFrameNodesNo - 1) + 4, m_arrNodes[i * iFrameNodesNo + 3], m_arrNodes[i * iFrameNodesNo + 4], m_arrCrSc[0], fMainColumnStart, fMainColumnEnd, 0f, 0);
 
                 // Eaves Purlins
                 if (i < (iFrameNo - 1))
                 {
-                    m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 4] = new CMember((i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 5, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[(i + 1) * iFrameNodesNo + 1], m_arrCrSc[2], -0.1f, -0.1f, 0f, 0);
-                    m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 5] = new CMember((i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 6, m_arrNodes[i * iFrameNodesNo + 3], m_arrNodes[(i + 1) * iFrameNodesNo + 3], m_arrCrSc[2], -0.1f, -0.1f, 0f, 0);
+                    m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 4] = new CMember((i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 5, m_arrNodes[i * iFrameNodesNo + 1], m_arrNodes[(i + 1) * iFrameNodesNo + 1], m_arrCrSc[2], fEavesPurlinStart, fEavesPurlinEnd, 0f, 0);
+                    m_arrMembers[(i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 5] = new CMember((i * iEavesPurlinNoInOneFrame) + i * (iFrameNodesNo - 1) + 6, m_arrNodes[i * iFrameNodesNo + 3], m_arrNodes[(i + 1) * iFrameNodesNo + 3], m_arrCrSc[2], fEavesPurlinStart, fEavesPurlinEnd, 0f, 0);
                 }
             }
 
@@ -178,12 +184,12 @@ namespace sw_en_GUI.EXAMPLES._3D
                 {
                     for (int j = 0; j < iOneColumnGridNo; j++)
                     {
-                        m_arrMembers[i_temp_numberofMembers + i * iGirdNoInOneFrame + j] = new CMember(i_temp_numberofMembers + i * iGirdNoInOneFrame + j + 1, m_arrNodes[i_temp_numberofNodes + i * iGirdNoInOneFrame + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iGirdNoInOneFrame + j], m_arrCrSc[3], -0.1f, -0.1f, 0f, 0);
+                        m_arrMembers[i_temp_numberofMembers + i * iGirdNoInOneFrame + j] = new CMember(i_temp_numberofMembers + i * iGirdNoInOneFrame + j + 1, m_arrNodes[i_temp_numberofNodes + i * iGirdNoInOneFrame + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iGirdNoInOneFrame + j], m_arrCrSc[3], fGirtStart, fGirtEnd, 0f, 0);
                     }
 
                     for (int j = 0; j < iOneColumnGridNo; j++)
                     {
-                        m_arrMembers[i_temp_numberofMembers + i * iGirdNoInOneFrame + iOneColumnGridNo + j] = new CMember(i_temp_numberofMembers + i * iGirdNoInOneFrame + iOneColumnGridNo + j + 1, m_arrNodes[i_temp_numberofNodes + i * iGirdNoInOneFrame + iOneColumnGridNo + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iGirdNoInOneFrame + iOneColumnGridNo + j], m_arrCrSc[3], -0.1f, -0.1f, 0f, 0);
+                        m_arrMembers[i_temp_numberofMembers + i * iGirdNoInOneFrame + iOneColumnGridNo + j] = new CMember(i_temp_numberofMembers + i * iGirdNoInOneFrame + iOneColumnGridNo + j + 1, m_arrNodes[i_temp_numberofNodes + i * iGirdNoInOneFrame + iOneColumnGridNo + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iGirdNoInOneFrame + iOneColumnGridNo + j], m_arrCrSc[3], fGirtStart, fGirtEnd, 0f, 0);
                     }
                 }
             }
@@ -220,12 +226,12 @@ namespace sw_en_GUI.EXAMPLES._3D
                 {
                     for (int j = 0; j < iOneRafterPurlinNo; j++)
                     {
-                        m_arrMembers[i_temp_numberofMembers + i * iPurlinNoInOneFrame + j] = new CMember(i_temp_numberofMembers + i * iPurlinNoInOneFrame + j + 1, m_arrNodes[i_temp_numberofNodes + i * iPurlinNoInOneFrame + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iPurlinNoInOneFrame + j], m_arrCrSc[4], -0.1f, -0.1f, 0f, 0);
+                        m_arrMembers[i_temp_numberofMembers + i * iPurlinNoInOneFrame + j] = new CMember(i_temp_numberofMembers + i * iPurlinNoInOneFrame + j + 1, m_arrNodes[i_temp_numberofNodes + i * iPurlinNoInOneFrame + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iPurlinNoInOneFrame + j], m_arrCrSc[4], fPurlinStart, fPurlinEnd, 0f, 0);
                     }
 
                     for (int j = 0; j < iOneRafterPurlinNo; j++)
                     {
-                        m_arrMembers[i_temp_numberofMembers + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j] = new CMember(i_temp_numberofMembers + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j + 1, m_arrNodes[i_temp_numberofNodes + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iPurlinNoInOneFrame + iOneRafterPurlinNo + j], m_arrCrSc[4], -0.1f, -0.1f, 0f, 0);
+                        m_arrMembers[i_temp_numberofMembers + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j] = new CMember(i_temp_numberofMembers + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j + 1, m_arrNodes[i_temp_numberofNodes + i * iPurlinNoInOneFrame + iOneRafterPurlinNo + j], m_arrNodes[i_temp_numberofNodes + (i + 1) * iPurlinNoInOneFrame + iOneRafterPurlinNo + j], m_arrCrSc[4], fPurlinStart, fPurlinEnd, 0f, 0);
                     }
                 }
             }
@@ -253,6 +259,41 @@ namespace sw_en_GUI.EXAMPLES._3D
 
             // Create Release / Hinge Objects
             //m_arrMembers[02].CnRelease1 = new CNRelease(6, m_arrMembers[02].NodeStart, bMembRelase1, 0);
+
+            // Loading
+
+            m_arrLimitStates = new CLimitState[2];
+            m_arrLimitStates[0] = new CLimitState(ELSType.eLS_ULS);
+            m_arrLimitStates[1] = new CLimitState(ELSType.eLS_SLS);
+
+            m_arrLoadCombs = new CLoadCombination[6];
+            m_arrLoadCombs[0] = new CLoadCombination(ELSType.eLS_ULS);
+            m_arrLoadCombs[1] = new CLoadCombination(ELSType.eLS_ULS);
+            m_arrLoadCombs[2] = new CLoadCombination(ELSType.eLS_ULS);
+            m_arrLoadCombs[3] = new CLoadCombination(ELSType.eLS_ULS);
+            m_arrLoadCombs[4] = new CLoadCombination(ELSType.eLS_SLS);
+            m_arrLoadCombs[5] = new CLoadCombination(ELSType.eLS_SLS);
+
+            m_arrLoadCases = new CLoadCase[6];
+            m_arrLoadCases[0] = new CLoadCase();
+            m_arrLoadCases[1] = new CLoadCase();
+            m_arrLoadCases[2] = new CLoadCase();
+            m_arrLoadCases[3] = new CLoadCase();
+            m_arrLoadCases[4] = new CLoadCase();
+            m_arrLoadCases[5] = new CLoadCase();
+
+            m_arrLimitStates = new CLimitState[2];
+            m_arrLimitStates[0] = new CLimitState(ELSType.eLS_ULS);
+            m_arrLimitStates[1] = new CLimitState(ELSType.eLS_SLS);
+
+            m_arrNLoads = new BaseClasses.CNLoad[3];
+            m_arrNLoads[0] = new CNLoadAll(m_arrNodes[1], 0, 0, -4f, 0, 0, 0, true, 0);
+            m_arrNLoads[1] = new CNLoadAll(m_arrNodes[2], 0, 0, -4f, 0, 0, 0, true, 0);
+            m_arrNLoads[2] = new CNLoadAll(m_arrNodes[3], 0, 0, -4f, 0, 0, 0, true, 0);
+
+            m_arrMLoads = new BaseClasses.CMLoad[2];
+            m_arrMLoads[0] = new CMLoad_21(-0.8f, m_arrMembers[1], EMLoadTypeDistr.eMLT_FS_G_11, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
+            m_arrMLoads[1] = new CMLoad_21(-0.9f, m_arrMembers[2], EMLoadTypeDistr.eMLT_FS_G_11, EMLoadType.eMLT_F, EMLoadDirPCC1.eMLD_PCC_FZV_MYU, true, 0);
         }
 
         public void CalcPurlinNodeCoord(float x_rel, out float x_global, out float z_global)

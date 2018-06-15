@@ -21,18 +21,22 @@ namespace sw_en_GUI
     /// </summary>
     public partial class WindowCrossSection2D : Window
     {
+        int scale_unit = 1000; // mm
+        int modelposition_x = 700;
+        int modelposition_y = 500;
+
+        bool bDrawPoints = true;
+        bool bDrawOutLine = false;
+        bool bUsePolylineforDrawing = true;
+
+        bool bDrawPointNumbers = true;
+
         public WindowCrossSection2D()
         {
             InitializeComponent();
-            Point p = new Point(10, 10);
-
-            DrawPoint(p, Brushes.Red, Brushes.Red, 4, canvasForImage); // Temporary
-
-            //CCrSc_3_51_BOX_TEMP crsc_temp = new CCrSc_3_51_BOX_TEMP();
-            CCrSc_3_51_TRIANGLE_TEMP crsc_temp = new CCrSc_3_51_TRIANGLE_TEMP(0.866025f * 0.5f, 0.5f, 0.002f);
-            canvasForImage.Children.Clear();
-
-            DrawCrSc(crsc_temp);
+            // Temporary
+            //Point p = new Point(10, 10);
+            //DrawPoint(p, Brushes.Red, Brushes.Red, 4, canvasForImage);
         }
 
         public void SaveImage(Visual visual, int width, int height, string filePath)
@@ -51,8 +55,8 @@ namespace sw_en_GUI
 
         private void menuItemTest1_Click(object sender, RoutedEventArgs e)
         {
-            //CCrSc_3_51_BOX_TEMP crsc_temp = new CCrSc_3_51_BOX_TEMP();
-            CCrSc_3_51_TRIANGLE_TEMP crsc_temp = new CCrSc_3_51_TRIANGLE_TEMP(0.866025f * 0.5f, 0.5f, 0.002f);
+            CCrSc_3_51_BOX_TEMP crsc_temp = new CCrSc_3_51_BOX_TEMP(0.5f, 0.4f, 0.01f, Colors.LawnGreen);
+            //CCrSc_3_51_TRIANGLE_TEMP crsc_temp = new CCrSc_3_51_TRIANGLE_TEMP(0.866025f * 0.5f, 0.5f, 0.01f);
             canvasForImage.Children.Clear();
 
             DrawCrSc(crsc_temp);
@@ -60,14 +64,7 @@ namespace sw_en_GUI
 
         public void DrawCrSc(CCrSc_TW crsc)
         {
-            int scale_unit = 1000; // mm
-            int modelposition_x = 700;
-            int modelposition_y = 500;
-
             // Definition Points
-            bool bDrawPoints = true;
-            bool bDrawOutLine = true;
-
             if (bDrawPoints)
             {
                 // Outer outline points
@@ -89,56 +86,96 @@ namespace sw_en_GUI
                 }
             }
 
+            // Outlines
             if (bDrawOutLine)
             {
-                // Outer outline lines
+                if (bUsePolylineforDrawing)
+                {
+                    // Outer outline lines
+                    if (crsc.CrScPointsOut != null) // If is array of points not empty
+                    {
+                        DrawPolyLine(crsc.CrScPointsOut, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                    }
+
+                    // Internal outline lines
+                    if (crsc.CrScPointsIn != null) // If is array of points not empty
+                    {
+                        DrawPolyLine(crsc.CrScPointsIn, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                    }
+                }
+                else
+                {
+                    // Outer outline lines
+                    if (crsc.CrScPointsOut != null) // If is array of points not empty
+                    {
+                        for (int i = 0; i < crsc.INoPointsOut; i++)
+                        {
+                            // Add a Line
+                            Line l = new Line();
+
+                            l.X1 = modelposition_x + scale_unit * crsc.CrScPointsOut[i, 0];
+                            l.Y1 = modelposition_y + scale_unit * crsc.CrScPointsOut[i, 1];
+
+                            if (i < (crsc.INoPointsOut - 1))
+                            {
+                                l.X2 = modelposition_x + scale_unit * crsc.CrScPointsOut[i + 1, 0];
+                                l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsOut[i + 1, 1];
+                            }
+                            else
+                            {
+                                l.X2 = modelposition_x + scale_unit * crsc.CrScPointsOut[0, 0];
+                                l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsOut[0, 1];
+                            }
+
+                            DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                        }
+                    }
+
+                    // Internal outline lines
+                    if (crsc.CrScPointsIn != null) // If is array of points not empty
+                    {
+                        for (int i = 0; i < crsc.INoPointsIn; i++)
+                        {
+                            // Add a Line
+                            Line l = new Line();
+                            l.X1 = modelposition_x + scale_unit * crsc.CrScPointsIn[i, 0];
+                            l.Y1 = modelposition_y + scale_unit * crsc.CrScPointsIn[i, 1];
+
+                            if (i < (crsc.INoPointsIn - 1))
+                            {
+                                l.X2 = modelposition_x + scale_unit * crsc.CrScPointsIn[i + 1, 0];
+                                l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsIn[i + 1, 1];
+                            }
+                            else
+                            {
+                                l.X2 = modelposition_x + scale_unit * crsc.CrScPointsIn[0, 0];
+                                l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsIn[0, 1];
+                            }
+
+                            DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                        }
+                    }
+                }
+            }
+
+            // Definition Point Numbers
+            if (bDrawPointNumbers)
+            {
+                // Outer outline points
                 if (crsc.CrScPointsOut != null) // If is array of points not empty
                 {
                     for (int i = 0; i < crsc.INoPointsOut; i++)
                     {
-                        // Add a Line
-                        Line l = new Line();
-
-                        l.X1 = modelposition_x + scale_unit * crsc.CrScPointsOut[i, 0];
-                        l.Y1 = modelposition_y + scale_unit * crsc.CrScPointsOut[i, 1];
-
-                        if (i < (crsc.INoPointsOut - 1))
-                        {
-                            l.X2 = modelposition_x + scale_unit * crsc.CrScPointsOut[i + 1, 0];
-                            l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsOut[i + 1, 1];
-                        }
-                        else
-                        {
-                            l.X2 = modelposition_x + scale_unit * crsc.CrScPointsOut[0, 0];
-                            l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsOut[0, 1];
-                        }
-
-                        DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                        DrawText((i + 1).ToString(), modelposition_x + scale_unit * crsc.CrScPointsOut[i, 0], modelposition_x + scale_unit * crsc.CrScPointsOut[i, 1], Brushes.Blue, canvasForImage);
                     }
                 }
 
-                // Internal outline lines
-                if (crsc.CrScPointsIn != null) // If is array of points not empty
+                // Internal outline points
+                if (crsc.CrScPointsIn != null && crsc.CrScPointsOut != null) // If is array of points not empty
                 {
                     for (int i = 0; i < crsc.INoPointsIn; i++)
                     {
-                        // Add a Line
-                        Line l = new Line();
-                        l.X1 = modelposition_x + scale_unit * crsc.CrScPointsIn[i, 0];
-                        l.Y1 = modelposition_y + scale_unit * crsc.CrScPointsIn[i, 1];
-
-                        if (i < (crsc.INoPointsIn - 1))
-                        {
-                            l.X2 = modelposition_x + scale_unit * crsc.CrScPointsIn[i + 1, 0];
-                            l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsIn[i + 1, 1];
-                        }
-                        else
-                        {
-                            l.X2 = modelposition_x + scale_unit * crsc.CrScPointsIn[0, 0];
-                            l.Y2 = modelposition_y + scale_unit * crsc.CrScPointsIn[0, 1];
-                        }
-
-                        DrawLine(l, Brushes.Black, PenLineCap.Flat, PenLineCap.Flat, 2, canvasForImage);
+                        DrawText((/*crsc.INoPointsOut +*/ i + 1).ToString(), modelposition_x + scale_unit * crsc.CrScPointsIn[i,0], modelposition_x + scale_unit * crsc.CrScPointsIn[i, 1], Brushes.Green, canvasForImage);
                     }
                 }
             }
@@ -150,28 +187,67 @@ namespace sw_en_GUI
 		}
 
 		public void DrawLine(Line line, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
-		{
-			Line myLine = new Line();
-			myLine.Stretch = Stretch.Fill;
-			myLine.Stroke = color;
+        {
+            Line myLine = new Line();
+            myLine.Stretch = Stretch.Fill;
+            myLine.Stroke = color;
             myLine.X1 = line.X1;
             myLine.X2 = line.X2;
             myLine.Y1 = line.Y1;
             myLine.Y2 = line.Y2;
             myLine.StrokeThickness = thickness;
-			myLine.StrokeStartLineCap = startCap;
-			myLine.StrokeEndLineCap = endCap;
-			myLine.HorizontalAlignment = HorizontalAlignment.Left;
-			myLine.VerticalAlignment = VerticalAlignment.Center;
-			Canvas.SetTop(myLine, line.Y1);
-			Canvas.SetLeft(myLine, line.X1);
-			imageCanvas.Children.Add(myLine);
-		}
+            myLine.StrokeStartLineCap = startCap;
+            myLine.StrokeEndLineCap = endCap;
+            myLine.HorizontalAlignment = HorizontalAlignment.Left;
+            myLine.VerticalAlignment = VerticalAlignment.Center;
+            Canvas.SetTop(myLine, line.Y1);
+            Canvas.SetLeft(myLine, line.X1);
+            imageCanvas.Children.Add(myLine);
+        }
 
-		/// <summary>
-		/// Draw methods for each Draw Element Type
-		/// </summary>
-		public void DrawRectangle(SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas, Point lt, Point br)
+        public void DrawPolyLine(float [,] arrPoints, SolidColorBrush color, PenLineCap startCap, PenLineCap endCap, double thickness, Canvas imageCanvas)
+        {
+            PointCollection points = new PointCollection();
+
+            for (int i = 0; i < arrPoints.Length / 2; i++)
+            {
+                if(i < ((arrPoints.Length / 2)-1))
+                   points.Add(new Point(modelposition_x + scale_unit * arrPoints[i, 0], modelposition_y + scale_unit * arrPoints[i, 1]));
+                else
+                    points.Add(new Point(modelposition_x + scale_unit * arrPoints[0, 0], modelposition_y + scale_unit * arrPoints[0, 1])); // Last point is same as first one
+            }
+
+            Polyline myLine = new Polyline();
+            myLine.Stretch = Stretch.Fill;
+            myLine.Stroke = color;
+            myLine.Points = points;
+            myLine.StrokeThickness = thickness;
+            myLine.StrokeStartLineCap = startCap;
+            myLine.StrokeEndLineCap = endCap;
+            myLine.HorizontalAlignment = HorizontalAlignment.Left;
+            myLine.VerticalAlignment = VerticalAlignment.Center;
+            Canvas.SetTop(myLine, myLine.Points[0].Y);
+            Canvas.SetLeft(myLine, myLine.Points[0].X);
+            imageCanvas.Children.Add(myLine);
+        }
+
+        public void DrawText(string text, double posx, double posy, SolidColorBrush color, Canvas imageCanvas)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = text;
+            textBlock.Foreground = color;
+            Canvas.SetLeft(textBlock, posx);
+            Canvas.SetTop(textBlock, posy);
+            //textBlock.RenderTransform = new RotateTransform(0, 0, 0);
+            textBlock.Margin = new Thickness(5, -200, 0, 0);
+            textBlock.FontSize = 30;
+            imageCanvas.Children.Add(textBlock);
+        }
+
+        /// <summary>
+        /// Draw methods for each Draw Element Type
+        /// </summary>
+        public void DrawRectangle(SolidColorBrush strokeColor, SolidColorBrush fillColor, double thickness, Canvas imageCanvas, Point lt, Point br)
 		{
 			Rectangle rect = new Rectangle();
 			rect.Stretch = Stretch.Fill;

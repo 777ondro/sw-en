@@ -22,6 +22,7 @@ using CRSC;
 using sw_en_GUI;
 using sw_en_GUI.EXAMPLES._3D;
 using M_AS4600;
+using M_EC1.AS_NZS;
 
 namespace PFD
 {
@@ -139,6 +140,26 @@ namespace PFD
 
             // Clear results of previous calculation
             DeleteCalculationResults();
+
+            // Load Generation
+            // Self-weigth (1170.1)
+
+            // Wind
+            CCalcul_1170_2 wind = new CCalcul_1170_2();
+
+            // Snow
+            CCalcul_1170_3 snow = new CCalcul_1170_3();
+
+            // Earthquake
+            CCalcul_1170_5 eq = new CCalcul_1170_5();
+
+
+
+
+
+
+
+
 
             //Calculate Internal Forces
             // Todo - napojit FEM vypocet

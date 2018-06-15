@@ -73,6 +73,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AS_NZS\AS_NZS_1170_0.cs" />
+    <Compile Include="AS_NZS\AS_NZS_1170_1.cs" />
+    <Compile Include="AS_NZS\AS_NZS_1170_2.cs" />
+    <Compile Include="AS_NZS\AS_NZS_1170_5.cs" />
+    <Compile Include="AS_NZS\AS_NZS_1170_4.cs" />
+    <Compile Include="AS_NZS\AS_NZS_1170_3.cs" />
+    <Compile Include="AS_NZS\CCalcul_1170_3.cs" />
+    <Compile Include="AS_NZS\CCalcul_1170_5.cs" />
+    <Compile Include="AS_NZS\CCalcul_1170_1.cs" />
+    <Compile Include="AS_NZS\CCalcul_1170_2.cs" />
     <Compile Include="EC_1_4\EC_1_4.cs" />
     <Compile Include="Form_M_EC1.cs">
       <SubType>Form</SubType>
