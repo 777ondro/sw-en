@@ -52,18 +52,18 @@ namespace sw_en_GUI.EXAMPLES._2D
             // CrSc List - CrSc Array - Fill Data of Cross-sections Array
             // Cross-section
             m_arrCrSc[0] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_arrCrSc[0].A_g = 1.18095238095E-02f; // Unit [m^2]
-            m_arrCrSc[0].I_y = 9.52380952381E-05f; // Unit [m^4]
+            m_arrCrSc[0].FA_g = 1.18095238095E-02f; // Unit [m^2]
+            m_arrCrSc[0].FI_y = 9.52380952381E-05f; // Unit [m^4]
             m_arrCrSc[0].m_Mat = m_arrMat[0]; // Set CrSc Material
 
             m_arrCrSc[1] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_arrCrSc[1].A_g = 1.48571428571E-02f; // Unit [m^2]
-            m_arrCrSc[1].I_y = 1.90476190476E-04f; // Unit [m^4]
+            m_arrCrSc[1].FA_g = 1.48571428571E-02f; // Unit [m^2]
+            m_arrCrSc[1].FI_y = 1.90476190476E-04f; // Unit [m^4]
             m_arrCrSc[1].m_Mat = m_arrMat[0]; // Set CrSc Material
 
             m_arrCrSc[2] = new CCrSc_0_00();  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            m_arrCrSc[2].A_g = 1.35238095238E-02f; // Unit [m^2]
-            m_arrCrSc[2].I_y = 1.42857142857E-07f; // Unit [m^4]
+            m_arrCrSc[2].FA_g = 1.35238095238E-02f; // Unit [m^2]
+            m_arrCrSc[2].FI_y = 1.42857142857E-07f; // Unit [m^4]
             m_arrCrSc[2].m_Mat = m_arrMat[0]; // Set CrSc Material
 
             // Nodes

@@ -95,8 +95,7 @@
 				<MenuItem x:Name="menuItemView3Dview" Header="3D view" Click="menuItemView3Dview_Click"></MenuItem>
 				<MenuItem x:Name="menuItemView2Dview" Header="2D Paint" Click="menuItemView2Dview_Click"></MenuItem>
 				<MenuItem x:Name="menuItemViewShowModel" Header="Show model" Click="menuItemViewShowModel_Click" ></MenuItem>
-                <MenuItem x:Name="menuItemViewCrSc" Header="Show cross-section" Click="menuItemViewCrSc_Click" ></MenuItem>
-            </MenuItem>
+			</MenuItem>
 			<MenuItem Header="Model">
                 <MenuItem x:Name="menuItemStructure" Header="Structure">
                     <MenuItem x:Name="menuItemNode" Header="Node"></MenuItem>
@@ -202,10 +201,8 @@
                         <MenuItem x:Name="menuItemExample3D_50" Header="Example 50 - One Member" Click="menuItemExample3D_50_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_80" Header="Example 80 - House" Click="menuItemExample3D_80_Click"></MenuItem>
                         <MenuItem x:Name="menuItemExample3D_90" Header="Example 90 - Cube" Click="menuItemExample3D_90_Click"></MenuItem>
-						<MenuItem x:Name="menuItemExample3D_Ondro" Header="Example - Ondro" Click="menuItemExample3D_Ondro_Click"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_901_PF" Header="Example - PF" Click="menuItemExample3D_901_PF_Click"></MenuItem>
-                        <MenuItem x:Name="menuItemExample3D_902_OM" Header="Example - OM" Click="menuItemExample3D_902_OM_Click"></MenuItem>
-                    </MenuItem>
+								<MenuItem x:Name="menuItemExample3D_Ondro" Header="Example - Ondro" Click="menuItemExample3D_Ondro_Click"></MenuItem>
+					</MenuItem>
                 </MenuItem>
                 <MenuItem x:Name="menuItemSystem" Header="System Properties"></MenuItem>
                 <MenuItem x:Name="menuItemCheckUpdate" Header="Check for Updates"></MenuItem>

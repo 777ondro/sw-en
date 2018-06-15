@@ -164,10 +164,6 @@
       <Project>{28044445-e8dd-4041-b534-3fee5c07237f}</Project>
       <Name>SharedLibraries</Name>
     </ProjectReference>
-    <ProjectReference Include="..\sw_en_GUI\sw_en_GUI.csproj">
-      <Project>{76f7949b-0055-4004-bf34-bded850ae842}</Project>
-      <Name>sw_en_GUI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

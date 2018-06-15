@@ -50,7 +50,7 @@ namespace BaseClasses
             FTime = fTime;
 
             // Set Load Model "material" Color and Opacity - default
-            m_Color = Color.FromRgb(100, 20, 20);
+            m_Color = Color.FromRgb(200, 20, 20);
             m_Material.Brush = new SolidColorBrush(m_Color);
             m_Material.Brush.Opacity = m_fOpacity = 0.9f;
         }

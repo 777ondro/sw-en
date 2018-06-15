@@ -20,8 +20,8 @@ namespace CRSC
 
             ITotNoPoints = 12;
             INoAuxPoints = 0;
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
 
             // Create Array - allocate memory
             CrScPointsOut = new float[ITotNoPoints, 2];

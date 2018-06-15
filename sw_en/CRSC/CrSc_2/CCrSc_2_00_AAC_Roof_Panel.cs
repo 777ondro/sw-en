@@ -23,8 +23,8 @@ namespace CRSC
             //ITotNoPoints = 12;
             ITotNoPoints = 12;
             INoAuxPoints = 0;
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
 
             // Create Array - allocate memory
             CrScPointsOut = new float[ITotNoPoints, 2];
@@ -49,22 +49,25 @@ namespace CRSC
 
             float xc = 0.03f; // 30 mm ???
 
-            float ya = 0.3f * (float)h;
-            float yb = 0.4f * (float)h;
+            float ya = 0.3f * Fh;
+            float yb = 0.4f * Fh;
+
+            float h = (float)Fh;
+            float b = (float)Fb;
 
             CrScPointsOut[0, 0] = 0.0f;
-            CrScPointsOut[0, 1] = (float)h;
-            CrScPointsOut[1, 0] = (float)b;
-            CrScPointsOut[1, 1] = (float)h;
-            CrScPointsOut[2, 0] = (float)b;
-            CrScPointsOut[2, 1] = (float)h - ya;
-            CrScPointsOut[3, 0] = (float)b + xc;
-            CrScPointsOut[3, 1] = (float)h - yb;
-            CrScPointsOut[4, 0] = (float)b + xc;
+            CrScPointsOut[0, 1] = h;
+            CrScPointsOut[1, 0] = b;
+            CrScPointsOut[1, 1] = h;
+            CrScPointsOut[2, 0] = b;
+            CrScPointsOut[2, 1] = h - ya;
+            CrScPointsOut[3, 0] = b + xc;
+            CrScPointsOut[3, 1] = h - yb;
+            CrScPointsOut[4, 0] = b + xc;
             CrScPointsOut[4, 1] = yb;
-            CrScPointsOut[5, 0] = (float)b;
+            CrScPointsOut[5, 0] = b;
             CrScPointsOut[5, 1] = ya;
-            CrScPointsOut[6, 0] = (float)b;
+            CrScPointsOut[6, 0] = b;
             CrScPointsOut[6, 1] = 0;
             CrScPointsOut[7, 0] = 0;
             CrScPointsOut[7, 1] = 0;
@@ -73,9 +76,9 @@ namespace CRSC
             CrScPointsOut[9, 0] = xc;
             CrScPointsOut[9, 1] = yb;
             CrScPointsOut[10, 0] = xc;
-            CrScPointsOut[10, 1] = (float)h - yb;
+            CrScPointsOut[10, 1] = h - yb;
             CrScPointsOut[11, 0] = 0;
-            CrScPointsOut[11, 1] = (float)h - ya;
+            CrScPointsOut[11, 1] = h - ya;
         }
 
         protected override void loadCrScIndicesFrontSide()

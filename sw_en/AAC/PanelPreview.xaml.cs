@@ -93,7 +93,7 @@ namespace AAC
 
                 double y2_upper = 0.06;
                 for (int i = 0; i < obj_panel.Long_Upper_Bars_Array.Length; i++)
-                    model.Children.Add(obj_panel.Long_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, (float)obj_panel.Cross_Section.h - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), new Point3D(obj_panel.Long_Upper_Bars_Array[0].fL - obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, (float)obj_panel.Cross_Section.h - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), obj_panel.Long_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
+                    model.Children.Add(obj_panel.Long_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), new Point3D(obj_panel.Long_Upper_Bars_Array[0].fL - obj_panel.fc_2, y2_upper + i * obj_panel.fsl_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - 0.5 * obj_panel.fd_long_upper), obj_panel.Long_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
 
                 double x1 = 0.03;
 
@@ -129,8 +129,9 @@ namespace AAC
                     model.Children.Add(obj_panel.Trans_Bottom_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_lower_start, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), new Point3D(trans_rein_position_x_array[i], trans_lower_start + l_trans_lower, obj_panel.fc_1 + obj_panel.fd_long_lower + 0.5 * obj_panel.fd_trans_lower), obj_panel.Trans_Bottom_Bars_Array[i].Cross_Section, brRein_l1, brRein_l2, brRein_l3, null));
 
                 for (int i = 0; i < obj_panel.Trans_Upper_Bars_Array.Length; i++)
-                    model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.h - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.h - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
+                    model.Children.Add(obj_panel.Trans_Upper_Bars_Array[i].GetMemberModel(eGCS, bIsReinfocementSurfaceTransparent, new Point3D(trans_rein_position_x_array[i], trans_upper_start, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), new Point3D(trans_rein_position_x_array[i], trans_upper_start + l_trans_upper, obj_panel.Cross_Section.Fh - obj_panel.fc_2 - obj_panel.fd_long_upper - 0.5 * obj_panel.fd_trans_upper), obj_panel.Trans_Upper_Bars_Array[i].Cross_Section, brRein_u1, brRein_u2, brRein_u3, null));
             }
+
 
             // Panel - Solid Surface
             if (bDisplayConcretePanel)
@@ -154,7 +155,6 @@ namespace AAC
             }
 
             // Transform (Rotate) panel to display it in system of WPF coordinates z_WPF = x_Panel, x_WPF = y_Panel, y_WPF = z_Panel
-            // Toto by sa asi malo zmazat, staci nastavit spravne poziciu a vektor pre kameru
             RotateTransform3D myRotateTransform3D = new RotateTransform3D();
             AxisAngleRotation3D rotation = new AxisAngleRotation3D(new Vector3D(1, 0, 0), 270);
             myRotateTransform3D.Rotation = rotation;

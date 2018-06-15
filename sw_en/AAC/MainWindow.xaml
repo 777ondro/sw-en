@@ -8,7 +8,10 @@
         Title="AAC Panel Design" Height="800" Width="1280" MinWidth="100" MinHeight="100" MaxWidth="1280" MaxHeight="800">
     
     <Grid>        
+        
         <StackPanel Name="myStackPanel" Background="AliceBlue" Width="300" Height="100" VerticalAlignment="Top" Margin="330,0,0,0" HorizontalAlignment="Left">
+            <TextBlock>len nieco na skusku chcem skusit commit a tak...lebo to nejako nefunguje</TextBlock>
+            
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,25,0,0" TextWrapping="Wrap" Text="AAC component" VerticalAlignment="Top" Width="95"/>
         <ComboBox Name ="ComboBox_AAC_Component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,25,0,0" SelectionChanged="ComboBox_AAC_Component_SelectionChanged" Height="20" SelectedIndex="3">
@@ -18,7 +21,7 @@
             <ComboBoxItem Content="Vertical Wall Panel 2 - arc"/>
             <ComboBoxItem Content="Horizontal Wall Panel"/>
             <ComboBoxItem Content="Beam"/>
-        </ComboBox>
+        </ComboBox>        
         
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,50,0,0" TextWrapping="Wrap" Text="Standard" VerticalAlignment="Top" Width="95"/>
         <ComboBox Name ="ComboBox_Standard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="155,50,0,0" SelectionChanged="ComboBox_Standard_SelectionChanged" Height="20" SelectedIndex="0">

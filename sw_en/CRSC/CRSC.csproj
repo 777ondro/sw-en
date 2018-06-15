@@ -119,10 +119,6 @@
     <Compile Include="CrSc_3\CCrSc_3_07.cs" />
     <Compile Include="CrSc_3\CCrSc_3_08.cs" />
     <Compile Include="CrSc_3\CCrSc_3_09.cs" />
-    <Compile Include="CrSc_3\CCrSc_3_51_TRIANGLE_TEMP.cs" />
-    <Compile Include="CrSc_3\CCrSc_3_51_BOX_TEMP.cs" />
-    <Compile Include="CrSc_3\CCrSc_3_51_C_LIP2_FS50020.cs" />
-    <Compile Include="CrSc_3\CCrSc_3_51_C_LIP.cs" />
     <Compile Include="CrSc_3\CCrSc_3_10.cs" />
     <Compile Include="CrSc_3\CCrSc_3_01.cs" />
     <Compile Include="CrSc_5\CCrSc_5_00.cs" />
@@ -130,16 +126,14 @@
     <Compile Include="CrSc_9\CCrSc_9_10.cs" />
     <Compile Include="CrSc_9\CCrSc_9_09.cs" />
     <Compile Include="CrSc_SW\CCrSc_GE.cs" />
-    <Compile Include="CCrSc_SO.cs" />
-    <Compile Include="CCrSc_TW.cs" />
-    <Compile Include="CSC.cs" />
+    <Compile Include="CSCClass.cs" />
     <Compile Include="CSGClass.cs" />
     <Compile Include="CSO.cs" />
-    <Compile Include="CSForm.cs">
+    <Compile Include="CSOForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CSForm.designer.cs">
-      <DependentUpon>CSForm.cs</DependentUpon>
+    <Compile Include="CSOForm.designer.cs">
+      <DependentUpon>CSOForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data_CSForm.cs">
       <SubType>Form</SubType>
@@ -159,8 +153,8 @@
     <EmbeddedResource Include="CRSC_Form.resx">
       <DependentUpon>CRSC_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CSForm.resx">
-      <DependentUpon>CSForm.cs</DependentUpon>
+    <EmbeddedResource Include="CSOForm.resx">
+      <DependentUpon>CSOForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Data_CSForm.resx">

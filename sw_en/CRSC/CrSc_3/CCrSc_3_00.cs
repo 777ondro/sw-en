@@ -80,15 +80,15 @@ namespace CRSC
 		    m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
 		    ITotNoPoints = (short)(8 * (short)m_iNumOfArcPoints + (8 + 4));
 
-		    h = fh;
-		    b = fb;
+		    Fh = fh;
+		    Fb = fb;
 		    m_ft_f = ft_f;
 		    m_ft_w = ft_w;
 		    m_fr_1 = fr_1;
 		    m_fr_2 = fr_2;
 		    m_fd = fd;
 
-		    m_fSlopeTaper = (((float)h - m_fd - 2*( m_fr_1 + m_fr_2)) / 2.0f) / (((float)b - m_ft_w - 2*(m_fr_1 + m_fr_2)) / 2.0f);
+		    m_fSlopeTaper = ((Fh - m_fd - 2*( m_fr_1 + m_fr_2)) / 2.0f) / ((Fb - m_ft_w - 2*(m_fr_1 + m_fr_2)) / 2.0f);
           
 		    //  m_fSlopeTaper = 0.08f; // Default
 
@@ -109,8 +109,8 @@ namespace CRSC
             m_iNumOfArcSegment = iNumOfArcSegment; // 8;
 		    m_iNumOfArcPoints = (short)(m_iNumOfArcSegment + 1); // Each arc is defined by number of segments + 1 point points
 
-		    h = fh;
-		    b = fb;
+		    Fh = fh;
+		    Fb = fb;
 		    m_ft_f = ft_f;
 		    m_ft_w = ft_w;
 		    m_fd = fd;
@@ -121,14 +121,14 @@ namespace CRSC
 		        ITotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 4 + 4));
 		        m_fr_1 = 0.0f;
 		        m_fr_2 = fr;
-		        m_fSlopeTaper = (((float)h - m_fd - 2 * m_fr_2) / 2.0f) / (((float)b - m_ft_w - 2 * m_fr_2) / 2.0f);
+		        m_fSlopeTaper = ((Fh - m_fd - 2 * m_fr_2) / 2.0f) / ((Fb - m_ft_w - 2 * m_fr_2) / 2.0f);
 		    }
 		    else if (m_sShape == 2)  // 2 -  Four radii at flanges roots, tapered or parallel flanges (4 auxiliary points)
 		    {
 		        ITotNoPoints = (short)(4 * (short)m_iNumOfArcPoints + (4 + 6 + 6));
 		        m_fr_1 = fr;
 		        m_fr_2 = 0.0f;
-		        m_fSlopeTaper = (2 * (((float)h - m_fd - 2 * m_fr_1)/ 2.0f - m_ft_f)) / (((float)b - m_ft_w - 2 * m_fr_1) / 2.0f);
+		        m_fSlopeTaper = (2 * ((Fh - m_fd - 2 * m_fr_1)/ 2.0f - m_ft_f)) / ((Fb - m_ft_w - 2 * m_fr_1) / 2.0f);
 		    }
 		    else // Exception
 		    { }
@@ -160,8 +160,8 @@ namespace CRSC
 		    short iNumberAux = 8 + 4;
 
 		    // Point No. 1
-		    CrScPointsOut[0,0] = -(float)b / 2f + m_fr_2;    // y
-            CrScPointsOut[0, 1] = (float)h / 2f;              // z
+		    CrScPointsOut[0,0] = -Fb / 2f + m_fr_2;    // y
+            CrScPointsOut[0, 1] = Fh / 2f;              // z
 
 		    // Point No. 2
 		    CrScPointsOut[1, 0] = -m_ft_w / 2.0f - m_fr_1;   // y
@@ -177,7 +177,7 @@ namespace CRSC
 
 		    // Point No. 5
 		    CrScPointsOut[4,0] = m_ft_w / 2.0f;         // y
-            CrScPointsOut[4, 1] = CrScPointsOut[3, 1] - m_fr_2 - (((float)h - m_fd - 2 * (m_fr_1 + m_fr_2)) / 2.0f);     // z
+            CrScPointsOut[4, 1] = CrScPointsOut[3, 1] - m_fr_2 - ((Fh - m_fd - 2 * (m_fr_1 + m_fr_2)) / 2.0f);     // z
 
 		    // Point No. 6
 		    CrScPointsOut[5,0] = CrScPointsOut[4,0];      // y
@@ -210,8 +210,8 @@ namespace CRSC
 		    // Surface points
 
 		    // Point No. 13 - 1st Edge point - upper left
-            CrScPointsOut[iNumberAux, 0] = -(float)b / 2.0f;     // y
-            CrScPointsOut[iNumberAux, 1] = (float)h / 2.0f;      // z
+            CrScPointsOut[iNumberAux, 0] = -Fb / 2.0f;     // y
+            CrScPointsOut[iNumberAux, 1] = Fh / 2.0f;      // z
 
 		    int iRadiusAngle = 90; // Radius Angle
 
@@ -283,8 +283,8 @@ namespace CRSC
 		    short iNumberAux = 4 + 4;
 
 		    // Point No. 1
-		    CrScPointsOut[0, 0] = -(float)b / 2f + m_fr_2;    // y
-		    CrScPointsOut[0, 1] = (float)h / 2f;              // z
+		    CrScPointsOut[0, 0] = -Fb / 2f + m_fr_2;    // y
+		    CrScPointsOut[0, 1] = Fh / 2f;              // z
 
 		    // Point No. 2
 		    CrScPointsOut[1, 0] = -m_ft_w / 2.0f;         // y
@@ -317,8 +317,8 @@ namespace CRSC
 		    // Surface points
 
 		    // Point No. 13 - 1st Edge point - upper left
-		    CrScPointsOut[iNumberAux, 0] = -(float)b / 2.0f;     // y
-		    CrScPointsOut[iNumberAux, 1] = (float)h / 2.0f;      // z
+		    CrScPointsOut[iNumberAux, 0] = -Fb / 2.0f;     // y
+		    CrScPointsOut[iNumberAux, 1] = Fh / 2.0f;      // z
 
 		    int iRadiusAngle = 90; // Radius Angle
 
@@ -331,7 +331,7 @@ namespace CRSC
 
 		    // Point No. XX
 		    CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 1, 0] = m_ft_w / 2.0f;      // y
-		    CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 1, 1] = CrScPointsOut[0, 1] - (((float)h - m_fd - 2 * +m_fr_2) / 2.0f); // z
+		    CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 1, 1] = CrScPointsOut[0, 1] - ((Fh - m_fd - 2 * +m_fr_2) / 2.0f); // z
 
 		    // Point No. XX
 		    CrScPointsOut[iNumberAux + m_iNumOfArcPoints + 2, 0] = m_ft_w / 2.0f;         // y
@@ -396,8 +396,8 @@ namespace CRSC
 		    // Surface points
 
 		    // Point No. 5
-		    CrScPointsOut[4, 0] = (float)-b / 2.0f;           // y
-		    CrScPointsOut[4, 1] = (float)h / 2.0f;           // z
+		    CrScPointsOut[4, 0] = -Fb / 2.0f;           // y
+		    CrScPointsOut[4, 1] = Fh / 2.0f;           // z
 
 		    // Point No. 6
 		    CrScPointsOut[5, 0] = -m_ft_w / 2.0f - m_fr_1; ;  // y
@@ -413,7 +413,7 @@ namespace CRSC
 
 		    // Point No. 9
 		    CrScPointsOut[8, 0] = -CrScPointsOut[4, 0];      // y
-		    CrScPointsOut[8, 1] = m_fd / 2 + m_fr_1 +  (2 * (((float)h - m_fd - 2 * m_fr_1) / 2.0f - m_ft_f));     // z
+		    CrScPointsOut[8, 1] = m_fd / 2 + m_fr_1 +  (2 * ((Fh - m_fd - 2 * m_fr_1) / 2.0f - m_ft_f));     // z
 
 		    int iRadiusAngle = 90; // Radius Angle
 

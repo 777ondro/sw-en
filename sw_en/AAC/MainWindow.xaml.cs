@@ -12,11 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Globalization;
-using System.Text.RegularExpressions;
 using MATERIAL;
 using CRSC;
-
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace AAC
 {
@@ -43,6 +42,8 @@ namespace AAC
 
             // Display panel model in 3D preview
             Frame1.Content = page1;
+
+            
         }
 
         public enum E_SupportMaterialType
@@ -620,8 +621,6 @@ namespace AAC
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            //this.Clear(); // Delete results of previous calculation
-
             // Floor Panel according to EN 12602
 
             float fa_2 = (obj_panel.fL - fL_w - fa_1); // Todo predpoklada symetricke ulozenie na podpory
@@ -631,10 +630,10 @@ namespace AAC
 
             float fL_eff = fL_w + 1.0f / 3.0f * fa_1_min + 1.0f / 3.0f * fa_2_min;
 
-            float fd_eff_lower = (float)Math.Min(obj_panel.Cross_Section.h - fc_1 - 0.5f * fd_long_lower, 0.4f); // Effective Depth of Section, see A.6
-            float fb_load = (float)obj_panel.Cross_Section.b; // !!!!!! ????? Could be different
+            float fd_eff_lower = (float)Math.Min(obj_panel.Cross_Section.Fh - fc_1 - 0.5f * fd_long_lower, 0.4f); // Effective Depth of Section, see A.6
+            float fb_load = obj_panel.Cross_Section.Fb; // !!!!!! ????? Could be different
 
-            float fA_c_lower = (float)obj_panel.Cross_Section.b * fd_eff_lower; // Compressed area of concrete
+            float fA_c_lower = obj_panel.Cross_Section.Fb * fd_eff_lower; // Compressed area of concrete
             float fn_p_support = 2.0f;
 
             // Internal forces
@@ -664,7 +663,7 @@ namespace AAC
             float fM_Sd_3 = ((fG_d3 + fQ_d3) * fL_eff * fL_eff) / 8.0f;
 
             // Internal forces for transport situations
-            float fG_t = fgamma_g * fg_grav_acc_constant * fRho_trans * (float)obj_panel.Cross_Section.b * (float)obj_panel.Cross_Section.h;
+            float fG_t = fgamma_g * fg_grav_acc_constant * fRho_trans * obj_panel.Cross_Section.Fb * obj_panel.Cross_Section.Fh;
 
             // Cantilever
             float fL_cantilever = 0.5f * (obj_panel.fL - fb_s);
@@ -703,8 +702,8 @@ namespace AAC
             }
 
             // Upper Reinforcement
-            float fd_eff_u = (float)Math.Min(obj_panel.Cross_Section.h - fc_2 - 0.5f * fd_long_upper, 0.4f); // Effective Depth
-            float fA_c_u = (float)obj_panel.Cross_Section.b * fd_eff_u; // Compressed area of concrete
+            float fd_eff_u = (float)Math.Min(obj_panel.Cross_Section.Fh - fc_2 - 0.5f * fd_long_upper, 0.4f); // Effective Depth
+            float fA_c_u = obj_panel.Cross_Section.Fb * fd_eff_u; // Compressed area of concrete
 
             double thousand_md_upper = 1000 * fM_t * fGamma_c_BF / (fFactor_Alpha * obj_panel.Concrete.Fck * fA_c_u * fd_eff_u);
 
@@ -738,7 +737,7 @@ namespace AAC
 
             double ff_cflm = 0.27f * /*0.8f **/ obj_panel.Concrete.Fck; // flexural strength
 
-            float fA_ct = (float)obj_panel.Cross_Section.b * 0.5f * (float)obj_panel.Cross_Section.h;
+            float fA_ct = obj_panel.Cross_Section.Fb * 0.5f * obj_panel.Cross_Section.Fh;
 
             // k = 1 - pure tension in the whole cross-section
             // k = 0.4 - pure bending without normal compressive force
@@ -746,9 +745,9 @@ namespace AAC
             float fk_A34 = 0.4f;
             double fAs_min = fk_A34 * fA_ct * ff_cflm / obj_panel.Reinforcement.m_ff_yk_0;
 
-            float fb_w = (float)obj_panel.Cross_Section.b; //  ??????? Moze byt ina
+            float fb_w = obj_panel.Cross_Section.Fb; //  ??????? Moze byt ina
 
-            double rho_l = Math.Min(fA_s_exis_lower / (obj_panel.Cross_Section.b * fd_eff_lower), 0.005); // A.4
+            double rho_l = Math.Min(fA_s_exis_lower / (obj_panel.Cross_Section.Fb * fd_eff_lower), 0.005); // A.4
 
             // A.6
             double V_Rd_1_A6_1 = 0.5f * obj_panel.Concrete.Fctk0_05 / fGamma_c_BF * fb_w * fd_eff_lower;
@@ -929,9 +928,9 @@ namespace AAC
             // Cracking moment
             ff_cflm = 0.27f * 0.8f * obj_panel.Concrete.Fck; // TODO flexural strength 0.8 niekde je s 0.8 inde nie, zistit preco ?????
 
-            obj_panel.Cross_Section.W_y_el = (float)(obj_panel.Cross_Section.b * Math.Pow(obj_panel.Cross_Section.h, 2) / 6.0);
+            obj_panel.Cross_Section.FW_y_el = (float)(obj_panel.Cross_Section.Fb * Math.Pow(obj_panel.Cross_Section.Fh, 2) / 6.0);
 
-            double M_cr = obj_panel.Cross_Section.W_y_el * ff_cflm; // TODO podmienka pre typ posudenia SLS - uncracked, cracked condition
+            double M_cr = obj_panel.Cross_Section.FW_y_el * ff_cflm; // TODO podmienka pre typ posudenia SLS - uncracked, cracked condition
 
             float fd_1 = fd_long_lower;
             float fd_2 = fd_long_upper;
@@ -940,7 +939,7 @@ namespace AAC
             double A_s2 = fA_s_exis_upper;
 
             float fy_s1 = fc_1 + 0.5f * fd_long_lower;
-            float fy_s2 = (float)obj_panel.Cross_Section.h - fc_2 + 0.5f * fd_long_upper - fd_trans; // Horna vyztuz sa nachadza pod priecnou ??? TODO overit podla vykresov
+            float fy_s2 = obj_panel.Cross_Section.Fh - fc_2 + 0.5f * fd_long_upper - fd_trans; // Horna vyztuz sa nachadza pod priecnou ??? TODO overit podla vykresov
 
             // Deflection under uncracked condition
             // Short-term deflection
@@ -950,9 +949,9 @@ namespace AAC
 
             float fn_short_term = (float)(obj_panel.Reinforcement.m_fE / obj_panel.Concrete.D_Ecm);
 
-            double fI_c_brutto_shortterm = Get_I_c_brutto((float)obj_panel.Cross_Section.b, obj_panel.Cross_Section.h, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2); // Moment of inertia of AAC and reinforcement
-            double y_s_shortterm = Get_y_s((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, fn_short_term, fy_s1, fy_s2, A_s1, A_s2); // Centre of grafity
-            double I_st_shortterm = Get_I_st((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, fn_short_term, y_s_shortterm, fy_s1, fy_s2, A_s1, A_s2); // Moment of inertia of reinforcement
+            double fI_c_brutto_shortterm = Get_I_c_brutto(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2); // Moment of inertia of AAC and reinforcement
+            double y_s_shortterm = Get_y_s(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_short_term, fy_s1, fy_s2, A_s1, A_s2); // Centre of grafity
+            double I_st_shortterm = Get_I_st(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_short_term, y_s_shortterm, fy_s1, fy_s2, A_s1, A_s2); // Moment of inertia of reinforcement
             double I_ci_shortterm = fI_c_brutto_shortterm + I_st_shortterm;
             double Ecm_Ici_shortterm = obj_panel.Concrete.D_Ecm * I_ci_shortterm;
             double y_el_shortterm = 5.0f / 48.0f * fM_Sd_2 * Math.Pow(fL_eff, 2.0f) / (Ecm_Ici_shortterm); // Deflection due to load combination 2
@@ -965,9 +964,9 @@ namespace AAC
             double fE_c_eff = obj_panel.Concrete.D_Ecm / (1 + fPhi);
             float fn_long_term = (float)(obj_panel.Reinforcement.m_fE / fE_c_eff);
 
-            double fI_c_brutto_longterm = Get_I_c_brutto((float)obj_panel.Cross_Section.b, obj_panel.Cross_Section.h, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
-            double y_s_longterm = Get_y_s((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, fn_long_term, fy_s1, fy_s2, A_s1, A_s2);
-            double I_st_longterm = Get_I_st((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, fn_long_term, y_s_longterm, fy_s1, fy_s2, A_s1, A_s2);
+            double fI_c_brutto_longterm = Get_I_c_brutto(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
+            double y_s_longterm = Get_y_s(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_long_term, fy_s1, fy_s2, A_s1, A_s2);
+            double I_st_longterm = Get_I_st(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, fn_long_term, y_s_longterm, fy_s1, fy_s2, A_s1, A_s2);
             double I_ci_longterm = fI_c_brutto_longterm + I_st_longterm;
             double Eceff_Ici_longterm = fE_c_eff * I_ci_longterm;
             double y_el_longterm = 5.0f / 48.0f * fM_Sd_3 * Math.Pow(fL_eff, 2.0f) / (Eceff_Ici_longterm);
@@ -977,12 +976,12 @@ namespace AAC
             // Deflection under cracked condition
             // Short-term deflection
 
-            double fA = obj_panel.Cross_Section.b * obj_panel.Concrete.D_Ecm / (2.0f * A_s1 * obj_panel.Reinforcement.m_fE);
+            double fA = obj_panel.Cross_Section.Fb * obj_panel.Concrete.D_Ecm / (2.0f * A_s1 * obj_panel.Reinforcement.m_fE);
             double x = (Math.Sqrt(1.0f + 4.0f * fd_eff_lower * fA) - 1.0f) / (2.0f * fA);
 
-            double fI_c_brutto_shortterm_crk = Get_I_c_brutto((float)obj_panel.Cross_Section.b, x, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
-            double y_s_shortterm_crk = Get_y_s_x((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, x, fn_short_term, fy_s1, fy_s2, A_s1, A_s2);
-            double I_st_shortterm_crk = Get_I_st_x((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, x, fn_short_term, y_s_shortterm_crk, fy_s1, fy_s2, A_s1, A_s2);
+            double fI_c_brutto_shortterm_crk = Get_I_c_brutto(obj_panel.Cross_Section.Fb, x, fn_short_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
+            double y_s_shortterm_crk = Get_y_s_x(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, x, fn_short_term, fy_s1, fy_s2, A_s1, A_s2);
+            double I_st_shortterm_crk = Get_I_st_x(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, x, fn_short_term, y_s_shortterm_crk, fy_s1, fy_s2, A_s1, A_s2);
             double I_ci_shortterm_crk = fI_c_brutto_shortterm_crk + I_st_shortterm_crk;
             double Ecm_Ici_shortterm_crk = obj_panel.Concrete.D_Ecm * I_ci_shortterm_crk;
             double y_el_shortterm_crk = 5.0f / 48.0f * fM_Sd_2 * Math.Pow(fL_eff, 2.0f) / (Ecm_Ici_shortterm_crk);
@@ -990,9 +989,9 @@ namespace AAC
             double y_el_shortterm_crk_des_ratio = y_el_shortterm_crk / y_el_lim;
 
             // Long-term deflection
-            double fI_c_brutto_longterm_crk = Get_I_c_brutto((float)obj_panel.Cross_Section.b, x, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
-            double y_s_longterm_crk = Get_y_s_x((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, x, fn_long_term, fy_s1, fy_s2, A_s1, A_s2);
-            double I_st_longterm_crk = Get_I_st_x((float)obj_panel.Cross_Section.b, (float)obj_panel.Cross_Section.h, x, fn_long_term, y_s_longterm_crk, fy_s1, fy_s2, A_s1, A_s2);
+            double fI_c_brutto_longterm_crk = Get_I_c_brutto(obj_panel.Cross_Section.Fb, x, fn_long_term, number_long_lower_bars, fd_1, number_long_upper_bars, fd_2);
+            double y_s_longterm_crk = Get_y_s_x(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, x, fn_long_term, fy_s1, fy_s2, A_s1, A_s2);
+            double I_st_longterm_crk = Get_I_st_x(obj_panel.Cross_Section.Fb, obj_panel.Cross_Section.Fh, x, fn_long_term, y_s_longterm_crk, fy_s1, fy_s2, A_s1, A_s2);
             double I_ci_longterm_crk = fI_c_brutto_longterm_crk + I_st_longterm_crk;
             double Eceff_Ici_longterm_crk = fE_c_eff * I_ci_longterm_crk;
             double y_el_longterm_crk = 5.0f / 48.0f * fM_Sd_3 * Math.Pow(fL_eff, 2.0f) / (Eceff_Ici_longterm_crk);

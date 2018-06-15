@@ -30,21 +30,6 @@ namespace BaseClasses
           set { m_NodeEnd = value; }
         }
 
-        private Point3D m_PointStart;
-
-        public Point3D PointStart
-        {
-            get { return m_PointStart; }
-            set { m_PointStart = value; }
-        }
-        private Point3D m_PointEnd;
-
-        public Point3D PointEnd
-        {
-            get { return m_PointEnd; }
-            set { m_PointEnd = value; }
-        }
-
         private CNRelease m_cnRelease1;
 
         public CNRelease CnRelease1
@@ -76,61 +61,12 @@ namespace BaseClasses
             set { m_CrScEnd = value; }
         }
 
-        // Priemet do osi GCS - rozdiel suradnic v GCS
-        private double dDelta_X;
-
-        public double Delta_X
-        {
-            get { return dDelta_X; }
-            set { dDelta_X = value; }
-        }
-
-        private double dDelta_Y;
-
-        public double Delta_Y
-        {
-            get { return dDelta_Y; }
-            set { dDelta_Y = value; }
-        }
-
-        private double dDelta_Z;
-
-        public double Delta_Z
-        {
-            get { return dDelta_Z; }
-            set { dDelta_Z = value; }
-        }
-
         private float m_fLength;
 
         public float FLength
         {
           get { return m_fLength; }
           set { m_fLength = value; }
-        }
-
-        private float m_fLength_real;
-
-        public float FLength_real
-        {
-            get { return m_fLength_real; }
-            set { m_fLength_real = value; }
-        }
-
-        private float m_fAlignment_Start; // Positive value means elongation of beam
-
-        public float FAlignment_Start
-        {
-            get { return m_fAlignment_Start; }
-            set { m_fAlignment_Start = value; }
-        }
-
-        private float m_fAlignment_End; // Positive value means elongation of beam
-
-        public float FAlignment_End
-        {
-            get { return m_fAlignment_End; }
-            set { m_fAlignment_End = value; }
         }
 
         public double m_dTheta_x;
@@ -140,8 +76,6 @@ namespace BaseClasses
             get { return m_dTheta_x; }
             set { m_dTheta_x = value; }
         }
-
-
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
@@ -218,35 +152,7 @@ namespace BaseClasses
             CNode iNode1,
             CNode iNode2,
             CCrSc objCrSc1,
-            float fAligment1,
-            float fAligment2,
-            float fTheta_x = 0,
-            int fTime = 0
-            )
-        {
-            ID = iLine_ID;
-            m_NodeStart = iNode1;
-            m_NodeEnd = iNode2;
-            m_cnRelease1 = null;
-            m_cnRelease2 = null;
-            m_CrScStart = objCrSc1;
-            FAlignment_Start = fAligment1;
-            FAlignment_End = fAligment2;
-            DTheta_x = fTheta_x;
-            FTime = fTime;
-
-            Fill_Basic();
-        }
-
-        // Constructor 6
-        public CMember(
-            int iLine_ID,
-            CNode iNode1,
-            CNode iNode2,
-            CCrSc objCrSc1,
             CCrSc objCrSc2,
-            float fAligment1,
-            float fAligment2,
             int fTime
             )
         {
@@ -257,8 +163,6 @@ namespace BaseClasses
             m_cnRelease2 = null;
             m_CrScStart = objCrSc1;
             m_CrScEnd = objCrSc2;
-            FAlignment_Start = fAligment1;
-            FAlignment_End = fAligment2;
             FTime = fTime;
 
             Fill_Basic();
@@ -268,33 +172,9 @@ namespace BaseClasses
         //Fill basic data
         public void Fill_Basic()
         {
-            // Temporary !!!!!!!!!!!!!!!!!!!!!! Member Length for 3D
-            // Theroretical length of member (between definition nodes)
-
-            // Priemet do osi GCS - rozdiel suradnic v GCS
-
+            // Temporary !!!!!!!!!!!!!!!!!!!!!! Member Length for 3F 
             FLength = (float)Math.Sqrt((float)Math.Pow(m_NodeEnd.X - m_NodeStart.X, 2f) + (float)Math.Pow(m_NodeEnd.Y - m_NodeStart.Y, 2f) + (float)Math.Pow(m_NodeEnd.Z - m_NodeStart.Z, 2f));
-            FLength_real = FAlignment_Start + FLength + FAlignment_End; // Real length of member
 
-            SetStartPoint3DCoord();
-            SetEndPoint3DCoord();
-
-            Delta_X = m_PointEnd.X - m_PointStart.X;
-            Delta_Y = m_PointEnd.Y - m_PointStart.Y;
-            Delta_Z = m_PointEnd.Z - m_PointStart.Z;
-        }
-
-        public void SetStartPoint3DCoord()
-        {
-            m_PointStart.X = m_NodeStart.X;
-            m_PointStart.Y = m_NodeStart.Y;
-            m_PointStart.Z = m_NodeStart.Z;
-        }
-        public void SetEndPoint3DCoord()
-        {
-            m_PointEnd.X = m_NodeEnd.X;
-            m_PointEnd.Y = m_NodeEnd.Y;
-            m_PointEnd.Z = m_NodeEnd.Z;
         }
 
         public Model3DGroup getM_3D_G_Member(EGCS eGCS, SolidColorBrush brushFrontSide, SolidColorBrush brushShell, SolidColorBrush brushBackSide)
@@ -316,9 +196,15 @@ namespace BaseClasses
 
         public GeometryModel3D getG_M_3D_Member(EGCS eGCS, SolidColorBrush brush)
         {
+            // We need to transform CNode to Point3D
+            Point3D mpA = new Point3D(NodeStart.X, NodeStart.Y, NodeStart.Z); // Start point - class Point3D
+            Point3D mpB = new Point3D(NodeEnd.X, NodeEnd.Y, NodeEnd.Z); // End point - class Point3D
+            // Angle of rotation about local x-axis
+            DTheta_x = 0; // Temporary
+
             GeometryModel3D model = new GeometryModel3D();
 
-            MeshGeometry3D mesh = getMeshMemberGeometry3DFromCrSc(eGCS, CrScStart, CrScEnd, DTheta_x); // Mesh one member
+            MeshGeometry3D mesh = getMeshMemberGeometry3DFromCrSc(eGCS, CrScStart, CrScEnd, mpA, mpB, DTheta_x); // Mesh one member
 
             model.Geometry = mesh;
 
@@ -329,6 +215,12 @@ namespace BaseClasses
 
         public void getG_M_3D_Member(EGCS eGCS, SolidColorBrush brushFrontSide, SolidColorBrush brushShell, SolidColorBrush brushBackSide, out GeometryModel3D modelFrontSide, out GeometryModel3D modelShell, out GeometryModel3D modelBackSide)
         {
+            // We need to transform CNode to Point3D
+            Point3D mpA = new Point3D(NodeStart.X, NodeStart.Y, NodeStart.Z); // Start point - class Point3D
+            Point3D mpB = new Point3D(NodeEnd.X, NodeEnd.Y, NodeEnd.Z); // End point - class Point3D
+            // Angle of rotation about local x-axis
+            DTheta_x = 0; // Temporary
+
             modelFrontSide = new GeometryModel3D();
             modelShell = new GeometryModel3D();
             modelBackSide = new GeometryModel3D();
@@ -337,7 +229,7 @@ namespace BaseClasses
             MeshGeometry3D meshShell= new MeshGeometry3D();
             MeshGeometry3D meshBackSide = new MeshGeometry3D();
 
-            getMeshMemberGeometry3DFromCrSc_1(eGCS, CrScStart, CrScEnd, DTheta_x, out meshFrontSide, out meshShell, out meshBackSide);
+            getMeshMemberGeometry3DFromCrSc_1(eGCS, CrScStart, CrScEnd, mpA, mpB, DTheta_x, out meshFrontSide, out meshShell, out meshBackSide);
 
             modelFrontSide.Geometry = meshFrontSide;
             modelShell.Geometry = meshShell;
@@ -349,16 +241,24 @@ namespace BaseClasses
             modelBackSide.Material = new DiffuseMaterial(brushBackSide);
         }
 
-        private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, double dTheta_x)
+        private MeshGeometry3D getMeshMemberGeometry3DFromCrSc(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x)
         {
-            // All in one mesh
             MeshGeometry3D mesh = new MeshGeometry3D();
             mesh.Positions = new Point3DCollection();
+
+            // Main Nodes of Member
+            Point3D pA = mpA;
+            Point3D pB = mpB;
+
+            // Priemet do osi GCS - rozdiel suradnic v GCS
+            double dDelta_X = pB.X - pA.X;
+            double dDelta_Y = pB.Y - pA.Y;
+            double dDelta_Z = pB.Z - pA.Z;
 
             // Realna dlzka prvku // Length of member - straigth segment of member
             // Prečo je záporná ???
             // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
-            //double m_dLength = Math.Sqrt(Math.Pow(Delta_X, 2) + Math.Pow(Delta_Y, 2) + Math.Pow(Delta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;
@@ -373,15 +273,15 @@ namespace BaseClasses
                     for (int j = 0; j < iNoCrScPoints2D; j++)
                     {
                         // X - start, Y, Z
-                        mesh.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        mesh.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
                     }
                     for (int j = 0; j < iNoCrScPoints2D; j++)
                     {
                         // X - end, Y, Z
                         if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
                         else
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
                     }
                 }
                 else
@@ -404,7 +304,7 @@ namespace BaseClasses
                     for (int j = 0; j < obj_CrScA.INoPointsOut; j++)
                     {
                         // X - start, Y, Z
-                        mesh.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        mesh.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
                     }
                 }
                 else
@@ -418,7 +318,7 @@ namespace BaseClasses
                     for (int j = 0; j < obj_CrScA.INoPointsIn; j++)
                     {
                         // X - start, Y, Z
-                        mesh.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
+                        mesh.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
                     }
                 }
                 else
@@ -434,9 +334,9 @@ namespace BaseClasses
                     {
                         // X - end, Y, Z
                         if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
                         else
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
                     }
                 }
                 else
@@ -451,9 +351,9 @@ namespace BaseClasses
                     {
                         // X - end, Y, Z
                         if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1])); // Constant size member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1])); // Constant size member
                         else
-                            mesh.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsIn[j, 0], obj_CrScB.CrScPointsIn[j, 1])); // Tapered member
+                            mesh.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsIn[j, 0], obj_CrScB.CrScPointsIn[j, 1])); // Tapered member
                     }
                 }
                 else
@@ -493,7 +393,7 @@ namespace BaseClasses
                 System.Console.Write(sOutput); // Write in console window
 
             // Transform coordinates
-            TransformMember_LCStoGCS(eGCS, m_PointStart, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, mesh.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, mesh.Positions);
 
             // Mesh Triangles - various cross-sections shapes defined
             mesh.TriangleIndices = obj_CrScA.TriangleIndices;
@@ -532,6 +432,8 @@ namespace BaseClasses
             if(bIndicesCW)
               ChangeIndices(mesh.TriangleIndices);
             //}
+
+
             return mesh;
         }
 
@@ -554,10 +456,8 @@ namespace BaseClasses
             }
         }
 
-        private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, double dTheta_x, out MeshGeometry3D meshFrontSide, out MeshGeometry3D meshShell, out MeshGeometry3D meshBackSide)
+        private void getMeshMemberGeometry3DFromCrSc_1(EGCS eGCS, CCrSc obj_CrScA, CCrSc obj_CrScB, Point3D mpA, Point3D mpB, double dTheta_x, out MeshGeometry3D meshFrontSide, out MeshGeometry3D meshShell, out MeshGeometry3D meshBackSide)
         {
-            // Separate mesh for front, back and shell surfaces of member
-
             meshFrontSide = new MeshGeometry3D();
             meshShell = new MeshGeometry3D();
             meshBackSide = new MeshGeometry3D();
@@ -565,6 +465,20 @@ namespace BaseClasses
             meshFrontSide.Positions = new Point3DCollection();
             meshShell.Positions = new Point3DCollection();
             meshBackSide.Positions = new Point3DCollection();
+
+            // Main Nodes of Member
+            Point3D pA = mpA;
+            Point3D pB = mpB;
+
+            // Priemet do osi GCS - rozdiel suradnic v GCS
+            double dDelta_X = pB.X - pA.X;
+            double dDelta_Y = pB.Y - pA.Y;
+            double dDelta_Z = pB.Z - pA.Z;
+
+            // Realna dlzka prvku // Length of member - straigth segment of member
+            // Prečo je záporná ???
+            // double m_dLength = -Math.Sqrt(Math.Pow(m_dDelta_X, 2) + Math.Pow(m_dDelta_Y, 2) + Math.Pow(m_dDelta_Z, 2));
+            double m_dLength = Math.Sqrt(Math.Pow(dDelta_X, 2) + Math.Pow(dDelta_Y, 2) + Math.Pow(dDelta_Z, 2));
 
             // Number of Points per section
             short iNoCrScPoints2D;
@@ -579,8 +493,8 @@ namespace BaseClasses
                     for (int j = 0; j < iNoCrScPoints2D; j++)
                     {
                         // X - start, Y, Z
-                        meshFrontSide.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
-                        meshShell.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        meshFrontSide.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                        meshShell.Positions.Add(new Point3D(0, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
                     }
 
                     for (int j = 0; j < iNoCrScPoints2D; j++)
@@ -588,13 +502,13 @@ namespace BaseClasses
                         // X - end, Y, Z
                         if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
                         {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                            meshBackSide.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
+                            meshShell.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
                         }
                         else
                         {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
+                            meshBackSide.Positions.Add(new Point3D(m_dLength, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
+                            meshShell.Positions.Add(new Point3D(m_dLength, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
                         }
                     }
                 }
@@ -602,105 +516,12 @@ namespace BaseClasses
                 {
                     // Exception
                 }
-            }
-            else if (obj_CrScA.INoPointsOut == obj_CrScA.INoPointsIn) // Closed cross-section with same number out ouside and insdide definiton points
-            {
-                // Tubes , Polygonal Hollow Sections
-                iNoCrScPoints2D = (short)(2 * obj_CrScA.INoPointsOut); // Twice number of one surface
-
-                // Tube, regular hollow sections
-                // TU
-
-                // Start Point
-                if (obj_CrScA.CrScPointsOut != null) // Check that data are available
-                {
-                    // OutSide Radius Points
-                    for (int j = 0; j < obj_CrScA.INoPointsOut; j++)
-                    {
-                        // X - start, Y, Z
-                        meshFrontSide.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
-                        meshShell.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
-                    }
-                }
-                else
-                {
-                    // Exception
-                }
-
-                if (obj_CrScA.CrScPointsIn != null) // Check that data are available
-                {
-                    // Inside Radius Points
-                    for (int j = 0; j < obj_CrScA.INoPointsIn; j++)
-                    {
-                        // X - start, Y, Z
-                        meshFrontSide.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
-                        meshShell.Positions.Add(new Point3D(-FAlignment_Start, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
-                    }
-                }
-                else
-                {
-                    // Exception
-                }
-
-                // End Point
-                if (obj_CrScA.CrScPointsOut != null) // Check that data are available
-                {
-                    // OutSide Radius Points
-                    for (int j = 0; j < obj_CrScA.INoPointsOut; j++)
-                    {
-                        // X - end, Y, Z
-                        if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
-                        {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1])); // Constant size member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsOut[j, 0], obj_CrScA.CrScPointsOut[j, 1]));
-                        }
-                        else
-                        {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1])); // Tapered member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsOut[j, 0], obj_CrScB.CrScPointsOut[j, 1]));
-                        }
-                    }
-                }
-                else
-                {
-                    // Exception
-                }
-
-                if (obj_CrScA.CrScPointsIn != null) // Check that data are available
-                {
-                    // Inside Radius Points
-                    for (int j = 0; j < obj_CrScA.INoPointsIn; j++)
-                    {
-                        // X - end, Y, Z
-                        if (obj_CrScB == null /*|| zistit ci su objekty rovnakeho typu - triedy */)  // Check that data of second cross-section are available
-                        {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1])); // Constant size member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScA.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
-                        }
-                        else
-                        {
-                            meshBackSide.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsIn[j, 0], obj_CrScB.CrScPointsIn[j, 1])); // Tapered member
-                            meshShell.Positions.Add(new Point3D(FLength + FAlignment_End, obj_CrScB.CrScPointsIn[j, 0], obj_CrScA.CrScPointsIn[j, 1]));
-                        }
-                    }
-                }
-                else
-                {
-                    // Exception
-                }
-            }
-            else
-            {
-                // Exception
-                // Closed cross-section with different number out ouside and insdide definiton points
-
-                iNoCrScPoints2D = 0; // Temp
             }
 
             // Transform coordinates
-            TransformMember_LCStoGCS(eGCS, m_PointStart, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
-            TransformMember_LCStoGCS(eGCS, m_PointStart, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshShell.Positions);
-            TransformMember_LCStoGCS(eGCS, m_PointStart, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshBackSide.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshFrontSide.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshShell.Positions);
+            TransformMember_LCStoGCS(eGCS, pA, pB, dDelta_X, dDelta_Y, dDelta_Z, m_dTheta_x, meshBackSide.Positions);
 
             // Mesh Triangles - various cross-sections shapes defined
             //mesh.TriangleIndices = obj_CrScA.TriangleIndices;
@@ -720,7 +541,7 @@ namespace BaseClasses
             }
         }
 
-        public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
+        public Point3DCollection TransformMember_LCStoGCS(EGCS eGCS, Point3D pA, Point3D pB, double dDeltaX, double dDeltaY, double dDeltaZ, double dTheta_x, Point3DCollection pointsCollection)
         {
             // Returns transformed coordinates of member nodes
 

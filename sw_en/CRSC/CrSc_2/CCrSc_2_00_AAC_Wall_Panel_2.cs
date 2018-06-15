@@ -32,8 +32,8 @@ namespace CRSC
             INoAuxPoints = 4;
             ITotNoPoints = (short)(2 * (short)m_iNumOfArcPoints + (INoAuxPoints + 4));
 
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
             m_fr_1 = 0.05f;
 
             // Create Array - allocate memory
@@ -57,15 +57,15 @@ namespace CRSC
 
             // Point No. 1
             CrScPointsOut[0, 0] = m_fr_1;                   // y
-            CrScPointsOut[0, 1] = 0.5f * (float)h + m_fr_1;       // z
+            CrScPointsOut[0, 1] = 0.5f * Fh + m_fr_1;       // z
 
             // Point No. 2
-            CrScPointsOut[1, 0] = (float)b - m_fr_1;              // y
+            CrScPointsOut[1, 0] = Fb - m_fr_1;              // y
             CrScPointsOut[1, 1] = CrScPointsOut[0, 1];      // z
 
             // Point No. 3
             CrScPointsOut[2, 0] = CrScPointsOut[1, 0];      // y
-            CrScPointsOut[2, 1] = 0.5f * (float)h - m_fr_1;       // z
+            CrScPointsOut[2, 1] = 0.5f * Fh - m_fr_1;       // z
 
             // Point No. 4
             CrScPointsOut[3, 0] = CrScPointsOut[0, 0];      // y
@@ -75,10 +75,10 @@ namespace CRSC
 
             // Point No. 5
             CrScPointsOut[4, 0] = 0;                        // y
-            CrScPointsOut[4, 1] = (float)h;                       // z
+            CrScPointsOut[4, 1] = Fh;                       // z
 
             // Point No. 6
-            CrScPointsOut[5, 0] = (float)b;                       // y
+            CrScPointsOut[5, 0] = Fb;                       // y
             CrScPointsOut[5, 1] = CrScPointsOut[4, 1];      // z
 
             int iRadiusAngle = 180; // Radius Angle

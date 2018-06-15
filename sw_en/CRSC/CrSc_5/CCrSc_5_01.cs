@@ -12,8 +12,8 @@ namespace CRSC
       public CCrSc_5_01(float fh, float fb, float ft)
       {
           //ITotNoPoints = 4;
-          h = fh;
-          b = fb;
+          Fh = fh;
+          Fb = fb;
 
           // Create Array - allocate memory
           CrScPointsOut = new float[ITotNoPoints, 2];

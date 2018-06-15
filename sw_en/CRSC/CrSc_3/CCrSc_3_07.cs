@@ -77,8 +77,8 @@ namespace CRSC
             m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
 
             m_sShape = sShape;
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
             m_ft = ft;
 
             if (m_sShape == 0)
@@ -124,8 +124,8 @@ namespace CRSC
             m_iNoPoints = (short)(4 * (short)m_iNumOfArcPoints + 4);
 
             m_sShape = sShape;
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
             m_ft = ft;
             m_fr_out = fr_out;
             m_fr_in = fr_in;
@@ -150,8 +150,8 @@ namespace CRSC
             // 5 - No radii (no auxiliary points)
 
             SShape = sShape;
-            h = fh;
-            b = fb;
+            Fh = fh;
+            Fb = fb;
             m_ft = ft;
 
             if (m_sShape == 0)
@@ -229,7 +229,7 @@ namespace CRSC
                 // No inside points - set empty
                 CrScPointsIn = null; // No Inside surface points (auxialiary points of outside surface - centre of radii are identical to inside points)
 
-                CCrSc_0_25 objTemp = new CCrSc_0_25((float)h, (float)b, m_ft, m_ft);
+                CCrSc_0_25 objTemp = new CCrSc_0_25(Fh, Fb, m_ft, m_ft);
                 CrScPointsOut = objTemp.CrScPointsOut;
             }
 
@@ -248,8 +248,8 @@ namespace CRSC
             // Auxialiary nodes per section
 
             // Point No. 1
-            CrScPointsOut[0, 0] = (float)-b / 2f + m_fr_out;    // y
-            CrScPointsOut[0, 1] = (float)h / 2f - m_fr_out;     // z
+            CrScPointsOut[0, 0] = -Fb / 2f + m_fr_out;    // y
+            CrScPointsOut[0, 1] = Fh / 2f - m_fr_out;     // z
 
             // Point No. 2
             CrScPointsOut[1, 0] = -CrScPointsOut[0, 0];        // y
@@ -299,8 +299,8 @@ namespace CRSC
             // Auxialiary nodes per section
 
             // Point No. 1
-            CrScPointsIn[0, 0] = (float)-b / 2f + m_fr_in + m_ft;    // y
-            CrScPointsIn[0, 1] = (float)h / 2f - m_fr_in - m_ft;     // z
+            CrScPointsIn[0, 0] = -Fb / 2f + m_fr_in + m_ft;    // y
+            CrScPointsIn[0, 1] = Fh / 2f - m_fr_in - m_ft;     // z
 
             // Point No. 2
             CrScPointsIn[1, 0] = -CrScPointsIn[0, 0];        // y
@@ -358,8 +358,8 @@ namespace CRSC
             // Auxialiary nodes per section
 
             // Point No. 1
-            CrScPointsOut[0, 0] = (float)-b / 2f + m_fr_in + m_ft;    // y
-            CrScPointsOut[0, 1] = (float)h / 2f - m_fr_in - m_ft;     // z
+            CrScPointsOut[0, 0] = -Fb / 2f + m_fr_in + m_ft;    // y
+            CrScPointsOut[0, 1] = Fh / 2f - m_fr_in - m_ft;     // z
 
             // Point No. 2
             CrScPointsOut[1, 0] = -CrScPointsOut[0, 0];        // y
@@ -382,13 +382,13 @@ namespace CRSC
             {
                 if (i <= m_iNumOfArcPoints / 2) // Vertical
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + i, 0] = (float)-b / 2f;                                             // y
-                    CrScPointsOut[m_iNumOfAuxPoints + i, 1] = (float)h / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength;  // z
+                    CrScPointsOut[m_iNumOfAuxPoints + i, 0] = -Fb / 2f;                                             // y
+                    CrScPointsOut[m_iNumOfAuxPoints + i, 1] = Fh / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength;  // z
                 }
                 else // Horizontal
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + i, 0] = (float)-b / 2f + (i - m_iNumOfArcSegment/2) * fOutSegmLength; // y      
-                    CrScPointsOut[m_iNumOfAuxPoints + i, 1] = (float)h / 2f;                                              // z                
+                    CrScPointsOut[m_iNumOfAuxPoints + i, 0] = -Fb / 2f + (i - m_iNumOfArcSegment/2) * fOutSegmLength; // y      
+                    CrScPointsOut[m_iNumOfAuxPoints + i, 1] = Fh / 2f;                                              // z                
                 }
             }
 
@@ -397,13 +397,13 @@ namespace CRSC
             {
                 if (i <= m_iNumOfArcPoints / 2) // Horizontal
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 0] = (float)b / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y          
-                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 1] = (float)h / 2f;                                             // z 
+                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 0] = Fb / 2f - (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y          
+                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 1] = Fh / 2f;                                             // z 
                 }
                 else // Vertical
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 0] = (float)b / 2f;                                             // y
-                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 1] = (float)h / 2f - i/2 * fOutSegmLength;                        // z
+                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 0] = Fb / 2f;                                             // y
+                    CrScPointsOut[m_iNumOfAuxPoints + m_iNumOfArcPoints + i, 1] = Fh / 2f - i/2 * fOutSegmLength;                        // z
                 }
             }
 
@@ -412,13 +412,13 @@ namespace CRSC
             {
                 if (i <= m_iNumOfArcPoints / 2) // Vertical
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + 2*m_iNumOfArcPoints + i, 0] = (float)b / 2f;                                               // y
-                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 1] = (float)-h / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength;  // z
+                    CrScPointsOut[m_iNumOfAuxPoints + 2*m_iNumOfArcPoints + i, 0] = Fb / 2f;                                               // y
+                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 1] = -Fh / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength;  // z
                 }
                 else // Horizontal
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 0] = (float)b / 2f - i/2 * fOutSegmLength;                         // y
-                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 1] = (float)-h / 2f;                                              // z                
+                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 0] = Fb / 2f - i/2 * fOutSegmLength;                         // y
+                    CrScPointsOut[m_iNumOfAuxPoints + 2 * m_iNumOfArcPoints + i, 1] = -Fh / 2f;                                              // z                
                 }
             }
 
@@ -427,13 +427,13 @@ namespace CRSC
             {
                 if (i <= m_iNumOfArcPoints / 2) // Horizontal
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 0] = (float)-b / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y                                    
-                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 1] = (float)-h / 2f;                                             // z 
+                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 0] = -Fb / 2f + (m_iNumOfArcSegment/2 - i) * fOutSegmLength; // y                                    
+                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 1] = -Fh / 2f;                                             // z 
                 }
                 else // Vertical
                 {
-                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 0] = (float)-b / 2f;                                             // y
-                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 1] = (float)-h / 2f + i/2 * fOutSegmLength;                       // z
+                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 0] = -Fb / 2f;                                             // y
+                    CrScPointsOut[m_iNumOfAuxPoints + 3 * m_iNumOfArcPoints + i, 1] = -Fh / 2f + i/2 * fOutSegmLength;                       // z
                 }
             }
 
@@ -442,8 +442,8 @@ namespace CRSC
             // Auxialiary nodes per section
 
             // Point No. 1
-            CrScPointsIn[0, 0] = (float)-b / 2f + m_fr_in + m_ft;    // y
-            CrScPointsIn[0, 1] = (float)h / 2f - m_fr_in - m_ft;     // z
+            CrScPointsIn[0, 0] = -Fb / 2f + m_fr_in + m_ft;    // y
+            CrScPointsIn[0, 1] = Fh / 2f - m_fr_in - m_ft;     // z
 
             // Point No. 2
             CrScPointsIn[1, 0] = -CrScPointsIn[0, 0];        // y
@@ -501,8 +501,8 @@ namespace CRSC
             // Auxialiary nodes for out side points and internal points
 
             // Point No. 1
-            CrScPointsOut[0, 0] = (float)-b / 2f + m_fr_out;    // y
-            CrScPointsOut[0, 1] = (float)h / 2f - m_fr_out;     // z
+            CrScPointsOut[0, 0] = -Fb / 2f + m_fr_out;    // y
+            CrScPointsOut[0, 1] = Fh / 2f - m_fr_out;     // z
 
             // Point No. 2
             CrScPointsOut[1, 0] = -CrScPointsOut[0, 0];        // y

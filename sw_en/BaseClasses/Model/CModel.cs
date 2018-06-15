@@ -55,8 +55,6 @@ namespace BaseClasses
         public CLoadCase[] m_arrLoadCases;
         // Load Combinations
         public CLoadCombination[] m_arrLoadCombs;
-        // Limit States
-        public CLimitState[] m_arrLimitStates;
 
         // Geometrical graphical model objects
         // Points

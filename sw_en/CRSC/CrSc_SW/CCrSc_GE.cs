@@ -6,8 +6,6 @@ using System.Drawing;
 
 namespace CRSC
 {
-    // TODO ZJEDNOTIT S CCRSC_TW
-
     // Test cross-section class
     // Temporary Class - includes array of drawing points of cross-section in its coordinate system (LCS-for 2D yz)
     public class CCrSc_GE : CCrSc

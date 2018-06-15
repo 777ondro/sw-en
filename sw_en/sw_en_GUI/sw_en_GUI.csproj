@@ -121,8 +121,6 @@
     <Compile Include="EXAMPLES\3D\CExample_3D_02.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_03.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_04.cs" />
-    <Compile Include="EXAMPLES\3D\CExample_3D_902_OM.cs" />
-    <Compile Include="EXAMPLES\3D\CExample_3D_901_PF.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_05.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_06.cs" />
     <Compile Include="EXAMPLES\3D\CExample_3D_07.cs" />
@@ -165,9 +163,6 @@
     </Compile>
     <Compile Include="WindowMenu.xaml.cs">
       <DependentUpon>WindowMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WindowCrossSection2D.xaml.cs">
-      <DependentUpon>WindowCrossSection2D.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPaint.xaml.cs">
       <DependentUpon>WindowPaint.xaml</DependentUpon>
@@ -247,10 +242,6 @@
     <Page Include="WindowMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WindowCrossSection2D.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="WindowPaint.xaml">
       <SubType>Designer</SubType>

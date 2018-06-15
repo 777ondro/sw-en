@@ -22,7 +22,9 @@ namespace CRSC
             set { m_TriangleIndices = value; }
         }
 
+
         // New
+
         private Int32Collection m_TriangleIndicesFrontSide;
 
         public Int32Collection TriangleIndicesFrontSide
@@ -46,6 +48,14 @@ namespace CRSC
             get { return m_TriangleIndicesBackSide; }
             set { m_TriangleIndicesBackSide = value; }
         }
+
+
+
+
+
+
+
+
 
         // Type of cross-section
         private bool m_bIsShapeSolid; // 0 (false) - Hollow section, 1 (true) - Solid section
@@ -118,13 +128,6 @@ namespace CRSC
             set { m_iNoAuxPoints = value; }
         }
 
-        private Color m_color;
-
-        public Color CSColor
-        {
-            get { return m_color; }
-            set { m_color = value; }
-        }
 
         // !!! Pre FEM vypocet nepotrebujeme vsetky charakteristiky, len Ag, Avy, Avz, Iy, Iz, It !!!!
         // !!! Ostatne charakteristiky postaci nacitavat az pri posudeni
@@ -146,424 +149,218 @@ namespace CRSC
         // Torsional constant (St. Venant Section Modulus)
         //m_fI_t = (m_fb * m_fb * m_fb * m_fh * m_fh * m_fh) / ((3.645f - (0.06f * m_fh / m_fb)) * (m_fb * m_fb + m_fh * m_fh));  // Unit [m4]
 
-        private double m_h, m_b; // Total depth and width of section (must be defined for all section shapes)
 
-        private double m_U,
-        m_A_g,
-        m_A_vy,
-        m_A_vz,
 
-        m_S_y0,
-        m_S_z0,
-        m_I_y0,
-        m_I_z0,
-        m_I_yz0,
+        private float m_fh, m_fb; // Total depth and width of section (must be defined for all section shapes)
 
-        m_S_y,
-        m_I_y,
-        m_i_y_radius_gyration,
-        m_W_y_el,
-        m_W_y_pl,
-        m_f_y_plel,
-        m_S_z,
-        m_I_z,
-        m_i_z_radius_gyration,
-        m_W_z_el,
-        m_W_z_pl,
-        m_f_z_plel,
-        m_W_y_el_1,
-        m_W_y_el_2,
-        m_W_z_el_1,
-        m_W_z_el_2,
+        private float m_fU,
+        m_fA_g,
+        m_fA_vy,
+        m_fA_vz,
+        m_fS_y,
+        m_fI_y,
+        m_fW_y_el,
+        m_fW_y_pl,
+        m_ff_y_plel,
+        m_fS_z,
+        m_fI_z,
+        m_fW_z_el,
+        m_fW_z_pl,
+        m_ff_z_plel,
+        m_fW_t_el,
+        m_fI_t,
+        m_fi_t,
+        m_fq_t,
+        m_fW_t_pl,
+        m_ff_t_plel,
+        m_fI_w,
+        m_fEta_y_v,
+        m_fA_y_v_el,
+        m_fA_y_v_pl,
+        m_ff_y_v_plel,
+        m_fEta_z_v,
+        m_fA_z_v_el,
+        m_fA_z_v_pl,
+        m_ff_z_v_plel;
 
-        m_I_epsilon,
-        m_i_epsilon_radius_gyration,
-        m_I_mikro,
-        m_i_mikro_radius_gyration,
-        m_I_yz,
-        m_i_yz_radius_gyration,
-        m_I_p,
-        m_i_p_radius_gyration,
-        m_I_p_M,
-        m_i_p_M_radius_gyration,
-        m_I_Omega_M,
-        m_i_Omega_M_radius_gyration,
-
-        m_W_t_el,
-        m_I_t,
-        m_i_t,
-        m_q_t,
-        m_W_t_pl,
-        m_f_t_plel,
-        m_I_w,
-        m_W_w,
-        m_Eta_y_v,
-        m_A_y_v_el,
-        m_A_y_v_pl,
-        m_f_y_v_plel,
-        m_Eta_z_v,
-        m_A_z_v_el,
-        m_A_z_v_pl,
-        m_f_z_v_plel,
-        m_alpha;
-
-        public double m_y_min
-                    , m_y_max
-                    , m_z_min
-                    , m_z_max;
-
-        public double S_y0
+        public float FI_w
         {
-            get { return m_S_y0; }
-            set { m_S_y0 = value; }
+            get { return m_fI_w; }
+            set { m_fI_w = value; }
         }
 
-        public double S_z0
+        public float FEta_z_v
         {
-            get { return m_S_z0; }
-            set { m_S_z0 = value; }
+            get { return m_fEta_z_v; }
+            set { m_fEta_z_v = value; }
         }
 
-        public double I_y0
+        public float FA_z_v_pl
         {
-            get { return m_I_y0; }
-            set { m_I_y0 = value; }
+            get { return m_fA_z_v_pl; }
+            set { m_fA_z_v_pl = value; }
         }
 
-        public double I_z0
+        public float FA_z_v_el
         {
-            get { return m_I_z0; }
-            set { m_I_z0 = value; }
+            get { return m_fA_z_v_el; }
+            set { m_fA_z_v_el = value; }
         }
 
-        public double I_yz0
+        public float FA_y_v_pl
         {
-            get { return m_I_yz0; }
-            set { m_I_yz0 = value; }
+            get { return m_fA_y_v_pl; }
+            set { m_fA_y_v_pl = value; }
         }
 
-        public double I_w
+        public float FA_y_v_el
         {
-            get { return m_I_w; }
-            set { m_I_w = value; }
+            get { return m_fA_y_v_el; }
+            set { m_fA_y_v_el = value; }
         }
 
-        public double W_w
+        public float FEta_y_v
         {
-            get { return m_W_w; }
-            set { m_W_w = value; }
+            get { return m_fEta_y_v; }
+            set { m_fEta_y_v = value; }
         }
 
-        public double Eta_z_v
+        public float Ff_t_plel
         {
-            get { return m_Eta_z_v; }
-            set { m_Eta_z_v = value; }
+            get { return m_ff_t_plel; }
+            set { m_ff_t_plel = value; }
         }
 
-        public double A_z_v_pl
+        public float FW_t_pl
         {
-            get { return m_A_z_v_pl; }
-            set { m_A_z_v_pl = value; }
+            get { return m_fW_t_pl; }
+            set { m_fW_t_pl = value; }
         }
 
-        public double A_z_v_el
+        public float FW_t_el
         {
-            get { return m_A_z_v_el; }
-            set { m_A_z_v_el = value; }
+            get { return m_fW_t_el; }
+            set { m_fW_t_el = value; }
         }
 
-        public double A_y_v_pl
+        public float Fi_t
         {
-            get { return m_A_y_v_pl; }
-            set { m_A_y_v_pl = value; }
+            get { return m_fi_t; }
+            set { m_fi_t = value; }
         }
 
-        public double A_y_v_el
+        public float Ff_z_v_plel
         {
-            get { return m_A_y_v_el; }
-            set { m_A_y_v_el = value; }
+            get { return m_ff_z_v_plel; }
+            set { m_ff_z_v_plel = value; }
         }
 
-        public double Eta_y_v
+        public float Ff_z_plel
         {
-            get { return m_Eta_y_v; }
-            set { m_Eta_y_v = value; }
+            get { return m_ff_z_plel; }
+            set { m_ff_z_plel = value; }
         }
 
-        public double f_t_plel
+        public float FW_z_pl
         {
-            get { return m_f_t_plel; }
-            set { m_f_t_plel = value; }
+            get { return m_fW_z_pl; }
+            set { m_fW_z_pl = value; }
         }
 
-        public double W_t_pl
+        public float FW_z_el
         {
-            get { return m_W_t_pl; }
-            set { m_W_t_pl = value; }
+            get { return m_fW_z_el; }
+            set { m_fW_z_el = value; }
         }
 
-        public double W_t_el
+        public float Ff_y_plel
         {
-            get { return m_W_t_el; }
-            set { m_W_t_el = value; }
+            get { return m_ff_y_plel; }
+            set { m_ff_y_plel = value; }
         }
 
-        public double i_t
+        public float Ff_y_v_plel
         {
-            get { return m_i_t; }
-            set { m_i_t = value; }
+            get { return m_ff_y_v_plel; }
+            set { m_ff_y_v_plel = value; }
         }
 
-        public double f_z_v_plel
+        public float FW_y_pl
         {
-            get { return m_f_z_v_plel; }
-            set { m_f_z_v_plel = value; }
+            get { return m_fW_y_pl; }
+            set { m_fW_y_pl = value; }
         }
 
-        public double f_z_plel
+        public float FW_y_el
         {
-            get { return m_f_z_plel; }
-            set { m_f_z_plel = value; }
+            get { return m_fW_y_el; }
+            set { m_fW_y_el = value; }
         }
 
-        public double W_z_pl
+        public float Fh
         {
-            get { return m_W_z_pl; }
-            set { m_W_z_pl = value; }
+            get { return m_fh; }
+            set { m_fh = value; }
         }
 
-        public double W_z_el
+        public float Fb
         {
-            get { return m_W_z_el; }
-            set { m_W_z_el = value; }
+            get { return m_fb; }
+            set { m_fb = value; }
         }
 
-        public double f_y_plel
+        public float FI_y
         {
-            get { return m_f_y_plel; }
-            set { m_f_y_plel = value; }
+            get { return m_fI_y; }
+            set { m_fI_y = value; }
         }
 
-        public double f_y_v_plel
+        public float FI_z
         {
-            get { return m_f_y_v_plel; }
-            set { m_f_y_v_plel = value; }
+            get { return m_fI_z; }
+            set { m_fI_z = value; }
         }
 
-        public double W_y_pl
+        public float FI_t
         {
-            get { return m_W_y_pl; }
-            set { m_W_y_pl = value; }
+            get { return m_fI_t; }
+            set { m_fI_t = value; }
         }
 
-        public double W_y_el
+        public float FS_y
         {
-            get { return m_W_y_el; }
-            set { m_W_y_el = value; }
+            get { return m_fS_y; }
+            set { m_fS_y = value; }
         }
 
-        public double W_y_el_1
+        public float FS_z
         {
-            get { return m_W_y_el_1; }
-            set { m_W_y_el_1 = value; }
+            get { return m_fS_z; }
+            set { m_fS_z = value; }
         }
 
-        public double W_z_el_1
+        public float FA_g
         {
-            get { return m_W_z_el_1; }
-            set { m_W_z_el_1 = value; }
+            get { return m_fA_g; }
+            set { m_fA_g = value; }
         }
 
-        public double W_y_el_2
+        public float FA_vy
         {
-            get { return m_W_y_el_2; }
-            set { m_W_y_el_2 = value; }
+            get { return m_fA_vy; }
+            set { m_fA_vy = value; }
         }
 
-        public double W_z_el_2
+        public float FA_vz
         {
-            get { return m_W_z_el_2; }
-            set { m_W_z_el_2 = value; }
+            get { return m_fA_vz; }
+            set { m_fA_vz = value; }
         }
 
-        public double h
+        public float FU
         {
-            get { return m_h; }
-            set { m_h = value; }
-        }
-
-        public double b
-        {
-            get { return m_b; }
-            set { m_b = value; }
-        }
-
-        public double I_y
-        {
-            get { return m_I_y; }
-            set { m_I_y = value; }
-        }
-
-        public double i_y_rg
-        {
-            get { return m_i_y_radius_gyration; }
-            set { m_i_y_radius_gyration = value; }
-        }
-
-        public double I_z
-        {
-            get { return m_I_z; }
-            set { m_I_z = value; }
-        }
-
-        public double i_z_rg
-        {
-            get { return m_i_z_radius_gyration; }
-            set { m_i_z_radius_gyration = value; }
-        }
-
-        public double I_epsilon
-        {
-            get { return m_I_epsilon; }
-            set { m_I_epsilon = value; }
-        }
-
-        public double i_epsilon_rg
-        {
-            get { return m_i_epsilon_radius_gyration; }
-            set { m_i_epsilon_radius_gyration = value; }
-        }
-
-        public double I_mikro
-        {
-            get { return m_I_mikro; }
-            set { m_I_mikro = value; }
-        }
-
-        public double i_mikro_rg
-        {
-            get { return m_i_mikro_radius_gyration; }
-            set { m_i_mikro_radius_gyration = value; }
-        }
-
-        public double I_yz
-        {
-            get { return m_I_yz; }
-            set { m_I_yz = value; }
-        }
-
-        public double i_yz_rg
-        {
-            get { return m_i_yz_radius_gyration; }
-            set { m_i_yz_radius_gyration = value; }
-        }
-
-        public double I_p
-        {
-            get { return m_I_p; }
-            set { m_I_p = value; }
-        }
-
-        public double i_p_rg
-        {
-            get { return m_i_p_radius_gyration; }
-            set { m_i_p_radius_gyration = value; }
-        }
-
-        public double I_p_M
-        {
-            get { return m_I_p_M; }
-            set { m_I_p_M = value; }
-        }
-
-        public double i_p_M_rg
-        {
-            get { return m_i_p_M_radius_gyration; }
-            set { m_i_p_M_radius_gyration = value; }
-        }
-
-        public double I_Omega_M
-        {
-            get { return m_I_Omega_M; }
-            set { m_I_Omega_M = value; }
-        }
-
-        public double i_Omega_M_rg
-        {
-            get { return m_i_Omega_M_radius_gyration; }
-            set { m_i_Omega_M_radius_gyration = value; }
-        }
-
-        public double I_t
-        {
-            get { return m_I_t; }
-            set { m_I_t = value; }
-        }
-
-        public double S_y
-        {
-            get { return m_S_y; }
-            set { m_S_y = value; }
-        }
-
-        public double S_z
-        {
-            get { return m_S_z; }
-            set { m_S_z = value; }
-        }
-
-        public double A_g
-        {
-            get { return m_A_g; }
-            set { m_A_g = value; }
-        }
-
-        public double A_vy
-        {
-            get { return m_A_vy; }
-            set { m_A_vy = value; }
-        }
-
-        public double A_vz
-        {
-            get { return m_A_vz; }
-            set { m_A_vz = value; }
-        }
-
-        public double U
-        {
-            get { return m_U; }
-            set { m_U = value; }
-        }
-
-        public double Alpha
-        {
-            get { return m_alpha; }
-            set { m_alpha = value; }
-        }
-
-        public double y_min
-        {
-            get { return m_y_min; }
-            set { m_y_min = value; }
-        }
-
-        public double y_max
-        {
-            get { return m_y_max; }
-            set { m_y_max = value; }
-        }
-
-        public double z_min
-        {
-            get { return m_z_min; }
-            set { m_z_min = value; }
-        }
-
-        public double z_max
-        {
-            get { return m_z_max; }
-            set { m_z_max = value; }
+            get { return m_fU; }
+            set { m_fU = value; }
         }
 
 

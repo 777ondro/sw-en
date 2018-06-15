@@ -6,8 +6,7 @@ using BaseClasses;
 
 namespace sw_en_GUI.EXAMPLES
 {
-    public class CExample : CModel
+    class CExample : CModel
     {
-        public List<CEntity3D> componentList;
     }
 }

@@ -199,16 +199,6 @@ namespace MATH
         public static float Pow7(float fx) { float ftemp = fx * fx * fx; return ftemp * ftemp * fx; }
         public static float Pow8(float fx) { float ftemp = fx * fx * fx * fx; return ftemp * ftemp; }
         public static float Pow9(float fx) { float ftemp = fx * fx * fx * fx; return ftemp * ftemp * fx; }
-
-        public static double Pow2(double x) { return x * x; }
-        public static double Pow3(double x) { return x * x * x; }
-        public static double Pow4(double x) { double temp = x * x; return temp * temp; }
-        public static double Pow5(double x) { double temp = x * x; return temp * temp * x; }
-        public static double Pow6(double x) { double temp = x * x * x; return temp * temp; }
-        public static double Pow7(double x) { double temp = x * x * x; return temp * temp * x; }
-        public static double Pow8(double x) { double temp = x * x * x * x; return temp * temp; }
-        public static double Pow9(double x) { double temp = x * x * x * x; return temp * temp * x; }
-
         // Prirodzeny mocnitel / kladny int
         public static float PowN(float fx, short iexp)
         {
@@ -224,22 +214,6 @@ namespace MATH
             else
                 return 1f;
         }
-
-        public static double PowN(double x, short iexp)
-        {
-            double pow = x;
-            if (iexp > 1)
-            {
-                for (int i = 0; i < iexp; i++)
-                    pow *= x;
-                return pow;
-            }
-            else if (iexp == 1)
-                return x;
-            else
-                return 1;
-        }
-
         public static float Pow_1_3(float fx) { return (float)Math.Pow(fx, 1 / 3f); }
         public static float Pow_1_4(float fx) { return (float)Math.Pow(fx, 0.25f); }
         public static float Pow_1_5(float fx) { return (float)Math.Pow(fx, 1 / 5f); }
@@ -249,17 +223,6 @@ namespace MATH
         public static float Pow_2_5(float fx) { return (float)Math.Pow(fx, 2 / 5f); }
         public static float Pow_3_2(float fx) { return (float)Math.Pow(fx, 1.5f); }
         public static float Pow_5_2(float fx) { return (float)Math.Pow(fx, 5 / 2f); }
-
-        public static double Pow_1_3(double x) { return (double)Math.Pow(x, 1 / 3f); }
-        public static double Pow_1_4(double x) { return (double)Math.Pow(x, 0.25f); }
-        public static double Pow_1_5(double x) { return (double)Math.Pow(x, 1 / 5f); }
-        public static double Pow_1_6(double x) { return (double)Math.Pow(x, 1 / 6f); }
-
-        public static double Pow_2_3(double x) { return (double)Math.Pow(x, 2 / 3f); }
-        public static double Pow_2_5(double x) { return (double)Math.Pow(x, 2 / 5f); }
-        public static double Pow_3_2(double x) { return (double)Math.Pow(x, 1.5f); }
-        public static double Pow_5_2(double x) { return (double)Math.Pow(x, 5 / 2f); }
-
         #endregion
         //----------------------------------------------------------------------------------------------------------------------------
         // Root / Odmocnina / Square Root / Druha odmocnina
@@ -291,7 +254,7 @@ namespace MATH
         }
         */
 
-
+        
         /*
         public static float fastsqrt(float z)  
         {
@@ -503,7 +466,6 @@ return (unsigned short)(root >> 1);
         //----------------------------------------------------------------------------------------------------------------------------
         // Integral
         //----------------------------------------------------------------------------------------------------------------------------
-
 
         /*
 public double RombergIntegration(Function y, double a, double b, int n) 
