@@ -10,7 +10,7 @@
     <Grid>        
         
         <StackPanel Name="myStackPanel" Background="AliceBlue" Width="300" Height="100" VerticalAlignment="Top" Margin="330,0,0,0" HorizontalAlignment="Left">
-            <TextBlock>len nieco na skusku chcem skusit commit a tak...lebo to nejako nefunguje</TextBlock>
+            <TextBlock>Dnes 16.6. toto chcem commitnut do projektu</TextBlock>
             
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="12,25,0,0" TextWrapping="Wrap" Text="AAC component" VerticalAlignment="Top" Width="95"/>
